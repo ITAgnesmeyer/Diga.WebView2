@@ -55,7 +55,9 @@
     <Compile Include="FocusReason.cs" />
     <Compile Include="EventArguments\NavigationStartingEventArgs.cs" />
     <Compile Include="Handler\NavigationStartingEventHandler.cs" />
-    <Compile Include="HistoryChangedEventHandler.cs" />
+    <Compile Include="Handler\HistoryChangedEventHandler.cs" />
+    <Compile Include="EventArguments\NavigationCompletedEventArgs.cs" />
+    <Compile Include="Handler\NavigationCompletedEventHandler.cs" />
     <Compile Include="ResourceContext.cs" />
     <Compile Include="EventArguments\SourceChangedEventArgs.cs" />
     <Compile Include="Handler\SourceChangedEventHandler.cs" />

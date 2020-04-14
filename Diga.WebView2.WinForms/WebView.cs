@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
 
@@ -37,7 +38,7 @@ namespace Diga.WebView2.WinForms
         }
         public bool IsZoomControlEnabled
         {
-            get { return _IsZoomControlEnabled; }
+            get => _IsZoomControlEnabled;
             set
             {
                 _IsZoomControlEnabled = value;
@@ -190,7 +191,7 @@ namespace Diga.WebView2.WinForms
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(this, e.Message, "Navigation Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show(this, e.Message, Properties.Resources.Naviation_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
 
@@ -209,7 +210,7 @@ namespace Diga.WebView2.WinForms
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(this, e.Message, "Navigation Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(owner: this, e.Message, WinFomrs.Properties.Resources.Naviation_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }

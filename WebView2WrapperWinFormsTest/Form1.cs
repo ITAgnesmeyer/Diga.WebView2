@@ -23,12 +23,12 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_NavigationStart(object sender, Diga.WebView2.Wrapper.NavigationStartingEventArgs e)
         {
-            MessageBox.Show(e.Uri);
+            //MessageBox.Show(e.Uri);
         }
 
         private void webView1_ContentLoading(object sender, Diga.WebView2.Wrapper.ContentLoadingEventArgs e)
         {
-            MessageBox.Show("Naviagation ID=>" + e.NavigationId);
+            //MessageBox.Show("Naviagation ID=>" + e.NavigationId);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -38,7 +38,7 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_SourceChanged(object sender, Diga.WebView2.Wrapper.SourceChangedEventArgs e)
         {
-            MessageBox.Show("SourceChanged=>" + e.IsNewDocument);
+            //MessageBox.Show("SourceChanged=>" + e.IsNewDocument);
         }
 
         private void webView1_HistoryChanged(object sender, Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs e)

@@ -5,79 +5,6 @@ using System;
 
 namespace Diga.WebView2.Wrapper
 {
-
-    public class NavigationCompletedEventArgs : EventArgs
-    {
-        public NavigationCompletedEventArgs(ErrorStatus webErrorStatus, bool isSuccess, ulong navigationId)
-        {
-            this.WebErrorStatus = webErrorStatus;
-            this.IsSuccess = isSuccess;
-            this.NavigationId = navigationId;
-        }
-
-        public ErrorStatus WebErrorStatus{get;}
-        public bool IsSuccess{get;}
-        public ulong NavigationId { get; }
-
-        public string GetErrorText()
-        {
-            switch (this.WebErrorStatus)
-            {
-                case ErrorStatus.CannotConnect:
-                    return "Cannot connect";
-                case ErrorStatus.CertificateCommonNameIsIincorrect:
-                    return "Certificate common name is incorrect";
-                case ErrorStatus.CertificateExpired:
-                    return "Certificate expired";
-                case ErrorStatus.CertificateIsInvalid:
-                    return "Certificate is invalid";
-                case ErrorStatus.CertificateRevoked:
-                    return "Certificate revoked";
-                case ErrorStatus.Client_CertificateContiansError:
-                    return "Client certificate contians error";
-                case ErrorStatus.ConnectionAbborted:
-                    return "Connection abborted";
-                case ErrorStatus.ConnectionReset:
-                    return "Connection reset";
-                case ErrorStatus.Disconnected:
-                    return "Disconnected";
-                case ErrorStatus.ErroHttpInvalidServerResponse:
-                    return "Error http invalid server response";
-                case ErrorStatus.HostNameNot_Resolved:
-                    return "Hostname not resolved";
-                case ErrorStatus.OperationCanceled:
-                    return "Operation canceled";
-                case ErrorStatus.RedirectFailed:
-                    return "Redirect failed";
-                case ErrorStatus.ServerUnreachable:
-                    return "Server unreachable";
-                case ErrorStatus.Timeout:
-                    return "Timeout";
-                case ErrorStatus.UnexpectedError:
-                    return "Unexpected error";
-                case ErrorStatus.Unknown:
-                    return "Unknown error";
-            }
-
-            return "";
-        }
-    }
-
-    public class NavigationCompletedEventHandler : ICoreWebView2NavigationCompletedEventHandler
-    {
-        public event EventHandler<NavigationCompletedEventArgs> NavigaionCompleted;
-        public void Invoke(ICoreWebView2 sender, ICoreWebView2NavigationCompletedEventArgs args)
-        {
-            NavigationCompletedEventArgs eventArgs = new NavigationCompletedEventArgs((ErrorStatus)args.WebErrorStatus, args.IsSuccess==0,args.NavigationId);
-            OnNavigaionCompleted(eventArgs);
-
-        }
-
-        protected virtual void OnNavigaionCompleted(NavigationCompletedEventArgs e)
-        {
-            NavigaionCompleted?.Invoke(this, e);
-        }
-    }
     public class WebView2View : ICoreWebView2, IDisposable
     {
         private ICoreWebView2 _WebView;
@@ -104,7 +31,7 @@ namespace Diga.WebView2.Wrapper
             ((ICoreWebView2) this).add_ContentLoading(contentLoadingHandler, out this._ContentLoadingToken);
 
             SourceChangedEventHandler sourceChangedHandler = new SourceChangedEventHandler();
-            sourceChangedHandler.SourceChanged += OnSourceChangedInternal;
+            sourceChangedHandler.SourceChanged += OnSourceChangedIntern;
             ((ICoreWebView2) this).add_SourceChanged(sourceChangedHandler, out this._SourceChangedToken);
 
             HistoryChangedEventHandler historyChangedHandler = new HistoryChangedEventHandler();
@@ -127,7 +54,7 @@ namespace Diga.WebView2.Wrapper
             OnHistoryChanged(e);
         }
 
-        private void OnSourceChangedInternal(object sender, SourceChangedEventArgs e)
+        private void OnSourceChangedIntern(object sender, SourceChangedEventArgs e)
         {
             OnSourceChanged(e);
         }

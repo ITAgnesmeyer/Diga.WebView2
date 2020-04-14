@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp5.0</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\WebView2WrapperWinFormsTest\Form1.cs" Link="Form1.cs" />
+    <Compile Include="..\WebView2WrapperWinFormsTest\Form1.Designer.cs" Link="Form1.Designer.cs" />
+    <Compile Include="..\WebView2WrapperWinFormsTest\Program.cs" Link="Program.cs" />
+    <Compile Include="..\WebView2WrapperWinFormsTest\TestControl.cs" Link="TestControl.cs" />
+    <Compile Include="..\WebView2WrapperWinFormsTest\TestControl.Designer.cs" Link="TestControl.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\WebView2WrapperWinFormsTest\Form1.resx" Link="Form1.resx" />
+    <EmbeddedResource Include="..\WebView2WrapperWinFormsTest\TestControl.resx" Link="TestControl.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Diga.WebView2.WinFomrs.Core\Diga.WebView2.WinFomrs.Core.csproj" />
+    <ProjectReference Include="..\Diga.WebView2.Wrapper.Std\Diga.WebView2.Wrapper.Std.csproj" />
+  </ItemGroup>
+
+</Project>

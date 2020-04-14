@@ -10,6 +10,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebView2WrapperWinFormsTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.WebView2.WinForms", "Diga.WebView2.WinForms\Diga.WebView2.WinForms.csproj", "{F6A16150-CF44-4507-9E74-BF64B34800F8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.WebView2.Interop.Std", "Diga.WebView2.Interop.Std\Diga.WebView2.Interop.Std.csproj", "{CC2DB7AE-A3E5-4309-8228-2CC8261C48BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.WebView2.Wrapper.Std", "Diga.WebView2.Wrapper.Std\Diga.WebView2.Wrapper.Std.csproj", "{180E95DE-FA79-4616-96DF-49459823F991}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebView2WrapperWinFormsTest.Core", "WebView2WrapperWinFormsTest.Core\WebView2WrapperWinFormsTest.Core.csproj", "{C8A7956D-1016-4830-8847-3F8244F4690B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.WebView2.WinFomrs.Core", "Diga.WebView2.WinFomrs.Core\Diga.WebView2.WinFomrs.Core.csproj", "{51566996-2CB1-4951-A38E-BAB1F7CE9B1F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +40,22 @@ Global
 		{F6A16150-CF44-4507-9E74-BF64B34800F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6A16150-CF44-4507-9E74-BF64B34800F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6A16150-CF44-4507-9E74-BF64B34800F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC2DB7AE-A3E5-4309-8228-2CC8261C48BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC2DB7AE-A3E5-4309-8228-2CC8261C48BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC2DB7AE-A3E5-4309-8228-2CC8261C48BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC2DB7AE-A3E5-4309-8228-2CC8261C48BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{180E95DE-FA79-4616-96DF-49459823F991}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{180E95DE-FA79-4616-96DF-49459823F991}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{180E95DE-FA79-4616-96DF-49459823F991}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{180E95DE-FA79-4616-96DF-49459823F991}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8A7956D-1016-4830-8847-3F8244F4690B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8A7956D-1016-4830-8847-3F8244F4690B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8A7956D-1016-4830-8847-3F8244F4690B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8A7956D-1016-4830-8847-3F8244F4690B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51566996-2CB1-4951-A38E-BAB1F7CE9B1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51566996-2CB1-4951-A38E-BAB1F7CE9B1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51566996-2CB1-4951-A38E-BAB1F7CE9B1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51566996-2CB1-4951-A38E-BAB1F7CE9B1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
