@@ -210,7 +210,7 @@ namespace Diga.WebView2.WinForms
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(owner: this, e.Message, WinFomrs.Properties.Resources.Naviation_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(owner: this, e.Message, Properties.Resources.Naviation_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }

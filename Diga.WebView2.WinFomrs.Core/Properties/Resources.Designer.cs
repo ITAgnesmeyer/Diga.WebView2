@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Diga.WebView2.WinFomrs.Properties {
+namespace Diga.WebView2.WinForms.Properties {
     using System;
     
     
