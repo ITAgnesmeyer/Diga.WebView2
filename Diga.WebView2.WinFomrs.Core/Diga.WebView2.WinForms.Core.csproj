@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-    <AssemblyName>Diga.WebView2.WinFomrs</AssemblyName>
-    <RootNamespace>Diga.WebView2.WinFomrs</RootNamespace>
+    <AssemblyName>Diga.WebView2.WinForms</AssemblyName>
+    <RootNamespace>Diga.WebView2.WinForms</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -34,7 +34,7 @@
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Diga.WebView2.WinFomrs.Properties</CustomToolNamespace>
+      <CustomToolNamespace></CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
 

@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Diga.WebView2.WinFomrs.Core\Diga.WebView2.WinFomrs.Core.csproj" />
+    <ProjectReference Include="..\Diga.WebView2.WinFomrs.Core\Diga.WebView2.WinForms.Core.csproj" />
     <ProjectReference Include="..\Diga.WebView2.Wrapper.Std\Diga.WebView2.Wrapper.Std.csproj" />
   </ItemGroup>
 
