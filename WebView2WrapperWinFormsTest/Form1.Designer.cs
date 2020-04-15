@@ -114,10 +114,10 @@
             this.webView1.IsScriptEnabled = true;
             this.webView1.IsStatusBarEnabled = false;
             this.webView1.IsWebMessageEnabled = true;
-            this.webView1.IsZoomControlEnabled = true;
+            
             this.webView1.Location = new System.Drawing.Point(0, 0);
             this.webView1.Name = "webView1";
-            this.webView1.RemoteObjectsAllowed = true;
+           
             this.webView1.Size = new System.Drawing.Size(800, 418);
             this.webView1.TabIndex = 0;
             this.webView1.Url = "https://www.itagnesmeyer.de";

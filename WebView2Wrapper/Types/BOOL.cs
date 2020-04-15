@@ -10,8 +10,7 @@ namespace Diga.WebView2.Wrapper
         }
 
         public BOOL(int input)
-        {
-            this.Value = input;
+        {this.Value = input;
         }
         public BOOL(bool value)
         {

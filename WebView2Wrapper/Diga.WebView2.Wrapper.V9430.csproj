@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DFB35E2F-D444-4CEF-A990-0B89F5549799}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Diga.WebView2.Wrapper.V9430</RootNamespace>
+    <AssemblyName>Diga.WebView2.Wrapper.V9430</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ErrorStatus.cs" />
+    <Compile Include="EventArguments\ContentLoadingEventArgs.cs" />
+    <Compile Include="Handler\ContentLoadingEventHandler.cs" />
+    <Compile Include="EventArguments\AddScriptToExecuteOnDocumentCreatedCompletedEventArgs.cs" />
+    <Compile Include="Handler\AddScriptToExecuteOnDocumentCreatedCompletedHandler.cs" />
+    <Compile Include="EventArguments\BeforeCreateEventArgs.cs" />
+    <Compile Include="EventArguments\BeforeHostCreateEventArgs.cs" />
+    <Compile Include="EventArguments\ExecuteScriptCompletedEventArgs.cs" />
+    <Compile Include="Handler\ExecuteScriptCompletedHandler.cs" />
+    <Compile Include="FocusReason.cs" />
+    <Compile Include="EventArguments\NavigationStartingEventArgs.cs" />
+    <Compile Include="Handler\NavigationStartingEventHandler.cs" />
+    <Compile Include="Handler\HistoryChangedEventHandler.cs" />
+    <Compile Include="EventArguments\NavigationCompletedEventArgs.cs" />
+    <Compile Include="Handler\NavigationCompletedEventHandler.cs" />
+    <Compile Include="ResourceContext.cs" />
+    <Compile Include="EventArguments\SourceChangedEventArgs.cs" />
+    <Compile Include="Handler\SourceChangedEventHandler.cs" />
+    <Compile Include="Types\BOOL.cs" />
+    <Compile Include="Handler\CoreWebView2CreateCoreWebView2EnvironmentCompletedHandler.cs" />
+    <Compile Include="Handler\CoreWebView2CreateCoreWebView2HostCompletedHandler.cs" />
+    <Compile Include="EventArguments\CoreWebView2HostCompletedArgs.cs" />
+    <Compile Include="EventArguments\CoreWebView2HostCompletedErrorArgs.cs" />
+    <Compile Include="EventArguments\EnvironmentCompletedHandlerArgs.cs" />
+    <Compile Include="Handler\FocusChangedEventHandler.cs" />
+    <Compile Include="Native.cs" />
+    <Compile Include="Types\HRESULT.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types\Rectangle.cs" />
+    <Compile Include="WebView2Control.cs" />
+    <Compile Include="EventArguments\WebView2EventArgs.cs" />
+    <Compile Include="WebView2Host.cs" />
+    <Compile Include="WebView2Settings.cs" />
+    <Compile Include="Handler\ZoomFactorChangedEventHandler.cs" />
+    <Compile Include="WebView2View.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Diga.WebView2.Interop\Diga.WebView2.Interop.V9430.csproj">
+      <Project>{62ad85c3-3834-42c4-8ba0-9aeccc82f3c3}</Project>
+      <Name>Diga.WebView2.Interop.V9430</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Web.WebView2.0.9.430\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\packages\Microsoft.Web.WebView2.0.9.430\build\Microsoft.Web.WebView2.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Dieses Projekt verweist auf mindestens ein NuGet-Paket, das auf diesem Computer fehlt. Verwenden Sie die Wiederherstellung von NuGet-Paketen, um die fehlenden Dateien herunterzuladen. Weitere Informationen finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=322105". Die fehlende Datei ist "{0}".</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Web.WebView2.0.9.430\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Web.WebView2.0.9.430\build\Microsoft.Web.WebView2.targets'))" />
+  </Target>
+</Project>

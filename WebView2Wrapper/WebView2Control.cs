@@ -41,6 +41,9 @@ namespace Diga.WebView2.Wrapper
             handler.BeforeEnvironmentCompleted += OnBeforeEnvironmentCompleted;
             handler.AfterEnvironmentCompleted += OnAfterEnvironmentCompleted;
             handler.PrepareHostCreate += OnBeforeHostCreate;
+            string browserInfo;
+            Native.GetCoreWebView2BrowserVersionInfo(this.BrowserExecutableFolder, out browserInfo);
+
             Native.CreateCoreWebView2EnvironmentWithDetails(this.BrowserExecutableFolder, this.UserDataFolder, this.AdditionalBrowserArguments, handler);
             //handler.HostCompleted-=OnHostCompleted;
             //handler.BeforeEnvironmentCompleted-=OnBeforeEnvironmentCompleted;

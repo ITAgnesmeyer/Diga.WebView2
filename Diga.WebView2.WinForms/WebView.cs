@@ -14,12 +14,16 @@ namespace Diga.WebView2.WinForms
         private string _Url;
         private bool _DefaultScriptDialogsEnabled = true;
         private bool _DevToolsEnabled = true;
+#if !VS8355
         private bool _RemoteObjectsAllowed = true;
+#endif
         private bool _IsScriptEnabled = true;
 
         private bool _IsStatusBarEnabled;
         private bool _IsWebMessageEnabled = true;
+#if !VS8355
         private bool _IsZoomControlEnabled = true;
+#endif
         private string _HtmlContent;
         public event EventHandler<NavigationStartingEventArgs> NavigationStart;
         public event EventHandler<ContentLoadingEventArgs> ContentLoading;
@@ -36,6 +40,7 @@ namespace Diga.WebView2.WinForms
 
             }
         }
+#if !VS8355
         public bool IsZoomControlEnabled
         {
             get => _IsZoomControlEnabled;
@@ -48,7 +53,7 @@ namespace Diga.WebView2.WinForms
                 }
             }
         }
-
+#endif
         public bool IsWebMessageEnabled
         {
             get => _IsWebMessageEnabled;
@@ -87,6 +92,7 @@ namespace Diga.WebView2.WinForms
                 }
             }
         }
+#if !VS8355
         public bool RemoteObjectsAllowed
         {
             get => _RemoteObjectsAllowed;
@@ -100,6 +106,7 @@ namespace Diga.WebView2.WinForms
                 }
             }
         }
+#endif
         [Browsable(false)]
         public bool IsCreated { get; set; }
 
@@ -164,11 +171,15 @@ namespace Diga.WebView2.WinForms
             e.Settings.AreDefaultContextMenusEnabled = new BOOL(this._DefaultContextMenusEnabled);
             e.Settings.AreDefaultScriptDialogsEnabled = new BOOL(this._DefaultScriptDialogsEnabled);
             e.Settings.AreDevToolsEnabled = new BOOL(this._DevToolsEnabled);
+#if !VS8355
             e.Settings.AreRemoteObjectsAllowed = new BOOL(this._RemoteObjectsAllowed);
+#endif
             e.Settings.IsScriptEnabled = new BOOL(this._IsScriptEnabled);
             e.Settings.IsStatusBarEnabled = new BOOL(this._IsStatusBarEnabled);
             e.Settings.IsWebMessageEnabled = new BOOL(this._IsWebMessageEnabled);
+#if !VS8355
             e.Settings.IsZoomControlEnabled = new BOOL(this._IsZoomControlEnabled);
+#endif
         }
 
         private void OnWebWindowCreated(object sender, EventArgs e)
@@ -230,14 +241,14 @@ namespace Diga.WebView2.WinForms
 
         public void GoBack()
         {
-            if(!this.IsCreated) return;
+            if (!this.IsCreated) return;
             if (this._WebWindow.CanGoBack)
                 this._WebWindow.GoBack();
         }
 
         public void GoForward()
         {
-            if(!this.IsCreated) return;
+            if (!this.IsCreated) return;
             if (this._WebWindow.CanGoForward)
                 this._WebWindow.GoForward();
         }
@@ -271,7 +282,7 @@ namespace Diga.WebView2.WinForms
                 _WebWindow.NavigateStart += OnNavigationStartIntern;
                 _WebWindow.ContentLoading += OnContentLoadingIntern;
                 _WebWindow.SourceChanged += OnSourceChangedIntern;
-                _WebWindow.HistoryChanged+=OnHistoryChangedIntern;
+                _WebWindow.HistoryChanged += OnHistoryChangedIntern;
                 _WebWindow.NavigationCompleted += OnNavigationCompletedIntern;
 
 
