@@ -38,7 +38,7 @@ namespace WebView2WrapperWinFormsTest
                 _IsZoomControlEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.IsZoomControlEnabled = new BOOL(value);
+                    //this._WebWindow.Settings.IsZoomControlEnabled = new BOOL(value);
                 }
             }
         }
@@ -93,7 +93,7 @@ namespace WebView2WrapperWinFormsTest
                 _RemoteObjectsAllowed = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.AreRemoteObjectsAllowed = new BOOL(value);
+                    //this._WebWindow.Settings.AreRemoteObjectsAllowed = new BOOL(value);
                 }
             }
         }
@@ -163,11 +163,11 @@ namespace WebView2WrapperWinFormsTest
             e.Settings.AreDefaultContextMenusEnabled = new BOOL(this._DefaultContextMenusEnabled);
             e.Settings.AreDefaultScriptDialogsEnabled = new BOOL(this._DefaultScriptDialogsEnabled);
             e.Settings.AreDevToolsEnabled = new BOOL(this._DevToolsEnabled);
-            e.Settings.AreRemoteObjectsAllowed = new BOOL(this._RemoteObjectsAllowed);
+            //e.Settings.AreRemoteObjectsAllowed = new BOOL(this._RemoteObjectsAllowed);
             e.Settings.IsScriptEnabled = new BOOL(this._IsScriptEnabled);
             e.Settings.IsStatusBarEnabled = new BOOL(this._IsStatusBarEnabled);
             e.Settings.IsWebMessageEnabled = new BOOL(this._IsWebMessageEnabled);
-            e.Settings.IsZoomControlEnabled = new BOOL(this._IsZoomControlEnabled);
+            //e.Settings.IsZoomControlEnabled = new BOOL(this._IsZoomControlEnabled);
         }
 
         private void OnWebWindowCreated(object sender, EventArgs e)
