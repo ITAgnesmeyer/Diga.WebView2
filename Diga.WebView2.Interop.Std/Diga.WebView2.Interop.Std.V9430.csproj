@@ -8,6 +8,11 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>2020 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
     <PackageProjectUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</PackageProjectUrl>
+    <Version>1.0.1</Version>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>WebView2 - NET - Interop</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</RepositoryUrl>
+    <PackageTags>WebView2</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

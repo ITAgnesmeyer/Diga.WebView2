@@ -2,11 +2,27 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <Copyright>2020 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>WebView2</PackageTags>
+    <Description>WebView2 - NET - Interop - Wrapper</Description>
+    <PackageReleaseNotes>WebView2 - NET - Interop - Wrapper</PackageReleaseNotes>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>TRACE;VS8355</DefineConstants>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="native\x64\WebView2Loader.dll" />
+    <None Remove="native\x86\WebView2Loader.dll" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\ErrorStatus.cs" Link="ErrorStatus.cs" />
@@ -39,7 +55,17 @@
     <Compile Include="..\WebView2Wrapper\Native.cs" Link="Native.cs" />
     <Compile Include="..\WebView2Wrapper\Types\BOOL.cs" Link="Types\BOOL.cs" />
     <Compile Include="..\WebView2Wrapper\Types\HRESULT.cs" Link="Types\HRESULT.cs" />
+    <Compile Include="..\WebView2Wrapper\Types\ProcessorArch.cs" Link="Types\ProcessorArch.cs" />
     <Compile Include="..\WebView2Wrapper\Types\Rectangle.cs" Link="Types\Rectangle.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="native\x64\WebView2Loader.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="native\x86\WebView2Loader.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -50,10 +76,6 @@
     <Folder Include="EventArguments\" />
     <Folder Include="Handler\" />
     <Folder Include="Types\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Web.WebView2" Version="0.8.355" />
   </ItemGroup>
 
 </Project>

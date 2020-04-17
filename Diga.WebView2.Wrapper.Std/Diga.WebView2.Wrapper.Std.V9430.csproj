@@ -40,6 +40,7 @@
     <Compile Include="..\WebView2Wrapper\ResourceContext.cs" Link="ResourceContext.cs" />
     <Compile Include="..\WebView2Wrapper\Types\BOOL.cs" Link="Types\BOOL.cs" />
     <Compile Include="..\WebView2Wrapper\Types\HRESULT.cs" Link="Types\HRESULT.cs" />
+    <Compile Include="..\WebView2Wrapper\Types\ProcessorArch.cs" Link="Types\ProcessorArch.cs" />
     <Compile Include="..\WebView2Wrapper\Types\Rectangle.cs" Link="Types\Rectangle.cs" />
     <Compile Include="..\WebView2Wrapper\WebView2Control.cs" Link="WebView2Control.cs" />
     <Compile Include="..\WebView2Wrapper\WebView2Host.cs" Link="WebView2Host.cs" />
@@ -54,11 +55,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Web.WebView2" Version="0.9.430" />
+    <ProjectReference Include="..\Diga.WebView2.Interop.Std\Diga.WebView2.Interop.Std.V9430.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Diga.WebView2.Interop.Std\Diga.WebView2.Interop.Std.V9430.csproj" />
+    <None Update="native\x64\WebView2Loader.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="native\x86\WebView2Loader.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

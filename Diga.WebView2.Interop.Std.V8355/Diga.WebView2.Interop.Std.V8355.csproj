@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <Copyright>2020 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
+    <Description>WebView2 - NET - Interop</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>WebView2</PackageTags>
+    <PackageReleaseNotes>WebView2 - NET - Interop</PackageReleaseNotes>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

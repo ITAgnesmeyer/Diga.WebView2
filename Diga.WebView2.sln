@@ -30,9 +30,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.WebView2.Wrapper.V8355
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.WebView2.WinForms.V8355", "Dige.WebView2.WinForms.V8355\Diga.WebView2.WinForms.V8355.csproj", "{408BFEAC-DD60-47BE-BB5A-9ED6CDE6297D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.WebView2.Wrapper.Std.V8355", "Diga.WebView2.Wrapper.Std.V8355\Diga.WebView2.Wrapper.Std.V8355.csproj", "{B7E799AA-23BE-4320-9AAB-F284E09F7CE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.Wrapper.Std.V8355", "Diga.WebView2.Wrapper.Std.V8355\Diga.WebView2.Wrapper.Std.V8355.csproj", "{B7E799AA-23BE-4320-9AAB-F284E09F7CE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.WebView2.WinFomrs.Core.V8355", "Diga.WebView2.WinFomrs.Core.V8355\Diga.WebView2.WinFomrs.Core.V8355.csproj", "{78B736A1-8ABD-49BC-8E79-87DA006A90BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.WinFomrs.Core.V8355", "Diga.WebView2.WinFomrs.Core.V8355\Diga.WebView2.WinFomrs.Core.V8355.csproj", "{78B736A1-8ABD-49BC-8E79-87DA006A90BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,12 +52,12 @@ Global
 		{62AD85C3-3834-42C4-8BA0-9AECCC82F3C3}.Release|x86.Build.0 = Release|Any CPU
 		{DFB35E2F-D444-4CEF-A990-0B89F5549799}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DFB35E2F-D444-4CEF-A990-0B89F5549799}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DFB35E2F-D444-4CEF-A990-0B89F5549799}.Debug|x86.ActiveCfg = Debug|Win32
-		{DFB35E2F-D444-4CEF-A990-0B89F5549799}.Debug|x86.Build.0 = Debug|Win32
+		{DFB35E2F-D444-4CEF-A990-0B89F5549799}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DFB35E2F-D444-4CEF-A990-0B89F5549799}.Debug|x86.Build.0 = Debug|Any CPU
 		{DFB35E2F-D444-4CEF-A990-0B89F5549799}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFB35E2F-D444-4CEF-A990-0B89F5549799}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DFB35E2F-D444-4CEF-A990-0B89F5549799}.Release|x86.ActiveCfg = Release|Win32
-		{DFB35E2F-D444-4CEF-A990-0B89F5549799}.Release|x86.Build.0 = Release|Win32
+		{DFB35E2F-D444-4CEF-A990-0B89F5549799}.Release|x86.ActiveCfg = Release|Any CPU
+		{DFB35E2F-D444-4CEF-A990-0B89F5549799}.Release|x86.Build.0 = Release|Any CPU
 		{F94D431B-B4EA-45AB-9864-FEB3148B95EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F94D431B-B4EA-45AB-9864-FEB3148B95EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F94D431B-B4EA-45AB-9864-FEB3148B95EC}.Debug|x86.ActiveCfg = Debug|Any CPU

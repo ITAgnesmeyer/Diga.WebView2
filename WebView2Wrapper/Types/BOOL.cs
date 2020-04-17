@@ -1,5 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
 // ReSharper disable CheckNamespace
+
 namespace Diga.WebView2.Wrapper
 {
     public class BOOL
