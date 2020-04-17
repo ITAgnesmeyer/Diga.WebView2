@@ -48,4 +48,8 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.WinForms\V8335\lib\netcoreapp3.1\$(TargetFileName)" />
+  </Target>
+
 </Project>

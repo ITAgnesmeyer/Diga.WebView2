@@ -104,4 +104,7 @@
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.Wrapper\V8335\lib\net472\$(TargetFileName)</PostBuildEvent>
+  </PropertyGroup>
 </Project>

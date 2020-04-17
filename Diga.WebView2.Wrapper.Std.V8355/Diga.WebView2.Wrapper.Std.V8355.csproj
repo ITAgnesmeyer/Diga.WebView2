@@ -74,4 +74,8 @@
     </None>
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.Wrapper\V8335\lib\netstandard2.1\$(TargetFileName)&#xD;&#xA;xcopy /E /Y $(TargetDir)native $(SolutionDir)package_create_folder\Diga.WebView2.Wrapper\V8335\build\native" />
+  </Target>
+
 </Project>
