@@ -90,6 +90,7 @@ namespace Diga.WebView2.Wrapper
     internal static class Native32
     {
         private const string EXTERNAL_DLL = "native/x86/WebView2Loader.dll";
+        //private const string EXTERNAL_DLL = "WebView2Loader.dll";
 
         [DllImport("user32.dll")]
         internal static extern bool GetClientRect(IntPtr hWnd, out tagRECT lpRect);
@@ -145,6 +146,7 @@ namespace Diga.WebView2.Wrapper
     internal static class Native64
     {
         private const string EXTERNAL_DLL = "native/x64/WebView2Loader.dll";
+        //private const string EXTERNAL_DLL = "WebView2Loader.dll";
 
         [DllImport("user32.dll")]
         internal static extern bool GetClientRect(IntPtr hWnd, out tagRECT lpRect);

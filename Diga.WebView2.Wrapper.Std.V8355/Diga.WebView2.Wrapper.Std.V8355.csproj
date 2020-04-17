@@ -17,12 +17,8 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>TRACE;VS8355</DefineConstants>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="native\x64\WebView2Loader.dll" />
-    <None Remove="native\x86\WebView2Loader.dll" />
-  </ItemGroup>
 
   <ItemGroup>
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\ErrorStatus.cs" Link="ErrorStatus.cs" />
@@ -60,15 +56,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="native\x64\WebView2Loader.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="native\x86\WebView2Loader.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Diga.WebView2.Interop.Std.V8355\Diga.WebView2.Interop.Std.V8355.csproj" />
   </ItemGroup>
 
@@ -76,6 +63,15 @@
     <Folder Include="EventArguments\" />
     <Folder Include="Handler\" />
     <Folder Include="Types\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="native\x64\WebView2Loader.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="native\x86\WebView2Loader.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

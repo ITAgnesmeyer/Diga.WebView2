@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
 [assembly: AssemblyTitle("Diga.WebView2.Wrapper.V8355")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("WebView2-Interop-Wrapper")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Dipl.-Ing.(FH) Guido Agnesmeyer")]
 [assembly: AssemblyProduct("Diga.WebView2.Wrapper.V8355")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright ©  2020 Dipl.-Ing.(FH) Guido Agnesmeyer")]
+[assembly: AssemblyTrademark("Diga.WebView2.Wrapper.V8355")]
 [assembly: AssemblyCulture("")]
 
 // Durch Festlegen von ComVisible auf FALSE werden die Typen in dieser Assembly

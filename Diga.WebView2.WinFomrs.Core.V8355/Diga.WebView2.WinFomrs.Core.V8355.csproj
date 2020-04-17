@@ -12,6 +12,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>WebView2</PackageTags>
     <PackageReleaseNotes>WebView2-WinFomrs</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
