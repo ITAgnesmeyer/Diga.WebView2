@@ -19,6 +19,10 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<WebView2EventArgs> ContainsFullScreenElementChanged;
         public event EventHandler<DocumentStateChangedEventArgs> DocumentStateChanged;
         public event EventHandler<WebView2EventArgs> DocumentTitleChanged;
+        public event EventHandler<NavigationStartingEventArgs> FrameNavigationStarting;
+        public event EventHandler<WebView2EventArgs> GotFocus;
+        public event EventHandler<WebView2EventArgs> LostFocus;
+        public event EventHandler<MoveFocusRequestedEventArgs> MoveFocusRequested;
         private WebView2Settings _Settings;
         private string _BrowserInfo;
         public WebView2Control(IntPtr parentHandle) : this(parentHandle, string.Empty, string.Empty, string.Empty)
@@ -85,8 +89,32 @@ namespace Diga.WebView2.Wrapper
             this.WebView.ContainsFullScreenElementChanged += OnContainsFullScreenElementChangedIntern;
             this.WebView.DocumentStateChanged += OnDocumentStateChangedIntern;
             this.WebView.DocumentTitleChanged += OnDocumentTitleChangedIntern;
+            this.WebView.FrameNavigationStarting += OnFrameNavigationStartingIntern;
+            this.WebView.LostFocus += OnLostFocusIntern;
+            this.WebView.GotFocus+=OnGotFocusIntern;
+            this.WebView.MoveFocusRequested+=OnMoveFocusRequestedIntern;
             this._Settings = new WebView2Settings(this.WebView.Settings);
             OnCreated();
+        }
+
+        private void OnMoveFocusRequestedIntern(object sender, MoveFocusRequestedEventArgs e)
+        {
+            OnMoveFocusRequested(e);
+        }
+
+        private void OnLostFocusIntern(object sender, WebView2EventArgs e)
+        {
+            OnLostFocus(e);
+        }
+
+        private void OnGotFocusIntern(object sender, WebView2EventArgs e)
+        {
+            OnGotFocus(e);
+        }
+
+        private void OnFrameNavigationStartingIntern(object sender, NavigationStartingEventArgs e)
+        {
+            OnFrameNavigationStarting(e);
         }
 
         private void OnDocumentTitleChangedIntern(object sender, WebView2EventArgs e)
@@ -247,6 +275,26 @@ namespace Diga.WebView2.Wrapper
         protected virtual void OnDocumentTitleChanged(WebView2EventArgs e)
         {
             DocumentTitleChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnFrameNavigationStarting(NavigationStartingEventArgs e)
+        {
+            FrameNavigationStarting?.Invoke(this, e);
+        }
+
+        protected virtual void OnGotFocus(WebView2EventArgs e)
+        {
+            GotFocus?.Invoke(this, e);
+        }
+
+        protected virtual void OnLostFocus(WebView2EventArgs e)
+        {
+            LostFocus?.Invoke(this, e);
+        }
+
+        protected virtual void OnMoveFocusRequested(MoveFocusRequestedEventArgs e)
+        {
+            MoveFocusRequested?.Invoke(this, e);
         }
     }
 }

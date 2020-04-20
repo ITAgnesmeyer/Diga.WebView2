@@ -105,14 +105,14 @@
             // webView1
             // 
             this.webView1.BackColor = System.Drawing.Color.Black;
-            this.webView1.DefaultContextMenusEnabled = true;
+            this.webView1.DefaultContextMenusEnabled = false;
             this.webView1.DefaultScriptDialogsEnabled = true;
             this.webView1.DevToolsEnabled = true;
             this.webView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webView1.HtmlContent = null;
             this.webView1.IsCreated = false;
             this.webView1.IsScriptEnabled = true;
-            this.webView1.IsStatusBarEnabled = false;
+            this.webView1.IsStatusBarEnabled = true;
             this.webView1.IsWebMessageEnabled = true;
             this.webView1.Location = new System.Drawing.Point(0, 0);
             this.webView1.Name = "webView1";
@@ -125,6 +125,13 @@
             this.webView1.HistoryChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_HistoryChanged);
             this.webView1.NavigationCompleted += new System.EventHandler<Diga.WebView2.Wrapper.NavigationCompletedEventArgs>(this.webView1_NavigationCompleted);
             this.webView1.AcceleratorKeyPressed += new System.EventHandler<Diga.WebView2.Wrapper.AcceleratorKeyPressedEventArgs>(this.webView1_AcceleratorKeyPressed);
+            this.webView1.ContainsFullScreenElementChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_ContainsFullScreenElementChanged);
+            this.webView1.DocumentStateChanged += new System.EventHandler<Diga.WebView2.Wrapper.DocumentStateChangedEventArgs>(this.webView1_DocumentStateChanged);
+            this.webView1.DocumentTitleChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_DocumentTitleChanged);
+            this.webView1.FrameNavigationStarting += new System.EventHandler<Diga.WebView2.Wrapper.NavigationStartingEventArgs>(this.webView1_FrameNavigationStarting);
+            this.webView1.WebViewGotFocus += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_WebViewGotFocus);
+            this.webView1.WebViewLostFocus += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_WebViewLostFocus);
+            this.webView1.MoveFocusRequested += new System.EventHandler<Diga.WebView2.Wrapper.MoveFocusRequestedEventArgs>(this.webView1_MoveFocusRequested);
             // 
             // Form1
             // 

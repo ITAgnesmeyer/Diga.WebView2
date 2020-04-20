@@ -8,10 +8,10 @@ namespace Diga.WebView2.Wrapper
         string IWebView2NavigationStartingEventArgs.uri => this._args.uri;
         public string Uri => ((IWebView2NavigationStartingEventArgs) this).uri;
         int IWebView2NavigationStartingEventArgs.IsUserInitiated => this._args.IsUserInitiated;
-        public bool IsUserInitiated => new BOOL(((IWebView2NavigationStartingEventArgs) this).IsUserInitiated);
+        public bool IsUserInitiated => new CBOOL(((IWebView2NavigationStartingEventArgs) this).IsUserInitiated);
         int IWebView2NavigationStartingEventArgs.IsRedirected => this._args.IsRedirected;
 
-        public bool IsRedirected => new BOOL(((IWebView2NavigationStartingEventArgs) this).IsRedirected);
+        public bool IsRedirected => new CBOOL(((IWebView2NavigationStartingEventArgs) this).IsRedirected);
 
         IWebView2HttpRequestHeaders IWebView2NavigationStartingEventArgs.RequestHeaders => this._args.RequestHeaders;
 
@@ -23,8 +23,8 @@ namespace Diga.WebView2.Wrapper
 
         public bool Cancel
         {
-            get => new BOOL(((IWebView2NavigationStartingEventArgs) this).Cancel);
-            set => ((IWebView2NavigationStartingEventArgs) this).Cancel = new BOOL(value);
+            get => new CBOOL(((IWebView2NavigationStartingEventArgs) this).Cancel);
+            set => ((IWebView2NavigationStartingEventArgs) this).Cancel = new CBOOL(value);
         }
         //ulong IWebView2NavigationStartingEventArgs.NavigationId => throw new NotImplementedException();
 

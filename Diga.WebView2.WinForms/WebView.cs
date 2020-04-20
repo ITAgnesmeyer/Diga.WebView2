@@ -4,6 +4,7 @@ using System.Windows.Forms;
 
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
+using Diga.WebView2.Wrapper.Handler;
 
 namespace Diga.WebView2.WinForms
 {
@@ -35,6 +36,11 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<WebView2EventArgs> ContainsFullScreenElementChanged;
         public event EventHandler<DocumentStateChangedEventArgs> DocumentStateChanged;
         public event EventHandler<WebView2EventArgs> DocumentTitleChanged;
+        public event EventHandler<NavigationStartingEventArgs> FrameNavigationStarting;
+        public event EventHandler<WebView2EventArgs> WebViewGotFocus;
+        public event EventHandler<WebView2EventArgs> WebViewLostFocus;
+        public event EventHandler<MoveFocusRequestedEventArgs> MoveFocusRequested;
+
 #endif
 
         public string HtmlContent
@@ -56,7 +62,7 @@ namespace Diga.WebView2.WinForms
                 _IsZoomControlEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.IsZoomControlEnabled = new BOOL(value);
+                    this._WebWindow.Settings.IsZoomControlEnabled = new CBOOL(value);
                 }
             }
         }
@@ -69,7 +75,7 @@ namespace Diga.WebView2.WinForms
                 _IsWebMessageEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.IsWebMessageEnabled = new BOOL(value);
+                    this._WebWindow.Settings.IsWebMessageEnabled = new CBOOL(value);
                 }
             }
         }
@@ -82,7 +88,7 @@ namespace Diga.WebView2.WinForms
                 _IsStatusBarEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.IsStatusBarEnabled = new BOOL(value);
+                    this._WebWindow.Settings.IsStatusBarEnabled = new CBOOL(value);
                 }
             }
         }
@@ -95,7 +101,7 @@ namespace Diga.WebView2.WinForms
                 _IsScriptEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.IsScriptEnabled = new BOOL(value);
+                    this._WebWindow.Settings.IsScriptEnabled = new CBOOL(value);
                 }
             }
         }
@@ -109,7 +115,7 @@ namespace Diga.WebView2.WinForms
                 _RemoteObjectsAllowed = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.AreRemoteObjectsAllowed = new BOOL(value);
+                    this._WebWindow.Settings.AreRemoteObjectsAllowed = new CBOOL(value);
                 }
             }
         }
@@ -125,7 +131,7 @@ namespace Diga.WebView2.WinForms
                 _DevToolsEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.AreDevToolsEnabled = new BOOL(value);
+                    this._WebWindow.Settings.AreDevToolsEnabled = new CBOOL(value);
                 }
             }
         }
@@ -138,7 +144,7 @@ namespace Diga.WebView2.WinForms
                 _DefaultScriptDialogsEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.AreDefaultScriptDialogsEnabled = new BOOL(value);
+                    this._WebWindow.Settings.AreDefaultScriptDialogsEnabled = new CBOOL(value);
                 }
             }
         }
@@ -150,7 +156,7 @@ namespace Diga.WebView2.WinForms
                 _DefaultContextMenusEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.AreDefaultContextMenusEnabled = new BOOL(value);
+                    this._WebWindow.Settings.AreDefaultContextMenusEnabled = new CBOOL(value);
                 }
             }
         }
@@ -175,17 +181,17 @@ namespace Diga.WebView2.WinForms
 
         private void OnWebWindowBeforeCreate(object sender, BeforeCreateEventArgs e)
         {
-            e.Settings.AreDefaultContextMenusEnabled = new BOOL(this._DefaultContextMenusEnabled);
-            e.Settings.AreDefaultScriptDialogsEnabled = new BOOL(this._DefaultScriptDialogsEnabled);
-            e.Settings.AreDevToolsEnabled = new BOOL(this._DevToolsEnabled);
+            e.Settings.AreDefaultContextMenusEnabled = new CBOOL(this._DefaultContextMenusEnabled);
+            e.Settings.AreDefaultScriptDialogsEnabled = new CBOOL(this._DefaultScriptDialogsEnabled);
+            e.Settings.AreDevToolsEnabled = new CBOOL(this._DevToolsEnabled);
 #if !VS8355
-            e.Settings.AreRemoteObjectsAllowed = new BOOL(this._RemoteObjectsAllowed);
+            e.Settings.AreRemoteObjectsAllowed = new CBOOL(this._RemoteObjectsAllowed);
 #endif
-            e.Settings.IsScriptEnabled = new BOOL(this._IsScriptEnabled);
-            e.Settings.IsStatusBarEnabled = new BOOL(this._IsStatusBarEnabled);
-            e.Settings.IsWebMessageEnabled = new BOOL(this._IsWebMessageEnabled);
+            e.Settings.IsScriptEnabled = new CBOOL(this._IsScriptEnabled);
+            e.Settings.IsStatusBarEnabled = new CBOOL(this._IsStatusBarEnabled);
+            e.Settings.IsWebMessageEnabled = new CBOOL(this._IsWebMessageEnabled);
 #if !VS8355
-            e.Settings.IsZoomControlEnabled = new BOOL(this._IsZoomControlEnabled);
+            e.Settings.IsZoomControlEnabled = new CBOOL(this._IsZoomControlEnabled);
 #endif
         }
 
@@ -209,7 +215,7 @@ namespace Diga.WebView2.WinForms
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(this, e.Message, Properties.Resources.Naviation_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(this, e.Message, "Navigation Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
 
@@ -228,7 +234,7 @@ namespace Diga.WebView2.WinForms
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(owner: this, e.Message, Properties.Resources.Naviation_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(owner: this, e.Message, "Navigation Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }
@@ -287,14 +293,18 @@ namespace Diga.WebView2.WinForms
                 _WebWindow.Created += OnWebWindowCreated;
                 _WebWindow.BeforeCreate += OnWebWindowBeforeCreate;
                 _WebWindow.NavigateStart += OnNavigationStartIntern;
-                #if VS8355
+#if VS8355
 
                 _WebWindow.AcceleratorKeyPressed += OnAcceleratorKeyPressedIntern;
                 _WebWindow.ContainsFullScreenElementChanged += OnContainsFullScreenElementChangedIntern;
                 _WebWindow.DocumentStateChanged += OnDocumentStateChangedIntern;
                 _WebWindow.DocumentTitleChanged += OnDocumentTitleChangedIntern;
-                #endif
-                
+                _WebWindow.FrameNavigationStarting += OnFrameNavigationStartingIntern;
+                _WebWindow.GotFocus += OnGotFocusIntern;
+                _WebWindow.LostFocus += OnLostFocusIntern;
+                _WebWindow.MoveFocusRequested += OnMoveFocusRequestedIntern;
+#endif
+
                 _WebWindow.ContentLoading += OnContentLoadingIntern;
                 _WebWindow.SourceChanged += OnSourceChangedIntern;
                 _WebWindow.HistoryChanged += OnHistoryChangedIntern;
@@ -304,9 +314,31 @@ namespace Diga.WebView2.WinForms
             }
         }
 
-       
+        
+
+
+
 
 #if VS8355
+        private void OnMoveFocusRequestedIntern(object sender, MoveFocusRequestedEventArgs e)
+        {
+            OnMoveFocusRequested(e);
+        }
+
+        private void OnLostFocusIntern(object sender, WebView2EventArgs e)
+        {
+
+            OnWebViewLostFocus(e);
+        }
+        private void OnGotFocusIntern(object sender, WebView2EventArgs e)
+        {
+            OnWebViewGotFocus(e);
+        }
+
+        private void OnFrameNavigationStartingIntern(object sender, NavigationStartingEventArgs e)
+        {
+            OnFrameNavigationStarting(e);
+        }
         private void OnDocumentTitleChangedIntern(object sender, WebView2EventArgs e)
         {
             OnDocumentTitleChanged(e);
@@ -324,7 +356,7 @@ namespace Diga.WebView2.WinForms
         {
             OnAcceleratorKeyPressed(e);
         }
-        #endif
+#endif
         private void OnNavigationCompletedIntern(object sender, NavigationCompletedEventArgs e)
         {
             OnNavigationCompleted(e);
@@ -403,7 +435,25 @@ namespace Diga.WebView2.WinForms
         {
             DocumentTitleChanged?.Invoke(this, e);
         }
+        protected virtual void OnFrameNavigationStarting(NavigationStartingEventArgs e)
+        {
+            FrameNavigationStarting?.Invoke(this, e);
+        }
+        protected virtual void OnWebViewGotFocus(WebView2EventArgs e)
+        {
+            WebViewGotFocus?.Invoke(this, e);
+        }
+        protected virtual void OnWebViewLostFocus(WebView2EventArgs e)
+        {
+            WebViewLostFocus?.Invoke(this, e);
+        }
+        protected virtual void OnMoveFocusRequested(MoveFocusRequestedEventArgs e)
+        {
+            MoveFocusRequested?.Invoke(this, e);
+        }
 #endif
 
+
+        
     }
 }

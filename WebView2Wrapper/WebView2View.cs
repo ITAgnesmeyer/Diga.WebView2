@@ -404,7 +404,7 @@ namespace Diga.WebView2.Wrapper
         }
 
         int ICoreWebView2.ContainsFullScreenElement => this._WebView.ContainsFullScreenElement;
-        public bool ContainsFullScreenElement => new BOOL(((ICoreWebView2)this).ContainsFullScreenElement);
+        public bool ContainsFullScreenElement => new CBOOL(((ICoreWebView2)this).ContainsFullScreenElement);
         void ICoreWebView2.add_WebResourceRequested(ICoreWebView2WebResourceRequestedEventHandler eventHandler,
             out EventRegistrationToken token)
         {

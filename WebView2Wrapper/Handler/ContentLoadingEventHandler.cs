@@ -8,7 +8,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<ContentLoadingEventArgs> ContentLoading;
         public void Invoke(ICoreWebView2 webview, ICoreWebView2ContentLoadingEventArgs args)
         {
-            OnContentLoading(new ContentLoadingEventArgs(new BOOL(args.IsErrorPage), args.NavigationId));
+            OnContentLoading(new ContentLoadingEventArgs(new CBOOL(args.IsErrorPage), args.NavigationId));
         }
 
         protected virtual void OnContentLoading(ContentLoadingEventArgs e)

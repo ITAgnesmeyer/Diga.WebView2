@@ -32,6 +32,7 @@
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\EventArguments\DocumentStateChangedEventArgs.cs" Link="EventArguments\DocumentStateChangedEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\EventArguments\EnvironmentCompletedHandlerArgs.cs" Link="EventArguments\EnvironmentCompletedHandlerArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\EventArguments\ExecuteScriptCompletedEventArgs.cs" Link="EventArguments\ExecuteScriptCompletedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V8355\EventArguments\MoveFocusRequestedEventArgs.cs" Link="EventArguments\MoveFocusRequestedEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\EventArguments\NavigationCompletedEventArgs.cs" Link="EventArguments\NavigationCompletedEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\EventArguments\NavigationStartingEventArgs.cs" Link="EventArguments\NavigationStartingEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\EventArguments\SourceChangedEventArgs.cs" Link="EventArguments\SourceChangedEventArgs.cs" />
@@ -47,11 +48,13 @@
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\Handler\ExecuteScriptCompletedHandler.cs" Link="Handler\ExecuteScriptCompletedHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\Handler\FocusChangedEventHandler.cs" Link="Handler\FocusChangedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\Handler\HistoryChangedEventHandler.cs" Link="Handler\HistoryChangedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V8355\Handler\MoveFocusRequestedEventHandler.cs" Link="Handler\MoveFocusRequestedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\Handler\NavigationCompletedEventHandler.cs" Link="Handler\NavigationCompletedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\Handler\NavigationStartingEventHandler.cs" Link="Handler\NavigationStartingEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\Handler\SourceChangedEventHandler.cs" Link="Handler\SourceChangedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\Handler\ZoomFactorChangedEventHandler.cs" Link="Handler\ZoomFactorChangedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\KeyEventType.cs" Link="KeyEventType.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V8355\MoveFocusReason.cs" Link="MoveFocusReason.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\PhysicalKeyStatus.cs" Link="PhysicalKeyStatus.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\WebView2Control.cs" Link="WebView2Control.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\WebView2Settings.cs" Link="WebView2Settings.cs" />

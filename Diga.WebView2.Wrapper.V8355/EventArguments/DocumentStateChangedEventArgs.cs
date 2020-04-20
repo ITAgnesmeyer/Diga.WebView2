@@ -11,8 +11,8 @@ namespace Diga.WebView2.Wrapper
             this._Args = args;
         }
 
-        public bool IsNewDocument => new BOOL(this._Args.IsNewDocument);
-        public bool IsErrorPage => new BOOL(this._Args.IsErrorPage);
+        public bool IsNewDocument => new CBOOL(this._Args.IsNewDocument);
+        public bool IsErrorPage => new CBOOL(this._Args.IsErrorPage);
         int IWebView2DocumentStateChangedEventArgs.IsNewDocument => this._Args.IsNewDocument;
 
         int IWebView2DocumentStateChangedEventArgs.IsErrorPage => this._Args.IsErrorPage;

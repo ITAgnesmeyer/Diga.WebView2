@@ -90,6 +90,9 @@
     <Compile Include="Handler\SourceChangedEventHandler.cs" />
     <Compile Include="Handler\ZoomFactorChangedEventHandler.cs" />
     <Compile Include="KeyEventType.cs" />
+    <Compile Include="MoveFocusReason.cs" />
+    <Compile Include="EventArguments\MoveFocusRequestedEventArgs.cs" />
+    <Compile Include="Handler\MoveFocusRequestedEventHandler.cs" />
     <Compile Include="PhysicalKeyStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebView2Control.cs" />

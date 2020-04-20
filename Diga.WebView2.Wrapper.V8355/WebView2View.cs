@@ -19,6 +19,11 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<WebView2EventArgs> ContainsFullScreenElementChanged;
         public event EventHandler<DocumentStateChangedEventArgs> DocumentStateChanged;
         public event EventHandler<WebView2EventArgs> DocumentTitleChanged;
+        public event EventHandler<NavigationStartingEventArgs> FrameNavigationStarting;
+        public event EventHandler<WebView2EventArgs> GotFocus;
+        public event EventHandler<WebView2EventArgs> LostFocus;
+        public event EventHandler<MoveFocusRequestedEventArgs> MoveFocusRequested;
+
         public WebView2View(IWebView2WebView5 webView)
         {
             this._WebView = webView;
@@ -76,7 +81,22 @@ namespace Diga.WebView2.Wrapper
             DocumentTitleChangedHanlder documentTitleChangedHandler = new DocumentTitleChangedHanlder();
             documentTitleChangedHandler.DocumentTitleChanged += OnDocumentTitleChangedIntern;
             v5.add_DocumentTitleChanged(documentTitleChangedHandler, out this._DocumentTitleChangedToken);
-            
+            NavigationStartingEventHandler frameNavigationStarting = new NavigationStartingEventHandler();
+            frameNavigationStarting.NavigationStarting += OnFrameNavigationStartingIntern;
+            v5.add_FrameNavigationStarting(frameNavigationStarting, out this._FrameNavigationStartingToken);
+
+
+            FocusChangedEventHandler gotFocusHandler = new FocusChangedEventHandler();
+            gotFocusHandler.FocusChanged += OnGotFocusIntern;
+            v5.add_GotFocus(gotFocusHandler, out this._GotFocusToken);
+
+            FocusChangedEventHandler lostFocusHanlder = new FocusChangedEventHandler();
+            lostFocusHanlder.FocusChanged += OnLostFocusIntern;
+            v5.add_LostFocus(lostFocusHanlder, out this._LostFocusToken);
+
+            MoveFocusRequestedEventHandler moveFocusRequestedHandler = new MoveFocusRequestedEventHandler();
+            moveFocusRequestedHandler.MoveFocusRequested += OnMoveFocusRequestedIntern;
+            v5.add_MoveFocusRequested(moveFocusRequestedHandler, out this._MoveFocusRequestedToken);
 
             NavigationCompletedEventHandler navigationCompletedHandler = new NavigationCompletedEventHandler();
             navigationCompletedHandler.NavigaionCompleted += OnNavigationCompletedIntern;
@@ -84,6 +104,27 @@ namespace Diga.WebView2.Wrapper
                 out this._NavigationCompletedToken);
 
         }
+
+        private void OnMoveFocusRequestedIntern(object sender, MoveFocusRequestedEventArgs e)
+        {
+            OnMoveFocusRequested(e);
+        }
+
+        private void OnLostFocusIntern(object sender, WebView2EventArgs e)
+        {
+            OnLostFocus(e);
+        }
+
+        private void OnGotFocusIntern(object sender, WebView2EventArgs e)
+        {
+            OnGotFocus(e);
+        }
+
+        private void OnFrameNavigationStartingIntern(object sender, NavigationStartingEventArgs e)
+        {
+            OnFrameNavigationStarting(e);
+        }
+
 
         private void OnDocumentTitleChangedIntern(object sender, WebView2EventArgs e)
         {
@@ -136,6 +177,10 @@ namespace Diga.WebView2.Wrapper
             this.ToV5().remove_ContainsFullScreenElementChanged(this._ContainsFullScreenElementChangedHandlerToken);
             this.ToV5().remove_DocumentStateChanged(this._DocumentStateChangedHandlerToken);
             this.ToV5().remove_DocumentTitleChanged(this._DocumentTitleChangedToken);
+            this.ToV5().remove_FrameNavigationStarting(this._FrameNavigationStartingToken);
+            this.ToV5().remove_GotFocus(this._GotFocusToken);
+            this.ToV5().remove_LostFocus(this._LostFocusToken);
+            this.ToV5().remove_MoveFocusRequested(this._MoveFocusRequestedToken);
         }
 
         private EventRegistrationToken _NavigationStartingToken;
@@ -147,6 +192,10 @@ namespace Diga.WebView2.Wrapper
         private EventRegistrationToken _ContainsFullScreenElementChangedHandlerToken;
         private EventRegistrationToken _DocumentStateChangedHandlerToken;
         private EventRegistrationToken _DocumentTitleChangedToken;
+        private EventRegistrationToken _FrameNavigationStartingToken;
+        private EventRegistrationToken _GotFocusToken;
+        private EventRegistrationToken _LostFocusToken;
+        private EventRegistrationToken _MoveFocusRequestedToken;
 
         private void OnNavigationStartingIntern(object sender, NavigationStartingEventArgs e)
         {
@@ -446,7 +495,7 @@ namespace Diga.WebView2.Wrapper
         }
 
         int IWebView2WebView5.ContainsFullScreenElement => this._WebView.ContainsFullScreenElement;
-        public bool ContainsFullScreenElement => new BOOL(this.ToV5().ContainsFullScreenElement);
+        public bool ContainsFullScreenElement => new CBOOL(this.ToV5().ContainsFullScreenElement);
         void IWebView2WebView5.add_WebResourceRequested(IWebView2WebResourceRequestedEventHandler eventHandler,
             out EventRegistrationToken token)
         {
@@ -1401,6 +1450,26 @@ namespace Diga.WebView2.Wrapper
         protected virtual void OnDocumentTitleChanged(WebView2EventArgs e)
         {
             DocumentTitleChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnFrameNavigationStarting(NavigationStartingEventArgs e)
+        {
+            FrameNavigationStarting?.Invoke(this, e);
+        }
+
+        protected virtual void OnGotFocus(WebView2EventArgs e)
+        {
+            GotFocus?.Invoke(this, e);
+        }
+
+        protected virtual void OnLostFocus(WebView2EventArgs e)
+        {
+            LostFocus?.Invoke(this, e);
+        }
+
+        protected virtual void OnMoveFocusRequested(MoveFocusRequestedEventArgs e)
+        {
+            MoveFocusRequested?.Invoke(this, e);
         }
     }
 }

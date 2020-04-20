@@ -27,9 +27,9 @@ namespace Diga.WebView2.Wrapper.Handler
 
             ICoreWebView2Settings settings = webView.Settings;
             OnBeforeHostCreate(new BeforeHostCreateEventArgs(webView, host, settings));
-            settings.IsScriptEnabled = new BOOL(true);
-            settings.AreDefaultScriptDialogsEnabled = new BOOL(true);
-            settings.IsWebMessageEnabled = new BOOL(true);
+            settings.IsScriptEnabled = new CBOOL(true);
+            settings.AreDefaultScriptDialogsEnabled = new CBOOL(true);
+            settings.IsWebMessageEnabled = new CBOOL(true);
             tagRECT rect;
             Native.GetClientRect(createdHost.ParentWindow, out rect);
             host.Bounds = rect;

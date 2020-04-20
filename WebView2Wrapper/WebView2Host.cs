@@ -59,8 +59,8 @@ namespace Diga.WebView2.Wrapper
 
         public bool IsVisible
         {
-            get => new BOOL(((ICoreWebView2Host) this).IsVisible);
-            set => ((ICoreWebView2Host) this).IsVisible = new BOOL(value);
+            get => new CBOOL(((ICoreWebView2Host) this).IsVisible);
+            set => ((ICoreWebView2Host) this).IsVisible = new CBOOL(value);
         }
 
         public tagRECT Bounds

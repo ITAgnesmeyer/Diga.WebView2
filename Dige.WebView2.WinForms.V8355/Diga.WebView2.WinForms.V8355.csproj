@@ -45,6 +45,9 @@
   <ItemGroup>
     <Compile Include="..\Diga.WebView2.WinForms\Properties\Resources.Designer.cs">
       <Link>Properties\Resources.Designer.cs</Link>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="..\Diga.WebView2.WinForms\WebView.cs">
       <Link>WebView.cs</Link>
@@ -65,11 +68,16 @@
   <ItemGroup>
     <EmbeddedResource Include="..\Diga.WebView2.WinForms\Properties\Resources.resx">
       <Link>Properties\Resources.resx</Link>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Diga.WebView2.WinForms.Properties</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Diga.WebView2.WinForms\WebView.resx">
       <Link>WebView.resx</Link>
+      <CustomToolNamespace>Diga.WebView2.WinForms.Properties</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.WinForms\V8335\lib\net472\$(TargetFileName)</PostBuildEvent>

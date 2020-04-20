@@ -38,7 +38,7 @@ namespace WebView2WrapperWinFormsTest
                 _IsZoomControlEnabled = value;
                 if (this.IsCreated)
                 {
-                    //this._WebWindow.Settings.IsZoomControlEnabled = new BOOL(value);
+                    //this._WebWindow.Settings.IsZoomControlEnabled = new CBOOL(value);
                 }
             }
         }
@@ -51,7 +51,7 @@ namespace WebView2WrapperWinFormsTest
                 _IsWebMessageEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.IsWebMessageEnabled = new BOOL(value);
+                    this._WebWindow.Settings.IsWebMessageEnabled = new CBOOL(value);
                 }
             }
         }
@@ -64,7 +64,7 @@ namespace WebView2WrapperWinFormsTest
                 _IsStatusBarEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.IsStatusBarEnabled = new BOOL(value);
+                    this._WebWindow.Settings.IsStatusBarEnabled = new CBOOL(value);
                 }
             }
         }
@@ -77,7 +77,7 @@ namespace WebView2WrapperWinFormsTest
                 _IsScriptEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.IsScriptEnabled = new BOOL(value);
+                    this._WebWindow.Settings.IsScriptEnabled = new CBOOL(value);
                 }
             }
         }
@@ -93,7 +93,7 @@ namespace WebView2WrapperWinFormsTest
                 _RemoteObjectsAllowed = value;
                 if (this.IsCreated)
                 {
-                    //this._WebWindow.Settings.AreRemoteObjectsAllowed = new BOOL(value);
+                    //this._WebWindow.Settings.AreRemoteObjectsAllowed = new CBOOL(value);
                 }
             }
         }
@@ -111,7 +111,7 @@ namespace WebView2WrapperWinFormsTest
                 _DevToolsEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.AreDevToolsEnabled = new BOOL(value);
+                    this._WebWindow.Settings.AreDevToolsEnabled = new CBOOL(value);
                 }
             }
         }
@@ -124,7 +124,7 @@ namespace WebView2WrapperWinFormsTest
                 _DefaultScriptDialogsEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.AreDefaultScriptDialogsEnabled = new BOOL(value);
+                    this._WebWindow.Settings.AreDefaultScriptDialogsEnabled = new CBOOL(value);
                 }
             }
         }
@@ -136,7 +136,7 @@ namespace WebView2WrapperWinFormsTest
                 _DefaultContextMenusEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.AreDefaultContextMenusEnabled = new BOOL(value);
+                    this._WebWindow.Settings.AreDefaultContextMenusEnabled = new CBOOL(value);
                 }
             }
         }
@@ -160,14 +160,14 @@ namespace WebView2WrapperWinFormsTest
 
         private void OnWebWindowBeforeCreate(object sender, BeforeCreateEventArgs e)
         {
-            e.Settings.AreDefaultContextMenusEnabled = new BOOL(this._DefaultContextMenusEnabled);
-            e.Settings.AreDefaultScriptDialogsEnabled = new BOOL(this._DefaultScriptDialogsEnabled);
-            e.Settings.AreDevToolsEnabled = new BOOL(this._DevToolsEnabled);
-            //e.Settings.AreRemoteObjectsAllowed = new BOOL(this._RemoteObjectsAllowed);
-            e.Settings.IsScriptEnabled = new BOOL(this._IsScriptEnabled);
-            e.Settings.IsStatusBarEnabled = new BOOL(this._IsStatusBarEnabled);
-            e.Settings.IsWebMessageEnabled = new BOOL(this._IsWebMessageEnabled);
-            //e.Settings.IsZoomControlEnabled = new BOOL(this._IsZoomControlEnabled);
+            e.Settings.AreDefaultContextMenusEnabled = new CBOOL(this._DefaultContextMenusEnabled);
+            e.Settings.AreDefaultScriptDialogsEnabled = new CBOOL(this._DefaultScriptDialogsEnabled);
+            e.Settings.AreDevToolsEnabled = new CBOOL(this._DevToolsEnabled);
+            //e.Settings.AreRemoteObjectsAllowed = new CBOOL(this._RemoteObjectsAllowed);
+            e.Settings.IsScriptEnabled = new CBOOL(this._IsScriptEnabled);
+            e.Settings.IsStatusBarEnabled = new CBOOL(this._IsStatusBarEnabled);
+            e.Settings.IsWebMessageEnabled = new CBOOL(this._IsWebMessageEnabled);
+            //e.Settings.IsZoomControlEnabled = new CBOOL(this._IsZoomControlEnabled);
         }
 
         private void OnWebWindowCreated(object sender, EventArgs e)

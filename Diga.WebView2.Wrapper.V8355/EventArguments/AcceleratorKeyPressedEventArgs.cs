@@ -5,6 +5,7 @@ namespace Diga.WebView2.Wrapper
     public class AcceleratorKeyPressedEventArgs : IWebView2AcceleratorKeyPressedEventArgs
     {
         private IWebView2AcceleratorKeyPressedEventArgs _Args;
+        private int _Handled;
 
         public AcceleratorKeyPressedEventArgs(IWebView2AcceleratorKeyPressedEventArgs args)
         {
@@ -51,6 +52,16 @@ namespace Diga.WebView2.Wrapper
 
 
         public PhysicalKeyStatus PhysicalKeyStatus => new PhysicalKeyStatus(this.ToInterface().PhysicalKeyStatus);
+
+        public bool Handled
+        {
+            get { return new CBOOL(_Handled); }
+            set
+            {
+                _Handled = new CBOOL(value);
+                this.ToInterface().Handle(_Handled);
+            }
+        }
 
         void IWebView2AcceleratorKeyPressedEventArgs.Handle(int handled)
         {
