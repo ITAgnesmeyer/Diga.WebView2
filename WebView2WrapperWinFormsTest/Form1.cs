@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
+using Diga.WebView2.Wrapper;
+using Diga.WebView2.Wrapper.EventArguments;
 
 namespace WebView2WrapperWinFormsTest
 {
@@ -21,12 +23,12 @@ namespace WebView2WrapperWinFormsTest
             this.webView1.GoBack();
         }
 
-        private void webView1_NavigationStart(object sender, Diga.WebView2.Wrapper.NavigationStartingEventArgs e)
+        private void webView1_NavigationStart(object sender, NavigationStartingEventArgs e)
         {
             //MessageBox.Show(e.Uri);
         }
 
-        private void webView1_ContentLoading(object sender, Diga.WebView2.Wrapper.ContentLoadingEventArgs e)
+        private void webView1_ContentLoading(object sender, ContentLoadingEventArgs e)
         {
             //MessageBox.Show("Naviagation ID=>" + e.NavigationId);
         }
@@ -36,19 +38,24 @@ namespace WebView2WrapperWinFormsTest
             this.webView1.GoForward();
         }
 
-        private void webView1_SourceChanged(object sender, Diga.WebView2.Wrapper.SourceChangedEventArgs e)
+        private void webView1_SourceChanged(object sender, SourceChangedEventArgs e)
         {
             //MessageBox.Show("SourceChanged=>" + e.IsNewDocument);
         }
 
-        private void webView1_HistoryChanged(object sender, Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs e)
+        private void webView1_HistoryChanged(object sender, WebView2EventArgs e)
         {
             
         }
 
-        private void webView1_NavigationCompleted(object sender, Diga.WebView2.Wrapper.NavigationCompletedEventArgs e)
+        private void webView1_NavigationCompleted(object sender, NavigationCompletedEventArgs e)
         {
             this.textBox1.Text = this.webView1.Source;
+        }
+
+        private void webView1_AcceleratorKeyPressed(object sender, AcceleratorKeyPressedEventArgs e)
+        {
+            MessageBox.Show(this, "webView1_AcceleratorKeyPressed");
         }
     }
 }

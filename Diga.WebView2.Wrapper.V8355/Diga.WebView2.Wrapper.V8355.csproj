@@ -59,6 +59,12 @@
     <Compile Include="..\WebView2Wrapper\Types\Rectangle.cs">
       <Link>Types\Rectangle.cs</Link>
     </Compile>
+    <Compile Include="Handler\DocumentTitleChangedHanlder.cs" />
+    <Compile Include="Handler\DocumentStateChangedEventHandler.cs" />
+    <Compile Include="EventArguments\DocumentStateChangedEventArgs.cs" />
+    <Compile Include="Handler\ContainsFullScreenElementChangedEventHandler.cs" />
+    <Compile Include="Handler\AcceleratorKeyPressedEventHandler.cs" />
+    <Compile Include="EventArguments\AcceleratorKeyPressedEventArgs.cs" />
     <Compile Include="ErrorStatus.cs" />
     <Compile Include="EventArguments\AddScriptToExecuteOnDocumentCreatedCompletedEventArgs.cs" />
     <Compile Include="EventArguments\BeforeCreateEventArgs.cs" />
@@ -83,6 +89,8 @@
     <Compile Include="Handler\NavigationStartingEventHandler.cs" />
     <Compile Include="Handler\SourceChangedEventHandler.cs" />
     <Compile Include="Handler\ZoomFactorChangedEventHandler.cs" />
+    <Compile Include="KeyEventType.cs" />
+    <Compile Include="PhysicalKeyStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebView2Control.cs" />
     <Compile Include="WebView2Settings.cs" />

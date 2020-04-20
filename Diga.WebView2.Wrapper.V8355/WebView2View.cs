@@ -2,6 +2,7 @@
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Diga.WebView2.Wrapper
 {
@@ -14,34 +15,94 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<SourceChangedEventArgs> SourceChanged;
         public event EventHandler<WebView2EventArgs> HistoryChanged;
         public event EventHandler<NavigationCompletedEventArgs> NavigationCompleted;
+        public event EventHandler<AcceleratorKeyPressedEventArgs> AcceleratorKeyPressed;
+        public event EventHandler<WebView2EventArgs> ContainsFullScreenElementChanged;
+        public event EventHandler<DocumentStateChangedEventArgs> DocumentStateChanged;
+        public event EventHandler<WebView2EventArgs> DocumentTitleChanged;
         public WebView2View(IWebView2WebView5 webView)
         {
             this._WebView = webView;
             RegisterEvents();
         }
 
+        private IWebView2WebView ToV0()
+        {
+            return this._WebView;
+
+        }
+
+
+
+        private IWebView2WebView3 ToV3()
+        {
+            return this._WebView;
+        }
+
+        private IWebView2WebView4 ToV4()
+        {
+            return this._WebView;
+        }
+
+        private IWebView2WebView5 ToV5()
+        {
+            return this._WebView;
+        }
         private void RegisterEvents()
         {
+            IWebView2WebView v0 = this.ToV0();
+
+            IWebView2WebView3 v3 = this.ToV3();
+            IWebView2WebView4 v4 = this.ToV4();
+            IWebView2WebView5 v5 = this.ToV5();
             NavigationStartingEventHandler navigationStartingHandler = new NavigationStartingEventHandler();
             navigationStartingHandler.NavigationStarting += OnNavigationStartingIntern;
-            ((IWebView2WebView5) this).add_NavigationStarting(navigationStartingHandler, out this._NavigationStartingToken);
+            v5.add_NavigationStarting(navigationStartingHandler, out this._NavigationStartingToken);
 
-            //ContentLoadingEventHandler contentLoadingHandler = new ContentLoadingEventHandler();
-            //contentLoadingHandler.ContentLoading += OnContentLoadingIntern;
-            //((IWebView2WebView5) this).add_ContentLoading(contentLoadingHandler, out this._ContentLoadingToken);
+            AcceleratorKeyPressedEventHandler acceleratorKeyPressedEventHandler = new AcceleratorKeyPressedEventHandler();
+            acceleratorKeyPressedEventHandler.AcceleratorKeyPressed += OnAcceleratorKeyPressedIntern;
+            v5.add_AcceleratorKeyPressed(acceleratorKeyPressedEventHandler,
+                out this._AcceleratorKeyPressedToken);
 
-            //SourceChangedEventHandler sourceChangedHandler = new SourceChangedEventHandler();
-            //sourceChangedHandler.SourceChanged += OnSourceChangedIntern;
-            //((IWebView2WebView5) this).add_SourceChanged(sourceChangedHandler, out this._SourceChangedToken);
+            ContainsFullScreenElementChangedEventHandler containsFullScreenElementChangedHandler = new ContainsFullScreenElementChangedEventHandler();
+            containsFullScreenElementChangedHandler.ContainsFullScreenElementChanged +=
+                OnContainsFullScreenElementChangedIntern;
+            v5.add_ContainsFullScreenElementChanged(containsFullScreenElementChangedHandler,
+                out this._ContainsFullScreenElementChangedHandlerToken);
 
-            //HistoryChangedEventHandler historyChangedHandler = new HistoryChangedEventHandler();
-            //historyChangedHandler.HistoryChanged += OnHistoryChangedIntern;
-            //((IWebView2WebView5) this).add_HistoryChanged(historyChangedHandler, out this._HistoryChangeToken);
+            DocumentStateChangedEventHandler documentStateChangedHandler = new DocumentStateChangedEventHandler();
+            documentStateChangedHandler.DocumentStateChanged += OnDocumentStateChangedIntern;
+            v5.add_DocumentStateChanged(documentStateChangedHandler, out this._DocumentStateChangedHandlerToken);
+
+            DocumentTitleChangedHanlder documentTitleChangedHandler = new DocumentTitleChangedHanlder();
+            documentTitleChangedHandler.DocumentTitleChanged += OnDocumentTitleChangedIntern;
+            v5.add_DocumentTitleChanged(documentTitleChangedHandler, out this._DocumentTitleChangedToken);
+            
 
             NavigationCompletedEventHandler navigationCompletedHandler = new NavigationCompletedEventHandler();
-            navigationCompletedHandler.NavigaionCompleted+=OnNavigationCompletedIntern;
-            ((IWebView2WebView5) this).add_NavigationCompleted(navigationCompletedHandler,
+            navigationCompletedHandler.NavigaionCompleted += OnNavigationCompletedIntern;
+            v5.add_NavigationCompleted(navigationCompletedHandler,
                 out this._NavigationCompletedToken);
+
+        }
+
+        private void OnDocumentTitleChangedIntern(object sender, WebView2EventArgs e)
+        {
+            OnDocumentTitleChanged(e);
+        }
+
+        private void OnDocumentStateChangedIntern(object sender, DocumentStateChangedEventArgs e)
+        {
+            OnDocumentStateChanged(e);
+        }
+
+        private void OnContainsFullScreenElementChangedIntern(object sender, WebView2EventArgs e)
+        {
+            OnContainsFullScreenElementChanged(e);
+        }
+
+        private void OnAcceleratorKeyPressedIntern(object sender, AcceleratorKeyPressedEventArgs e)
+        {
+            OnAcceleratorKeyPressed(e);
         }
 
         private void OnNavigationCompletedIntern(object sender, NavigationCompletedEventArgs e)
@@ -66,11 +127,15 @@ namespace Diga.WebView2.Wrapper
 
         public void UnregisterEvents()
         {
-            ((IWebView2WebView5)this).remove_NavigationStarting(this._NavigationStartingToken);
-            //((IWebView2WebView5)this).remove_ContentLoading(this._ContentLoadingToken);
-            //((IWebView2WebView5)this).remove_SourceChanged(this._SourceChangedToken);
+            this.ToV5().remove_NavigationStarting(this._NavigationStartingToken);
+            //this.ToV5().remove_ContentLoading(this._ContentLoadingToken);
+            //this.ToV5().remove_SourceChanged(this._SourceChangedToken);
             //((IWebView2WebView5) this).remove_HistoryChanged(this._HistoryChangeToken);
-            ((IWebView2WebView5) this).remove_NavigationCompleted(this._NavigationCompletedToken);
+            this.ToV5().remove_NavigationCompleted(this._NavigationCompletedToken);
+            this.ToV5().remove_AcceleratorKeyPressed(this._AcceleratorKeyPressedToken);
+            this.ToV5().remove_ContainsFullScreenElementChanged(this._ContainsFullScreenElementChangedHandlerToken);
+            this.ToV5().remove_DocumentStateChanged(this._DocumentStateChangedHandlerToken);
+            this.ToV5().remove_DocumentTitleChanged(this._DocumentTitleChangedToken);
         }
 
         private EventRegistrationToken _NavigationStartingToken;
@@ -78,6 +143,10 @@ namespace Diga.WebView2.Wrapper
         //private EventRegistrationToken _SourceChangedToken;
         //private EventRegistrationToken _HistoryChangeToken;
         private EventRegistrationToken _NavigationCompletedToken;
+        private EventRegistrationToken _AcceleratorKeyPressedToken;
+        private EventRegistrationToken _ContainsFullScreenElementChangedHandlerToken;
+        private EventRegistrationToken _DocumentStateChangedHandlerToken;
+        private EventRegistrationToken _DocumentTitleChangedToken;
 
         private void OnNavigationStartingIntern(object sender, NavigationStartingEventArgs e)
         {
@@ -85,10 +154,10 @@ namespace Diga.WebView2.Wrapper
         }
 
         IWebView2Settings IWebView2WebView5.Settings => this._WebView.Settings;
-        public WebView2Settings Settings => new WebView2Settings((IWebView2Settings2)((IWebView2WebView5)this).Settings);
+        public WebView2Settings Settings => new WebView2Settings((IWebView2Settings2)this.ToV5().Settings);
 
         string IWebView2WebView5.Source => this._WebView.Source;
-        public string Source => ((IWebView2WebView5)this).Source;
+        public string Source => this.ToV5().Source;
 
         void IWebView2WebView5.Navigate(string uri)
         {
@@ -97,7 +166,7 @@ namespace Diga.WebView2.Wrapper
 
         public void Navigate(string uri)
         {
-            ((IWebView2WebView5)this).Navigate(uri);
+            this._WebView.Navigate(uri);
         }
 
         void IWebView2WebView5.NavigateToString(string htmlContent)
@@ -107,7 +176,7 @@ namespace Diga.WebView2.Wrapper
 
         public void NavigateToString(string htmlContent)
         {
-            ((IWebView2WebView5)this).NavigateToString(htmlContent);
+            this.ToV5().NavigateToString(htmlContent);
         }
 
         void IWebView2WebView5.add_NavigationStarting(IWebView2NavigationStartingEventHandler eventHandler, out EventRegistrationToken token)
@@ -196,7 +265,7 @@ namespace Diga.WebView2.Wrapper
             AddScriptToExecuteOnDocumentCreatedCompletedHandler handler =
                 new AddScriptToExecuteOnDocumentCreatedCompletedHandler();
             handler.ScriptExecuted += OnScriptToExecuteOnDocumentCreatedIntern;
-            ((IWebView2WebView5)this).AddScriptToExecuteOnDocumentCreated(javaScript, handler);
+            this.ToV5().AddScriptToExecuteOnDocumentCreated(javaScript, handler);
         }
 
         private void OnScriptToExecuteOnDocumentCreatedIntern(object sender, AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
@@ -211,7 +280,7 @@ namespace Diga.WebView2.Wrapper
 
         public void RemoveScriptToExecuteOnDocumentCreated(string id)
         {
-            ((IWebView2WebView5)this).RemoveScriptToExecuteOnDocumentCreated(id);
+            this.ToV5().RemoveScriptToExecuteOnDocumentCreated(id);
         }
 
         void IWebView2WebView5.ExecuteScript(string javaScript, IWebView2ExecuteScriptCompletedHandler handler)
@@ -223,7 +292,7 @@ namespace Diga.WebView2.Wrapper
         {
             ExecuteScriptCompletedHandler handler = new ExecuteScriptCompletedHandler();
             handler.ScriptCompleted += OnExecuteScriptCompletedIntern;
-            ((IWebView2WebView5)this).ExecuteScript(javaScript, handler);
+            this.ToV5().ExecuteScript(javaScript, handler);
         }
 
         private void OnExecuteScriptCompletedIntern(object sender, ExecuteScriptCompletedEventArgs e)
@@ -231,7 +300,7 @@ namespace Diga.WebView2.Wrapper
             OnExecuteScriptCompleted(e);
         }
 
-        
+
 
         void IWebView2WebView5.Reload()
         {
@@ -240,7 +309,7 @@ namespace Diga.WebView2.Wrapper
 
         public void Reload()
         {
-            ((IWebView2WebView5)this).Reload();
+            this.ToV5().Reload();
         }
         void IWebView2WebView5.PostWebMessageAsJson(string webMessageAsJson)
         {
@@ -249,7 +318,7 @@ namespace Diga.WebView2.Wrapper
 
         public void PostWebMessageAsJson(string webMessageAsJson)
         {
-            ((IWebView2WebView5)this).PostWebMessageAsJson(webMessageAsJson);
+            this.ToV5().PostWebMessageAsJson(webMessageAsJson);
         }
 
         void IWebView2WebView5.PostWebMessageAsString(string webMessageAsString)
@@ -259,7 +328,7 @@ namespace Diga.WebView2.Wrapper
 
         public void PostWebMessageAsString(string webMessageAsString)
         {
-            ((IWebView2WebView5)this).PostWebMessageAsString(webMessageAsString);
+            this.ToV5().PostWebMessageAsString(webMessageAsString);
         }
 
         void IWebView2WebView5.add_WebMessageReceived(IWebView2WebMessageReceivedEventHandler handler, out EventRegistrationToken token)
@@ -281,12 +350,12 @@ namespace Diga.WebView2.Wrapper
 
         uint IWebView2WebView5.BrowserProcessId => this._WebView.BrowserProcessId;
 
-        public uint BrowserProcessId => ((IWebView2WebView5)this).BrowserProcessId;
+        public uint BrowserProcessId => this.ToV5().BrowserProcessId;
 
         int IWebView2WebView5.CanGoBack => this._WebView.CanGoBack;
-        public bool CanGoBack => ((IWebView2WebView5)this).CanGoBack == 1;
+        public bool CanGoBack => this.ToV5().CanGoBack == 1;
         int IWebView2WebView5.CanGoForward => this._WebView.CanGoForward;
-        public bool CanGoForward => (((IWebView2WebView5)this).CanGoForward) == 1;
+        public bool CanGoForward => (this.ToV5().CanGoForward) == 1;
         void IWebView2WebView5.GoBack()
         {
             this._WebView.GoBack();
@@ -294,7 +363,7 @@ namespace Diga.WebView2.Wrapper
 
         public void GoBack()
         {
-            ((IWebView2WebView5)this).GoBack();
+            this.ToV5().GoBack();
         }
         void IWebView2WebView5.GoForward()
         {
@@ -303,9 +372,9 @@ namespace Diga.WebView2.Wrapper
 
         public void GoForward()
         {
-            ((IWebView2WebView5)this).GoForward();
+            this.ToV5().GoForward();
         }
-       
+
 
         void IWebView2WebView5.Stop()
         {
@@ -314,7 +383,7 @@ namespace Diga.WebView2.Wrapper
 
         public void Stop()
         {
-            ((IWebView2WebView5)this).Stop();
+            this.ToV5().Stop();
         }
         void IWebView2WebView5.add_NewWindowRequested(IWebView2NewWindowRequestedEventHandler eventHandler, out EventRegistrationToken token)
         {
@@ -337,7 +406,7 @@ namespace Diga.WebView2.Wrapper
             this._WebView.remove_DocumentTitleChanged(token);
         }
 
-        
+
         void IWebView2WebView5.AddRemoteObject(string name, ref object @object)
         {
             this._WebView.AddRemoteObject(name, ref @object);
@@ -345,7 +414,7 @@ namespace Diga.WebView2.Wrapper
 
         public void AddRemoteObject(string name, ref object @object)
         {
-            ((IWebView2WebView5)this).AddRemoteObject(name, ref @object);
+            this.ToV5().AddRemoteObject(name, ref @object);
         }
         void IWebView2WebView5.RemoveRemoteObject(string name)
         {
@@ -354,7 +423,7 @@ namespace Diga.WebView2.Wrapper
 
         public void RemoveRemoteObject(string name)
         {
-            ((IWebView2WebView5)this).RemoveRemoteObject(name);
+            this.ToV5().RemoveRemoteObject(name);
         }
         void IWebView2WebView5.OpenDevToolsWindow()
         {
@@ -363,7 +432,7 @@ namespace Diga.WebView2.Wrapper
 
         public void OpenDevToolsWindow()
         {
-            ((IWebView2WebView5)this).OpenDevToolsWindow();
+            this.ToV5().OpenDevToolsWindow();
         }
         void IWebView2WebView5.add_ContainsFullScreenElementChanged(IWebView2ContainsFullScreenElementChangedEventHandler eventHandler,
             out EventRegistrationToken token)
@@ -377,7 +446,7 @@ namespace Diga.WebView2.Wrapper
         }
 
         int IWebView2WebView5.ContainsFullScreenElement => this._WebView.ContainsFullScreenElement;
-        public bool ContainsFullScreenElement => new BOOL(((IWebView2WebView5)this).ContainsFullScreenElement);
+        public bool ContainsFullScreenElement => new BOOL(this.ToV5().ContainsFullScreenElement);
         void IWebView2WebView5.add_WebResourceRequested(IWebView2WebResourceRequestedEventHandler eventHandler,
             out EventRegistrationToken token)
         {
@@ -389,8 +458,8 @@ namespace Diga.WebView2.Wrapper
             this._WebView.remove_WebResourceRequested(token);
         }
 
-       
-       
+
+
 
         protected virtual void OnNavigationStarting(NavigationStartingEventArgs e)
         {
@@ -495,7 +564,7 @@ namespace Diga.WebView2.Wrapper
 
         tagRECT IWebView2WebView5.Bounds { get => this._WebView.Bounds; set => this._WebView.Bounds = value; }
         double IWebView2WebView5.ZoomFactor { get => this._WebView.ZoomFactor; set => this._WebView.ZoomFactor = value; }
-        int IWebView2WebView5.IsVisible { get => this._WebView.IsVisible; set => this._WebView.IsVisible= value; }
+        int IWebView2WebView5.IsVisible { get => this._WebView.IsVisible; set => this._WebView.IsVisible = value; }
 
         void IWebView2WebView5.Close()
         {
@@ -664,7 +733,7 @@ namespace Diga.WebView2.Wrapper
 
         void IWebView2WebView4.remove_PermissionRequested(EventRegistrationToken token)
         {
-           this._WebView.remove_PermissionRequested(token);
+            this._WebView.remove_PermissionRequested(token);
         }
 
         void IWebView2WebView4.add_ProcessFailed(IWebView2ProcessFailedEventHandler eventHandler, out EventRegistrationToken token)
@@ -702,7 +771,7 @@ namespace Diga.WebView2.Wrapper
             this._WebView.Reload();
         }
 
-        tagRECT IWebView2WebView4.Bounds { get =>this._WebView.Bounds; set => this._WebView.Bounds = value; }
+        tagRECT IWebView2WebView4.Bounds { get => this._WebView.Bounds; set => this._WebView.Bounds = value; }
         double IWebView2WebView4.ZoomFactor { get => this._WebView.ZoomFactor; set => this._WebView.ZoomFactor = value; }
         int IWebView2WebView4.IsVisible { get => this._WebView.IsVisible; set => this._WebView.IsVisible = value; }
 
@@ -984,7 +1053,7 @@ namespace Diga.WebView2.Wrapper
 
         tagRECT IWebView2WebView3.Bounds { get => this._WebView.Bounds; set => this._WebView.Bounds = value; }
         double IWebView2WebView3.ZoomFactor { get => this._WebView.ZoomFactor; set => throw new NotImplementedException(); }
-        int IWebView2WebView3.IsVisible { get => this._WebView.IsVisible; set => this._WebView.IsVisible=value; }
+        int IWebView2WebView3.IsVisible { get => this._WebView.IsVisible; set => this._WebView.IsVisible = value; }
 
         void IWebView2WebView3.PostWebMessageAsJson(string webMessageAsJson)
         {
@@ -1064,7 +1133,7 @@ namespace Diga.WebView2.Wrapper
 
         void IWebView2WebView3.remove_DocumentTitleChanged(EventRegistrationToken token)
         {
-           this._WebView.remove_DocumentTitleChanged(token);
+            this._WebView.remove_DocumentTitleChanged(token);
         }
 
         void IWebView2WebView3.DocumentTitle(out string title)
@@ -1074,7 +1143,7 @@ namespace Diga.WebView2.Wrapper
 
         IWebView2Settings IWebView2WebView.Settings => this._WebView.Settings;
 
-        string IWebView2WebView.Source => throw new NotImplementedException();
+        string IWebView2WebView.Source => this._WebView.Source;
 
         void IWebView2WebView.Navigate(string uri)
         {
@@ -1153,7 +1222,7 @@ namespace Diga.WebView2.Wrapper
 
         void IWebView2WebView.add_LostFocus(IWebView2FocusChangedEventHandler eventHandler, out EventRegistrationToken token)
         {
-           this._WebView.add_LostFocus(eventHandler, out token);
+            this._WebView.add_LostFocus(eventHandler, out token);
         }
 
         void IWebView2WebView.remove_LostFocus(EventRegistrationToken token)
@@ -1199,7 +1268,7 @@ namespace Diga.WebView2.Wrapper
 
         void IWebView2WebView.remove_PermissionRequested(EventRegistrationToken token)
         {
-           this._WebView.remove_PermissionRequested(token);
+            this._WebView.remove_PermissionRequested(token);
         }
 
         void IWebView2WebView.add_ProcessFailed(IWebView2ProcessFailedEventHandler eventHandler, out EventRegistrationToken token)
@@ -1241,8 +1310,8 @@ namespace Diga.WebView2.Wrapper
 
         public tagRECT Bounds
         {
-            get => ((IWebView2WebView) this).Bounds;
-            set => ((IWebView2WebView) this).Bounds = value;
+            get => ((IWebView2WebView)this).Bounds;
+            set => ((IWebView2WebView)this).Bounds = value;
         }
 
         double IWebView2WebView.ZoomFactor { get => this._WebView.ZoomFactor; set => this._WebView.ZoomFactor = value; }
@@ -1312,6 +1381,26 @@ namespace Diga.WebView2.Wrapper
         void IWebView2WebView.GoForward()
         {
             this._WebView.GoForward();
+        }
+
+        protected virtual void OnAcceleratorKeyPressed(AcceleratorKeyPressedEventArgs e)
+        {
+            AcceleratorKeyPressed?.Invoke(this, e);
+        }
+
+        protected virtual void OnContainsFullScreenElementChanged(WebView2EventArgs e)
+        {
+            ContainsFullScreenElementChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnDocumentStateChanged(DocumentStateChangedEventArgs e)
+        {
+            DocumentStateChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnDocumentTitleChanged(WebView2EventArgs e)
+        {
+            DocumentTitleChanged?.Invoke(this, e);
         }
     }
 }

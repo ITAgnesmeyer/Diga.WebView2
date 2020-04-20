@@ -30,6 +30,13 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<SourceChangedEventArgs> SourceChanged;
         public event EventHandler<WebView2EventArgs> HistoryChanged;
         public event EventHandler<NavigationCompletedEventArgs> NavigationCompleted;
+#if VS8355
+        public event EventHandler<AcceleratorKeyPressedEventArgs> AcceleratorKeyPressed;
+        public event EventHandler<WebView2EventArgs> ContainsFullScreenElementChanged;
+        public event EventHandler<DocumentStateChangedEventArgs> DocumentStateChanged;
+        public event EventHandler<WebView2EventArgs> DocumentTitleChanged;
+#endif
+
         public string HtmlContent
         {
             get => _HtmlContent;
@@ -280,6 +287,14 @@ namespace Diga.WebView2.WinForms
                 _WebWindow.Created += OnWebWindowCreated;
                 _WebWindow.BeforeCreate += OnWebWindowBeforeCreate;
                 _WebWindow.NavigateStart += OnNavigationStartIntern;
+                #if VS8355
+
+                _WebWindow.AcceleratorKeyPressed += OnAcceleratorKeyPressedIntern;
+                _WebWindow.ContainsFullScreenElementChanged += OnContainsFullScreenElementChangedIntern;
+                _WebWindow.DocumentStateChanged += OnDocumentStateChangedIntern;
+                _WebWindow.DocumentTitleChanged += OnDocumentTitleChangedIntern;
+                #endif
+                
                 _WebWindow.ContentLoading += OnContentLoadingIntern;
                 _WebWindow.SourceChanged += OnSourceChangedIntern;
                 _WebWindow.HistoryChanged += OnHistoryChangedIntern;
@@ -289,6 +304,27 @@ namespace Diga.WebView2.WinForms
             }
         }
 
+       
+
+#if VS8355
+        private void OnDocumentTitleChangedIntern(object sender, WebView2EventArgs e)
+        {
+            OnDocumentTitleChanged(e);
+        }
+
+        private void OnDocumentStateChangedIntern(object sender, DocumentStateChangedEventArgs e)
+        {
+            OnDocumentStateChanged(e);
+        }
+        private void OnContainsFullScreenElementChangedIntern(object sender, WebView2EventArgs e)
+        {
+            OnContainsFullScreenElementChanged(e);
+        }
+        private void OnAcceleratorKeyPressedIntern(object sender, AcceleratorKeyPressedEventArgs e)
+        {
+            OnAcceleratorKeyPressed(e);
+        }
+        #endif
         private void OnNavigationCompletedIntern(object sender, NavigationCompletedEventArgs e)
         {
             OnNavigationCompleted(e);
@@ -346,5 +382,28 @@ namespace Diga.WebView2.WinForms
         {
             NavigationCompleted?.Invoke(this, e);
         }
+#if VS8355
+
+        protected virtual void OnAcceleratorKeyPressed(AcceleratorKeyPressedEventArgs e)
+        {
+            AcceleratorKeyPressed?.Invoke(this, e);
+        }
+
+        protected virtual void OnContainsFullScreenElementChanged(WebView2EventArgs e)
+        {
+            ContainsFullScreenElementChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnDocumentStateChanged(DocumentStateChangedEventArgs e)
+        {
+            DocumentStateChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnDocumentTitleChanged(WebView2EventArgs e)
+        {
+            DocumentTitleChanged?.Invoke(this, e);
+        }
+#endif
+
     }
 }

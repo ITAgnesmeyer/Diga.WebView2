@@ -114,10 +114,8 @@
             this.webView1.IsScriptEnabled = true;
             this.webView1.IsStatusBarEnabled = false;
             this.webView1.IsWebMessageEnabled = true;
-            
             this.webView1.Location = new System.Drawing.Point(0, 0);
             this.webView1.Name = "webView1";
-           
             this.webView1.Size = new System.Drawing.Size(800, 418);
             this.webView1.TabIndex = 0;
             this.webView1.Url = "https://www.itagnesmeyer.de";
@@ -126,6 +124,7 @@
             this.webView1.SourceChanged += new System.EventHandler<Diga.WebView2.Wrapper.SourceChangedEventArgs>(this.webView1_SourceChanged);
             this.webView1.HistoryChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_HistoryChanged);
             this.webView1.NavigationCompleted += new System.EventHandler<Diga.WebView2.Wrapper.NavigationCompletedEventArgs>(this.webView1_NavigationCompleted);
+            this.webView1.AcceleratorKeyPressed += new System.EventHandler<Diga.WebView2.Wrapper.AcceleratorKeyPressedEventArgs>(this.webView1_AcceleratorKeyPressed);
             // 
             // Form1
             // 

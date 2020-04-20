@@ -15,8 +15,12 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<SourceChangedEventArgs> SourceChanged;
         public event EventHandler<WebView2EventArgs> HistoryChanged;
         public event EventHandler<NavigationCompletedEventArgs> NavigationCompleted;
+        public event EventHandler<AcceleratorKeyPressedEventArgs> AcceleratorKeyPressed;
+        public event EventHandler<WebView2EventArgs> ContainsFullScreenElementChanged;
+        public event EventHandler<DocumentStateChangedEventArgs> DocumentStateChanged;
+        public event EventHandler<WebView2EventArgs> DocumentTitleChanged;
         private WebView2Settings _Settings;
-
+        private string _BrowserInfo;
         public WebView2Control(IntPtr parentHandle) : this(parentHandle, string.Empty, string.Empty, string.Empty)
         {
 
@@ -43,7 +47,7 @@ namespace Diga.WebView2.Wrapper
             handler.PrepareHostCreate += OnBeforeHostCreate;
             string browserInfo;
             Native.GetWebView2BrowserVersionInfo(this.BrowserExecutableFolder, out browserInfo);
-
+            this._BrowserInfo = browserInfo;
             Native.CreateWebView2EnvironmentWithDetails(this.BrowserExecutableFolder, this.UserDataFolder, this.AdditionalBrowserArguments, handler);
             //handler.HostCompleted-=OnHostCompleted;
             //handler.BeforeEnvironmentCompleted-=OnBeforeEnvironmentCompleted;
@@ -51,6 +55,7 @@ namespace Diga.WebView2.Wrapper
             //handler.PrepareHostCreate-= OnBeforeHostCreate;
         }
 
+        public string BrowserInfo => this._BrowserInfo;
         private void OnBeforeHostCreate(object sender, BeforeHostCreateEventArgs e)
         {
             OnBeforeCreate(new BeforeCreateEventArgs(e.Settings));
@@ -73,24 +78,48 @@ namespace Diga.WebView2.Wrapper
             this.WebView = new WebView2View( e.WebView);
             this.WebView.NavigationStarting += OnNavigateStartIntern;
             this.WebView.ContentLoading += OnContentLoadingIntern;
-            this.WebView.SourceChanged += OnSourceChangedInternal;
-            this.WebView.HistoryChanged += OnHistoryChangedInternal;
-            this.WebView.NavigationCompleted+= OnNavigationCompletedInternal;
+            this.WebView.SourceChanged += OnSourceChangedIntern;
+            this.WebView.HistoryChanged += OnHistoryChangedIntern;
+            this.WebView.NavigationCompleted+= OnNavigationCompletedIntern;
+            this.WebView.AcceleratorKeyPressed += OnAcceleratorKeyPressedIntern;
+            this.WebView.ContainsFullScreenElementChanged += OnContainsFullScreenElementChangedIntern;
+            this.WebView.DocumentStateChanged += OnDocumentStateChangedIntern;
+            this.WebView.DocumentTitleChanged += OnDocumentTitleChangedIntern;
             this._Settings = new WebView2Settings(this.WebView.Settings);
             OnCreated();
         }
 
-        private void OnNavigationCompletedInternal(object sender, NavigationCompletedEventArgs e)
+        private void OnDocumentTitleChangedIntern(object sender, WebView2EventArgs e)
+        {
+            OnDocumentTitleChanged(e);
+        }
+
+        private void OnDocumentStateChangedIntern(object sender, DocumentStateChangedEventArgs e)
+        {
+            OnDocumentStateChanged(e);
+        }
+
+        private void OnContainsFullScreenElementChangedIntern(object sender, WebView2EventArgs e)
+        {
+            OnContainsFullScreenElementChanged(e);
+        }
+
+        private void OnAcceleratorKeyPressedIntern(object sender, AcceleratorKeyPressedEventArgs e)
+        {
+            OnAcceleratorKeyPressed(e);
+        }
+
+        private void OnNavigationCompletedIntern(object sender, NavigationCompletedEventArgs e)
         {
             OnNavigationCompleted(e);
         }
 
-        private void OnHistoryChangedInternal(object sender, WebView2EventArgs e)
+        private void OnHistoryChangedIntern(object sender, WebView2EventArgs e)
         {
             OnHistoryChanged(e);
         }
 
-        private void OnSourceChangedInternal(object sender, SourceChangedEventArgs e)
+        private void OnSourceChangedIntern(object sender, SourceChangedEventArgs e)
         {
             OnSourceChanged(e);
         }
@@ -198,6 +227,26 @@ namespace Diga.WebView2.Wrapper
         protected virtual void OnNavigationCompleted(NavigationCompletedEventArgs e)
         {
             NavigationCompleted?.Invoke(this, e);
+        }
+
+        protected virtual void OnAcceleratorKeyPressed(AcceleratorKeyPressedEventArgs e)
+        {
+            AcceleratorKeyPressed?.Invoke(this, e);
+        }
+
+        protected virtual void OnContainsFullScreenElementChanged(WebView2EventArgs e)
+        {
+            ContainsFullScreenElementChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnDocumentStateChanged(DocumentStateChangedEventArgs e)
+        {
+            DocumentStateChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnDocumentTitleChanged(WebView2EventArgs e)
+        {
+            DocumentTitleChanged?.Invoke(this, e);
         }
     }
 }
