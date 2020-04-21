@@ -87,7 +87,7 @@ namespace Diga.WebView2.Wrapper
             
             
             this.WebView = new WebView2View( e.WebView);
-            this.WebView.AddWebResourceRequestedFilter("*", WebResourceContext.All);
+            
             this.WebView.NavigationStarting += OnNavigateStartIntern;
             this.WebView.ContentLoading += OnContentLoadingIntern;
             this.WebView.SourceChanged += OnSourceChangedIntern;

@@ -129,6 +129,7 @@ namespace Diga.WebView2.Wrapper
             webMessageReceivedHandler.WebMessageReceived += OnWebMessageReceivedIntern;
             v5.add_WebMessageReceived(webMessageReceivedHandler, out this._WebMessageReceivedToken);
 
+            v5.AddWebResourceRequestedFilter("*", WEBVIEW2_WEB_RESOURCE_CONTEXT.WEBVIEW2_WEB_RESOURCE_CONTEXT_ALL);
             WebResourceRequestedEventHandler webResourceRequestedHanlder = new WebResourceRequestedEventHandler();
             webResourceRequestedHanlder.WebResourceRequested += OnWebResourceRequestedIntern;
             v5.add_WebResourceRequested(webResourceRequestedHanlder, out this._WebResourceRequestedToken);
