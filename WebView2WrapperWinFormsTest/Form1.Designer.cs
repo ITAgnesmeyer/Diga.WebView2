@@ -132,6 +132,9 @@
             this.webView1.WebViewGotFocus += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_WebViewGotFocus);
             this.webView1.WebViewLostFocus += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_WebViewLostFocus);
             this.webView1.MoveFocusRequested += new System.EventHandler<Diga.WebView2.Wrapper.MoveFocusRequestedEventArgs>(this.webView1_MoveFocusRequested);
+            this.webView1.PermissionRequested += new System.EventHandler<Diga.WebView2.Wrapper.PermissionRequestedEventArgs>(this.webView1_PermissionRequested);
+            this.webView1.WebMessageReceived += new System.EventHandler<Diga.WebView2.Wrapper.WebMessageReceivedEventArgs>(this.webView1_WebMessageReceived);
+            this.webView1.WebResourceRequested += new System.EventHandler<Diga.WebView2.Wrapper.WebResourceRequestedEventArgs>(this.webView1_WebResourceRequested);
             // 
             // Form1
             // 

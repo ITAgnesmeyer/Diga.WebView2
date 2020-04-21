@@ -23,6 +23,12 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<WebView2EventArgs> GotFocus;
         public event EventHandler<WebView2EventArgs> LostFocus;
         public event EventHandler<MoveFocusRequestedEventArgs> MoveFocusRequested;
+        public event EventHandler<NewWindowRequestedEventArgs> NewWindowRequested;
+        public event EventHandler<PermissionRequestedEventArgs> PermissionRequested;
+        public event EventHandler<ProcessFailedEventArgs> ProcessFailed;
+        public event EventHandler<ScriptDialogOpeningEventArgs> ScriptDialogOpening;
+        public event EventHandler<WebMessageReceivedEventArgs> WebMessageReceived;
+        public event EventHandler<WebResourceRequestedEventArgs> WebResourceRequested;
         private WebView2Settings _Settings;
         private string _BrowserInfo;
         public WebView2Control(IntPtr parentHandle) : this(parentHandle, string.Empty, string.Empty, string.Empty)
@@ -80,6 +86,7 @@ namespace Diga.WebView2.Wrapper
             
             
             this.WebView = new WebView2View( e.WebView);
+            this.WebView.AddWebResourceRequestedFilter("*", WebResourceContext.All);
             this.WebView.NavigationStarting += OnNavigateStartIntern;
             this.WebView.ContentLoading += OnContentLoadingIntern;
             this.WebView.SourceChanged += OnSourceChangedIntern;
@@ -92,9 +99,46 @@ namespace Diga.WebView2.Wrapper
             this.WebView.FrameNavigationStarting += OnFrameNavigationStartingIntern;
             this.WebView.LostFocus += OnLostFocusIntern;
             this.WebView.GotFocus+=OnGotFocusIntern;
+            this.WebView.NewWindowRequested += OnNewWindowRequestedIntern;
             this.WebView.MoveFocusRequested+=OnMoveFocusRequestedIntern;
+            this.WebView.PermissionRequested += OnPermissionRequestedIntern;
+            this.WebView.ProcessFailed += OnProcessFailedIntern;
+            this.WebView.ScriptDialogOpening += OnScriptDialogOpeningIntern;
+            this.WebView.WebMessageReceived += OnWebMessageReceivedIntern;
+            this.WebView.WebResourceRequested += OnWebResourceRequestedIntern;
+            
             this._Settings = new WebView2Settings(this.WebView.Settings);
             OnCreated();
+        }
+
+        private void OnWebResourceRequestedIntern(object sender, WebResourceRequestedEventArgs e)
+        {
+            OnWebResourceRequested(e);
+        }
+
+        private void OnWebMessageReceivedIntern(object sender, WebMessageReceivedEventArgs e)
+        {
+            OnWebMessageReceived(e);
+        }
+
+        private void OnScriptDialogOpeningIntern(object sender, ScriptDialogOpeningEventArgs e)
+        {
+            OnScriptDialogOpening(e);
+        }
+
+        private void OnProcessFailedIntern(object sender, ProcessFailedEventArgs e)
+        {
+            OnProcessFailed(e);
+        }
+
+        private void OnPermissionRequestedIntern(object sender, PermissionRequestedEventArgs e)
+        {
+            OnPermissionRequested(e);
+        }
+
+        private void OnNewWindowRequestedIntern(object sender, NewWindowRequestedEventArgs e)
+        {
+            OnNewWindowRequested(e);
         }
 
         private void OnMoveFocusRequestedIntern(object sender, MoveFocusRequestedEventArgs e)
@@ -202,7 +246,7 @@ namespace Diga.WebView2.Wrapper
         public void GoForward()
         {
             this.WebView.GoForward();
-
+            
         }
 
         public void Reload()
@@ -295,6 +339,36 @@ namespace Diga.WebView2.Wrapper
         protected virtual void OnMoveFocusRequested(MoveFocusRequestedEventArgs e)
         {
             MoveFocusRequested?.Invoke(this, e);
+        }
+
+        protected virtual void OnNewWindowRequested(NewWindowRequestedEventArgs e)
+        {
+            NewWindowRequested?.Invoke(this, e);
+        }
+
+        protected virtual void OnPermissionRequested(PermissionRequestedEventArgs e)
+        {
+            PermissionRequested?.Invoke(this, e);
+        }
+
+        protected virtual void OnProcessFailed(ProcessFailedEventArgs e)
+        {
+            ProcessFailed?.Invoke(this, e);
+        }
+
+        protected virtual void OnScriptDialogOpening(ScriptDialogOpeningEventArgs e)
+        {
+            ScriptDialogOpening?.Invoke(this, e);
+        }
+
+        protected virtual void OnWebMessageReceived(WebMessageReceivedEventArgs e)
+        {
+            WebMessageReceived?.Invoke(this, e);
+        }
+
+        protected virtual void OnWebResourceRequested(WebResourceRequestedEventArgs e)
+        {
+            WebResourceRequested?.Invoke(this, e);
         }
     }
 }

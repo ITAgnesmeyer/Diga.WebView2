@@ -40,7 +40,12 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<WebView2EventArgs> WebViewGotFocus;
         public event EventHandler<WebView2EventArgs> WebViewLostFocus;
         public event EventHandler<MoveFocusRequestedEventArgs> MoveFocusRequested;
-
+        public event EventHandler<NewWindowRequestedEventArgs> NewWindowRequested;
+        public event EventHandler<PermissionRequestedEventArgs> PermissionRequested;
+        public event EventHandler<ProcessFailedEventArgs> ProcessFailed;
+        public event EventHandler<ScriptDialogOpeningEventArgs> ScriptDialogOpening;
+        public event EventHandler<WebMessageReceivedEventArgs> WebMessageReceived;
+        public event EventHandler<WebResourceRequestedEventArgs> WebResourceRequested;
 #endif
 
         public string HtmlContent
@@ -303,6 +308,12 @@ namespace Diga.WebView2.WinForms
                 _WebWindow.GotFocus += OnGotFocusIntern;
                 _WebWindow.LostFocus += OnLostFocusIntern;
                 _WebWindow.MoveFocusRequested += OnMoveFocusRequestedIntern;
+                _WebWindow.NewWindowRequested += OnNewWindowRequestedIntern;
+                _WebWindow.PermissionRequested += OnPermissionRequestedIntern;
+                _WebWindow.ProcessFailed += OnProcessFailedIntern;
+                _WebWindow.ScriptDialogOpening += OnScriptDialogOpeningIntern;
+                _WebWindow.WebMessageReceived += OnWebMessageReceivedIntern;
+                _WebWindow.WebResourceRequested += OnWebResourceRequestedIntern;
 #endif
 
                 _WebWindow.ContentLoading += OnContentLoadingIntern;
@@ -317,9 +328,32 @@ namespace Diga.WebView2.WinForms
         
 
 
-
-
 #if VS8355
+        private void OnWebResourceRequestedIntern(object sender, WebResourceRequestedEventArgs e)
+        {
+            OnWebResourceRequested(e);
+        }
+        private void OnWebMessageReceivedIntern(object sender, WebMessageReceivedEventArgs e)
+        {
+            OnWebMessageReceived(e);
+        }
+        private void OnScriptDialogOpeningIntern(object sender, ScriptDialogOpeningEventArgs e)
+        {
+            OnScriptDialogOpening(e);
+        }
+        private void OnProcessFailedIntern(object sender, ProcessFailedEventArgs e)
+        {
+            OnProcessFailed(e);
+        }
+
+        private void OnPermissionRequestedIntern(object sender, PermissionRequestedEventArgs e)
+        {
+            OnPermissionRequested(e);
+        }
+        private void OnNewWindowRequestedIntern(object sender, NewWindowRequestedEventArgs e)
+        {
+            OnNewWindowRequested(e);
+        }
         private void OnMoveFocusRequestedIntern(object sender, MoveFocusRequestedEventArgs e)
         {
             OnMoveFocusRequested(e);
@@ -451,9 +485,34 @@ namespace Diga.WebView2.WinForms
         {
             MoveFocusRequested?.Invoke(this, e);
         }
+        protected virtual void OnNewWindowRequested(NewWindowRequestedEventArgs e)
+        {
+            NewWindowRequested?.Invoke(this, e);
+        }
+        protected virtual void OnPermissionRequested(PermissionRequestedEventArgs e)
+        {
+            PermissionRequested?.Invoke(this, e);
+        }
+        protected virtual void OnProcessFailed(ProcessFailedEventArgs e)
+        {
+            ProcessFailed?.Invoke(this, e);
+        }
+        protected virtual void OnScriptDialogOpening(ScriptDialogOpeningEventArgs e)
+        {
+            ScriptDialogOpening?.Invoke(this, e);
+        }
+        protected virtual void OnWebMessageReceived(WebMessageReceivedEventArgs e)
+        {
+            WebMessageReceived?.Invoke(this, e);
+        }
+
+        protected virtual void OnWebResourceRequested(WebResourceRequestedEventArgs e)
+        {
+            WebResourceRequested?.Invoke(this, e);
+        }
+
 #endif
 
 
-        
     }
 }

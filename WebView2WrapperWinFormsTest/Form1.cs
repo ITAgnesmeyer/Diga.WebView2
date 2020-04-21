@@ -61,17 +61,17 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_DocumentStateChanged(object sender, DocumentStateChangedEventArgs e)
         {
-            MessageBox.Show(this, "webView1_DocumentStateChanged");
+            //MessageBox.Show(this, "webView1_DocumentStateChanged");
         }
 
         private void webView1_DocumentTitleChanged(object sender, WebView2EventArgs e)
         {
-            MessageBox.Show(this, "webView1_DocumentTitleChanged");
+            //MessageBox.Show(this, "webView1_DocumentTitleChanged");
         }
 
         private void webView1_ContainsFullScreenElementChanged(object sender, WebView2EventArgs e)
         {
-            MessageBox.Show(this, "webView1_ContainsFullScreenElementChanged");
+           // MessageBox.Show(this, "webView1_ContainsFullScreenElementChanged");
         }
 
         private void webView1_WebViewGotFocus(object sender, WebView2EventArgs e)
@@ -81,17 +81,32 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_FrameNavigationStarting(object sender, NavigationStartingEventArgs e)
         {
-            MessageBox.Show(this, "webView1_FrameNavigationStarting");
+            //MessageBox.Show(this, "webView1_FrameNavigationStarting");
         }
 
         private void webView1_WebViewLostFocus(object sender, WebView2EventArgs e)
         {
-            MessageBox.Show(this, "webView1_WebViewLostFocus");
+            //MessageBox.Show(this, "webView1_WebViewLostFocus");
         }
 
         private void webView1_MoveFocusRequested(object sender, MoveFocusRequestedEventArgs e)
         {
-            MessageBox.Show(this, "webView1_MoveFocusRequested");
+            //MessageBox.Show(this, "webView1_MoveFocusRequested");
+        }
+
+        private void webView1_PermissionRequested(object sender, PermissionRequestedEventArgs e)
+        {
+            //MessageBox.Show(this, "webView1_PermissionRequested");
+        }
+
+        private void webView1_WebMessageReceived(object sender, WebMessageReceivedEventArgs e)
+        {
+            //MessageBox.Show(this, "webView1_WebMessageReceived");
+        }
+
+        private void webView1_WebResourceRequested(object sender, WebResourceRequestedEventArgs e)
+        {
+            MessageBox.Show(this, "webView1_WebResourceRequested");
         }
     }
 }

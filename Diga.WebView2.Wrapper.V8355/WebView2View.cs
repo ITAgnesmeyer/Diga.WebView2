@@ -23,7 +23,12 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<WebView2EventArgs> GotFocus;
         public event EventHandler<WebView2EventArgs> LostFocus;
         public event EventHandler<MoveFocusRequestedEventArgs> MoveFocusRequested;
-
+        public event EventHandler<NewWindowRequestedEventArgs> NewWindowRequested;
+        public event EventHandler<PermissionRequestedEventArgs> PermissionRequested;
+        public event EventHandler<ProcessFailedEventArgs> ProcessFailed;
+        public event EventHandler<ScriptDialogOpeningEventArgs> ScriptDialogOpening;
+        public event EventHandler<WebMessageReceivedEventArgs> WebMessageReceived;
+        public event EventHandler<WebResourceRequestedEventArgs> WebResourceRequested;
         public WebView2View(IWebView2WebView5 webView)
         {
             this._WebView = webView;
@@ -32,7 +37,7 @@ namespace Diga.WebView2.Wrapper
 
         private IWebView2WebView ToV0()
         {
-            return this._WebView;
+            return this;
 
         }
 
@@ -40,17 +45,17 @@ namespace Diga.WebView2.Wrapper
 
         private IWebView2WebView3 ToV3()
         {
-            return this._WebView;
+            return this;
         }
 
         private IWebView2WebView4 ToV4()
         {
-            return this._WebView;
+            return this;
         }
 
         private IWebView2WebView5 ToV5()
         {
-            return this._WebView;
+            return this;
         }
         private void RegisterEvents()
         {
@@ -59,9 +64,8 @@ namespace Diga.WebView2.Wrapper
             IWebView2WebView3 v3 = this.ToV3();
             IWebView2WebView4 v4 = this.ToV4();
             IWebView2WebView5 v5 = this.ToV5();
-            NavigationStartingEventHandler navigationStartingHandler = new NavigationStartingEventHandler();
-            navigationStartingHandler.NavigationStarting += OnNavigationStartingIntern;
-            v5.add_NavigationStarting(navigationStartingHandler, out this._NavigationStartingToken);
+           
+
 
             AcceleratorKeyPressedEventHandler acceleratorKeyPressedEventHandler = new AcceleratorKeyPressedEventHandler();
             acceleratorKeyPressedEventHandler.AcceleratorKeyPressed += OnAcceleratorKeyPressedIntern;
@@ -90,19 +94,79 @@ namespace Diga.WebView2.Wrapper
             gotFocusHandler.FocusChanged += OnGotFocusIntern;
             v5.add_GotFocus(gotFocusHandler, out this._GotFocusToken);
 
-            FocusChangedEventHandler lostFocusHanlder = new FocusChangedEventHandler();
-            lostFocusHanlder.FocusChanged += OnLostFocusIntern;
-            v5.add_LostFocus(lostFocusHanlder, out this._LostFocusToken);
+            FocusChangedEventHandler lostFocusHandler = new FocusChangedEventHandler();
+            lostFocusHandler.FocusChanged += OnLostFocusIntern;
+            v5.add_LostFocus(lostFocusHandler, out this._LostFocusToken);
 
             MoveFocusRequestedEventHandler moveFocusRequestedHandler = new MoveFocusRequestedEventHandler();
             moveFocusRequestedHandler.MoveFocusRequested += OnMoveFocusRequestedIntern;
             v5.add_MoveFocusRequested(moveFocusRequestedHandler, out this._MoveFocusRequestedToken);
+
+            NavigationStartingEventHandler navigationStartingHandler = new NavigationStartingEventHandler();
+            navigationStartingHandler.NavigationStarting += OnNavigationStartingIntern;
+            v5.add_NavigationStarting(navigationStartingHandler, out this._NavigationStartingToken);
 
             NavigationCompletedEventHandler navigationCompletedHandler = new NavigationCompletedEventHandler();
             navigationCompletedHandler.NavigaionCompleted += OnNavigationCompletedIntern;
             v5.add_NavigationCompleted(navigationCompletedHandler,
                 out this._NavigationCompletedToken);
 
+            NewWindowRequestedEventHandler newWindowRequested = new NewWindowRequestedEventHandler();
+            newWindowRequested.NewWindowRequested += OnNewWindowRequestedIntern;
+            v5.add_NewWindowRequested(newWindowRequested, out this._NewWindowRequestedToken);
+
+            PermissionRequestedEventHandler permissionRequestedHandler = new PermissionRequestedEventHandler();
+            permissionRequestedHandler.PermissionRequested += OnPermissionRequestedIntern;
+            v5.add_PermissionRequested(permissionRequestedHandler, out this._PermissionRequestedHandler);
+
+            ProcessFailedEventHandler processFailedHandler = new ProcessFailedEventHandler();
+            processFailedHandler.ProcessFailed += OnProcessFailedIntern;
+            v5.add_ProcessFailed(processFailedHandler, out this._ProcessFailedToken);
+
+            ScriptDialogOpeningEventHandler scriptDialogOpeningHandler=new ScriptDialogOpeningEventHandler();
+            scriptDialogOpeningHandler.ScriptDialogOpening += OnScriptDialogOpeningIntern;
+            v5.add_ScriptDialogOpening(scriptDialogOpeningHandler, out this._ScriptDialogOpeningToken);
+
+            WebMessageReceivedEventHandler webMessageReceivedHandler= new WebMessageReceivedEventHandler();
+            webMessageReceivedHandler.WebMessageReceived += OnWebMessageReceivedIntern;
+            v5.add_WebMessageReceived(webMessageReceivedHandler, out this._WebMessageReceivedToken);
+
+            WebResourceRequestedEventHandler webResourceRequestedHanlder = new WebResourceRequestedEventHandler();
+            webResourceRequestedHanlder.WebResourceRequested += OnWebResourceRequestedIntern;
+            v5.add_WebResourceRequested(webResourceRequestedHanlder, out this._WebResourceRequestedToken);
+
+            
+
+        }
+
+        private void OnWebResourceRequestedIntern(object sender, WebResourceRequestedEventArgs e)
+        {
+            OnWebResourceRequested(e);
+        }
+
+        private void OnWebMessageReceivedIntern(object sender, WebMessageReceivedEventArgs e)
+        {
+            OnWebMessageReceived(e);
+        }
+
+        private void OnScriptDialogOpeningIntern(object sender, ScriptDialogOpeningEventArgs e)
+        {
+            OnScriptDialogOpening(e);
+        }
+
+        private void OnProcessFailedIntern(object sender, ProcessFailedEventArgs e)
+        {
+            OnProcessFailed(e);
+        }
+
+        private void OnPermissionRequestedIntern(object sender, PermissionRequestedEventArgs e)
+        {
+            OnPermissionRequested(e);
+        }
+
+        private void OnNewWindowRequestedIntern(object sender, NewWindowRequestedEventArgs e)
+        {
+            OnNewWindowRequested(e);
         }
 
         private void OnMoveFocusRequestedIntern(object sender, MoveFocusRequestedEventArgs e)
@@ -181,6 +245,13 @@ namespace Diga.WebView2.Wrapper
             this.ToV5().remove_GotFocus(this._GotFocusToken);
             this.ToV5().remove_LostFocus(this._LostFocusToken);
             this.ToV5().remove_MoveFocusRequested(this._MoveFocusRequestedToken);
+            this.ToV5().remove_NewWindowRequested(this._NewWindowRequestedToken);
+            this.ToV5().remove_PermissionRequested(this._PermissionRequestedHandler);
+            this.ToV5().remove_ProcessFailed(this._ProcessFailedToken);
+            this.ToV5().remove_ScriptDialogOpening(this._ScriptDialogOpeningToken);
+            this.ToV5().remove_WebMessageReceived(this._WebMessageReceivedToken);
+            this.ToV5().remove_WebResourceRequested(this._WebResourceRequestedToken);
+
         }
 
         private EventRegistrationToken _NavigationStartingToken;
@@ -196,6 +267,12 @@ namespace Diga.WebView2.Wrapper
         private EventRegistrationToken _GotFocusToken;
         private EventRegistrationToken _LostFocusToken;
         private EventRegistrationToken _MoveFocusRequestedToken;
+        private EventRegistrationToken _NewWindowRequestedToken;
+        private EventRegistrationToken _PermissionRequestedHandler;
+        private EventRegistrationToken _ProcessFailedToken;
+        private EventRegistrationToken _ScriptDialogOpeningToken;
+        private EventRegistrationToken _WebMessageReceivedToken;
+        private EventRegistrationToken _WebResourceRequestedToken;
 
         private void OnNavigationStartingIntern(object sender, NavigationStartingEventArgs e)
         {
@@ -650,11 +727,20 @@ namespace Diga.WebView2.Wrapper
             this._WebView.AddWebResourceRequestedFilter(uri, resourceContext);
         }
 
+        public void AddWebResourceRequestedFilter(string uri, WebResourceContext resourceContext)
+        {
+            this.ToV5().AddWebResourceRequestedFilter(uri, (WEBVIEW2_WEB_RESOURCE_CONTEXT) resourceContext);
+        }
+
         void IWebView2WebView5.RemoveWebResourceRequestedFilter(string uri, WEBVIEW2_WEB_RESOURCE_CONTEXT resourceContext)
         {
             this._WebView.RemoveWebResourceRequestedFilter(uri, resourceContext);
         }
 
+        public void RemoveWebResourceRequestedFilter(string uri, WebResourceContext resourceContext)
+        {
+            this.ToV5().RemoveWebResourceRequestedFilter(uri, (WEBVIEW2_WEB_RESOURCE_CONTEXT) resourceContext);
+        }
         IWebView2Settings IWebView2WebView4.Settings => this._WebView.Settings;
 
         string IWebView2WebView4.Source => this._WebView.Source;
@@ -1470,6 +1556,36 @@ namespace Diga.WebView2.Wrapper
         protected virtual void OnMoveFocusRequested(MoveFocusRequestedEventArgs e)
         {
             MoveFocusRequested?.Invoke(this, e);
+        }
+
+        protected virtual void OnNewWindowRequested(NewWindowRequestedEventArgs e)
+        {
+            NewWindowRequested?.Invoke(this, e);
+        }
+
+        protected virtual void OnPermissionRequested(PermissionRequestedEventArgs e)
+        {
+            PermissionRequested?.Invoke(this, e);
+        }
+
+        protected virtual void OnProcessFailed(ProcessFailedEventArgs e)
+        {
+            ProcessFailed?.Invoke(this, e);
+        }
+
+        protected virtual void OnScriptDialogOpening(ScriptDialogOpeningEventArgs e)
+        {
+            ScriptDialogOpening?.Invoke(this, e);
+        }
+
+        protected virtual void OnWebMessageReceived(WebMessageReceivedEventArgs e)
+        {
+            WebMessageReceived?.Invoke(this, e);
+        }
+
+        protected virtual void OnWebResourceRequested(WebResourceRequestedEventArgs e)
+        {
+            WebResourceRequested?.Invoke(this, e);
         }
     }
 }

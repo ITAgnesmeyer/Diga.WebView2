@@ -59,6 +59,7 @@
     <Compile Include="..\WebView2Wrapper\Types\Rectangle.cs">
       <Link>Types\Rectangle.cs</Link>
     </Compile>
+    <Compile Include="Deferral.cs" />
     <Compile Include="Handler\DocumentTitleChangedHanlder.cs" />
     <Compile Include="Handler\DocumentStateChangedEventHandler.cs" />
     <Compile Include="EventArguments\DocumentStateChangedEventArgs.cs" />
@@ -89,12 +90,34 @@
     <Compile Include="Handler\NavigationStartingEventHandler.cs" />
     <Compile Include="Handler\SourceChangedEventHandler.cs" />
     <Compile Include="Handler\ZoomFactorChangedEventHandler.cs" />
+    <Compile Include="HeaderItem.cs" />
+    <Compile Include="HttpHeadersCollectionIterator.cs" />
+    <Compile Include="HttpRequestHeaders.cs" />
     <Compile Include="KeyEventType.cs" />
     <Compile Include="MoveFocusReason.cs" />
     <Compile Include="EventArguments\MoveFocusRequestedEventArgs.cs" />
     <Compile Include="Handler\MoveFocusRequestedEventHandler.cs" />
+    <Compile Include="EventArguments\NewWindowRequestedEventArgs.cs" />
+    <Compile Include="Handler\NewWindowRequestedEventHandler.cs" />
+    <Compile Include="EventArguments\PermissionRequestedEventArgs.cs" />
+    <Compile Include="Handler\PermissionRequestedEventHandler.cs" />
+    <Compile Include="PermissionState.cs" />
+    <Compile Include="PermissionType.cs" />
     <Compile Include="PhysicalKeyStatus.cs" />
+    <Compile Include="EventArguments\ProcessFailedEventArgs.cs" />
+    <Compile Include="Handler\ProcessFailedEventHandler.cs" />
+    <Compile Include="ProcessFailedKind.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScriptDialogKind.cs" />
+    <Compile Include="EventArguments\ScriptDialogOpeningEventArgs.cs" />
+    <Compile Include="Handler\ScriptDialogOpeningEventHandler.cs" />
+    <Compile Include="EventArguments\WebMessageReceivedEventArgs.cs" />
+    <Compile Include="Handler\WebMessageReceivedEventHandler.cs" />
+    <Compile Include="StreamWrapper.cs" />
+    <Compile Include="WebResourceContext.cs" />
+    <Compile Include="WebResourceRequest.cs" />
+    <Compile Include="EventArguments\WebResourceRequestedEventArgs.cs" />
+    <Compile Include="Handler\WebResourceRequestedEventHandler.cs" />
     <Compile Include="WebView2Control.cs" />
     <Compile Include="WebView2Settings.cs" />
     <Compile Include="WebView2View.cs" />
