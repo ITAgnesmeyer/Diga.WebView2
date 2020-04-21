@@ -29,6 +29,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<ScriptDialogOpeningEventArgs> ScriptDialogOpening;
         public event EventHandler<WebMessageReceivedEventArgs> WebMessageReceived;
         public event EventHandler<WebResourceRequestedEventArgs> WebResourceRequested;
+        public event EventHandler<WebView2EventArgs> ZoomFactorChanged;
         private WebView2Settings _Settings;
         private string _BrowserInfo;
         public WebView2Control(IntPtr parentHandle) : this(parentHandle, string.Empty, string.Empty, string.Empty)
@@ -106,9 +107,14 @@ namespace Diga.WebView2.Wrapper
             this.WebView.ScriptDialogOpening += OnScriptDialogOpeningIntern;
             this.WebView.WebMessageReceived += OnWebMessageReceivedIntern;
             this.WebView.WebResourceRequested += OnWebResourceRequestedIntern;
-            
+            this.WebView.ZoomFactorChanged += OnZoomFactorChangedIntern;
             this._Settings = new WebView2Settings(this.WebView.Settings);
             OnCreated();
+        }
+
+        private void OnZoomFactorChangedIntern(object sender, WebView2EventArgs e)
+        {
+            OnZoomFactorChanged(e);
         }
 
         private void OnWebResourceRequestedIntern(object sender, WebResourceRequestedEventArgs e)
@@ -369,6 +375,11 @@ namespace Diga.WebView2.Wrapper
         protected virtual void OnWebResourceRequested(WebResourceRequestedEventArgs e)
         {
             WebResourceRequested?.Invoke(this, e);
+        }
+
+        protected virtual void OnZoomFactorChanged(WebView2EventArgs e)
+        {
+            ZoomFactorChanged?.Invoke(this, e);
         }
     }
 }

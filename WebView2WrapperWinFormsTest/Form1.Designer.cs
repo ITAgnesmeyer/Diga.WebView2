@@ -135,6 +135,7 @@
             this.webView1.PermissionRequested += new System.EventHandler<Diga.WebView2.Wrapper.PermissionRequestedEventArgs>(this.webView1_PermissionRequested);
             this.webView1.WebMessageReceived += new System.EventHandler<Diga.WebView2.Wrapper.WebMessageReceivedEventArgs>(this.webView1_WebMessageReceived);
             this.webView1.WebResourceRequested += new System.EventHandler<Diga.WebView2.Wrapper.WebResourceRequestedEventArgs>(this.webView1_WebResourceRequested);
+            this.webView1.ZoomFactorChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_ZoomFactorChanged);
             // 
             // Form1
             // 

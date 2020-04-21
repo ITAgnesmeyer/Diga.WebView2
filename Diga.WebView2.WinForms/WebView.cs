@@ -46,6 +46,7 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<ScriptDialogOpeningEventArgs> ScriptDialogOpening;
         public event EventHandler<WebMessageReceivedEventArgs> WebMessageReceived;
         public event EventHandler<WebResourceRequestedEventArgs> WebResourceRequested;
+        public event EventHandler<WebView2EventArgs> ZoomFactorChanged;
 #endif
 
         public string HtmlContent
@@ -314,6 +315,7 @@ namespace Diga.WebView2.WinForms
                 _WebWindow.ScriptDialogOpening += OnScriptDialogOpeningIntern;
                 _WebWindow.WebMessageReceived += OnWebMessageReceivedIntern;
                 _WebWindow.WebResourceRequested += OnWebResourceRequestedIntern;
+                _WebWindow.ZoomFactorChanged += OnZoomFactorChangedIntern;
 #endif
 
                 _WebWindow.ContentLoading += OnContentLoadingIntern;
@@ -325,10 +327,14 @@ namespace Diga.WebView2.WinForms
             }
         }
 
-        
-
+       
 
 #if VS8355
+        private void OnZoomFactorChangedIntern(object sender, WebView2EventArgs e)
+        {
+            OnZoomFactorChanged(e);
+        }
+
         private void OnWebResourceRequestedIntern(object sender, WebResourceRequestedEventArgs e)
         {
             OnWebResourceRequested(e);
@@ -510,9 +516,13 @@ namespace Diga.WebView2.WinForms
         {
             WebResourceRequested?.Invoke(this, e);
         }
-
+        protected virtual void OnZoomFactorChanged(WebView2EventArgs e)
+        {
+            ZoomFactorChanged?.Invoke(this, e);
+        }
 #endif
 
 
+      
     }
 }

@@ -29,6 +29,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<ScriptDialogOpeningEventArgs> ScriptDialogOpening;
         public event EventHandler<WebMessageReceivedEventArgs> WebMessageReceived;
         public event EventHandler<WebResourceRequestedEventArgs> WebResourceRequested;
+        public event EventHandler<WebView2EventArgs> ZoomFactorChanged;
         public WebView2View(IWebView2WebView5 webView)
         {
             this._WebView = webView;
@@ -59,10 +60,7 @@ namespace Diga.WebView2.Wrapper
         }
         private void RegisterEvents()
         {
-            IWebView2WebView v0 = this.ToV0();
-
-            IWebView2WebView3 v3 = this.ToV3();
-            IWebView2WebView4 v4 = this.ToV4();
+           
             IWebView2WebView5 v5 = this.ToV5();
            
 
@@ -134,9 +132,16 @@ namespace Diga.WebView2.Wrapper
             WebResourceRequestedEventHandler webResourceRequestedHanlder = new WebResourceRequestedEventHandler();
             webResourceRequestedHanlder.WebResourceRequested += OnWebResourceRequestedIntern;
             v5.add_WebResourceRequested(webResourceRequestedHanlder, out this._WebResourceRequestedToken);
+            ZoomFactorChangedEventHandler zoomFactorEventHandler = new ZoomFactorChangedEventHandler();
+            zoomFactorEventHandler.ZoomFactorChanged += OnZoomFactorChangedInternal;
+            v5.add_ZoomFactorChanged(zoomFactorEventHandler,out this._ZoomFactorToken);
 
-            
 
+        }
+
+        private void OnZoomFactorChangedInternal(object sender, WebView2EventArgs e)
+        {
+            OnZoomFactorChanged(e);
         }
 
         private void OnWebResourceRequestedIntern(object sender, WebResourceRequestedEventArgs e)
@@ -251,6 +256,7 @@ namespace Diga.WebView2.Wrapper
             this.ToV5().remove_ScriptDialogOpening(this._ScriptDialogOpeningToken);
             this.ToV5().remove_WebMessageReceived(this._WebMessageReceivedToken);
             this.ToV5().remove_WebResourceRequested(this._WebResourceRequestedToken);
+            this.ToV5().remove_ZoomFactorChanged(this._ZoomFactorToken);
 
         }
 
@@ -273,6 +279,7 @@ namespace Diga.WebView2.Wrapper
         private EventRegistrationToken _ScriptDialogOpeningToken;
         private EventRegistrationToken _WebMessageReceivedToken;
         private EventRegistrationToken _WebResourceRequestedToken;
+        private EventRegistrationToken _ZoomFactorToken;
 
         private void OnNavigationStartingIntern(object sender, NavigationStartingEventArgs e)
         {
@@ -1586,6 +1593,11 @@ namespace Diga.WebView2.Wrapper
         protected virtual void OnWebResourceRequested(WebResourceRequestedEventArgs e)
         {
             WebResourceRequested?.Invoke(this, e);
+        }
+
+        protected virtual void OnZoomFactorChanged(WebView2EventArgs e)
+        {
+            ZoomFactorChanged?.Invoke(this, e);
         }
     }
 }

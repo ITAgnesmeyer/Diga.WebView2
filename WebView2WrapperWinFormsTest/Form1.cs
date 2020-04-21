@@ -108,5 +108,10 @@ namespace WebView2WrapperWinFormsTest
         {
             MessageBox.Show(this, "webView1_WebResourceRequested");
         }
+
+        private void webView1_ZoomFactorChanged(object sender, WebView2EventArgs e)
+        {
+            MessageBox.Show(this, "webView1_ZoomFactorChanged");
+        }
     }
 }
