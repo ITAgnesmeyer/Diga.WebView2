@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using Diga.WebView2.WinForms;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
 
@@ -117,8 +118,16 @@ namespace WebView2WrapperWinFormsTest
                 byte[] bytes = new byte[1000];
                
             }
-
-            e.Response = this.webView1.GetResponse(new MemoryStream(Encoding.UTF8.GetBytes("<h1>test</h1>")), 200, "OK", "Content-Type: text/html");
+            
+            //e.Response = this.webView1.GetResponse(new MemoryStream(Encoding.UTF8.GetBytes("<h1>test</h1>")), 200, "OK", "Content-Type: text/html");
+            e.Response = this.webView1.CreateResponse(
+                new ResponseInfo(
+                    new MemoryStream(Encoding.UTF8.GetBytes("<h1>test</h1>")))
+                {
+                    StatusCode = 200,
+                    StatusText = "OK",
+                    ContentType = "Content-Type: text/html"
+                });
 
             if (e.Response?.Content != null)
             {

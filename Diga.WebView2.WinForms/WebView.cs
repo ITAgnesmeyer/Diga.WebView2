@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
@@ -530,16 +531,28 @@ private void ScriptToExecuteOnDocumentCreatedCompletedIntern(object sender, AddS
             ZoomFactorChanged?.Invoke(this, e);
         }
 
-        public WebResourceResponse GetResponse(Stream stream, int statusCode, string statusSring, string contentType)
+        public WebResourceResponse CreateResponse(ResponseInfo responseInfo)
         {
-            WebResourceResponse resp = null;
+            WebResourceResponse response = null;
             if (this.IsCreated)
             {
-                resp = this._WebWindow.GetResponseStream(stream, statusCode,statusSring, "",contentType);
+                response = this._WebWindow.GetResponseStream(responseInfo.Stream, responseInfo.StatusCode,
+                    responseInfo.StatusText, responseInfo.HeaderToString(), responseInfo.ContentType);
             }
 
-            return resp;
+            return response;
         }
+
+        //public WebResourceResponse GetResponse(Stream stream, int statusCode, string statusSring, string contentType)
+        //{
+        //    WebResourceResponse resp = null;
+        //    if (this.IsCreated)
+        //    {
+        //        resp = this._WebWindow.GetResponseStream(stream, statusCode,statusSring, "",contentType);
+        //    }
+
+        //    return resp;
+        //}
 
         protected virtual void OnScriptToExecuteOnDocumentCreatedCompleted(AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
         {
@@ -549,5 +562,36 @@ private void ScriptToExecuteOnDocumentCreatedCompletedIntern(object sender, AddS
 #endif
 
 
+    }
+
+    public class ResponseInfo
+    {
+        public ResponseInfo(Stream stream)
+        {
+            this.Stream = stream;
+            this.Header = new Dictionary<string, string>();
+        }
+        public Stream Stream{get;}
+        public int StatusCode{get;set;}
+        public string StatusText{get;set;}
+        public string ContentType{get;set;}
+        public Dictionary<string,string> Header{get;}
+
+        public string HeaderToString()
+        {
+            string headerString = "";
+            foreach (var headerValue in this.Header)
+            {
+                headerString += headerValue.Key + ":" + headerValue.Value;
+                headerString += "\r\n";
+            }
+
+            if (!string.IsNullOrEmpty(headerString))
+            {
+                headerString += "\r\n";
+            }
+
+            return headerString;
+        }
     }
 }
