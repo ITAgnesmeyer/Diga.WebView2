@@ -6,7 +6,7 @@ using Diga.WebView2.Wrapper.Types;
 namespace Diga.WebView2.Wrapper.Handler
 {
     public class
-       CoreWebView2CreateCoreWebView2EnvironmentCompletedHandler :
+        EnvironmentCompletedHandler :
           IWebView2CreateWebView2EnvironmentCompletedHandler
     {
         public IWebView2WebView5 WebView{get;private set;}
@@ -14,10 +14,10 @@ namespace Diga.WebView2.Wrapper.Handler
         public event EventHandler<EnvironmentCompletedHandlerArgs> BeforeEnvironmentCompleted;
         public event EventHandler<EnvironmentCompletedHandlerArgs> AfterEnvironmentCompleted;
 
-        public event EventHandler<CoreWebView2HostCompletedArgs> HostCompleted;
+        public event EventHandler<HostCompletedArgs> HostCompleted;
         public event EventHandler<BeforeHostCreateEventArgs> PrepareHostCreate;
 
-        public CoreWebView2CreateCoreWebView2EnvironmentCompletedHandler(IntPtr parentHandle)
+        public EnvironmentCompletedHandler(IntPtr parentHandle)
         {
             this.ParentHandle = parentHandle;
         }
@@ -25,7 +25,7 @@ namespace Diga.WebView2.Wrapper.Handler
         public void Invoke(int result, IWebView2Environment createdEnvironment)
         {
             IntPtr hWnd = this.ParentHandle;
-            var handler = new CoreWebView2CreateCoreWebView2HostCompletedHandler(this.ParentHandle);
+            var handler = new CreateWebViewCompletedHandler(this.ParentHandle);
             handler.HostCompleted += OnHostCompleted;
             handler.HostCompletedError += OnHostCompletedError;
             handler.BeforeHostCreate += OnBeforeHostCreate;
@@ -41,12 +41,12 @@ namespace Diga.WebView2.Wrapper.Handler
             OnPrepareHostCreate(e);
         }
 
-        private void OnHostCompletedError(object sender, CoreWebView2HostCompletedErrorArgs e)
+        private void OnHostCompletedError(object sender, HostCompletedErrorArgs e)
         {
             
         }
 
-        private void OnHostCompleted(object sender, CoreWebView2HostCompletedArgs e)
+        private void OnHostCompleted(object sender, HostCompletedArgs e)
         {
             //this.Host = e.Host;
             this.WebView = e.WebView;
@@ -63,7 +63,7 @@ namespace Diga.WebView2.Wrapper.Handler
             AfterEnvironmentCompleted?.Invoke(this, e);
         }
 
-        protected virtual void OnHostCompleted(CoreWebView2HostCompletedArgs e)
+        protected virtual void OnHostCompleted(HostCompletedArgs e)
         {
             HostCompleted?.Invoke(this, e);
         }

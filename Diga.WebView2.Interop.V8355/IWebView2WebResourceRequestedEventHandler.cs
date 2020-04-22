@@ -15,6 +15,6 @@ namespace Diga.WebView2.Interop
   public interface IWebView2WebResourceRequestedEventHandler
   {
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-    void Invoke([MarshalAs(UnmanagedType.Interface), In] IWebView2WebView webview, [MarshalAs(UnmanagedType.Interface), In] IWebView2WebResourceRequestedEventArgs args);
+    void Invoke([MarshalAs(UnmanagedType.Interface), In] IWebView2WebView webview, [MarshalAs(UnmanagedType.Interface), In] IWebView2WebResourceRequestedEventArgs2 args);
   }
 }

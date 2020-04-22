@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
@@ -30,6 +31,9 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<WebMessageReceivedEventArgs> WebMessageReceived;
         public event EventHandler<WebResourceRequestedEventArgs> WebResourceRequested;
         public event EventHandler<WebView2EventArgs> ZoomFactorChanged;
+
+        public event EventHandler<AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>
+            ScriptToExecuteOnDocumentCreatedCompleted;
         private WebView2Settings _Settings;
         private string _BrowserInfo;
         public WebView2Control(IntPtr parentHandle) : this(parentHandle, string.Empty, string.Empty, string.Empty)
@@ -51,7 +55,7 @@ namespace Diga.WebView2.Wrapper
         public string AdditionalBrowserArguments { get; }
         private void CreateWebView()
         {
-            var handler = new CoreWebView2CreateCoreWebView2EnvironmentCompletedHandler(this.ParentHandle);
+            var handler = new EnvironmentCompletedHandler(this.ParentHandle);
             handler.HostCompleted += OnHostCompleted;
             handler.BeforeEnvironmentCompleted += OnBeforeEnvironmentCompleted;
             handler.AfterEnvironmentCompleted += OnAfterEnvironmentCompleted;
@@ -74,20 +78,31 @@ namespace Diga.WebView2.Wrapper
 
         private void OnAfterEnvironmentCompleted(object sender, EnvironmentCompletedHandlerArgs e)
         {
-
+            this.Environment = e.Environment;
         }
+
+        private WebViewEnvironment Environment{get;set;}
 
         private void OnBeforeEnvironmentCompleted(object sender, EnvironmentCompletedHandlerArgs e)
         {
 
         }
 
-        private void OnHostCompleted(object sender, CoreWebView2HostCompletedArgs e)
+        public WebResourceResponse GetResponseStream(Stream stream, int statusCode, string statusText,string headers,  string contentType)
+        {
+            ManagedIStream mStream = new ManagedIStream(stream);
+            IWebView2WebResourceResponse responseInterface = null;
+            
+            this.Environment.CreateWebResourceResponse(mStream, 200, statusText, headers, ref responseInterface);
+            WebResourceResponse wrapper = new WebResourceResponse(responseInterface);
+            return wrapper;
+        }
+        private void OnHostCompleted(object sender, HostCompletedArgs e)
         {
             
             
             this.WebView = new WebView2View( e.WebView);
-            
+
             this.WebView.NavigationStarting += OnNavigateStartIntern;
             this.WebView.ContentLoading += OnContentLoadingIntern;
             this.WebView.SourceChanged += OnSourceChangedIntern;
@@ -105,11 +120,17 @@ namespace Diga.WebView2.Wrapper
             this.WebView.PermissionRequested += OnPermissionRequestedIntern;
             this.WebView.ProcessFailed += OnProcessFailedIntern;
             this.WebView.ScriptDialogOpening += OnScriptDialogOpeningIntern;
+            this.WebView.ScriptToExecuteOnDocumentCreatedCompleted += OnScriptToExecuteOnDocumentCreatedCompletedIntern;
             this.WebView.WebMessageReceived += OnWebMessageReceivedIntern;
             this.WebView.WebResourceRequested += OnWebResourceRequestedIntern;
             this.WebView.ZoomFactorChanged += OnZoomFactorChangedIntern;
             this._Settings = new WebView2Settings(this.WebView.Settings);
             OnCreated();
+        }
+
+        private void OnScriptToExecuteOnDocumentCreatedCompletedIntern(object sender, AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
+        {
+            OnScriptToExecuteOnDocumentCreatedCompleted(e);
         }
 
         private void OnZoomFactorChangedIntern(object sender, WebView2EventArgs e)
@@ -218,6 +239,7 @@ namespace Diga.WebView2.Wrapper
             set;
         }
 
+       
         
 
         public void DockToParent()
@@ -380,6 +402,11 @@ namespace Diga.WebView2.Wrapper
         protected virtual void OnZoomFactorChanged(WebView2EventArgs e)
         {
             ZoomFactorChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnScriptToExecuteOnDocumentCreatedCompleted(AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
+        {
+            ScriptToExecuteOnDocumentCreatedCompleted?.Invoke(this, e);
         }
     }
 }

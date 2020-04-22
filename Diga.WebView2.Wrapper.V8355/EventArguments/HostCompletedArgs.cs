@@ -2,9 +2,9 @@
 
 namespace Diga.WebView2.Wrapper.EventArguments
 {
-    public class CoreWebView2HostCompletedArgs : System.EventArgs
+    public class HostCompletedArgs : System.EventArgs
     {
-        public CoreWebView2HostCompletedArgs(IWebView2WebView5 webView)
+        public HostCompletedArgs(IWebView2WebView5 webView)
         {
             //this.Host = host;
             this.WebView = webView;

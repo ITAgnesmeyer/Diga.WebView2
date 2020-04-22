@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Text;
 using System.Windows.Forms;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
@@ -106,7 +109,25 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_WebResourceRequested(object sender, WebResourceRequestedEventArgs e)
         {
-            MessageBox.Show(this, "webView1_WebResourceRequested");
+            Debug.Print(e.Request.Uri);
+            Debug.Print(e.Request.Method);
+            
+            if (e.Request.Content != null)
+            {
+                byte[] bytes = new byte[1000];
+               
+            }
+
+            e.Response = this.webView1.GetResponse(new MemoryStream(Encoding.UTF8.GetBytes("<h1>test</h1>")), 200, "OK", "Content-Type: text/html");
+
+            if (e.Response?.Content != null)
+            {
+
+
+                Debug.Print(e.Response.ReasonPhrase);
+
+            }
+            
         }
 
         private void webView1_ZoomFactorChanged(object sender, WebView2EventArgs e)

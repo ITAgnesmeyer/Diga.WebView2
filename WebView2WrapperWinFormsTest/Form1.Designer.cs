@@ -105,7 +105,7 @@
             // webView1
             // 
             this.webView1.BackColor = System.Drawing.Color.Black;
-            this.webView1.DefaultContextMenusEnabled = false;
+            this.webView1.DefaultContextMenusEnabled = true;
             this.webView1.DefaultScriptDialogsEnabled = true;
             this.webView1.DevToolsEnabled = true;
             this.webView1.Dock = System.Windows.Forms.DockStyle.Fill;

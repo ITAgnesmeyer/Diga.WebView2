@@ -4,45 +4,46 @@ using Diga.WebView2.Wrapper.EventArguments;
 
 namespace Diga.WebView2.Wrapper.Handler
 {
-    public class CoreWebView2CreateCoreWebView2HostCompletedHandler : IWebView2CreateWebViewCompletedHandler
+    public class CreateWebViewCompletedHandler : IWebView2CreateWebViewCompletedHandler
     {
-        public event EventHandler<CoreWebView2HostCompletedArgs> HostCompleted;
-        public event EventHandler<CoreWebView2HostCompletedErrorArgs> HostCompletedError;
+        public event EventHandler<HostCompletedArgs> HostCompleted;
+        public event EventHandler<HostCompletedErrorArgs> HostCompletedError;
         public event EventHandler<BeforeHostCreateEventArgs> BeforeHostCreate;
         public IntPtr ParentWindow{get;}
-        public CoreWebView2CreateCoreWebView2HostCompletedHandler(IntPtr parentWindow)
+        public CreateWebViewCompletedHandler(IntPtr parentWindow)
         {
             this.ParentWindow = parentWindow;
         }
         public void Invoke(int result, IWebView2WebView webview)
         {
-            IWebView2WebView5 webV;
-            
             if (webview == null)
             {
-                OnHostCompletedError(new CoreWebView2HostCompletedErrorArgs(result, "Could not create Host!"));
+                OnHostCompletedError(new HostCompletedErrorArgs(result, "Could not create Host!"));
                 return;
             }
 
-            webV = (IWebView2WebView5) webview;
+            var webV = (IWebView2WebView5) webview;
+            webV.AddWebResourceRequestedFilter("*", WEBVIEW2_WEB_RESOURCE_CONTEXT.WEBVIEW2_WEB_RESOURCE_CONTEXT_ALL);
             IWebView2Settings2 settings = (IWebView2Settings2)webview.Settings;
-            OnBeforeHostCreate(new BeforeHostCreateEventArgs(webV,settings));
+            
             settings.IsScriptEnabled = new CBOOL(true);
             settings.AreDefaultScriptDialogsEnabled = new CBOOL(true);
             settings.IsWebMessageEnabled = new CBOOL(true);
+            OnBeforeHostCreate(new BeforeHostCreateEventArgs(webV,settings));
+
             tagRECT rect;
             Native.GetClientRect(this.ParentWindow, out rect);
             webV.Bounds = rect;
-            OnHostCompleted(new CoreWebView2HostCompletedArgs( webV));
+            OnHostCompleted(new HostCompletedArgs( webV));
 
         }
 
-        protected virtual void OnHostCompleted(CoreWebView2HostCompletedArgs e)
+        protected virtual void OnHostCompleted(HostCompletedArgs e)
         {
             HostCompleted?.Invoke(this, e);
         }
 
-        protected virtual void OnHostCompletedError(CoreWebView2HostCompletedErrorArgs e)
+        protected virtual void OnHostCompletedError(HostCompletedErrorArgs e)
         {
             HostCompletedError?.Invoke(this, e);
         }

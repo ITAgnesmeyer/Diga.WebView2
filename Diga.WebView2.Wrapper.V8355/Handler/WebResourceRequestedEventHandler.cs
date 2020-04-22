@@ -6,7 +6,7 @@ namespace Diga.WebView2.Wrapper
     public class WebResourceRequestedEventHandler : IWebView2WebResourceRequestedEventHandler
     {
         public event EventHandler<WebResourceRequestedEventArgs> WebResourceRequested;
-        public void Invoke(IWebView2WebView webview, IWebView2WebResourceRequestedEventArgs args)
+        public void Invoke(IWebView2WebView webview, IWebView2WebResourceRequestedEventArgs2 args)
         {
             OnWebResourceRequested(new WebResourceRequestedEventArgs(args));
         }

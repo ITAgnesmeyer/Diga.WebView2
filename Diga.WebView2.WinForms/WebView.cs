@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Windows.Forms;
 
 using Diga.WebView2.Wrapper;
@@ -47,6 +48,8 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<WebMessageReceivedEventArgs> WebMessageReceived;
         public event EventHandler<WebResourceRequestedEventArgs> WebResourceRequested;
         public event EventHandler<WebView2EventArgs> ZoomFactorChanged;
+        public event EventHandler<AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>
+            ScriptToExecuteOnDocumentCreatedCompleted;
 #endif
 
         public string HtmlContent
@@ -316,6 +319,7 @@ namespace Diga.WebView2.WinForms
                 _WebWindow.WebMessageReceived += OnWebMessageReceivedIntern;
                 _WebWindow.WebResourceRequested += OnWebResourceRequestedIntern;
                 _WebWindow.ZoomFactorChanged += OnZoomFactorChangedIntern;
+                _WebWindow.ScriptToExecuteOnDocumentCreatedCompleted += ScriptToExecuteOnDocumentCreatedCompletedIntern;
 #endif
 
                 _WebWindow.ContentLoading += OnContentLoadingIntern;
@@ -327,7 +331,11 @@ namespace Diga.WebView2.WinForms
             }
         }
 
-       
+        private void ScriptToExecuteOnDocumentCreatedCompletedIntern(object sender, AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
+        {
+            OnScriptToExecuteOnDocumentCreatedCompleted(e);
+        }
+
 
 #if VS8355
         private void OnZoomFactorChangedIntern(object sender, WebView2EventArgs e)
@@ -520,9 +528,25 @@ namespace Diga.WebView2.WinForms
         {
             ZoomFactorChanged?.Invoke(this, e);
         }
+
+        public WebResourceResponse GetResponse(Stream stream, int statusCode, string statusSring, string contentType)
+        {
+            WebResourceResponse resp = null;
+            if (this.IsCreated)
+            {
+                resp = this._WebWindow.GetResponseStream(stream, statusCode,statusSring, "",contentType);
+            }
+
+            return resp;
+        }
+
+        protected virtual void OnScriptToExecuteOnDocumentCreatedCompleted(AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
+        {
+            ScriptToExecuteOnDocumentCreatedCompleted?.Invoke(this, e);
+        }
+
 #endif
 
 
-      
     }
 }

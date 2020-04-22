@@ -71,8 +71,8 @@
     <Compile Include="EventArguments\BeforeCreateEventArgs.cs" />
     <Compile Include="EventArguments\BeforeHostCreateEventArgs.cs" />
     <Compile Include="EventArguments\ContentLoadingEventArgs.cs" />
-    <Compile Include="EventArguments\CoreWebView2HostCompletedArgs.cs" />
-    <Compile Include="EventArguments\CoreWebView2HostCompletedErrorArgs.cs" />
+    <Compile Include="EventArguments\HostCompletedArgs.cs" />
+    <Compile Include="EventArguments\HostCompletedErrorArgs.cs" />
     <Compile Include="EventArguments\EnvironmentCompletedHandlerArgs.cs" />
     <Compile Include="EventArguments\ExecuteScriptCompletedEventArgs.cs" />
     <Compile Include="EventArguments\NavigationCompletedEventArgs.cs" />
@@ -81,8 +81,8 @@
     <Compile Include="EventArguments\WebView2EventArgs.cs" />
     <Compile Include="Handler\AddScriptToExecuteOnDocumentCreatedCompletedHandler.cs" />
     <Compile Include="Handler\ContentLoadingEventHandler.cs" />
-    <Compile Include="Handler\CoreWebView2CreateCoreWebView2EnvironmentCompletedHandler.cs" />
-    <Compile Include="Handler\CoreWebView2CreateCoreWebView2HostCompletedHandler.cs" />
+    <Compile Include="Handler\EnvironmentCompletedHandler.cs" />
+    <Compile Include="Handler\CreateWebViewCompletedHandler.cs" />
     <Compile Include="Handler\ExecuteScriptCompletedHandler.cs" />
     <Compile Include="Handler\FocusChangedEventHandler.cs" />
     <Compile Include="Handler\HistoryChangedEventHandler.cs" />

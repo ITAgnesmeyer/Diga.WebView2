@@ -28,8 +28,8 @@
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\EventArguments\BeforeCreateEventArgs.cs" Link="EventArguments\BeforeCreateEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\EventArguments\BeforeHostCreateEventArgs.cs" Link="EventArguments\BeforeHostCreateEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\EventArguments\ContentLoadingEventArgs.cs" Link="EventArguments\ContentLoadingEventArgs.cs" />
-    <Compile Include="..\Diga.WebView2.Wrapper.V8355\EventArguments\CoreWebView2HostCompletedArgs.cs" Link="EventArguments\CoreWebView2HostCompletedArgs.cs" />
-    <Compile Include="..\Diga.WebView2.Wrapper.V8355\EventArguments\CoreWebView2HostCompletedErrorArgs.cs" Link="EventArguments\CoreWebView2HostCompletedErrorArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V8355\EventArguments\HostCompletedArgs.cs" Link="EventArguments\HostCompletedArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V8355\EventArguments\HostCompletedErrorArgs.cs" Link="EventArguments\HostCompletedErrorArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\EventArguments\DocumentStateChangedEventArgs.cs" Link="EventArguments\DocumentStateChangedEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\EventArguments\EnvironmentCompletedHandlerArgs.cs" Link="EventArguments\EnvironmentCompletedHandlerArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\EventArguments\ExecuteScriptCompletedEventArgs.cs" Link="EventArguments\ExecuteScriptCompletedEventArgs.cs" />
@@ -48,8 +48,6 @@
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\Handler\AddScriptToExecuteOnDocumentCreatedCompletedHandler.cs" Link="Handler\AddScriptToExecuteOnDocumentCreatedCompletedHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\Handler\ContainsFullScreenElementChangedEventHandler.cs" Link="Handler\ContainsFullScreenElementChangedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\Handler\ContentLoadingEventHandler.cs" Link="Handler\ContentLoadingEventHandler.cs" />
-    <Compile Include="..\Diga.WebView2.Wrapper.V8355\Handler\CoreWebView2CreateCoreWebView2EnvironmentCompletedHandler.cs" Link="Handler\CoreWebView2CreateCoreWebView2EnvironmentCompletedHandler.cs" />
-    <Compile Include="..\Diga.WebView2.Wrapper.V8355\Handler\CoreWebView2CreateCoreWebView2HostCompletedHandler.cs" Link="Handler\CoreWebView2CreateCoreWebView2HostCompletedHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\Handler\DocumentStateChangedEventHandler.cs" Link="Handler\DocumentStateChangedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\Handler\DocumentTitleChangedHanlder.cs" Link="Handler\DocumentTitleChangedHanlder.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\Handler\ExecuteScriptCompletedHandler.cs" Link="Handler\ExecuteScriptCompletedHandler.cs" />
@@ -94,7 +92,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Handler\" />
     <Folder Include="Types\" />
   </ItemGroup>
 
