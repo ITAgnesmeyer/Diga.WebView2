@@ -331,13 +331,14 @@ namespace Diga.WebView2.WinForms
             }
         }
 
-        private void ScriptToExecuteOnDocumentCreatedCompletedIntern(object sender, AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
-        {
-            OnScriptToExecuteOnDocumentCreatedCompleted(e);
-        }
+
 
 
 #if VS8355
+private void ScriptToExecuteOnDocumentCreatedCompletedIntern(object sender, AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
+        {
+            OnScriptToExecuteOnDocumentCreatedCompleted(e);
+        }
         private void OnZoomFactorChangedIntern(object sender, WebView2EventArgs e)
         {
             OnZoomFactorChanged(e);
