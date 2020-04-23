@@ -44,19 +44,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\WebView2Wrapper\Native.cs">
+    <Compile Include="..\Diga.WebView2.Wrapper.V9430\Native.cs">
       <Link>Native.cs</Link>
     </Compile>
-    <Compile Include="..\WebView2Wrapper\Types\BOOL.cs">
+    <Compile Include="..\Diga.WebView2.Wrapper.V9430\Types\BOOL.cs">
       <Link>Types\BOOL.cs</Link>
     </Compile>
-    <Compile Include="..\WebView2Wrapper\Types\HRESULT.cs">
+    <Compile Include="..\Diga.WebView2.Wrapper.V9430\Types\HRESULT.cs">
       <Link>Types\HRESULT.cs</Link>
     </Compile>
-    <Compile Include="..\WebView2Wrapper\Types\ProcessorArch.cs">
+    <Compile Include="..\Diga.WebView2.Wrapper.V9430\Types\ProcessorArch.cs">
       <Link>Types\ProcessorArch.cs</Link>
     </Compile>
-    <Compile Include="..\WebView2Wrapper\Types\Rectangle.cs">
+    <Compile Include="..\Diga.WebView2.Wrapper.V9430\Types\Rectangle.cs">
       <Link>Types\Rectangle.cs</Link>
     </Compile>
     <Compile Include="Deferral.cs" />

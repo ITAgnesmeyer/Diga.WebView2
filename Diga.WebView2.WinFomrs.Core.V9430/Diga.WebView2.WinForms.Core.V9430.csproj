@@ -12,16 +12,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Diga.WebView2.WinForms\WebView.cs" Link="WebView.cs" />
-    <Compile Include="..\Diga.WebView2.WinForms\WebView.Designer.cs" Link="WebView.Designer.cs" />
+    <Compile Include="..\Diga.WebView2.WinForms.V9430\WebView.cs" Link="WebView.cs" />
+    <Compile Include="..\Diga.WebView2.WinForms.V9430\WebView.Designer.cs" Link="WebView.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="..\Diga.WebView2.WinForms\WebView.resx" Link="WebView.resx" />
+    <EmbeddedResource Include="..\Diga.WebView2.WinForms.V9430\WebView.resx" Link="WebView.resx" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Diga.WebView2.Wrapper.Std\Diga.WebView2.Wrapper.Std.V9430.csproj" />
+    <ProjectReference Include="..\Diga.WebView2.Wrapper.Std.V9430\Diga.WebView2.Wrapper.Std.V9430.csproj" />
   </ItemGroup>
 
   

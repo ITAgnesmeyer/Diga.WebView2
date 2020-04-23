@@ -1,0 +1,101 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>Diga.WebView2.Interop.V9430</AssemblyName>
+    <RootNamespace>Diga.WebView2.Interop.V9430</RootNamespace>
+    <Description>WebView2 - NET - Interop</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>2020 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
+    <PackageProjectUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</PackageProjectUrl>
+    <Version>1.0.1</Version>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>WebView2 - NET - Interop</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</RepositoryUrl>
+    <PackageTags>WebView2</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Diga.WebView2.Interop.V9430\AssemblyInfo.cs" Link="AssemblyInfo.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\CORE_WEBVIEW2_CAPTURE_PREVIEW_IMAGE_FORMAT.cs" Link="CORE_WEBVIEW2_CAPTURE_PREVIEW_IMAGE_FORMAT.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\CORE_WEBVIEW2_KEY_EVENT_KIND.cs" Link="CORE_WEBVIEW2_KEY_EVENT_KIND.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\CORE_WEBVIEW2_MOVE_FOCUS_REASON.cs" Link="CORE_WEBVIEW2_MOVE_FOCUS_REASON.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\CORE_WEBVIEW2_PERMISSION_KIND.cs" Link="CORE_WEBVIEW2_PERMISSION_KIND.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\CORE_WEBVIEW2_PERMISSION_STATE.cs" Link="CORE_WEBVIEW2_PERMISSION_STATE.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\CORE_WEBVIEW2_PHYSICAL_KEY_STATUS.cs" Link="CORE_WEBVIEW2_PHYSICAL_KEY_STATUS.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\CORE_WEBVIEW2_PROCESS_FAILED_KIND.cs" Link="CORE_WEBVIEW2_PROCESS_FAILED_KIND.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\CORE_WEBVIEW2_SCRIPT_DIALOG_KIND.cs" Link="CORE_WEBVIEW2_SCRIPT_DIALOG_KIND.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\CORE_WEBVIEW2_WEB_ERROR_STATUS.cs" Link="CORE_WEBVIEW2_WEB_ERROR_STATUS.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\CORE_WEBVIEW2_WEB_RESOURCE_CONTEXT.cs" Link="CORE_WEBVIEW2_WEB_RESOURCE_CONTEXT.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\EventRegistrationToken.cs" Link="EventRegistrationToken.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ExternDll.cs" Link="ExternDll.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\Globals.cs" Link="Globals.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\GUID.cs" Link="GUID.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2.cs" Link="ICoreWebView2.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2AcceleratorKeyPressedEventArgs.cs" Link="ICoreWebView2AcceleratorKeyPressedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2AcceleratorKeyPressedEventHandler.cs" Link="ICoreWebView2AcceleratorKeyPressedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2AddScriptToExecuteOnDocumentCreatedCo.cs" Link="ICoreWebView2AddScriptToExecuteOnDocumentCreatedCo.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2CallDevToolsProtocolMethodCompletedHa.cs" Link="ICoreWebView2CallDevToolsProtocolMethodCompletedHa.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2CapturePreviewCompletedHandler.cs" Link="ICoreWebView2CapturePreviewCompletedHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2ContainsFullScreenElementChangedEvent.cs" Link="ICoreWebView2ContainsFullScreenElementChangedEvent.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2ContentLoadingEventArgs.cs" Link="ICoreWebView2ContentLoadingEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2ContentLoadingEventHandler.cs" Link="ICoreWebView2ContentLoadingEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2CreateCoreWebView2EnvironmentComplete.cs" Link="ICoreWebView2CreateCoreWebView2EnvironmentComplete.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2CreateCoreWebView2HostCompletedHandle.cs" Link="ICoreWebView2CreateCoreWebView2HostCompletedHandle.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2Deferral.cs" Link="ICoreWebView2Deferral.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2DevToolsProtocolEventReceivedEventArg.cs" Link="ICoreWebView2DevToolsProtocolEventReceivedEventArg.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2DevToolsProtocolEventReceivedEventHan.cs" Link="ICoreWebView2DevToolsProtocolEventReceivedEventHan.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2DevToolsProtocolEventReceiver.cs" Link="ICoreWebView2DevToolsProtocolEventReceiver.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2DocumentTitleChangedEventHandler.cs" Link="ICoreWebView2DocumentTitleChangedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2Environment.cs" Link="ICoreWebView2Environment.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2ExecuteScriptCompletedHandler.cs" Link="ICoreWebView2ExecuteScriptCompletedHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2FocusChangedEventHandler.cs" Link="ICoreWebView2FocusChangedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2HistoryChangedEventHandler.cs" Link="ICoreWebView2HistoryChangedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2Host.cs" Link="ICoreWebView2Host.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2HttpHeadersCollectionIterator.cs" Link="ICoreWebView2HttpHeadersCollectionIterator.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2HttpRequestHeaders.cs" Link="ICoreWebView2HttpRequestHeaders.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2HttpResponseHeaders.cs" Link="ICoreWebView2HttpResponseHeaders.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2MoveFocusRequestedEventArgs.cs" Link="ICoreWebView2MoveFocusRequestedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2MoveFocusRequestedEventHandler.cs" Link="ICoreWebView2MoveFocusRequestedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2NavigationCompletedEventArgs.cs" Link="ICoreWebView2NavigationCompletedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2NavigationCompletedEventHandler.cs" Link="ICoreWebView2NavigationCompletedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2NavigationStartingEventArgs.cs" Link="ICoreWebView2NavigationStartingEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2NavigationStartingEventHandler.cs" Link="ICoreWebView2NavigationStartingEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2NewBrowserVersionAvailableEventArgs.cs" Link="ICoreWebView2NewBrowserVersionAvailableEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2NewBrowserVersionAvailableEventHandle.cs" Link="ICoreWebView2NewBrowserVersionAvailableEventHandle.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2NewWindowRequestedEventArgs.cs" Link="ICoreWebView2NewWindowRequestedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2NewWindowRequestedEventHandler.cs" Link="ICoreWebView2NewWindowRequestedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2PermissionRequestedEventArgs.cs" Link="ICoreWebView2PermissionRequestedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2PermissionRequestedEventHandler.cs" Link="ICoreWebView2PermissionRequestedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2ProcessFailedEventArgs.cs" Link="ICoreWebView2ProcessFailedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2ProcessFailedEventHandler.cs" Link="ICoreWebView2ProcessFailedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2ScriptDialogOpeningEventArgs.cs" Link="ICoreWebView2ScriptDialogOpeningEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2ScriptDialogOpeningEventHandler.cs" Link="ICoreWebView2ScriptDialogOpeningEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2Settings.cs" Link="ICoreWebView2Settings.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2SourceChangedEventArgs.cs" Link="ICoreWebView2SourceChangedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2SourceChangedEventHandler.cs" Link="ICoreWebView2SourceChangedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2WebMessageReceivedEventArgs.cs" Link="ICoreWebView2WebMessageReceivedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2WebMessageReceivedEventHandler.cs" Link="ICoreWebView2WebMessageReceivedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2WebResourceRequest.cs" Link="ICoreWebView2WebResourceRequest.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2WebResourceRequestedEventArgs.cs" Link="ICoreWebView2WebResourceRequestedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2WebResourceRequestedEventHandler.cs" Link="ICoreWebView2WebResourceRequestedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2WebResourceResponse.cs" Link="ICoreWebView2WebResourceResponse.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2WindowCloseRequestedEventHandler.cs" Link="ICoreWebView2WindowCloseRequestedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ICoreWebView2ZoomFactorChangedEventHandler.cs" Link="ICoreWebView2ZoomFactorChangedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\ISequentialStream.cs" Link="ISequentialStream.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\IStream.cs" Link="IStream.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\IUnknown.cs" Link="IUnknown.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\tagRECT.cs" Link="tagRECT.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\tagSTATSTG.cs" Link="tagSTATSTG.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\_FILETIME.cs" Link="_FILETIME.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\_LARGE_INTEGER.cs" Link="_LARGE_INTEGER.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\_ULARGE_INTEGER.cs" Link="_ULARGE_INTEGER.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\__MIDL_IWinTypes_0009.cs" Link="__MIDL_IWinTypes_0009.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\__MIDL___MIDL_itf_webview22Elibrary_formatted_0007.cs" Link="__MIDL___MIDL_itf_webview22Elibrary_formatted_0007.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>

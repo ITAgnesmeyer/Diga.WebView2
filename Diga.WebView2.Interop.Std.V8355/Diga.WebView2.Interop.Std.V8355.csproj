@@ -89,7 +89,7 @@
     <Compile Include="..\Diga.WebView2.Interop.V8355\_ULARGE_INTEGER.cs" Link="_ULARGE_INTEGER.cs" />
     <Compile Include="..\Diga.WebView2.Interop.V8355\__MIDL_IWinTypes_0009.cs" Link="__MIDL_IWinTypes_0009.cs" />
     <Compile Include="..\Diga.WebView2.Interop.V8355\__MIDL___MIDL_itf_webview22Elibrary_formatted_0007.cs" Link="__MIDL___MIDL_itf_webview22Elibrary_formatted_0007.cs" />
-    <Compile Include="..\Diga.WebView2.Interop\AssemblyInfo.cs" Link="AssemblyInfo.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V9430\AssemblyInfo.cs" Link="AssemblyInfo.cs" />
   </ItemGroup>
 
   <ItemGroup>

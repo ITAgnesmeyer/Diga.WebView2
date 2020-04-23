@@ -82,7 +82,7 @@
     <Compile Include="WebView2View.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Diga.WebView2.Interop\Diga.WebView2.Interop.V9430.csproj">
+    <ProjectReference Include="..\Diga.WebView2.Interop.V9430\Diga.WebView2.Interop.V9430.csproj">
       <Project>{62ad85c3-3834-42c4-8ba0-9aeccc82f3c3}</Project>
       <Name>Diga.WebView2.Interop.V9430</Name>
     </ProjectReference>
