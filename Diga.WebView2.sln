@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.Interop.Std.V
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "V8355", "V8355", "{F7986074-19B7-43BB-8C4F-7953316FA1E3}"
 	ProjectSection(SolutionItems) = preProject
-		TextFile1.txt = TextFile1.txt
+		info.txt = info.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "V9430", "V9430", "{95ECB8DA-7E3F-49AF-95D8-3A63DFAD2C14}"
@@ -39,7 +39,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.WinFomrs.Core
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BA813F56-87A6-4F00-8816-EF181DC956A8}"
 	ProjectSection(SolutionItems) = preProject
-		TextFile2.txt = TextFile2.txt
+		solution_info.txt = solution_info.txt
 	EndProjectSection
 EndProject
 Global

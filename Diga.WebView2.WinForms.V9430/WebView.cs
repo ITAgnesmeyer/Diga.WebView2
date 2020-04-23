@@ -18,6 +18,7 @@ namespace Diga.WebView2.WinForms
 #if !VS8355
         private bool _RemoteObjectsAllowed = true;
         private bool _IsZoomControlEnabled = true;
+
 #endif
         private bool _IsScriptEnabled = true;
 

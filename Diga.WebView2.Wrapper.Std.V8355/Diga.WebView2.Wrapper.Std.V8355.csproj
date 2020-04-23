@@ -104,7 +104,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.Wrapper\V8335\lib\netstandard2.1\$(TargetFileName)&#xD;&#xA;xcopy /E /Y $(TargetDir)native $(SolutionDir)package_create_folder\Diga.WebView2.Wrapper\V8335\build\native" />
+    <Exec Command="SET p=$(SolutionDir)package_create_folder\Diga.WebView2.Wrapper\V8335\build\native&#xD;&#xA;copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.Wrapper\V8335\lib\netstandard2.1\$(TargetFileName)&#xD;&#xA;if not exist &quot;%25p%25&quot; mkdir &quot;%25p%25&quot;&#xD;&#xA;xcopy /E /Y $(TargetDir)native &quot;%25p%25&quot;" />
   </Target>
 
 </Project>

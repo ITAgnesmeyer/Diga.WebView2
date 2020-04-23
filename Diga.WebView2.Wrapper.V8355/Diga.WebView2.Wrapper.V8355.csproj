@@ -131,7 +131,9 @@
       <Name>Diga.WebView2.Interop.V8355</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Types\info.txt" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="native\x64\WebView2Loader.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -139,6 +141,12 @@
     <None Include="native\x86\WebView2Loader.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Handler\info.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EventArguments\info.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
