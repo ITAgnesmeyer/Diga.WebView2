@@ -23,6 +23,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.Interop.Std.V8355", "Diga.WebView2.Interop.Std.V8355\Diga.WebView2.Interop.Std.V8355.csproj", "{34C27034-E00B-44A8-B76A-CC7CDBEFA9E6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "V8355", "V8355", "{F7986074-19B7-43BB-8C4F-7953316FA1E3}"
+	ProjectSection(SolutionItems) = preProject
+		TextFile1.txt = TextFile1.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "V9430", "V9430", "{95ECB8DA-7E3F-49AF-95D8-3A63DFAD2C14}"
 EndProject
@@ -33,6 +36,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.Wrapper.Std.V8355", "Diga.WebView2.Wrapper.Std.V8355\Diga.WebView2.Wrapper.Std.V8355.csproj", "{B7E799AA-23BE-4320-9AAB-F284E09F7CE3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.WinFomrs.Core.V8355", "Diga.WebView2.WinFomrs.Core.V8355\Diga.WebView2.WinFomrs.Core.V8355.csproj", "{78B736A1-8ABD-49BC-8E79-87DA006A90BF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BA813F56-87A6-4F00-8816-EF181DC956A8}"
+	ProjectSection(SolutionItems) = preProject
+		TextFile2.txt = TextFile2.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

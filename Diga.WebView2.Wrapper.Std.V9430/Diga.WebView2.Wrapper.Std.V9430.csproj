@@ -49,12 +49,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EventArguments\" />
-    <Folder Include="Handler\" />
-    <Folder Include="Types\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Diga.WebView2.Interop.Std.V9430\Diga.WebView2.Interop.Std.V9430.csproj" />
   </ItemGroup>
 
