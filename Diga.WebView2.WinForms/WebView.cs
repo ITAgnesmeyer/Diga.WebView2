@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Windows.Forms;
 
 using Diga.WebView2.Wrapper;
@@ -336,7 +334,7 @@ namespace Diga.WebView2.WinForms
 
 
 #if VS8355
-private void ScriptToExecuteOnDocumentCreatedCompletedIntern(object sender, AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
+        private void ScriptToExecuteOnDocumentCreatedCompletedIntern(object sender, AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
         {
             OnScriptToExecuteOnDocumentCreatedCompleted(e);
         }
@@ -562,36 +560,5 @@ private void ScriptToExecuteOnDocumentCreatedCompletedIntern(object sender, AddS
 #endif
 
 
-    }
-
-    public class ResponseInfo
-    {
-        public ResponseInfo(Stream stream)
-        {
-            this.Stream = stream;
-            this.Header = new Dictionary<string, string>();
-        }
-        public Stream Stream{get;}
-        public int StatusCode{get;set;}
-        public string StatusText{get;set;}
-        public string ContentType{get;set;}
-        public Dictionary<string,string> Header{get;}
-
-        public string HeaderToString()
-        {
-            string headerString = "";
-            foreach (var headerValue in this.Header)
-            {
-                headerString += headerValue.Key + ":" + headerValue.Value;
-                headerString += "\r\n";
-            }
-
-            if (!string.IsNullOrEmpty(headerString))
-            {
-                headerString += "\r\n";
-            }
-
-            return headerString;
-        }
     }
 }

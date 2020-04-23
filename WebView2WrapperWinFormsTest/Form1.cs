@@ -19,7 +19,7 @@ namespace WebView2WrapperWinFormsTest
 
         private void button1_Click(object sender, EventArgs e)
         {
-           this.webView1.Url =  this.textBox1.Text;
+            this.webView1.Url = this.textBox1.Text;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -49,7 +49,7 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_HistoryChanged(object sender, WebView2EventArgs e)
         {
-            
+
         }
 
         private void webView1_NavigationCompleted(object sender, NavigationCompletedEventArgs e)
@@ -62,7 +62,7 @@ namespace WebView2WrapperWinFormsTest
             //MessageBox.Show(this, "webView1_AcceleratorKeyPressed");
             e.Handled = false;
         }
-
+        
         private void webView1_DocumentStateChanged(object sender, DocumentStateChangedEventArgs e)
         {
             //MessageBox.Show(this, "webView1_DocumentStateChanged");
@@ -75,7 +75,7 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_ContainsFullScreenElementChanged(object sender, WebView2EventArgs e)
         {
-           // MessageBox.Show(this, "webView1_ContainsFullScreenElementChanged");
+            // MessageBox.Show(this, "webView1_ContainsFullScreenElementChanged");
         }
 
         private void webView1_WebViewGotFocus(object sender, WebView2EventArgs e)
@@ -107,27 +107,37 @@ namespace WebView2WrapperWinFormsTest
         {
             //MessageBox.Show(this, "webView1_WebMessageReceived");
         }
-
+        
         private void webView1_WebResourceRequested(object sender, WebResourceRequestedEventArgs e)
         {
             Debug.Print(e.Request.Uri);
             Debug.Print(e.Request.Method);
-            
+
             if (e.Request.Content != null)
             {
                 byte[] bytes = new byte[1000];
-               
+
             }
-            
+          
             //e.Response = this.webView1.GetResponse(new MemoryStream(Encoding.UTF8.GetBytes("<h1>test</h1>")), 200, "OK", "Content-Type: text/html");
-            e.Response = this.webView1.CreateResponse(
-                new ResponseInfo(
-                    new MemoryStream(Encoding.UTF8.GetBytes("<h1>test</h1>")))
-                {
-                    StatusCode = 200,
-                    StatusText = "OK",
-                    ContentType = "Content-Type: text/html"
-                });
+            ResponseInfo responseInfo = new ResponseInfo("<h1>test</h1>")
+            {
+                ContentType = "Content-Type: text/html",
+                StatusCode = 200,
+                StatusText = "OK"
+            };
+            responseInfo.Header.Add("Server", "Test Server");
+
+
+            var response = this.webView1.CreateResponse(responseInfo);
+
+            var collection = response.Headers.GetIterator();
+            foreach (var obj in collection)
+            {
+                Debug.Print(obj.ToString());
+            }
+
+            e.Response = response;
 
             if (e.Response?.Content != null)
             {
@@ -136,7 +146,7 @@ namespace WebView2WrapperWinFormsTest
                 Debug.Print(e.Response.ReasonPhrase);
 
             }
-            
+
         }
 
         private void webView1_ZoomFactorChanged(object sender, WebView2EventArgs e)

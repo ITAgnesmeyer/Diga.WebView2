@@ -67,16 +67,19 @@
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\HeaderItem.cs" Link="HeaderItem.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\HttpHeadersCollectionIterator.cs" Link="HttpHeadersCollectionIterator.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\HttpRequestHeaders.cs" Link="HttpRequestHeaders.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V8355\HttpResponseHeaders.cs" Link="HttpResponseHeaders.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\KeyEventType.cs" Link="KeyEventType.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\MoveFocusReason.cs" Link="MoveFocusReason.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\PermissionState.cs" Link="PermissionState.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\PermissionType.cs" Link="PermissionType.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\PhysicalKeyStatus.cs" Link="PhysicalKeyStatus.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\ProcessFailedKind.cs" Link="ProcessFailedKind.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V8355\ResponseInfo.cs" Link="ResponseInfo.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\ScriptDialogKind.cs" Link="ScriptDialogKind.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\StreamWrapper.cs" Link="StreamWrapper.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\WebResourceContext.cs" Link="WebResourceContext.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\WebResourceRequest.cs" Link="WebResourceRequest.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V8355\WebResourceResponse.cs" Link="WebResourceResponse.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\WebView2Control.cs" Link="WebView2Control.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\WebView2Settings.cs" Link="WebView2Settings.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\WebView2View.cs" Link="WebView2View.cs" />

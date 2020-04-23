@@ -1,68 +1,8 @@
 ﻿using Diga.WebView2.Interop;
-using System.IO;
 using System.Runtime.InteropServices.ComTypes;
 
 namespace Diga.WebView2.Wrapper
 {
-   
-    public class WebResourceResponse : IWebView2WebResourceResponse
-    {
-        private IWebView2WebResourceResponse _Interface;
-
-        public WebResourceResponse()
-        {
-            this._Interface = this.Tointerface();
-        }
-        public WebResourceResponse(IWebView2WebResourceResponse iface)
-        {
-            this._Interface = iface;
-        }
-
-        private IWebView2WebResourceResponse Tointerface()
-        {
-            return this;
-        }
-
-
-
-        public StreamWrapper Content
-        {
-            get
-            {
-                if (this.Tointerface().Content == null) return null;
-                return new StreamWrapper(this.Tointerface().Content);
-            }
-        }
-
-        public int StatusCode => this.Tointerface().StatusCode;
-
-        public string ReasonPhrase
-        {
-            get => this.Tointerface().ReasonPhrase;
-            set => this.Tointerface().ReasonPhrase = value;
-        } 
-
-        IStream IWebView2WebResourceResponse.Content
-        {
-            get => this._Interface.Content;
-            set => this._Interface.Content = value;
-        }
-
-        IWebView2HttpResponseHeaders IWebView2WebResourceResponse.Headers => this._Interface.Headers;
-
-        int IWebView2WebResourceResponse.StatusCode
-        {
-            get => this._Interface.StatusCode;
-            set => this._Interface.StatusCode = value;
-        }
-
-        string IWebView2WebResourceResponse.ReasonPhrase
-        {
-            get => this._Interface.ReasonPhrase;
-            set => this._Interface.ReasonPhrase = value;
-        }
-    }
-
     public class WebResourceRequest : IWebView2WebResourceRequest
     {
 
@@ -97,6 +37,15 @@ namespace Diga.WebView2.Wrapper
             {
 
                 this.ToInterface().Content = value;
+            }
+        }
+
+        public HttpRequestHeaders Headers
+        {
+            get
+            {
+                if(this.ToInterface().Headers == null) return null;
+                return new HttpRequestHeaders(this.ToInterface().Headers);
             }
         }
 

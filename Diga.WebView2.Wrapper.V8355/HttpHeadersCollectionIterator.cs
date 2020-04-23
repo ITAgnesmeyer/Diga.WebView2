@@ -18,6 +18,20 @@ namespace Diga.WebView2.Wrapper
         {
             return this;
         }
+
+        private IEnumerator ToEnumerator()
+        {
+            return this;
+        }
+        
+
+        public bool MoveNext()
+        {
+            return this.ToEnumerator().MoveNext();
+        }
+
+        public HeaderItem Current => (HeaderItem) this.ToEnumerator().Current;
+
         void IWebView2HttpHeadersCollectionIterator.GetCurrentHeader(out string name, out string value)
         {
             this._Interface.GetCurrentHeader(out name, out value);

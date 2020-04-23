@@ -3,7 +3,6 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Security;
-using Diga.WebView2.Interop;
 using STATSTG = System.Runtime.InteropServices.ComTypes.STATSTG;
 
 namespace Diga.WebView2.Wrapper
