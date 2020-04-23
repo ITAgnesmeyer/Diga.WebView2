@@ -10,21 +10,20 @@ namespace Diga.WebView2.WinForms
 {
     public partial class WebView : UserControl
     {
-        private WebView2Control _WebWindow;
+        private WebView2Control _WebViewControl;
         private bool _DefaultContextMenusEnabled;
         private string _Url;
         private bool _DefaultScriptDialogsEnabled = true;
         private bool _DevToolsEnabled = true;
 #if !VS8355
         private bool _RemoteObjectsAllowed = true;
+        private bool _IsZoomControlEnabled = true;
 #endif
         private bool _IsScriptEnabled = true;
 
         private bool _IsStatusBarEnabled;
         private bool _IsWebMessageEnabled = true;
-#if !VS8355
-        private bool _IsZoomControlEnabled = true;
-#endif
+
         private string _HtmlContent;
         public event EventHandler<NavigationStartingEventArgs> NavigationStart;
         public event EventHandler<ContentLoadingEventArgs> ContentLoading;
@@ -49,6 +48,7 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<WebView2EventArgs> ZoomFactorChanged;
         public event EventHandler<AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>
             ScriptToExecuteOnDocumentCreatedCompleted;
+        public event EventHandler<ExecuteScriptCompletedEventArgs> ExecuteScriptCompleted;
 #endif
 
         public string HtmlContent
@@ -70,7 +70,7 @@ namespace Diga.WebView2.WinForms
                 _IsZoomControlEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.IsZoomControlEnabled = new CBOOL(value);
+                    this._WebViewControl.Settings.IsZoomControlEnabled = new CBOOL(value);
                 }
             }
         }
@@ -83,7 +83,7 @@ namespace Diga.WebView2.WinForms
                 _IsWebMessageEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.IsWebMessageEnabled = new CBOOL(value);
+                    this._WebViewControl.Settings.IsWebMessageEnabled = new CBOOL(value);
                 }
             }
         }
@@ -96,7 +96,7 @@ namespace Diga.WebView2.WinForms
                 _IsStatusBarEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.IsStatusBarEnabled = new CBOOL(value);
+                    this._WebViewControl.Settings.IsStatusBarEnabled = new CBOOL(value);
                 }
             }
         }
@@ -109,7 +109,7 @@ namespace Diga.WebView2.WinForms
                 _IsScriptEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.IsScriptEnabled = new CBOOL(value);
+                    this._WebViewControl.Settings.IsScriptEnabled = new CBOOL(value);
                 }
             }
         }
@@ -123,7 +123,7 @@ namespace Diga.WebView2.WinForms
                 _RemoteObjectsAllowed = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.AreRemoteObjectsAllowed = new CBOOL(value);
+                    this._WebViewControl.Settings.AreRemoteObjectsAllowed = new CBOOL(value);
                 }
             }
         }
@@ -139,7 +139,7 @@ namespace Diga.WebView2.WinForms
                 _DevToolsEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.AreDevToolsEnabled = new CBOOL(value);
+                    this._WebViewControl.Settings.AreDevToolsEnabled = new CBOOL(value);
                 }
             }
         }
@@ -152,7 +152,7 @@ namespace Diga.WebView2.WinForms
                 _DefaultScriptDialogsEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.AreDefaultScriptDialogsEnabled = new CBOOL(value);
+                    this._WebViewControl.Settings.AreDefaultScriptDialogsEnabled = new CBOOL(value);
                 }
             }
         }
@@ -164,7 +164,7 @@ namespace Diga.WebView2.WinForms
                 _DefaultContextMenusEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebWindow.Settings.AreDefaultContextMenusEnabled = new CBOOL(value);
+                    this._WebViewControl.Settings.AreDefaultContextMenusEnabled = new CBOOL(value);
                 }
             }
         }
@@ -179,7 +179,7 @@ namespace Diga.WebView2.WinForms
             {
                 if (this.IsCreated)
                 {
-                    return this._WebWindow.Source;
+                    return this._WebViewControl.Source;
                 }
 
                 return "";
@@ -219,7 +219,7 @@ namespace Diga.WebView2.WinForms
             {
                 try
                 {
-                    this._WebWindow.Navigate(this._Url);
+                    this._WebViewControl.Navigate(this._Url);
                 }
                 catch (Exception e)
                 {
@@ -238,7 +238,7 @@ namespace Diga.WebView2.WinForms
             {
                 try
                 {
-                    this._WebWindow.NavigateToString(_HtmlContent);
+                    this._WebViewControl.NavigateToString(_HtmlContent);
                 }
                 catch (Exception e)
                 {
@@ -263,16 +263,61 @@ namespace Diga.WebView2.WinForms
         public void GoBack()
         {
             if (!this.IsCreated) return;
-            if (this._WebWindow.CanGoBack)
-                this._WebWindow.GoBack();
+            if (this._WebViewControl.CanGoBack)
+                this._WebViewControl.GoBack();
         }
 
         public void GoForward()
         {
             if (!this.IsCreated) return;
-            if (this._WebWindow.CanGoForward)
-                this._WebWindow.GoForward();
+            if (this._WebViewControl.CanGoForward)
+                this._WebViewControl.GoForward();
+
+            
         }
+
+#if VS8355
+
+        public void AddScriptToExecuteOnDocumentCreated(string javaScript)
+        {
+            if(!this.IsCreated) return;
+            this._WebViewControl.AddScriptToExecuteOnDocumentCreated(javaScript);
+            
+        }
+
+        public void PostWebMessageAsJson(string webMessageAsJson)
+        {
+            this._WebViewControl.PostWebMessageAsJson(webMessageAsJson);
+            
+        }
+
+        public void PostWebMessageAsString(string webMessageAsString)
+        {
+            this._WebViewControl.PostWebMessageAsString(webMessageAsString);
+        }
+
+        public void AddRemoteObject(string name, ref object @object)
+        {
+            this._WebViewControl.AddRemoteObject(name, ref @object);
+        }
+
+        public void RemoveRemoteObject(string name)
+        {
+            this._WebViewControl.RemoveRemoteObject(name);
+        }
+
+        public void ExecuteScript(string javaScript)
+        {
+            this._WebViewControl.ExecuteScript(javaScript);
+        }
+
+        public string DocumentTitle
+        {
+            get => this._WebViewControl.DocumentTitle;
+
+        }
+#endif
+
         private bool IsInDesignMode()
         {
             if (LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
@@ -297,43 +342,49 @@ namespace Diga.WebView2.WinForms
             if (this.IsInDesignMode() == false)
             {
 
-                _WebWindow = new WebView2Control(this.Handle);
-                _WebWindow.Created += OnWebWindowCreated;
-                _WebWindow.BeforeCreate += OnWebWindowBeforeCreate;
-                _WebWindow.NavigateStart += OnNavigationStartIntern;
+                this._WebViewControl = new WebView2Control(this.Handle);
+                this._WebViewControl.Created += OnWebWindowCreated;
+                this._WebViewControl.BeforeCreate += OnWebWindowBeforeCreate;
+                this._WebViewControl.NavigateStart += OnNavigationStartIntern;
 #if VS8355
 
-                _WebWindow.AcceleratorKeyPressed += OnAcceleratorKeyPressedIntern;
-                _WebWindow.ContainsFullScreenElementChanged += OnContainsFullScreenElementChangedIntern;
-                _WebWindow.DocumentStateChanged += OnDocumentStateChangedIntern;
-                _WebWindow.DocumentTitleChanged += OnDocumentTitleChangedIntern;
-                _WebWindow.FrameNavigationStarting += OnFrameNavigationStartingIntern;
-                _WebWindow.GotFocus += OnGotFocusIntern;
-                _WebWindow.LostFocus += OnLostFocusIntern;
-                _WebWindow.MoveFocusRequested += OnMoveFocusRequestedIntern;
-                _WebWindow.NewWindowRequested += OnNewWindowRequestedIntern;
-                _WebWindow.PermissionRequested += OnPermissionRequestedIntern;
-                _WebWindow.ProcessFailed += OnProcessFailedIntern;
-                _WebWindow.ScriptDialogOpening += OnScriptDialogOpeningIntern;
-                _WebWindow.WebMessageReceived += OnWebMessageReceivedIntern;
-                _WebWindow.WebResourceRequested += OnWebResourceRequestedIntern;
-                _WebWindow.ZoomFactorChanged += OnZoomFactorChangedIntern;
-                _WebWindow.ScriptToExecuteOnDocumentCreatedCompleted += ScriptToExecuteOnDocumentCreatedCompletedIntern;
+                this._WebViewControl.AcceleratorKeyPressed += OnAcceleratorKeyPressedIntern;
+                this._WebViewControl.ContainsFullScreenElementChanged += OnContainsFullScreenElementChangedIntern;
+                this._WebViewControl.DocumentStateChanged += OnDocumentStateChangedIntern;
+                this._WebViewControl.DocumentTitleChanged += OnDocumentTitleChangedIntern;
+                this._WebViewControl.FrameNavigationStarting += OnFrameNavigationStartingIntern;
+                this._WebViewControl.GotFocus += OnGotFocusIntern;
+                this._WebViewControl.LostFocus += OnLostFocusIntern;
+                this._WebViewControl.MoveFocusRequested += OnMoveFocusRequestedIntern;
+                this._WebViewControl.NewWindowRequested += OnNewWindowRequestedIntern;
+                this._WebViewControl.PermissionRequested += OnPermissionRequestedIntern;
+                this._WebViewControl.ProcessFailed += OnProcessFailedIntern;
+                this._WebViewControl.ScriptDialogOpening += OnScriptDialogOpeningIntern;
+                this._WebViewControl.WebMessageReceived += OnWebMessageReceivedIntern;
+                this._WebViewControl.WebResourceRequested += OnWebResourceRequestedIntern;
+                this._WebViewControl.ZoomFactorChanged += OnZoomFactorChangedIntern;
+                this._WebViewControl.ScriptToExecuteOnDocumentCreatedCompleted += ScriptToExecuteOnDocumentCreatedCompletedIntern;
+                this._WebViewControl.ExecuteScriptCompleted += OnExecuteScriptCompletedIntern;
 #endif
 
-                _WebWindow.ContentLoading += OnContentLoadingIntern;
-                _WebWindow.SourceChanged += OnSourceChangedIntern;
-                _WebWindow.HistoryChanged += OnHistoryChangedIntern;
-                _WebWindow.NavigationCompleted += OnNavigationCompletedIntern;
+                this._WebViewControl.ContentLoading += OnContentLoadingIntern;
+                this._WebViewControl.SourceChanged += OnSourceChangedIntern;
+                this._WebViewControl.HistoryChanged += OnHistoryChangedIntern;
+                this._WebViewControl.NavigationCompleted += OnNavigationCompletedIntern;
 
 
             }
         }
 
-
+        
 
 
 #if VS8355
+
+        private void OnExecuteScriptCompletedIntern(object sender, ExecuteScriptCompletedEventArgs e)
+        {
+            OnExecuteScriptCompleted(e);
+        }
         private void ScriptToExecuteOnDocumentCreatedCompletedIntern(object sender, AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
         {
             OnScriptToExecuteOnDocumentCreatedCompleted(e);
@@ -434,7 +485,7 @@ namespace Diga.WebView2.WinForms
         {
             if (this.IsCreated)
             {
-                this._WebWindow.DockToParent();
+                this._WebViewControl.DockToParent();
             }
         }
 
@@ -534,31 +585,25 @@ namespace Diga.WebView2.WinForms
             WebResourceResponse response = null;
             if (this.IsCreated)
             {
-                response = this._WebWindow.GetResponseStream(responseInfo.Stream, responseInfo.StatusCode,
+                response = this._WebViewControl.GetResponseStream(responseInfo.Stream, responseInfo.StatusCode,
                     responseInfo.StatusText, responseInfo.HeaderToString(), responseInfo.ContentType);
             }
 
             return response;
         }
 
-        //public WebResourceResponse GetResponse(Stream stream, int statusCode, string statusSring, string contentType)
-        //{
-        //    WebResourceResponse resp = null;
-        //    if (this.IsCreated)
-        //    {
-        //        resp = this._WebWindow.GetResponseStream(stream, statusCode,statusSring, "",contentType);
-        //    }
-
-        //    return resp;
-        //}
-
+        
         protected virtual void OnScriptToExecuteOnDocumentCreatedCompleted(AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
         {
             ScriptToExecuteOnDocumentCreatedCompleted?.Invoke(this, e);
         }
-
+        protected virtual void OnExecuteScriptCompleted(ExecuteScriptCompletedEventArgs e)
+        {
+            ExecuteScriptCompleted?.Invoke(this, e);
+        }
 #endif
 
 
+       
     }
 }

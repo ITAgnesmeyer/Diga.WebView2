@@ -31,16 +31,20 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<WebMessageReceivedEventArgs> WebMessageReceived;
         public event EventHandler<WebResourceRequestedEventArgs> WebResourceRequested;
         public event EventHandler<WebView2EventArgs> ZoomFactorChanged;
+        public event EventHandler<ExecuteScriptCompletedEventArgs> ExecuteScriptCompleted;
 
         public event EventHandler<AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>
             ScriptToExecuteOnDocumentCreatedCompleted;
+
         private WebView2Settings _Settings;
         private string _BrowserInfo;
+
         public WebView2Control(IntPtr parentHandle) : this(parentHandle, string.Empty, string.Empty, string.Empty)
         {
-
         }
-        public WebView2Control(IntPtr parentHandle, string browserExecutableFolder, string userDataFolder, string additionalBrowserArguments)
+
+        public WebView2Control(IntPtr parentHandle, string browserExecutableFolder, string userDataFolder,
+            string additionalBrowserArguments)
         {
             this.ParentHandle = parentHandle;
             this.BrowserExecutableFolder = browserExecutableFolder;
@@ -53,6 +57,7 @@ namespace Diga.WebView2.Wrapper
         public string BrowserExecutableFolder { get; }
         public string UserDataFolder { get; }
         public string AdditionalBrowserArguments { get; }
+
         private void CreateWebView()
         {
             var handler = new EnvironmentCompletedHandler(this.ParentHandle);
@@ -63,7 +68,8 @@ namespace Diga.WebView2.Wrapper
             string browserInfo;
             Native.GetWebView2BrowserVersionInfo(this.BrowserExecutableFolder, out browserInfo);
             this._BrowserInfo = browserInfo;
-            Native.CreateWebView2EnvironmentWithDetails(this.BrowserExecutableFolder, this.UserDataFolder, this.AdditionalBrowserArguments, handler);
+            Native.CreateWebView2EnvironmentWithDetails(this.BrowserExecutableFolder, this.UserDataFolder,
+                this.AdditionalBrowserArguments, handler);
             //handler.HostCompleted-=OnHostCompleted;
             //handler.BeforeEnvironmentCompleted-=OnBeforeEnvironmentCompleted;
             //handler.AfterEnvironmentCompleted-=OnAfterEnvironmentCompleted;
@@ -71,6 +77,7 @@ namespace Diga.WebView2.Wrapper
         }
 
         public string BrowserInfo => this._BrowserInfo;
+
         private void OnBeforeHostCreate(object sender, BeforeHostCreateEventArgs e)
         {
             OnBeforeCreate(new BeforeCreateEventArgs(e.Settings));
@@ -81,42 +88,41 @@ namespace Diga.WebView2.Wrapper
             this.Environment = e.Environment;
         }
 
-        private WebViewEnvironment Environment{get;set;}
+        private WebViewEnvironment Environment { get; set; }
 
         private void OnBeforeEnvironmentCompleted(object sender, EnvironmentCompletedHandlerArgs e)
         {
-
         }
 
-        public WebResourceResponse GetResponseStream(Stream stream, int statusCode, string statusText,string headers,  string contentType)
+        public WebResourceResponse GetResponseStream(Stream stream, int statusCode, string statusText, string headers,
+            string contentType)
         {
             ManagedIStream mStream = new ManagedIStream(stream);
             IWebView2WebResourceResponse responseInterface = null;
-            
+
             this.Environment.CreateWebResourceResponse(mStream, 200, statusText, headers, ref responseInterface);
             WebResourceResponse wrapper = new WebResourceResponse(responseInterface);
             return wrapper;
         }
+
         private void OnHostCompleted(object sender, HostCompletedArgs e)
         {
-            
-            
-            this.WebView = new WebView2View( e.WebView);
+            this.WebView = new WebView2View(e.WebView);
 
             this.WebView.NavigationStarting += OnNavigateStartIntern;
             this.WebView.ContentLoading += OnContentLoadingIntern;
             this.WebView.SourceChanged += OnSourceChangedIntern;
             this.WebView.HistoryChanged += OnHistoryChangedIntern;
-            this.WebView.NavigationCompleted+= OnNavigationCompletedIntern;
+            this.WebView.NavigationCompleted += OnNavigationCompletedIntern;
             this.WebView.AcceleratorKeyPressed += OnAcceleratorKeyPressedIntern;
             this.WebView.ContainsFullScreenElementChanged += OnContainsFullScreenElementChangedIntern;
             this.WebView.DocumentStateChanged += OnDocumentStateChangedIntern;
             this.WebView.DocumentTitleChanged += OnDocumentTitleChangedIntern;
             this.WebView.FrameNavigationStarting += OnFrameNavigationStartingIntern;
             this.WebView.LostFocus += OnLostFocusIntern;
-            this.WebView.GotFocus+=OnGotFocusIntern;
+            this.WebView.GotFocus += OnGotFocusIntern;
             this.WebView.NewWindowRequested += OnNewWindowRequestedIntern;
-            this.WebView.MoveFocusRequested+=OnMoveFocusRequestedIntern;
+            this.WebView.MoveFocusRequested += OnMoveFocusRequestedIntern;
             this.WebView.PermissionRequested += OnPermissionRequestedIntern;
             this.WebView.ProcessFailed += OnProcessFailedIntern;
             this.WebView.ScriptDialogOpening += OnScriptDialogOpeningIntern;
@@ -124,11 +130,18 @@ namespace Diga.WebView2.Wrapper
             this.WebView.WebMessageReceived += OnWebMessageReceivedIntern;
             this.WebView.WebResourceRequested += OnWebResourceRequestedIntern;
             this.WebView.ZoomFactorChanged += OnZoomFactorChangedIntern;
+            this.WebView.ExecuteScriptCompleted += OnExecuteScriptCompletedIntern;
             this._Settings = new WebView2Settings(this.WebView.Settings);
             OnCreated();
         }
 
-        private void OnScriptToExecuteOnDocumentCreatedCompletedIntern(object sender, AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
+        private void OnExecuteScriptCompletedIntern(object sender, ExecuteScriptCompletedEventArgs e)
+        {
+            OnExecuteScriptCompleted(e);
+        }
+
+        private void OnScriptToExecuteOnDocumentCreatedCompletedIntern(object sender,
+            AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
         {
             OnScriptToExecuteOnDocumentCreatedCompleted(e);
         }
@@ -233,54 +246,41 @@ namespace Diga.WebView2.Wrapper
             OnNavigateStart(e);
         }
 
-        private WebView2View WebView
-        {
-            get;
-            set;
-        }
+        private WebView2View WebView { get; set; }
 
-       
-        
 
         public void DockToParent()
         {
             tagRECT rect;
             Native.GetClientRect(this.ParentHandle, out rect);
             this.WebView.Bounds = rect;
-            
-            
         }
 
         public void Navigate(string url)
         {
-            
-                this.WebView.Navigate(url);
-            
-
+            this.WebView.Navigate(url);
         }
 
         public void NavigateToString(string htmlContent)
         {
             this.WebView.NavigateToString(htmlContent);
-
         }
 
         public void GoBack()
         {
             this.WebView.GoBack();
-
         }
 
         public void GoForward()
         {
             this.WebView.GoForward();
-            
         }
 
         public void Reload()
         {
             this.WebView.Reload();
         }
+
         public bool CanGoBack => this.WebView.CanGoBack;
         public bool CanGoForward => this.WebView.CanGoForward;
         public string DocumentTitle => this.WebView.DocumentTitle;
@@ -288,6 +288,40 @@ namespace Diga.WebView2.Wrapper
 
         public string Source => this.WebView.Source;
 
+        public void AddScriptToExecuteOnDocumentCreated(string javaScript)
+        {
+            this.WebView.AddScriptToExecuteOnDocumentCreated(javaScript);
+        }
+
+        public void RemoveScriptToExecuteOnDocumentCreated(string id)
+        {
+            this.WebView.RemoveScriptToExecuteOnDocumentCreated(id);
+        }
+
+        public void PostWebMessageAsJson(string webMessageAsJson)
+        {
+            this.WebView.PostWebMessageAsJson(webMessageAsJson);
+        }
+
+        public void PostWebMessageAsString(string webMessageAsString)
+        {
+            this.WebView.PostWebMessageAsString(webMessageAsString);
+        }
+
+        public void AddRemoteObject(string name, ref object @object)
+        {
+            this.WebView.AddRemoteObject(name, ref @object);
+        }
+
+        public void RemoveRemoteObject(string name)
+        {
+            this.WebView.RemoveRemoteObject(name);
+        }
+
+        public void ExecuteScript(string javaScript)
+        {
+            this.WebView.ExecuteScript(javaScript);
+        }
         public void Dispose()
         {
             this.WebView.Close();
@@ -296,7 +330,6 @@ namespace Diga.WebView2.Wrapper
         protected virtual void OnCreated()
         {
             Created?.Invoke(this, EventArgs.Empty);
-
         }
 
         protected virtual void OnBeforeCreate(BeforeCreateEventArgs e)
@@ -404,9 +437,15 @@ namespace Diga.WebView2.Wrapper
             ZoomFactorChanged?.Invoke(this, e);
         }
 
-        protected virtual void OnScriptToExecuteOnDocumentCreatedCompleted(AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
+        protected virtual void OnScriptToExecuteOnDocumentCreatedCompleted(
+            AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
         {
             ScriptToExecuteOnDocumentCreatedCompleted?.Invoke(this, e);
+        }
+
+        protected virtual void OnExecuteScriptCompleted(ExecuteScriptCompletedEventArgs e)
+        {
+            ExecuteScriptCompleted?.Invoke(this, e);
         }
     }
 }

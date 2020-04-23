@@ -55,6 +55,7 @@ namespace WebView2WrapperWinFormsTest
         private void webView1_NavigationCompleted(object sender, NavigationCompletedEventArgs e)
         {
             this.textBox1.Text = this.webView1.Source;
+            this.Text = this.webView1.DocumentTitle;
         }
 
         private void webView1_AcceleratorKeyPressed(object sender, AcceleratorKeyPressedEventArgs e)

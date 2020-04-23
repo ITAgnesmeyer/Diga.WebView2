@@ -38,29 +38,16 @@ namespace Diga.WebView2.Wrapper
             RegisterEvents();
         }
 
-        private IWebView2WebView ToV0()
-        {
-            return this;
-        }
+       
 
-        private IWebView2WebView3 ToV3()
-        {
-            return this;
-        }
-
-        private IWebView2WebView4 ToV4()
-        {
-            return this;
-        }
-
-        private IWebView2WebView5 ToV5()
+        private IWebView2WebView5 ToInterface()
         {
             return this;
         }
 
         private void RegisterEvents()
         {
-            IWebView2WebView5 v5 = this.ToV5();
+            IWebView2WebView5 v5 = this.ToInterface();
 
             AcceleratorKeyPressedEventHandler acceleratorKeyPressedEventHandler =
                 new AcceleratorKeyPressedEventHandler();
@@ -232,26 +219,26 @@ namespace Diga.WebView2.Wrapper
 
         private void UnregisterEvents()
         {
-            this.ToV5().remove_NavigationStarting(this._NavigationStartingToken);
+            this.ToInterface().remove_NavigationStarting(this._NavigationStartingToken);
             //this.ToV5().remove_ContentLoading(this._ContentLoadingToken);
             //this.ToV5().remove_SourceChanged(this._SourceChangedToken);
             //((IWebView2WebView5) this).remove_HistoryChanged(this._HistoryChangeToken);
-            this.ToV5().remove_NavigationCompleted(this._NavigationCompletedToken);
-            this.ToV5().remove_AcceleratorKeyPressed(this._AcceleratorKeyPressedToken);
-            this.ToV5().remove_ContainsFullScreenElementChanged(this._ContainsFullScreenElementChangedHandlerToken);
-            this.ToV5().remove_DocumentStateChanged(this._DocumentStateChangedHandlerToken);
-            this.ToV5().remove_DocumentTitleChanged(this._DocumentTitleChangedToken);
-            this.ToV5().remove_FrameNavigationStarting(this._FrameNavigationStartingToken);
-            this.ToV5().remove_GotFocus(this._GotFocusToken);
-            this.ToV5().remove_LostFocus(this._LostFocusToken);
-            this.ToV5().remove_MoveFocusRequested(this._MoveFocusRequestedToken);
-            this.ToV5().remove_NewWindowRequested(this._NewWindowRequestedToken);
-            this.ToV5().remove_PermissionRequested(this._PermissionRequestedHandler);
-            this.ToV5().remove_ProcessFailed(this._ProcessFailedToken);
-            this.ToV5().remove_ScriptDialogOpening(this._ScriptDialogOpeningToken);
-            this.ToV5().remove_WebMessageReceived(this._WebMessageReceivedToken);
-            this.ToV5().remove_WebResourceRequested(this._WebResourceRequestedToken);
-            this.ToV5().remove_ZoomFactorChanged(this._ZoomFactorToken);
+            this.ToInterface().remove_NavigationCompleted(this._NavigationCompletedToken);
+            this.ToInterface().remove_AcceleratorKeyPressed(this._AcceleratorKeyPressedToken);
+            this.ToInterface().remove_ContainsFullScreenElementChanged(this._ContainsFullScreenElementChangedHandlerToken);
+            this.ToInterface().remove_DocumentStateChanged(this._DocumentStateChangedHandlerToken);
+            this.ToInterface().remove_DocumentTitleChanged(this._DocumentTitleChangedToken);
+            this.ToInterface().remove_FrameNavigationStarting(this._FrameNavigationStartingToken);
+            this.ToInterface().remove_GotFocus(this._GotFocusToken);
+            this.ToInterface().remove_LostFocus(this._LostFocusToken);
+            this.ToInterface().remove_MoveFocusRequested(this._MoveFocusRequestedToken);
+            this.ToInterface().remove_NewWindowRequested(this._NewWindowRequestedToken);
+            this.ToInterface().remove_PermissionRequested(this._PermissionRequestedHandler);
+            this.ToInterface().remove_ProcessFailed(this._ProcessFailedToken);
+            this.ToInterface().remove_ScriptDialogOpening(this._ScriptDialogOpeningToken);
+            this.ToInterface().remove_WebMessageReceived(this._WebMessageReceivedToken);
+            this.ToInterface().remove_WebResourceRequested(this._WebResourceRequestedToken);
+            this.ToInterface().remove_ZoomFactorChanged(this._ZoomFactorToken);
         }
 
         private EventRegistrationToken _NavigationStartingToken;
@@ -281,7 +268,7 @@ namespace Diga.WebView2.Wrapper
             OnNavigationStarting(e);
         }
 
-        public string Source => this.ToV5().Source;
+        public string Source => this.ToInterface().Source;
 
         public void Navigate(string uri)
         {
@@ -290,7 +277,7 @@ namespace Diga.WebView2.Wrapper
 
         public void NavigateToString(string htmlContent)
         {
-            this.ToV5().NavigateToString(htmlContent);
+            this.ToInterface().NavigateToString(htmlContent);
         }
 
         internal void Close()
@@ -303,7 +290,7 @@ namespace Diga.WebView2.Wrapper
             AddScriptToExecuteOnDocumentCreatedCompletedHandler handler =
                 new AddScriptToExecuteOnDocumentCreatedCompletedHandler();
             handler.ScriptExecuted += OnScriptToExecuteOnDocumentCreatedIntern;
-            this.ToV5().AddScriptToExecuteOnDocumentCreated(javaScript, handler);
+            this.ToInterface().AddScriptToExecuteOnDocumentCreated(javaScript, handler);
         }
 
         private void OnScriptToExecuteOnDocumentCreatedIntern(object sender,
@@ -314,82 +301,87 @@ namespace Diga.WebView2.Wrapper
 
         public void RemoveScriptToExecuteOnDocumentCreated(string id)
         {
-            this.ToV5().RemoveScriptToExecuteOnDocumentCreated(id);
+            this.ToInterface().RemoveScriptToExecuteOnDocumentCreated(id);
         }
 
         public void ExecuteScript(string javaScript)
         {
             ExecuteScriptCompletedHandler handler = new ExecuteScriptCompletedHandler();
             handler.ScriptCompleted += OnExecuteScriptCompletedIntern;
-            this.ToV5().ExecuteScript(javaScript, handler);
+            this.ToInterface().ExecuteScript(javaScript, handler);
         }
 
-        private void OnExecuteScriptCompletedIntern(object sender, ExecuteScriptCompletedEventArgs e)
-        {
-            OnExecuteScriptCompleted(e);
-        }
+      
 
         public void Reload()
         {
-            this.ToV5().Reload();
+            this.ToInterface().Reload();
         }
 
         public void PostWebMessageAsJson(string webMessageAsJson)
         {
-            this.ToV5().PostWebMessageAsJson(webMessageAsJson);
+            this.ToInterface().PostWebMessageAsJson(webMessageAsJson);
         }
 
         public void PostWebMessageAsString(string webMessageAsString)
         {
-            this.ToV5().PostWebMessageAsString(webMessageAsString);
+            this.ToInterface().PostWebMessageAsString(webMessageAsString);
         }
 
-        public uint BrowserProcessId => this.ToV5().BrowserProcessId;
-        public bool CanGoBack => this.ToV5().CanGoBack == 1;
-        public bool CanGoForward => (this.ToV5().CanGoForward) == 1;
+        public uint BrowserProcessId => this.ToInterface().BrowserProcessId;
+        public bool CanGoBack => new CBOOL(this.ToInterface().CanGoBack);
+        public bool CanGoForward => new CBOOL(this.ToInterface().CanGoForward);
 
         public void GoBack()
         {
-            this.ToV5().GoBack();
+            this.ToInterface().GoBack();
         }
 
         public void GoForward()
         {
-            this.ToV5().GoForward();
+            this.ToInterface().GoForward();
         }
 
         public void Stop()
         {
-            this.ToV5().Stop();
+            this.ToInterface().Stop();
         }
 
         public void AddRemoteObject(string name, ref object @object)
         {
-            this.ToV5().AddRemoteObject(name, ref @object);
+            this.ToInterface().AddRemoteObject(name, ref @object);
         }
 
         public void RemoveRemoteObject(string name)
         {
-            this.ToV5().RemoveRemoteObject(name);
+            this.ToInterface().RemoveRemoteObject(name);
         }
+
+
+       
 
         public void OpenDevToolsWindow()
         {
-            this.ToV5().OpenDevToolsWindow();
+            this.ToInterface().OpenDevToolsWindow();
         }
 
-        public bool ContainsFullScreenElement => new CBOOL(this.ToV5().ContainsFullScreenElement);
+        public bool ContainsFullScreenElement => new CBOOL(this.ToInterface().ContainsFullScreenElement);
 
-        protected virtual void OnNavigationStarting(NavigationStartingEventArgs e)
-        {
-            NavigationStarting?.Invoke(this, e);
-        }
+       
 
         public void Dispose()
         {
             UnregisterEvents();
         }
 
+        protected virtual void OnNavigationStarting(NavigationStartingEventArgs e)
+        {
+            NavigationStarting?.Invoke(this, e);
+        }
+        private void OnExecuteScriptCompletedIntern(object sender, ExecuteScriptCompletedEventArgs e)
+        {
+            OnExecuteScriptCompleted(e);
+        }
         protected virtual void OnContentLoading(ContentLoadingEventArgs e)
         {
             ContentLoading?.Invoke(this, e);
@@ -417,12 +409,12 @@ namespace Diga.WebView2.Wrapper
 
         public void AddWebResourceRequestedFilter(string uri, WebResourceContext resourceContext)
         {
-            this.ToV5().AddWebResourceRequestedFilter(uri, (WEBVIEW2_WEB_RESOURCE_CONTEXT) resourceContext);
+            this.ToInterface().AddWebResourceRequestedFilter(uri, (WEBVIEW2_WEB_RESOURCE_CONTEXT) resourceContext);
         }
 
         public void RemoveWebResourceRequestedFilter(string uri, WebResourceContext resourceContext)
         {
-            this.ToV5().RemoveWebResourceRequestedFilter(uri, (WEBVIEW2_WEB_RESOURCE_CONTEXT) resourceContext);
+            this.ToInterface().RemoveWebResourceRequestedFilter(uri, (WEBVIEW2_WEB_RESOURCE_CONTEXT) resourceContext);
         }
 
         public tagRECT Bounds
@@ -524,7 +516,7 @@ namespace Diga.WebView2.Wrapper
     public partial class WebView2View
     {
         IWebView2Settings IWebView2WebView5.Settings => this._WebView.Settings;
-        public WebView2Settings Settings => new WebView2Settings((IWebView2Settings2) this.ToV5().Settings);
+        public WebView2Settings Settings => new WebView2Settings((IWebView2Settings2) this.ToInterface().Settings);
         string IWebView2WebView5.Source => this._WebView.Source;
 
         void IWebView2WebView5.Navigate(string uri)
