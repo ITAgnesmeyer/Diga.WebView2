@@ -322,6 +322,11 @@ namespace Diga.WebView2.Wrapper
         {
             this.WebView.ExecuteScript(javaScript);
         }
+
+        public void OpenDevToolsWindow()
+        {
+            this.WebView.OpenDevToolsWindow();
+        }
         public void Dispose()
         {
             this.WebView.Close();

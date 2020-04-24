@@ -35,12 +35,14 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.webView1 = new Diga.WebView2.WinForms.WebView();
+            this.button4 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
@@ -80,9 +82,9 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Location = new System.Drawing.Point(717, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(33, 23);
             this.button1.TabIndex = 1;
-            this.button1.Text = "Go";
+            this.button1.Text = "GO";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -105,15 +107,15 @@
             // webView1
             // 
             this.webView1.BackColor = System.Drawing.Color.Black;
-            this.webView1.DefaultContextMenusEnabled = true;
+            this.webView1.DefaultContextMenusEnabled = false;
             this.webView1.DefaultScriptDialogsEnabled = true;
-            this.webView1.DevToolsEnabled = true;
+            this.webView1.DevToolsEnabled = false;
             this.webView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webView1.EnableMonitoring = true;
             this.webView1.HtmlContent = null;
             this.webView1.IsCreated = false;
             this.webView1.IsScriptEnabled = true;
-            this.webView1.IsStatusBarEnabled = true;
+            this.webView1.IsStatusBarEnabled = false;
             this.webView1.IsWebMessageEnabled = true;
             this.webView1.Location = new System.Drawing.Point(0, 0);
             this.webView1.MonitoringFolder = "C:\\test_exe\\wwwroot";
@@ -140,6 +142,18 @@
             this.webView1.WebResourceRequested += new System.EventHandler<Diga.WebView2.Wrapper.WebResourceRequestedEventArgs>(this.webView1_WebResourceRequested);
             this.webView1.ZoomFactorChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_ZoomFactorChanged);
             // 
+            // button4
+            // 
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Font = new System.Drawing.Font("MS UI Gothic", 8.25F);
+            this.button4.Location = new System.Drawing.Point(757, 4);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(33, 23);
+            this.button4.TabIndex = 4;
+            this.button4.Text = "☰";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -165,6 +179,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox1;
         private Diga.WebView2.WinForms.WebView webView1;
+        private System.Windows.Forms.Button button4;
     }
 }
 

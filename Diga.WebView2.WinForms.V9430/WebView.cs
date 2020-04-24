@@ -318,11 +318,16 @@ namespace Diga.WebView2.WinForms
         {
             this._WebViewControl.ExecuteScript(javaScript);
         }
-
+        [Browsable(false)]
         public string DocumentTitle
         {
             get => this._WebViewControl.DocumentTitle;
 
+        }
+
+        public void OpenDevToolsWindow()
+        {
+            this._WebViewControl.OpenDevToolsWindow();
         }
 #endif
 
