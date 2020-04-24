@@ -2,7 +2,6 @@
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
 using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.ComTypes;
 
 namespace Diga.WebView2.Wrapper
