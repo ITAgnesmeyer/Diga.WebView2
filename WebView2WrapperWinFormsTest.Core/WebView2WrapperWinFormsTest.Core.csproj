@@ -25,6 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MimeTypeExtension" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Diga.WebView2.WinFomrs.Core.V8355\Diga.WebView2.WinFomrs.Core.V8355.csproj" />
     <ProjectReference Include="..\Diga.WebView2.Wrapper.Std.V8355\Diga.WebView2.Wrapper.Std.V8355.csproj" />
   </ItemGroup>
