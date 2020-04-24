@@ -3,10 +3,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-
+using System.Windows.Forms.Design;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
-using Diga.WebView2.Wrapper.Handler;
 #if VS8355
 using MimeTypeExtension;
 #endif 
@@ -56,6 +55,7 @@ namespace Diga.WebView2.WinForms
             ScriptToExecuteOnDocumentCreatedCompleted;
         public event EventHandler<ExecuteScriptCompletedEventArgs> ExecuteScriptCompleted;
 #endif
+        [EditorAttribute(typeof(FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
         public string MonitoringFolder{get;set;}
         public string MonitoringUrl{get;set;}
         public bool EnableMonitoring{get;set;}
