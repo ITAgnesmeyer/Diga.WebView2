@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Diga.WebView2.WinForms</id>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <authors>Dipl.-Ing.(FH) Guido Agnesmeyer</authors>
     <owners>Dipl.-Ing.(FH) Guido Agnesmeyer</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -16,9 +16,11 @@
     <dependencies>
       <group targetFramework=".NETCoreApp3.1">
         <dependency id="Diga.WebView2.Wrapper" version="1.0.1" exclude="Build,Analyzers" />
+        <dependency id="MimeTypeExtension" version="1.0.1" exclude="Build,Analyzers" />
       </group>
       <group targetFramework=".NETFramework4.7.2">
         <dependency id="Diga.WebView2.Wrapper" version="1.0.1" exclude="Build,Analyzers" />
+        <dependency id="MimeTypeExtension" version="1.0.1" exclude="Build,Analyzers" />
       </group>
     </dependencies>
     <frameworkReferences>
