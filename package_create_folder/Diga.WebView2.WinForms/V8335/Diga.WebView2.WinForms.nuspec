@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>Diga.WebView2.WinFomrs</id>
+    <id>Diga.WebView2.WinForms</id>
     <version>1.0.1</version>
     <authors>Dipl.-Ing.(FH) Guido Agnesmeyer</authors>
     <owners>Dipl.-Ing.(FH) Guido Agnesmeyer</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</projectUrl>
-    <description>WebView2-WinFomrs</description>
-    <releaseNotes>WebView2-WinFomrs</releaseNotes>
+    <description>WebView2-WinForms</description>
+    <releaseNotes>WebView2-WinForms</releaseNotes>
     <copyright>2020 Dipl.-Ing.(FH) Guido Agnesmeyer</copyright>
     <tags>WebView2</tags>
     <repository type="git" url="https://github.com/ITAgnesmeyer/Diga.WebView2" />
@@ -28,7 +28,7 @@
     </frameworkReferences>
   </metadata>
   <files>
-    <file src="lib\net472\Dige.WebView2.WinForms.V8355.dll" target="lib\net472\Dige.WebView2.WinForms.V8355.dll" />
-    <file src="lib\netcoreapp3.1\Diga.WebView2.WinFomrs.Core.V8355.dll" target="lib\netcoreapp3.1\Diga.WebView2.WinFomrs.Core.V8355.dll" />
+    <file src="lib\net472\Diga.WebView2.WinForms.V8355.dll" target="lib\net472\Diga.WebView2.WinForms.V8355.dll" />
+    <file src="lib\netcoreapp3.1\Diga.WebView2.WinForms.Core.V8355.dll" target="lib\netcoreapp3.1\Diga.WebView2.WinForms.Core.V8355.dll" />
   </files>
 </package>

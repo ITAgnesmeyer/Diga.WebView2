@@ -16,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.Wrapper.Std.V
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebView2WrapperWinFormsTest.Core", "WebView2WrapperWinFormsTest.Core\WebView2WrapperWinFormsTest.Core.csproj", "{C8A7956D-1016-4830-8847-3F8244F4690B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.WinForms.Core.V9430", "Diga.WebView2.WinFomrs.Core.V9430\Diga.WebView2.WinForms.Core.V9430.csproj", "{51566996-2CB1-4951-A38E-BAB1F7CE9B1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.WinForms.Core.V9430", "Diga.WebView2.WinForms.Core.V9430\Diga.WebView2.WinForms.Core.V9430.csproj", "{51566996-2CB1-4951-A38E-BAB1F7CE9B1F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.WebView2.Interop.V8355", "Diga.WebView2.Interop.V8355\Diga.WebView2.Interop.V8355.csproj", "{09A70BFE-0082-4C26-96CB-68E8F9EB59A7}"
 EndProject
@@ -31,11 +31,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "V9430", "V9430", "{95ECB8DA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.WebView2.Wrapper.V8355", "Diga.WebView2.Wrapper.V8355\Diga.WebView2.Wrapper.V8355.csproj", "{450AB29F-A6FB-4BD7-9F29-AA9950E20317}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.WebView2.WinForms.V8355", "Dige.WebView2.WinForms.V8355\Diga.WebView2.WinForms.V8355.csproj", "{408BFEAC-DD60-47BE-BB5A-9ED6CDE6297D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.WebView2.WinForms.V8355", "Diga.WebView2.WinForms.V8355\Diga.WebView2.WinForms.V8355.csproj", "{408BFEAC-DD60-47BE-BB5A-9ED6CDE6297D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.Wrapper.Std.V8355", "Diga.WebView2.Wrapper.Std.V8355\Diga.WebView2.Wrapper.Std.V8355.csproj", "{B7E799AA-23BE-4320-9AAB-F284E09F7CE3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.WinFomrs.Core.V8355", "Diga.WebView2.WinFomrs.Core.V8355\Diga.WebView2.WinFomrs.Core.V8355.csproj", "{78B736A1-8ABD-49BC-8E79-87DA006A90BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.WinForms.Core.V8355", "Diga.WebView2.WinForms.Core.V8355\Diga.WebView2.WinForms.Core.V8355.csproj", "{78B736A1-8ABD-49BC-8E79-87DA006A90BF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BA813F56-87A6-4F00-8816-EF181DC956A8}"
 	ProjectSection(SolutionItems) = preProject

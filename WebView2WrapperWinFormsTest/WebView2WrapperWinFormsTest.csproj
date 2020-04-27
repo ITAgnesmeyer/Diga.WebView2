@@ -91,13 +91,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Diga.WebView2.WinForms.V8355\Diga.WebView2.WinForms.V8355.csproj">
+      <Project>{408bfeac-dd60-47be-bb5a-9ed6cde6297d}</Project>
+      <Name>Diga.WebView2.WinForms.V8355</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Diga.WebView2.Wrapper.V8355\Diga.WebView2.Wrapper.V8355.csproj">
       <Project>{450ab29f-a6fb-4bd7-9f29-aa9950e20317}</Project>
       <Name>Diga.WebView2.Wrapper.V8355</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dige.WebView2.WinForms.V8355\Diga.WebView2.WinForms.V8355.csproj">
-      <Project>{408bfeac-dd60-47be-bb5a-9ed6cde6297d}</Project>
-      <Name>Diga.WebView2.WinForms.V8355</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{408BFEAC-DD60-47BE-BB5A-9ED6CDE6297D}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Dige.WebView2.WinForms.V8355</RootNamespace>
-    <AssemblyName>Dige.WebView2.WinForms.V8355</AssemblyName>
+    <RootNamespace>Diga.WebView2.WinForms.V8355</RootNamespace>
+    <AssemblyName>Diga.WebView2.WinForms.V8355</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
