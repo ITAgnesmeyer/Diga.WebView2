@@ -8,21 +8,21 @@ using System.Runtime.InteropServices;
 
 namespace Diga.WebView2.Interop
 {
-  [StructLayout(LayoutKind.Sequential, Pack = 8)]
-  public struct tagSTATSTG
-  {
-    [MarshalAs(UnmanagedType.LPWStr)]
-    public string pwcsName;
-    public uint type;
-    public _ULARGE_INTEGER cbSize;
-    public _FILETIME mtime;
-    public _FILETIME ctime;
-    public _FILETIME atime;
-    public uint grfMode;
-    public uint grfLocksSupported;
-    [ComAliasName("WebView2.GUID")]
-    public GUID clsid;
-    public uint grfStateBits;
-    public uint reserved;
-  }
+//  [StructLayout(LayoutKind.Sequential, Pack = 8)]
+//  public struct tagSTATSTG
+//  {
+//    [MarshalAs(UnmanagedType.LPWStr)]
+//    public string pwcsName;
+//    public uint type;
+//    public _ULARGE_INTEGER cbSize;
+//    public _FILETIME mtime;
+//    public _FILETIME ctime;
+//    public _FILETIME atime;
+//    public uint grfMode;
+//    public uint grfLocksSupported;
+//    [ComAliasName("WebView2.GUID")]
+//    public GUID clsid;
+//    public uint grfStateBits;
+//    public uint reserved;
+//  }
 }

@@ -4,7 +4,7 @@ using Diga.WebView2.Wrapper.EventArguments;
 
 namespace Diga.WebView2.Wrapper.Handler
 {
-    public class CoreWebView2CreateCoreWebView2HostCompletedHandler : ICoreWebView2CreateCoreWebView2HostCompletedHandler
+    public class HostCompletedHandler : ICoreWebView2CreateCoreWebView2HostCompletedHandler
     {
         public event EventHandler<CoreWebView2HostCompletedArgs> HostCompleted;
         public event EventHandler<CoreWebView2HostCompletedErrorArgs> HostCompletedError;
@@ -25,6 +25,9 @@ namespace Diga.WebView2.Wrapper.Handler
                 return;
             }
 
+            if (webView != null)
+                webView.AddWebResourceRequestedFilter("*",
+                    CORE_WEBVIEW2_WEB_RESOURCE_CONTEXT.CORE_WEBVIEW2_WEB_RESOURCE_CONTEXT_ALL);
             ICoreWebView2Settings settings = webView.Settings;
             OnBeforeHostCreate(new BeforeHostCreateEventArgs(webView, host, settings));
             settings.IsScriptEnabled = new CBOOL(true);

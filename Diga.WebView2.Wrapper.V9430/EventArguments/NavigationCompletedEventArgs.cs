@@ -29,7 +29,7 @@ namespace Diga.WebView2.Wrapper
                     return "Certificate is invalid";
                 case ErrorStatus.CertificateRevoked:
                     return "Certificate revoked";
-                case ErrorStatus.Client_CertificateContiansError:
+                case ErrorStatus.ClientCertificateContiansError:
                     return "Client certificate contians error";
                 case ErrorStatus.ConnectionAbborted:
                     return "Connection abborted";
@@ -39,7 +39,7 @@ namespace Diga.WebView2.Wrapper
                     return "Disconnected";
                 case ErrorStatus.ErroHttpInvalidServerResponse:
                     return "Error http invalid server response";
-                case ErrorStatus.HostNameNot_Resolved:
+                case ErrorStatus.HostNameNotResolved:
                     return "Hostname not resolved";
                 case ErrorStatus.OperationCanceled:
                     return "Operation canceled";

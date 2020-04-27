@@ -6,9 +6,9 @@ using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
-#if VS8355
 using MimeTypeExtension;
-#endif 
+
+
 
 namespace Diga.WebView2.WinForms
 {
@@ -35,30 +35,33 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<SourceChangedEventArgs> SourceChanged;
         public event EventHandler<WebView2EventArgs> HistoryChanged;
         public event EventHandler<NavigationCompletedEventArgs> NavigationCompleted;
-#if VS8355
+        public event EventHandler<WebResourceRequestedEventArgs> WebResourceRequested;
         public event EventHandler<AcceleratorKeyPressedEventArgs> AcceleratorKeyPressed;
-        public event EventHandler<WebView2EventArgs> ContainsFullScreenElementChanged;
-        public event EventHandler<DocumentStateChangedEventArgs> DocumentStateChanged;
-        public event EventHandler<WebView2EventArgs> DocumentTitleChanged;
-        public event EventHandler<NavigationStartingEventArgs> FrameNavigationStarting;
         public event EventHandler<WebView2EventArgs> WebViewGotFocus;
         public event EventHandler<WebView2EventArgs> WebViewLostFocus;
         public event EventHandler<MoveFocusRequestedEventArgs> MoveFocusRequested;
+        public event EventHandler<WebView2EventArgs> ZoomFactorChanged;
+        public event EventHandler<WebView2EventArgs> DocumentTitleChanged;
+        public event EventHandler<WebView2EventArgs> ContainsFullScreenElementChanged;
         public event EventHandler<NewWindowRequestedEventArgs> NewWindowRequested;
         public event EventHandler<PermissionRequestedEventArgs> PermissionRequested;
+        public event EventHandler<NavigationStartingEventArgs> FrameNavigationStarting;
+        public event EventHandler<ExecuteScriptCompletedEventArgs> ExecuteScriptCompleted;
         public event EventHandler<ProcessFailedEventArgs> ProcessFailed;
         public event EventHandler<ScriptDialogOpeningEventArgs> ScriptDialogOpening;
         public event EventHandler<WebMessageReceivedEventArgs> WebMessageReceived;
-        public event EventHandler<WebResourceRequestedEventArgs> WebResourceRequested;
-        public event EventHandler<WebView2EventArgs> ZoomFactorChanged;
         public event EventHandler<AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>
             ScriptToExecuteOnDocumentCreatedCompleted;
-        public event EventHandler<ExecuteScriptCompletedEventArgs> ExecuteScriptCompleted;
+#if VS8355
+        public event EventHandler<DocumentStateChangedEventArgs> DocumentStateChanged;
+        
+#else
+        public event EventHandler<WebView2EventArgs> WindowCloseRequested;
 #endif
         [EditorAttribute(typeof(FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
-        public string MonitoringFolder{get;set;}
-        public string MonitoringUrl{get;set;}
-        public bool EnableMonitoring{get;set;}
+        public string MonitoringFolder { get; set; }
+        public string MonitoringUrl { get; set; }
+        public bool EnableMonitoring { get; set; }
         public string HtmlContent
         {
             get => _HtmlContent;
@@ -281,22 +284,18 @@ namespace Diga.WebView2.WinForms
             if (this._WebViewControl.CanGoForward)
                 this._WebViewControl.GoForward();
 
-            
+
         }
-
-#if VS8355
-
         public void AddScriptToExecuteOnDocumentCreated(string javaScript)
         {
-            if(!this.IsCreated) return;
+            if (!this.IsCreated) return;
             this._WebViewControl.AddScriptToExecuteOnDocumentCreated(javaScript);
-            
-        }
 
+        }
         public void PostWebMessageAsJson(string webMessageAsJson)
         {
             this._WebViewControl.PostWebMessageAsJson(webMessageAsJson);
-            
+
         }
 
         public void PostWebMessageAsString(string webMessageAsString)
@@ -308,7 +307,6 @@ namespace Diga.WebView2.WinForms
         {
             this._WebViewControl.AddRemoteObject(name, ref @object);
         }
-
         public void RemoveRemoteObject(string name)
         {
             this._WebViewControl.RemoveRemoteObject(name);
@@ -318,6 +316,7 @@ namespace Diga.WebView2.WinForms
         {
             this._WebViewControl.ExecuteScript(javaScript);
         }
+
         [Browsable(false)]
         public string DocumentTitle
         {
@@ -325,11 +324,12 @@ namespace Diga.WebView2.WinForms
 
         }
 
+
         public void OpenDevToolsWindow()
         {
             this._WebViewControl.OpenDevToolsWindow();
         }
-#endif
+
 
         private bool IsInDesignMode()
         {
@@ -359,27 +359,29 @@ namespace Diga.WebView2.WinForms
                 this._WebViewControl.Created += OnWebWindowCreated;
                 this._WebViewControl.BeforeCreate += OnWebWindowBeforeCreate;
                 this._WebViewControl.NavigateStart += OnNavigationStartIntern;
-#if VS8355
-
                 this._WebViewControl.AcceleratorKeyPressed += OnAcceleratorKeyPressedIntern;
-                this._WebViewControl.ContainsFullScreenElementChanged += OnContainsFullScreenElementChangedIntern;
-                this._WebViewControl.DocumentStateChanged += OnDocumentStateChangedIntern;
-                this._WebViewControl.DocumentTitleChanged += OnDocumentTitleChangedIntern;
-                this._WebViewControl.FrameNavigationStarting += OnFrameNavigationStartingIntern;
                 this._WebViewControl.GotFocus += OnGotFocusIntern;
                 this._WebViewControl.LostFocus += OnLostFocusIntern;
                 this._WebViewControl.MoveFocusRequested += OnMoveFocusRequestedIntern;
+                this._WebViewControl.ZoomFactorChanged += OnZoomFactorChangedIntern;
+                this._WebViewControl.ContainsFullScreenElementChanged += OnContainsFullScreenElementChangedIntern;
+
                 this._WebViewControl.NewWindowRequested += OnNewWindowRequestedIntern;
                 this._WebViewControl.PermissionRequested += OnPermissionRequestedIntern;
+                this._WebViewControl.DocumentTitleChanged += OnDocumentTitleChangedIntern;
+                this._WebViewControl.FrameNavigationStarting += OnFrameNavigationStartingIntern;
                 this._WebViewControl.ProcessFailed += OnProcessFailedIntern;
                 this._WebViewControl.ScriptDialogOpening += OnScriptDialogOpeningIntern;
                 this._WebViewControl.WebMessageReceived += OnWebMessageReceivedIntern;
-                this._WebViewControl.WebResourceRequested += OnWebResourceRequestedIntern;
-                this._WebViewControl.ZoomFactorChanged += OnZoomFactorChangedIntern;
                 this._WebViewControl.ScriptToExecuteOnDocumentCreatedCompleted += ScriptToExecuteOnDocumentCreatedCompletedIntern;
-                this._WebViewControl.ExecuteScriptCompleted += OnExecuteScriptCompletedIntern;
+#if VS8355
+                this._WebViewControl.DocumentStateChanged += OnDocumentStateChangedIntern;
+                
+#else
+                this._WebViewControl.WindowCloseRequested += OnWindowCloseRequestedIntern;
 #endif
-
+                this._WebViewControl.ExecuteScriptCompleted += OnExecuteScriptCompletedIntern;
+                this._WebViewControl.WebResourceRequested += OnWebResourceRequestedIntern;
                 this._WebViewControl.ContentLoading += OnContentLoadingIntern;
                 this._WebViewControl.SourceChanged += OnSourceChangedIntern;
                 this._WebViewControl.HistoryChanged += OnHistoryChangedIntern;
@@ -389,49 +391,7 @@ namespace Diga.WebView2.WinForms
             }
         }
 
-        
 
-
-#if VS8355
-
-        private void OnExecuteScriptCompletedIntern(object sender, ExecuteScriptCompletedEventArgs e)
-        {
-            OnExecuteScriptCompleted(e);
-        }
-        private void ScriptToExecuteOnDocumentCreatedCompletedIntern(object sender, AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
-        {
-            OnScriptToExecuteOnDocumentCreatedCompleted(e);
-        }
-        private void OnZoomFactorChangedIntern(object sender, WebView2EventArgs e)
-        {
-            OnZoomFactorChanged(e);
-        }
-
-        private void OnWebResourceRequestedIntern(object sender, WebResourceRequestedEventArgs e)
-        {
-            OnWebResourceRequested(e);
-        }
-        private void OnWebMessageReceivedIntern(object sender, WebMessageReceivedEventArgs e)
-        {
-            OnWebMessageReceived(e);
-        }
-        private void OnScriptDialogOpeningIntern(object sender, ScriptDialogOpeningEventArgs e)
-        {
-            OnScriptDialogOpening(e);
-        }
-        private void OnProcessFailedIntern(object sender, ProcessFailedEventArgs e)
-        {
-            OnProcessFailed(e);
-        }
-
-        private void OnPermissionRequestedIntern(object sender, PermissionRequestedEventArgs e)
-        {
-            OnPermissionRequested(e);
-        }
-        private void OnNewWindowRequestedIntern(object sender, NewWindowRequestedEventArgs e)
-        {
-            OnNewWindowRequested(e);
-        }
         private void OnMoveFocusRequestedIntern(object sender, MoveFocusRequestedEventArgs e)
         {
             OnMoveFocusRequested(e);
@@ -447,6 +407,55 @@ namespace Diga.WebView2.WinForms
             OnWebViewGotFocus(e);
         }
 
+        private void OnZoomFactorChangedIntern(object sender, WebView2EventArgs e)
+        {
+            OnZoomFactorChanged(e);
+        }
+
+        private void OnPermissionRequestedIntern(object sender, PermissionRequestedEventArgs e)
+        {
+            OnPermissionRequested(e);
+        }
+        private void OnNewWindowRequestedIntern(object sender, NewWindowRequestedEventArgs e)
+        {
+            OnNewWindowRequested(e);
+        }
+
+        private void OnExecuteScriptCompletedIntern(object sender, ExecuteScriptCompletedEventArgs e)
+        {
+            OnExecuteScriptCompleted(e);
+        }
+        private void OnWebMessageReceivedIntern(object sender, WebMessageReceivedEventArgs e)
+        {
+            OnWebMessageReceived(e);
+        }
+        private void ScriptToExecuteOnDocumentCreatedCompletedIntern(object sender, AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
+        {
+            OnScriptToExecuteOnDocumentCreatedCompleted(e);
+        }
+#if VS8355
+     
+       
+
+        private void OnDocumentStateChangedIntern(object sender, DocumentStateChangedEventArgs e)
+        {
+            OnDocumentStateChanged(e);
+        }
+#else
+        private void OnWindowCloseRequestedIntern(object sender, WebView2EventArgs e)
+        {
+            OnWindowCloseRequested(e);
+        }
+
+#endif
+        private void OnScriptDialogOpeningIntern(object sender, ScriptDialogOpeningEventArgs e)
+        {
+            OnScriptDialogOpening(e);
+        }
+        private void OnProcessFailedIntern(object sender, ProcessFailedEventArgs e)
+        {
+            OnProcessFailed(e);
+        }
         private void OnFrameNavigationStartingIntern(object sender, NavigationStartingEventArgs e)
         {
             OnFrameNavigationStarting(e);
@@ -454,11 +463,6 @@ namespace Diga.WebView2.WinForms
         private void OnDocumentTitleChangedIntern(object sender, WebView2EventArgs e)
         {
             OnDocumentTitleChanged(e);
-        }
-
-        private void OnDocumentStateChangedIntern(object sender, DocumentStateChangedEventArgs e)
-        {
-            OnDocumentStateChanged(e);
         }
         private void OnContainsFullScreenElementChangedIntern(object sender, WebView2EventArgs e)
         {
@@ -468,7 +472,10 @@ namespace Diga.WebView2.WinForms
         {
             OnAcceleratorKeyPressed(e);
         }
-#endif
+        private void OnWebResourceRequestedIntern(object sender, WebResourceRequestedEventArgs e)
+        {
+            OnWebResourceRequested(e);
+        }
         private void OnNavigationCompletedIntern(object sender, NavigationCompletedEventArgs e)
         {
             OnNavigationCompleted(e);
@@ -526,23 +533,16 @@ namespace Diga.WebView2.WinForms
         {
             NavigationCompleted?.Invoke(this, e);
         }
-#if VS8355
-
         protected virtual void OnAcceleratorKeyPressed(AcceleratorKeyPressedEventArgs e)
         {
             AcceleratorKeyPressed?.Invoke(this, e);
         }
 
+
         protected virtual void OnContainsFullScreenElementChanged(WebView2EventArgs e)
         {
             ContainsFullScreenElementChanged?.Invoke(this, e);
         }
-
-        protected virtual void OnDocumentStateChanged(DocumentStateChangedEventArgs e)
-        {
-            DocumentStateChanged?.Invoke(this, e);
-        }
-
         protected virtual void OnDocumentTitleChanged(WebView2EventArgs e)
         {
             DocumentTitleChanged?.Invoke(this, e);
@@ -551,17 +551,38 @@ namespace Diga.WebView2.WinForms
         {
             FrameNavigationStarting?.Invoke(this, e);
         }
-        protected virtual void OnWebViewGotFocus(WebView2EventArgs e)
+        protected virtual void OnScriptDialogOpening(ScriptDialogOpeningEventArgs e)
         {
-            WebViewGotFocus?.Invoke(this, e);
+            ScriptDialogOpening?.Invoke(this, e);
         }
-        protected virtual void OnWebViewLostFocus(WebView2EventArgs e)
+#if VS8355
+
+        protected virtual void OnDocumentStateChanged(DocumentStateChangedEventArgs e)
         {
-            WebViewLostFocus?.Invoke(this, e);
+            DocumentStateChanged?.Invoke(this, e);
         }
-        protected virtual void OnMoveFocusRequested(MoveFocusRequestedEventArgs e)
+#else
+        protected virtual void OnWindowCloseRequested(WebView2EventArgs e)
         {
-            MoveFocusRequested?.Invoke(this, e);
+            WindowCloseRequested?.Invoke(this, e);
+        }
+#endif
+
+        protected virtual void OnScriptToExecuteOnDocumentCreatedCompleted(AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
+        {
+            ScriptToExecuteOnDocumentCreatedCompleted?.Invoke(this, e);
+        }
+        protected virtual void OnWebMessageReceived(WebMessageReceivedEventArgs e)
+        {
+            WebMessageReceived?.Invoke(this, e);
+        }
+        protected virtual void OnProcessFailed(ProcessFailedEventArgs e)
+        {
+            ProcessFailed?.Invoke(this, e);
+        }
+        protected virtual void OnExecuteScriptCompleted(ExecuteScriptCompletedEventArgs e)
+        {
+            ExecuteScriptCompleted?.Invoke(this, e);
         }
         protected virtual void OnNewWindowRequested(NewWindowRequestedEventArgs e)
         {
@@ -571,32 +592,16 @@ namespace Diga.WebView2.WinForms
         {
             PermissionRequested?.Invoke(this, e);
         }
-        protected virtual void OnProcessFailed(ProcessFailedEventArgs e)
-        {
-            ProcessFailed?.Invoke(this, e);
-        }
-        protected virtual void OnScriptDialogOpening(ScriptDialogOpeningEventArgs e)
-        {
-            ScriptDialogOpening?.Invoke(this, e);
-        }
-        protected virtual void OnWebMessageReceived(WebMessageReceivedEventArgs e)
-        {
-            WebMessageReceived?.Invoke(this, e);
-        }
 
-        protected virtual void OnWebResourceRequested(WebResourceRequestedEventArgs e)
-        {
-            if (this.EnableMonitoring)
-            {
-                if (GetFileStream(e.Request.Uri, out var responseInfo))
-                {
-                    var response = this.CreateResponse(responseInfo);
-                    e.Response = response;
-                }
-            }
 
-            WebResourceRequested?.Invoke(this, e);
-        }
+
+
+
+
+
+
+
+
         protected virtual void OnZoomFactorChanged(WebView2EventArgs e)
         {
             ZoomFactorChanged?.Invoke(this, e);
@@ -613,8 +618,7 @@ namespace Diga.WebView2.WinForms
 
             return response;
         }
-
-         private bool GetFileStream(string url, out ResponseInfo responseInfo)
+        private bool GetFileStream(string url, out ResponseInfo responseInfo)
         {
             if (!url.StartsWith(this.MonitoringUrl))
             {
@@ -666,17 +670,41 @@ namespace Diga.WebView2.WinForms
 
 
         }
-        protected virtual void OnScriptToExecuteOnDocumentCreatedCompleted(AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
+        protected virtual void OnWebResourceRequested(WebResourceRequestedEventArgs e)
         {
-            ScriptToExecuteOnDocumentCreatedCompleted?.Invoke(this, e);
+            if (this.EnableMonitoring)
+            {
+                if (GetFileStream(e.Request.Uri, out var responseInfo))
+                {
+                    var response = this.CreateResponse(responseInfo);
+                    e.Response = response;
+                }
+            }
+
+            WebResourceRequested?.Invoke(this, e);
         }
-        protected virtual void OnExecuteScriptCompleted(ExecuteScriptCompletedEventArgs e)
-        {
-            ExecuteScriptCompleted?.Invoke(this, e);
-        }
-#endif
 
 
-       
+        protected virtual void OnWebViewGotFocus(WebView2EventArgs e)
+        {
+            WebViewGotFocus?.Invoke(this, e);
+        }
+        protected virtual void OnWebViewLostFocus(WebView2EventArgs e)
+        {
+            WebViewLostFocus?.Invoke(this, e);
+        }
+        protected virtual void OnMoveFocusRequested(MoveFocusRequestedEventArgs e)
+        {
+            MoveFocusRequested?.Invoke(this, e);
+        }
+
+        public string BrowserVersion
+        {
+            get
+            {
+                return this._WebViewControl.BrowserInfo;
+            }
+        }
+      
     }
 }

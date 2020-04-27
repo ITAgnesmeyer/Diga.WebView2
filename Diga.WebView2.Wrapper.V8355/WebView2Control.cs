@@ -88,7 +88,7 @@ namespace Diga.WebView2.Wrapper
             this.Environment = e.Environment;
         }
 
-        private WebViewEnvironment Environment { get; set; }
+        private WebView2Environment Environment { get; set; }
 
         private void OnBeforeEnvironmentCompleted(object sender, EnvironmentCompletedHandlerArgs e)
         {
@@ -98,10 +98,9 @@ namespace Diga.WebView2.Wrapper
             string contentType)
         {
             ManagedIStream mStream = new ManagedIStream(stream);
-            IWebView2WebResourceResponse responseInterface = null;
-
-            this.Environment.CreateWebResourceResponse(mStream, 200, statusText, headers, ref responseInterface);
-            WebResourceResponse wrapper = new WebResourceResponse(responseInterface);
+           
+            WebResourceResponse wrapper =  this.Environment.CreateWebResourceResponse(mStream, 200, statusText, headers);
+             
             return wrapper;
         }
 

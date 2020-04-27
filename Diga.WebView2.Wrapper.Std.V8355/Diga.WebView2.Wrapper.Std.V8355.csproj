@@ -81,6 +81,7 @@
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\WebResourceRequest.cs" Link="WebResourceRequest.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\WebResourceResponse.cs" Link="WebResourceResponse.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\WebView2Control.cs" Link="WebView2Control.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V8355\WebView2Environment.cs" Link="WebView2Environment.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\WebView2Settings.cs" Link="WebView2Settings.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\WebView2View.cs" Link="WebView2View.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9430\Native.cs" Link="Native.cs" />

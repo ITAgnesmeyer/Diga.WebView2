@@ -60,6 +60,7 @@
       <Link>Types\Rectangle.cs</Link>
     </Compile>
     <Compile Include="Deferral.cs" />
+    <Compile Include="WebView2Environment.cs" />
     <Compile Include="Handler\DocumentTitleChangedHanlder.cs" />
     <Compile Include="Handler\DocumentStateChangedEventHandler.cs" />
     <Compile Include="EventArguments\DocumentStateChangedEventArgs.cs" />

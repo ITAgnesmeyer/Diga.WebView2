@@ -2,10 +2,11 @@
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
 using System;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace Diga.WebView2.Wrapper
 {
-    public class WebView2View : ICoreWebView2, IDisposable
+    public partial class WebView2View : ICoreWebView2, IDisposable
     {
         private ICoreWebView2 _WebView;
         public event EventHandler<NavigationStartingEventArgs> NavigationStarting;
@@ -14,34 +15,153 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<SourceChangedEventArgs> SourceChanged;
         public event EventHandler<WebView2EventArgs> HistoryChanged;
         public event EventHandler<NavigationCompletedEventArgs> NavigationCompleted;
+        public event EventHandler<WebView2EventArgs> ContainsFullScreenElementChanged;
+        public event EventHandler<WebResourceRequestedEventArgs> WebResourceRequested;
+        public event EventHandler<WebView2EventArgs> DocumentTitleChanged;
+        public event EventHandler<NavigationStartingEventArgs> FrameNavigationStarting;
+        public event EventHandler<NewWindowRequestedEventArgs> NewWindowRequested;
+        public event EventHandler<PermissionRequestedEventArgs> PermissionRequested;
+        public event EventHandler<ProcessFailedEventArgs> ProcessFailed;
+        public event EventHandler<ScriptDialogOpeningEventArgs> ScriptDialogOpening;
+        public event EventHandler<WebMessageReceivedEventArgs> WebMessageReceived;
+        public event EventHandler<WebView2EventArgs> WindowCloseRequested;
+
+        public event EventHandler<AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>
+            ScriptToExecuteOnDocumentCreated;
+
         public WebView2View(ICoreWebView2 webView)
         {
             this._WebView = webView;
             RegisterEvents();
         }
 
+        private ICoreWebView2 ToInterface()
+        {
+            return this;
+        }
+
         private void RegisterEvents()
         {
-            NavigationStartingEventHandler navigationStartingHandler = new NavigationStartingEventHandler();
-            navigationStartingHandler.NavigationStarting += OnNavigationStartingIntern;
-            ((ICoreWebView2) this).add_NavigationStarting(navigationStartingHandler, out this._NavigationStartingToken);
-
             ContentLoadingEventHandler contentLoadingHandler = new ContentLoadingEventHandler();
             contentLoadingHandler.ContentLoading += OnContentLoadingIntern;
-            ((ICoreWebView2) this).add_ContentLoading(contentLoadingHandler, out this._ContentLoadingToken);
+            this.ToInterface().add_ContentLoading(contentLoadingHandler, out this._ContentLoadingToken);
 
-            SourceChangedEventHandler sourceChangedHandler = new SourceChangedEventHandler();
-            sourceChangedHandler.SourceChanged += OnSourceChangedIntern;
-            ((ICoreWebView2) this).add_SourceChanged(sourceChangedHandler, out this._SourceChangedToken);
+
+            DocumentTitleChangedHandler documentTitleChangedHandler = new DocumentTitleChangedHandler();
+            documentTitleChangedHandler.DocumentTitleChanged += OnDocumentTitleChangedIntern;
+            this.ToInterface()
+                .add_DocumentTitleChanged(documentTitleChangedHandler, out this._DocumentTitleChangedToken);
+
+            ContainsFullScreenElementChangedEventHandler containsFullScreenElementChangedEventHandler =
+                new ContainsFullScreenElementChangedEventHandler();
+            containsFullScreenElementChangedEventHandler.ContainsFullScreenElementChanged +=
+                OnContainsFullScreenElementChangedIntern;
+            this.ToInterface().add_ContainsFullScreenElementChanged(containsFullScreenElementChangedEventHandler,
+                out this._ContainsFullScreenElementChanged);
+
+            NavigationStartingEventHandler frameNavigationStarting = new NavigationStartingEventHandler();
+            frameNavigationStarting.NavigationStarting += OnFrameNavigationStartingIntern;
+            this.ToInterface()
+                .add_FrameNavigationStarting(frameNavigationStarting, out this._FrameNavigationStartingToken);
+
 
             HistoryChangedEventHandler historyChangedHandler = new HistoryChangedEventHandler();
             historyChangedHandler.HistoryChanged += OnHistoryChangedIntern;
-            ((ICoreWebView2) this).add_HistoryChanged(historyChangedHandler, out this._HistoryChangeToken);
+            this.ToInterface().add_HistoryChanged(historyChangedHandler, out this._HistoryChangeToken);
+
+
+            NavigationStartingEventHandler navigationStartingHandler = new NavigationStartingEventHandler();
+            navigationStartingHandler.NavigationStarting += OnNavigationStartingIntern;
+            this.ToInterface().add_NavigationStarting(navigationStartingHandler, out this._NavigationStartingToken);
 
             NavigationCompletedEventHandler navigationCompletedHandler = new NavigationCompletedEventHandler();
-            navigationCompletedHandler.NavigaionCompleted+=OnNavigationCompletedIntern;
-            ((ICoreWebView2) this).add_NavigationCompleted(navigationCompletedHandler,
+            navigationCompletedHandler.NavigaionCompleted += OnNavigationCompletedIntern;
+            this.ToInterface().add_NavigationCompleted(navigationCompletedHandler,
                 out this._NavigationCompletedToken);
+
+            NewWindowRequestedEventHandler newWindowRequested = new NewWindowRequestedEventHandler();
+            newWindowRequested.NewWindowRequested += OnNewWindowRequestedIntern;
+            this.ToInterface().add_NewWindowRequested(newWindowRequested, out this._NewWindowRequestedToken);
+
+            PermissionRequestedEventHandler permissionRequestedHandler = new PermissionRequestedEventHandler();
+            permissionRequestedHandler.PermissionRequested += OnPermissionRequestedIntern;
+            this.ToInterface().add_PermissionRequested(permissionRequestedHandler, out this._PermissionRequestedToken);
+
+            ProcessFailedEventHandler processFailedHandler = new ProcessFailedEventHandler();
+            processFailedHandler.ProcessFailed += OnProcessFailedIntern;
+            this.ToInterface().add_ProcessFailed(processFailedHandler, out this._ProcessFailedToken);
+
+            ScriptDialogOpeningEventHandler scriptDialogOpeningHandler = new ScriptDialogOpeningEventHandler();
+            scriptDialogOpeningHandler.ScriptDialogOpening += OnScriptDialogOpeningIntern;
+            this.ToInterface().add_ScriptDialogOpening(scriptDialogOpeningHandler, out this._ScriptDialogOpeningToken);
+
+            SourceChangedEventHandler sourceChangedHandler = new SourceChangedEventHandler();
+            sourceChangedHandler.SourceChanged += OnSourceChangedIntern;
+            this.ToInterface().add_SourceChanged(sourceChangedHandler, out this._SourceChangedToken);
+
+            WebMessageReceivedEventHandler webMessageReceivedHandler = new WebMessageReceivedEventHandler();
+            webMessageReceivedHandler.WebMessageReceived += OnWebMessageReceivedIntern;
+            this.ToInterface().add_WebMessageReceived(webMessageReceivedHandler, out this._WebMessageReceivedToken);
+
+            WindowCloseRequestedHandler windowCloseRequestedHandler = new WindowCloseRequestedHandler();
+            windowCloseRequestedHandler.WindowCloseRequested += OnWindowCloseRequestedIntern;
+            this.ToInterface()
+                .add_WindowCloseRequested(windowCloseRequestedHandler, out this._WindowCloseRequestedToken);
+
+            WebResourceRequestedEventHandler webResourceRequestedEventHandler = new WebResourceRequestedEventHandler();
+            webResourceRequestedEventHandler.WebResourceRequested += OnWebResourceRequestedIntern;
+            this.ToInterface()
+                .add_WebResourceRequested(webResourceRequestedEventHandler, out this._WebResourceRequested);
+        }
+
+        private void OnWindowCloseRequestedIntern(object sender, WebView2EventArgs e)
+        {
+            OnWindowCloseRequested(e);
+        }
+
+        private void OnWebMessageReceivedIntern(object sender, WebMessageReceivedEventArgs e)
+        {
+            OnWebMessageReceived(e);
+        }
+
+        private void OnScriptDialogOpeningIntern(object sender, ScriptDialogOpeningEventArgs e)
+        {
+            OnScriptDialogOpening(e);
+        }
+
+        private void OnProcessFailedIntern(object sender, ProcessFailedEventArgs e)
+        {
+            OnProcessFailed(e);
+        }
+
+        private void OnPermissionRequestedIntern(object sender, PermissionRequestedEventArgs e)
+        {
+            OnPermissionRequested(e);
+        }
+
+        private void OnNewWindowRequestedIntern(object sender, NewWindowRequestedEventArgs e)
+        {
+            OnNewWindowRequested(e);
+        }
+
+        private void OnFrameNavigationStartingIntern(object sender, NavigationStartingEventArgs e)
+        {
+            OnFrameNavigationStarting(e);
+        }
+
+        private void OnDocumentTitleChangedIntern(object sender, WebView2EventArgs e)
+        {
+            OnDocumentTitleChanged(e);
+        }
+
+        private void OnWebResourceRequestedIntern(object sender, WebResourceRequestedEventArgs e)
+        {
+            OnWebResourceRequested(e);
+        }
+
+        private void OnContainsFullScreenElementChangedIntern(object sender, WebView2EventArgs e)
+        {
+            OnContainsFullScreenElementChanged(e);
         }
 
         private void OnNavigationCompletedIntern(object sender, NavigationCompletedEventArgs e)
@@ -66,11 +186,21 @@ namespace Diga.WebView2.Wrapper
 
         public void UnregisterEvents()
         {
-            ((ICoreWebView2)this).remove_NavigationStarting(this._NavigationStartingToken);
-            ((ICoreWebView2)this).remove_ContentLoading(this._ContentLoadingToken);
-            ((ICoreWebView2)this).remove_SourceChanged(this._SourceChangedToken);
-            ((ICoreWebView2) this).remove_HistoryChanged(this._HistoryChangeToken);
-            ((ICoreWebView2) this).remove_NavigationCompleted(this._NavigationCompletedToken);
+            this.ToInterface().remove_NavigationStarting(this._NavigationStartingToken);
+            this.ToInterface().remove_ContentLoading(this._ContentLoadingToken);
+            this.ToInterface().remove_SourceChanged(this._SourceChangedToken);
+            this.ToInterface().remove_HistoryChanged(this._HistoryChangeToken);
+            this.ToInterface().remove_NavigationCompleted(this._NavigationCompletedToken);
+            this.ToInterface().remove_ContainsFullScreenElementChanged(this._ContainsFullScreenElementChanged);
+            this.ToInterface().remove_WebResourceRequested(this._WebResourceRequested);
+            this.ToInterface().remove_DocumentTitleChanged(this._DocumentTitleChangedToken);
+            this.ToInterface().remove_FrameNavigationStarting(this._FrameNavigationStartingToken);
+            this.ToInterface().remove_NewWindowRequested(this._NewWindowRequestedToken);
+            this.ToInterface().remove_PermissionRequested(this._PermissionRequestedToken);
+            this.ToInterface().remove_ProcessFailed(this._ProcessFailedToken);
+            this.ToInterface().remove_ScriptDialogOpening(this._ScriptDialogOpeningToken);
+            this.ToInterface().remove_WebMessageReceived(this._WebMessageReceivedToken);
+            this.ToInterface().remove_WindowCloseRequested(this._WindowCloseRequestedToken);
         }
 
         private EventRegistrationToken _NavigationStartingToken;
@@ -78,26 +208,252 @@ namespace Diga.WebView2.Wrapper
         private EventRegistrationToken _SourceChangedToken;
         private EventRegistrationToken _HistoryChangeToken;
         private EventRegistrationToken _NavigationCompletedToken;
+        private EventRegistrationToken _ContainsFullScreenElementChanged;
+        private EventRegistrationToken _WebResourceRequested;
+        private EventRegistrationToken _DocumentTitleChangedToken;
+        private EventRegistrationToken _FrameNavigationStartingToken;
+        private EventRegistrationToken _NewWindowRequestedToken;
+        private EventRegistrationToken _PermissionRequestedToken;
+        private EventRegistrationToken _ProcessFailedToken;
+        private EventRegistrationToken _ScriptDialogOpeningToken;
+        private EventRegistrationToken _WebMessageReceivedToken;
+        private EventRegistrationToken _WindowCloseRequestedToken;
 
         private void OnNavigationStartingIntern(object sender, NavigationStartingEventArgs e)
         {
             OnNavigationStarting(e);
         }
 
-        ICoreWebView2Settings ICoreWebView2.Settings => this._WebView.Settings;
-        public WebView2Settings Settings => new WebView2Settings(((ICoreWebView2)this).Settings);
 
+        public WebView2Settings Settings => new WebView2Settings(this.ToInterface().Settings);
+
+
+        public string Source => this.ToInterface().Source;
+
+
+        public void Navigate(string uri)
+        {
+            this.ToInterface().Navigate(uri);
+        }
+
+
+        public void NavigateToString(string htmlContent)
+        {
+            this.ToInterface().NavigateToString(htmlContent);
+        }
+
+
+        public void AddScriptToExecuteOnDocumentCreated(string javaScript)
+        {
+            AddScriptToExecuteOnDocumentCreatedCompletedHandler handler =
+                new AddScriptToExecuteOnDocumentCreatedCompletedHandler();
+            handler.ScriptExecuted += OnScriptToExecuteOnDocumentCreatedIntern;
+            this.ToInterface().AddScriptToExecuteOnDocumentCreated(javaScript, handler);
+        }
+
+        private void OnScriptToExecuteOnDocumentCreatedIntern(object sender,
+            AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
+        {
+            OnScriptToExecuteOnDocumentCreated(e);
+        }
+
+
+        public void RemoveScriptToExecuteOnDocumentCreated(string id)
+        {
+            this.ToInterface().RemoveScriptToExecuteOnDocumentCreated(id);
+        }
+
+
+        public void ExecuteScript(string javaScript)
+        {
+            ExecuteScriptCompletedHandler handler = new ExecuteScriptCompletedHandler();
+            handler.ScriptCompleted += OnExecuteScriptCompletedIntern;
+            this.ToInterface().ExecuteScript(javaScript, handler);
+        }
+
+        private void OnExecuteScriptCompletedIntern(object sender, ExecuteScriptCompletedEventArgs e)
+        {
+            OnExecuteScriptCompleted(e);
+        }
+
+
+        public void Reload()
+        {
+            this.ToInterface().Reload();
+        }
+
+
+        public void PostWebMessageAsJson(string webMessageAsJson)
+        {
+            this.ToInterface().PostWebMessageAsJson(webMessageAsJson);
+        }
+
+
+        public void PostWebMessageAsString(string webMessageAsString)
+        {
+            this.ToInterface().PostWebMessageAsString(webMessageAsString);
+        }
+
+
+        public uint BrowserProcessId => this.ToInterface().BrowserProcessId;
+
+
+        public bool CanGoBack => this.ToInterface().CanGoBack == 1;
+
+        public bool CanGoForward => (this.ToInterface().CanGoForward) == 1;
+
+
+        public void GoBack()
+        {
+            this.ToInterface().GoBack();
+        }
+
+
+        public void GoForward()
+        {
+            this.ToInterface().GoForward();
+        }
+
+
+        public void Stop()
+        {
+            this.ToInterface().Stop();
+        }
+
+        public string DocumentTitle => this.ToInterface().DocumentTitle;
+
+        public void AddRemoteObject(string name, ref object @object)
+        {
+            this.ToInterface().AddRemoteObject(name, ref @object);
+        }
+
+
+        public void RemoveRemoteObject(string name)
+        {
+            this.ToInterface().RemoveRemoteObject(name);
+        }
+
+
+        public void OpenDevToolsWindow()
+        {
+            this.ToInterface().OpenDevToolsWindow();
+        }
+
+        public bool ContainsFullScreenElement => new CBOOL(this.ToInterface().ContainsFullScreenElement);
+
+
+        public void AddWebResourceRequestedFilter(string uri, ResourceContext context)
+        {
+            this.ToInterface().AddWebResourceRequestedFilter(uri, (CORE_WEBVIEW2_WEB_RESOURCE_CONTEXT) context);
+        }
+
+
+        public void RemoveWebResourceRequestedFilter(string uri, ResourceContext context)
+        {
+            this.ToInterface().RemoveWebResourceRequestedFilter(uri, (CORE_WEBVIEW2_WEB_RESOURCE_CONTEXT) context);
+        }
+
+
+        protected virtual void OnNavigationStarting(NavigationStartingEventArgs e)
+        {
+            NavigationStarting?.Invoke(this, e);
+        }
+
+        public void Dispose()
+        {
+            UnregisterEvents();
+        }
+
+        protected virtual void OnContentLoading(ContentLoadingEventArgs e)
+        {
+            ContentLoading?.Invoke(this, e);
+        }
+
+        protected virtual void OnExecuteScriptCompleted(ExecuteScriptCompletedEventArgs e)
+        {
+            ExecuteScriptCompleted?.Invoke(this, e);
+        }
+
+        protected virtual void OnSourceChanged(SourceChangedEventArgs e)
+        {
+            SourceChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnHistoryChanged(WebView2EventArgs e)
+        {
+            HistoryChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnNavigationCompleted(NavigationCompletedEventArgs e)
+        {
+            NavigationCompleted?.Invoke(this, e);
+        }
+
+        protected virtual void OnContainsFullScreenElementChanged(WebView2EventArgs e)
+        {
+            ContainsFullScreenElementChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnWebResourceRequested(WebResourceRequestedEventArgs e)
+        {
+            WebResourceRequested?.Invoke(this, e);
+        }
+
+        protected virtual void OnDocumentTitleChanged(WebView2EventArgs e)
+        {
+            DocumentTitleChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnFrameNavigationStarting(NavigationStartingEventArgs e)
+        {
+            FrameNavigationStarting?.Invoke(this, e);
+        }
+
+        protected virtual void OnNewWindowRequested(NewWindowRequestedEventArgs e)
+        {
+            NewWindowRequested?.Invoke(this, e);
+        }
+
+        protected virtual void OnPermissionRequested(PermissionRequestedEventArgs e)
+        {
+            PermissionRequested?.Invoke(this, e);
+        }
+
+        protected virtual void OnProcessFailed(ProcessFailedEventArgs e)
+        {
+            ProcessFailed?.Invoke(this, e);
+        }
+
+        protected virtual void OnScriptDialogOpening(ScriptDialogOpeningEventArgs e)
+        {
+            ScriptDialogOpening?.Invoke(this, e);
+        }
+
+        protected virtual void OnWebMessageReceived(WebMessageReceivedEventArgs e)
+        {
+            WebMessageReceived?.Invoke(this, e);
+        }
+
+        protected virtual void OnWindowCloseRequested(WebView2EventArgs e)
+        {
+            WindowCloseRequested?.Invoke(this, e);
+        }
+
+        protected virtual void OnScriptToExecuteOnDocumentCreated(
+            AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
+        {
+            ScriptToExecuteOnDocumentCreated?.Invoke(this, e);
+        }
+    }
+
+    public partial class WebView2View
+    {
+        ICoreWebView2Settings ICoreWebView2.Settings => this._WebView.Settings;
         string ICoreWebView2.Source => this._WebView.Source;
-        public string Source => ((ICoreWebView2)this).Source;
 
         void ICoreWebView2.Navigate(string uri)
         {
             this._WebView.Navigate(uri);
-        }
-
-        public void Navigate(string uri)
-        {
-            ((ICoreWebView2)this).Navigate(uri);
         }
 
         void ICoreWebView2.NavigateToString(string htmlContent)
@@ -105,12 +461,8 @@ namespace Diga.WebView2.Wrapper
             this._WebView.NavigateToString(htmlContent);
         }
 
-        public void NavigateToString(string htmlContent)
-        {
-            ((ICoreWebView2)this).NavigateToString(htmlContent);
-        }
-
-        void ICoreWebView2.add_NavigationStarting(ICoreWebView2NavigationStartingEventHandler eventHandler, out EventRegistrationToken token)
+        void ICoreWebView2.add_NavigationStarting(ICoreWebView2NavigationStartingEventHandler eventHandler,
+            out EventRegistrationToken token)
         {
             this._WebView.add_NavigationStarting(eventHandler, out token);
         }
@@ -120,7 +472,8 @@ namespace Diga.WebView2.Wrapper
             this._WebView.remove_NavigationStarting(token);
         }
 
-        void ICoreWebView2.add_ContentLoading(ICoreWebView2ContentLoadingEventHandler eventHandler, out EventRegistrationToken token)
+        void ICoreWebView2.add_ContentLoading(ICoreWebView2ContentLoadingEventHandler eventHandler,
+            out EventRegistrationToken token)
         {
             this._WebView.add_ContentLoading(eventHandler, out token);
         }
@@ -130,7 +483,8 @@ namespace Diga.WebView2.Wrapper
             this._WebView.remove_ContentLoading(token);
         }
 
-        void ICoreWebView2.add_SourceChanged(ICoreWebView2SourceChangedEventHandler eventHandler, out EventRegistrationToken token)
+        void ICoreWebView2.add_SourceChanged(ICoreWebView2SourceChangedEventHandler eventHandler,
+            out EventRegistrationToken token)
         {
             this._WebView.add_SourceChanged(eventHandler, out token);
         }
@@ -140,7 +494,8 @@ namespace Diga.WebView2.Wrapper
             this._WebView.remove_SourceChanged(token);
         }
 
-        void ICoreWebView2.add_HistoryChanged(ICoreWebView2HistoryChangedEventHandler eventHandler, out EventRegistrationToken token)
+        void ICoreWebView2.add_HistoryChanged(ICoreWebView2HistoryChangedEventHandler eventHandler,
+            out EventRegistrationToken token)
         {
             this._WebView.add_HistoryChanged(eventHandler, out token);
         }
@@ -194,7 +549,8 @@ namespace Diga.WebView2.Wrapper
             this._WebView.remove_PermissionRequested(token);
         }
 
-        void ICoreWebView2.add_ProcessFailed(ICoreWebView2ProcessFailedEventHandler eventHandler, out EventRegistrationToken token)
+        void ICoreWebView2.add_ProcessFailed(ICoreWebView2ProcessFailedEventHandler eventHandler,
+            out EventRegistrationToken token)
         {
             this._WebView.add_ProcessFailed(eventHandler, out token);
         }
@@ -210,44 +566,14 @@ namespace Diga.WebView2.Wrapper
             this._WebView.AddScriptToExecuteOnDocumentCreated(javaScript, handler);
         }
 
-        public void AddScriptToExecuteOnDocumentCreated(string javaScript)
-        {
-            AddScriptToExecuteOnDocumentCreatedCompletedHandler handler =
-                new AddScriptToExecuteOnDocumentCreatedCompletedHandler();
-            handler.ScriptExecuted += OnScriptToExecuteOnDocumentCreatedIntern;
-            ((ICoreWebView2)this).AddScriptToExecuteOnDocumentCreated(javaScript, handler);
-        }
-
-        private void OnScriptToExecuteOnDocumentCreatedIntern(object sender, AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
-        {
-
-        }
-
         void ICoreWebView2.RemoveScriptToExecuteOnDocumentCreated(string id)
         {
             this._WebView.RemoveScriptToExecuteOnDocumentCreated(id);
         }
 
-        public void RemoveScriptToExecuteOnDocumentCreated(string id)
-        {
-            ((ICoreWebView2)this).RemoveScriptToExecuteOnDocumentCreated(id);
-        }
-
         void ICoreWebView2.ExecuteScript(string javaScript, ICoreWebView2ExecuteScriptCompletedHandler handler)
         {
             this._WebView.ExecuteScript(javaScript, handler);
-        }
-
-        public void ExecuteScript(string javaScript)
-        {
-            ExecuteScriptCompletedHandler handler = new ExecuteScriptCompletedHandler();
-            handler.ScriptCompleted += OnExecuteScriptCompletedIntern;
-            ((ICoreWebView2)this).ExecuteScript(javaScript, handler);
-        }
-
-        private void OnExecuteScriptCompletedIntern(object sender, ExecuteScriptCompletedEventArgs e)
-        {
-            OnExecuteScriptCompleted(e);
         }
 
         void ICoreWebView2.CapturePreview(CORE_WEBVIEW2_CAPTURE_PREVIEW_IMAGE_FORMAT imageFormat, IStream imageStream,
@@ -261,18 +587,9 @@ namespace Diga.WebView2.Wrapper
             this._WebView.Reload();
         }
 
-        public void Reload()
-        {
-            ((ICoreWebView2)this).Reload();
-        }
         void ICoreWebView2.PostWebMessageAsJson(string webMessageAsJson)
         {
             this._WebView.PostWebMessageAsJson(webMessageAsJson);
-        }
-
-        public void PostWebMessageAsJson(string webMessageAsJson)
-        {
-            ((ICoreWebView2)this).PostWebMessageAsJson(webMessageAsJson);
         }
 
         void ICoreWebView2.PostWebMessageAsString(string webMessageAsString)
@@ -280,12 +597,8 @@ namespace Diga.WebView2.Wrapper
             this._WebView.PostWebMessageAsString(webMessageAsString);
         }
 
-        public void PostWebMessageAsString(string webMessageAsString)
-        {
-            ((ICoreWebView2)this).PostWebMessageAsString(webMessageAsString);
-        }
-
-        void ICoreWebView2.add_WebMessageReceived(ICoreWebView2WebMessageReceivedEventHandler handler, out EventRegistrationToken token)
+        void ICoreWebView2.add_WebMessageReceived(ICoreWebView2WebMessageReceivedEventHandler handler,
+            out EventRegistrationToken token)
         {
             this._WebView.add_WebMessageReceived(handler, out token);
         }
@@ -301,33 +614,21 @@ namespace Diga.WebView2.Wrapper
             this._WebView.CallDevToolsProtocolMethod(methodName, parametersAsJson, handler);
         }
 
-
         uint ICoreWebView2.BrowserProcessId => this._WebView.BrowserProcessId;
 
-        public uint BrowserProcessId => ((ICoreWebView2)this).BrowserProcessId;
-
         int ICoreWebView2.CanGoBack => this._WebView.CanGoBack;
-        public bool CanGoBack => ((ICoreWebView2)this).CanGoBack == 1;
         int ICoreWebView2.CanGoForward => this._WebView.CanGoForward;
-        public bool CanGoForward => (((ICoreWebView2)this).CanGoForward) == 1;
+
         void ICoreWebView2.GoBack()
         {
             this._WebView.GoBack();
         }
 
-        public void GoBack()
-        {
-            ((ICoreWebView2)this).GoBack();
-        }
         void ICoreWebView2.GoForward()
         {
             this._WebView.GoForward();
         }
 
-        public void GoForward()
-        {
-            ((ICoreWebView2)this).GoForward();
-        }
         ICoreWebView2DevToolsProtocolEventReceiver ICoreWebView2.GetDevToolsProtocolEventReceiver(string eventName)
         {
             return this._WebView.GetDevToolsProtocolEventReceiver(eventName);
@@ -338,11 +639,14 @@ namespace Diga.WebView2.Wrapper
             this._WebView.Stop();
         }
 
-        public void Stop()
+        void ICoreWebView2.RemoveWebResourceRequestedFilter(string uri,
+            CORE_WEBVIEW2_WEB_RESOURCE_CONTEXT resourceContext)
         {
-            ((ICoreWebView2)this).Stop();
+            this._WebView.RemoveWebResourceRequestedFilter(uri, resourceContext);
         }
-        void ICoreWebView2.add_NewWindowRequested(ICoreWebView2NewWindowRequestedEventHandler eventHandler, out EventRegistrationToken token)
+
+        void ICoreWebView2.add_NewWindowRequested(ICoreWebView2NewWindowRequestedEventHandler eventHandler,
+            out EventRegistrationToken token)
         {
             this._WebView.add_NewWindowRequested(eventHandler, out token);
         }
@@ -364,35 +668,25 @@ namespace Diga.WebView2.Wrapper
         }
 
         string ICoreWebView2.DocumentTitle => this._WebView.DocumentTitle;
-        public string DocumentTitle => ((ICoreWebView2)this).DocumentTitle;
+
         void ICoreWebView2.AddRemoteObject(string name, ref object @object)
         {
             this._WebView.AddRemoteObject(name, ref @object);
         }
 
-        public void AddRemoteObject(string name, ref object @object)
-        {
-            ((ICoreWebView2)this).AddRemoteObject(name, ref @object);
-        }
+
         void ICoreWebView2.RemoveRemoteObject(string name)
         {
             this._WebView.RemoveRemoteObject(name);
         }
 
-        public void RemoveRemoteObject(string name)
-        {
-            ((ICoreWebView2)this).RemoveRemoteObject(name);
-        }
         void ICoreWebView2.OpenDevToolsWindow()
         {
             this._WebView.OpenDevToolsWindow();
         }
 
-        public void OpenDevToolsWindow()
-        {
-            ((ICoreWebView2)this).OpenDevToolsWindow();
-        }
-        void ICoreWebView2.add_ContainsFullScreenElementChanged(ICoreWebView2ContainsFullScreenElementChangedEventHandler eventHandler,
+        void ICoreWebView2.add_ContainsFullScreenElementChanged(
+            ICoreWebView2ContainsFullScreenElementChangedEventHandler eventHandler,
             out EventRegistrationToken token)
         {
             this._WebView.add_ContainsFullScreenElementChanged(eventHandler, out token);
@@ -403,8 +697,9 @@ namespace Diga.WebView2.Wrapper
             this._WebView.remove_ContainsFullScreenElementChanged(token);
         }
 
+
         int ICoreWebView2.ContainsFullScreenElement => this._WebView.ContainsFullScreenElement;
-        public bool ContainsFullScreenElement => new CBOOL(((ICoreWebView2)this).ContainsFullScreenElement);
+
         void ICoreWebView2.add_WebResourceRequested(ICoreWebView2WebResourceRequestedEventHandler eventHandler,
             out EventRegistrationToken token)
         {
@@ -421,21 +716,6 @@ namespace Diga.WebView2.Wrapper
             this._WebView.AddWebResourceRequestedFilter(uri, resourceContext);
         }
 
-        public void AddWebResourceRequestedFilter(string uri, ResourceContext context)
-        {
-            ((ICoreWebView2)this).AddWebResourceRequestedFilter(uri, (CORE_WEBVIEW2_WEB_RESOURCE_CONTEXT)context);
-        }
-
-        void ICoreWebView2.RemoveWebResourceRequestedFilter(string uri, CORE_WEBVIEW2_WEB_RESOURCE_CONTEXT resourceContext)
-        {
-            this._WebView.RemoveWebResourceRequestedFilter(uri, resourceContext);
-        }
-
-        public void RemoveWebResourceRequestedFilter(string uri, ResourceContext context)
-        {
-            ((ICoreWebView2)this).RemoveWebResourceRequestedFilter(uri, (CORE_WEBVIEW2_WEB_RESOURCE_CONTEXT)context);
-        }
-
         void ICoreWebView2.add_WindowCloseRequested(ICoreWebView2WindowCloseRequestedEventHandler eventHandler,
             out EventRegistrationToken token)
         {
@@ -445,41 +725,6 @@ namespace Diga.WebView2.Wrapper
         void ICoreWebView2.remove_WindowCloseRequested(EventRegistrationToken token)
         {
             this._WebView.remove_WindowCloseRequested(token);
-        }
-
-        protected virtual void OnNavigationStarting(NavigationStartingEventArgs e)
-        {
-            NavigationStarting?.Invoke(this, e);
-        }
-
-        public void Dispose()
-        {
-            UnregisterEvents();
-        }
-
-        protected virtual void OnContentLoading(ContentLoadingEventArgs e)
-        {
-            ContentLoading?.Invoke(this, e);
-        }
-
-        protected virtual void OnExecuteScriptCompleted(ExecuteScriptCompletedEventArgs e)
-        {
-            ExecuteScriptCompleted?.Invoke(this, e);
-        }
-
-        protected virtual void OnSourceChanged(SourceChangedEventArgs e)
-        {
-            SourceChanged?.Invoke(this, e);
-        }
-
-        protected virtual void OnHistoryChanged(WebView2EventArgs e)
-        {
-            HistoryChanged?.Invoke(this, e);
-        }
-
-        protected virtual void OnNavigationCompleted(NavigationCompletedEventArgs e)
-        {
-            NavigationCompleted?.Invoke(this, e);
         }
     }
 }

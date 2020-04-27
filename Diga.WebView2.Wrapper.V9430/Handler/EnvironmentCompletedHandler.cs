@@ -6,7 +6,7 @@ using Diga.WebView2.Wrapper.Types;
 namespace Diga.WebView2.Wrapper.Handler
 {
     public class
-       CoreWebView2CreateCoreWebView2EnvironmentCompletedHandler :
+       EnvironmentCompletedHandler :
           ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler
     {
         public ICoreWebView2 WebView{get;private set;}
@@ -17,7 +17,7 @@ namespace Diga.WebView2.Wrapper.Handler
         public event EventHandler<CoreWebView2HostCompletedArgs> HostCompleted;
         public event EventHandler<BeforeHostCreateEventArgs> PrepareHostCreate;
 
-        public CoreWebView2CreateCoreWebView2EnvironmentCompletedHandler(IntPtr parentHandle)
+        public EnvironmentCompletedHandler(IntPtr parentHandle)
         {
             this.ParentHandle = parentHandle;
         }
@@ -25,7 +25,7 @@ namespace Diga.WebView2.Wrapper.Handler
         public void Invoke(int result, ICoreWebView2Environment createdEnvironment)
         {
             IntPtr hWnd = this.ParentHandle;
-            var handler = new CoreWebView2CreateCoreWebView2HostCompletedHandler();
+            var handler = new HostCompletedHandler();
             handler.HostCompleted += OnHostCompleted;
             handler.HostCompletedError += OnHostCompletedError;
             handler.BeforeHostCreate += OnBeforeHostCreate;

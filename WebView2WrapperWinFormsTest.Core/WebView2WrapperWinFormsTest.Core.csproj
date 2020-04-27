@@ -29,8 +29,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Diga.WebView2.WinFomrs.Core.V8355\Diga.WebView2.WinFomrs.Core.V8355.csproj" />
-    <ProjectReference Include="..\Diga.WebView2.Wrapper.Std.V8355\Diga.WebView2.Wrapper.Std.V8355.csproj" />
+    <ProjectReference Include="..\Diga.WebView2.WinFomrs.Core.V9430\Diga.WebView2.WinForms.Core.V9430.csproj" />
+    <ProjectReference Include="..\Diga.WebView2.Wrapper.Std.V9430\Diga.WebView2.Wrapper.Std.V9430.csproj" />
   </ItemGroup>
 
 </Project>

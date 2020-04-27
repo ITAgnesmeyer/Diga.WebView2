@@ -5,7 +5,7 @@
         Unknown,
         CertificateCommonNameIsIincorrect,
         CertificateExpired,
-        Client_CertificateContiansError,
+        ClientCertificateContiansError,
         CertificateRevoked,
         CertificateIsInvalid,
         ServerUnreachable,
@@ -15,7 +15,7 @@
         ConnectionReset,
         Disconnected,
         CannotConnect,
-        HostNameNot_Resolved,
+        HostNameNotResolved,
         OperationCanceled,
         RedirectFailed,
         UnexpectedError

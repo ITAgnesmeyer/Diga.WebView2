@@ -6,10 +6,10 @@ namespace Diga.WebView2.Wrapper.EventArguments
     {
         public EnvironmentCompletedHandlerArgs(ICoreWebView2Environment environment)
         {
-            this.Environment = environment;
+            this.Environment = new WebView2Environment(environment);
         }
 
-        public ICoreWebView2Environment Environment{get;}
+        public WebView2Environment Environment{get;}
 
     }
 }

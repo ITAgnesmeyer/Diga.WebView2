@@ -51,8 +51,8 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_NavigationCompleted(object sender, NavigationCompletedEventArgs e)
         {
-            this.textBox1.Text = this.webView1.Source;
-            this.Text = this.webView1.DocumentTitle;
+            this.textBox1.Text =  this.webView1.Source;
+            this.Text =this.webView1.BrowserVersion + "=>" + this.webView1.DocumentTitle;
         }
 
         private void webView1_AcceleratorKeyPressed(object sender, AcceleratorKeyPressedEventArgs e)
@@ -61,10 +61,7 @@ namespace WebView2WrapperWinFormsTest
             e.Handled = false;
         }
 
-        private void webView1_DocumentStateChanged(object sender, DocumentStateChangedEventArgs e)
-        {
-            //MessageBox.Show(this, "webView1_DocumentStateChanged");
-        }
+       
 
         private void webView1_DocumentTitleChanged(object sender, WebView2EventArgs e)
         {
@@ -122,6 +119,11 @@ namespace WebView2WrapperWinFormsTest
         private void button4_Click(object sender, EventArgs e)
         {
             this.webView1.OpenDevToolsWindow();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            this.Text = this.webView1.BrowserVersion;
         }
     }
 }

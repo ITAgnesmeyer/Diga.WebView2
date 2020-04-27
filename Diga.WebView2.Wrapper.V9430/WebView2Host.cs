@@ -12,6 +12,13 @@ namespace Diga.WebView2.Wrapper
         private EventRegistrationToken _ZoomFactorChangedToken;
         private EventRegistrationToken _GotFocusToken;
         private EventRegistrationToken _LostFocusToken;
+        private EventRegistrationToken _AcceleratorKeyPressedToken;
+        private EventRegistrationToken _MoveFocusRequestedToken;
+        public event EventHandler<AcceleratorKeyPressedEventArgs> AcceleratorKeyPressed;
+        public event EventHandler<WebView2EventArgs> ZoomFactorChanged;
+        public event EventHandler<WebView2EventArgs> GotFocus;
+        public event EventHandler<WebView2EventArgs> LostFocus;
+        public event EventHandler<MoveFocusRequestedEventArgs> MoveFocusRequested;
 
         public WebView2Host(ICoreWebView2Host host)
         {
@@ -19,65 +26,103 @@ namespace Diga.WebView2.Wrapper
             RegisterEvents();
         }
 
+        private ICoreWebView2Host ToInterface()
+        {
+            return this;
+        }
 
         private void RegisterEvents()
         {
-            ZoomFactorChangedEventHandler zoomFactorChengedEventHandler = new ZoomFactorChangedEventHandler();
-            zoomFactorChengedEventHandler.ZoomFactorChanged += OnZoomFactorChanged;
-            ((ICoreWebView2Host) this).add_ZoomFactorChanged(zoomFactorChengedEventHandler,
-                out this._ZoomFactorChangedToken);
+            AcceleratorKeyPressedEventHandler acceleratorKeyPressedEventHandler =
+                new AcceleratorKeyPressedEventHandler();
+            acceleratorKeyPressedEventHandler.AcceleratorKeyPressed += OnAcceleratorKeyPressedIntern;
+            this.ToInterface()
+                .add_AcceleratorKeyPressed(acceleratorKeyPressedEventHandler, out this._AcceleratorKeyPressedToken);
+
             FocusChangedEventHandler focusChange = new FocusChangedEventHandler();
-            focusChange.FocusChanged += OnGotFocus;
-            ((ICoreWebView2Host) this).add_GotFocus(focusChange, out this._GotFocusToken);
+            focusChange.FocusChanged += OnGotFocusIntern;
+            this.ToInterface().add_GotFocus(focusChange, out this._GotFocusToken);
 
             FocusChangedEventHandler lostFocusChange = new FocusChangedEventHandler();
-            lostFocusChange.FocusChanged += OnLostFocus;
-            ((ICoreWebView2Host) this).add_LostFocus(lostFocusChange, out this._LostFocusToken);
+            lostFocusChange.FocusChanged += OnLostFocusIntern;
+            this.ToInterface().add_LostFocus(lostFocusChange, out this._LostFocusToken);
+
+            
+
+
+            MoveFocusRequestedEventHandler moveFocusRequestedHandler = new MoveFocusRequestedEventHandler();
+            moveFocusRequestedHandler.MoveFocusRequested += OnMoveFocusRequestedIntern;
+            this.ToInterface().add_MoveFocusRequested(moveFocusRequestedHandler, out this._MoveFocusRequestedToken);
+            
+            ZoomFactorChangedEventHandler zoomFactorChangedEventHandler = new ZoomFactorChangedEventHandler();
+            zoomFactorChangedEventHandler.ZoomFactorChanged += OnZoomFactorChangedIntern;
+            this.ToInterface().add_ZoomFactorChanged(zoomFactorChangedEventHandler,
+                out this._ZoomFactorChangedToken);
+
+          
+        }
+
+        private void OnMoveFocusRequestedIntern(object sender, MoveFocusRequestedEventArgs e)
+        {
+            OnMoveFocusRequested(e);
+        }
+
+        private void OnLostFocusIntern(object sender, WebView2EventArgs e)
+        {
+            OnLostFocus(e);
+        }
+
+        private void OnGotFocusIntern(object sender, WebView2EventArgs e)
+        {
+            OnGotFocus(e);
+        }
+
+        private void OnZoomFactorChangedIntern(object sender, WebView2EventArgs e)
+        {
+            OnZoomFactorChanged(e);
+        }
+
+        private void OnAcceleratorKeyPressedIntern(object sender, AcceleratorKeyPressedEventArgs e)
+        {
+            OnAcceleratorKeyPressed(e);
         }
 
         private void UnRegisterEvents()
         {
-            ((ICoreWebView2Host) this).remove_ZoomFactorChanged(this._ZoomFactorChangedToken);
-            ((ICoreWebView2Host) this).remove_GotFocus(this._GotFocusToken);
-            ((ICoreWebView2Host) this).remove_LostFocus(this._LostFocusToken);
+            this.ToInterface().remove_AcceleratorKeyPressed(this._AcceleratorKeyPressedToken);
+            this.ToInterface().remove_MoveFocusRequested(this._MoveFocusRequestedToken);
+            this.ToInterface().remove_ZoomFactorChanged(this._ZoomFactorChangedToken);
+            this.ToInterface().remove_GotFocus(this._GotFocusToken);
+            this.ToInterface().remove_LostFocus(this._LostFocusToken);
         }
 
-        private void OnLostFocus(object sender, WebView2EventArgs e)
-        {
-            //throw new NotImplementedException();
-        }
+       
 
-        private void OnGotFocus(object sender, WebView2EventArgs e)
-        {
-            //throw new NotImplementedException();
-        }
+       
 
-        private void OnZoomFactorChanged(object sender, WebView2EventArgs e)
-        {
-            //throw new NotImplementedException();
-        }
+        
 
         public bool IsVisible
         {
-            get => new CBOOL(((ICoreWebView2Host) this).IsVisible);
-            set => ((ICoreWebView2Host) this).IsVisible = new CBOOL(value);
+            get => new CBOOL(this.ToInterface().IsVisible);
+            set => this.ToInterface().IsVisible = new CBOOL(value);
         }
 
         public tagRECT Bounds
         {
-            get => ((ICoreWebView2Host) this).Bounds;
-            set => ((ICoreWebView2Host) this).Bounds = value;
+            get => this.ToInterface().Bounds;
+            set => this.ToInterface().Bounds = value;
         }
 
         public double ZoomFactor
         {
-            get => ((ICoreWebView2Host) this).ZoomFactor;
-            set => ((ICoreWebView2Host) this).ZoomFactor = value;
+            get => this.ToInterface().ZoomFactor;
+            set => this.ToInterface().ZoomFactor = value;
         }
 
         public void SetBoundsAndZoomFactor(Rectangle bounds, double zoomFactor)
         {
-            ((ICoreWebView2Host) this).SetBoundsAndZoomFactor(bounds, zoomFactor);
+            this.ToInterface().SetBoundsAndZoomFactor(bounds, zoomFactor);
         }
 
         int ICoreWebView2Host.IsVisible
@@ -101,21 +146,21 @@ namespace Diga.WebView2.Wrapper
 
         public IntPtr ParentWindow
         {
-            get => ((ICoreWebView2Host) this).ParentWindow;
-            set => ((ICoreWebView2Host) this).ParentWindow = value;
+            get => this.ToInterface().ParentWindow;
+            set => this.ToInterface().ParentWindow = value;
         }
 
         public void NotifyParentWindowPositionChanged()
         {
-            ((ICoreWebView2Host) this).NotifyParentWindowPositionChanged();
+            this.ToInterface().NotifyParentWindowPositionChanged();
         }
 
         public void Close()
         {
-            ((ICoreWebView2Host) this).Close();
+            this.ToInterface().Close();
         }
 
-        public WebView2View WebView => new WebView2View(((ICoreWebView2Host) this).CoreWebView2);
+        public WebView2View WebView => new WebView2View(this.ToInterface().CoreWebView2);
 
         #region Implementation
 
@@ -143,7 +188,7 @@ namespace Diga.WebView2.Wrapper
 
         public void MoveFocus(FocusReason reason)
         {
-            ((ICoreWebView2Host) this).MoveFocus((CORE_WEBVIEW2_MOVE_FOCUS_REASON) reason);
+            this.ToInterface().MoveFocus((CORE_WEBVIEW2_MOVE_FOCUS_REASON) reason);
         }
 
         void ICoreWebView2Host.add_MoveFocusRequested(ICoreWebView2MoveFocusRequestedEventHandler eventHandler,
@@ -217,6 +262,31 @@ namespace Diga.WebView2.Wrapper
         public void Dispose()
         {
             UnRegisterEvents();
+        }
+
+        protected virtual void OnAcceleratorKeyPressed(AcceleratorKeyPressedEventArgs e)
+        {
+            AcceleratorKeyPressed?.Invoke(this, e);
+        }
+
+        protected virtual void OnZoomFactorChanged(WebView2EventArgs e)
+        {
+            ZoomFactorChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnGotFocus(WebView2EventArgs e)
+        {
+            GotFocus?.Invoke(this, e);
+        }
+
+        protected virtual void OnLostFocus(WebView2EventArgs e)
+        {
+            LostFocus?.Invoke(this, e);
+        }
+
+        protected virtual void OnMoveFocusRequested(MoveFocusRequestedEventArgs e)
+        {
+            MoveFocusRequested?.Invoke(this, e);
         }
     }
 }
