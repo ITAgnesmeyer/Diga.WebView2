@@ -10,10 +10,10 @@ namespace WebView2WrapperWinFormsTest
 {
     public partial class Form1 : Form
     {
-       
+       private TestObject _TestObject;
         public Form1()
         {
-            
+            this._TestObject = new TestObject();
             InitializeComponent();
             
         }
@@ -172,7 +172,8 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_WebViewCreated(object sender, EventArgs e)
         {
-
+            //this._TestObject.FirstMessage = "hallo Welt";
+            //this.webView1.AddRemoteObject("testObject", this._TestObject);
             string value = File.ReadAllText("index.html");
             this.webView1.NavigateToString(value);
 
