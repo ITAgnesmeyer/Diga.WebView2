@@ -101,5 +101,10 @@
       <Name>Diga.WebView2.Wrapper.V9488</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
