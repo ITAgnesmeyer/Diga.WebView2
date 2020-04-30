@@ -43,7 +43,10 @@ namespace Diga.WebView2.Wrapper
         {
             return this._Args.GetDeferral();
         }
-
+#if V9488
+        COREWEBVIEW2_WEB_RESOURCE_CONTEXT ICoreWebView2WebResourceRequestedEventArgs.ResourceContext => this._Args.ResourceContext;
+#else
         CORE_WEBVIEW2_WEB_RESOURCE_CONTEXT ICoreWebView2WebResourceRequestedEventArgs.ResourceContext => this._Args.ResourceContext;
+#endif
     }
 }

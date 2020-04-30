@@ -21,7 +21,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NET</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -75,6 +75,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -91,13 +92,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Diga.WebView2.WinForms.V8355\Diga.WebView2.WinForms.V8355.csproj">
-      <Project>{408bfeac-dd60-47be-bb5a-9ed6cde6297d}</Project>
-      <Name>Diga.WebView2.WinForms.V8355</Name>
+    <ProjectReference Include="..\Diga.WebView2.WinForms.V9488\Diga.WebView2.WinForms.V9488.csproj">
+      <Project>{06d3371f-6861-4698-8d4e-8031f0f62bc2}</Project>
+      <Name>Diga.WebView2.WinForms.V9488</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Diga.WebView2.Wrapper.V8355\Diga.WebView2.Wrapper.V8355.csproj">
-      <Project>{450ab29f-a6fb-4bd7-9f29-aa9950e20317}</Project>
-      <Name>Diga.WebView2.Wrapper.V8355</Name>
+    <ProjectReference Include="..\Diga.WebView2.Wrapper.V9488\Diga.WebView2.Wrapper.V9488.csproj">
+      <Project>{0685b92f-1740-419b-a795-3187013440d7}</Project>
+      <Name>Diga.WebView2.Wrapper.V9488</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

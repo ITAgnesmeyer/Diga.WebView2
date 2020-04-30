@@ -20,7 +20,7 @@ namespace Diga.WebView2.Wrapper
         public string Source => this.ToInterface().Source;
         public string WebMessageAsJson => this.ToInterface().webMessageAsJson;
 
-        private string WebMessageAsString
+        public string WebMessageAsString
         {
             get
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing.Text;
 using System.IO;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
@@ -52,6 +53,8 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<WebMessageReceivedEventArgs> WebMessageReceived;
         public event EventHandler<AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>
             ScriptToExecuteOnDocumentCreatedCompleted;
+
+        public event EventHandler WebViewCreated;
 #if VS8355
         public event EventHandler<DocumentStateChangedEventArgs> DocumentStateChanged;
         
@@ -217,10 +220,14 @@ namespace Diga.WebView2.WinForms
         private void OnWebWindowCreated(object sender, EventArgs e)
         {
             this.IsCreated = true;
+            this.AddScriptToExecuteOnDocumentCreated(
+                "window.external = { sendMessage: function(message) { window.chrome.webview.postMessage(message); }, receiveMessage: function(callback) { window.chrome.webview.addEventListener('message', function(e) { callback(e.data); }); } };");
             if (!string.IsNullOrEmpty(this._Url))
                 this.Navigate(this.Url);
             if (!string.IsNullOrEmpty(this._HtmlContent))
                 this.NavigateToString(this._HtmlContent);
+           
+            OnWebViewCreated();
 
         }
         public void Navigate(string url)
@@ -292,6 +299,11 @@ namespace Diga.WebView2.WinForms
             this._WebViewControl.AddScriptToExecuteOnDocumentCreated(javaScript);
 
         }
+
+        public void SendMessage(string message)
+        {
+            this._WebViewControl.PostWebMessageAsJson(message);
+        }
         public void PostWebMessageAsJson(string webMessageAsJson)
         {
             this._WebViewControl.PostWebMessageAsJson(webMessageAsJson);
@@ -303,9 +315,10 @@ namespace Diga.WebView2.WinForms
             this._WebViewControl.PostWebMessageAsString(webMessageAsString);
         }
 
-        public void AddRemoteObject(string name, ref object @object)
+        public void AddRemoteObject(string name, object @object)
         {
-            this._WebViewControl.AddRemoteObject(name, ref @object);
+            if (!this.IsCreated) return;
+            this._WebViewControl.AddRemoteObject(name,  @object);
         }
         public void RemoveRemoteObject(string name)
         {
@@ -315,6 +328,18 @@ namespace Diga.WebView2.WinForms
         public void ExecuteScript(string javaScript)
         {
             this._WebViewControl.ExecuteScript(javaScript);
+        }
+
+        public string InvokeScript(string javaScript)
+        {
+            string result = "";
+            this._WebViewControl.InvokeScript(javaScript, (errorCode, jsonResult) =>
+            {
+                result = jsonResult;
+
+            });
+
+            return result;
         }
 
         [Browsable(false)]
@@ -434,9 +459,6 @@ namespace Diga.WebView2.WinForms
             OnScriptToExecuteOnDocumentCreatedCompleted(e);
         }
 #if VS8355
-     
-       
-
         private void OnDocumentStateChangedIntern(object sender, DocumentStateChangedEventArgs e)
         {
             OnDocumentStateChanged(e);
@@ -594,14 +616,6 @@ namespace Diga.WebView2.WinForms
         }
 
 
-
-
-
-
-
-
-
-
         protected virtual void OnZoomFactorChanged(WebView2EventArgs e)
         {
             ZoomFactorChanged?.Invoke(this, e);
@@ -705,6 +719,10 @@ namespace Diga.WebView2.WinForms
                 return this._WebViewControl.BrowserInfo;
             }
         }
-      
+
+        protected virtual void OnWebViewCreated()
+        {
+            WebViewCreated?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

@@ -34,11 +34,13 @@ namespace Diga.WebView2.Wrapper
 
         }
 
-        
+
         string ICoreWebView2ScriptDialogOpeningEventArgs.uri => this._Args.uri;
-
+#if V9488
+        COREWEBVIEW2_SCRIPT_DIALOG_KIND ICoreWebView2ScriptDialogOpeningEventArgs.Kind => this._Args.Kind;
+#else
         CORE_WEBVIEW2_SCRIPT_DIALOG_KIND ICoreWebView2ScriptDialogOpeningEventArgs.Kind => this._Args.Kind;
-
+#endif
         string ICoreWebView2ScriptDialogOpeningEventArgs.Message => this._Args.Message;
 
         void ICoreWebView2ScriptDialogOpeningEventArgs.Accept()

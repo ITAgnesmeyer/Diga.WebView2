@@ -310,7 +310,13 @@ namespace Diga.WebView2.Wrapper
             this.ToInterface().ExecuteScript(javaScript, handler);
         }
 
-      
+
+        public void InvokeScript(string javaScript, Action<int, string> actionToInvoke)
+        {
+            ExecuteScriptCompletedHandler handler = new ExecuteScriptCompletedHandler();
+            handler.ActionToInvoke = actionToInvoke;
+            this.ToInterface().ExecuteScript(javaScript, handler);
+        }
 
         public void Reload()
         {
@@ -346,7 +352,7 @@ namespace Diga.WebView2.Wrapper
             this.ToInterface().Stop();
         }
 
-        public void AddRemoteObject(string name, ref object @object)
+        public void AddRemoteObject(string name, object @object)
         {
             this.ToInterface().AddRemoteObject(name, ref @object);
         }
@@ -1143,9 +1149,9 @@ namespace Diga.WebView2.Wrapper
             this._WebView.DocumentTitle(out title);
         }
 
-        void IWebView2WebView4.AddRemoteObject(string name, ref object @object)
+        void IWebView2WebView4.AddRemoteObject(string name,  ref object @object)
         {
-            this._WebView.AddRemoteObject(name, ref @object);
+            this._WebView.AddRemoteObject(name, @object);
         }
 
         void IWebView2WebView4.RemoveRemoteObject(string name)

@@ -11,7 +11,7 @@ namespace Diga.WebView2.Wrapper
         {
             this._Args = args;
         }
-        
+
 
         private ICoreWebView2AcceleratorKeyPressedEventArgs ToInterface()
         {
@@ -22,17 +22,18 @@ namespace Diga.WebView2.Wrapper
             get => (KeyEventType)this.ToInterface().KeyEventKind;
         }
 
-       
+
+
 
         public uint VirtualKey
         {
             get => this.ToInterface().VirtualKey;
         }
 
-       
+
 
         public int KeyEventLParam => this.ToInterface().KeyEventLParam;
-      
+
 
 
         public PhysicalKeyStatus PhysicalKeyStatus => new PhysicalKeyStatus(this.ToInterface().PhysicalKeyStatus);
@@ -47,7 +48,17 @@ namespace Diga.WebView2.Wrapper
             }
         }
 
+#if V9488
+        COREWEBVIEW2_KEY_EVENT_KIND ICoreWebView2AcceleratorKeyPressedEventArgs.KeyEventKind => this._Args.KeyEventKind;
+        COREWEBVIEW2_PHYSICAL_KEY_STATUS ICoreWebView2AcceleratorKeyPressedEventArgs.PhysicalKeyStatus => this._Args.PhysicalKeyStatus;
 
+        int ICoreWebView2AcceleratorKeyPressedEventArgs.Handled
+        {
+            get => this._Args.Handled;
+            set => this._Args.Handled = value;
+        }
+
+#else
         CORE_WEBVIEW2_KEY_EVENT_KIND ICoreWebView2AcceleratorKeyPressedEventArgs.KeyEventKind => this._Args.KeyEventKind;
 
         uint ICoreWebView2AcceleratorKeyPressedEventArgs.VirtualKey => this._Args.VirtualKey;
@@ -61,5 +72,6 @@ namespace Diga.WebView2.Wrapper
             get => this._Args.Handled;
             set => this._Args.Handled = value;
         }
+#endif
     }
 }

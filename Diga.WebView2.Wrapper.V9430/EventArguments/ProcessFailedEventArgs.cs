@@ -18,8 +18,11 @@ namespace Diga.WebView2.Wrapper
         }
         public ProcessFailedKind ProcessFailedKind => (ProcessFailedKind)this.ToInterface().ProcessFailedKind;
 
-      
+#if V9488
+        COREWEBVIEW2_PROCESS_FAILED_KIND ICoreWebView2ProcessFailedEventArgs.ProcessFailedKind => this._Args.ProcessFailedKind;
+#else
 
         CORE_WEBVIEW2_PROCESS_FAILED_KIND ICoreWebView2ProcessFailedEventArgs.ProcessFailedKind => this._Args.ProcessFailedKind;
+#endif
     }
 }

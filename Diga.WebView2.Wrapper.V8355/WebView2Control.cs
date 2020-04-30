@@ -307,9 +307,9 @@ namespace Diga.WebView2.Wrapper
             this.WebView.PostWebMessageAsString(webMessageAsString);
         }
 
-        public void AddRemoteObject(string name, ref object @object)
+        public void AddRemoteObject(string name,object @object)
         {
-            this.WebView.AddRemoteObject(name, ref @object);
+            this.WebView.AddRemoteObject(name,  @object);
         }
 
         public void RemoveRemoteObject(string name)
@@ -320,6 +320,11 @@ namespace Diga.WebView2.Wrapper
         public void ExecuteScript(string javaScript)
         {
             this.WebView.ExecuteScript(javaScript);
+        }
+
+        public void InvokeScript(string javaScript, Action<int, string> actionToInvoke)
+        {
+            this.WebView.InvokeScript(javaScript, actionToInvoke);
         }
 
         public void OpenDevToolsWindow()

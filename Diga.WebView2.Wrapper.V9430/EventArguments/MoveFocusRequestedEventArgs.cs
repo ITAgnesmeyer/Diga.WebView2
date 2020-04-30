@@ -18,6 +18,8 @@ namespace Diga.WebView2.Wrapper
 
         public MoveFocusReason Reason => (MoveFocusReason)this.ToInterface().reason;
 
+      
+
         public bool Handled
         {
             get
@@ -30,6 +32,17 @@ namespace Diga.WebView2.Wrapper
                 this.ToInterface().Handled = b;
             }
         }
+
+#if V9488
+        COREWEBVIEW2_MOVE_FOCUS_REASON ICoreWebView2MoveFocusRequestedEventArgs.reason => this._Args.reason;
+
+        int ICoreWebView2MoveFocusRequestedEventArgs.Handled
+        {
+            get => this._Args.Handled;
+            set => this._Args.Handled = value;
+        }
+#else
+
         CORE_WEBVIEW2_MOVE_FOCUS_REASON ICoreWebView2MoveFocusRequestedEventArgs.reason => this._Args.reason;
 
         int ICoreWebView2MoveFocusRequestedEventArgs.Handled
@@ -37,5 +50,6 @@ namespace Diga.WebView2.Wrapper
             get => this._Args.Handled;
             set => this._Args.Handled = value;
         }
+#endif
     }
 }

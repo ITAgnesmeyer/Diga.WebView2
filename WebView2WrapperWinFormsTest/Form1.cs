@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
+
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
 
@@ -8,10 +10,12 @@ namespace WebView2WrapperWinFormsTest
 {
     public partial class Form1 : Form
     {
+       
         public Form1()
         {
+            
             InitializeComponent();
-
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -100,7 +104,47 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_WebMessageReceived(object sender, WebMessageReceivedEventArgs e)
         {
-            //MessageBox.Show(this, "webView1_WebMessageReceived");
+            string message = e.WebMessageAsString;
+                var rpc = Newtonsoft.Json.JsonConvert.DeserializeObject<Rpc>(message);
+
+                switch (rpc.action)
+                {
+                    case "run_script":
+                        this.webView1.InvokeScript(rpc.param.ToString());
+                        break;
+                    case "run_script_with_result":
+                        string id = this.webView1.InvokeScript(rpc.param.ToString());
+                        Rpc result = new Rpc()
+                        {
+                            id = id,
+                            action = "get_script_result",
+                            objId = rpc.objId,
+                            param = id
+                        };
+                        string js = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+                        this.webView1.SendMessage(js);
+                        break;
+                    case "get_script_result":
+                        string scriptId = rpc.param.ToString();
+                        //if (window.ResultList.ContainsKey(scriptId))
+                        //{
+                        //    Rpc resultScriptResult = new Rpc()
+                        //    {
+                        //        id = rpc.id,
+                        //        action = "return_script_result",
+                        //        objId = rpc.objId,
+                        //        param = window.ResultList[scriptId]
+                        //    };
+                        //    string jsResult = Newtonsoft.Json.JsonConvert.SerializeObject(resultScriptResult);
+                        //    this.webView1.SendMessage(jsResult);
+
+
+                        //}
+                        break;
+                    case "set_object_innerHtml":
+                        this.webView1.InvokeScript($"document.getElementById('{rpc.objId}').innerHTML='{rpc.param}'");
+                        break;
+                }
         }
 
         private void webView1_WebResourceRequested(object sender, WebResourceRequestedEventArgs e)
@@ -124,6 +168,19 @@ namespace WebView2WrapperWinFormsTest
         private void Form1_Load(object sender, EventArgs e)
         {
             this.Text = this.webView1.BrowserVersion;
+        }
+
+        private void webView1_WebViewCreated(object sender, EventArgs e)
+        {
+
+            string value = File.ReadAllText("index.html");
+            this.webView1.NavigateToString(value);
+
+        }
+
+        private void webView1_ScriptToExecuteOnDocumentCreatedCompleted(object sender, AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
+        {
+            Debug.Print(e.Id);
         }
     }
 }

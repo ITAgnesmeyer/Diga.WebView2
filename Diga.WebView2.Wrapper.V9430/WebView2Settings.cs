@@ -57,5 +57,12 @@ namespace Diga.WebView2.Wrapper
             get => this._Settings.IsZoomControlEnabled;
             set => this._Settings.IsZoomControlEnabled = value;
         }
+#if V9488
+        public int IsBuiltInErrorPageEnabled
+        {
+            get => this._Settings.IsBuiltInErrorPageEnabled;
+            set => this._Settings.IsBuiltInErrorPageEnabled = value;
+        }
+#endif
     }
 }

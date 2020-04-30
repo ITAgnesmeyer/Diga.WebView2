@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Diga.WebView2.WinForms.V9430\WebView.cs" Link="WebView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\Diga.WebView2.WinForms.V9430\WebView.Designer.cs" Link="WebView.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\Diga.WebView2.WinForms.V9430\WebView.resx" Link="WebView.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MimeTypeExtension" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Diga.WebView2.Wrapper.Std.V9488\Diga.WebView2.Wrapper.Std.V9488.csproj" />
+  </ItemGroup>
+
+</Project>

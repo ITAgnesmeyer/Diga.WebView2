@@ -30,7 +30,7 @@ namespace Diga.WebView2.Wrapper.Handler
             settings.AreDefaultScriptDialogsEnabled = new CBOOL(true);
             settings.IsWebMessageEnabled = new CBOOL(true);
             OnBeforeHostCreate(new BeforeHostCreateEventArgs(webV,settings));
-
+            
             tagRECT rect;
             Native.GetClientRect(this.ParentWindow, out rect);
             webV.Bounds = rect;

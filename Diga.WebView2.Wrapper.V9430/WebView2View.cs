@@ -2,6 +2,7 @@
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
 using System;
+using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 
 namespace Diga.WebView2.Wrapper
@@ -271,6 +272,13 @@ namespace Diga.WebView2.Wrapper
             this.ToInterface().ExecuteScript(javaScript, handler);
         }
 
+        public void InvokeScript(string javaScript, Action<int, string> actionToInvoke)
+        {
+            ExecuteScriptCompletedHandler handler = new ExecuteScriptCompletedHandler();
+            handler.ActionToInvoke = actionToInvoke;
+            this.ToInterface().ExecuteScript(javaScript, handler);
+        }
+
         private void OnExecuteScriptCompletedIntern(object sender, ExecuteScriptCompletedEventArgs e)
         {
             OnExecuteScriptCompleted(e);
@@ -321,10 +329,25 @@ namespace Diga.WebView2.Wrapper
         }
 
         public string DocumentTitle => this.ToInterface().DocumentTitle;
-
-        public void AddRemoteObject(string name, ref object @object)
+#if V9488
+        public void AddRemoteObject(string name, object @object)
         {
+
+            this.ToInterface().AddHostObjectToScript(name, ref @object);
+
+        }
+
+
+        public void RemoveRemoteObject(string name)
+        {
+            this.ToInterface().RemoveHostObjectFromScript(name);
+        }
+#else
+        public void AddRemoteObject(string name, object @object)
+        {
+
             this.ToInterface().AddRemoteObject(name, ref @object);
+
         }
 
 
@@ -332,7 +355,7 @@ namespace Diga.WebView2.Wrapper
         {
             this.ToInterface().RemoveRemoteObject(name);
         }
-
+#endif
 
         public void OpenDevToolsWindow()
         {
@@ -341,18 +364,30 @@ namespace Diga.WebView2.Wrapper
 
         public bool ContainsFullScreenElement => new CBOOL(this.ToInterface().ContainsFullScreenElement);
 
-
+#if V9488
         public void AddWebResourceRequestedFilter(string uri, ResourceContext context)
         {
-            this.ToInterface().AddWebResourceRequestedFilter(uri, (CORE_WEBVIEW2_WEB_RESOURCE_CONTEXT) context);
+            this.ToInterface().AddWebResourceRequestedFilter(uri, (COREWEBVIEW2_WEB_RESOURCE_CONTEXT)context);
         }
 
 
         public void RemoveWebResourceRequestedFilter(string uri, ResourceContext context)
         {
-            this.ToInterface().RemoveWebResourceRequestedFilter(uri, (CORE_WEBVIEW2_WEB_RESOURCE_CONTEXT) context);
+            this.ToInterface().RemoveWebResourceRequestedFilter(uri, (COREWEBVIEW2_WEB_RESOURCE_CONTEXT)context);
+        }
+#else
+
+        public void AddWebResourceRequestedFilter(string uri, ResourceContext context)
+        {
+            this.ToInterface().AddWebResourceRequestedFilter(uri, (CORE_WEBVIEW2_WEB_RESOURCE_CONTEXT)context);
         }
 
+
+        public void RemoveWebResourceRequestedFilter(string uri, ResourceContext context)
+        {
+            this.ToInterface().RemoveWebResourceRequestedFilter(uri, (CORE_WEBVIEW2_WEB_RESOURCE_CONTEXT)context);
+        }
+#endif
 
         protected virtual void OnNavigationStarting(NavigationStartingEventArgs e)
         {
@@ -526,7 +561,18 @@ namespace Diga.WebView2.Wrapper
         {
             this._WebView.remove_FrameNavigationStarting(token);
         }
+#if V9488
+        void ICoreWebView2.add_FrameNavigationCompleted(ICoreWebView2NavigationCompletedEventHandler eventHandler,
+            out EventRegistrationToken token)
+        {
+            this._WebView.add_FrameNavigationCompleted(eventHandler, out token);
+        }
 
+        void ICoreWebView2.remove_FrameNavigationCompleted(EventRegistrationToken token)
+        {
+            this._WebView.remove_FrameNavigationCompleted(token);
+        }
+#endif
         void ICoreWebView2.add_ScriptDialogOpening(ICoreWebView2ScriptDialogOpeningEventHandler eventHandler,
             out EventRegistrationToken token)
         {
@@ -575,13 +621,19 @@ namespace Diga.WebView2.Wrapper
         {
             this._WebView.ExecuteScript(javaScript, handler);
         }
-
+#if V9488
+        void ICoreWebView2.CapturePreview(COREWEBVIEW2_CAPTURE_PREVIEW_IMAGE_FORMAT imageFormat, IStream imageStream,
+            ICoreWebView2CapturePreviewCompletedHandler handler)
+        {
+            this._WebView.CapturePreview(imageFormat, imageStream, handler);
+        }
+#else
         void ICoreWebView2.CapturePreview(CORE_WEBVIEW2_CAPTURE_PREVIEW_IMAGE_FORMAT imageFormat, IStream imageStream,
             ICoreWebView2CapturePreviewCompletedHandler handler)
         {
             this._WebView.CapturePreview(imageFormat, imageStream, handler);
         }
-
+#endif
         void ICoreWebView2.Reload()
         {
             this._WebView.Reload();
@@ -638,13 +690,19 @@ namespace Diga.WebView2.Wrapper
         {
             this._WebView.Stop();
         }
-
+#if V9488
+        void ICoreWebView2.RemoveWebResourceRequestedFilter(string uri,
+            COREWEBVIEW2_WEB_RESOURCE_CONTEXT resourceContext)
+        {
+            this._WebView.RemoveWebResourceRequestedFilter(uri, resourceContext);
+        }
+#else
         void ICoreWebView2.RemoveWebResourceRequestedFilter(string uri,
             CORE_WEBVIEW2_WEB_RESOURCE_CONTEXT resourceContext)
         {
             this._WebView.RemoveWebResourceRequestedFilter(uri, resourceContext);
         }
-
+#endif
         void ICoreWebView2.add_NewWindowRequested(ICoreWebView2NewWindowRequestedEventHandler eventHandler,
             out EventRegistrationToken token)
         {
@@ -668,7 +726,17 @@ namespace Diga.WebView2.Wrapper
         }
 
         string ICoreWebView2.DocumentTitle => this._WebView.DocumentTitle;
+#if V9488
+        void ICoreWebView2.AddHostObjectToScript(string name, ref object @object)
+        {
+            this._WebView.AddHostObjectToScript(name, ref @object);
+        }
 
+        void ICoreWebView2.RemoveHostObjectFromScript(string name)
+        {
+            this._WebView.RemoveHostObjectFromScript(name);
+        }
+#else
         void ICoreWebView2.AddRemoteObject(string name, ref object @object)
         {
             this._WebView.AddRemoteObject(name, ref @object);
@@ -679,7 +747,7 @@ namespace Diga.WebView2.Wrapper
         {
             this._WebView.RemoveRemoteObject(name);
         }
-
+#endif
         void ICoreWebView2.OpenDevToolsWindow()
         {
             this._WebView.OpenDevToolsWindow();
@@ -710,12 +778,18 @@ namespace Diga.WebView2.Wrapper
         {
             this._WebView.remove_WebResourceRequested(token);
         }
+#if V9488
+        void ICoreWebView2.AddWebResourceRequestedFilter(string uri, COREWEBVIEW2_WEB_RESOURCE_CONTEXT ResourceContext)
+        {
+            this._WebView.AddWebResourceRequestedFilter(uri, ResourceContext);
+        }
+#else
 
         void ICoreWebView2.AddWebResourceRequestedFilter(string uri, CORE_WEBVIEW2_WEB_RESOURCE_CONTEXT resourceContext)
         {
             this._WebView.AddWebResourceRequestedFilter(uri, resourceContext);
         }
-
+#endif
         void ICoreWebView2.add_WindowCloseRequested(ICoreWebView2WindowCloseRequestedEventHandler eventHandler,
             out EventRegistrationToken token)
         {

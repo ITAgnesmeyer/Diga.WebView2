@@ -9,8 +9,12 @@ namespace Diga.WebView2.Wrapper.Handler
        EnvironmentCompletedHandler :
           ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler
     {
-        public ICoreWebView2 WebView{get;private set;}
+        public ICoreWebView2 WebView { get; private set; }
+#if V9488
+        public ICoreWebView2Controller Host { get; set; }
+#else
         public ICoreWebView2Host Host{get; private set; }
+#endif
         public event EventHandler<EnvironmentCompletedHandlerArgs> BeforeEnvironmentCompleted;
         public event EventHandler<EnvironmentCompletedHandlerArgs> AfterEnvironmentCompleted;
 
@@ -29,8 +33,11 @@ namespace Diga.WebView2.Wrapper.Handler
             handler.HostCompleted += OnHostCompleted;
             handler.HostCompletedError += OnHostCompletedError;
             handler.BeforeHostCreate += OnBeforeHostCreate;
-           
+#if V9488
+            createdEnvironment.CreateCoreWebView2Controller(hWnd, handler);
+#else
             createdEnvironment.CreateCoreWebView2Host(hWnd, handler);
+#endif
             OnAfterEnvironmentCompleted(new EnvironmentCompletedHandlerArgs(createdEnvironment));
             result = HRESULT.S_OK;
         }
@@ -42,7 +49,7 @@ namespace Diga.WebView2.Wrapper.Handler
 
         private void OnHostCompletedError(object sender, CoreWebView2HostCompletedErrorArgs e)
         {
-            
+
         }
 
         private void OnHostCompleted(object sender, CoreWebView2HostCompletedArgs e)

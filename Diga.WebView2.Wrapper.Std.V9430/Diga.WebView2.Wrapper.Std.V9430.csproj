@@ -10,6 +10,10 @@
     <PackageProjectUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</PackageProjectUrl>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;V9430</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="..\Diga.WebView2.Wrapper.V9430\ErrorStatus.cs" Link="ErrorStatus.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9430\EventArguments\AcceleratorKeyPressedEventArgs.cs" Link="EventArguments\AcceleratorKeyPressedEventArgs.cs" />

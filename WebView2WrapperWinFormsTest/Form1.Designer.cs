@@ -129,12 +129,10 @@
             this.webView1.IsScriptEnabled = true;
             this.webView1.IsStatusBarEnabled = false;
             this.webView1.IsWebMessageEnabled = true;
-            
             this.webView1.Location = new System.Drawing.Point(0, 0);
             this.webView1.MonitoringFolder = "C:\\test_exe\\wwwroot";
             this.webView1.MonitoringUrl = "http://localhost:1/";
             this.webView1.Name = "webView1";
-            
             this.webView1.Size = new System.Drawing.Size(800, 418);
             this.webView1.TabIndex = 0;
             this.webView1.Url = "http://localhost:1/";
@@ -154,6 +152,8 @@
             this.webView1.PermissionRequested += new System.EventHandler<Diga.WebView2.Wrapper.PermissionRequestedEventArgs>(this.webView1_PermissionRequested);
             this.webView1.FrameNavigationStarting += new System.EventHandler<Diga.WebView2.Wrapper.NavigationStartingEventArgs>(this.webView1_FrameNavigationStarting);
             this.webView1.WebMessageReceived += new System.EventHandler<Diga.WebView2.Wrapper.WebMessageReceivedEventArgs>(this.webView1_WebMessageReceived);
+            this.webView1.ScriptToExecuteOnDocumentCreatedCompleted += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>(this.webView1_ScriptToExecuteOnDocumentCreatedCompleted);
+            this.webView1.WebViewCreated += new System.EventHandler(this.webView1_WebViewCreated);
             // 
             // Form1
             // 
