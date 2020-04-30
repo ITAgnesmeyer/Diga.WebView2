@@ -272,11 +272,12 @@ namespace Diga.WebView2.Wrapper
             this.ToInterface().ExecuteScript(javaScript, handler);
         }
 
-        public void InvokeScript(string javaScript, Action<int, string> actionToInvoke)
+        public string InvokeScript(string javaScript, Action<string,int, string> actionToInvoke)
         {
             ExecuteScriptCompletedHandler handler = new ExecuteScriptCompletedHandler();
             handler.ActionToInvoke = actionToInvoke;
             this.ToInterface().ExecuteScript(javaScript, handler);
+            return handler.Id;
         }
 
         private void OnExecuteScriptCompletedIntern(object sender, ExecuteScriptCompletedEventArgs e)

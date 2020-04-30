@@ -311,11 +311,12 @@ namespace Diga.WebView2.Wrapper
         }
 
 
-        public void InvokeScript(string javaScript, Action<int, string> actionToInvoke)
+        public string InvokeScript(string javaScript, Action<string,int, string> actionToInvoke)
         {
             ExecuteScriptCompletedHandler handler = new ExecuteScriptCompletedHandler();
             handler.ActionToInvoke = actionToInvoke;
             this.ToInterface().ExecuteScript(javaScript, handler);
+            return handler.Id;
         }
 
         public void Reload()

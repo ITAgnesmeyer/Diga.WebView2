@@ -302,7 +302,7 @@ namespace Diga.WebView2.WinForms
 
         public void SendMessage(string message)
         {
-            this._WebViewControl.PostWebMessageAsJson(message);
+            this._WebViewControl.PostWebMessageAsString(message);
         }
         public void PostWebMessageAsJson(string webMessageAsJson)
         {
@@ -332,10 +332,10 @@ namespace Diga.WebView2.WinForms
 
         public string InvokeScript(string javaScript)
         {
-            string result = "";
-            this._WebViewControl.InvokeScript(javaScript, (errorCode, jsonResult) =>
+            
+            string result =  this._WebViewControl.InvokeScript(javaScript, (id,errorCode, jsonResult) =>
             {
-                result = jsonResult;
+                Debug.Print(id);
 
             });
 

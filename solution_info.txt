@@ -16,12 +16,14 @@ Derzeit werden 2 Pakete unterstützt.
 microsoft.web.webview2
 WebView2=> 0.8.355
 WebView2=> 0.9.430
+WebView2=> 0.9.488
 
 Da Microsoft zwischen der Version 0.8 und 0.9 einen kompletten Schnittstellen-Wechsel vollzogen hat.
 Werden 2 Projekte nötig.
 Die Version 0.9.430 ist mit komplett anderen Schnittstellen ausgestattet.
 Die Version 0.8.355 ist die passende Version für die aktuelle Installation von Edge Chromium.
 Die Version 0.9.430 läuft nur mit Edge Chromium Dev
+Die Version 0.9.488 läuft nur mit Edge Chromium Dev
 
 Warum werden die Pakete nicht verknüpft.
 Die Pakete werden nicht verknüpft, da hiermit die Abbildung von Any CPU nicht möglich ist.
@@ -57,6 +59,7 @@ PaketVersion:
 Hiermit ist die Version der WebView2 - Pakete gemeint.
 V8355 =>microsoft.web.webview2 0.8.355
 V9430 =>microsoft.web.webview2 0.9.430
+V9488 =>microsoft.web.webview2 0.9.488
 
 Wie wurden die Interop-Sourcen erstellt.
 In dem Paketen von Microsoft microsoft.web.webview2 ist jeweils die Datei WebView2.tlb enthalten.

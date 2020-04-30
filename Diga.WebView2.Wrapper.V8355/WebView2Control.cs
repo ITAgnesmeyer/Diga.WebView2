@@ -322,9 +322,9 @@ namespace Diga.WebView2.Wrapper
             this.WebView.ExecuteScript(javaScript);
         }
 
-        public void InvokeScript(string javaScript, Action<int, string> actionToInvoke)
+        public string InvokeScript(string javaScript, Action<string, int, string> actionToInvoke)
         {
-            this.WebView.InvokeScript(javaScript, actionToInvoke);
+            return this.WebView.InvokeScript(javaScript, actionToInvoke);
         }
 
         public void OpenDevToolsWindow()
