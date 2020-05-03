@@ -5,16 +5,16 @@ using System.Windows.Forms;
 namespace WebView2WrapperWinFormsTest
 {
 
-    [ComVisible(true)]
-    [Guid("21A6CC64-8E9A-4659-85AA-32A07B2BDA0B")]
+    //[ComVisible(true)]
+    //[Guid("21A6CC64-8E9A-4659-85AA-32A07B2BDA0B")]
     public class TestObject
     {
         public string FirstMessage {get;set;}
-        public string SencondMessage{get;set;}
+        public string SecondMessage { get; set; } = "";
 
-        public int GetStringLen(string input)
+        public string GetStringLen(string input)
         {
-            return input.Length;
+            return input.Length.ToString();
         }
     }
 

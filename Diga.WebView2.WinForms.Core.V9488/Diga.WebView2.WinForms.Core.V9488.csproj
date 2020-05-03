@@ -6,9 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Diga.WebView2.WinForms.V9430\WebView.cs" Link="WebView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="..\Diga.WebView2.WinForms.V9430\WebView.cs" Link="WebView.cs" />
     <Compile Include="..\Diga.WebView2.WinForms.V9430\WebView.Designer.cs" Link="WebView.Designer.cs" />
   </ItemGroup>
 

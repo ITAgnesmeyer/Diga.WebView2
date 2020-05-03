@@ -172,8 +172,13 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_WebViewCreated(object sender, EventArgs e)
         {
-            //this._TestObject.FirstMessage = "hallo Welt";
-            //this.webView1.AddRemoteObject("testObject", this._TestObject);
+            
+#if CORE
+            this.webView1.RemoteObjectsAllowed = true;
+#endif
+
+            this._TestObject.FirstMessage = "hallo Welt";
+            this.webView1.AddRemoteObject("testObject", this._TestObject);
             string value = File.ReadAllText("index.html");
             this.webView1.NavigateToString(value);
 

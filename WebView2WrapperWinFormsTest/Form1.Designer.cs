@@ -121,7 +121,7 @@
             this.webView1.BackColor = System.Drawing.Color.Black;
             this.webView1.DefaultContextMenusEnabled = false;
             this.webView1.DefaultScriptDialogsEnabled = true;
-            this.webView1.DevToolsEnabled = false;
+            this.webView1.DevToolsEnabled = true;
             this.webView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webView1.EnableMonitoring = true;
             this.webView1.HtmlContent = null;
@@ -129,10 +129,12 @@
             this.webView1.IsScriptEnabled = true;
             this.webView1.IsStatusBarEnabled = false;
             this.webView1.IsWebMessageEnabled = true;
+            //this.webView1.IsZoomControlEnabled = true;
             this.webView1.Location = new System.Drawing.Point(0, 0);
             this.webView1.MonitoringFolder = "C:\\test_exe\\wwwroot";
             this.webView1.MonitoringUrl = "http://localhost:1/";
             this.webView1.Name = "webView1";
+            //this.webView1.RemoteObjectsAllowed = true;
             this.webView1.Size = new System.Drawing.Size(800, 418);
             this.webView1.TabIndex = 0;
             this.webView1.Url = "http://localhost:1/";

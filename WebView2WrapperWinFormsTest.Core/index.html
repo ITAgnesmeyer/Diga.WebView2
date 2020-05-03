@@ -14,10 +14,18 @@
 
         async function TestEventSync(objId) {
             var sender = document.getElementById(objId);
-            var propertyValue =
+            /*var propertyValue =
                 "Dies ist ein Synchroner Aufurf"; //await chrome.webview.remoteObjects.testObject.FirstMessage;
+                */
+            const remoteObject = await window.chrome.webview.hostObjects.testObject;
+
+            let propertyValue = await remoteObject.FirstMessage;
             propertyValue = sender.id + "->" + propertyValue;
-            alert(propertyValue);
+            remoteObject.SecondMessage= propertyValue;
+            propertyValue = await remoteObject.SecondMessage;
+            const param = propertyValue;
+            var len = await remoteObject.GetStringLen(param);
+            alert(propertyValue + "(" + len + ")");
         }
 
        

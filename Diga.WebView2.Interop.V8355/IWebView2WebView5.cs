@@ -229,7 +229,7 @@ namespace Diga.WebView2.Interop
         new void DocumentTitle([MarshalAs(UnmanagedType.LPWStr)] out string title);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void AddRemoteObject([MarshalAs(UnmanagedType.LPWStr), In] string name, [In] ref object @object);
+        new void AddRemoteObject([MarshalAs(UnmanagedType.LPWStr), In] string name, [In] object @object);
         //new void AddRemoteObject([MarshalAs(UnmanagedType.LPWStr), In] string name, [In][MarshalAs(UnmanagedType.IDispatch)] object obj);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
