@@ -1,46 +1,46 @@
 Warum dieses Projekt erstellt wurde.
-Microsoft stellt f¸r Windows-Forms eine WebControl zur Verf¸gung.
+Microsoft stellt f√ºr Windows-Forms eine WebControl zur Verf√ºgung.
 Dies basiert aber auf dem Internet-Explorer. Dieser kann diverse Features nicht abbilden.
-So werden WebAssemblys nicht unterst¸tzt.
-Die Motivation f¸r dieses Projekt war aber das Laden und Anzeigen von WebAssembly - Anwendungen.
-Hierbei sollte es auch mˆglich sein komplett ohne HTTP-Server zu arbeiten.
-F¸r WebView2.0.8.355 wurde dies bereits umgesetzt.
+So werden WebAssemblys nicht unterst√ºtzt.
+Die Motivation f√ºr dieses Projekt war aber das Laden und Anzeigen von WebAssembly - Anwendungen.
+Hierbei sollte es auch m√∂glich sein komplett ohne HTTP-Server zu arbeiten.
+F√ºr WebView2.0.8.355 wurde dies bereits umgesetzt.
 
 Microsoft und WebView2
-Microsoft stellt mit Edge Chromium einen modernen Browser auf Windows zur Verf¸gung.
+Microsoft stellt mit Edge Chromium einen modernen Browser auf Windows zur Verf√ºgung.
 Mit der COM-Basierten Schnittstelle von WebView2 kann dieser auch programmiert werden.
-Leider ist diese Mˆglichkeit offiziell nur C++ Programmierern vorbehalten.
+Leider ist diese M√∂glichkeit offiziell nur C++ Programmierern vorbehalten.
 Dies soll mit diesem Projekt behoben werden.
 
-Derzeit werden 2 Pakete unterst¸tzt.
+Derzeit werden 2 Pakete unterst√ºtzt.
 microsoft.web.webview2
 WebView2=> 0.8.355
 WebView2=> 0.9.430
 WebView2=> 0.9.488
 
 Da Microsoft zwischen der Version 0.8 und 0.9 einen kompletten Schnittstellen-Wechsel vollzogen hat.
-Werden 2 Projekte nˆtig.
+Werden 2 Projekte n√∂tig.
 Die Version 0.9.430 ist mit komplett anderen Schnittstellen ausgestattet.
-Die Version 0.8.355 ist die passende Version f¸r die aktuelle Installation von Edge Chromium.
-Die Version 0.9.430 l‰uft nur mit Edge Chromium Dev
-Die Version 0.9.488 l‰uft nur mit Edge Chromium Dev
+Die Version 0.8.355 ist die passende Version f√ºr die aktuelle Installation von Edge Chromium.
+Die Version 0.9.430 l√§uft nur mit Edge Chromium Dev
+Die Version 0.9.488 l√§uft nur mit Edge Chromium Dev
 
-Warum werden die Pakete nicht verkn¸pft.
-Die Pakete werden nicht verkn¸pft, da hiermit die Abbildung von Any CPU nicht mˆglich ist.
-Da die Pakete immer nur anhand der Jeweiligen Einstellung der Projekte hinzugef¸gt werden.
+Warum werden die Pakete nicht verkn√ºpft.
+Die Pakete werden nicht verkn√ºpft, da hiermit die Abbildung von Any CPU nicht m√∂glich ist.
+Da die Pakete immer nur anhand der Jeweiligen Einstellung der Projekte hinzugef√ºgt werden.
 Die API-Aufrufe sind hier so gestaltet, dass je nach CPU-Nutzung die richtige DLL gezogen wird.
 Daher wurden die DLL's mit in das Projekte aufgenommen.
 Die NATIVEN-DLL's sind dann im Bin-Directory unter native/x86 bzw. native/x64 zu finden.
 
-Warum sind die Sourcen in den Projekten nur verkn¸pft.
-Es kann sein, dass dies nur tempor‰r ist. 
+Warum sind die Sourcen in den Projekten nur verkn√ºpft.
+Es kann sein, dass dies nur tempor√§r ist. 
 Derzeit wird in den STD und CORE Projekten auf die Framework - Sourcen verwiesen.
-Dies hat den Vorteil, dass die Sourcen nur einmal bearbeitet werden m¸ssen und so gleich gehalten werden.
+Dies hat den Vorteil, dass die Sourcen nur einmal bearbeitet werden m√ºssen und so gleich gehalten werden.
 
 Benennung der Projektdateien.
-Um schnelle Wechsel zwischen den WebView2 - Versionen zu ermˆglichen werden die Name-Spaces gleich gehalten.
-So soll es mˆglich sein, sp‰ter in dem Ziel - Projekt einfach anhand des 
-verkn¸pften Pakets zu entscheiden welche Version von WebView2 genutzt werden soll.
+Um schnelle Wechsel zwischen den WebView2 - Versionen zu erm√∂glichen werden die Name-Spaces gleich gehalten.
+So soll es m√∂glich sein, sp√§ter in dem Ziel - Projekt einfach anhand des 
+verkn√ºpften Pakets zu entscheiden welche Version von WebView2 genutzt werden soll.
 Diga.WebView2.Interop.{Framework}.{PakteVersion}
 Diga.WebView2.Wrapper.{Framework}.{PaketVersion}
 Diga.WebView2.WinForms.{Framework}.{PaketVersion}
@@ -50,10 +50,10 @@ Std=> Standard 2.1
 Core=> Dotnet-Core 3.1
 keine Hinterlegung=>NET-Framework 4.7.2
 
-Warum wird ¸berhaupt zwischen Std und Framework unterschieden. 
-Da Microsoft sich daf¸r entschieden hat, die Std-Version 2.1 nicht mehr kompatibel zu NET-Framework zu halten, 
+Warum wird √ºberhaupt zwischen Std und Framework unterschieden. 
+Da Microsoft sich daf√ºr entschieden hat, die Std-Version 2.1 nicht mehr kompatibel zu NET-Framework zu halten, 
 ist eine Trennung zwingend notwendig.
-Laut Microsoft wird STD 2.0 nicht mehr unterst¸tzt.
+Laut Microsoft wird STD 2.0 nicht mehr unterst√ºtzt.
 
 PaketVersion:
 Hiermit ist die Version der WebView2 - Pakete gemeint.
@@ -64,13 +64,16 @@ V9488 =>microsoft.web.webview2 0.9.488
 Wie wurden die Interop-Sourcen erstellt.
 In dem Paketen von Microsoft microsoft.web.webview2 ist jeweils die Datei WebView2.tlb enthalten.
 Die Grund-Datei wurde jeweils mit tlbImp.exe erstellt.
-Da die resultierende DLL die Schnittstellen nicht korrekt abbildet, m¸ssen diese ¸berarbeitet werden.
+Da die resultierende DLL die Schnittstellen nicht korrekt abbildet, m√ºssen diese √ºberarbeitet werden.
 Daher wurde die DLL mit JetBrains-DotPeek in sourcen umgewandelt und entsprechend angepasst.
 
 Warum eine Trennung zwischen Interop, Wrapper und WinForms
 Die Trennung wird aufrecht erhalten, da die Pakete in unterschiedlichen Projekten sinnvoll sein kann.
 So kann es sein, dass nur das Interop und Wrapper - Pakete in manchen Projekten gebraucht wird.
-Oder es kann sein, dass nur das Interop - Pakte benˆtigt wird.
+Oder es kann sein, dass nur das Interop - Pakte ben√∂tigt wird.
 
-Warum Wird ein Fehler ausgegeben, wenn ich versuche das Core - Steuerelement in einer WinForms Anwendung im Designer hinzuzuf¸gen.
-Dies h‰ngt anscheinend mit Visual - Studio zusammen.
+Warum Wird ein Fehler ausgegeben, wenn ich versuche das Core - Steuerelement in einer WinForms Anwendung im Designer hinzuzuf√ºgen.
+Dies h√§ngt anscheinend mit Visual - Studio zusammen.
+
+AddRemoteObject => COM-Interop
+Es ist m√∂glich eine Dot-Net objekt als Remote-Objekt an den Webbrowser zu √ºbergeben. Dies ist auch m√∂glich, wenn das √ºbergebene Objekt nicht als ComVisible gekennzeichnet ist. Bei meinen Tests konnte ich Properties setzen und auslesen. Mir ist allerdings nicht gelungn Funktionen ohne Fehler aufzurufen. Weder mit Parameter noch ohne und auch nicht mit und ohne R√ºckgabe.
