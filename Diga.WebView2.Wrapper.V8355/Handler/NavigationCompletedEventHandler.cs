@@ -8,7 +8,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<NavigationCompletedEventArgs> NavigaionCompleted;
         public void Invoke(IWebView2WebView sender, IWebView2NavigationCompletedEventArgs args)
         {
-            NavigationCompletedEventArgs eventArgs = new NavigationCompletedEventArgs((ErrorStatus)args.WebErrorStatus, args.IsSuccess==0,0);
+            NavigationCompletedEventArgs eventArgs = new NavigationCompletedEventArgs((ErrorStatus)args.WebErrorStatus, new CBOOL(args.IsSuccess),0);
             OnNavigaionCompleted(eventArgs);
 
         }
