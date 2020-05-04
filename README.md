@@ -18,16 +18,24 @@ This project is intended to fix this.
 
 ### 3 packages are currently supported.
 microsoft.web.webview2
+
 WebView2=> 0.8.355
+
 WebView2=> 0.9.430
+
 WebView2=> 0.9.488
 
 Since Microsoft has completely changed the interface between version 0.8 and 0.9.
 2 projects are necessary.
+
 Version 0.9.430 is equipped with completely different interfaces.
+
 Version 0.8.355 is the right version for the current installation of Edge Chromium.
+
 Version 0.9.430 only runs with Edge Chromium Dev
+
 Version 0.9.488 only runs with Edge Chromium Dev
+
 
 ### Why are the packages not linked?
 The packages are not linked, since this does not allow the mapping of Any CPU.
@@ -45,9 +53,13 @@ This has the advantage that the sources only have to be processed once and are t
 In order to enable quick changes between the WebView2 versions, the name spaces are kept the same.
 So it should be possible later in the target project simply using the
 linked package to decide which version of WebView2 should be used.
+
 Diga.WebView2.Interop. {Framework}. {PakteVersion}
+
 Diga.WebView2.Wrapper. {Framework}. {PaketVersion}
+
 Diga.WebView2.WinForms. {Framework}. {PaketVersion}
+
 
 ### Framework:
 Std => Standard 2.1
@@ -61,9 +73,13 @@ According to Microsoft, STD 2.0 is no longer supported.
 
 ### Package version:
 This means the version of the WebView2 packages.
+
 V8355 => microsoft.web.webview2 0.8.355
+
 V9430 => microsoft.web.webview2 0.9.430
+
 V9488 => microsoft.web.webview2 0.9.488
+
 
 ### How were the interop sources created?
 In the Microsoft microsoft.web.webview2 package, the WebView2.tlb file is included.
@@ -79,7 +95,7 @@ Or it may be that only the Interop package is needed.
 #### Why I get an error when I try to add the core control in a WinForms application in the designer.
 This seems to be related to Visual Studio.
 
-###AddRemoteObject => COM interop
+### AddRemoteObject => COM interop
 It is possible to transfer a Dot-Net object to the web browser as a remote object. This is also possible if the transferred object is not marked as ComVisible. During my tests I was able to set and read out properties. However, I have not been able to call functions without errors. Neither with parameters nor with and also not with and without return.
 
 
