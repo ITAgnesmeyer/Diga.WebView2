@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
+using Diga.WebView2.Wrapper.Types;
 
 namespace WebView2WrapperWinFormsTest
 {

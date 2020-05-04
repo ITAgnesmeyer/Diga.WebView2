@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper
 {

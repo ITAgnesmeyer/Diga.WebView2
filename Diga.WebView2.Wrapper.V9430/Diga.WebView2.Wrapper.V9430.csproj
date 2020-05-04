@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Delegates\CapturePreviewCompletedDelegate.cs" />
+    <Compile Include="Delegates\ExecuteScriptCompletedDelegate.cs" />
     <Compile Include="ErrorStatus.cs" />
     <Compile Include="EventArguments\AcceleratorKeyPressedEventArgs.cs" />
     <Compile Include="EventArguments\ContentLoadingEventArgs.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="HttpHeadersCollectionIterator.cs" />
     <Compile Include="HttpRequestHeaders.cs" />
     <Compile Include="HttpResponseHeaders.cs" />
+    <Compile Include="ImageFormat.cs" />
     <Compile Include="KeyEventType.cs" />
     <Compile Include="MoveFocusReason.cs" />
     <Compile Include="PermissionState.cs" />

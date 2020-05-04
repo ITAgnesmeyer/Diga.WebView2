@@ -5,7 +5,7 @@ using System.Windows.Forms;
 namespace WebView2WrapperWinFormsTest
 {
 
-    //[ComVisible(true)]
+    [ComVisible(true)]
     //[Guid("21A6CC64-8E9A-4659-85AA-32A07B2BDA0B")]
     public class TestObject
     {

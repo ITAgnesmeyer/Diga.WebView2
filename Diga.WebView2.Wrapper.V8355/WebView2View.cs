@@ -1,8 +1,13 @@
 ﻿using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
+using Diga.WebView2.Wrapper.Types;
 using System;
+using System.IO;
+using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
+using System.Threading.Tasks;
+using Diga.WebView2.Wrapper.Delegates;
 
 namespace Diga.WebView2.Wrapper
 {
@@ -427,6 +432,22 @@ namespace Diga.WebView2.Wrapper
         {
             get => ((IWebView2WebView) this).Bounds;
             set => ((IWebView2WebView) this).Bounds = value;
+        }
+
+        public async Task CapturePreviewAsync(Stream stream, ImageFormat imageFormat)
+        {
+            ManagedIStream ms = new ManagedIStream(stream);
+            StreamWrapper sw = new StreamWrapper(ms);
+            var source = new TaskCompletionSource<int>();
+            CapturePreviewCompletedDelegate handler = new CapturePreviewCompletedDelegate(source);
+            this.ToInterface().CapturePreview((WEBVIEW2_CAPTURE_PREVIEW_IMAGE_FORMAT) imageFormat, sw, handler);
+            int hr = await source.Task;
+            if (hr != HRESULT.S_OK)
+            {
+                throw Marshal.GetExceptionForHR(hr);
+            }
+            
+
         }
 
         public string DocumentTitle
@@ -1714,6 +1735,21 @@ namespace Diga.WebView2.Wrapper
         void IWebView2WebView.GoForward()
         {
             this._WebView.GoForward();
+        }
+
+        public async Task<string> ExecuteScriptAsync(string javaScript)
+        {
+            if (this._WebView == null)
+                throw new InvalidOperationException("Script control not Created!");
+            var source = new TaskCompletionSource<(int,string)>();
+            var executeScriptDelegate = new ExecuteScriptCompletedDelegate(source);
+            this._WebView.ExecuteScript(javaScript, executeScriptDelegate);
+            
+            (int errorCode, string resultObjectAsJson) result = await source.Task;
+            HRESULT resultCode =result.errorCode;
+            if (resultCode != HRESULT.S_OK)
+                throw Marshal.GetExceptionForHR(resultCode);
+            return result.resultObjectAsJson;
         }
     }
 }

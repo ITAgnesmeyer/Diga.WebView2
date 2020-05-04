@@ -2,8 +2,12 @@
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
+using System.Threading.Tasks;
+using Diga.WebView2.Wrapper.Delegates;
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper
 {
@@ -272,6 +276,21 @@ namespace Diga.WebView2.Wrapper
             this.ToInterface().ExecuteScript(javaScript, handler);
         }
 
+        public async Task<string> ExecuteScriptAsync(string javaScript)
+        {
+            if (this._WebView == null)
+                throw new InvalidOperationException("Script control not Created!");
+            var source = new TaskCompletionSource<(int,string)>();
+            var executeScriptDelegate = new ExecuteScriptCompletedDelegate(source);
+            this._WebView.ExecuteScript(javaScript, executeScriptDelegate);
+            
+            (int errorCode, string resultObjectAsJson) result = await source.Task;
+            HRESULT resultCode =result.errorCode;
+            if (resultCode != HRESULT.S_OK)
+                throw Marshal.GetExceptionForHR(resultCode);
+            return result.resultObjectAsJson;
+        }
+
         public string InvokeScript(string javaScript, Action<string,int, string> actionToInvoke)
         {
             ExecuteScriptCompletedHandler handler = new ExecuteScriptCompletedHandler();
@@ -307,9 +326,9 @@ namespace Diga.WebView2.Wrapper
         public uint BrowserProcessId => this.ToInterface().BrowserProcessId;
 
 
-        public bool CanGoBack => this.ToInterface().CanGoBack == 1;
+        public bool CanGoBack => new CBOOL(this.ToInterface().CanGoBack);
 
-        public bool CanGoForward => (this.ToInterface().CanGoForward) == 1;
+        public bool CanGoForward => new CBOOL(this.ToInterface().CanGoForward) ;
 
 
         public void GoBack()
@@ -330,6 +349,31 @@ namespace Diga.WebView2.Wrapper
         }
 
         public string DocumentTitle => this.ToInterface().DocumentTitle;
+
+        public async Task CapturePreviewAsync(Stream stream, ImageFormat imageFormat)
+        {
+            ManagedIStream ms = new ManagedIStream(stream);
+            StreamWrapper sw = new StreamWrapper(ms);
+            var source = new TaskCompletionSource<int>();
+            CapturePreviewCompletedDelegate handler = new CapturePreviewCompletedDelegate(source);
+            #if V9488
+            this.ToInterface().CapturePreview((COREWEBVIEW2_CAPTURE_PREVIEW_IMAGE_FORMAT) imageFormat, sw, handler);
+            #endif
+            #if V9430
+            this.ToInterface().CapturePreview((CORE_WEBVIEW2_CAPTURE_PREVIEW_IMAGE_FORMAT) imageFormat, sw, handler);
+            #endif
+
+           
+            
+            int hr = await source.Task;
+            if (hr != HRESULT.S_OK)
+            {
+                throw Marshal.GetExceptionForHR(hr);
+            }
+            
+
+        }
+
 #if V9488
         public void AddRemoteObject(string name, object @object)
         {
@@ -361,6 +405,7 @@ namespace Diga.WebView2.Wrapper
         public void OpenDevToolsWindow()
         {
             this.ToInterface().OpenDevToolsWindow();
+            
         }
 
         public bool ContainsFullScreenElement => new CBOOL(this.ToInterface().ContainsFullScreenElement);

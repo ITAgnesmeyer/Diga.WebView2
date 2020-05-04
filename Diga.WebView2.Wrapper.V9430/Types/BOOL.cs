@@ -1,7 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
 // ReSharper disable CheckNamespace
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Types
 {
     public class CBOOL
     {
@@ -61,59 +61,5 @@ namespace Diga.WebView2.Wrapper
             }
         }
     }
-    //public class BOOL:CBOOL
-    //{
-        
-    //    public BOOL():base()
-    //    {
-            
-    //    }
-
-    //    public BOOL(int input):base(input)
-    //    {
-            
-    //    }
-    //    public BOOL(bool value):base(value)
-    //    {
-            
-    //    }
-        
-    //    public static implicit operator bool(BOOL input)
-    //    {
-    //        return input._Value;
-    //    }
-
-    //    public static implicit operator BOOL(bool input)
-    //    {
-    //        return new BOOL(input);
-    //    }
-
-    //    public static implicit operator int(BOOL input)
-    //    {
-    //        return input.Value;
-    //    }
-
-    //    public static implicit operator BOOL(int input)
-    //    {
-    //        return new BOOL(input);
-    //    }
-    //    public override int Value
-    //    {
-    //        get
-    //        {
-    //            if (this._Value)
-    //                return 0;
-    //            else
-    //                return 1;
-    //        }
-    //        set
-    //        {
-    //            if (value != 0)
-    //                this._Value = false;
-    //            else
-    //                this._Value = true;
-
-    //        }
-    //    }
-    //}
+    
 }

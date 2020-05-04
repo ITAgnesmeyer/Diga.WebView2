@@ -1,7 +1,9 @@
 ﻿using System;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.EventArguments;
+using Diga.WebView2.Wrapper.Types;
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Handler
 {
     public class NavigationCompletedEventHandler : IWebView2NavigationCompletedEventHandler
     {

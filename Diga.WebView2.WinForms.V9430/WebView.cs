@@ -1,12 +1,15 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
+using Diga.WebView2.Wrapper.Types;
 using MimeTypeExtension;
 
 
@@ -200,6 +203,15 @@ namespace Diga.WebView2.WinForms
             }
         }
 
+        public async Task<Image> CapturePreviewAsImageAsync(ImageFormat imageFormat)
+        {
+            using (var stream = new MemoryStream())
+            {
+                await this._WebViewControl.CapturePreviewAsync(stream, imageFormat);
+                var retImage = Image.FromStream(stream);
+                return retImage;
+            }
+        }
 
         private void OnWebWindowBeforeCreate(object sender, BeforeCreateEventArgs e)
         {
@@ -329,6 +341,13 @@ namespace Diga.WebView2.WinForms
         {
             this._WebViewControl.ExecuteScript(javaScript);
         }
+
+        public async Task<string> ExecuteScriptAsync(string javaScript)
+        {
+            return await this._WebViewControl.ExecuteScriptAsync(javaScript);
+        }
+
+        
 
         public string InvokeScript(string javaScript)
         {

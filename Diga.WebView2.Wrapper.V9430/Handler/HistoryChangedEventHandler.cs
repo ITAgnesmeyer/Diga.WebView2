@@ -2,7 +2,7 @@
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Handler
 {
     public class HistoryChangedEventHandler : ICoreWebView2HistoryChangedEventHandler
     {

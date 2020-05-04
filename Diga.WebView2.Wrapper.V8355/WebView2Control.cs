@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
@@ -322,11 +323,20 @@ namespace Diga.WebView2.Wrapper
             this.WebView.ExecuteScript(javaScript);
         }
 
+        public async Task<string> ExecuteScriptAsync(string javaScript)
+        {
+            return await this.WebView.ExecuteScriptAsync(javaScript);
+        }
+
         public string InvokeScript(string javaScript, Action<string, int, string> actionToInvoke)
         {
             return this.WebView.InvokeScript(javaScript, actionToInvoke);
         }
 
+        public async Task CapturePreviewAsync(Stream stream, ImageFormat imageFormat)
+        {
+            await this.WebView.CapturePreviewAsync(stream, imageFormat);
+        }
         public void OpenDevToolsWindow()
         {
             this.WebView.OpenDevToolsWindow();

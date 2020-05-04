@@ -15,6 +15,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Diga.WebView2.Wrapper.V9430\Delegates\CapturePreviewCompletedDelegate.cs" Link="Delegates\CapturePreviewCompletedDelegate.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V9430\Delegates\ExecuteScriptCompletedDelegate.cs" Link="Delegates\ExecuteScriptCompletedDelegate.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9430\ErrorStatus.cs" Link="ErrorStatus.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9430\EventArguments\AcceleratorKeyPressedEventArgs.cs" Link="EventArguments\AcceleratorKeyPressedEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9430\EventArguments\AddScriptToExecuteOnDocumentCreatedCompletedEventArgs.cs" Link="EventArguments\AddScriptToExecuteOnDocumentCreatedCompletedEventArgs.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="..\Diga.WebView2.Wrapper.V9430\HttpHeadersCollectionIterator.cs" Link="HttpHeadersCollectionIterator.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9430\HttpRequestHeaders.cs" Link="HttpRequestHeaders.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9430\HttpResponseHeaders.cs" Link="HttpResponseHeaders.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V9430\ImageFormat.cs" Link="ImageFormat.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9430\KeyEventType.cs" Link="KeyEventType.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9430\MoveFocusReason.cs" Link="MoveFocusReason.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9430\Native.cs" Link="Native.cs" />
@@ -98,6 +101,10 @@
     <None Update="native\x86\WebView2Loader.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Delegates\" />
   </ItemGroup>
 
 </Project>

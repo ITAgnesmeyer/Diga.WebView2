@@ -59,7 +59,10 @@
     <Compile Include="..\Diga.WebView2.Wrapper.V9430\Types\Rectangle.cs">
       <Link>Types\Rectangle.cs</Link>
     </Compile>
+    <Compile Include="Delegates\CapturePreviewCompletedDelegate.cs" />
     <Compile Include="Deferral.cs" />
+    <Compile Include="Delegates\ExecuteScriptCompletedDelegate.cs" />
+    <Compile Include="ImageFormat.cs" />
     <Compile Include="WebView2Environment.cs" />
     <Compile Include="Handler\DocumentTitleChangedHanlder.cs" />
     <Compile Include="Handler\DocumentStateChangedEventHandler.cs" />
@@ -149,6 +152,7 @@
   <ItemGroup>
     <None Include="EventArguments\info.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.Wrapper\V8335\lib\net472\$(TargetFileName)</PostBuildEvent>

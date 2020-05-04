@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.bnScript = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -36,12 +37,15 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.webView1 = new Diga.WebView2.WinForms.WebView();
+            this.bnCapture = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.bnCapture);
+            this.panel1.Controls.Add(this.bnScript);
             this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button2);
@@ -50,8 +54,19 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 32);
+            this.panel1.Size = new System.Drawing.Size(949, 32);
             this.panel1.TabIndex = 0;
+            // 
+            // bnScript
+            // 
+            this.bnScript.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bnScript.Location = new System.Drawing.Point(801, 4);
+            this.bnScript.Name = "bnScript";
+            this.bnScript.Size = new System.Drawing.Size(51, 23);
+            this.bnScript.TabIndex = 5;
+            this.bnScript.Text = "Script";
+            this.bnScript.UseVisualStyleBackColor = true;
+            this.bnScript.Click += new System.EventHandler(this.bnScript_Click);
             // 
             // button4
             // 
@@ -85,7 +100,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(32, 24);
             this.button2.TabIndex = 2;
-            this.button2.Text = "◄";
+            this.button2.Text = "◀";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -113,7 +128,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 32);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(800, 418);
+            this.panel2.Size = new System.Drawing.Size(949, 418);
             this.panel2.TabIndex = 1;
             // 
             // webView1
@@ -129,39 +144,48 @@
             this.webView1.IsScriptEnabled = true;
             this.webView1.IsStatusBarEnabled = false;
             this.webView1.IsWebMessageEnabled = true;
-            //this.webView1.IsZoomControlEnabled = true;
             this.webView1.Location = new System.Drawing.Point(0, 0);
             this.webView1.MonitoringFolder = "C:\\test_exe\\wwwroot";
             this.webView1.MonitoringUrl = "http://localhost:1/";
             this.webView1.Name = "webView1";
-            //this.webView1.RemoteObjectsAllowed = true;
-            this.webView1.Size = new System.Drawing.Size(800, 418);
+            this.webView1.Size = new System.Drawing.Size(949, 418);
             this.webView1.TabIndex = 0;
             this.webView1.Url = "http://localhost:1/";
-            this.webView1.NavigationStart += new System.EventHandler<Diga.WebView2.Wrapper.NavigationStartingEventArgs>(this.webView1_NavigationStart);
-            this.webView1.ContentLoading += new System.EventHandler<Diga.WebView2.Wrapper.ContentLoadingEventArgs>(this.webView1_ContentLoading);
-            this.webView1.SourceChanged += new System.EventHandler<Diga.WebView2.Wrapper.SourceChangedEventArgs>(this.webView1_SourceChanged);
+            this.webView1.NavigationStart += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.NavigationStartingEventArgs>(this.webView1_NavigationStart);
+            this.webView1.ContentLoading += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.ContentLoadingEventArgs>(this.webView1_ContentLoading);
+            this.webView1.SourceChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.SourceChangedEventArgs>(this.webView1_SourceChanged);
             this.webView1.HistoryChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_HistoryChanged);
-            this.webView1.NavigationCompleted += new System.EventHandler<Diga.WebView2.Wrapper.NavigationCompletedEventArgs>(this.webView1_NavigationCompleted);
-            this.webView1.WebResourceRequested += new System.EventHandler<Diga.WebView2.Wrapper.WebResourceRequestedEventArgs>(this.webView1_WebResourceRequested);
-            this.webView1.AcceleratorKeyPressed += new System.EventHandler<Diga.WebView2.Wrapper.AcceleratorKeyPressedEventArgs>(this.webView1_AcceleratorKeyPressed);
+            this.webView1.NavigationCompleted += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.NavigationCompletedEventArgs>(this.webView1_NavigationCompleted);
+            this.webView1.WebResourceRequested += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebResourceRequestedEventArgs>(this.webView1_WebResourceRequested);
+            this.webView1.AcceleratorKeyPressed += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.AcceleratorKeyPressedEventArgs>(this.webView1_AcceleratorKeyPressed);
             this.webView1.WebViewGotFocus += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_WebViewGotFocus);
             this.webView1.WebViewLostFocus += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_WebViewLostFocus);
-            this.webView1.MoveFocusRequested += new System.EventHandler<Diga.WebView2.Wrapper.MoveFocusRequestedEventArgs>(this.webView1_MoveFocusRequested);
+            this.webView1.MoveFocusRequested += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.MoveFocusRequestedEventArgs>(this.webView1_MoveFocusRequested);
             this.webView1.ZoomFactorChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_ZoomFactorChanged);
             this.webView1.DocumentTitleChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_DocumentTitleChanged);
             this.webView1.ContainsFullScreenElementChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_ContainsFullScreenElementChanged);
-            this.webView1.PermissionRequested += new System.EventHandler<Diga.WebView2.Wrapper.PermissionRequestedEventArgs>(this.webView1_PermissionRequested);
-            this.webView1.FrameNavigationStarting += new System.EventHandler<Diga.WebView2.Wrapper.NavigationStartingEventArgs>(this.webView1_FrameNavigationStarting);
-            this.webView1.WebMessageReceived += new System.EventHandler<Diga.WebView2.Wrapper.WebMessageReceivedEventArgs>(this.webView1_WebMessageReceived);
+            this.webView1.PermissionRequested += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.PermissionRequestedEventArgs>(this.webView1_PermissionRequested);
+            this.webView1.FrameNavigationStarting += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.NavigationStartingEventArgs>(this.webView1_FrameNavigationStarting);
+            this.webView1.WebMessageReceived += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebMessageReceivedEventArgs>(this.webView1_WebMessageReceived);
             this.webView1.ScriptToExecuteOnDocumentCreatedCompleted += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>(this.webView1_ScriptToExecuteOnDocumentCreatedCompleted);
             this.webView1.WebViewCreated += new System.EventHandler(this.webView1_WebViewCreated);
+            // 
+            // bnCapture
+            // 
+            this.bnCapture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bnCapture.Location = new System.Drawing.Point(858, 4);
+            this.bnCapture.Name = "bnCapture";
+            this.bnCapture.Size = new System.Drawing.Size(59, 23);
+            this.bnCapture.TabIndex = 6;
+            this.bnCapture.Text = "Capture";
+            this.bnCapture.UseVisualStyleBackColor = true;
+            this.bnCapture.Click += new System.EventHandler(this.bnCapture_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(949, 450);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
@@ -184,6 +208,8 @@
         private System.Windows.Forms.TextBox textBox1;
         private Diga.WebView2.WinForms.WebView webView1;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button bnScript;
+        private System.Windows.Forms.Button bnCapture;
     }
 }
 

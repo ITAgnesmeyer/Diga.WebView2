@@ -22,6 +22,8 @@
 
   <ItemGroup>
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\Deferral.cs" Link="Deferral.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V8355\Delegates\CapturePreviewCompletedDelegate.cs" Link="Delegates\CapturePreviewCompletedDelegate.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V8355\Delegates\ExecuteScriptCompletedDelegate.cs" Link="Delegates\ExecuteScriptCompletedDelegate.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\ErrorStatus.cs" Link="ErrorStatus.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\EventArguments\AcceleratorKeyPressedEventArgs.cs" Link="EventArguments\AcceleratorKeyPressedEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\EventArguments\AddScriptToExecuteOnDocumentCreatedCompletedEventArgs.cs" Link="EventArguments\AddScriptToExecuteOnDocumentCreatedCompletedEventArgs.cs" />
@@ -68,6 +70,7 @@
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\HttpHeadersCollectionIterator.cs" Link="HttpHeadersCollectionIterator.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\HttpRequestHeaders.cs" Link="HttpRequestHeaders.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\HttpResponseHeaders.cs" Link="HttpResponseHeaders.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V8355\ImageFormat.cs" Link="ImageFormat.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\KeyEventType.cs" Link="KeyEventType.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\MoveFocusReason.cs" Link="MoveFocusReason.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V8355\PermissionState.cs" Link="PermissionState.cs" />
@@ -102,6 +105,10 @@
     <None Update="native\x86\WebView2Loader.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Delegates\" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

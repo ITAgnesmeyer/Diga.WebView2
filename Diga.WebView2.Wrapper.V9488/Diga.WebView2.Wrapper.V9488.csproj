@@ -41,6 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Diga.WebView2.Wrapper.V9430\Delegates\CapturePreviewCompletedDelegate.cs">
+      <Link>Delegates\CapturePreviewCompletedDelegate.cs</Link>
+    </Compile>
+    <Compile Include="..\Diga.WebView2.Wrapper.V9430\Delegates\ExecuteScriptCompletedDelegate.cs">
+      <Link>Delegates\ExecuteScriptCompletedDelegate.cs</Link>
+    </Compile>
     <Compile Include="..\Diga.WebView2.Wrapper.V9430\ErrorStatus.cs">
       <Link>ErrorStatus.cs</Link>
     </Compile>
@@ -181,6 +187,9 @@
     </Compile>
     <Compile Include="..\Diga.WebView2.Wrapper.V9430\HttpResponseHeaders.cs">
       <Link>HttpResponseHeaders.cs</Link>
+    </Compile>
+    <Compile Include="..\Diga.WebView2.Wrapper.V9430\ImageFormat.cs">
+      <Link>ImageFormat.cs</Link>
     </Compile>
     <Compile Include="..\Diga.WebView2.Wrapper.V9430\KeyEventType.cs">
       <Link>KeyEventType.cs</Link>

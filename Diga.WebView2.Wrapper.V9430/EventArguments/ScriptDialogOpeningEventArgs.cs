@@ -1,6 +1,6 @@
 ﻿using Diga.WebView2.Interop;
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.EventArguments
 {
     public class ScriptDialogOpeningEventArgs : ICoreWebView2ScriptDialogOpeningEventArgs
     {

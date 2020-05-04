@@ -20,6 +20,8 @@
             var propertyValue = await chrome.webview.remoteObjects.testObject.FirstMessage;
             propertyValue = sender.id + "->" + propertyValue;
             alert(propertyValue);
+            const b = await chrome.webview.remoteObjects.testObject.GetStringLen();
+            alert(b);
         }
 
        

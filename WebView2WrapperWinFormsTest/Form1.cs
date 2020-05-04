@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -188,6 +189,27 @@ namespace WebView2WrapperWinFormsTest
         private void webView1_ScriptToExecuteOnDocumentCreatedCompleted(object sender, AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
         {
             Debug.Print(e.Id);
+        }
+
+        private async void bnScript_Click(object sender, EventArgs e)
+        {
+            string script = "2+3";
+            string result = await this.webView1.ExecuteScriptAsync(script);
+            MessageBox.Show(result);
+        }
+
+        private async void bnCapture_Click(object sender, EventArgs e)
+        {
+            Image img = await this.webView1.CapturePreviewAsImageAsync(ImageFormat.Png);
+            Form frm = new Form();
+            frm.Width = img.Width;
+            frm.Height = img.Height;
+            frm.StartPosition = FormStartPosition.CenterParent;
+            PictureBox pb = new PictureBox();
+            pb.Dock = DockStyle.Fill;
+            pb.Image = img;
+            frm.Controls.Add(pb);
+            frm.ShowDialog(this);
         }
     }
 }
