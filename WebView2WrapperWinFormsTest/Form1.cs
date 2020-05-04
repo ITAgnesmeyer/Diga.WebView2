@@ -174,6 +174,7 @@ namespace WebView2WrapperWinFormsTest
         {
             
 #if CORE
+            this.webView1.OpenDevToolsWindow();
             this.webView1.RemoteObjectsAllowed = true;
 #endif
 

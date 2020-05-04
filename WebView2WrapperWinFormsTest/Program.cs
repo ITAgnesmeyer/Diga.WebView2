@@ -9,12 +9,15 @@ namespace WebView2WrapperWinFormsTest
     //[Guid("21A6CC64-8E9A-4659-85AA-32A07B2BDA0B")]
     public class TestObject
     {
+        //[DispId(1)]
         public string FirstMessage {get;set;}
+        //[DispId(2)]
         public string SecondMessage { get; set; } = "";
-
-        public string GetStringLen(string input)
+        //[DispId(3)]
+        //[AllowReversePInvokeCalls]
+        public bool GetStringLen()
         {
-            return input.Length.ToString();
+            return true;
         }
     }
 
