@@ -1,6 +1,15 @@
 # Diga.WebView2
 WebView2 Wrapper
 
+### Nuget Packages:
+There are NUGET-PACKAGES for V8355
+
+Diga.WebView2.Interop => [NuGet](https://www.nuget.org/packages/Diga.WebView2.Interop/ "NuGet")
+
+Diga.WebView2.Wrapper => [NuGet](https://www.nuget.org/packages/Diga.WebView2.Wrapper/ "NuGet")
+
+Diga.WebView2.WinForms => [NuGet](https://www.nuget.org/packages/Diga.WebView2.WinForms/ "NuGet")
+
 
 ### Why this project was created.
 Microsoft provides a WebControl for Windows Forms.
