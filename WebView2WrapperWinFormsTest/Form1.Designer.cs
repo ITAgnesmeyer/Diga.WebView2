@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.bnCapture = new System.Windows.Forms.Button();
             this.bnScript = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -37,7 +38,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.webView1 = new Diga.WebView2.WinForms.WebView();
-            this.bnCapture = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -56,6 +56,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(949, 32);
             this.panel1.TabIndex = 0;
+            // 
+            // bnCapture
+            // 
+            this.bnCapture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bnCapture.Location = new System.Drawing.Point(858, 4);
+            this.bnCapture.Name = "bnCapture";
+            this.bnCapture.Size = new System.Drawing.Size(59, 23);
+            this.bnCapture.TabIndex = 6;
+            this.bnCapture.Text = "Capture";
+            this.bnCapture.UseVisualStyleBackColor = true;
+            this.bnCapture.Click += new System.EventHandler(this.bnCapture_Click);
             // 
             // bnScript
             // 
@@ -146,11 +157,11 @@
             this.webView1.IsWebMessageEnabled = true;
             this.webView1.Location = new System.Drawing.Point(0, 0);
             this.webView1.MonitoringFolder = "C:\\test_exe\\wwwroot";
-            this.webView1.MonitoringUrl = "http://localhost:1/";
+            this.webView1.MonitoringUrl = "https://5b834d57-0891-4730-b6ba-c793b4e76468/";
             this.webView1.Name = "webView1";
             this.webView1.Size = new System.Drawing.Size(949, 418);
             this.webView1.TabIndex = 0;
-            this.webView1.Url = "http://localhost:1/";
+            this.webView1.Url = "https://5b834d57-0891-4730-b6ba-c793b4e76468";
             this.webView1.NavigationStart += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.NavigationStartingEventArgs>(this.webView1_NavigationStart);
             this.webView1.ContentLoading += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.ContentLoadingEventArgs>(this.webView1_ContentLoading);
             this.webView1.SourceChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.SourceChangedEventArgs>(this.webView1_SourceChanged);
@@ -169,17 +180,6 @@
             this.webView1.WebMessageReceived += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebMessageReceivedEventArgs>(this.webView1_WebMessageReceived);
             this.webView1.ScriptToExecuteOnDocumentCreatedCompleted += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>(this.webView1_ScriptToExecuteOnDocumentCreatedCompleted);
             this.webView1.WebViewCreated += new System.EventHandler(this.webView1_WebViewCreated);
-            // 
-            // bnCapture
-            // 
-            this.bnCapture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bnCapture.Location = new System.Drawing.Point(858, 4);
-            this.bnCapture.Name = "bnCapture";
-            this.bnCapture.Size = new System.Drawing.Size(59, 23);
-            this.bnCapture.TabIndex = 6;
-            this.bnCapture.Text = "Capture";
-            this.bnCapture.UseVisualStyleBackColor = true;
-            this.bnCapture.Click += new System.EventHandler(this.bnCapture_Click);
             // 
             // Form1
             // 

@@ -1,46 +1,47 @@
-Warum dieses Projekt erstellt wurde.
+﻿Warum dieses Projekt erstellt wurde:
+
 Microsoft stellt für Windows-Forms eine WebControl zur Verfügung.
 Dies basiert aber auf dem Internet-Explorer. Dieser kann diverse Features nicht abbilden.
 So werden WebAssemblys nicht unterstützt.
-Die Motivation für dieses Projekt war aber das Laden und Anzeigen von WebAssembly - Anwendungen.
-Hierbei sollte es auch möglich sein komplett ohne HTTP-Server zu arbeiten.
+Die Motivation für dieses Projekt war aber, das Laden und Anzeigen von WebAssembly – Anwendungen (BLAZOR-SITES).
+Hierbei sollte es auch möglich sein, komplett ohne HTTP-Server zu arbeiten.
 Für WebView2.0.8.355 wurde dies bereits umgesetzt.
 
 Microsoft und WebView2
-Microsoft stellt mit Edge Chromium einen modernen Browser auf Windows zur Verfügung.
-Mit der COM-Basierten Schnittstelle von WebView2 kann dieser auch programmiert werden.
+Microsoft stellt mit Edge Chromium einen modernen Browser für Windows zur Verfügung.
+Mit der COM-Basierten Schnittstelle von WebView2, kann dieser auch programmiert werden.
 Leider ist diese Möglichkeit offiziell nur C++ Programmierern vorbehalten.
 Dies soll mit diesem Projekt behoben werden.
 
-Derzeit werden 2 Pakete unterstützt.
+Derzeit werden 3 Pakete unterstützt.
 microsoft.web.webview2
 WebView2=> 0.8.355
 WebView2=> 0.9.430
 WebView2=> 0.9.488
 
-Da Microsoft zwischen der Version 0.8 und 0.9 einen kompletten Schnittstellen-Wechsel vollzogen hat.
-Werden 2 Projekte nötig.
+Da Microsoft zwischen der Version 0.8 und 0.9, einen kompletten Schnittstellen-Wechsel vollzogen hat,
+werden 3 Projekte nötig.
 Die Version 0.9.430 ist mit komplett anderen Schnittstellen ausgestattet.
 Die Version 0.8.355 ist die passende Version für die aktuelle Installation von Edge Chromium.
 Die Version 0.9.430 läuft nur mit Edge Chromium Dev
 Die Version 0.9.488 läuft nur mit Edge Chromium Dev
 
-Warum werden die Pakete nicht verknüpft.
+Warum wird das Paket „microsoft.web.webview2“ nicht verknüpft.
 Die Pakete werden nicht verknüpft, da hiermit die Abbildung von Any CPU nicht möglich ist.
-Da die Pakete immer nur anhand der Jeweiligen Einstellung der Projekte hinzugefügt werden.
-Die API-Aufrufe sind hier so gestaltet, dass je nach CPU-Nutzung die richtige DLL gezogen wird.
+Die Pakete werden immer nur anhand der jeweiligen Einstellung der Projekte hinzugefügt.
+Die API-Aufrufe sind in diesem Projekt so gestaltet, dass je nach CPU-Nutzung die richtige DLL gezogen wird.
 Daher wurden die DLL's mit in das Projekte aufgenommen.
 Die NATIVEN-DLL's sind dann im Bin-Directory unter native/x86 bzw. native/x64 zu finden.
 
-Warum sind die Sourcen in den Projekten nur verknüpft.
+Warum sind die Sourcen, in den Projekten nur verknüpft.
 Es kann sein, dass dies nur temporär ist. 
-Derzeit wird in den STD und CORE Projekten auf die Framework - Sourcen verwiesen.
+Derzeit wird in den STD und CORE Projekten, auf die Framework - Sourcen verwiesen.
 Dies hat den Vorteil, dass die Sourcen nur einmal bearbeitet werden müssen und so gleich gehalten werden.
 
 Benennung der Projektdateien.
-Um schnelle Wechsel zwischen den WebView2 - Versionen zu ermöglichen werden die Name-Spaces gleich gehalten.
-So soll es möglich sein, später in dem Ziel - Projekt einfach anhand des 
-verknüpften Pakets zu entscheiden welche Version von WebView2 genutzt werden soll.
+Um schnelle Wechsel zwischen den WebView2 - Versionen zu ermöglichen, werden die Namespaces gleich gehalten.
+So soll es möglich sein, später in dem Ziel – Projekt, einfach anhand des 
+verknüpften Pakets zu entscheiden, welche Version von WebView2 genutzt werden soll.
 Diga.WebView2.Interop.{Framework}.{PakteVersion}
 Diga.WebView2.Wrapper.{Framework}.{PaketVersion}
 Diga.WebView2.WinForms.{Framework}.{PaketVersion}
@@ -50,7 +51,7 @@ Std=> Standard 2.1
 Core=> Dotnet-Core 3.1
 keine Hinterlegung=>NET-Framework 4.7.2
 
-Warum wird überhaupt zwischen Std und Framework unterschieden. 
+Warum wird zwischen Std und Framework unterschieden. 
 Da Microsoft sich dafür entschieden hat, die Std-Version 2.1 nicht mehr kompatibel zu NET-Framework zu halten, 
 ist eine Trennung zwingend notwendig.
 Laut Microsoft wird STD 2.0 nicht mehr unterstützt.
@@ -62,18 +63,19 @@ V9430 =>microsoft.web.webview2 0.9.430
 V9488 =>microsoft.web.webview2 0.9.488
 
 Wie wurden die Interop-Sourcen erstellt.
-In dem Paketen von Microsoft microsoft.web.webview2 ist jeweils die Datei WebView2.tlb enthalten.
-Die Grund-Datei wurde jeweils mit tlbImp.exe erstellt.
-Da die resultierende DLL die Schnittstellen nicht korrekt abbildet, müssen diese überarbeitet werden.
-Daher wurde die DLL mit JetBrains-DotPeek in sourcen umgewandelt und entsprechend angepasst.
+In dem Paketen von Microsoft „microsoft.web.webview2“, ist jeweils die Datei WebView2.tlb enthalten.
+Die Grund-Datei, wurde jeweils mit tlbImp.exe erstellt.
+Da die resultierende DLL, die Schnittstellen nicht korrekt abbildet, müssen diese überarbeitet werden.
+Daher wurde die DLL, mit JetBrains-DotPeek in sourcen umgewandelt und entsprechend angepasst.
 
 Warum eine Trennung zwischen Interop, Wrapper und WinForms
-Die Trennung wird aufrecht erhalten, da die Pakete in unterschiedlichen Projekten sinnvoll sein kann.
-So kann es sein, dass nur das Interop und Wrapper - Pakete in manchen Projekten gebraucht wird.
+Die Trennung wird aufrechterhalten, da die Pakete in unterschiedlichen Projekten sinnvoll sein können.
+So kann es sein, dass nur das Interop- und Wrapper- Pakete in manchen Projekten gebraucht wird.
 Oder es kann sein, dass nur das Interop - Pakte benötigt wird.
 
-Warum Wird ein Fehler ausgegeben, wenn ich versuche das Core - Steuerelement in einer WinForms Anwendung im Designer hinzuzufügen.
+Warum wird ein Fehler ausgegeben, wenn ich versuche das Core - Steuerelement in einer WinForms Anwendung im Designer hinzuzufügen.
 Dies hängt anscheinend mit Visual - Studio zusammen.
 
 AddRemoteObject => COM-Interop
-Es ist möglich eine Dot-Net objekt als Remote-Objekt an den Webbrowser zu übergeben. Dies ist auch möglich, wenn das übergebene Objekt nicht als ComVisible gekennzeichnet ist. Bei meinen Tests konnte ich Properties setzen und auslesen. Mir ist allerdings nicht gelungn Funktionen ohne Fehler aufzurufen. Weder mit Parameter noch ohne und auch nicht mit und ohne Rückgabe.
+Es ist möglich eine Dot-Net objekt als Remote-Objekt an den Webbrowser zu übergeben. Bei meinen Tests, konnte ich Properties setzen und auslesen. Mir ist allerdings nicht gelungen, Funktionen ohne Fehler aufzurufen. Weder mit Parameter, noch ohne und auch nicht mit und ohne Rückgabe.
+
