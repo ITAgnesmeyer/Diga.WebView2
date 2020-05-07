@@ -1,5 +1,7 @@
 # Diga.WebView2
-WebView2 Wrapper
+WebView2 Wrapper For => [Edge Chromium](https://www.microsoft.com/edge "Edge Chromium")
+
+Microsoft [WebView2](https://docs.microsoft.com/microsoft-edge/hosting/webview2 "WebView2")
 
 ### Nuget Packages:
 There are NUGET-PACKAGES for V8355
