@@ -1,5 +1,7 @@
 # Diga.WebView2
-WebView2 Wrapper
+WebView2 Wrapper For => [Edge Chromium](https://www.microsoft.com/edge "Edge Chromium")
+
+Microsoft [WebView2](https://docs.microsoft.com/microsoft-edge/hosting/webview2 "WebView2")
 
 ### Nuget Packages:
 There are NUGET-PACKAGES for V8355
@@ -10,18 +12,18 @@ There are NUGET-PACKAGES for V8355
 
 
 ### Why this project was created.
-Microsoft provides a WebControl for Windows Forms.
-However, this is based on Internet Explorer. It cannot display various features.
-So WebAssemblys are not supported.
-The motivation for this project was to load and display WebAssembly applications.
+Microsoft provides a WebControl for Windows forms.
+However, this is based on Internet Explorer. This cannot represent various features.
+This does not support WebAssemblies.
+The motivation for this project, however, was to load and display WebAssembly applications (BLAZOR-SITES).
 It should also be possible to work completely without an HTTP server.
 This has already been implemented for WebView2.0.8.355.
 
 ### Microsoft and WebView2
-With Edge Chromium, Microsoft provides a modern browser on Windows.
-With the COM-based interface of WebView2 this can also be programmed.
-Unfortunately, this option is officially reserved for C ++ programmers.
-This project is intended to fix this.
+Microsoft provides Edge Chromium, a modern browser for Windows.
+With the COM-based interface of WebView2, this can also be programmed.
+Unfortunately, this option is officially reserved only for C++ programmers.
+This is to be fixed with this project.
 
 ### 3 packages are currently supported.
 microsoft.web.webview2
@@ -38,24 +40,24 @@ Since Microsoft has completely changed the interface between version 0.8 and 0.9
 - Version 0.9.430 only runs with Edge Chromium Dev
 - Version 0.9.488 only runs with Edge Chromium Dev
 
-### Why are the packages not linked?
-The packages are not linked, since this does not allow the mapping of Any CPU.
-Since the packages are only added based on the respective setting of the projects.
-The API calls are designed here so that the correct DLL is pulled depending on the CPU usage.
-Therefore the DLL's were included in the project.
-The NATIVEN DLLs can then be found in the bin directory under native / x86 or native / x64.
+### Why is the microsoft.web.webview2 package not linked?
+The packages are not linked because this does not allow the mapping of Any CPU.
+The packages are always added only based on the setting of the projects.
+The API calls in this project are designed to draw the correct DLL depending on CPU usage.
+Therefore, the DLL's were included in the project.
+The NATIVEN-DLL's can then be found in the bin directory under native/x86 or native/x64.
 
 
 ### Why are the sources in the projects only linked?
-It may be temporary.
-Currently, reference is made to the framework sources in the STD and CORE projects.
-This has the advantage that the sources only have to be processed once and are thus kept the same.
+It may be that this is only temporary. 
+Currently, the STD and CORE projects refer to the framework sources.
+This has the advantage that the sources only have to be edited once and are kept the same.
 
 
 ### Name of the project files.
-In order to enable quick changes between the WebView2 versions, the name spaces are kept the same.
-So it should be possible later in the target project simply using the
-linked package to decide which version of WebView2 should be used.
+To enable quick switching between WebView2 versions, the namespaces are kept the same.
+This is how it should be possible to do so later in the goal- project, simply on the basis of the 
+package to decide which version of WebView2 to use.
 
 - Diga.WebView2.Interop. {Framework}. {PakteVersion}
 - Diga.WebView2.Wrapper. {Framework}. {PaketVersion}
@@ -69,8 +71,8 @@ linked package to decide which version of WebView2 should be used.
 
 
 ### Why is there a difference between Std and Framework at all?
-Since Microsoft decided to keep Std version 2.1 no longer compatible with the NET framework,
-separation is mandatory.
+Because Microsoft has chosen to keep the Std version 2.1 out of the net framework, 
+separation is absolutely necessary.
 According to Microsoft, STD 2.0 is no longer supported.
 
 
@@ -83,10 +85,10 @@ This means the version of the WebView2 packages.
 
 
 ### How were the interop sources created?
-In the Microsoft microsoft.web.webview2 package, the WebView2.tlb file is included.
+The Microsoft microsoft.web.webview2 package contains webview2.tlb.
 The basic file was created with tlbImp.exe.
-Since the resulting DLL does not correctly map the interfaces, they must be revised.
-Therefore, the DLL was converted into sources with JetBrains-DotPeek and adapted accordingly.
+Because the resulting DLL does not correctly reflect interfaces, they need to be revised.
+Therefore, the DLL, with JetBrains-DotPeek, has been converted to sources and adjusted accordingly.
 
 ### Why a separation between Interop, Wrapper and WinForms
 The separation is maintained because the packages can be useful in different projects.
@@ -97,9 +99,9 @@ Or it may be that only the Interop package is needed.
 This seems to be related to Visual Studio.
 
 ### AddRemoteObject => COM interop
-It is possible to transfer a Dot-Net object to the web browser as a remote object. This is also possible if the transferred object is not marked as ComVisible. During my tests I was able to set and read out properties. However, I have not been able to call functions without errors. Neither with parameters nor with and also not with and without return.
+It is possible to pass a dot-net object as a remote object to the web browser. In my tests, I was able to set and read properties. However, I did not manage to call functions without errors. Neither with parameters, nor without and not with and without return.
 
-
+###### This text was automatically translated with the [Microsoft translator](https://www.bing.com/translator "Microsoft translator").
 
 
 
