@@ -4,30 +4,25 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F94D431B-B4EA-45AB-9864-FEB3148B95EC}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <RootNamespace>WebView2WrapperWinFormsTest</RootNamespace>
-    <AssemblyName>WebView2WrapperWinFormsTest</AssemblyName>
+    <ProjectGuid>{408BFEAC-DD60-47BE-BB5A-9ED6CDE6297D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Diga.WebView2.WinForms.V8355</RootNamespace>
+    <AssemblyName>Diga.WebView2.WinForms.V8355</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;VS8355</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -49,66 +44,51 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
+    <Compile Include="..\..\V9430\Diga.WebView2.WinForms.V9430\Properties\Resources.Designer.cs">
+      <Link>Properties\Resources.Designer.cs</Link>
       <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    <Compile Include="..\..\V9430\Diga.WebView2.WinForms.V9430\WebView.cs">
+      <Link>WebView.cs</Link>
+      <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="..\..\V9430\Diga.WebView2.WinForms.V9430\WebView.Designer.cs">
+      <Link>WebView.Designer.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="index.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\V8355\Diga.WebView2.Interop.V8355\Diga.WebView2.Interop.V8355.csproj">
-      <Project>{09a70bfe-0082-4c26-96cb-68e8f9eb59a7}</Project>
-      <Name>Diga.WebView2.Interop.V8355</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\V8355\Diga.WebView2.WinForms.V8355\Diga.WebView2.WinForms.V8355.csproj">
-      <Project>{408bfeac-dd60-47be-bb5a-9ed6cde6297d}</Project>
-      <Name>Diga.WebView2.WinForms.V8355</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\V8355\Diga.WebView2.Wrapper.V8355\Diga.WebView2.Wrapper.V8355.csproj">
+    <ProjectReference Include="..\Diga.WebView2.Wrapper.V8355\Diga.WebView2.Wrapper.V8355.csproj">
       <Project>{450ab29f-a6fb-4bd7-9f29-aa9950e20317}</Project>
       <Name>Diga.WebView2.Wrapper.V8355</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\V9430\Diga.WebView2.WinForms.V9430\Properties\Resources.resx">
+      <Link>Properties\Resources.resx</Link>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Diga.WebView2.WinForms.Properties</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\V9430\Diga.WebView2.WinForms.V9430\WebView.resx">
+      <Link>WebView.resx</Link>
+      <CustomToolNamespace>Diga.WebView2.WinForms.Properties</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.WinForms\V8335\lib\net472\$(TargetFileName)</PostBuildEvent>
+  </PropertyGroup>
 </Project>
