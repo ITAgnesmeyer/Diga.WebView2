@@ -177,9 +177,10 @@ namespace WebView2WrapperWinFormsTest
 #if CORE
             this.webView1.OpenDevToolsWindow();
             this.webView1.RemoteObjectsAllowed = true;
-#endif
-
-            this._TestObject.FirstMessage = "hallo Welt";
+#endif//0E1B9FCAB5-FB86-4D78-91DE-7BC2B4077E5B
+            this.webView1.AddRemoteObject("{60A417CA-F1AB-4307-801B-F96003F8938B} Host Object Helper", (object) new HostObjectHelper());
+            //this.webView1.AddRemoteObject("0E1B9FCAB5-FB86-4D78-91DE-7BC2B4077E5", (object) new HostObjectHelper());
+            this._TestObject.Name = "hallo Welt";
             this.webView1.AddRemoteObject("testObject", this._TestObject);
             string value = File.ReadAllText("index.html");
             this.webView1.NavigateToString(value);

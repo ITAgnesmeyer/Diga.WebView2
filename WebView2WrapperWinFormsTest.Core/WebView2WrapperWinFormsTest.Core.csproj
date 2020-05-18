@@ -30,8 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\V9430\Diga.WebView2.WinForms.Core.V9430\Diga.WebView2.WinForms.Core.V9430.csproj" />
-    <ProjectReference Include="..\V9430\Diga.WebView2.Wrapper.Std.V9430\Diga.WebView2.Wrapper.Std.V9430.csproj" />
+    <ProjectReference Include="..\V9488\Diga.WebView2.WinForms.Core.V9488\Diga.WebView2.WinForms.Core.V9488.csproj" />
+    <ProjectReference Include="..\V9488\Diga.WebView2.Wrapper.Std.V9488\Diga.WebView2.Wrapper.Std.V9488.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -360,7 +360,10 @@ namespace Diga.WebView2.Wrapper
 
         public void AddRemoteObject(string name, object @object)
         {
-            this.ToInterface().AddRemoteObject(name, @object);
+            object obj = @object;
+            ref object refObj = ref obj;
+
+            this.ToInterface().AddRemoteObject(name,ref refObj);
         }
 
         public void RemoveRemoteObject(string name)
@@ -711,9 +714,9 @@ namespace Diga.WebView2.Wrapper
             this._WebView.remove_DocumentTitleChanged(token);
         }
 
-        void IWebView2WebView5.AddRemoteObject(string name, object @object)
+        void IWebView2WebView5.AddRemoteObject(string name,ref object @object)
         {
-            this._WebView.AddRemoteObject(name, @object);
+            this._WebView.AddRemoteObject(name,ref @object);
         }
 
         void IWebView2WebView5.RemoveRemoteObject(string name)
@@ -1171,9 +1174,9 @@ namespace Diga.WebView2.Wrapper
             this._WebView.DocumentTitle(out title);
         }
 
-        void IWebView2WebView4.AddRemoteObject(string name,  object @object)
+        void IWebView2WebView4.AddRemoteObject(string name, ref object @object)
         {
-            this._WebView.AddRemoteObject(name, @object);
+            this._WebView.AddRemoteObject(name,ref @object);
         }
 
         void IWebView2WebView4.RemoveRemoteObject(string name)

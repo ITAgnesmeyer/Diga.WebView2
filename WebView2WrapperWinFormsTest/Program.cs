@@ -1,26 +1,52 @@
 ﻿using System;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace WebView2WrapperWinFormsTest
 {
-
+    [ClassInterface(ClassInterfaceType.AutoDual)]
     [ComVisible(true)]
-    //[Guid("21A6CC64-8E9A-4659-85AA-32A07B2BDA0B")]
     public class TestObject
     {
-        //[DispId(1)]
-        public string FirstMessage {get;set;}
-        //[DispId(2)]
-        public string SecondMessage { get; set; } = "";
-        //[DispId(3)]
-        //[AllowReversePInvokeCalls]
-        public bool GetStringLen()
+       
+        public string Name{get;set;}
+
+        public int GetStringLen()
         {
-            return true;
+            return this.Name.Length;
+        }
+        public string GetValue(string input)
+        {
+            this.Name += input;
+            return this.Name;
         }
     }
-
+    [ClassInterface(ClassInterfaceType.AutoDual)]
+    [ComVisible(true)]
+    public class HostObjectHelper
+    {
+        private const int DISP_E_MEMBERNOTFOUND = -2147352573;
+        private const int DISP_E_TYPEMISMATCH = -2147352571;
+       
+        /// <summary>Check whether a member is a method of an object.</summary>
+        /// <param name="obj">The host object to check.</param>
+        /// <param name="name">The name of the member to check.</param>
+        public bool IsMethod(object obj, string name)
+        {
+            Type type = obj.GetType();
+            if (!type.IsClass || type.IsCOMObject)
+                throw new COMException((string) null, -2147352571);
+            if (type.GetMember(name).Length == 0)
+                throw new COMException((string) null, -2147352573);
+            foreach (MemberInfo memberInfo in type.GetMember(name))
+            {
+                if (memberInfo.MemberType == MemberTypes.Method)
+                    return true;
+            }
+            return false;
+        }
+    }
     public class Rpc
     {
         public string id{get;set;}

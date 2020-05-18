@@ -18,18 +18,19 @@
         /*var propertyValue =
             "Dies ist ein Synchroner Aufurf"; //await chrome.webview.remoteObjects.testObject.FirstMessage;
             */
-        const remoteObject = await window.chrome.webview.hostObjects.testObject;
+        let remoteObject = await window.chrome.webview.hostObjects.testObject;
         console.log("get FirstMessage");
-        let propertyValue = await remoteObject.FirstMessage;
+        let propertyValue = await remoteObject.Name;
         propertyValue = sender.id + "->" + propertyValue;
         console.log("set SecondMessage");
-        remoteObject.SecondMessage= propertyValue;
-        console.log("get SecondMessage");
-        propertyValue = await remoteObject.SecondMessage;
 
-        const param = propertyValue;
+        remoteObject.Name= propertyValue;
+        console.log("get SecondMessage");
+        propertyValue = await remoteObject.Name;
+
+        let param = propertyValue;
         console.log("Call GetStringLen");
-        const bVal = await remoteObject.GetStringLen();
+        let bVal = await remoteObject.GetValue(param);
         console.log("after GetStringLen");
             
         var len = 1;

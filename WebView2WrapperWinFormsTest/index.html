@@ -17,11 +17,10 @@
             /*var propertyValue =
                 "Dies ist ein Synchroner Aufurf"; //await chrome.webview.remoteObjects.testObject.FirstMessage;
                 */
-            var propertyValue = await chrome.webview.remoteObjects.testObject.FirstMessage;
-            propertyValue = sender.id + "->" + propertyValue;
-            alert(propertyValue);
-            const b = await chrome.webview.remoteObjects.testObject.GetStringLen();
-            alert(b);
+            let appobject = await window.chrome.webview.hostObjects.testObject;
+            appobject.Name = "hallo Guido";
+            let value = await appobject.GetValue("TEST");
+            alert(value);
         }
 
        

@@ -377,8 +377,8 @@ namespace Diga.WebView2.Wrapper
 #if V9488
         public void AddRemoteObject(string name, object @object)
         {
-
-            this.ToInterface().AddHostObjectToScript(name,  @object);
+            ref object refObj = ref @object;
+            this.ToInterface().AddHostObjectToScript(name, ref refObj);
 
         }
 
@@ -390,8 +390,8 @@ namespace Diga.WebView2.Wrapper
 #else
         public void AddRemoteObject(string name, object @object)
         {
-
-            this.ToInterface().AddRemoteObject(name,  @object);
+            ref object refObj = ref @object;
+            this.ToInterface().AddRemoteObject(name, ref refObj);
 
         }
 
@@ -773,9 +773,9 @@ namespace Diga.WebView2.Wrapper
 
         string ICoreWebView2.DocumentTitle => this._WebView.DocumentTitle;
 #if V9488
-        void ICoreWebView2.AddHostObjectToScript(string name, object @object)
+        void ICoreWebView2.AddHostObjectToScript(string name,ref object @object)
         {
-            this._WebView.AddHostObjectToScript(name,  @object);
+            this._WebView.AddHostObjectToScript(name, ref @object);
         }
 
         void ICoreWebView2.RemoveHostObjectFromScript(string name)
@@ -783,9 +783,10 @@ namespace Diga.WebView2.Wrapper
             this._WebView.RemoveHostObjectFromScript(name);
         }
 #else
-        void ICoreWebView2.AddRemoteObject(string name, object @object)
+        void ICoreWebView2.AddRemoteObject(string name,ref object @object)
         {
-            this._WebView.AddRemoteObject(name, @object);
+            
+            this._WebView.AddRemoteObject(name,ref @object);
         }
 
 
