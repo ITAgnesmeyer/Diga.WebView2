@@ -19,6 +19,13 @@ The motivation for this project, however, was to load and display WebAssembly ap
 It should also be possible to work completely without an HTTP server.
 This has already been implemented for WebView2.0.8.355.
 
+### Addendum:
+From version 0.9.515-prerelease there will be a WinForms control (finally).
+
+Currently, however, it is not possible to create a real Any-CPU version with this control.
+If Any-CPU excludes the hook (pefere x86) on a 64bit machine, a run-time error occurs. This error occurs when the WebView2 NuGet-Package is bound. 
+See => Why is the "microsoft.web.webview2" package not linked.
+
 ### Microsoft and WebView2
 Microsoft provides Edge Chromium, a modern browser for Windows.
 With the COM-based interface of WebView2, this can also be programmed.
