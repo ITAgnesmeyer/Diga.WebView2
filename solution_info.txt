@@ -13,6 +13,11 @@ Mit der COM-Basierten Schnittstelle von WebView2, kann dieser auch programmiert 
 Leider ist diese Möglichkeit offiziell nur C++ Programmierern vorbehalten.
 Dies soll mit diesem Projekt behoben werden.
 
+Nachtrag ab Version 0.9.515 wird es ein WinForms-Steuerelement geben (endlich).
+Derzeit ist es mit diesem Steurelement aber nicht möglich eine echte Any-CPU Version zu erstellen.
+Wenn bei Any-CPU der Haken(bevorzugt x86) herausgenommen wird, kommt es zu einem Laufzeitfehler. Dieser Fehler tritt aufgrund der Bindung des WebView2 Paktes auf. 
+Siehe dazu #Warum wird das Paket „microsoft.web.webview2“ nicht verknüpft.
+
 Derzeit werden 3 Pakete unterstützt.
 microsoft.web.webview2
 WebView2=> 0.8.355
