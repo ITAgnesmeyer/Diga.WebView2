@@ -107,6 +107,7 @@ This seems to be related to Visual Studio.
 
 ### AddRemoteObject => COM interop
 It is possible to pass a dot-net object as a remote object to the web browser. In my tests, I was able to set and read properties. However, I did not manage to call functions without errors. Neither with parameters, nor without and not with and without return.
+AddRemoteObject works fine when you use V9488. 
 
 ###### This text was automatically translated with the [Microsoft translator](https://www.bing.com/translator "Microsoft translator").
 
