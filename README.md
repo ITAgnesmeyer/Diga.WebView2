@@ -107,7 +107,36 @@ This seems to be related to Visual Studio.
 
 ### AddRemoteObject => COM interop
 It is possible to pass a dot-net object as a remote object to the web browser. In my tests, I was able to set and read properties. However, I did not manage to call functions without errors. Neither with parameters, nor without and not with and without return.
-AddRemoteObject works fine when you use V9488. 
+AddRemoteObject works fine when you use V9488. If you add the followin Rremote Object first:
+```c#
+    [ClassInterface(ClassInterfaceType.AutoDual)]
+    [ComVisible(true)]
+    public class HostObjectHelper
+    {
+        private const int DISP_E_MEMBERNOTFOUND = -2147352573;
+        private const int DISP_E_TYPEMISMATCH = -2147352571;
+
+        /// <summary>Check whether a member is a method of an object.</summary>
+        /// <param name="obj">The host object to check.</param>
+        /// <param name="name">The name of the member to check.</param>
+        public bool IsMethod(object obj, string name)
+        {
+            Type type = obj.GetType();
+            if (!type.IsClass || type.IsCOMObject)
+                throw new COMException((string) null, -2147352571);
+            if (type.GetMember(name).Length == 0)
+                throw new COMException((string) null, -2147352573);
+            foreach (MemberInfo memberInfo in type.GetMember(name))
+            {
+                if (memberInfo.MemberType == MemberTypes.Method)
+                    return true;
+            }
+            return false;
+        }
+    }
+```
+It is important that the object is given the following name:
+##### {60A417CA-F1AB-4307-801B-F96003F8938B} Host Object Helper
 
 ###### This text was automatically translated with the [Microsoft translator](https://www.bing.com/translator "Microsoft translator").
 
