@@ -114,4 +114,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.Interop\V9430\lib\net472\</PostBuildEvent>
+  </PropertyGroup>
 </Project>

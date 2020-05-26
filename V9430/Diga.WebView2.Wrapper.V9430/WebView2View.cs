@@ -390,8 +390,8 @@ namespace Diga.WebView2.Wrapper
 #else
         public void AddRemoteObject(string name, object @object)
         {
-            ref object refObj = ref @object;
-            this.ToInterface().AddRemoteObject(name, refObj);
+            
+            this.ToInterface().AddRemoteObject(name, @object);
 
         }
 

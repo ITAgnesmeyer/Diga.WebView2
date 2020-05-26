@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <AssemblyName>Diga.WebView2.Wrapper.V9430</AssemblyName>
-    <RootNamespace>Diga.WebView2.Wrapper.V9430</RootNamespace>
+    <AssemblyName>Diga.WebView2.Wrapper.Std.V9430</AssemblyName>
+    <RootNamespace>Diga.WebView2.Wrapper.Std.V9430</RootNamespace>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description>WebView2 - NET Wrapper</Description>
     <Copyright>2020 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
@@ -106,5 +106,9 @@
   <ItemGroup>
     <Folder Include="Delegates\" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="SET p=$(SolutionDir)package_create_folder\Diga.WebView2.Wrapper\V9430\build\native&#xD;&#xA;copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.Wrapper\V9430\lib\netstandard2.1\$(TargetFileName)&#xD;&#xA;if not exist &quot;%25p%25&quot; mkdir &quot;%25p%25&quot;&#xD;&#xA;xcopy /E /Y $(TargetDir)native &quot;%25p%25&quot;" />
+  </Target>
 
 </Project>

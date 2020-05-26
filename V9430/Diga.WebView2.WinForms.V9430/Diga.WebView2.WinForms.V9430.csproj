@@ -84,4 +84,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.WinForms\V9430\lib\net472\$(TargetFileName)</PostBuildEvent>
+  </PropertyGroup>
 </Project>
