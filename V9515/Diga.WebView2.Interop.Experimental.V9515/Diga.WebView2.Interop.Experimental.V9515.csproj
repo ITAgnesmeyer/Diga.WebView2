@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--Project was exported from assembly: O:\webview2\V9515\WebView2Experimental.dll-->
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{57421342-3FBC-42C1-ABF6-8945C88243D1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Diga.WebView2.Interop.Experimental.V9515</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <FileAlignment>512</FileAlignment>
+    <RootNamespace>Diga.WebView2.Interop.Experimental.V9515</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;FW</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ICoreWebView2ExperimentalCompositionController.cs" />
+    <Compile Include="COREWEBVIEW2_MOUSE_EVENT_KIND.cs" />
+    <Compile Include="COREWEBVIEW2_MOUSE_EVENT_VIRTUAL_KEYS.cs" />
+    <Compile Include="tagPOINTEx.cs" />
+    <Compile Include="ICoreWebView2ExperimentalPointerInfo.cs" />
+    <Compile Include="_RemotableHandle.cs" />
+    <Compile Include="COREWEBVIEW2_MATRIX_4X4.cs" />
+    <Compile Include="COREWEBVIEW2_POINTER_EVENT_KIND.cs" />
+    <Compile Include="ICoreWebView2ExperimentalCursorChangedEventHandler.cs" />
+    <Compile Include="EventRegistrationTokenEx.cs" />
+    <Compile Include="tagRECTEx.cs" />
+    <Compile Include="ICoreWebView2ExperimentalCreateCoreWebView2Composi.cs" />
+    <Compile Include="ICoreWebView2ExperimentalEnvironment.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -19,8 +19,8 @@
                 */
             
             
-            //let appobject = await window.chrome.webview.hostObjects.testObject;
-            let appobject = await window.chrome.webview.remoteObjects.testObject;
+            let appobject = await window.chrome.webview.hostObjects.testObject;
+            //let appobject = await window.chrome.webview.remoteObjects.testObject;
             appobject.Name = "hallo Guido";
             let value = await appobject.GetValue("TEST");
             alert(value);

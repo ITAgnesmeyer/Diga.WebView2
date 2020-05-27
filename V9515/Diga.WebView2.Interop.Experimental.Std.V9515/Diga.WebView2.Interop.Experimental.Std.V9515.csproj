@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Diga.WebView2.Interop.Experimental.V9515\AssemblyInfo.cs" Link="AssemblyInfo.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.Experimental.V9515\COREWEBVIEW2_MATRIX_4X4.cs" Link="COREWEBVIEW2_MATRIX_4X4.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.Experimental.V9515\COREWEBVIEW2_MOUSE_EVENT_KIND.cs" Link="COREWEBVIEW2_MOUSE_EVENT_KIND.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.Experimental.V9515\COREWEBVIEW2_MOUSE_EVENT_VIRTUAL_KEYS.cs" Link="COREWEBVIEW2_MOUSE_EVENT_VIRTUAL_KEYS.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.Experimental.V9515\COREWEBVIEW2_POINTER_EVENT_KIND.cs" Link="COREWEBVIEW2_POINTER_EVENT_KIND.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.Experimental.V9515\EventRegistrationTokenEx.cs" Link="EventRegistrationTokenEx.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.Experimental.V9515\ICoreWebView2ExperimentalCompositionController.cs" Link="ICoreWebView2ExperimentalCompositionController.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.Experimental.V9515\ICoreWebView2ExperimentalCreateCoreWebView2Composi.cs" Link="ICoreWebView2ExperimentalCreateCoreWebView2Composi.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.Experimental.V9515\ICoreWebView2ExperimentalCursorChangedEventHandler.cs" Link="ICoreWebView2ExperimentalCursorChangedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.Experimental.V9515\ICoreWebView2ExperimentalEnvironment.cs" Link="ICoreWebView2ExperimentalEnvironment.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.Experimental.V9515\ICoreWebView2ExperimentalPointerInfo.cs" Link="ICoreWebView2ExperimentalPointerInfo.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.Experimental.V9515\tagPOINTEx.cs" Link="tagPOINTEx.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.Experimental.V9515\tagRECTEx.cs" Link="tagRECTEx.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.Experimental.V9515\_RemotableHandle.cs" Link="_RemotableHandle.cs" />
+  </ItemGroup>
+
+</Project>
