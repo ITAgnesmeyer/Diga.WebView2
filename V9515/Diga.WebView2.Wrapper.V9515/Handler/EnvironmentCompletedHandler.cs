@@ -10,13 +10,13 @@ namespace Diga.WebView2.Wrapper.Handler
           ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler
     {
         public ICoreWebView2 WebView { get; private set; }
-        public ICoreWebView2Controller Host { get; set; }
+        public ICoreWebView2Controller Controller { get; set; }
 
         public event EventHandler<EnvironmentCompletedHandlerArgs> BeforeEnvironmentCompleted;
         public event EventHandler<EnvironmentCompletedHandlerArgs> AfterEnvironmentCompleted;
 
-        public event EventHandler<CoreWebView2HostCompletedArgs> HostCompleted;
-        public event EventHandler<BeforeHostCreateEventArgs> PrepareHostCreate;
+        public event EventHandler<ControllerCompletedArgs> ControllerCompleted;
+        public event EventHandler<BeforeControllerCreateEventArgs> PrepareControllerCreate;
 
         public EnvironmentCompletedHandler(IntPtr parentHandle)
         {
@@ -26,31 +26,32 @@ namespace Diga.WebView2.Wrapper.Handler
         public void Invoke(int result, ICoreWebView2Environment createdEnvironment)
         {
             IntPtr hWnd = this.ParentHandle;
-            var handler = new HostCompletedHandler();
-            handler.HostCompleted += OnHostCompleted;
-            handler.HostCompletedError += OnHostCompletedError;
-            handler.BeforeHostCreate += OnBeforeHostCreate;
+            var handler = new ControllerCompletedHandler();
+            handler.ControllerCompleted += OnControllerCompletedIntern;
+            handler.ControllerCompletedError += OnControllerCompletedErrorIntern;
+            handler.BeforeControllerCreate += OnBeforeControllerCreateIntern;
+            OnBeforeEnvironmentCompleted(new EnvironmentCompletedHandlerArgs(createdEnvironment));
             createdEnvironment.CreateCoreWebView2Controller(hWnd, handler);
 
             OnAfterEnvironmentCompleted(new EnvironmentCompletedHandlerArgs(createdEnvironment));
             result = HRESULT.S_OK;
         }
 
-        private void OnBeforeHostCreate(object sender, BeforeHostCreateEventArgs e)
+        private void OnBeforeControllerCreateIntern(object sender, BeforeControllerCreateEventArgs e)
         {
-            OnPrepareHostCreate(e);
+            OnPrepareControllerCreate(e);
         }
 
-        private void OnHostCompletedError(object sender, CoreWebView2HostCompletedErrorArgs e)
+        private void OnControllerCompletedErrorIntern(object sender, ControllerCompletedErrorArgs e)
         {
 
         }
 
-        private void OnHostCompleted(object sender, CoreWebView2HostCompletedArgs e)
+        private void OnControllerCompletedIntern(object sender, ControllerCompletedArgs e)
         {
-            this.Host = e.Host;
+            this.Controller = e.Controller;
             this.WebView = e.WebView;
-            OnHostCompleted(e);
+            OnControllerCompleted(e);
         }
 
         protected virtual void OnBeforeEnvironmentCompleted(EnvironmentCompletedHandlerArgs e)
@@ -63,14 +64,14 @@ namespace Diga.WebView2.Wrapper.Handler
             AfterEnvironmentCompleted?.Invoke(this, e);
         }
 
-        protected virtual void OnHostCompleted(CoreWebView2HostCompletedArgs e)
+        protected virtual void OnControllerCompleted(ControllerCompletedArgs e)
         {
-            HostCompleted?.Invoke(this, e);
+            ControllerCompleted?.Invoke(this, e);
         }
 
-        protected virtual void OnPrepareHostCreate(BeforeHostCreateEventArgs e)
+        protected virtual void OnPrepareControllerCreate(BeforeControllerCreateEventArgs e)
         {
-            PrepareHostCreate?.Invoke(this, e);
+            PrepareControllerCreate?.Invoke(this, e);
         }
     }
 }

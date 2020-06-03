@@ -155,10 +155,12 @@
             this.webView1.IsScriptEnabled = true;
             this.webView1.IsStatusBarEnabled = false;
             this.webView1.IsWebMessageEnabled = true;
+            this.webView1.IsZoomControlEnabled = true;
             this.webView1.Location = new System.Drawing.Point(0, 0);
             this.webView1.MonitoringFolder = "C:\\test_exe\\wwwroot";
             this.webView1.MonitoringUrl = "https://5b834d57-0891-4730-b6ba-c793b4e76468/";
             this.webView1.Name = "webView1";
+            this.webView1.RemoteObjectsAllowed = true;
             this.webView1.Size = new System.Drawing.Size(949, 418);
             this.webView1.TabIndex = 0;
             this.webView1.Url = "https://5b834d57-0891-4730-b6ba-c793b4e76468";
@@ -176,6 +178,7 @@
             this.webView1.DocumentTitleChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_DocumentTitleChanged);
             this.webView1.ContainsFullScreenElementChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_ContainsFullScreenElementChanged);
             this.webView1.PermissionRequested += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.PermissionRequestedEventArgs>(this.webView1_PermissionRequested);
+            this.webView1.FrameNavigationCompleted += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.NavigationCompletedEventArgs>(this.webView1_FrameNavigationCompleted);
             this.webView1.FrameNavigationStarting += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.NavigationStartingEventArgs>(this.webView1_FrameNavigationStarting);
             this.webView1.WebMessageReceived += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebMessageReceivedEventArgs>(this.webView1_WebMessageReceived);
             this.webView1.ScriptToExecuteOnDocumentCreatedCompleted += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>(this.webView1_ScriptToExecuteOnDocumentCreatedCompleted);

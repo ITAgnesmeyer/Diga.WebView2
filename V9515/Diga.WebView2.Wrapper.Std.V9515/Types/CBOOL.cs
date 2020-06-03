@@ -3,9 +3,10 @@
 
 namespace Diga.WebView2.Wrapper.Types
 {
-    public class CBOOL
+
+    public sealed class CBOOL
     {
-        protected bool _Value;
+        private bool _Value;
 
         public CBOOL()
         {
@@ -14,6 +15,7 @@ namespace Diga.WebView2.Wrapper.Types
 
         public CBOOL(int input)
         {
+            
             this.Value = input;
         }
 
@@ -42,7 +44,7 @@ namespace Diga.WebView2.Wrapper.Types
             return new CBOOL(input);
         }
 
-        public virtual int Value
+        public int Value
         {
             get
             {

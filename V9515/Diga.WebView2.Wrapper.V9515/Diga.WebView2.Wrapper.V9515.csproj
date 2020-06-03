@@ -47,10 +47,10 @@
     <Compile Include="EventArguments\AcceleratorKeyPressedEventArgs.cs" />
     <Compile Include="EventArguments\AddScriptToExecuteOnDocumentCreatedCompletedEventArgs.cs" />
     <Compile Include="EventArguments\BeforeCreateEventArgs.cs" />
-    <Compile Include="EventArguments\BeforeHostCreateEventArgs.cs" />
+    <Compile Include="EventArguments\BeforeControllerCreateEventArgs.cs" />
     <Compile Include="EventArguments\ContentLoadingEventArgs.cs" />
-    <Compile Include="EventArguments\CoreWebView2HostCompletedArgs.cs" />
-    <Compile Include="EventArguments\CoreWebView2HostCompletedErrorArgs.cs" />
+    <Compile Include="EventArguments\ControllerCompletedArgs.cs" />
+    <Compile Include="EventArguments\ControllerCompletedErrorArgs.cs" />
     <Compile Include="EventArguments\EnvironmentCompletedHandlerArgs.cs" />
     <Compile Include="EventArguments\ExecuteScriptCompletedEventArgs.cs" />
     <Compile Include="EventArguments\MoveFocusRequestedEventArgs.cs" />
@@ -74,7 +74,7 @@
     <Compile Include="Handler\ExecuteScriptCompletedHandler.cs" />
     <Compile Include="Handler\FocusChangedEventHandler.cs" />
     <Compile Include="Handler\HistoryChangedEventHandler.cs" />
-    <Compile Include="Handler\HostCompletedHandler.cs" />
+    <Compile Include="Handler\ControllerCompletedHandler.cs" />
     <Compile Include="Handler\MoveFocusRequestedEventHandler.cs" />
     <Compile Include="Handler\NavigationCompletedEventHandler.cs" />
     <Compile Include="Handler\NavigationStartingEventHandler.cs" />
@@ -85,6 +85,7 @@
     <Compile Include="Handler\SourceChangedEventHandler.cs" />
     <Compile Include="Handler\WebMessageReceivedEventHandler.cs" />
     <Compile Include="Handler\WebResourceRequestedEventHandler.cs" />
+    <Compile Include="Handler\WindowCloseRequestedHandler.cs" />
     <Compile Include="Handler\ZoomFactorChangedEventHandler.cs" />
     <Compile Include="HeaderItem.cs" />
     <Compile Include="HttpHeadersCollectionIterator.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="KeyEventType.cs" />
     <Compile Include="MoveFocusReason.cs" />
     <Compile Include="Native.cs" />
+    <Compile Include="Handler\NewBrowserVersionAvailableEventHandler.cs" />
     <Compile Include="PermissionState.cs" />
     <Compile Include="PermissionType.cs" />
     <Compile Include="PhysicalKeyStatus.cs" />
@@ -103,7 +105,7 @@
     <Compile Include="ResponseInfo.cs" />
     <Compile Include="ScriptDialogKind.cs" />
     <Compile Include="StreamWrapper.cs" />
-    <Compile Include="Types\BOOL.cs" />
+    <Compile Include="Types\CBOOL.cs" />
     <Compile Include="Types\HRESULT.cs" />
     <Compile Include="Types\ProcessorArch.cs" />
     <Compile Include="Types\Rectangle.cs" />
@@ -111,8 +113,9 @@
     <Compile Include="WebResourceRequest.cs" />
     <Compile Include="WebResourceResponse.cs" />
     <Compile Include="WebView2Control.cs" />
+    <Compile Include="WebView2Controller.cs" />
     <Compile Include="WebView2Environment.cs" />
-    <Compile Include="WebView2Host.cs" />
+    <Compile Include="WebView2EnvironmentOptions.cs" />
     <Compile Include="WebView2Settings.cs" />
     <Compile Include="WebView2View.cs" />
   </ItemGroup>

@@ -5,12 +5,14 @@ using System.Windows.Forms;
 
 namespace WebView2WrapperWinFormsTest
 {
+#pragma warning disable 618
     [ClassInterface(ClassInterfaceType.AutoDual)]
+#pragma warning restore 618
     [ComVisible(true)]
     public class TestObject
     {
-       
-        public string Name{get;set;}
+
+        public string Name { get; set; }
 
         public int GetStringLen()
         {
@@ -22,13 +24,15 @@ namespace WebView2WrapperWinFormsTest
             return this.Name;
         }
     }
+#pragma warning disable 618
     [ClassInterface(ClassInterfaceType.AutoDual)]
+#pragma warning restore 618
     [ComVisible(true)]
     public class HostObjectHelper
     {
         private const int DISP_E_MEMBERNOTFOUND = -2147352573;
         private const int DISP_E_TYPEMISMATCH = -2147352571;
-       
+
         /// <summary>Check whether a member is a method of an object.</summary>
         /// <param name="obj">The host object to check.</param>
         /// <param name="name">The name of the member to check.</param>
@@ -36,9 +40,9 @@ namespace WebView2WrapperWinFormsTest
         {
             Type type = obj.GetType();
             if (!type.IsClass || type.IsCOMObject)
-                throw new COMException((string) null, -2147352571);
+                throw new COMException((string)null, -2147352571);
             if (type.GetMember(name).Length == 0)
-                throw new COMException((string) null, -2147352573);
+                throw new COMException((string)null, -2147352573);
             foreach (MemberInfo memberInfo in type.GetMember(name))
             {
                 if (memberInfo.MemberType == MemberTypes.Method)
@@ -49,10 +53,10 @@ namespace WebView2WrapperWinFormsTest
     }
     public class Rpc
     {
-        public string id{get;set;}
-        public string objId{get;set;}
-        public string action{get;set;}
-        public string param{get;set;}
+        public string id { get; set; }
+        public string objId { get; set; }
+        public string action { get; set; }
+        public string param { get; set; }
 
     }
     static class Program

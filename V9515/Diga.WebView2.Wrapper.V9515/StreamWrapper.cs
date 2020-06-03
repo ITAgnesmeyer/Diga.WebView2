@@ -4,14 +4,25 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Security;
 using STATSTG = System.Runtime.InteropServices.ComTypes.STATSTG;
+// ReSharper disable UnusedMember.Global
+// ReSharper disable InconsistentNaming
 
+// ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
 {
 
-    internal static class NativeMethods
-    {
-        public const int SHGFP_TYPE_CURRENT = 0;
+    
 
+    internal static class StreamSeek
+    {
+        public const int STREAM_SEEK_SET = 0x0;
+
+        public const int STREAM_SEEK_CUR = 0x1;
+
+        public const int STREAM_SEEK_END = 0x2;
+    }
+    internal static class Stgm
+    {
         public const int STGM_READ = 0x00000000;
 
         public const int STGM_WRITE = 0x00000001;
@@ -27,13 +38,9 @@ namespace Diga.WebView2.Wrapper
         public const int STGM_CONVERT = 0x00020000;
 
         public const int STGM_DELETEONRELEASE = 0x04000000;
-
-        public const int STREAM_SEEK_SET = 0x0;
-
-        public const int STREAM_SEEK_CUR = 0x1;
-
-        public const int STREAM_SEEK_END = 0x2;
-
+    }
+    internal static class Stgty
+    {
         public const int STGTY_STORAGE = 1;
 
         public const int STGTY_STREAM = 2;
@@ -56,9 +63,10 @@ namespace Diga.WebView2.Wrapper
             {
                 throw new ArgumentNullException("ioStream");
             }
-            _ioStream = ioStream;
+
+            this._ioStream = ioStream;
         }
- 
+
         /// <summary>
         /// Read at most bufferSize bytes into buffer and return the effective
         /// number of bytes read in bytesReadPtr (unless null).
@@ -74,13 +82,13 @@ namespace Diga.WebView2.Wrapper
         [SecurityCritical]
         void IStream.Read(Byte[] buffer, Int32 bufferSize, IntPtr bytesReadPtr)
         {
-            Int32 bytesRead = _ioStream.Read(buffer, 0, (int) bufferSize);
+            Int32 bytesRead = this._ioStream.Read(buffer, 0, bufferSize);
             if (bytesReadPtr != IntPtr.Zero)
             {
                 Marshal.WriteInt32(bytesReadPtr, bytesRead);
             }
         }
- 
+
         /// <summary>
         /// Move the stream pointer to the specified position.
         /// </summary>
@@ -96,42 +104,42 @@ namespace Diga.WebView2.Wrapper
         [SecurityCritical]
         void IStream.Seek(Int64 offset, Int32 origin, IntPtr newPositionPtr)
         {
-            SeekOrigin  seekOrigin;
- 
+            SeekOrigin seekOrigin;
+
             // The operation will generally be I/O bound, so there is no point in
             // eliminating the following switch by playing on the fact that
             // System.IO uses the same integer values as IStream for SeekOrigin.
-            switch(origin)
+            switch (origin)
             {
-                case NativeMethods.STREAM_SEEK_SET:
+                case StreamSeek.STREAM_SEEK_SET:
                     seekOrigin = SeekOrigin.Begin;
                     break;
-                case NativeMethods.STREAM_SEEK_CUR:
+                case StreamSeek.STREAM_SEEK_CUR:
                     seekOrigin = SeekOrigin.Current;
                     break;
-                case NativeMethods.STREAM_SEEK_END:
+                case StreamSeek.STREAM_SEEK_END:
                     seekOrigin = SeekOrigin.End;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("origin");
             }
-            long position = _ioStream.Seek(offset, seekOrigin);
- 
+            long position = this._ioStream.Seek(offset, seekOrigin);
+
             // Dereference newPositionPtr and assign to the pointed location.
             if (newPositionPtr != IntPtr.Zero)
             {
                 Marshal.WriteInt64(newPositionPtr, position);
             }
         }
- 
+
         /// <summary>
         /// Sets stream's size.
         /// </summary>
         void IStream.SetSize(Int64 libNewSize)
         {
-            _ioStream.SetLength(libNewSize);
+            this._ioStream.SetLength(libNewSize);
         }
- 
+
         /// <summary>
         /// Obtain stream stats.
         /// </summary>
@@ -144,25 +152,25 @@ namespace Diga.WebView2.Wrapper
         /// grfStatFlag is used to indicate whether the stream name should be returned and is ignored because
         /// this information is unavailable.
         /// </remarks>
-        void IStream.Stat(out System.Runtime.InteropServices.ComTypes.STATSTG streamStats, int grfStatFlag)
+        void IStream.Stat(out STATSTG streamStats, int grfStatFlag)
         {
-            streamStats = new System.Runtime.InteropServices.ComTypes.STATSTG();
-            streamStats.type = NativeMethods.STGTY_STREAM;
-            streamStats.cbSize = _ioStream.Length;
- 
+            streamStats = new STATSTG();
+            streamStats.type = Stgty.STGTY_STREAM;
+            streamStats.cbSize = this._ioStream.Length;
+
             // Return access information in grfMode.
             streamStats.grfMode = 0; // default value for each flag will be false
-            if (_ioStream.CanRead && _ioStream.CanWrite)
+            if (this._ioStream.CanRead && this._ioStream.CanWrite)
             {
-                streamStats.grfMode |= NativeMethods.STGM_READWRITE;
+                streamStats.grfMode |= Stgm.STGM_READWRITE;
             }
-            else if (_ioStream.CanRead)
+            else if (this._ioStream.CanRead)
             {
-                streamStats.grfMode |= NativeMethods.STGM_READ;
+                streamStats.grfMode |= Stgm.STGM_READ;
             }
-            else if (_ioStream.CanWrite)
+            else if (this._ioStream.CanWrite)
             {
-                streamStats.grfMode |= NativeMethods.STGM_WRITE;
+                streamStats.grfMode |= Stgm.STGM_WRITE;
             }
             else
             {
@@ -172,7 +180,7 @@ namespace Diga.WebView2.Wrapper
                 throw new IOException("A stream that is neither readable nor writable is a closed stream.");
             }
         }
- 
+
         /// <summary>
         /// Write at most bufferSize bytes from buffer.
         /// </summary>
@@ -182,7 +190,7 @@ namespace Diga.WebView2.Wrapper
         [SecurityCritical]
         void IStream.Write(Byte[] buffer, Int32 bufferSize, IntPtr bytesWrittenPtr)
         {
-            _ioStream.Write(buffer, 0, bufferSize);
+            this._ioStream.Write(buffer, 0, bufferSize);
             if (bytesWrittenPtr != IntPtr.Zero)
             {
                 // If fewer than bufferSize bytes had been written, an exception would
@@ -190,7 +198,7 @@ namespace Diga.WebView2.Wrapper
                 Marshal.WriteInt32(bytesWrittenPtr, bufferSize);
             }
         }
- 
+
         #region Unimplemented methods
         /// <summary>
         /// Create a clone.
@@ -203,7 +211,7 @@ namespace Diga.WebView2.Wrapper
             streamCopy = null;
             throw new NotSupportedException();
         }
- 
+
         /// <summary>
         /// Read at most bufferSize bytes from the receiver and write them to targetStream.
         /// </summary>
@@ -214,7 +222,7 @@ namespace Diga.WebView2.Wrapper
         {
             throw new NotSupportedException();
         }
- 
+
         /// <summary>
         /// Commit changes.
         /// </summary>
@@ -225,7 +233,7 @@ namespace Diga.WebView2.Wrapper
         {
             throw new NotSupportedException();
         }
- 
+
         /// <summary>
         /// Lock at most byteCount bytes starting at offset.
         /// </summary>
@@ -236,7 +244,7 @@ namespace Diga.WebView2.Wrapper
         {
             throw new NotSupportedException();
         }
- 
+
         /// <summary>
         /// Undo writes performed since last Commit.
         /// </summary>
@@ -247,7 +255,7 @@ namespace Diga.WebView2.Wrapper
         {
             throw new NotSupportedException();
         }
- 
+
         /// <summary>
         /// Unlock the specified region.
         /// </summary>
@@ -259,9 +267,9 @@ namespace Diga.WebView2.Wrapper
             throw new NotSupportedException();
         }
         #endregion Unimplemented methods
- 
+
         #region Fields
-        private Stream      _ioStream;
+        private readonly Stream _ioStream;
         #endregion Fields
     }
     public class StreamWrapper : IStream
@@ -272,12 +280,6 @@ namespace Diga.WebView2.Wrapper
         {
             this._Interface = iface;
         }
-
-        private IStream ToInterface()
-        {
-            return this;
-        }
-
 
         public void Read(byte[] pv, int cb, IntPtr pcbRead)
         {

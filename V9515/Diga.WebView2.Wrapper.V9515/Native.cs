@@ -1,24 +1,24 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.Types;
 
+// ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
 {
 
     internal static class Native
     {
-        private static bool _is64Bit;
+        private static readonly bool Is64Bit;
 
         static Native()
         {
-            _is64Bit = ProcessorArch.Is64BitProcess;
+            Is64Bit = ProcessorArch.Is64BitProcess;
         }
 
         public static bool GetClientRect(IntPtr hWnd, out tagRECT lpRect)
         {
-            return _is64Bit
+            return Is64Bit
                 ? Native64.GetClientRect(hWnd, out lpRect)
                 : Native32.GetClientRect(hWnd, out lpRect);
         }
@@ -28,7 +28,7 @@ namespace Diga.WebView2.Wrapper
             string userDataFolder, ICoreWebView2EnvironmentOptions environmentOptions,
             ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler environmentCreatedHandler)
         {
-            return _is64Bit
+            return Is64Bit
                 ? Native64.CreateCoreWebView2EnvironmentWithOptions(browserExecutableFolder, userDataFolder,
                     environmentOptions, environmentCreatedHandler)
                 : Native32.CreateCoreWebView2EnvironmentWithOptions(browserExecutableFolder, userDataFolder,
@@ -40,7 +40,7 @@ namespace Diga.WebView2.Wrapper
             string additionalBrowserArguments,
             ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler environmentCreatedHandler)
         {
-            return _is64Bit
+            return Is64Bit
                 ? Native64.CreateCoreWebView2EnvironmentWithDetails(browserExecutableFolder, userDataFolder,
                     additionalBrowserArguments, environmentCreatedHandler)
                 : Native32.CreateCoreWebView2EnvironmentWithDetails(browserExecutableFolder, userDataFolder,
@@ -50,17 +50,17 @@ namespace Diga.WebView2.Wrapper
         public static int CreateCoreWebView2Environment(
             ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler environmentCreatedHandler)
         {
-            return _is64Bit
+            return Is64Bit
                 ? Native64.CreateCoreWebView2Environment(environmentCreatedHandler)
                 : Native32.CreateCoreWebView2Environment(environmentCreatedHandler);
         }
 
 
-        public static int GetCoreWebView2BrowserVersionInfo(
+        public static int GetAvailableCoreWebView2BrowserVersionString(
             string browserExecutableFolder,
             out string versionInfo)
         {
-            return _is64Bit
+            return Is64Bit
                 ? Native64.GetAvailableCoreWebView2BrowserVersionString(browserExecutableFolder, out versionInfo)
                 : Native32.GetAvailableCoreWebView2BrowserVersionString(browserExecutableFolder, out versionInfo);
         }

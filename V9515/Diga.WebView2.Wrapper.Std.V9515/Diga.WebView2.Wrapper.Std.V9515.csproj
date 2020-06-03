@@ -11,10 +11,7 @@
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\EventArguments\AcceleratorKeyPressedEventArgs.cs" Link="EventArguments\AcceleratorKeyPressedEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\EventArguments\AddScriptToExecuteOnDocumentCreatedCompletedEventArgs.cs" Link="EventArguments\AddScriptToExecuteOnDocumentCreatedCompletedEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\EventArguments\BeforeCreateEventArgs.cs" Link="EventArguments\BeforeCreateEventArgs.cs" />
-    <Compile Include="..\Diga.WebView2.Wrapper.V9515\EventArguments\BeforeHostCreateEventArgs.cs" Link="EventArguments\BeforeHostCreateEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\EventArguments\ContentLoadingEventArgs.cs" Link="EventArguments\ContentLoadingEventArgs.cs" />
-    <Compile Include="..\Diga.WebView2.Wrapper.V9515\EventArguments\CoreWebView2HostCompletedArgs.cs" Link="EventArguments\CoreWebView2HostCompletedArgs.cs" />
-    <Compile Include="..\Diga.WebView2.Wrapper.V9515\EventArguments\CoreWebView2HostCompletedErrorArgs.cs" Link="EventArguments\CoreWebView2HostCompletedErrorArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\EventArguments\EnvironmentCompletedHandlerArgs.cs" Link="EventArguments\EnvironmentCompletedHandlerArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\EventArguments\ExecuteScriptCompletedEventArgs.cs" Link="EventArguments\ExecuteScriptCompletedEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\EventArguments\MoveFocusRequestedEventArgs.cs" Link="EventArguments\MoveFocusRequestedEventArgs.cs" />
@@ -38,10 +35,10 @@
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\Handler\ExecuteScriptCompletedHandler.cs" Link="Handler\ExecuteScriptCompletedHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\Handler\FocusChangedEventHandler.cs" Link="Handler\FocusChangedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\Handler\HistoryChangedEventHandler.cs" Link="Handler\HistoryChangedEventHandler.cs" />
-    <Compile Include="..\Diga.WebView2.Wrapper.V9515\Handler\HostCompletedHandler.cs" Link="Handler\HostCompletedHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\Handler\MoveFocusRequestedEventHandler.cs" Link="Handler\MoveFocusRequestedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\Handler\NavigationCompletedEventHandler.cs" Link="Handler\NavigationCompletedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\Handler\NavigationStartingEventHandler.cs" Link="Handler\NavigationStartingEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V9515\Handler\NewBrowserVersionAvailableEventHandler.cs" Link="Handler\NewBrowserVersionAvailableEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\Handler\NewWindowRequestedEventHandler.cs" Link="Handler\NewWindowRequestedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\Handler\PermissionRequestedEventHandler.cs" Link="Handler\PermissionRequestedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\Handler\ProcessFailedEventHandler.cs" Link="Handler\ProcessFailedEventHandler.cs" />
@@ -49,6 +46,7 @@
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\Handler\SourceChangedEventHandler.cs" Link="Handler\SourceChangedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\Handler\WebMessageReceivedEventHandler.cs" Link="Handler\WebMessageReceivedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\Handler\WebResourceRequestedEventHandler.cs" Link="Handler\WebResourceRequestedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V9515\Handler\WindowCloseRequestedHandler.cs" Link="Handler\WindowCloseRequestedHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\Handler\ZoomFactorChangedEventHandler.cs" Link="Handler\ZoomFactorChangedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\HeaderItem.cs" Link="HeaderItem.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\HttpHeadersCollectionIterator.cs" Link="HttpHeadersCollectionIterator.cs" />
@@ -66,7 +64,6 @@
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\ResponseInfo.cs" Link="ResponseInfo.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\ScriptDialogKind.cs" Link="ScriptDialogKind.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\StreamWrapper.cs" Link="StreamWrapper.cs" />
-    <Compile Include="..\Diga.WebView2.Wrapper.V9515\Types\BOOL.cs" Link="Types\BOOL.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\Types\HRESULT.cs" Link="Types\HRESULT.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\Types\ProcessorArch.cs" Link="Types\ProcessorArch.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\Types\Rectangle.cs" Link="Types\Rectangle.cs" />
@@ -74,17 +71,15 @@
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\WebResourceRequest.cs" Link="WebResourceRequest.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\WebResourceResponse.cs" Link="WebResourceResponse.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\WebView2Control.cs" Link="WebView2Control.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V9515\WebView2Controller.cs" Link="WebView2Controller.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\WebView2Environment.cs" Link="WebView2Environment.cs" />
-    <Compile Include="..\Diga.WebView2.Wrapper.V9515\WebView2Host.cs" Link="WebView2Host.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V9515\WebView2EnvironmentOptions.cs" Link="WebView2EnvironmentOptions.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\WebView2Settings.cs" Link="WebView2Settings.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V9515\WebView2View.cs" Link="WebView2View.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Delegates\" />
-    <Folder Include="EventArguments\" />
-    <Folder Include="Handler\" />
-    <Folder Include="Types\" />
   </ItemGroup>
 
   <ItemGroup>

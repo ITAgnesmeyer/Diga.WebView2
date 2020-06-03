@@ -2,6 +2,7 @@
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
 
+// ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper.Handler
 {
     public class NavigationCompletedEventHandler : ICoreWebView2NavigationCompletedEventHandler

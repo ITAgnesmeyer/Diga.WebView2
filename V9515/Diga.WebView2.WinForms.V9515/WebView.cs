@@ -47,6 +47,7 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<WebView2EventArgs> ContainsFullScreenElementChanged;
         public event EventHandler<NewWindowRequestedEventArgs> NewWindowRequested;
         public event EventHandler<PermissionRequestedEventArgs> PermissionRequested;
+        public event EventHandler<NavigationCompletedEventArgs> FrameNavigationCompleted;
         public event EventHandler<NavigationStartingEventArgs> FrameNavigationStarting;
         public event EventHandler<ExecuteScriptCompletedEventArgs> ExecuteScriptCompleted;
         public event EventHandler<ProcessFailedEventArgs> ProcessFailed;
@@ -58,19 +59,14 @@ namespace Diga.WebView2.WinForms
         public event EventHandler WebViewCreated;
 
         public event EventHandler<WebView2EventArgs> WindowCloseRequested;
-        [EditorAttribute(typeof(FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [Editor(typeof(FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
         public string MonitoringFolder { get; set; }
         public string MonitoringUrl { get; set; }
         public bool EnableMonitoring { get; set; }
         public string HtmlContent
         {
             get => _HtmlContent;
-            set
-            {
-
-                this.NavigateToString(value);
-
-            }
+            set => this.NavigateToString(value);
         }
 
         public bool IsZoomControlEnabled
@@ -233,6 +229,7 @@ namespace Diga.WebView2.WinForms
             OnWebViewCreated();
 
         }
+
         public void Navigate(string url)
         {
             this._Url = url;
@@ -404,6 +401,7 @@ namespace Diga.WebView2.WinForms
                 this._WebViewControl.NewWindowRequested += OnNewWindowRequestedIntern;
                 this._WebViewControl.PermissionRequested += OnPermissionRequestedIntern;
                 this._WebViewControl.DocumentTitleChanged += OnDocumentTitleChangedIntern;
+                this._WebViewControl.FrameNavigationCompleted += OnFrameNavigationCompletedIntern;
                 this._WebViewControl.FrameNavigationStarting += OnFrameNavigationStartingIntern;
                 this._WebViewControl.ProcessFailed += OnProcessFailedIntern;
                 this._WebViewControl.ScriptDialogOpening += OnScriptDialogOpeningIntern;
@@ -417,9 +415,21 @@ namespace Diga.WebView2.WinForms
                 this._WebViewControl.SourceChanged += OnSourceChangedIntern;
                 this._WebViewControl.HistoryChanged += OnHistoryChangedIntern;
                 this._WebViewControl.NavigationCompleted += OnNavigationCompletedIntern;
+                this._WebViewControl.NewBrowserVersionAvailable += OnNewBrowserVersionAvailableIntern;
+                
 
 
             }
+        }
+
+        private void OnNewBrowserVersionAvailableIntern(object sender, WebView2EventArgs e)
+        {
+            
+        }
+
+        private void OnFrameNavigationCompletedIntern(object sender, NavigationCompletedEventArgs e)
+        {
+            OnFrameNavigationCompleted(e);
         }
 
 
@@ -464,18 +474,13 @@ namespace Diga.WebView2.WinForms
         {
             OnScriptToExecuteOnDocumentCreatedCompleted(e);
         }
-#if VS8355
-        private void OnDocumentStateChangedIntern(object sender, DocumentStateChangedEventArgs e)
-        {
-            OnDocumentStateChanged(e);
-        }
-#else
+
         private void OnWindowCloseRequestedIntern(object sender, WebView2EventArgs e)
         {
             OnWindowCloseRequested(e);
         }
 
-#endif
+
         private void OnScriptDialogOpeningIntern(object sender, ScriptDialogOpeningEventArgs e)
         {
             OnScriptDialogOpening(e);
@@ -711,17 +716,32 @@ namespace Diga.WebView2.WinForms
             MoveFocusRequested?.Invoke(this, e);
         }
 
-        public string BrowserVersion
-        {
-            get
-            {
-                return this._WebViewControl.BrowserInfo;
-            }
-        }
+        public string BrowserVersion => this._WebViewControl.BrowserInfo;
 
         protected virtual void OnWebViewCreated()
         {
             WebViewCreated?.Invoke(this, EventArgs.Empty);
         }
+
+        protected virtual void OnFrameNavigationCompleted(NavigationCompletedEventArgs e)
+        {
+            FrameNavigationCompleted?.Invoke(this, e);
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            
+            switch (m.Msg)
+            {
+                //WM_DESTROY
+                case 0x02:
+                    this._WebViewControl?.CleanupControls();
+                    break;
+            }
+
+            base.WndProc(ref m);
+        }
+
+       
     }
 }

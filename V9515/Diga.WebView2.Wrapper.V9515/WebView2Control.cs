@@ -6,6 +6,7 @@ using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
 
 
+// ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
 {
     public class WebView2Control : IDisposable
@@ -27,6 +28,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<WebView2EventArgs> DocumentTitleChanged;
         public event EventHandler<NewWindowRequestedEventArgs> NewWindowRequested;
         public event EventHandler<PermissionRequestedEventArgs> PermissionRequested;
+        public event EventHandler<NavigationCompletedEventArgs> FrameNavigationCompleted;
         public event EventHandler<NavigationStartingEventArgs> FrameNavigationStarting;
         public event EventHandler<ExecuteScriptCompletedEventArgs> ExecuteScriptCompleted;
         public event EventHandler<ProcessFailedEventArgs> ProcessFailed;
@@ -35,7 +37,9 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<WebView2EventArgs> WindowCloseRequested;
         public event EventHandler<AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>
             ScriptToExecuteOnDocumentCreatedCompleted;
-       
+
+        public event EventHandler<WebView2EventArgs> NewBrowserVersionAvailable;
+        public event EventHandler<EnvironmentCompletedHandlerArgs> BeforeEnvironmentCompleted;
         private WebView2Settings _Settings;
         private string _BrowserInfo;
         private WebView2Environment Environment { get; set; }
@@ -52,52 +56,63 @@ namespace Diga.WebView2.Wrapper
             CreateWebView();
         }
 
-        private IntPtr ParentHandle { get; set; }
+        private IntPtr ParentHandle { get; }
         public string BrowserExecutableFolder { get; }
         public string UserDataFolder { get; }
         public string AdditionalBrowserArguments { get; }
         private void CreateWebView()
         {
             var handler = new EnvironmentCompletedHandler(this.ParentHandle);
-            handler.HostCompleted += OnHostCompleted;
-            handler.BeforeEnvironmentCompleted += OnBeforeEnvironmentCompleted;
-            handler.AfterEnvironmentCompleted += OnAfterEnvironmentCompleted;
-            handler.PrepareHostCreate += OnBeforeHostCreate;
+            handler.ControllerCompleted += OnControllerCompleted;
+            handler.BeforeEnvironmentCompleted += OnBeforeEnvironmentCompletedIntern;
+            handler.AfterEnvironmentCompleted += OnAfterEnvironmentCompletedIntern;
+            handler.PrepareControllerCreate += OnBeforeControllerCreateIntern;
             
-            Native.GetCoreWebView2BrowserVersionInfo(this.BrowserExecutableFolder, out string browserInfo);
+            Native.GetAvailableCoreWebView2BrowserVersionString(this.BrowserExecutableFolder, out string browserInfo);
             this._BrowserInfo = browserInfo;
 
-            Native.CreateCoreWebView2EnvironmentWithDetails(this.BrowserExecutableFolder, this.UserDataFolder, this.AdditionalBrowserArguments, handler);
-            //handler.HostCompleted-=OnHostCompleted;
-            //handler.BeforeEnvironmentCompleted-=OnBeforeEnvironmentCompleted;
-            //handler.AfterEnvironmentCompleted-=OnAfterEnvironmentCompleted;
-            //handler.PrepareHostCreate-= OnBeforeHostCreate;
+            //Native.CreateCoreWebView2EnvironmentWithDetails(this.BrowserExecutableFolder, this.UserDataFolder, this.AdditionalBrowserArguments, handler);
+            WebView2EnvironmentOptions options = new WebView2EnvironmentOptions
+            {
+                AdditionalBrowserArguments = this.AdditionalBrowserArguments
+            };
+
+            Native.CreateCoreWebView2EnvironmentWithOptions(this.BrowserExecutableFolder, this.UserDataFolder, options,
+                handler);
+            
         }
 
         public string BrowserInfo => this._BrowserInfo;
-        private void OnBeforeHostCreate(object sender, BeforeHostCreateEventArgs e)
+        private void OnBeforeControllerCreateIntern(object sender, BeforeControllerCreateEventArgs e)
         {
             OnBeforeCreate(new BeforeCreateEventArgs(e.Settings));
         }
 
-        private void OnAfterEnvironmentCompleted(object sender, EnvironmentCompletedHandlerArgs e)
+        private void OnAfterEnvironmentCompletedIntern(object sender, EnvironmentCompletedHandlerArgs e)
         {
             this.Environment = e.Environment;
+            this.Environment.NewBrowserVersionAvailable += OnNewBrowserVersionAvailableIntern;
         }
 
-        private void OnBeforeEnvironmentCompleted(object sender, EnvironmentCompletedHandlerArgs e)
+        private void OnNewBrowserVersionAvailableIntern(object sender, WebView2EventArgs e)
         {
-
+            OnNewBrowserVersionAvailable(e);
         }
 
-        private void OnHostCompleted(object sender, CoreWebView2HostCompletedArgs e)
+        private void OnBeforeEnvironmentCompletedIntern(object sender, EnvironmentCompletedHandlerArgs e)
         {
-            this.Host = new WebView2Host( e.Host);
-            this.Host.AcceleratorKeyPressed += OnAcceleratorKeyPressedIntern;
-            this.Host.GotFocus += OnGotFocusIntern;
-            this.Host.LostFocus += OnLostFocusIntern;
-            this.Host.MoveFocusRequested += OnMoveFocusRequestedIntern;
-            this.Host.ZoomFactorChanged += OnZoomFactorChangedIntern;
+            OnBeforeEnvironmentCompleted(e);
+        }
+
+        private void OnControllerCompleted(object sender, ControllerCompletedArgs e)
+        {
+            this.Controller = new WebView2Controller( e.Controller);
+            this.Controller.AcceleratorKeyPressed += OnAcceleratorKeyPressedIntern;
+            this.Controller.GotFocus += OnGotFocusIntern;
+            this.Controller.LostFocus += OnLostFocusIntern;
+            this.Controller.MoveFocusRequested += OnMoveFocusRequestedIntern;
+            this.Controller.ZoomFactorChanged += OnZoomFactorChangedIntern;
+            
             this.WebView = new WebView2View( e.WebView);
             this.WebView.NavigationStarting += OnNavigateStartIntern;
             this.WebView.ContentLoading += OnContentLoadingIntern;
@@ -109,6 +124,7 @@ namespace Diga.WebView2.Wrapper
             this.WebView.DocumentTitleChanged += OnDocumentTitleChangedIntern;
             this.WebView.NewWindowRequested += OnNewWindowRequestedIntern;
             this.WebView.PermissionRequested += OnPermissionRequestedIntern;
+            this.WebView.FrameNavigationCompleted += OnFrameNavigationCompletedIntern;
             this.WebView.FrameNavigationStarting += OnFrameNavigationStartingIntern;
             this.WebView.ExecuteScriptCompleted += OnExecuteScriptCompletedIntern;
             this.WebView.ProcessFailed += OnProcessFailedIntern;
@@ -119,6 +135,49 @@ namespace Diga.WebView2.Wrapper
             
             this._Settings = new WebView2Settings(this.WebView.Settings);
             OnCreated();
+        }
+
+        private void UnWireEvents()
+        {
+            if (this.Environment != null)
+            {
+                this.Environment.NewBrowserVersionAvailable -= OnNewBrowserVersionAvailableIntern;
+            }
+            if (this.Controller != null)
+            {
+                this.Controller.AcceleratorKeyPressed -= OnAcceleratorKeyPressedIntern;
+                this.Controller.GotFocus -= OnGotFocusIntern;
+                this.Controller.LostFocus -= OnLostFocusIntern;
+                this.Controller.MoveFocusRequested -= OnMoveFocusRequestedIntern;
+                this.Controller.ZoomFactorChanged -= OnZoomFactorChangedIntern;
+
+            }
+
+            if (this.WebView != null)
+            {
+                this.WebView.NavigationStarting -= OnNavigateStartIntern;
+                this.WebView.ContentLoading -= OnContentLoadingIntern;
+                this.WebView.SourceChanged -= OnSourceChangedInternal;
+                this.WebView.HistoryChanged -= OnHistoryChangedInternal;
+                this.WebView.NavigationCompleted-= OnNavigationCompletedIntern;
+                this.WebView.WebResourceRequested -= OnWebResourceRequestedIntern;
+                this.WebView.ContainsFullScreenElementChanged -= OnContainsFullScreenElementChangedIntern;
+                this.WebView.DocumentTitleChanged -= OnDocumentTitleChangedIntern;
+                this.WebView.NewWindowRequested -= OnNewWindowRequestedIntern;
+                this.WebView.PermissionRequested -= OnPermissionRequestedIntern;
+                this.WebView.FrameNavigationCompleted -= OnFrameNavigationCompletedIntern;
+                this.WebView.FrameNavigationStarting -= OnFrameNavigationStartingIntern;
+                this.WebView.ExecuteScriptCompleted -= OnExecuteScriptCompletedIntern;
+                this.WebView.ProcessFailed -= OnProcessFailedIntern;
+                this.WebView.ScriptDialogOpening -= OnScriptDialogOpeningIntern;
+                this.WebView.WebMessageReceived -= OnWebMessageReceivedIntern;
+                this.WebView.WindowCloseRequested -= OnWindowCloseRequestedIntern;
+                this.WebView.ScriptToExecuteOnDocumentCreated -= OnScriptToExecuteOnDocumentCreatedIntern;
+            }
+        }
+        private void OnFrameNavigationCompletedIntern(object sender, NavigationCompletedEventArgs e)
+        {
+            OnFrameNavigationCompleted(e);
         }
 
         private void OnZoomFactorChangedIntern(object sender, WebView2EventArgs e)
@@ -239,13 +298,13 @@ namespace Diga.WebView2.Wrapper
             set;
         }
 
-        private WebView2Host Host { get; set; }
+        private WebView2Controller Controller { get; set; }
 
         public void DockToParent()
         {
             tagRECT rect;
             Native.GetClientRect(this.ParentHandle, out rect);
-            this.Host.Bounds = rect;
+            this.Controller.Bounds = rect;
         }
 
         public void Navigate(string url)
@@ -285,12 +344,15 @@ namespace Diga.WebView2.Wrapper
 
         public string Source => this.WebView.Source;
 
+        public void CleanupControls()
+        {
+            this.Controller?.Dispose();
+            this.Environment?.Dispose();
+            this.WebView?.Dispose();
+        }
         public void Dispose()
         {
-            this.Host?.Close();
-            this.Host?.Dispose();
-            
-
+            UnWireEvents();
         }
 
         protected virtual void OnCreated()
@@ -475,6 +537,21 @@ namespace Diga.WebView2.Wrapper
         protected virtual void OnScriptToExecuteOnDocumentCreatedCompleted(AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
         {
             ScriptToExecuteOnDocumentCreatedCompleted?.Invoke(this, e);
+        }
+
+        protected virtual void OnFrameNavigationCompleted(NavigationCompletedEventArgs e)
+        {
+            FrameNavigationCompleted?.Invoke(this, e);
+        }
+
+        protected virtual void OnNewBrowserVersionAvailable(WebView2EventArgs e)
+        {
+            NewBrowserVersionAvailable?.Invoke(this, e);
+        }
+
+        protected virtual void OnBeforeEnvironmentCompleted(EnvironmentCompletedHandlerArgs e)
+        {
+            BeforeEnvironmentCompleted?.Invoke(this, e);
         }
     }
 }

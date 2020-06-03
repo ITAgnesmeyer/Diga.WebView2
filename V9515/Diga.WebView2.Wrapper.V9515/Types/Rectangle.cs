@@ -1,14 +1,15 @@
 ﻿using Diga.WebView2.Interop;
 
+// ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper.Types
 {
     public class Rectangle
     {
-        internal tagRECT Rect;
+        private tagRECT _Rect;
 
         public static implicit operator tagRECT(Rectangle input)
         {
-            return input.Rect;
+            return input._Rect;
         }
 
         public static implicit operator Rectangle(tagRECT input)
@@ -18,27 +19,29 @@ namespace Diga.WebView2.Wrapper.Types
 
         public Rectangle()
         {
-            this.Rect = new tagRECT();
+            this._Rect = new tagRECT();
         }
 
         public Rectangle(tagRECT rect)
         {
-            this.Rect = rect;
+            this._Rect = rect;
         }
-        public int Left{get=> this.Rect.left;
-            set => this.Rect.left = value;
+        public int Left
+        {
+            get => this._Rect.left;
+            set => this._Rect.left = value;
         }
         public int Top
         {
-            get => this.Rect.top; set => this.Rect.top = value;
+            get => this._Rect.top; set => this._Rect.top = value;
         }
         public int Right
         {
-            get => this.Rect.right; set=> this.Rect.right = value;
+            get => this._Rect.right; set => this._Rect.right = value;
         }
         public int Bottom
         {
-            get => this.Rect.bottom; set => this.Rect.bottom = value;
+            get => this._Rect.bottom; set => this._Rect.bottom = value;
         }
     }
 }

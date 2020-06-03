@@ -1,11 +1,12 @@
 ﻿using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.Types;
 
+// ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
 {
     public class HttpResponseHeaders : ICoreWebView2HttpResponseHeaders
     {
-        private ICoreWebView2HttpResponseHeaders _Interface;
+        private readonly ICoreWebView2HttpResponseHeaders _Interface;
 
 
         public HttpResponseHeaders(ICoreWebView2HttpResponseHeaders iface)

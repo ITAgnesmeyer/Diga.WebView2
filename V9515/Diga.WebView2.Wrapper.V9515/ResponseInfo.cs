@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
+// ReSharper disable once CheckNamespace
 namespace Diga.WebView2.WinForms
 {
     public class ResponseInfo
@@ -18,15 +19,11 @@ namespace Diga.WebView2.WinForms
             this.Header.Add("accept-ranges", "bytes");
             this.Header.Add("Access-Control-Allow-Origin", "*");
             this.Header.Add("content-length", this.Stream.Length.ToString());
-            
-
         }
 
-        public ResponseInfo(byte[] bytes) : this(new MemoryStream(bytes))
-        { }
+        public ResponseInfo(byte[] bytes) : this(new MemoryStream(bytes)) { }
 
-        public ResponseInfo(string content) : this(Encoding.UTF8.GetBytes(content))
-        { }
+        public ResponseInfo(string content) : this(Encoding.UTF8.GetBytes(content)) { }
         public Stream Stream { get; }
         public int StatusCode { get; set; }
         public string StatusText { get; set; }
@@ -36,8 +33,6 @@ namespace Diga.WebView2.WinForms
         public string HeaderToString()
         {
             string headerString = "";
-            //this.Header.Add("Content-Type", this.ContentType);
-
             headerString = $"HTTP/2 {this.StatusCode} {this.StatusText}\r\n";
             foreach (var headerValue in this.Header)
             {

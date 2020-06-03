@@ -1,8 +1,8 @@
 ﻿namespace Diga.WebView2.Wrapper.EventArguments
 {
-    public class CoreWebView2HostCompletedErrorArgs : System.EventArgs
+    public class ControllerCompletedErrorArgs : System.EventArgs
     {
-        public CoreWebView2HostCompletedErrorArgs(int result, string message)
+        public ControllerCompletedErrorArgs(int result, string message)
         {
             this.Result = result;
             this.Message = message;

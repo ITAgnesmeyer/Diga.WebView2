@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
@@ -7,7 +6,6 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper
 {
- 
     public class WebView2Controller : ICoreWebView2Controller
     {
         private EventRegistrationToken _ZoomFactorChangedToken;
@@ -36,32 +34,33 @@ namespace Diga.WebView2.Wrapper
 
         private void RegisterEvents()
         {
+            //add_AcceleratorKeyPressed
             AcceleratorKeyPressedEventHandler acceleratorKeyPressedEventHandler =
                 new AcceleratorKeyPressedEventHandler();
             acceleratorKeyPressedEventHandler.AcceleratorKeyPressed += OnAcceleratorKeyPressedIntern;
             this.ToInterface()
                 .add_AcceleratorKeyPressed(acceleratorKeyPressedEventHandler, out this._AcceleratorKeyPressedToken);
 
+            //add_GotFocus
             FocusChangedEventHandler focusChange = new FocusChangedEventHandler();
             focusChange.FocusChanged += OnGotFocusIntern;
             this.ToInterface().add_GotFocus(focusChange, out this._GotFocusToken);
 
+            //add_LostFocus
             FocusChangedEventHandler lostFocusChange = new FocusChangedEventHandler();
             lostFocusChange.FocusChanged += OnLostFocusIntern;
             this.ToInterface().add_LostFocus(lostFocusChange, out this._LostFocusToken);
 
-            
-
-
+            //add_MoveFocusRequested
             MoveFocusRequestedEventHandler moveFocusRequestedHandler = new MoveFocusRequestedEventHandler();
             moveFocusRequestedHandler.MoveFocusRequested += OnMoveFocusRequestedIntern;
             this.ToInterface().add_MoveFocusRequested(moveFocusRequestedHandler, out this._MoveFocusRequestedToken);
-            
+
+            //add_ZoomFactorChanged
             ZoomFactorChangedEventHandler zoomFactorChangedEventHandler = new ZoomFactorChangedEventHandler();
             zoomFactorChangedEventHandler.ZoomFactorChanged += OnZoomFactorChangedIntern;
             this.ToInterface().add_ZoomFactorChanged(zoomFactorChangedEventHandler,
                 out this._ZoomFactorChangedToken);
-
           
         }
         private void OnMoveFocusRequestedIntern(object sender, MoveFocusRequestedEventArgs e)
@@ -161,9 +160,9 @@ namespace Diga.WebView2.Wrapper
             this._Controller.remove_ZoomFactorChanged(token);
         }
 
-        void ICoreWebView2Controller.SetBoundsAndZoomFactor(tagRECT Bounds, double ZoomFactor)
+        void ICoreWebView2Controller.SetBoundsAndZoomFactor(tagRECT bounds, double zoomFactor)
         {
-            this._Controller.SetBoundsAndZoomFactor(Bounds, ZoomFactor);
+            this._Controller.SetBoundsAndZoomFactor(bounds, zoomFactor);
         }
 
         void ICoreWebView2Controller.MoveFocus(COREWEBVIEW2_MOVE_FOCUS_REASON reason)
@@ -260,12 +259,4 @@ namespace Diga.WebView2.Wrapper
             MoveFocusRequested?.Invoke(this, e);
         }
     }
-
-    public class WebView2Host : WebView2Controller
-    {
-        public WebView2Host(ICoreWebView2Controller controller) : base(controller)
-        {
-        }
-    }
-   
 }

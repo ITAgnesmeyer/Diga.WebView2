@@ -85,7 +85,7 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_FrameNavigationStarting(object sender, NavigationStartingEventArgs e)
         {
-            //MessageBox.Show(this, "webView1_FrameNavigationStarting");
+            MessageBox.Show(this, "webView1_FrameNavigationStarting");
         }
 
         private void webView1_WebViewLostFocus(object sender, WebView2EventArgs e)
@@ -211,6 +211,11 @@ namespace WebView2WrapperWinFormsTest
             pb.Image = img;
             frm.Controls.Add(pb);
             frm.ShowDialog(this);
+        }
+
+        private void webView1_FrameNavigationCompleted(object sender, NavigationCompletedEventArgs e)
+        {
+            MessageBox.Show(this, "webView1_FrameNavigationCompleted");
         }
     }
 }
