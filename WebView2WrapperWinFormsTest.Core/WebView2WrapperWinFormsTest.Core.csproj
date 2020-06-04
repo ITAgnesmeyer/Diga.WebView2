@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
@@ -16,13 +16,10 @@
     <Compile Include="..\WebView2WrapperWinFormsTest\Form1.cs" Link="Form1.cs" />
     <Compile Include="..\WebView2WrapperWinFormsTest\Form1.Designer.cs" Link="Form1.Designer.cs" />
     <Compile Include="..\WebView2WrapperWinFormsTest\Program.cs" Link="Program.cs" />
-    <Compile Include="..\WebView2WrapperWinFormsTest\TestControl.cs" Link="TestControl.cs" />
-    <Compile Include="..\WebView2WrapperWinFormsTest\TestControl.Designer.cs" Link="TestControl.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="..\WebView2WrapperWinFormsTest\Form1.resx" Link="Form1.resx" />
-    <EmbeddedResource Include="..\WebView2WrapperWinFormsTest\TestControl.resx" Link="TestControl.resx" />
   </ItemGroup>
 
   <ItemGroup>

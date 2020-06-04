@@ -40,9 +40,9 @@ namespace WebView2WrapperWinFormsTest
         {
             Type type = obj.GetType();
             if (!type.IsClass || type.IsCOMObject)
-                throw new COMException((string)null, -2147352571);
+                throw new COMException(null, -2147352571);
             if (type.GetMember(name).Length == 0)
-                throw new COMException((string)null, -2147352573);
+                throw new COMException(null, -2147352573);
             foreach (MemberInfo memberInfo in type.GetMember(name))
             {
                 if (memberInfo.MemberType == MemberTypes.Method)

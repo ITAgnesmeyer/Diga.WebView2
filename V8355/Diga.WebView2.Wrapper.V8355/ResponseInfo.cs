@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Diga.WebView2.WinForms
+namespace Diga.WebView2.Wrapper
 {
     public class ResponseInfo
     {

@@ -11,6 +11,7 @@
     <PackageTags>WebView2</PackageTags>
     <PackageReleaseNotes>WebView2 - NET - Interop</PackageReleaseNotes>
     <Version>1.0.1</Version>
+    <RootNamespace>Diga.WebView2.Interop</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

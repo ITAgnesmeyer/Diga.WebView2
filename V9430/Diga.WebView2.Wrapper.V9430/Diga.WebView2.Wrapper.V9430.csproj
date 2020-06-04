@@ -7,7 +7,7 @@
     <ProjectGuid>{DFB35E2F-D444-4CEF-A990-0B89F5549799}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Diga.WebView2.Wrapper.V9430</RootNamespace>
+    <RootNamespace>Diga.WebView2.Wrapper</RootNamespace>
     <AssemblyName>Diga.WebView2.Wrapper.V9430</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -730,7 +730,7 @@ namespace Diga.WebView2.WinForms
 
         protected override void WndProc(ref Message m)
         {
-            
+
             switch (m.Msg)
             {
                 //WM_DESTROY
@@ -742,6 +742,6 @@ namespace Diga.WebView2.WinForms
             base.WndProc(ref m);
         }
 
-       
+
     }
 }

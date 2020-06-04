@@ -13,6 +13,7 @@
     <PackageTags>WebView2</PackageTags>
     <PackageReleaseNotes>WebView2-WinFomrs</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <RootNamespace>Diga.WebView2.WinForms</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
