@@ -378,6 +378,7 @@ namespace Diga.WebView2.Wrapper
         public void Stop()
         {
             this.ToInterface().Stop();
+            
         }
 
         public string DocumentTitle => this.ToInterface().DocumentTitle;
@@ -759,7 +760,7 @@ namespace Diga.WebView2.Wrapper
         }
 
         string ICoreWebView2.DocumentTitle => this._WebView.DocumentTitle;
-        void ICoreWebView2.AddHostObjectToScript(string name, object @object)
+        void ICoreWebView2.AddHostObjectToScript(string name,ref object @object)
         {
             this._WebView.AddHostObjectToScript(name, @object);
         }

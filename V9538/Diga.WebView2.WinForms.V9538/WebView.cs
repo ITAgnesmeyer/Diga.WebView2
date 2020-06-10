@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
@@ -57,6 +58,8 @@ namespace Diga.WebView2.WinForms
             ScriptToExecuteOnDocumentCreatedCompleted;
 
         public event EventHandler WebViewCreated;
+
+        public event EventHandler BeforeWebViewDestroy;
 
         public event EventHandler<WebView2EventArgs> WindowCloseRequested;
         [Editor(typeof(FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
@@ -730,12 +733,14 @@ namespace Diga.WebView2.WinForms
 
         protected override void WndProc(ref Message m)
         {
-
+            Debug.Print(m.Msg.ToString());
             switch (m.Msg)
             {
                 //WM_DESTROY
                 case 0x02:
+                    OnBeforeWebViewDestroy();
                     this._WebViewControl?.CleanupControls();
+                    Thread.Sleep(100);
                     break;
             }
 
@@ -743,5 +748,9 @@ namespace Diga.WebView2.WinForms
         }
 
 
+        protected virtual void OnBeforeWebViewDestroy()
+        {
+            BeforeWebViewDestroy?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
@@ -736,6 +737,7 @@ namespace Diga.WebView2.WinForms
                 //WM_DESTROY
                 case 0x02:
                     this._WebViewControl?.CleanupControls();
+                    Thread.Sleep(100);
                     break;
             }
 

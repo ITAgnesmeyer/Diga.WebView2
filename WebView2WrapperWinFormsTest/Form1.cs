@@ -184,6 +184,8 @@ namespace WebView2WrapperWinFormsTest
             this.webView1.AddRemoteObject("testObject", this._TestObject);
             string value = File.ReadAllText("index.html");
             this.webView1.NavigateToString(value);
+            this.textBox1.AutoCompleteCustomSource.Add(this.webView1.MonitoringUrl);
+            
 
         }
 
@@ -216,6 +218,19 @@ namespace WebView2WrapperWinFormsTest
         private void webView1_FrameNavigationCompleted(object sender, NavigationCompletedEventArgs e)
         {
             MessageBox.Show(this, "webView1_FrameNavigationCompleted");
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+           
+        }
+
+        private void webView1_BeforeWebViewDestroy(object sender, EventArgs e)
+        {
+            //this.webView1.RemoveRemoteObject("{60A417CA-F1AB-4307-801B-F96003F8938B} Host Object Helper");
+            this.webView1.RemoveRemoteObject("testObject");
+            
+
         }
     }
 }

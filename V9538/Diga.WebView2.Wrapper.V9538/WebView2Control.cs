@@ -173,6 +173,7 @@ namespace Diga.WebView2.Wrapper
                 this.WebView.WebMessageReceived -= OnWebMessageReceivedIntern;
                 this.WebView.WindowCloseRequested -= OnWindowCloseRequestedIntern;
                 this.WebView.ScriptToExecuteOnDocumentCreated -= OnScriptToExecuteOnDocumentCreatedIntern;
+                
             }
         }
         private void OnFrameNavigationCompletedIntern(object sender, NavigationCompletedEventArgs e)
@@ -333,6 +334,10 @@ namespace Diga.WebView2.Wrapper
 
         }
 
+        public void Close()
+        {
+            this.Controller.Close();
+        }
         public void Reload()
         {
             this.WebView.Reload();
