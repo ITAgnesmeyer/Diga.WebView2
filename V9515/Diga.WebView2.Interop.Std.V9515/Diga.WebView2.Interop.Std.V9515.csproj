@@ -18,7 +18,6 @@
     <Compile Include="..\Diga.WebView2.Interop.V9515\COREWEBVIEW2_WEB_ERROR_STATUS.cs" Link="COREWEBVIEW2_WEB_ERROR_STATUS.cs" />
     <Compile Include="..\Diga.WebView2.Interop.V9515\COREWEBVIEW2_WEB_RESOURCE_CONTEXT.cs" Link="COREWEBVIEW2_WEB_RESOURCE_CONTEXT.cs" />
     <Compile Include="..\Diga.WebView2.Interop.V9515\EventRegistrationToken.cs" Link="EventRegistrationToken.cs" />
-    <Compile Include="..\Diga.WebView2.Interop.V9515\GUID.cs" Link="GUID.cs" />
     <Compile Include="..\Diga.WebView2.Interop.V9515\ICoreWebView2.cs" Link="ICoreWebView2.cs" />
     <Compile Include="..\Diga.WebView2.Interop.V9515\ICoreWebView2AcceleratorKeyPressedEventArgs.cs" Link="ICoreWebView2AcceleratorKeyPressedEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Interop.V9515\ICoreWebView2AcceleratorKeyPressedEventHandler.cs" Link="ICoreWebView2AcceleratorKeyPressedEventHandler.cs" />
@@ -70,17 +69,7 @@
     <Compile Include="..\Diga.WebView2.Interop.V9515\ICoreWebView2WebResourceResponse.cs" Link="ICoreWebView2WebResourceResponse.cs" />
     <Compile Include="..\Diga.WebView2.Interop.V9515\ICoreWebView2WindowCloseRequestedEventHandler.cs" Link="ICoreWebView2WindowCloseRequestedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Interop.V9515\ICoreWebView2ZoomFactorChangedEventHandler.cs" Link="ICoreWebView2ZoomFactorChangedEventHandler.cs" />
-    <Compile Include="..\Diga.WebView2.Interop.V9515\ISequentialStream.cs" Link="ISequentialStream.cs" />
-    <Compile Include="..\Diga.WebView2.Interop.V9515\IStream.cs" Link="IStream.cs" />
-    <Compile Include="..\Diga.WebView2.Interop.V9515\IUnknown.cs" Link="IUnknown.cs" />
     <Compile Include="..\Diga.WebView2.Interop.V9515\tagRECT.cs" Link="tagRECT.cs" />
-    <Compile Include="..\Diga.WebView2.Interop.V9515\tagSTATSTG.cs" Link="tagSTATSTG.cs" />
-    <Compile Include="..\Diga.WebView2.Interop.V9515\_FILETIME.cs" Link="_FILETIME.cs" />
-    <Compile Include="..\Diga.WebView2.Interop.V9515\_LARGE_INTEGER.cs" Link="_LARGE_INTEGER.cs" />
-    <Compile Include="..\Diga.WebView2.Interop.V9515\_RemotableHandle.cs" Link="_RemotableHandle.cs" />
-    <Compile Include="..\Diga.WebView2.Interop.V9515\_ULARGE_INTEGER.cs" Link="_ULARGE_INTEGER.cs" />
-    <Compile Include="..\Diga.WebView2.Interop.V9515\__MIDL_IWinTypes_0009.cs" Link="__MIDL_IWinTypes_0009.cs" />
-    <Compile Include="..\Diga.WebView2.Interop.V9515\__MIDL___MIDL_itf_webview2_0005_0001_0001.cs" Link="__MIDL___MIDL_itf_webview2_0005_0001_0001.cs" />
   </ItemGroup>
 
   <ItemGroup>

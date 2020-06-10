@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <!--Project was exported from assembly: O:\webview2\V9515\WebView2.dll-->
+  <!--Project was exported from assembly: O:\webview2\V9538\WebView2.dll-->
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F52D7E62-1458-40E4-8F38-2DF53E51AF7C}</ProjectGuid>
+    <ProjectGuid>{A240006F-2416-4DE6-8770-70AC3367C2DE}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>Diga.WebView2.Interop.V9515</AssemblyName>
+    <AssemblyName>Diga.WebView2.Interop.V9538</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <ApplicationVersion>1.0.0.0</ApplicationVersion>
@@ -38,6 +38,7 @@
     <Compile Include="ICoreWebView2AcceleratorKeyPressedEventArgs.cs" />
     <Compile Include="COREWEBVIEW2_KEY_EVENT_KIND.cs" />
     <Compile Include="COREWEBVIEW2_PHYSICAL_KEY_STATUS.cs" />
+    <Compile Include="GUID.cs" />
     <Compile Include="ICoreWebView2AcceleratorKeyPressedEventHandler.cs" />
     <Compile Include="ICoreWebView2Controller.cs" />
     <Compile Include="tagRECT.cs" />
