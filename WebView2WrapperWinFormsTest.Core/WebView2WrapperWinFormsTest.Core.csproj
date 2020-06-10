@@ -23,10 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MimeTypeExtension" Version="1.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\V9538\Diga.WebView2.WinForms.Core.V9538\Diga.WebView2.WinForms.Core.V9538.csproj" />
   </ItemGroup>
 
@@ -35,5 +31,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="&#xD;&#xA;xcopy /s $(SolutionDir)wwwroot\* $(TargetDir)wwwroot\*" />
+  </Target>
 
 </Project>
