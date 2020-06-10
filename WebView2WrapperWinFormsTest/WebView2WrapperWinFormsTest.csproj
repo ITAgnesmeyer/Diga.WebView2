@@ -113,6 +113,6 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /s $(SolutionDir)wwwroot\* $(TargetDir)\wwwroot\*</PostBuildEvent>
+    <PostBuildEvent>xcopy /S /Y $(SolutionDir)wwwroot\* $(TargetDir)wwwroot\*</PostBuildEvent>
   </PropertyGroup>
 </Project>

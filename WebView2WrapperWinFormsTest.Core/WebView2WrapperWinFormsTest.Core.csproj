@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="&#xD;&#xA;xcopy /s $(SolutionDir)wwwroot\* $(TargetDir)wwwroot\*" />
+    <Exec Command="&#xD;&#xA;xcopy /S /Y $(SolutionDir)wwwroot\* $(TargetDir)wwwroot\*" />
   </Target>
 
 </Project>
