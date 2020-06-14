@@ -178,7 +178,7 @@ namespace WebView2WrapperWinFormsTest
             this.webView1.OpenDevToolsWindow();
             this.webView1.RemoteObjectsAllowed = true;
 #endif//0E1B9FCAB5-FB86-4D78-91DE-7BC2B4077E5B
-            this.webView1.AddRemoteObject("{60A417CA-F1AB-4307-801B-F96003F8938B} Host Object Helper", (object) new HostObjectHelper());
+            //this.webView1.AddRemoteObject("{60A417CA-F1AB-4307-801B-F96003F8938B} Host Object Helper", (object) new HostObjectHelper());
             //this.webView1.AddRemoteObject("0E1B9FCAB5-FB86-4D78-91DE-7BC2B4077E5", (object) new HostObjectHelper());
             this._TestObject.Name = "hallo Welt";
             this.webView1.AddRemoteObject("testObject", this._TestObject);
@@ -228,7 +228,7 @@ namespace WebView2WrapperWinFormsTest
         private void webView1_BeforeWebViewDestroy(object sender, EventArgs e)
         {
             //this.webView1.RemoveRemoteObject("{60A417CA-F1AB-4307-801B-F96003F8938B} Host Object Helper");
-            this.webView1.RemoveRemoteObject("testObject");
+            //this.webView1.RemoveRemoteObject("testObject");
             
 
         }

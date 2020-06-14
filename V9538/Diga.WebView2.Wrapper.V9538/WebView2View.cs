@@ -403,10 +403,10 @@ namespace Diga.WebView2.Wrapper
 
         }
 
-        public void AddRemoteObject(string name, object @object)
+        public void AddRemoteObject(string name, ref object @object)
         {
-            ref object refObj = ref @object;
-            this.ToInterface().AddHostObjectToScript(name, refObj);
+            
+            this.ToInterface().AddHostObjectToScript(name, ref @object);
 
         }
 

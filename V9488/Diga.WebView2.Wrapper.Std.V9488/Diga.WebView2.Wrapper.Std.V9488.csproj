@@ -72,6 +72,7 @@
     <Compile Include="..\..\V9430\Diga.WebView2.Wrapper.V9430\ScriptDialogKind.cs" Link="ScriptDialogKind.cs" />
     <Compile Include="..\..\V9430\Diga.WebView2.Wrapper.V9430\StreamWrapper.cs" Link="StreamWrapper.cs" />
     <Compile Include="..\..\V9430\Diga.WebView2.Wrapper.V9430\Types\BOOL.cs" Link="Types\BOOL.cs" />
+    <Compile Include="..\..\V9430\Diga.WebView2.Wrapper.V9430\Types\HostObjectHelper.cs" Link="Types\HostObjectHelper.cs" />
     <Compile Include="..\..\V9430\Diga.WebView2.Wrapper.V9430\Types\HRESULT.cs" Link="Types\HRESULT.cs" />
     <Compile Include="..\..\V9430\Diga.WebView2.Wrapper.V9430\Types\ProcessorArch.cs" Link="Types\ProcessorArch.cs" />
     <Compile Include="..\..\V9430\Diga.WebView2.Wrapper.V9430\Types\Rectangle.cs" Link="Types\Rectangle.cs" />
@@ -98,10 +99,10 @@
 
   <ItemGroup>
     <None Update="native\x64\WebView2Loader.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="native\x86\WebView2Loader.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

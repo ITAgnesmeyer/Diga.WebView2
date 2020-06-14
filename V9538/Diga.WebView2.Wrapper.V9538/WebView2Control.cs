@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
+using Diga.WebView2.Wrapper.Types;
 
 
 // ReSharper disable once CheckNamespace
@@ -42,6 +47,10 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<EnvironmentCompletedHandlerArgs> BeforeEnvironmentCompleted;
         private WebView2Settings _Settings;
         private string _BrowserInfo;
+        private object HostHelper;
+        private const string HostHelperName = "{60A417CA-F1AB-4307-801B-F96003F8938B} Host Object Helper";
+        private Dictionary<string, object> _RemoteObjects = new Dictionary<string, object>();
+
         private WebView2Environment Environment { get; set; }
         public WebView2Control(IntPtr parentHandle) : this(parentHandle, string.Empty, string.Empty, string.Empty)
         {
@@ -62,12 +71,13 @@ namespace Diga.WebView2.Wrapper
         public string AdditionalBrowserArguments { get; }
         private void CreateWebView()
         {
+            this.HostHelper = new HostObjectHelper();
             var handler = new EnvironmentCompletedHandler(this.ParentHandle);
             handler.ControllerCompleted += OnControllerCompleted;
             handler.BeforeEnvironmentCompleted += OnBeforeEnvironmentCompletedIntern;
             handler.AfterEnvironmentCompleted += OnAfterEnvironmentCompletedIntern;
             handler.PrepareControllerCreate += OnBeforeControllerCreateIntern;
-            
+
             Native.GetAvailableCoreWebView2BrowserVersionString(this.BrowserExecutableFolder, out string browserInfo);
             this._BrowserInfo = browserInfo;
 
@@ -79,7 +89,7 @@ namespace Diga.WebView2.Wrapper
 
             Native.CreateCoreWebView2EnvironmentWithOptions(this.BrowserExecutableFolder, this.UserDataFolder, options,
                 handler);
-            
+
         }
 
         public string BrowserInfo => this._BrowserInfo;
@@ -106,19 +116,19 @@ namespace Diga.WebView2.Wrapper
 
         private void OnControllerCompleted(object sender, ControllerCompletedArgs e)
         {
-            this.Controller = new WebView2Controller( e.Controller);
+            this.Controller = new WebView2Controller(e.Controller);
             this.Controller.AcceleratorKeyPressed += OnAcceleratorKeyPressedIntern;
             this.Controller.GotFocus += OnGotFocusIntern;
             this.Controller.LostFocus += OnLostFocusIntern;
             this.Controller.MoveFocusRequested += OnMoveFocusRequestedIntern;
             this.Controller.ZoomFactorChanged += OnZoomFactorChangedIntern;
-            
-            this.WebView = new WebView2View( e.WebView);
+
+            this.WebView = new WebView2View(e.WebView);
             this.WebView.NavigationStarting += OnNavigateStartIntern;
             this.WebView.ContentLoading += OnContentLoadingIntern;
             this.WebView.SourceChanged += OnSourceChangedInternal;
             this.WebView.HistoryChanged += OnHistoryChangedInternal;
-            this.WebView.NavigationCompleted+= OnNavigationCompletedIntern;
+            this.WebView.NavigationCompleted += OnNavigationCompletedIntern;
             this.WebView.WebResourceRequested += OnWebResourceRequestedIntern;
             this.WebView.ContainsFullScreenElementChanged += OnContainsFullScreenElementChangedIntern;
             this.WebView.DocumentTitleChanged += OnDocumentTitleChangedIntern;
@@ -132,8 +142,10 @@ namespace Diga.WebView2.Wrapper
             this.WebView.WebMessageReceived += OnWebMessageReceivedIntern;
             this.WebView.WindowCloseRequested += OnWindowCloseRequestedIntern;
             this.WebView.ScriptToExecuteOnDocumentCreated += OnScriptToExecuteOnDocumentCreatedIntern;
-            
+
             this._Settings = new WebView2Settings(this.WebView.Settings);
+            this.WebView.AddRemoteObject(HostHelperName,ref this.HostHelper);
+            
             OnCreated();
         }
 
@@ -159,7 +171,7 @@ namespace Diga.WebView2.Wrapper
                 this.WebView.ContentLoading -= OnContentLoadingIntern;
                 this.WebView.SourceChanged -= OnSourceChangedInternal;
                 this.WebView.HistoryChanged -= OnHistoryChangedInternal;
-                this.WebView.NavigationCompleted-= OnNavigationCompletedIntern;
+                this.WebView.NavigationCompleted -= OnNavigationCompletedIntern;
                 this.WebView.WebResourceRequested -= OnWebResourceRequestedIntern;
                 this.WebView.ContainsFullScreenElementChanged -= OnContainsFullScreenElementChangedIntern;
                 this.WebView.DocumentTitleChanged -= OnDocumentTitleChangedIntern;
@@ -173,7 +185,7 @@ namespace Diga.WebView2.Wrapper
                 this.WebView.WebMessageReceived -= OnWebMessageReceivedIntern;
                 this.WebView.WindowCloseRequested -= OnWindowCloseRequestedIntern;
                 this.WebView.ScriptToExecuteOnDocumentCreated -= OnScriptToExecuteOnDocumentCreatedIntern;
-                
+
             }
         }
         private void OnFrameNavigationCompletedIntern(object sender, NavigationCompletedEventArgs e)
@@ -310,9 +322,9 @@ namespace Diga.WebView2.Wrapper
 
         public void Navigate(string url)
         {
-            
-                this.WebView.Navigate(url);
-            
+
+            this.WebView.Navigate(url);
+
 
         }
 
@@ -351,6 +363,15 @@ namespace Diga.WebView2.Wrapper
 
         public void CleanupControls()
         {
+           
+
+            while (this._RemoteObjects.Count > 0)
+            {
+                var keyValue = this._RemoteObjects.ElementAt(0);
+                this.RemoveRemoteObject(keyValue.Key);
+            }
+                
+            
             this.Controller?.Dispose();
             this.Environment?.Dispose();
             this.WebView?.Dispose();
@@ -508,15 +529,54 @@ namespace Diga.WebView2.Wrapper
         {
             this.WebView.PostWebMessageAsString(webMessageAsString);
         }
-
+        
         public void AddRemoteObject(string name, object obj)
         {
-            this.WebView.AddRemoteObject(name, obj);
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentException("Name cannot be empty");
+
+            if(name == HostHelperName)
+                throw new InvalidOperationException($"The object({name}) already exists");
+            try
+            {
+                IntPtr pdisp = Marshal.GetIDispatchForObject(obj);
+
+                // If we got here without throwing an exception, the QI for IDispatch succeeded.
+                Marshal.Release(pdisp);
+            }
+            catch (PlatformNotSupportedException e)
+            {
+                Debug.Print(e.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidComObjectException("This object does not implement the interface IDispatch", ex);
+            }
+
+            if (this._RemoteObjects.ContainsKey(name))
+                throw new InvalidOperationException($"The object({name}) already exists");
+            object localObject = obj;
+            this._RemoteObjects.Add(name, localObject);
+            this.WebView.AddRemoteObject(name, ref localObject);
+
         }
 
         public void RemoveRemoteObject(string name)
         {
-            this.WebView.RemoveRemoteObject(name);
+            if (this._RemoteObjects.ContainsKey(name))
+                this._RemoteObjects.Remove(name);
+            else
+            {
+                throw new KeyNotFoundException($"Cannot find RemoteObject({name})");
+            }
+            try
+            {
+                this.WebView.RemoveRemoteObject(name);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         public void ExecuteScript(string javaScript)
@@ -529,15 +589,15 @@ namespace Diga.WebView2.Wrapper
             return await this.WebView.ExecuteScriptAsync(javaScript);
         }
 
-        public string InvokeScript(string javaScript, Action<string,int, string> actionToInvoke)
+        public string InvokeScript(string javaScript, Action<string, int, string> actionToInvoke)
         {
             return this.WebView.InvokeScript(javaScript, actionToInvoke);
         }
 
-        
+
         public async Task CapturePreviewAsync(Stream stream, ImageFormat imageFormat)
         {
-           await this.WebView.CapturePreviewAsync(stream, imageFormat);
+            await this.WebView.CapturePreviewAsync(stream, imageFormat);
         }
         protected virtual void OnScriptToExecuteOnDocumentCreatedCompleted(AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
         {

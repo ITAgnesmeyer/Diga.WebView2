@@ -58,7 +58,7 @@ namespace Diga.WebView2.WinForms
             ScriptToExecuteOnDocumentCreatedCompleted;
 
         public event EventHandler WebViewCreated;
-
+        public event EventHandler BeforeWebViewDestroy;
         public event EventHandler<WebView2EventArgs> WindowCloseRequested;
         [Editor(typeof(FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
         public string MonitoringFolder { get; set; }
@@ -736,6 +736,7 @@ namespace Diga.WebView2.WinForms
             {
                 //WM_DESTROY
                 case 0x02:
+                    OnBeforeWebViewDestroy();
                     this._WebViewControl?.CleanupControls();
                     Thread.Sleep(100);
                     break;
@@ -745,5 +746,9 @@ namespace Diga.WebView2.WinForms
         }
 
 
+        protected virtual void OnBeforeWebViewDestroy()
+        {
+            BeforeWebViewDestroy?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

@@ -56,6 +56,10 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<WebMessageReceivedEventArgs> WebMessageReceived;
         public event EventHandler<AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>
             ScriptToExecuteOnDocumentCreatedCompleted;
+        
+        public event EventHandler<NavigationCompletedEventArgs> FrameNavigationCompleted;
+
+        public event EventHandler BeforeWebViewDestroy;
 
         public event EventHandler WebViewCreated;
 #if VS8355

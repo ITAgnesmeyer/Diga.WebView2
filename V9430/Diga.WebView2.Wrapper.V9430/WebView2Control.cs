@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
-
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper
 {
@@ -35,7 +39,10 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<WebView2EventArgs> WindowCloseRequested;
         public event EventHandler<AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>
             ScriptToExecuteOnDocumentCreatedCompleted;
-       
+        private object HostHelper;
+        private const string HostHelperName = "{60A417CA-F1AB-4307-801B-F96003F8938B} Host Object Helper";
+        private Dictionary<string, object> _RemoteObjects = new Dictionary<string, object>();
+
         private WebView2Settings _Settings;
         private string _BrowserInfo;
         private WebView2Environment Environment { get; set; }
@@ -58,6 +65,7 @@ namespace Diga.WebView2.Wrapper
         public string AdditionalBrowserArguments { get; }
         private void CreateWebView()
         {
+            this.HostHelper = new HostObjectHelper();
             var handler = new EnvironmentCompletedHandler(this.ParentHandle);
             handler.HostCompleted += OnHostCompleted;
             handler.BeforeEnvironmentCompleted += OnBeforeEnvironmentCompleted;
@@ -118,6 +126,7 @@ namespace Diga.WebView2.Wrapper
             this.WebView.ScriptToExecuteOnDocumentCreated += OnScriptToExecuteOnDocumentCreatedIntern;
             
             this._Settings = new WebView2Settings(this.WebView.Settings);
+            this.WebView.AddRemoteObject(HostHelperName, ref this.HostHelper);
             OnCreated();
         }
 
@@ -287,6 +296,11 @@ namespace Diga.WebView2.Wrapper
 
         public void Dispose()
         {
+            while (this._RemoteObjects.Count > 0)
+            {
+                var keyValue = this._RemoteObjects.ElementAt(0);
+                this.RemoveRemoteObject(keyValue.Key);
+            }
             this.Host?.Close();
             this.Host?.Dispose();
             
@@ -444,12 +458,47 @@ namespace Diga.WebView2.Wrapper
 
         public void AddRemoteObject(string name, object obj)
         {
-            this.WebView.AddRemoteObject(name, obj);
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentException("Name cannot be empty");
+
+            if(name == HostHelperName)
+                throw new InvalidOperationException($"The object({name}) already exists");
+            try
+            {
+                IntPtr pdisp = Marshal.GetIDispatchForObject(obj);
+
+                // If we got here without throwing an exception, the QI for IDispatch succeeded.
+                Marshal.Release(pdisp);
+            }
+            catch (PlatformNotSupportedException e)
+            {
+                Debug.Print(e.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidComObjectException("This object does not implement the interface IDispatch", ex);
+            }
+
+            if (this._RemoteObjects.ContainsKey(name))
+                throw new InvalidOperationException($"The object({name}) already exists");
+            object localObject = obj;
+            this._RemoteObjects.Add(name, localObject);
+            this.WebView.AddRemoteObject(name, ref localObject);
         }
 
         public void RemoveRemoteObject(string name)
         {
-            this.WebView.RemoveRemoteObject(name);
+            if (this._RemoteObjects.ContainsKey(name))
+                this._RemoteObjects.Remove(name);
+            try
+            {
+                this.WebView.RemoveRemoteObject(name);
+            }
+            catch (Exception e)
+            {
+                Debug.Print(e.Message);
+            }
+            
         }
 
         public void ExecuteScript(string javaScript)

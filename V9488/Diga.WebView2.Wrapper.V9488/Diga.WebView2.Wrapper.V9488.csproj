@@ -227,6 +227,9 @@
     <Compile Include="..\..\V9430\Diga.WebView2.Wrapper.V9430\Types\BOOL.cs">
       <Link>Types\BOOL.cs</Link>
     </Compile>
+    <Compile Include="..\..\V9430\Diga.WebView2.Wrapper.V9430\Types\HostObjectHelper.cs">
+      <Link>Types\HostObjectHelper.cs</Link>
+    </Compile>
     <Compile Include="..\..\V9430\Diga.WebView2.Wrapper.V9430\Types\HRESULT.cs">
       <Link>Types\HRESULT.cs</Link>
     </Compile>
@@ -265,12 +268,12 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="native\x64\WebView2Loader.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="native\x86\WebView2Loader.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>

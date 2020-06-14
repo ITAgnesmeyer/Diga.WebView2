@@ -14,8 +14,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.Interop.Std.V
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.Wrapper.Std.V9430", "V9430\Diga.WebView2.Wrapper.Std.V9430\Diga.WebView2.Wrapper.Std.V9430.csproj", "{180E95DE-FA79-4616-96DF-49459823F991}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebView2WrapperWinFormsTest.Core", "WebView2WrapperWinFormsTest.Core\WebView2WrapperWinFormsTest.Core.csproj", "{C8A7956D-1016-4830-8847-3F8244F4690B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.WinForms.Core.V9430", "V9430\Diga.WebView2.WinForms.Core.V9430\Diga.WebView2.WinForms.Core.V9430.csproj", "{51566996-2CB1-4951-A38E-BAB1F7CE9B1F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.WebView2.Interop.V8355", "V8355\Diga.WebView2.Interop.V8355\Diga.WebView2.Interop.V8355.csproj", "{09A70BFE-0082-4C26-96CB-68E8F9EB59A7}"
@@ -82,11 +80,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.WebView2.Wrapper.V9538
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.WebView2.WinForms.V9538", "V9538\Diga.WebView2.WinForms.V9538\Diga.WebView2.WinForms.V9538.csproj", "{921EB18D-7376-4B75-8798-DBB74D3DD855}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.WebView2.Interop.Std.V9538", "V9538\Diga.WebView2.Interop.Std.V9538\Diga.WebView2.Interop.Std.V9538.csproj", "{B588BD8A-DEFA-4CC2-A449-55807B0AF168}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.Interop.Std.V9538", "V9538\Diga.WebView2.Interop.Std.V9538\Diga.WebView2.Interop.Std.V9538.csproj", "{B588BD8A-DEFA-4CC2-A449-55807B0AF168}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.WebView2.Wrapper.Std.V9538", "V9538\Diga.WebView2.Wrapper.Std.V9538\Diga.WebView2.Wrapper.Std.V9538.csproj", "{830E1522-5964-4FDA-AA1A-E0760D37EDF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.Wrapper.Std.V9538", "V9538\Diga.WebView2.Wrapper.Std.V9538\Diga.WebView2.Wrapper.Std.V9538.csproj", "{830E1522-5964-4FDA-AA1A-E0760D37EDF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.WebView2.WinForms.Core.V9538", "V9538\Diga.WebView2.WinForms.Core.V9538\Diga.WebView2.WinForms.Core.V9538.csproj", "{EBAFF36F-DEA4-496E-BDDB-74B7EEA83F56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.WinForms.Core.V9538", "V9538\Diga.WebView2.WinForms.Core.V9538\Diga.WebView2.WinForms.Core.V9538.csproj", "{EBAFF36F-DEA4-496E-BDDB-74B7EEA83F56}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebView2WrapperWinFormsTest.Core", "WebView2WrapperWinFormsTest.Core\WebView2WrapperWinFormsTest.Core.csproj", "{35F8A1E9-CA56-4C12-8A8D-363249F41C47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -144,14 +144,6 @@ Global
 		{180E95DE-FA79-4616-96DF-49459823F991}.Release|Any CPU.Build.0 = Release|Any CPU
 		{180E95DE-FA79-4616-96DF-49459823F991}.Release|x86.ActiveCfg = Release|Any CPU
 		{180E95DE-FA79-4616-96DF-49459823F991}.Release|x86.Build.0 = Release|Any CPU
-		{C8A7956D-1016-4830-8847-3F8244F4690B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8A7956D-1016-4830-8847-3F8244F4690B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C8A7956D-1016-4830-8847-3F8244F4690B}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C8A7956D-1016-4830-8847-3F8244F4690B}.Debug|x86.Build.0 = Debug|Any CPU
-		{C8A7956D-1016-4830-8847-3F8244F4690B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C8A7956D-1016-4830-8847-3F8244F4690B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C8A7956D-1016-4830-8847-3F8244F4690B}.Release|x86.ActiveCfg = Release|Any CPU
-		{C8A7956D-1016-4830-8847-3F8244F4690B}.Release|x86.Build.0 = Release|Any CPU
 		{51566996-2CB1-4951-A38E-BAB1F7CE9B1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{51566996-2CB1-4951-A38E-BAB1F7CE9B1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51566996-2CB1-4951-A38E-BAB1F7CE9B1F}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -368,6 +360,14 @@ Global
 		{EBAFF36F-DEA4-496E-BDDB-74B7EEA83F56}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EBAFF36F-DEA4-496E-BDDB-74B7EEA83F56}.Release|x86.ActiveCfg = Release|Any CPU
 		{EBAFF36F-DEA4-496E-BDDB-74B7EEA83F56}.Release|x86.Build.0 = Release|Any CPU
+		{35F8A1E9-CA56-4C12-8A8D-363249F41C47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35F8A1E9-CA56-4C12-8A8D-363249F41C47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35F8A1E9-CA56-4C12-8A8D-363249F41C47}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{35F8A1E9-CA56-4C12-8A8D-363249F41C47}.Debug|x86.Build.0 = Debug|Any CPU
+		{35F8A1E9-CA56-4C12-8A8D-363249F41C47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35F8A1E9-CA56-4C12-8A8D-363249F41C47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35F8A1E9-CA56-4C12-8A8D-363249F41C47}.Release|x86.ActiveCfg = Release|Any CPU
+		{35F8A1E9-CA56-4C12-8A8D-363249F41C47}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

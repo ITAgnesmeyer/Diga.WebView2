@@ -18,6 +18,8 @@
         /*var propertyValue =
             "Dies ist ein Synchroner Aufurf"; //await chrome.webview.remoteObjects.testObject.FirstMessage;
             */
+        
+        //let remoteObject = await window.chrome.webview.remoteObjects.testObject;
         let remoteObject = await window.chrome.webview.hostObjects.testObject;
         console.log("get FirstMessage");
         let propertyValue = await remoteObject.Name;

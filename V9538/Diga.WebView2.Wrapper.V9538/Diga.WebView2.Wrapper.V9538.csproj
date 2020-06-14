@@ -106,6 +106,7 @@
     <Compile Include="ScriptDialogKind.cs" />
     <Compile Include="StreamWrapper.cs" />
     <Compile Include="Types\CBOOL.cs" />
+    <Compile Include="Types\HostObjectHelper.cs" />
     <Compile Include="Types\HRESULT.cs" />
     <Compile Include="Types\ProcessorArch.cs" />
     <Compile Include="Types\Rectangle.cs" />
@@ -128,10 +129,10 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="native\x64\WebView2Loader.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="native\x86\WebView2Loader.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
