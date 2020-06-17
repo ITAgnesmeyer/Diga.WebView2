@@ -47,17 +47,26 @@ namespace WebView2WrapperWinFormsTest
         private void webView1_SourceChanged(object sender, SourceChangedEventArgs e)
         {
             //MessageBox.Show("SourceChanged=>" + e.IsNewDocument);
+           
         }
 
         private void webView1_HistoryChanged(object sender, WebView2EventArgs e)
         {
-
+            
         }
 
         private void webView1_NavigationCompleted(object sender, NavigationCompletedEventArgs e)
         {
             this.textBox1.Text =  this.webView1.Source;
-            this.Text =this.webView1.BrowserVersion + "=>" + this.webView1.DocumentTitle;
+            if(e.IsSuccess == true)
+            {
+                this.Text = this.webView1.BrowserVersion + "=>" + this.webView1.DocumentTitle;
+            }
+            else
+            {
+                this.Text = this.webView1.BrowserVersion + "=> Error=" + e.GetErrorText() + "->" + e.WebErrorStatus;
+            }
+            
         }
 
         private void webView1_AcceleratorKeyPressed(object sender, AcceleratorKeyPressedEventArgs e)
@@ -175,7 +184,7 @@ namespace WebView2WrapperWinFormsTest
         {
             
 #if CORE
-            this.webView1.OpenDevToolsWindow();
+            //this.webView1.OpenDevToolsWindow();
             this.webView1.RemoteObjectsAllowed = true;
 #endif//0E1B9FCAB5-FB86-4D78-91DE-7BC2B4077E5B
             //this.webView1.AddRemoteObject("{60A417CA-F1AB-4307-801B-F96003F8938B} Host Object Helper", (object) new HostObjectHelper());

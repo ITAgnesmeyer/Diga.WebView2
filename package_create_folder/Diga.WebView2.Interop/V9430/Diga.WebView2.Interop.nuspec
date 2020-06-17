@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Diga.WebView2.Interop</id>
-    <version>2.0.3</version>
+    <version>2.0.4</version>
     <title>Diga.WebView2.Interop.V9430</title>
     <authors>Dipl.-Ing.(FH) Guido Agnesmeyer</authors>
     <owners>Dipl.-Ing.(FH) Guido Agnesmeyer</owners>

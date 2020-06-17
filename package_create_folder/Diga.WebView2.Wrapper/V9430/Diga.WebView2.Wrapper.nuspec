@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Diga.WebView2.Wrapper</id>
-    <version>2.0.3</version>
+    <version>2.0.4</version>
     <title>Diga.WebView2.Wrapper.V9430</title>
     <authors>Dip.-Ing.(FH) Guido Agnesmeyer</authors>
     <owners>Dip.-Ing.(FH) Guido Agnesmeyer</owners>
@@ -17,10 +17,10 @@
     <repository type="git" url="https://github.com/ITAgnesmeyer/Diga.WebView2" />
     <dependencies>
       <group targetFramework=".NETStandard2.1">
-        <dependency id="Diga.WebView2.Interop" version="2.0.3" exclude="Build,Analyzers" />
+        <dependency id="Diga.WebView2.Interop" version="2.0.4" exclude="Build,Analyzers" />
       </group>
       <group targetFramework=".NETFramework4.7.2">
-        <dependency id="Diga.WebView2.Interop" version="2.0.3" exclude="Build,Analyzers" />
+        <dependency id="Diga.WebView2.Interop" version="2.0.4" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
