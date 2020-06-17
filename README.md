@@ -50,6 +50,8 @@ Since Microsoft has completely changed the interface between version 0.8 and 0.9
 - Version 0.9.515 only runs with Edge Chromium Dev.
 - Version 0.9.538 only runs with Edge Chromium Dev.
 
+WebView2 [Release-Notes](https://docs.microsoft.com/de-de/microsoft-edge/webview2/releasenotes)
+
 ### Why is the microsoft.web.webview2 package not linked?
 The packages are not linked because this does not allow the mapping of Any CPU.
 The packages are always added only based on the setting of the projects.
@@ -147,6 +149,8 @@ AddRemoteObject works fine when you use >=V9430. If you add the followin Rremote
 ```
 It is important that the object is given the following name:
 ##### {60A417CA-F1AB-4307-801B-F96003F8938B} Host Object Helper
+
+#### The object is now added automatically. 
 
 ###### This text was automatically translated with the [Microsoft translator](https://www.bing.com/translator "Microsoft translator").
 
