@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Diga.WebView2.Wrapper.Std.V9488\Diga.WebView2.Wrapper.Std.V9488.csproj" />
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.WinForms\V9488\lib\netcoreapp3.1\$(TargetFileName)" />
+  </Target>
+
 </Project>

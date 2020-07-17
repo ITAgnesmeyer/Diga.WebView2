@@ -76,4 +76,8 @@
     <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.Interop\V9515\lib\netstandard2.1\$(TargetFileName)&#xD;&#xA;" />
+  </Target>
+
 </Project>
