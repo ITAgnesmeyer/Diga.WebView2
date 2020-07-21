@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\V9538\Diga.WebView2.WinForms.Core.V9538\Diga.WebView2.WinForms.Core.V9538.csproj" />
+    <ProjectReference Include="..\V9579\Diga.WebView2.WinForms.Core.V9579\Diga.WebView2.WinForms.Core.V9579.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{921EB18D-7376-4B75-8798-DBB74D3DD855}</ProjectGuid>
+    <ProjectGuid>{F245F52F-7E7A-4D02-A214-1AC7528AD63C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Diga.WebView2.WinForms</RootNamespace>
-    <AssemblyName>Diga.WebView2.WinForms.V9538</AssemblyName>
+    <RootNamespace>Diga.WebView2.WinForms.V9579</RootNamespace>
+    <AssemblyName>Diga.WebView2.WinForms.V9579</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -64,17 +64,17 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Diga.WebView2.Wrapper.V9538\Diga.WebView2.Wrapper.V9538.csproj">
-      <Project>{73306ad7-e663-4797-9dcb-10091dc3a4a8}</Project>
-      <Name>Diga.WebView2.Wrapper.V9538</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\Diga.WebView2.Wrapper.V9579\Diga.WebView2.Wrapper.V9579.csproj">
+      <Project>{d0dddd2c-dae9-4166-aa7c-734b26a79ed2}</Project>
+      <Name>Diga.WebView2.Wrapper.V9579</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.WinForms\V9538\lib\net472\$(TargetFileName)
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.WinForms\V9579\lib\net472\$(TargetFileName)
 </PostBuildEvent>
   </PropertyGroup>
 </Project>
