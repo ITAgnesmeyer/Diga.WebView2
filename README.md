@@ -39,6 +39,7 @@ microsoft.web.webview2
 - WebView2=> 0.9.488
 - WebView2=> 0.9.515-Prerelease
 - WebView2=> 0.9.538
+- WebView2=> 0.9.579
 
 Since Microsoft has completely changed the interface between version 0.8 and 0.9.
 3 projects are necessary.
@@ -49,6 +50,7 @@ Since Microsoft has completely changed the interface between version 0.8 and 0.9
 - Version 0.9.488 is the current Version on Client - PC's
 - Version 0.9.515 is the current Version on Client - PC's
 - Version 0.9.538 only runs with Edge Chromium Dev.
+- Version 0.9.579 only runs with Edge Chromium Dev.
 
 WebView2 [Release-Notes](https://docs.microsoft.com/de-de/microsoft-edge/webview2/releasenotes)
 
