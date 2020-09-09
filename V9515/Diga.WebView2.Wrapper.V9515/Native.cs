@@ -28,6 +28,7 @@ namespace Diga.WebView2.Wrapper
             string userDataFolder, ICoreWebView2EnvironmentOptions environmentOptions,
             ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler environmentCreatedHandler)
         {
+ 
             return Is64Bit
                 ? Native64.CreateCoreWebView2EnvironmentWithOptions(browserExecutableFolder, userDataFolder,
                     environmentOptions, environmentCreatedHandler)

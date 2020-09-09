@@ -84,6 +84,7 @@ namespace Diga.WebView2.Wrapper
             //Native.CreateCoreWebView2EnvironmentWithDetails(this.BrowserExecutableFolder, this.UserDataFolder, this.AdditionalBrowserArguments, handler);
             WebView2EnvironmentOptions options = new WebView2EnvironmentOptions
             {
+               
                 AdditionalBrowserArguments = this.AdditionalBrowserArguments
             };
 
