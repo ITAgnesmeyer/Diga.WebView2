@@ -4,7 +4,7 @@ WebView2 Wrapper For => [Edge Chromium](https://www.microsoft.com/edge "Edge Chr
 Microsoft [WebView2](https://docs.microsoft.com/microsoft-edge/hosting/webview2 "WebView2")
 
 ### Nuget Packages:
-There are NUGET-PACKAGES for V8355
+There are NUGET-PACKAGES for V8355 up to V9515
 
 - Diga.WebView2.Interop => [NuGet](https://www.nuget.org/packages/Diga.WebView2.Interop/ "NuGet")
 - Diga.WebView2.Wrapper => [NuGet](https://www.nuget.org/packages/Diga.WebView2.Wrapper/ "NuGet")
@@ -39,6 +39,7 @@ microsoft.web.webview2
 - WebView2=> 0.9.488
 - WebView2=> 0.9.515-Prerelease
 - WebView2=> 0.9.538
+- WebView2=> 0.9.579
 
 Since Microsoft has completely changed the interface between version 0.8 and 0.9.
 3 projects are necessary.
@@ -46,9 +47,10 @@ Since Microsoft has completely changed the interface between version 0.8 and 0.9
 - Version 0.9.430 is equipped with completely different interfaces.
 - Version 0.8.355 no longer works on Client - PC.
 - Version 0.9.430 is the current Version on Client - PC's
-- Version 0.9.488 only runs with Edge Chromium Dev
-- Version 0.9.515 only runs with Edge Chromium Dev.
+- Version 0.9.488 is the current Version on Client - PC's
+- Version 0.9.515 is the current Version on Client - PC's
 - Version 0.9.538 only runs with Edge Chromium Dev.
+- Version 0.9.579 only runs with Edge Chromium Dev.
 
 WebView2 [Release-Notes](https://docs.microsoft.com/de-de/microsoft-edge/webview2/releasenotes)
 
