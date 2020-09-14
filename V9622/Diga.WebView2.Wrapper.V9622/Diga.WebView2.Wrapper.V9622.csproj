@@ -126,6 +126,9 @@
     <Compile Include="WebView2View.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="native\LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="native\x64\WebView2Loader.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
