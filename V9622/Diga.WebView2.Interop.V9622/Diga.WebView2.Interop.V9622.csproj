@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--Project was exported from assembly: O:\webview2\V9622\Diga.WebView2.Interop.dll-->
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{46C1FC7A-781C-4105-A550-73D27D49FB88}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Diga.WebView2.Interop.V9622</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <FileAlignment>512</FileAlignment>
+    <RootNamespace>Diga.WebView2.Interop</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;FW</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ICoreWebView2AcceleratorKeyPressedEventArgs.cs" />
+    <Compile Include="COREWEBVIEW2_KEY_EVENT_KIND.cs" />
+    <Compile Include="COREWEBVIEW2_PHYSICAL_KEY_STATUS.cs" />
+    <Compile Include="ICoreWebView2AcceleratorKeyPressedEventHandler.cs" />
+    <Compile Include="ICoreWebView2Controller.cs" />
+    <Compile Include="tagRECT.cs" />
+    <Compile Include="ICoreWebView2ZoomFactorChangedEventHandler.cs" />
+    <Compile Include="EventRegistrationToken.cs" />
+    <Compile Include="COREWEBVIEW2_MOVE_FOCUS_REASON.cs" />
+    <Compile Include="ICoreWebView2MoveFocusRequestedEventHandler.cs" />
+    <Compile Include="ICoreWebView2FocusChangedEventHandler.cs" />
+    <Compile Include="ICoreWebView2.cs" />
+    <Compile Include="ICoreWebView2MoveFocusRequestedEventArgs.cs" />
+    <Compile Include="ICoreWebView2Settings.cs" />
+    <Compile Include="ICoreWebView2NavigationStartingEventHandler.cs" />
+    <Compile Include="ICoreWebView2ContentLoadingEventHandler.cs" />
+    <Compile Include="ICoreWebView2SourceChangedEventHandler.cs" />
+    <Compile Include="ICoreWebView2HistoryChangedEventHandler.cs" />
+    <Compile Include="ICoreWebView2NavigationCompletedEventHandler.cs" />
+    <Compile Include="ICoreWebView2ScriptDialogOpeningEventHandler.cs" />
+    <Compile Include="ICoreWebView2PermissionRequestedEventHandler.cs" />
+    <Compile Include="ICoreWebView2ProcessFailedEventHandler.cs" />
+    <Compile Include="ICoreWebView2AddScriptToExecuteOnDocumentCreatedCo.cs" />
+    <Compile Include="ICoreWebView2ExecuteScriptCompletedHandler.cs" />
+    <Compile Include="COREWEBVIEW2_CAPTURE_PREVIEW_IMAGE_FORMAT.cs" />
+    <Compile Include="ICoreWebView2CapturePreviewCompletedHandler.cs" />
+    <Compile Include="ICoreWebView2WebMessageReceivedEventHandler.cs" />
+    <Compile Include="ICoreWebView2CallDevToolsProtocolMethodCompletedHa.cs" />
+    <Compile Include="ICoreWebView2DevToolsProtocolEventReceiver.cs" />
+    <Compile Include="ICoreWebView2NewWindowRequestedEventHandler.cs" />
+    <Compile Include="ICoreWebView2DocumentTitleChangedEventHandler.cs" />
+    <Compile Include="ICoreWebView2ContainsFullScreenElementChangedEvent.cs" />
+    <Compile Include="ICoreWebView2WebResourceRequestedEventHandler.cs" />
+    <Compile Include="COREWEBVIEW2_WEB_RESOURCE_CONTEXT.cs" />
+    <Compile Include="ICoreWebView2WindowCloseRequestedEventHandler.cs" />
+    <Compile Include="ICoreWebView2NavigationStartingEventArgs.cs" />
+    <Compile Include="ICoreWebView2HttpRequestHeaders.cs" />
+    <Compile Include="ICoreWebView2HttpHeadersCollectionIterator.cs" />
+    <Compile Include="ICoreWebView2ContentLoadingEventArgs.cs" />
+    <Compile Include="ICoreWebView2SourceChangedEventArgs.cs" />
+    <Compile Include="ICoreWebView2NavigationCompletedEventArgs.cs" />
+    <Compile Include="COREWEBVIEW2_WEB_ERROR_STATUS.cs" />
+    <Compile Include="ICoreWebView2ScriptDialogOpeningEventArgs.cs" />
+    <Compile Include="COREWEBVIEW2_SCRIPT_DIALOG_KIND.cs" />
+    <Compile Include="ICoreWebView2Deferral.cs" />
+    <Compile Include="ICoreWebView2PermissionRequestedEventArgs.cs" />
+    <Compile Include="COREWEBVIEW2_PERMISSION_KIND.cs" />
+    <Compile Include="COREWEBVIEW2_PERMISSION_STATE.cs" />
+    <Compile Include="ICoreWebView2ProcessFailedEventArgs.cs" />
+    <Compile Include="COREWEBVIEW2_PROCESS_FAILED_KIND.cs" />
+    <Compile Include="ICoreWebView2WebMessageReceivedEventArgs.cs" />
+    <Compile Include="ICoreWebView2DevToolsProtocolEventReceivedEventHan.cs" />
+    <Compile Include="ICoreWebView2DevToolsProtocolEventReceivedEventArg.cs" />
+    <Compile Include="ICoreWebView2NewWindowRequestedEventArgs.cs" />
+    <Compile Include="ICoreWebView2WindowFeatures.cs" />
+    <Compile Include="ICoreWebView2WebResourceRequestedEventArgs.cs" />
+    <Compile Include="ICoreWebView2WebResourceRequest.cs" />
+    <Compile Include="ICoreWebView2WebResourceResponse.cs" />
+    <Compile Include="ICoreWebView2HttpResponseHeaders.cs" />
+    <Compile Include="ICoreWebView2CreateCoreWebView2ControllerCompleted.cs" />
+    <Compile Include="ICoreWebView2CreateCoreWebView2EnvironmentComplete.cs" />
+    <Compile Include="ICoreWebView2Environment.cs" />
+    <Compile Include="ICoreWebView2NewBrowserVersionAvailableEventHandle.cs" />
+    <Compile Include="ICoreWebView2EnvironmentOptions.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

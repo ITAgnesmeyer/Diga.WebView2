@@ -93,7 +93,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Diga.WebView2.Interop.Std.V9538\Diga.WebView2.Interop.Std.V9538.csproj" />
+    <ProjectReference Include="..\Diga.WebView2.Interop.Std.V9538\Diga.WebView2.Interop.Std.V9538.csproj">
+      <Private>true</Private>
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>
