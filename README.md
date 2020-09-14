@@ -31,7 +31,7 @@ With the COM-based interface of WebView2, this can also be programmed.
 Unfortunately, this option is officially reserved only for C++ programmers.
 This is to be fixed with this project.
 
-### 3 packages are currently supported.
+### packages are currently supported.
 microsoft.web.webview2
 
 - WebView2=> 0.8.355
@@ -40,6 +40,7 @@ microsoft.web.webview2
 - WebView2=> 0.9.515-Prerelease
 - WebView2=> 0.9.538
 - WebView2=> 0.9.579
+- WebView2=> 0.9.622.11
 
 Since Microsoft has completely changed the interface between version 0.8 and 0.9.
 3 projects are necessary.
@@ -49,8 +50,9 @@ Since Microsoft has completely changed the interface between version 0.8 and 0.9
 - Version 0.9.430 is the current Version on Client - PC's
 - Version 0.9.488 is the current Version on Client - PC's
 - Version 0.9.515 is the current Version on Client - PC's
-- Version 0.9.538 only runs with Edge Chromium Dev.
-- Version 0.9.579 only runs with Edge Chromium Dev.
+- Version 0.9.538 is the current Version on Client - PC's
+- Version 0.9.579 only runs with Edge Chromium Dev/CAN.
+- Version 0.9.622.11 only runs with Edge Chromium Dev/CAN.
 
 WebView2 [Release-Notes](https://docs.microsoft.com/de-de/microsoft-edge/webview2/releasenotes)
 
