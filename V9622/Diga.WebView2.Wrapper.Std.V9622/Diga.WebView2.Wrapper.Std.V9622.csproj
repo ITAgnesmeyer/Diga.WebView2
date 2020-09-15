@@ -116,6 +116,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="native\arm64\WebView2Loader.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="native\LICENSE.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
