@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.Types;
@@ -10,12 +9,10 @@ namespace Diga.WebView2.Wrapper
 
     internal static class Native
     {
-        private static readonly bool Is64Bit;
         private static readonly Architecture OsArchitecture;
 
         static Native()
         {
-            Is64Bit = ProcessorArch.Is64BitProcess;
             OsArchitecture = ProcessorArch.GetArchitecture();
 
         }

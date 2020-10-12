@@ -7,7 +7,7 @@
     <ProjectGuid>{46C1FC7A-781C-4105-A550-73D27D49FB88}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AssemblyName>Diga.WebView2.Interop.V9622</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <ApplicationVersion>1.0.0.0</ApplicationVersion>
     <FileAlignment>512</FileAlignment>
@@ -102,4 +102,8 @@
     <Compile Include="AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.Interop\V9622\lib\net472\$(TargetFileName)
+</PostBuildEvent>
+  </PropertyGroup>
 </Project>

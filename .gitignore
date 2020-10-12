@@ -338,3 +338,10 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/package_create_folder/Diga.WebView2.Interop/V9622/lib
+/package_create_folder/Diga.WebView2.WinForms/V9622/lib
+/package_create_folder/Diga.WebView2.Wrapper/V9622/build
+/package_create_folder/Diga.WebView2.Wrapper/V9622/lib
+/package_create_folder/Diga.WebView2.Wrapper/V9622/logo.png
+/package_create_folder/Diga.WebView2.WinForms/V9622/logo.png
+/package_create_folder/Diga.WebView2.Interop/V9622/logo.png

@@ -13,10 +13,13 @@
     <EmbeddedResource Include="..\Diga.WebView2.WinForms.V9622\WebView.resx" Link="WebView.resx" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MimeTypeExtension" Version="1.0.1" />
+    <PackageReference Include="MimeTypeExtension" Version="1.0.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Diga.WebView2.Wrapper.Std.V9622\Diga.WebView2.Wrapper.Std.V9622.csproj" />
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.WinForms\V9622\lib\netcoreapp3.1\$(TargetFileName)&#xD;&#xA;" />
+  </Target>
 
 </Project>
