@@ -4,12 +4,13 @@ WebView2 Wrapper For => [Edge Chromium](https://www.microsoft.com/edge "Edge Chr
 Microsoft [WebView2](https://docs.microsoft.com/microsoft-edge/hosting/webview2 "WebView2")
 
 ### Nuget Packages:
-There are NUGET-PACKAGES for V8355 up to V9515
+There are NUGET-PACKAGES 
 
 - Diga.WebView2.Interop => [NuGet](https://www.nuget.org/packages/Diga.WebView2.Interop/ "NuGet")
 - Diga.WebView2.Wrapper => [NuGet](https://www.nuget.org/packages/Diga.WebView2.Wrapper/ "NuGet")
 - Diga.WebView2.WinForms => [NuGet](https://www.nuget.org/packages/Diga.WebView2.WinForms/ "NuGet")
 
+[WebView2 Runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)
 
 ### Why this project was created.
 Microsoft provides a WebControl for Windows forms.
@@ -41,6 +42,7 @@ microsoft.web.webview2
 - WebView2=> 0.9.538
 - WebView2=> 0.9.579
 - WebView2=> 0.9.622.11
+- WebView2=> 1.0.622.22
 
 Since Microsoft has completely changed the interface between version 0.8 and 0.9.
 3 projects are necessary.
@@ -51,8 +53,10 @@ Since Microsoft has completely changed the interface between version 0.8 and 0.9
 - Version 0.9.488 is the current Version on Client - PC's
 - Version 0.9.515 is the current Version on Client - PC's
 - Version 0.9.538 is the current Version on Client - PC's
-- Version 0.9.579 only runs with Edge Chromium Dev/CAN.
-- Version 0.9.622.11 only runs with Edge Chromium Dev/CAN.
+- Version 0.9.579 is the current Version on Client - PC's
+- Version 0.9.622.11 is the current Version on Client - PC's
+- Version 1.0.622.22 is the current Version on Client - PC's
+
 
 WebView2 [Release-Notes](https://docs.microsoft.com/de-de/microsoft-edge/webview2/releasenotes)
 
@@ -105,6 +109,8 @@ This means the version of the WebView2 packages.
 - V9488 => [microsoft.web.webview2 0.9.488](https://www.nuget.org/packages/Microsoft.Web.WebView2/0.9.488)
 - V9515 => [microsoft.web.webview2 0.9.515-preview](https://www.nuget.org/packages/Microsoft.Web.WebView2/0.9.515-prerelease)
 - V9538 => [microsoft.web.webview2 0.9.538](https://www.nuget.org/packages/Microsoft.Web.WebView2/0.9.538)
+- V9622 => [microsoft.web.webview2 0.9.622.11](https://www.nuget.org/packages/Microsoft.Web.WebView2/0.9.622.11)
+- V9622 => [microsoft.web.webview2 1.0.622.22](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.622.22)
 
 
 ### How were the interop sources created?
