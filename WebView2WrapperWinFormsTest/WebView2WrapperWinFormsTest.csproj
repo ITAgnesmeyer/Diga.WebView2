@@ -35,9 +35,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>WinFormsTestSign.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MimeTypeExtension, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MimeTypeExtension.1.0.1\lib\netstandard2.0\MimeTypeExtension.dll</HintPath>
+    <Reference Include="MimeTypeExtension, Version=1.0.22.1, Culture=neutral, PublicKeyToken=5bccdf24b37e4bab, processorArchitecture=MSIL">
+      <HintPath>..\packages\MimeTypeExtension.1.0.23\lib\netstandard2.0\MimeTypeExtension.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -87,6 +93,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="WinFormsTestSign.snk" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -97,17 +104,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\V9622\Diga.WebView2.Interop.V9622\Diga.WebView2.Interop.V9622.csproj">
-      <Project>{46c1fc7a-781c-4105-a550-73d27d49fb88}</Project>
-      <Name>Diga.WebView2.Interop.V9622</Name>
+    <ProjectReference Include="..\V109634\Diga.WebView2.Interop.V109634\Diga.WebView2.Interop.V106634.csproj">
+      <Project>{787bbd62-c22f-4e30-9620-ed5bfd725299}</Project>
+      <Name>Diga.WebView2.Interop.V106634</Name>
     </ProjectReference>
-    <ProjectReference Include="..\V9622\Diga.WebView2.WinForms.V9622\Diga.WebView2.WinForms.V9622.csproj">
-      <Project>{16b62ba9-0c01-4396-b204-5ce61ede4672}</Project>
-      <Name>Diga.WebView2.WinForms.V9622</Name>
+    <ProjectReference Include="..\V109634\Diga.WebView2.WinForms.V109634\Diga.WebView2.WinForms.V106634.csproj">
+      <Project>{7d483fde-f9b2-4275-a918-f0f5939cb31b}</Project>
+      <Name>Diga.WebView2.WinForms.V106634</Name>
     </ProjectReference>
-    <ProjectReference Include="..\V9622\Diga.WebView2.Wrapper.V9622\Diga.WebView2.Wrapper.V9622.csproj">
-      <Project>{50b22b5d-7151-4fdc-9fc0-0cda7231d40e}</Project>
-      <Name>Diga.WebView2.Wrapper.V9622</Name>
+    <ProjectReference Include="..\V109634\Diga.WebView2.Wrapper.V109634\Diga.WebView2.Wrapper.V106634.csproj">
+      <Project>{0a6a69e6-b790-4473-a4b4-1ba62f8b899a}</Project>
+      <Name>Diga.WebView2.Wrapper.V106634</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

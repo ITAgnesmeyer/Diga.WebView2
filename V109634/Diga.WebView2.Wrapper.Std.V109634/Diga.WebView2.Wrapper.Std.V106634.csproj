@@ -1,0 +1,134 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>Diga.WebView2.Wrapper</RootNamespace>
+    <AssemblyName>Diga.WebView2.Wrapper.Std</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>WrapperStdSign.snk</AssemblyOriginatorKeyFile>
+    <Version>7.0.1</Version>
+    <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>Copyright © 2020 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Delegates\CapturePreviewCompletedDelegate.cs" Link="Delegates\CapturePreviewCompletedDelegate.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Delegates\ExecuteScriptCompletedDelegate.cs" Link="Delegates\ExecuteScriptCompletedDelegate.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\ErrorStatus.cs" Link="ErrorStatus.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\EventArguments\AcceleratorKeyPressedEventArgs.cs" Link="EventArguments\AcceleratorKeyPressedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\EventArguments\AddScriptToExecuteOnDocumentCreatedCompletedEventArgs.cs" Link="EventArguments\AddScriptToExecuteOnDocumentCreatedCompletedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\EventArguments\BeforeControllerCreateEventArgs.cs" Link="EventArguments\BeforeControllerCreateEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\EventArguments\BeforeCreateEventArgs.cs" Link="EventArguments\BeforeCreateEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\EventArguments\ContentLoadingEventArgs.cs" Link="EventArguments\ContentLoadingEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\EventArguments\ControllerCompletedArgs.cs" Link="EventArguments\ControllerCompletedArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\EventArguments\ControllerCompletedErrorArgs.cs" Link="EventArguments\ControllerCompletedErrorArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\EventArguments\EnvironmentCompletedHandlerArgs.cs" Link="EventArguments\EnvironmentCompletedHandlerArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\EventArguments\ExecuteScriptCompletedEventArgs.cs" Link="EventArguments\ExecuteScriptCompletedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\EventArguments\MoveFocusRequestedEventArgs.cs" Link="EventArguments\MoveFocusRequestedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\EventArguments\NavigationCompletedEventArgs.cs" Link="EventArguments\NavigationCompletedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\EventArguments\NavigationStartingEventArgs.cs" Link="EventArguments\NavigationStartingEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\EventArguments\NewWindowRequestedEventArgs.cs" Link="EventArguments\NewWindowRequestedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\EventArguments\PermissionRequestedEventArgs.cs" Link="EventArguments\PermissionRequestedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\EventArguments\ProcessFailedEventArgs.cs" Link="EventArguments\ProcessFailedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\EventArguments\ScriptDialogOpeningEventArgs.cs" Link="EventArguments\ScriptDialogOpeningEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\EventArguments\SourceChangedEventArgs.cs" Link="EventArguments\SourceChangedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\EventArguments\WebMessageReceivedEventArgs.cs" Link="EventArguments\WebMessageReceivedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\EventArguments\WebResourceRequestedEventArgs.cs" Link="EventArguments\WebResourceRequestedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\EventArguments\WebView2EventArgs.cs" Link="EventArguments\WebView2EventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\FocusReason.cs" Link="FocusReason.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\AcceleratorKeyPressedEventHandler.cs" Link="Handler\AcceleratorKeyPressedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\AddScriptToExecuteOnDocumentCreatedCompletedHandler.cs" Link="Handler\AddScriptToExecuteOnDocumentCreatedCompletedHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\ContainsFullScreenElementChangedEventHandler.cs" Link="Handler\ContainsFullScreenElementChangedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\ContentLoadingEventHandler.cs" Link="Handler\ContentLoadingEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\ControllerCompletedHandler.cs" Link="Handler\ControllerCompletedHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\DocumentTitleChangedHandler.cs" Link="Handler\DocumentTitleChangedHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\EnvironmentCompletedHandler.cs" Link="Handler\EnvironmentCompletedHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\ExecuteScriptCompletedHandler.cs" Link="Handler\ExecuteScriptCompletedHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\FocusChangedEventHandler.cs" Link="Handler\FocusChangedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\HistoryChangedEventHandler.cs" Link="Handler\HistoryChangedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\MoveFocusRequestedEventHandler.cs" Link="Handler\MoveFocusRequestedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\NavigationCompletedEventHandler.cs" Link="Handler\NavigationCompletedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\NavigationStartingEventHandler.cs" Link="Handler\NavigationStartingEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\NewBrowserVersionAvailableEventHandler.cs" Link="Handler\NewBrowserVersionAvailableEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\NewWindowRequestedEventHandler.cs" Link="Handler\NewWindowRequestedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\PermissionRequestedEventHandler.cs" Link="Handler\PermissionRequestedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\ProcessFailedEventHandler.cs" Link="Handler\ProcessFailedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\ScriptDialogOpeningEventHandler.cs" Link="Handler\ScriptDialogOpeningEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\SourceChangedEventHandler.cs" Link="Handler\SourceChangedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\WebMessageReceivedEventHandler.cs" Link="Handler\WebMessageReceivedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\WebResourceRequestedEventHandler.cs" Link="Handler\WebResourceRequestedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\WindowCloseRequestedHandler.cs" Link="Handler\WindowCloseRequestedHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Handler\ZoomFactorChangedEventHandler.cs" Link="Handler\ZoomFactorChangedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\HeaderItem.cs" Link="HeaderItem.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\HttpHeadersCollectionIterator.cs" Link="HttpHeadersCollectionIterator.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\HttpRequestHeaders.cs" Link="HttpRequestHeaders.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\HttpResponseHeaders.cs" Link="HttpResponseHeaders.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\ImageFormat.cs" Link="ImageFormat.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\KeyEventType.cs" Link="KeyEventType.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\MoveFocusReason.cs" Link="MoveFocusReason.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Native.cs" Link="Native.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\PermissionState.cs" Link="PermissionState.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\PermissionType.cs" Link="PermissionType.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\PhysicalKeyStatus.cs" Link="PhysicalKeyStatus.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\ProcessFailedKind.cs" Link="ProcessFailedKind.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\ResourceContext.cs" Link="ResourceContext.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\ResponseInfo.cs" Link="ResponseInfo.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\ScriptDialogKind.cs" Link="ScriptDialogKind.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\StreamWrapper.cs" Link="StreamWrapper.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Types\CBOOL.cs" Link="Types\CBOOL.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Types\DispParams.cs" Link="Types\DispParams.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Types\ExcepInfo.cs" Link="Types\ExcepInfo.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Types\HostObjectHelper.cs" Link="Types\HostObjectHelper.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Types\HRESULT.cs" Link="Types\HRESULT.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Types\IDispatch.cs" Link="Types\IDispatch.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Types\ProcessorArch.cs" Link="Types\ProcessorArch.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\Types\Rectangle.cs" Link="Types\Rectangle.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\WebResourceContext.cs" Link="WebResourceContext.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\WebResourceRequest.cs" Link="WebResourceRequest.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\WebResourceResponse.cs" Link="WebResourceResponse.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\WebView2Control.cs" Link="WebView2Control.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\WebView2Controller.cs" Link="WebView2Controller.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\WebView2Environment.cs" Link="WebView2Environment.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\WebView2EnvironmentOptions.cs" Link="WebView2EnvironmentOptions.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\WebView2Settings.cs" Link="WebView2Settings.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V109634\WebView2View.cs" Link="WebView2View.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Delegates\" />
+    <Folder Include="EventArguments\" />
+    <Folder Include="Handler\" />
+    <Folder Include="native\arm64\" />
+    <Folder Include="native\x64\" />
+    <Folder Include="native\x86\" />
+    <Folder Include="Types\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Diga.WebView2.Interop.Std.V109634\Diga.WebView2.Interop.Std.V106634.csproj">
+      <Private>true</Private>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="native\arm64\WebView2Loader.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="native\LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="native\x64\WebView2Loader.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="native\x86\WebView2Loader.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="SET p=$(SolutionDir)package_create_folder\Diga.WebView2.Wrapper\V109634\build\native&#xD;&#xA;copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.Wrapper\V109634\lib\netstandard2.1\$(TargetFileName)&#xD;&#xA;if not exist &quot;%25p%25&quot; mkdir &quot;%25p%25&quot;&#xD;&#xA;xcopy /E /Y $(TargetDir)native &quot;%25p%25&quot;&#xD;&#xA;" />
+  </Target>
+
+</Project>
