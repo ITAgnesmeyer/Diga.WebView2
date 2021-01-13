@@ -43,6 +43,7 @@ microsoft.web.webview2
 - WebView2=> 0.9.579
 - WebView2=> 0.9.622.11
 - WebView2=> 1.0.622.22
+- WebView2=> 1.0.664.37
 
 Since Microsoft has completely changed the interface between version 0.8 and 0.9.
 3 projects are necessary.
@@ -56,6 +57,7 @@ Since Microsoft has completely changed the interface between version 0.8 and 0.9
 - Version 0.9.579 is the current Version on Client - PC's
 - Version 0.9.622.11 is the current Version on Client - PC's
 - Version 1.0.622.22 is the current Version on Client - PC's
+- Version 1.0.664.37 is the current Version on Client - PC's
 
 
 WebView2 [Release-Notes](https://docs.microsoft.com/de-de/microsoft-edge/webview2/releasenotes)
@@ -88,6 +90,7 @@ package to decide which version of WebView2 to use.
 - Diga.WebView2.Wrapper. {Framework}. {PaketVersion}
 - Diga.WebView2.WinForms. {Framework}. {PaketVersion}
 
+- Since version V106643 a name extension is no longer added.
 
 ### Framework:
 - Std => Standard 2.1
@@ -111,6 +114,7 @@ This means the version of the WebView2 packages.
 - V9538 => [microsoft.web.webview2 0.9.538](https://www.nuget.org/packages/Microsoft.Web.WebView2/0.9.538)
 - V9622 => [microsoft.web.webview2 0.9.622.11](https://www.nuget.org/packages/Microsoft.Web.WebView2/0.9.622.11)
 - V9622 => [microsoft.web.webview2 1.0.622.22](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.622.22)
+- V10664 => [microsoft.web.webview2 1.0.664.37](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.664.37)
 
 
 ### How were the interop sources created?
@@ -161,6 +165,34 @@ It is important that the object is given the following name:
 ##### {60A417CA-F1AB-4307-801B-F96003F8938B} Host Object Helper
 
 #### The object is now added automatically. 
+
+## Windows Forms
+If you use net Framework. You have to modify the Diga.WebView2.Interop.dll Reference.
+
+Set Embed Interop Types to False!
+This copies the DLL into the program directory. If you do not make this setting, there will be an error when starting the application.
+
+WinForms is STAThread. The access to the component must therefore also be thread-safe, as is usual in WinForms. You should never call properties or functions of a component directly from a Task. Use a delegate to do this, if necessary.
+
+```c#
+public void SendMessage(string message)
+{
+   if (this.webView1.InvokeRequired)
+   {
+      Action<string> ac = SendMessage;
+      this.webView1.Invoke(ac, message);
+   }
+   else
+   {
+      this.webView1.SendMessage(message);    
+   }
+}
+
+public async Task InvokeSendMessage(string msg)
+{
+   await Task.Run(() => this.SendMessage(msg));
+}
+```
 
 ###### This text was automatically translated with the [Microsoft translator](https://www.bing.com/translator "Microsoft translator").
 
