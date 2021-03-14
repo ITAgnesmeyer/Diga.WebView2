@@ -241,5 +241,10 @@ namespace WebView2WrapperWinFormsTest
             
 
         }
+
+        private void bnPostMessage_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

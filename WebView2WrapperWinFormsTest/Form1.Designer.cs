@@ -38,12 +38,14 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.webView1 = new Diga.WebView2.WinForms.WebView();
+            this.bnPostMessage = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.bnPostMessage);
             this.panel1.Controls.Add(this.bnCapture);
             this.panel1.Controls.Add(this.bnScript);
             this.panel1.Controls.Add(this.button4);
@@ -54,7 +56,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(949, 32);
+            this.panel1.Size = new System.Drawing.Size(1021, 32);
             this.panel1.TabIndex = 0;
             // 
             // bnCapture
@@ -62,7 +64,7 @@
             this.bnCapture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bnCapture.Location = new System.Drawing.Point(858, 4);
             this.bnCapture.Name = "bnCapture";
-            this.bnCapture.Size = new System.Drawing.Size(59, 23);
+            this.bnCapture.Size = new System.Drawing.Size(56, 23);
             this.bnCapture.TabIndex = 6;
             this.bnCapture.Text = "Capture";
             this.bnCapture.UseVisualStyleBackColor = true;
@@ -144,7 +146,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 32);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(949, 418);
+            this.panel2.Size = new System.Drawing.Size(1021, 418);
             this.panel2.TabIndex = 1;
             // 
             // webView1
@@ -166,7 +168,7 @@
             this.webView1.MonitoringUrl = "https://5b834d57-0891-4730-b6ba-c793b4e76468/";
             this.webView1.Name = "webView1";
             this.webView1.RemoteObjectsAllowed = true;
-            this.webView1.Size = new System.Drawing.Size(949, 418);
+            this.webView1.Size = new System.Drawing.Size(1021, 418);
             this.webView1.TabIndex = 0;
             this.webView1.Url = "https://5b834d57-0891-4730-b6ba-c793b4e76468";
             this.webView1.NavigationStart += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.NavigationStartingEventArgs>(this.webView1_NavigationStart);
@@ -190,11 +192,22 @@
             this.webView1.WebViewCreated += new System.EventHandler(this.webView1_WebViewCreated);
             this.webView1.BeforeWebViewDestroy += new System.EventHandler(this.webView1_BeforeWebViewDestroy);
             // 
+            // bnPostMessage
+            // 
+            this.bnPostMessage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bnPostMessage.Location = new System.Drawing.Point(920, 4);
+            this.bnPostMessage.Name = "bnPostMessage";
+            this.bnPostMessage.Size = new System.Drawing.Size(56, 23);
+            this.bnPostMessage.TabIndex = 7;
+            this.bnPostMessage.Text = "Post";
+            this.bnPostMessage.UseVisualStyleBackColor = true;
+            this.bnPostMessage.Click += new System.EventHandler(this.bnPostMessage_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(949, 450);
+            this.ClientSize = new System.Drawing.Size(1021, 450);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
@@ -220,6 +233,7 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button bnScript;
         private System.Windows.Forms.Button bnCapture;
+        private System.Windows.Forms.Button bnPostMessage;
     }
 }
 
