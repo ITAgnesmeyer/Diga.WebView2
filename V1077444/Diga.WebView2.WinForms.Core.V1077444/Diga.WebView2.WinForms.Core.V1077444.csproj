@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>Diga.WebView2.WinForms</RootNamespace>
+    <Version>8.0.1</Version>
+    <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
+    <Product>Diga.WebView2.WinForms.Core</Product>
+    <Copyright>Copyright © 2021 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>WinFormCoreSign.snk</AssemblyOriginatorKeyFile>
+    <AssemblyName>Diga.WebView2.WinForms.Core</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Diga.WebView2.WinForms.V1077444\WebView.cs" Link="WebView.cs" />
+    <Compile Include="..\Diga.WebView2.WinForms.V1077444\WebView.Designer.cs" Link="WebView.Designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Diga.WebView2.WinForms.V1077444\WebView.resx" Link="WebView.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MimeTypeExtension" Version="1.0.23" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Diga.WebView2.Wrapper.Std.V1077444\Diga.WebView2.Wrapper.Std.V1077444.csproj" />
+  </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.WinForms\V1077444\lib\netcoreapp3.1\$(TargetFileName)&#xD;&#xA;" />
+  </Target>
+
+</Project>

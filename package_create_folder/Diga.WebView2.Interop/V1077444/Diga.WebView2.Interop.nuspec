@@ -2,8 +2,8 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Diga.WebView2.Interop</id>
-    <version>7.0.1</version>
-    <title>Diga.WebView2.Interop.V109634</title>
+    <version>8.0.1</version>
+    <title>Diga.WebView2.Interop.V1077444</title>
     <authors>Dipl.-Ing.(FH) Guido Agnesmeyer</authors>
     <owners>Dipl.-Ing.(FH) Guido Agnesmeyer</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -12,13 +12,11 @@
     <projectUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</projectUrl>
     <description>WebView2 - NET - Interop</description>
     <releaseNotes>WebView2 - NET - Interop</releaseNotes>
-    <copyright>Copyright (c) 2020 Dipl.-Ing.(FH) Guido Agnesmeyer</copyright>
+    <copyright>Copyright (c) 2021 Dipl.-Ing.(FH) Guido Agnesmeyer</copyright>
     <tags>WebView2, WebView</tags>
     <repository type="git" url="https://github.com/ITAgnesmeyer/Diga.WebView2" />
     <dependencies>
-      <group targetFramework=".NETStandard2.1">
-        <dependency id="System.Runtime.InteropServices" version="4.3.0" exclude="Build,Analyzers" />
-      </group>
+      <group targetFramework=".NETStandard2.1" />
       <group targetFramework=".NETFramework4.7.2" />
     </dependencies>
   </metadata>

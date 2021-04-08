@@ -6,6 +6,7 @@
 
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#pragma warning disable 618
 
 namespace Diga.WebView2.Interop
 {

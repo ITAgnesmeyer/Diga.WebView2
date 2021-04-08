@@ -7,7 +7,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
-
+#pragma warning disable 618
 namespace Diga.WebView2.Interop
 {
   [Guid("A0D6DF20-3B92-416D-AA0C-437A9C727857")]
