@@ -50,15 +50,15 @@ Since Microsoft has completely changed the interface between version 0.8 and 0.9
 
 - Version 0.9.430 is equipped with completely different interfaces.
 - Version 0.8.355 no longer works on Client - PC.
-- Version 0.9.430 is the current Version on Client - PC's
+- Version 0.9.430 no longer works on Client - PC
 - Version 0.9.488 is the current Version on Client - PC's
-- Version 0.9.515 is the current Version on Client - PC's
+- Version 0.9.515 no longer works on Client - PC
 - Version 0.9.538 is the current Version on Client - PC's
 - Version 0.9.579 is the current Version on Client - PC's
 - Version 0.9.622.11 is the current Version on Client - PC's
 - Version 1.0.622.22 is the current Version on Client - PC's
 - Version 1.0.664.37 is the current Version on Client - PC's
-
+- Version 1.0.774.44 is the current Version on Client - PC's
 
 WebView2 [Release-Notes](https://docs.microsoft.com/de-de/microsoft-edge/webview2/releasenotes)
 
@@ -115,7 +115,7 @@ This means the version of the WebView2 packages.
 - V9622 => [microsoft.web.webview2 0.9.622.11](https://www.nuget.org/packages/Microsoft.Web.WebView2/0.9.622.11)
 - V9622 => [microsoft.web.webview2 1.0.622.22](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.622.22)
 - V10664 => [microsoft.web.webview2 1.0.664.37](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.664.37)
-
+- V1077444 => [microsoft.web.webview2 1.0.774.44](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.774.44)
 
 ### How were the interop sources created?
 The Microsoft microsoft.web.webview2 package contains webview2.tlb.
