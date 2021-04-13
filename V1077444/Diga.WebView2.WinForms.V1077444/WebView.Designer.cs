@@ -2,6 +2,8 @@
 {
     partial class WebView
     {
+
+        
         /// <summary>
         /// Erforderliche Designervariable.
         /// </summary>
@@ -16,6 +18,7 @@
             
             if (disposing && (components != null))
             {
+
                 components.Dispose();
             }
             base.Dispose(disposing);

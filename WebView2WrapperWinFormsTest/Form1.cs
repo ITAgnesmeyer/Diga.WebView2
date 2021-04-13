@@ -244,7 +244,27 @@ namespace WebView2WrapperWinFormsTest
 
         private void bnPostMessage_Click(object sender, EventArgs e)
         {
+            
+        }
 
+        private void webView1_DOMContentLoaded(object sender, DOMContentLoadedEventArgs e)
+        {
+            Debug.Print(e.NavigationId.ToString());
+        }
+
+        private void webView1_WebResourceResponseReceived(object sender, WebResourceResponseReceivedEventArgs e)
+        {
+            Debug.Print(e.Request.Uri);
+            Debug.Print(e.Response.StatusCode.ToString());
+            Debug.Print(e.Response.ReasonPhrase);
+            var it = e.Response.Headers.GetIterator();
+
+            if (it.HasCurrent)
+                Debug.Print(it.Current.Name + "," + it.Current.Value);
+            while(it.MoveNext())
+            {
+                Debug.Print(it.Current.Name+ "," + it.Current.Value);
+            }
         }
     }
 }

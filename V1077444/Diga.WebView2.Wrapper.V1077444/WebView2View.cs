@@ -32,9 +32,12 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<ScriptDialogOpeningEventArgs> ScriptDialogOpening;
         public event EventHandler<WebMessageReceivedEventArgs> WebMessageReceived;
         public event EventHandler<WebView2EventArgs> WindowCloseRequested;
-
+        public event EventHandler<DOMContentLoadedEventArgs> DOMContentLoaded;
+        public event EventHandler<WebResourceResponseReceivedEventArgs> WebResourceResponseReceived;
         public event EventHandler<AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>
             ScriptToExecuteOnDocumentCreated;
+
+
 
         public WebView2View(ICoreWebView2_3 webView)
         {
@@ -68,10 +71,12 @@ namespace Diga.WebView2.Wrapper
             documentTitleChangedHandler.DocumentTitleChanged += OnDocumentTitleChangedIntern;
             this.ToInterface()
                 .add_DocumentTitleChanged(documentTitleChangedHandler, out this._DocumentTitleChangedToken);
-
+            //add_DOMContentLoaded
+            DOMContentLoadedEventHandler domContentLoadedHander = new DOMContentLoadedEventHandler();
+            domContentLoadedHander.DOMContentLoaded += OnDOMContentLoadedIntern;
+            this.ToInterface().add_DOMContentLoaded(domContentLoadedHander, out this._DOMContentLoadedToken);
 
             //add_FrameNavigationCompleted
-
             NavigationCompletedEventHandler frameNavigationCompletedHandler = new NavigationCompletedEventHandler();
             frameNavigationCompletedHandler.NavigaionCompleted += OnFrameNavigationCompletedIntern;
             this.ToInterface().add_FrameNavigationCompleted(frameNavigationCompletedHandler,
@@ -134,6 +139,13 @@ namespace Diga.WebView2.Wrapper
             this.ToInterface()
                 .add_WebResourceRequested(webResourceRequestedEventHandler, out this._WebResourceRequested);
 
+            //add_WebResourceResponseReceived
+            WebResourceResponseReceivedEventHandler webResourceResponseReceivedHandler =
+                new WebResourceResponseReceivedEventHandler();
+            webResourceResponseReceivedHandler.WebResourceResponseReceived += WebResourceResponseReceivedIntern;
+            this.ToInterface().add_WebResourceResponseReceived(webResourceResponseReceivedHandler,
+                out this._WebResourceResponseReceivedToken);
+
             //add_WindowCloseRequested
             WindowCloseRequestedHandler windowCloseRequestedHandler = new WindowCloseRequestedHandler();
             windowCloseRequestedHandler.WindowCloseRequested += OnWindowCloseRequestedIntern;
@@ -142,6 +154,16 @@ namespace Diga.WebView2.Wrapper
 
             
 
+        }
+
+        private void WebResourceResponseReceivedIntern(object sender, WebResourceResponseReceivedEventArgs e)
+        {
+            OnWebResourceResponseReceived(e);
+        }
+
+        private void OnDOMContentLoadedIntern(object sender, DOMContentLoadedEventArgs e)
+        {
+            OnDomContentLoaded(e);
         }
 
         private void OnFrameNavigationCompletedIntern(object sender, NavigationCompletedEventArgs e)
@@ -239,6 +261,8 @@ namespace Diga.WebView2.Wrapper
             this.ToInterface().remove_ScriptDialogOpening(this._ScriptDialogOpeningToken);
             this.ToInterface().remove_WebMessageReceived(this._WebMessageReceivedToken);
             this.ToInterface().remove_WindowCloseRequested(this._WindowCloseRequestedToken);
+            this.ToInterface().remove_DOMContentLoaded(this._DOMContentLoadedToken);
+            this.ToInterface().remove_WebResourceResponseReceived(this._WebResourceResponseReceivedToken);
 
         }
 
@@ -258,6 +282,8 @@ namespace Diga.WebView2.Wrapper
         private EventRegistrationToken _WebMessageReceivedToken;
         private EventRegistrationToken _WindowCloseRequestedToken;
         private EventRegistrationToken _FrameNavigationCompletedToken;
+        private EventRegistrationToken _DOMContentLoadedToken;
+        private EventRegistrationToken _WebResourceResponseReceivedToken;
 
         private void OnNavigationStartingIntern(object sender, NavigationStartingEventArgs e)
         {
@@ -532,6 +558,16 @@ namespace Diga.WebView2.Wrapper
         protected virtual void OnFrameNavigationCompleted(NavigationCompletedEventArgs e)
         {
             FrameNavigationCompleted?.Invoke(this, e);
+        }
+
+        protected virtual void OnDomContentLoaded(DOMContentLoadedEventArgs e)
+        {
+            DOMContentLoaded?.Invoke(this, e);
+        }
+
+        protected virtual void OnWebResourceResponseReceived(WebResourceResponseReceivedEventArgs e)
+        {
+            WebResourceResponseReceived?.Invoke(this, e);
         }
     }
 

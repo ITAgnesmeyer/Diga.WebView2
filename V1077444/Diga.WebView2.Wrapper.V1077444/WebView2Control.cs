@@ -16,6 +16,7 @@ namespace Diga.WebView2.Wrapper
 {
     public class WebView2Control : IDisposable
     {
+        private static int RefCounter;
         public event EventHandler Created;
         public event EventHandler<BeforeCreateEventArgs> BeforeCreate;
         public event EventHandler<NavigationStartingEventArgs> NavigateStart;
@@ -42,7 +43,8 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<WebView2EventArgs> WindowCloseRequested;
         public event EventHandler<AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>
             ScriptToExecuteOnDocumentCreatedCompleted;
-
+        public event EventHandler<DOMContentLoadedEventArgs> DOMContentLoaded;
+        public event EventHandler<WebResourceResponseReceivedEventArgs> WebResourceResponseReceived;
         public event EventHandler<WebView2EventArgs> NewBrowserVersionAvailable;
         public event EventHandler<EnvironmentCompletedHandlerArgs> BeforeEnvironmentCompleted;
         private WebView2Settings _Settings;
@@ -63,6 +65,7 @@ namespace Diga.WebView2.Wrapper
             this.UserDataFolder = userDataFolder;
             this.AdditionalBrowserArguments = additionalBrowserArguments;
             CreateWebView();
+            RefCounter += 1;
         }
 
         private IntPtr ParentHandle { get;  set; }
@@ -143,7 +146,8 @@ namespace Diga.WebView2.Wrapper
             this.WebView.WebMessageReceived += OnWebMessageReceivedIntern;
             this.WebView.WindowCloseRequested += OnWindowCloseRequestedIntern;
             this.WebView.ScriptToExecuteOnDocumentCreated += OnScriptToExecuteOnDocumentCreatedIntern;
-
+            this.WebView.DOMContentLoaded += OnDOMContentLoadedIntern;
+            this.WebView.WebResourceResponseReceived += OnWebResourceResponseReceivedIntern;
             this._Settings = new WebView2Settings(this.WebView.Settings);
             this.WebView.AddRemoteObject(HostHelperName,ref this.HostHelper);
             
@@ -186,9 +190,21 @@ namespace Diga.WebView2.Wrapper
                 this.WebView.WebMessageReceived -= OnWebMessageReceivedIntern;
                 this.WebView.WindowCloseRequested -= OnWindowCloseRequestedIntern;
                 this.WebView.ScriptToExecuteOnDocumentCreated -= OnScriptToExecuteOnDocumentCreatedIntern;
-
+                this.WebView.DOMContentLoaded -= OnDOMContentLoadedIntern;
+                this.WebView.WebResourceResponseReceived -= OnWebResourceResponseReceivedIntern;
             }
         }
+
+        private void OnWebResourceResponseReceivedIntern(object sender, WebResourceResponseReceivedEventArgs e)
+        {
+            OnWebResourceResponseReceived(e);
+        }
+
+        private void OnDOMContentLoadedIntern(object sender, DOMContentLoadedEventArgs e)
+        {
+            OnDomContentLoaded(e);
+        }
+
         private void OnFrameNavigationCompletedIntern(object sender, NavigationCompletedEventArgs e)
         {
             OnFrameNavigationCompleted(e);
@@ -313,7 +329,7 @@ namespace Diga.WebView2.Wrapper
         }
 
         private WebView2Controller Controller { get; set; }
-
+        public CookieManager GetCookieManager =>  new CookieManager( this.WebView.CookieManager);
         public void DockToParent()
         {
             if(this.ParentHandle == IntPtr.Zero) return;
@@ -372,16 +388,21 @@ namespace Diga.WebView2.Wrapper
                 var keyValue = this._RemoteObjects.ElementAt(0);
                 this.RemoveRemoteObject(keyValue.Key);
             }
-
+            UnWireEvents();
+            RefCounter -= 1;
             this.ParentHandle = IntPtr.Zero;
+            if (RefCounter <= 0)
+                this.Close();
+            this.WebView?.Dispose();
             this.Controller?.Dispose();
             this.Environment?.Dispose();
-            this.WebView?.Dispose();
+            
            
         }
         public void Dispose()
         {
             UnWireEvents();
+            
             
         }
 
@@ -620,6 +641,16 @@ namespace Diga.WebView2.Wrapper
         protected virtual void OnBeforeEnvironmentCompleted(EnvironmentCompletedHandlerArgs e)
         {
             BeforeEnvironmentCompleted?.Invoke(this, e);
+        }
+
+        protected virtual void OnDomContentLoaded(DOMContentLoadedEventArgs e)
+        {
+            DOMContentLoaded?.Invoke(this, e);
+        }
+
+        protected virtual void OnWebResourceResponseReceived(WebResourceResponseReceivedEventArgs e)
+        {
+            WebResourceResponseReceived?.Invoke(this, e);
         }
     }
 }

@@ -37,11 +37,11 @@
     <AssemblyOriginatorKeyFile>WinFormsSign.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MimeTypeExtension, Version=1.0.22.1, Culture=neutral, PublicKeyToken=5bccdf24b37e4bab, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\MimeTypeExtension.1.0.23\lib\netstandard2.0\MimeTypeExtension.dll</HintPath>
+    <Reference Include="MimeTypeExtension, Version=1.0.24.1, Culture=neutral, PublicKeyToken=5bccdf24b37e4bab, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MimeTypeExtension.1.0.24\lib\net472\MimeTypeExtension.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

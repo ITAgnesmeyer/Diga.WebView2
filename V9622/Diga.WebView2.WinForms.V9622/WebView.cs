@@ -303,6 +303,7 @@ namespace Diga.WebView2.WinForms
 
         }
 
+     
         public void SendMessage(string message)
         {
             this._WebViewControl.PostWebMessageAsString(message);

@@ -57,6 +57,9 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>
             ScriptToExecuteOnDocumentCreatedCompleted;
 
+        public event EventHandler<DOMContentLoadedEventArgs> DOMContentLoaded;
+        public event EventHandler<WebResourceResponseReceivedEventArgs> WebResourceResponseReceived;
+
         public event EventHandler WebViewCreated;
 
         public event EventHandler BeforeWebViewDestroy;
@@ -196,6 +199,18 @@ namespace Diga.WebView2.WinForms
             }
         }
 
+        public CookieManager GetCookieManager
+        {
+            get
+            {
+                if (this.IsCreated)
+                    return this._WebViewControl.GetCookieManager;
+                return null;
+
+            } 
+
+            
+        }
         public async Task<Image> CapturePreviewAsImageAsync(ImageFormat imageFormat)
         {
             using (var stream = new MemoryStream())
@@ -323,6 +338,11 @@ namespace Diga.WebView2.WinForms
             if (!this.IsCreated) return;
             this._WebViewControl.AddRemoteObject(name,  @object);
         }
+
+        public void Reload()
+        {
+            this._WebViewControl.Reload();
+        }
         public void RemoveRemoteObject(string name)
         {
             this._WebViewControl.RemoveRemoteObject(name);
@@ -419,10 +439,21 @@ namespace Diga.WebView2.WinForms
                 this._WebViewControl.HistoryChanged += OnHistoryChangedIntern;
                 this._WebViewControl.NavigationCompleted += OnNavigationCompletedIntern;
                 this._WebViewControl.NewBrowserVersionAvailable += OnNewBrowserVersionAvailableIntern;
-                
+                this._WebViewControl.DOMContentLoaded += OnDOMContentLoadedIntern;
+                this._WebViewControl.WebResourceResponseReceived += WebResourceResponseReceivedIntern;
 
 
             }
+        }
+
+        private void WebResourceResponseReceivedIntern(object sender, WebResourceResponseReceivedEventArgs e)
+        {
+            OnWebResourceResponseReceived(e);
+        }
+
+        private void OnDOMContentLoadedIntern(object sender, DOMContentLoadedEventArgs e)
+        {
+            OnDomContentLoaded(e);
         }
 
         private void OnNewBrowserVersionAvailableIntern(object sender, WebView2EventArgs e)
@@ -753,6 +784,16 @@ namespace Diga.WebView2.WinForms
         protected virtual void OnBeforeWebViewDestroy()
         {
             BeforeWebViewDestroy?.Invoke(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnDomContentLoaded(DOMContentLoadedEventArgs e)
+        {
+            DOMContentLoaded?.Invoke(this, e);
+        }
+
+        protected virtual void OnWebResourceResponseReceived(WebResourceResponseReceivedEventArgs e)
+        {
+            WebResourceResponseReceived?.Invoke(this, e);
         }
     }
 }

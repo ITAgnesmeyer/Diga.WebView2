@@ -22,7 +22,7 @@
     <EmbeddedResource Include="..\Diga.WebView2.WinForms.V1077444\WebView.resx" Link="WebView.resx" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MimeTypeExtension" Version="1.0.23" />
+    <PackageReference Include="MimeTypeExtension" Version="1.0.24" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Diga.WebView2.Wrapper.Std.V1077444\Diga.WebView2.Wrapper.Std.V1077444.csproj" />

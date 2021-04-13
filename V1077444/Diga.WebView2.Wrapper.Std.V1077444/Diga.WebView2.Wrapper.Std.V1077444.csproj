@@ -14,6 +14,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Cookie.cs" Link="Cookie.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V1077444\CookieList.cs" Link="CookieList.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V1077444\CookieManager.cs" Link="CookieManager.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Delegates\CapturePreviewCompletedDelegate.cs" Link="Delegates\CapturePreviewCompletedDelegate.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Delegates\ExecuteScriptCompletedDelegate.cs" Link="Delegates\ExecuteScriptCompletedDelegate.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\ErrorStatus.cs" Link="ErrorStatus.cs" />
@@ -24,8 +27,10 @@
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\EventArguments\ContentLoadingEventArgs.cs" Link="EventArguments\ContentLoadingEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\EventArguments\ControllerCompletedArgs.cs" Link="EventArguments\ControllerCompletedArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\EventArguments\ControllerCompletedErrorArgs.cs" Link="EventArguments\ControllerCompletedErrorArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V1077444\EventArguments\DOMContentLoadedArgs.cs" Link="EventArguments\DOMContentLoadedArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\EventArguments\EnvironmentCompletedHandlerArgs.cs" Link="EventArguments\EnvironmentCompletedHandlerArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\EventArguments\ExecuteScriptCompletedEventArgs.cs" Link="EventArguments\ExecuteScriptCompletedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V1077444\EventArguments\GetCookiesCompleteEventArgs.cs" Link="EventArguments\GetCookiesCompleteEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\EventArguments\MoveFocusRequestedEventArgs.cs" Link="EventArguments\MoveFocusRequestedEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\EventArguments\NavigationCompletedEventArgs.cs" Link="EventArguments\NavigationCompletedEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\EventArguments\NavigationStartingEventArgs.cs" Link="EventArguments\NavigationStartingEventArgs.cs" />
@@ -36,7 +41,9 @@
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\EventArguments\SourceChangedEventArgs.cs" Link="EventArguments\SourceChangedEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\EventArguments\WebMessageReceivedEventArgs.cs" Link="EventArguments\WebMessageReceivedEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\EventArguments\WebResourceRequestedEventArgs.cs" Link="EventArguments\WebResourceRequestedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V1077444\EventArguments\WebResourceResponseReceivedEventArgs.cs" Link="EventArguments\WebResourceResponseReceivedEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\EventArguments\WebView2EventArgs.cs" Link="EventArguments\WebView2EventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V1077444\EventArguments\WebView2StreamEventArgs.cs" Link="EventArguments\WebView2StreamEventArgs.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\FocusReason.cs" Link="FocusReason.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Handler\AcceleratorKeyPressedEventHandler.cs" Link="Handler\AcceleratorKeyPressedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Handler\AddScriptToExecuteOnDocumentCreatedCompletedHandler.cs" Link="Handler\AddScriptToExecuteOnDocumentCreatedCompletedHandler.cs" />
@@ -44,9 +51,11 @@
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Handler\ContentLoadingEventHandler.cs" Link="Handler\ContentLoadingEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Handler\ControllerCompletedHandler.cs" Link="Handler\ControllerCompletedHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Handler\DocumentTitleChangedHandler.cs" Link="Handler\DocumentTitleChangedHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Handler\DOMContentLoadedEventHandler.cs" Link="Handler\DOMContentLoadedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Handler\EnvironmentCompletedHandler.cs" Link="Handler\EnvironmentCompletedHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Handler\ExecuteScriptCompletedHandler.cs" Link="Handler\ExecuteScriptCompletedHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Handler\FocusChangedEventHandler.cs" Link="Handler\FocusChangedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Handler\GetCookiesCompletedHandler.cs" Link="Handler\GetCookiesCompletedHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Handler\HistoryChangedEventHandler.cs" Link="Handler\HistoryChangedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Handler\MoveFocusRequestedEventHandler.cs" Link="Handler\MoveFocusRequestedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Handler\NavigationCompletedEventHandler.cs" Link="Handler\NavigationCompletedEventHandler.cs" />
@@ -59,6 +68,8 @@
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Handler\SourceChangedEventHandler.cs" Link="Handler\SourceChangedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Handler\WebMessageReceivedEventHandler.cs" Link="Handler\WebMessageReceivedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Handler\WebResourceRequestedEventHandler.cs" Link="Handler\WebResourceRequestedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Handler\WebResourceResponseReceivedEventHandler.cs" Link="Handler\WebResourceResponseReceivedEventHandler.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Handler\WebResourceResponseViewGetContentCompletedHandler.cs" Link="Handler\WebResourceResponseViewGetContentCompletedHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Handler\WindowCloseRequestedHandler.cs" Link="Handler\WindowCloseRequestedHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\Handler\ZoomFactorChangedEventHandler.cs" Link="Handler\ZoomFactorChangedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\HeaderItem.cs" Link="HeaderItem.cs" />
@@ -88,6 +99,7 @@
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\WebResourceContext.cs" Link="WebResourceContext.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\WebResourceRequest.cs" Link="WebResourceRequest.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\WebResourceResponse.cs" Link="WebResourceResponse.cs" />
+    <Compile Include="..\Diga.WebView2.Wrapper.V1077444\WebResourceResponseView.cs" Link="WebResourceResponseView.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\WebView2Control.cs" Link="WebView2Control.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\WebView2Controller.cs" Link="WebView2Controller.cs" />
     <Compile Include="..\Diga.WebView2.Wrapper.V1077444\WebView2Environment.cs" Link="WebView2Environment.cs" />

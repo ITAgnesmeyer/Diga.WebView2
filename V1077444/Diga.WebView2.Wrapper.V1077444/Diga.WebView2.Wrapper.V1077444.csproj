@@ -52,6 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cookie.cs" />
+    <Compile Include="CookieList.cs" />
+    <Compile Include="CookieManager.cs" />
     <Compile Include="Delegates\CapturePreviewCompletedDelegate.cs" />
     <Compile Include="Delegates\ExecuteScriptCompletedDelegate.cs" />
     <Compile Include="ErrorStatus.cs" />
@@ -62,6 +65,7 @@
     <Compile Include="EventArguments\ContentLoadingEventArgs.cs" />
     <Compile Include="EventArguments\ControllerCompletedArgs.cs" />
     <Compile Include="EventArguments\ControllerCompletedErrorArgs.cs" />
+    <Compile Include="EventArguments\DOMContentLoadedArgs.cs" />
     <Compile Include="EventArguments\EnvironmentCompletedHandlerArgs.cs" />
     <Compile Include="EventArguments\ExecuteScriptCompletedEventArgs.cs" />
     <Compile Include="EventArguments\MoveFocusRequestedEventArgs.cs" />
@@ -74,14 +78,19 @@
     <Compile Include="EventArguments\SourceChangedEventArgs.cs" />
     <Compile Include="EventArguments\WebMessageReceivedEventArgs.cs" />
     <Compile Include="EventArguments\WebResourceRequestedEventArgs.cs" />
+    <Compile Include="EventArguments\WebResourceResponseReceivedEventArgs.cs" />
     <Compile Include="EventArguments\WebView2EventArgs.cs" />
+    <Compile Include="EventArguments\WebView2StreamEventArgs.cs" />
     <Compile Include="FocusReason.cs" />
+    <Compile Include="Handler\GetCookiesCompletedHandler.cs" />
+    <Compile Include="EventArguments\GetCookiesCompleteEventArgs.cs" />
     <Compile Include="Handler\AcceleratorKeyPressedEventHandler.cs" />
     <Compile Include="Handler\AddScriptToExecuteOnDocumentCreatedCompletedHandler.cs" />
     <Compile Include="Handler\ContainsFullScreenElementChangedEventHandler.cs" />
     <Compile Include="Handler\ContentLoadingEventHandler.cs" />
     <Compile Include="Handler\ControllerCompletedHandler.cs" />
     <Compile Include="Handler\DocumentTitleChangedHandler.cs" />
+    <Compile Include="Handler\DOMContentLoadedEventHandler.cs" />
     <Compile Include="Handler\EnvironmentCompletedHandler.cs" />
     <Compile Include="Handler\ExecuteScriptCompletedHandler.cs" />
     <Compile Include="Handler\FocusChangedEventHandler.cs" />
@@ -97,6 +106,8 @@
     <Compile Include="Handler\SourceChangedEventHandler.cs" />
     <Compile Include="Handler\WebMessageReceivedEventHandler.cs" />
     <Compile Include="Handler\WebResourceRequestedEventHandler.cs" />
+    <Compile Include="Handler\WebResourceResponseReceivedEventHandler.cs" />
+    <Compile Include="Handler\WebResourceResponseViewGetContentCompletedHandler.cs" />
     <Compile Include="Handler\WindowCloseRequestedHandler.cs" />
     <Compile Include="Handler\ZoomFactorChangedEventHandler.cs" />
     <Compile Include="HeaderItem.cs" />
@@ -124,6 +135,7 @@
     <Compile Include="WebResourceContext.cs" />
     <Compile Include="WebResourceRequest.cs" />
     <Compile Include="WebResourceResponse.cs" />
+    <Compile Include="WebResourceResponseView.cs" />
     <Compile Include="WebView2Control.cs" />
     <Compile Include="WebView2Controller.cs" />
     <Compile Include="WebView2Environment.cs" />
