@@ -116,7 +116,7 @@ This means the version of the WebView2 packages.
 - V9622 => [microsoft.web.webview2 1.0.622.22](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.622.22)
 - V10664 => [microsoft.web.webview2 1.0.664.37](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.664.37)
 - V1077444 => [microsoft.web.webview2 1.0.774.44](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.774.44)
-- V1086444 => [microsoft.web.webview2 1.0.864.35](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.864.35)
+- V1086435 => [microsoft.web.webview2 1.0.864.35](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.864.35)
 
 ### How were the interop sources created?
 The Microsoft microsoft.web.webview2 package contains webview2.tlb.
