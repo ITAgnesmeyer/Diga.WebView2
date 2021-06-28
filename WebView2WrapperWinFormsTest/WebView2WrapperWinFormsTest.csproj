@@ -105,17 +105,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\V1077444\Diga.WebView2.Interop.V1077444\Diga.WebView2.Interop.V1077444.csproj">
-      <Project>{528de4ae-4534-4576-af86-db9e870ab670}</Project>
-      <Name>Diga.WebView2.Interop.V1077444</Name>
+    <ProjectReference Include="..\V1086435\Diga.WebView2.Interop.V1086435\Diga.WebView2.Interop.V1086435.csproj">
+      <Project>{36611726-905e-4798-b2b7-49de78eecde7}</Project>
+      <Name>Diga.WebView2.Interop.V1086435</Name>
     </ProjectReference>
-    <ProjectReference Include="..\V1077444\Diga.WebView2.WinForms.V1077444\Diga.WebView2.WinForms.V1077444.csproj">
-      <Project>{dd39a887-9085-4299-b94a-dfc1f909882f}</Project>
-      <Name>Diga.WebView2.WinForms.V1077444</Name>
+    <ProjectReference Include="..\V1086435\Diga.WebView2.WinForms.V1086435\Diga.WebView2.WinForms.V1086435.csproj">
+      <Project>{77a8db7b-30a6-42a0-a8f6-482bb49eb3ec}</Project>
+      <Name>Diga.WebView2.WinForms.V1086435</Name>
     </ProjectReference>
-    <ProjectReference Include="..\V1077444\Diga.WebView2.Wrapper.V1077444\Diga.WebView2.Wrapper.V1077444.csproj">
-      <Project>{126e416e-7c5d-473b-9710-bc70f57f37c5}</Project>
-      <Name>Diga.WebView2.Wrapper.V1077444</Name>
+    <ProjectReference Include="..\V1086435\Diga.WebView2.Wrapper.V1086435\Diga.WebView2.Wrapper.V1086435.csproj">
+      <Project>{5154311c-993b-4269-b45b-5c9209078452}</Project>
+      <Name>Diga.WebView2.Wrapper.V1086435</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

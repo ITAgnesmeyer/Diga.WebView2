@@ -15,20 +15,20 @@
     <AssemblyName>Diga.WebView2.WinForms.Core</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Diga.WebView2.WinForms.V1077444\WebView.cs" Link="WebView.cs" />
-    <Compile Include="..\Diga.WebView2.WinForms.V1077444\WebView.Designer.cs" Link="WebView.Designer.cs" />
+    <Compile Include="..\Diga.WebView2.WinForms.V1086435\WebView.cs" Link="WebView.cs" />
+    <Compile Include="..\Diga.WebView2.WinForms.V1086435\WebView.Designer.cs" Link="WebView.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\Diga.WebView2.WinForms.V1077444\WebView.resx" Link="WebView.resx" />
+    <EmbeddedResource Include="..\Diga.WebView2.WinForms.V1086435\WebView.resx" Link="WebView.resx" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MimeTypeExtension" Version="1.0.24" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Diga.WebView2.Wrapper.Std.V1077444\Diga.WebView2.Wrapper.Std.V1077444.csproj" />
+    <ProjectReference Include="..\Diga.WebView2.Wrapper.Std.V1086435\Diga.WebView2.Wrapper.Std.V1086435.csproj" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.WinForms\V1077444\lib\netcoreapp3.1\$(TargetFileName)&#xD;&#xA;" />
+    <Exec Command="copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.WinForms\V1086435\lib\netcoreapp3.1\$(TargetFileName)&#xD;&#xA;" />
   </Target>
 
 </Project>

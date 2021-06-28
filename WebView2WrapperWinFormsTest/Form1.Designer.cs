@@ -39,7 +39,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.webView1 = new Diga.WebView2.WinForms.WebView();
-            this.webView2 = new Diga.WebView2.WinForms.WebView();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -154,7 +153,6 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.webView2);
             this.panel2.Controls.Add(this.webView1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 32);
@@ -168,7 +166,7 @@
             this.webView1.DefaultContextMenusEnabled = false;
             this.webView1.DefaultScriptDialogsEnabled = true;
             this.webView1.DevToolsEnabled = true;
-            this.webView1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.webView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webView1.EnableMonitoring = true;
             this.webView1.HtmlContent = null;
             this.webView1.IsCreated = false;
@@ -181,7 +179,7 @@
             this.webView1.MonitoringUrl = "https://5b834d57-0891-4730-b6ba-c793b4e76468/";
             this.webView1.Name = "webView1";
             this.webView1.RemoteObjectsAllowed = true;
-            this.webView1.Size = new System.Drawing.Size(267, 418);
+            this.webView1.Size = new System.Drawing.Size(1021, 418);
             this.webView1.TabIndex = 0;
             this.webView1.Url = "https://5b834d57-0891-4730-b6ba-c793b4e76468";
             this.webView1.NavigationStart += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.NavigationStartingEventArgs>(this.webView1_NavigationStart);
@@ -206,29 +204,6 @@
             this.webView1.WebResourceResponseReceived += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebResourceResponseReceivedEventArgs>(this.webView1_WebResourceResponseReceived);
             this.webView1.WebViewCreated += new System.EventHandler(this.webView1_WebViewCreated);
             this.webView1.BeforeWebViewDestroy += new System.EventHandler(this.webView1_BeforeWebViewDestroy);
-            // 
-            // webView2
-            // 
-            this.webView2.BackColor = System.Drawing.Color.Black;
-            this.webView2.DefaultContextMenusEnabled = false;
-            this.webView2.DefaultScriptDialogsEnabled = true;
-            this.webView2.DevToolsEnabled = true;
-            this.webView2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.webView2.EnableMonitoring = true;
-            this.webView2.HtmlContent = null;
-            this.webView2.IsCreated = false;
-            this.webView2.IsScriptEnabled = true;
-            this.webView2.IsStatusBarEnabled = false;
-            this.webView2.IsWebMessageEnabled = true;
-            this.webView2.IsZoomControlEnabled = true;
-            this.webView2.Location = new System.Drawing.Point(267, 0);
-            this.webView2.MonitoringFolder = ".\\wwwroot";
-            this.webView2.MonitoringUrl = "https://5b834d57-0891-4730-b6ba-c793b4e76468/";
-            this.webView2.Name = "webView2";
-            this.webView2.RemoteObjectsAllowed = true;
-            this.webView2.Size = new System.Drawing.Size(751, 418);
-            this.webView2.TabIndex = 1;
-            this.webView2.Url = "https://5b834d57-0891-4730-b6ba-c793b4e76468";
             // 
             // Form1
             // 
@@ -261,7 +236,6 @@
         private System.Windows.Forms.Button bnScript;
         private System.Windows.Forms.Button bnCapture;
         private System.Windows.Forms.Button bnPostMessage;
-        private Diga.WebView2.WinForms.WebView webView2;
     }
 }
 

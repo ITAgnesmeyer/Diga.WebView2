@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{126E416E-7C5D-473B-9710-BC70F57F37C5}</ProjectGuid>
+    <ProjectGuid>{5154311C-993B-4269-B45B-5C9209078452}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Diga.WebView2.Wrapper</RootNamespace>
     <AssemblyName>Diga.WebView2.Wrapper</AssemblyName>
@@ -164,14 +164,14 @@
     <None Include="WrapperSign.snk" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Diga.WebView2.Interop.V1077444\Diga.WebView2.Interop.V1077444.csproj">
-      <Project>{528de4ae-4534-4576-af86-db9e870ab670}</Project>
-      <Name>Diga.WebView2.Interop.V1077444</Name>
+    <ProjectReference Include="..\Diga.WebView2.Interop.V1086435\Diga.WebView2.Interop.V1086435.csproj">
+      <Project>{36611726-905e-4798-b2b7-49de78eecde7}</Project>
+      <Name>Diga.WebView2.Interop.V1086435</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.Wrapper\V1077444\lib\net472\$(TargetFileName)
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.Wrapper\V1086435\lib\net472\$(TargetFileName)
 </PostBuildEvent>
   </PropertyGroup>
 </Project>
