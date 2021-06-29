@@ -23,7 +23,12 @@ rem nuget.exe pack Diga.WebView2.Interop\V9622\Diga.WebView2.Interop.nuspec
 rem nuget.exe pack Diga.WebView2.Wrapper\V9622\Diga.WebView2.Wrapper.nuspec
 rem nuget.exe pack Diga.WebView2.WinForms\V9622\Diga.WebView2.WinForms.nuspec
 
-nuget.exe pack Diga.WebView2.Interop\V1077444\Diga.WebView2.Interop.nuspec
-nuget.exe pack Diga.WebView2.Wrapper\V1077444\Diga.WebView2.Wrapper.nuspec
-nuget.exe pack Diga.WebView2.WinForms\V1077444\Diga.WebView2.WinForms.nuspec
+rem nuget.exe pack Diga.WebView2.Interop\V1077444\Diga.WebView2.Interop.nuspec
+rem nuget.exe pack Diga.WebView2.Wrapper\V1077444\Diga.WebView2.Wrapper.nuspec
+rem nuget.exe pack Diga.WebView2.WinForms\V1077444\Diga.WebView2.WinForms.nuspec
+
+nuget.exe pack Diga.WebView2.Interop\V1086435\Diga.WebView2.Interop.nuspec
+nuget.exe pack Diga.WebView2.Wrapper\V1086435\Diga.WebView2.Wrapper.nuspec
+nuget.exe pack Diga.WebView2.WinForms\V1086435\Diga.WebView2.WinForms.nuspec
+
 pause

@@ -94,10 +94,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Diga.WebView2.Interop.Std.V9488\Diga.WebView2.Interop.Std.V9488.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="native\x64\WebView2Loader.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

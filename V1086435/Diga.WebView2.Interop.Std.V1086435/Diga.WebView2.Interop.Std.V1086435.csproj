@@ -98,6 +98,7 @@
     <Compile Include="..\Diga.WebView2.Interop.V1086435\ICoreWebView2PermissionRequestedEventHandler.cs" Link="ICoreWebView2PermissionRequestedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Interop.V1086435\ICoreWebView2PointerInfo.cs" Link="ICoreWebView2PointerInfo.cs" />
     <Compile Include="..\Diga.WebView2.Interop.V1086435\ICoreWebView2ProcessFailedEventArgs.cs" Link="ICoreWebView2ProcessFailedEventArgs.cs" />
+    <Compile Include="..\Diga.WebView2.Interop.V1086435\ICoreWebView2ProcessFailedEventArgs2.cs" Link="ICoreWebView2ProcessFailedEventArgs2.cs" />
     <Compile Include="..\Diga.WebView2.Interop.V1086435\ICoreWebView2ProcessFailedEventHandler.cs" Link="ICoreWebView2ProcessFailedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Interop.V1086435\ICoreWebView2RasterizationScaleChangedEventHandler.cs" Link="ICoreWebView2RasterizationScaleChangedEventHandler.cs" />
     <Compile Include="..\Diga.WebView2.Interop.V1086435\ICoreWebView2ScriptDialogOpeningEventArgs.cs" Link="ICoreWebView2ScriptDialogOpeningEventArgs.cs" />
