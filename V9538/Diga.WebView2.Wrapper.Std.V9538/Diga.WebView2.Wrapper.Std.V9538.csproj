@@ -93,12 +93,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Diga.WebView2.Interop.Std.V9538\Diga.WebView2.Interop.Std.V9538.csproj">
-      <Private>true</Private>
-    </ProjectReference>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="native\LICENSE.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

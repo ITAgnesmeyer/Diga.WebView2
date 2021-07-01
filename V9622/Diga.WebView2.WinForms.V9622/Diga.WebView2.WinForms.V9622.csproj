@@ -65,10 +65,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Diga.WebView2.Interop.V9622\Diga.WebView2.Interop.V9622.csproj">
-      <Project>{46c1fc7a-781c-4105-a550-73d27d49fb88}</Project>
-      <Name>Diga.WebView2.Interop.V9622</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Diga.WebView2.Wrapper.V9622\Diga.WebView2.Wrapper.V9622.csproj">
       <Project>{50b22b5d-7151-4fdc-9fc0-0cda7231d40e}</Project>
       <Name>Diga.WebView2.Wrapper.V9622</Name>

@@ -8,7 +8,7 @@ namespace Diga.WebView2.Wrapper.EventArguments
 
         public BeforeCreateEventArgs(ICoreWebView2Settings settings)
         {
-            this.Settings = new WebView2Settings(settings);
+            this.Settings = new WebView2Settings((ICoreWebView2Settings3)settings);
         }
     }
 }

@@ -146,12 +146,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Diga.WebView2.Interop.V109634\Diga.WebView2.Interop.V106634.csproj">
-      <Project>{787bbd62-c22f-4e30-9620-ed5bfd725299}</Project>
-      <Name>Diga.WebView2.Interop.V106634</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="WrapperSign.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

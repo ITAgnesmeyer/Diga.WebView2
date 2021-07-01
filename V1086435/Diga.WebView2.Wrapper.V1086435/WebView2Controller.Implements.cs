@@ -1,7 +1,10 @@
-﻿using Diga.WebView2.Interop;
+﻿using System;
+using Diga.WebView2.Interop;
 
 namespace Diga.WebView2.Wrapper
 {
+    
+
     public partial class WebView2Controller : ICoreWebView2Controller3
     {
         private ICoreWebView2Controller3 _Controller;
@@ -194,6 +197,7 @@ namespace Diga.WebView2.Wrapper
         {
             ((ICoreWebView2Controller)this._Controller).remove_AcceleratorKeyPressed(token);
         }
+
 
        
     }

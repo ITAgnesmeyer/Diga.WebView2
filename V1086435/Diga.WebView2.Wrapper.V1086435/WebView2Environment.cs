@@ -28,6 +28,11 @@ namespace Diga.WebView2.Wrapper
             return _Interface;
         }
 
+        public WebView2PointerInfo CreateCoreWebView2PointerInfo()
+        {
+            return new WebView2PointerInfo(this._Interface.CreateCoreWebView2PointerInfo());
+        }
+
         private void RegisterEvents()
         {
             //add_NewBrowserVersionAvailable
@@ -70,6 +75,12 @@ namespace Diga.WebView2.Wrapper
         public void CreateCoreWebView2Controller(IntPtr ParentWindow, [MarshalAs(UnmanagedType.Interface)] ICoreWebView2CreateCoreWebView2ControllerCompletedHandler handler)
         {
             _Interface.CreateCoreWebView2Controller(ParentWindow, handler);
+        }
+
+        public void CreateCoreWebView2CompositionController(IntPtr ParentWindow,
+            [MarshalAs(UnmanagedType.Interface)] ICoreWebView2CreateCoreWebView2CompositionControllerCompletedHandler handler)
+        {
+            this._Interface.CreateCoreWebView2CompositionController(ParentWindow, handler);
         }
 
         public object GetProviderForHwnd(IntPtr hwnd)

@@ -51,7 +51,7 @@ namespace Diga.WebView2.Wrapper
         private string _BrowserInfo;
         private object HostHelper;
         private const string HostHelperName = "{60A417CA-F1AB-4307-801B-F96003F8938B} Host Object Helper";
-        private Dictionary<string, object> _RemoteObjects = new Dictionary<string, object>();
+        private readonly Dictionary<string, object> _RemoteObjects = new Dictionary<string, object>();
 
         private WebView2Environment Environment { get; set; }
         public WebView2Control(IntPtr parentHandle) : this(parentHandle, string.Empty, string.Empty, string.Empty)
@@ -126,6 +126,7 @@ namespace Diga.WebView2.Wrapper
             this.Controller.LostFocus += OnLostFocusIntern;
             this.Controller.MoveFocusRequested += OnMoveFocusRequestedIntern;
             this.Controller.ZoomFactorChanged += OnZoomFactorChangedIntern;
+            
 
             this.WebView = new WebView2View((ICoreWebView2_3)e.WebView);
             this.WebView.NavigationStarting += OnNavigateStartIntern;
@@ -148,6 +149,7 @@ namespace Diga.WebView2.Wrapper
             this.WebView.ScriptToExecuteOnDocumentCreated += OnScriptToExecuteOnDocumentCreatedIntern;
             this.WebView.DOMContentLoaded += OnDOMContentLoadedIntern;
             this.WebView.WebResourceResponseReceived += OnWebResourceResponseReceivedIntern;
+            
             this._Settings = new WebView2Settings(this.WebView.Settings);
             this.WebView.AddRemoteObject(HostHelperName,ref this.HostHelper);
             
@@ -333,8 +335,7 @@ namespace Diga.WebView2.Wrapper
         public void DockToParent()
         {
             if(this.ParentHandle == IntPtr.Zero) return;
-            tagRECT rect;
-            Native.GetClientRect(this.ParentHandle, out rect);
+            Native.GetClientRect(this.ParentHandle, out var rect);
             this.Controller.Bounds = rect;
         }
 

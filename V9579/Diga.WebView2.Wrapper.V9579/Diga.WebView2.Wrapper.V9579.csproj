@@ -121,12 +121,6 @@
     <Compile Include="WebView2View.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Diga.WebView2.Interop.V9579\Diga.WebView2.Interop.V9579.csproj">
-      <Project>{3c6318e8-cba5-4e7c-a190-d47d4a28fed6}</Project>
-      <Name>Diga.WebView2.Interop.V9579</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="native\x64\WebView2Loader.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

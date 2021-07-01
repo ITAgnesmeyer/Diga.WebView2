@@ -318,7 +318,7 @@ namespace Diga.WebView2.Wrapper
         }
 
 
-        public WebView2Settings Settings => new WebView2Settings(this.ToInterface().Settings);
+        public WebView2Settings Settings => new WebView2Settings((ICoreWebView2Settings3)this.ToInterface().Settings);
 
 
         public string Source => this.ToInterface().Source;
@@ -421,6 +421,7 @@ namespace Diga.WebView2.Wrapper
         public void GoBack()
         {
             this.ToInterface().GoBack();
+            
         }
 
 

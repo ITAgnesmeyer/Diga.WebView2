@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.EventArguments
 {
     public class GetCookiesCompleteEventArgs : EventArgs
     {

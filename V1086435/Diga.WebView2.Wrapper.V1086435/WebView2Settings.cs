@@ -1,13 +1,14 @@
 ﻿using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
 {
-    public class WebView2Settings : ICoreWebView2Settings
+    public class WebView2Settings : ICoreWebView2Settings3
     {
-        private ICoreWebView2Settings _Settings;
+        private readonly ICoreWebView2Settings3 _Settings;
 
-        public WebView2Settings(ICoreWebView2Settings settings)
+        public WebView2Settings(ICoreWebView2Settings3 settings)
         {
             this._Settings = settings;
         }
@@ -67,5 +68,16 @@ namespace Diga.WebView2.Wrapper
             set => this._Settings.IsBuiltInErrorPageEnabled = value;
         }
 
+        public string UserAgent
+        {
+            get => this._Settings.UserAgent;
+            set => this._Settings.UserAgent = value;
+        }
+
+        public int AreBrowserAcceleratorKeysEnabled
+        {
+            get=> this._Settings.AreBrowserAcceleratorKeysEnabled; 
+            set=> this._Settings.AreBrowserAcceleratorKeysEnabled = value;
+        }
     }
 }

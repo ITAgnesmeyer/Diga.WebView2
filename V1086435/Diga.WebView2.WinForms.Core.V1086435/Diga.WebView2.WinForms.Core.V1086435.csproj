@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>Diga.WebView2.WinForms</RootNamespace>
-    <Version>8.0.1</Version>
+    <Version>9.0.1</Version>
     <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
     <Product>Diga.WebView2.WinForms.Core</Product>
     <Copyright>Copyright © 2021 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
@@ -25,6 +25,7 @@
     <PackageReference Include="MimeTypeExtension" Version="1.0.24" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Diga.WebView2.Interop.Std.V1086435\Diga.WebView2.Interop.Std.V1086435.csproj" />
     <ProjectReference Include="..\Diga.WebView2.Wrapper.Std.V1086435\Diga.WebView2.Wrapper.Std.V1086435.csproj" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

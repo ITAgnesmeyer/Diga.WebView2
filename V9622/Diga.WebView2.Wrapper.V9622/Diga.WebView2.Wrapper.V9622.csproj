@@ -139,12 +139,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Diga.WebView2.Interop.V9622\Diga.WebView2.Interop.V9622.csproj">
-      <Project>{46c1fc7a-781c-4105-a550-73d27d49fb88}</Project>
-      <Name>Diga.WebView2.Interop.V9622</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

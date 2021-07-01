@@ -6,7 +6,7 @@ namespace Diga.WebView2.Wrapper
     public class WebResourceRequest : ICoreWebView2WebResourceRequest
     {
 
-        private ICoreWebView2WebResourceRequest _Interface;
+        private readonly ICoreWebView2WebResourceRequest _Interface;
 
         public WebResourceRequest(ICoreWebView2WebResourceRequest iface)
         {

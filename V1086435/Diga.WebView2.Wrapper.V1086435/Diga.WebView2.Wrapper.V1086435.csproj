@@ -82,6 +82,10 @@
     <Compile Include="EventArguments\WebView2EventArgs.cs" />
     <Compile Include="EventArguments\WebView2StreamEventArgs.cs" />
     <Compile Include="FocusReason.cs" />
+    <Compile Include="EventArguments\CursorChangedEventArgs.cs" />
+    <Compile Include="EventArguments\CompositionControllerCompletedEventArgs.cs" />
+    <Compile Include="Handler\CompositionControllerCompletedHandler.cs" />
+    <Compile Include="Handler\CursorChangedEventHandler.cs" />
     <Compile Include="Handler\GetCookiesCompletedHandler.cs" />
     <Compile Include="EventArguments\GetCookiesCompleteEventArgs.cs" />
     <Compile Include="Handler\AcceleratorKeyPressedEventHandler.cs" />
@@ -115,9 +119,12 @@
     <Compile Include="HttpRequestHeaders.cs" />
     <Compile Include="HttpResponseHeaders.cs" />
     <Compile Include="ImageFormat.cs" />
+    <Compile Include="interop\Native32.cs" />
+    <Compile Include="interop\Native64.cs" />
+    <Compile Include="interop\NativeArm64.cs" />
     <Compile Include="KeyEventType.cs" />
     <Compile Include="MoveFocusReason.cs" />
-    <Compile Include="Native.cs" />
+    <Compile Include="interop\Native.cs" />
     <Compile Include="PermissionState.cs" />
     <Compile Include="PermissionType.cs" />
     <Compile Include="PhysicalKeyStatus.cs" />
@@ -130,18 +137,23 @@
     <Compile Include="Types\CBOOL.cs" />
     <Compile Include="Types\HostObjectHelper.cs" />
     <Compile Include="Types\HRESULT.cs" />
+    <Compile Include="Types\Point.cs" />
     <Compile Include="Types\ProcessorArch.cs" />
     <Compile Include="Types\Rectangle.cs" />
     <Compile Include="WebResourceContext.cs" />
     <Compile Include="WebResourceRequest.cs" />
     <Compile Include="WebResourceResponse.cs" />
     <Compile Include="WebResourceResponseView.cs" />
+    <Compile Include="WebView2CompositionController.Implements.cs" />
+    <Compile Include="WebView2CompositionController.cs" />
     <Compile Include="WebView2Control.cs" />
     <Compile Include="WebView2Controller.cs" />
     <Compile Include="WebView2Controller.Implements.cs" />
     <Compile Include="WebView2Environment.cs" />
     <Compile Include="WebView2Environment.Implements.cs" />
     <Compile Include="WebView2EnvironmentOptions.cs" />
+    <Compile Include="WebView2PointerInfo.cs" />
+    <Compile Include="WebView2PointerInfo.Implements.cs" />
     <Compile Include="WebView2Settings.cs" />
     <Compile Include="WebView2View.cs" />
     <Compile Include="WebView2View.Implements.cs" />
@@ -169,6 +181,7 @@
       <Name>Diga.WebView2.Interop.V1086435</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetPath) $(SolutionDir)package_create_folder\Diga.WebView2.Wrapper\V1086435\lib\net472\$(TargetFileName)

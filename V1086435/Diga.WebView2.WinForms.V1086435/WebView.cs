@@ -28,7 +28,7 @@ namespace Diga.WebView2.WinForms
         private bool _IsZoomControlEnabled = true;
 
         private bool _IsScriptEnabled = true;
-
+        
         private bool _IsStatusBarEnabled;
         private bool _IsWebMessageEnabled = true;
 
@@ -88,6 +88,17 @@ namespace Diga.WebView2.WinForms
             }
         }
 
+        private bool _AreBrowserAcceleratorKeysEnabled = true;
+        public bool AreBrowserAcceleratorKeysEnabled
+        {
+            get => this._AreBrowserAcceleratorKeysEnabled;
+            set
+            {
+                this._AreBrowserAcceleratorKeysEnabled = value;
+                if (this.IsCreated)
+                    this._WebViewControl.Settings.AreBrowserAcceleratorKeysEnabled = new CBOOL(value);
+            }
+        }
         public bool IsWebMessageEnabled
         {
             get => _IsWebMessageEnabled;
@@ -232,6 +243,7 @@ namespace Diga.WebView2.WinForms
             e.Settings.IsStatusBarEnabled = new CBOOL(this._IsStatusBarEnabled);
             e.Settings.IsWebMessageEnabled = new CBOOL(this._IsWebMessageEnabled);
             e.Settings.IsZoomControlEnabled = new CBOOL(this._IsZoomControlEnabled);
+            e.Settings.AreBrowserAcceleratorKeysEnabled = new CBOOL(this._AreBrowserAcceleratorKeysEnabled);
         }
 
         private void OnWebWindowCreated(object sender, EventArgs e)

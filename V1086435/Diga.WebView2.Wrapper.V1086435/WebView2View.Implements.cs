@@ -743,11 +743,20 @@ namespace Diga.WebView2.Wrapper
             ((ICoreWebView2) this._WebView).remove_WebResourceRequested(token);
         }
 
+        public void AddWebResourceRequestedFilter(string uri, COREWEBVIEW2_WEB_RESOURCE_CONTEXT resourceContext)
+        {
+            this.ToInterface().AddWebResourceRequestedFilter(uri, resourceContext);
+        }
         void ICoreWebView2.AddWebResourceRequestedFilter(string uri, COREWEBVIEW2_WEB_RESOURCE_CONTEXT ResourceContext)
         {
             ((ICoreWebView2) this._WebView).AddWebResourceRequestedFilter(uri, ResourceContext);
         }
 
+        public void RemoveWebResourceRequestedFilter(string uri,
+            COREWEBVIEW2_WEB_RESOURCE_CONTEXT ResourceContext)
+        {
+            this.ToInterface().RemoveWebResourceRequestedFilter(uri, ResourceContext);
+        }
         void ICoreWebView2.RemoveWebResourceRequestedFilter(string uri,
             COREWEBVIEW2_WEB_RESOURCE_CONTEXT ResourceContext)
         {

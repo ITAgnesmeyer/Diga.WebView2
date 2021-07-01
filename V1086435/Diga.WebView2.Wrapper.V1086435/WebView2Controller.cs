@@ -196,5 +196,7 @@ namespace Diga.WebView2.Wrapper
             get => this._Controller.BoundsMode;
             set => this._Controller.BoundsMode = value;
         }
+
+        
     }
 }

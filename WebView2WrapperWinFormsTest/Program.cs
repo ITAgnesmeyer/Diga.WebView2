@@ -7,13 +7,13 @@ using System.Windows.Forms;
 
 namespace WebView2WrapperWinFormsTest
 {
-#if CORE
-// Class will bie auto Dual
-#else
-    #pragma warning disable 618
-        [ClassInterface(ClassInterfaceType.AutoDual)]
-    #pragma warning restore 618
-#endif
+//#if CORE
+//// Class will be auto Dual
+//#else
+//    #pragma warning disable 618
+//    [ClassInterface(ClassInterfaceType.AutoDual)]
+//    #pragma warning restore 618
+//#endif
     [ComVisible(true)]
     public class TestObject
     {

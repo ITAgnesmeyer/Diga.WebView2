@@ -5,7 +5,7 @@ namespace Diga.WebView2.Wrapper
 {
     public class WebResourceResponseView : ICoreWebView2WebResourceResponseView
     {
-        private ICoreWebView2WebResourceResponseView _Interface;
+        private readonly ICoreWebView2WebResourceResponseView _Interface;
       
         public WebResourceResponseView()
         {
