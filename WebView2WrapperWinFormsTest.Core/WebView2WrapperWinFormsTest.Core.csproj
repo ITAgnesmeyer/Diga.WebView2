@@ -23,6 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\V1086435\Diga.WebView2.Interop.Std.V1086435\Diga.WebView2.Interop.Std.V1086435.csproj" />
     <ProjectReference Include="..\V1086435\Diga.WebView2.WinForms.Core.V1086435\Diga.WebView2.WinForms.Core.V1086435.csproj" />
     <ProjectReference Include="..\V1086435\Diga.WebView2.Wrapper.Std.V1086435\Diga.WebView2.Wrapper.Std.V1086435.csproj" />

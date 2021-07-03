@@ -28,7 +28,7 @@ namespace Diga.WebView2.WinForms
         private bool _IsZoomControlEnabled = true;
 
         private bool _IsScriptEnabled = true;
-        
+
         private bool _IsStatusBarEnabled;
         private bool _IsWebMessageEnabled = true;
 
@@ -218,9 +218,9 @@ namespace Diga.WebView2.WinForms
                     return this._WebViewControl.GetCookieManager;
                 return null;
 
-            } 
+            }
 
-            
+
         }
         public async Task<Image> CapturePreviewAsImageAsync(ImageFormat imageFormat)
         {
@@ -255,7 +255,7 @@ namespace Diga.WebView2.WinForms
                 this.Navigate(this.Url);
             if (!string.IsNullOrEmpty(this._HtmlContent))
                 this.NavigateToString(this._HtmlContent);
-           
+
             OnWebViewCreated();
 
         }
@@ -348,7 +348,7 @@ namespace Diga.WebView2.WinForms
         public void AddRemoteObject(string name, object @object)
         {
             if (!this.IsCreated) return;
-            this._WebViewControl.AddRemoteObject(name,  @object);
+            this._WebViewControl.AddRemoteObject(name, @object);
         }
 
         public void Reload()
@@ -370,16 +370,16 @@ namespace Diga.WebView2.WinForms
             return await this._WebViewControl.ExecuteScriptAsync(javaScript);
         }
 
-        
+
 
         public string InvokeScript(string javaScript)
         {
-            
-            string result =  this._WebViewControl.InvokeScript(javaScript, (id,errorCode, jsonResult) =>
-            {
-                Debug.Print(id);
 
-            });
+            string result = this._WebViewControl.InvokeScript(javaScript, (id, errorCode, jsonResult) =>
+           {
+               Debug.Print(id);
+
+           });
 
             return result;
         }
@@ -442,7 +442,7 @@ namespace Diga.WebView2.WinForms
                 this._WebViewControl.ScriptDialogOpening += OnScriptDialogOpeningIntern;
                 this._WebViewControl.WebMessageReceived += OnWebMessageReceivedIntern;
                 this._WebViewControl.ScriptToExecuteOnDocumentCreatedCompleted += ScriptToExecuteOnDocumentCreatedCompletedIntern;
-         
+
                 this._WebViewControl.WindowCloseRequested += OnWindowCloseRequestedIntern;
                 this._WebViewControl.ExecuteScriptCompleted += OnExecuteScriptCompletedIntern;
                 this._WebViewControl.WebResourceRequested += OnWebResourceRequestedIntern;
@@ -470,7 +470,7 @@ namespace Diga.WebView2.WinForms
 
         private void OnNewBrowserVersionAvailableIntern(object sender, WebView2EventArgs e)
         {
-            
+
         }
 
         private void OnFrameNavigationCompletedIntern(object sender, NavigationCompletedEventArgs e)
@@ -700,8 +700,8 @@ namespace Diga.WebView2.WinForms
             if (!fileInfo.Exists)
             {
                 responseInfo = new ResponseInfo("<h1>Server Error</h1><h5>file not found:" + file + "</h5>");
-                responseInfo.Header.Add("content-type", "text/html");
-                responseInfo.ContentType = "content-type: text/html";
+                responseInfo.Header.Add("content-type", "text/html; charset=utf-8");
+                responseInfo.ContentType = "content-type: text/html; charset=utf-8";
                 responseInfo.StatusCode = 404;
                 responseInfo.StatusText = "Not Found";
 
@@ -715,8 +715,11 @@ namespace Diga.WebView2.WinForms
             {
                 byte[] bytes = File.ReadAllBytes(file);
                 responseInfo = new ResponseInfo(bytes);
-                responseInfo.Header.Add("content-type", contentType);
-                responseInfo.ContentType = "content-type: " + contentType;
+                string utf8Extension = GetUtf8IfNeeded(contentType);
+
+                responseInfo.Header.Add("content-type", contentType + utf8Extension);
+
+                responseInfo.ContentType = "content-type: " + contentType + utf8Extension;
                 responseInfo.StatusCode = 200;
                 responseInfo.StatusText = "OK";
                 return true;
@@ -725,14 +728,37 @@ namespace Diga.WebView2.WinForms
             {
                 string message = "Error:" + e.Message;
                 responseInfo = new ResponseInfo(message);
-                responseInfo.Header.Add("content-type", "text/html");
-                responseInfo.ContentType = "content-type: text/html";
+                responseInfo.Header.Add("content-type", "text/html; charset=utf-8");
+                responseInfo.ContentType = "content-type; charset=utf-8";
                 responseInfo.StatusCode = 500;
                 responseInfo.StatusText = "Internal Server Error";
                 return true;
             }
 
 
+        }
+
+        private string GetUtf8IfNeeded(string contentType)
+        {
+            if (string.IsNullOrEmpty(contentType))
+                return "";
+
+            bool needUtf8 = false;
+
+            switch (contentType)
+            {
+                case "application/x-javascript":
+                case "text/html":
+                case "text/css":
+                case "application/javascript":
+                case "application/json":
+                    needUtf8 = true;
+                    break;
+            }
+
+            if (needUtf8)
+                return "; charset=utf-8";
+            return "";
         }
         protected virtual void OnWebResourceRequested(WebResourceRequestedEventArgs e)
         {
@@ -777,7 +803,7 @@ namespace Diga.WebView2.WinForms
         protected override void WndProc(ref Message m)
         {
 
-            
+
             Debug.Print(m.Msg.ToString());
             switch (m.Msg)
             {
@@ -789,7 +815,7 @@ namespace Diga.WebView2.WinForms
                     break;
             }
             base.WndProc(ref m);
-          
+
         }
 
 

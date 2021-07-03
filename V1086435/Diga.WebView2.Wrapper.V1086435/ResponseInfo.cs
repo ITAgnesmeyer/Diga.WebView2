@@ -19,6 +19,8 @@ namespace Diga.WebView2.WinForms
             this.Header.Add("accept-ranges", "bytes");
             this.Header.Add("Access-Control-Allow-Origin", "*");
             this.Header.Add("content-length", this.Stream.Length.ToString());
+            this.Header.Add("X-Content-Type-Options", "nosniff");
+
         }
 
         public ResponseInfo(byte[] bytes) : this(new MemoryStream(bytes)) { }
@@ -32,10 +34,14 @@ namespace Diga.WebView2.WinForms
 
         public string HeaderToString()
         {
+
+            this.Header.Add("Cache-Control", "max-age=31536000, immutable");
+
             string headerString = "";
             headerString = $"HTTP/2 {this.StatusCode} {this.StatusText}\r\n";
             foreach (var headerValue in this.Header)
             {
+
                 headerString += headerValue.Key + ":" + headerValue.Value;
                 headerString += "\r\n";
             }

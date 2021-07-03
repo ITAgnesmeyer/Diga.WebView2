@@ -3,7 +3,7 @@
   <metadata>
     <id>Diga.WebView2.WinForms</id>
     <version>9.0.1</version>
-    <title>Diga.WebView2.WinForms.V1077444</title>
+    <title>Diga.WebView2.WinForms.V1086435</title>
     <authors>Dipl.-Ing.(FH) Guido Agnesmeyer</authors>
     <owners>Dipl.-Ing.(FH) Guido Agnesmeyer</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -19,16 +19,25 @@
       <group targetFramework=".NETCoreApp3.1">
         <dependency id="Diga.WebView2.Interop" version="9.0.1" exclude="Build,Analyzers" />
         <dependency id="Diga.WebView2.Wrapper" version="9.0.1" exclude="Analyzers" />
-        <dependency id="MimeTypeExtension" version="1.0.23" exclude="Build,Analyzers" />
+        <dependency id="MimeTypeExtension" version="1.0.26" exclude="Build,Analyzers" />
       </group>
+      <group targetFramework=".net5.0-windows7.0">
+        <dependency id="Diga.WebView2.Interop" version="9.0.1" exclude="Build,Analyzers" />
+        <dependency id="Diga.WebView2.Wrapper" version="9.0.1" exclude="Analyzers" />
+        <dependency id="MimeTypeExtension" version="1.0.26" exclude="Build,Analyzers" />
+      </group>
+
       <group targetFramework=".NETFramework4.7.2">
         <dependency id="Diga.WebView2.Interop" version="9.0.1" exclude="Build,Analyzers" />
         <dependency id="Diga.WebView2.Wrapper" version="9.0.1" exclude="Analyzers" />
-        <dependency id="MimeTypeExtension" version="1.0.23" exclude="Build,Analyzers" />
+        <dependency id="MimeTypeExtension" version="1.0.26" exclude="Build,Analyzers" />
       </group>
     </dependencies>
     <frameworkReferences>
       <group targetFramework=".NETCoreApp3.1">
+        <frameworkReference name="Microsoft.WindowsDesktop.App.WindowsForms" />
+      </group>
+        <group targetFramework="net5.0-windows7.0">
         <frameworkReference name="Microsoft.WindowsDesktop.App.WindowsForms" />
       </group>
     </frameworkReferences>
@@ -36,6 +45,7 @@
   <files>
     <file src="lib\net472\Diga.WebView2.WinForms.dll" target="lib\net472\Diga.WebView2.WinForms.dll" />
     <file src="lib\netcoreapp3.1\Diga.WebView2.WinForms.Core.dll" target="lib\netcoreapp3.1\Diga.WebView2.WinForms.Core.dll" />
+    <file src="lib\net5.0-windows7.0\Diga.WebView2.WinForms.Core.dll" target="lib\net5.0-windows7.0\Diga.WebView2.WinForms.Core.dll" />
     <file src="logo.png" target="logo.png" />
   </files>
 </package>
