@@ -565,6 +565,7 @@ namespace Diga.WebView2.Wrapper
             try
             {
                 IntPtr pdisp = Marshal.GetIDispatchForObject(obj);
+                
 
                 // If we got here without throwing an exception, the QI for IDispatch succeeded.
                 Marshal.Release(pdisp);
@@ -619,6 +620,18 @@ namespace Diga.WebView2.Wrapper
             return this.WebView.InvokeScript(javaScript, actionToInvoke);
         }
 
+        public bool IsVisible
+        {
+            get
+            {
+                return new CBOOL(this.Controller.IsVisible);
+            }
+            set
+            {
+                CBOOL b = value;
+                this.Controller.IsVisible = b;
+            }
+        }
 
         public async Task CapturePreviewAsync(Stream stream, ImageFormat imageFormat)
         {

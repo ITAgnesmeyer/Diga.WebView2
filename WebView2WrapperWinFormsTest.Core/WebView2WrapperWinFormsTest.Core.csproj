@@ -27,9 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\V1086435\Diga.WebView2.Interop.Std.V1086435\Diga.WebView2.Interop.Std.V1086435.csproj" />
-    <ProjectReference Include="..\V1086435\Diga.WebView2.WinForms.Core.V1086435\Diga.WebView2.WinForms.Core.V1086435.csproj" />
-    <ProjectReference Include="..\V1086435\Diga.WebView2.Wrapper.Std.V1086435\Diga.WebView2.Wrapper.Std.V1086435.csproj" />
+    <ProjectReference Include="..\V1090249\Diga.WebView2.Interop.V1090249\Diga.WebView2.Interop.V1090249.csproj" />
+    <ProjectReference Include="..\V1090249\Diga.WebView2.WinForms.V1090249\Diga.WebView2.WinForms.V1090249.csproj" />
+    <ProjectReference Include="..\V1090249\Diga.WebView2.Wrapper.V1090249\Diga.WebView2.Wrapper.V1090249.csproj" />
   </ItemGroup>
 
   <ItemGroup>

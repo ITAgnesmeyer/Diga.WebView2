@@ -11,7 +11,7 @@ namespace WebView2WrapperWinFormsTest
 //// Class will be auto Dual
 //#else
 //    #pragma warning disable 618
-//    [ClassInterface(ClassInterfaceType.AutoDual)]
+    ////[ClassInterface(ClassInterfaceType.AutoDual)]
 //    #pragma warning restore 618
 //#endif
     [ComVisible(true)]

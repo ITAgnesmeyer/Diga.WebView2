@@ -58,8 +58,8 @@
     <AssemblyOriginatorKeyFile>WinFormsTestSign.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MimeTypeExtension, Version=1.0.24.1, Culture=neutral, PublicKeyToken=5bccdf24b37e4bab, processorArchitecture=MSIL">
-      <HintPath>..\packages\MimeTypeExtension.1.0.26\lib\netstandard2.0\MimeTypeExtension.dll</HintPath>
+    <Reference Include="MimeTypeExtension, Version=1.0.28.1, Culture=neutral, PublicKeyToken=5bccdf24b37e4bab, processorArchitecture=MSIL">
+      <HintPath>..\packages\MimeTypeExtension.1.0.28\lib\netstandard2.0\MimeTypeExtension.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -120,20 +120,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\V1086435\Diga.WebView2.Interop.V1086435\Diga.WebView2.Interop.V1086435.csproj">
-      <Project>{36611726-905e-4798-b2b7-49de78eecde7}</Project>
-      <Name>Diga.WebView2.Interop.V1086435</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\V1086435\Diga.WebView2.WinForms.V1086435\Diga.WebView2.WinForms.V1086435.csproj">
-      <Project>{77a8db7b-30a6-42a0-a8f6-482bb49eb3ec}</Project>
-      <Name>Diga.WebView2.WinForms.V1086435</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\V1086435\Diga.WebView2.Wrapper.V1086435\Diga.WebView2.Wrapper.V1086435.csproj">
-      <Project>{5154311c-993b-4269-b45b-5c9209078452}</Project>
-      <Name>Diga.WebView2.Wrapper.V1086435</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.8 %28x86 und x64%29</ProductName>
@@ -144,6 +130,20 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\V1090249\Diga.WebView2.Interop.V1090249\Diga.WebView2.Interop.V1090249.csproj">
+      <Project>{c748da42-0051-45b3-b3b0-c66c5980486f}</Project>
+      <Name>Diga.WebView2.Interop.V1090249</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\V1090249\Diga.WebView2.WinForms.V1090249\Diga.WebView2.WinForms.V1090249.csproj">
+      <Project>{d343f9e6-0a23-42b7-a5e3-26d6d77af98f}</Project>
+      <Name>Diga.WebView2.WinForms.V1090249</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\V1090249\Diga.WebView2.Wrapper.V1090249\Diga.WebView2.Wrapper.V1090249.csproj">
+      <Project>{85ae2c81-cf11-4842-a9d1-17b29ff15f1c}</Project>
+      <Name>Diga.WebView2.Wrapper.V1090249</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
