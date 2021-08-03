@@ -69,9 +69,31 @@ namespace WebView2WrapperWinFormsTest
             
         }
 
+        private Rectangle LastBound;
         private void webView1_AcceleratorKeyPressed(object sender, AcceleratorKeyPressedEventArgs e)
         {
             //MessageBox.Show(this, "webView1_AcceleratorKeyPressed");
+            if (e.VirtualKey == 122 && e.KeyVentType == KeyEventType.KeyDown)
+            {
+                if (this.FormBorderStyle == FormBorderStyle.None)
+                {
+                    this.FormBorderStyle = FormBorderStyle.Sizable;
+                    this.WindowState = FormWindowState.Normal;
+                    this.Bounds = this.LastBound;
+                    e.Handled = true;
+                    return;
+                }
+                else
+                {
+                    this.LastBound = this.Bounds;
+                    var rect = Screen.GetBounds(this);
+                    this.FormBorderStyle = FormBorderStyle.None;
+                    this.Bounds = rect;
+                    e.Handled = true;
+                    return;
+                }
+                
+            }
             e.Handled = false;
         }
 
@@ -94,7 +116,7 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_FrameNavigationStarting(object sender, NavigationStartingEventArgs e)
         {
-            MessageBox.Show(this, "webView1_FrameNavigationStarting");
+            //MessageBox.Show(this, "webView1_FrameNavigationStarting");
         }
 
         private void webView1_WebViewLostFocus(object sender, WebView2EventArgs e)
@@ -265,6 +287,23 @@ namespace WebView2WrapperWinFormsTest
             {
                 Debug.Print(it.Current.Name+ "," + it.Current.Value);
             }
+        }
+
+        private void webView1_FrameCreated(object sender, FrameCreatedEventArgs e)
+        {
+            e.Frame.FrameDestroyed += (s,o) =>
+            {
+                if (o.Frame != null)
+                {
+                    Debug.Print("Frame Name:" + o.Frame.name);
+                }
+                Debug.Print("Frame Destroyed");
+            };
+
+            e.Frame.FrameNameChanged += (s, o) =>
+            {
+                Debug.Print("FrameNameChanged:" + e.Frame.name);
+            };
         }
     }
 }

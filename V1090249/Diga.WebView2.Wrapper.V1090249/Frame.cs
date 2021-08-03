@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
@@ -45,9 +47,9 @@ namespace Diga.WebView2.Wrapper
             OnFrameDestroyed(e);
         }
 
-        private void OnFrameNameChangedIntern(object sender, FrameNameChangedEventArgs e)
+        private async void OnFrameNameChangedIntern(object sender, FrameNameChangedEventArgs e)
         {
-            OnFrameNameChanged(e);
+           OnFrameNameChanged(e);
         }
 
         public string name => this._Frame.name;
@@ -55,7 +57,17 @@ namespace Diga.WebView2.Wrapper
         public void add_NameChanged(ICoreWebView2FrameNameChangedEventHandler eventHandler,
             out EventRegistrationToken token)
         {
-            this._Frame.add_NameChanged(eventHandler, out token);
+            
+            try
+            {
+                this._Frame.add_NameChanged(eventHandler, out token);
+            }
+            catch (Exception ex)
+            {
+                token = new EventRegistrationToken();
+                Debug.Print(ex.Message);
+            }
+            
         }
 
         public void remove_NameChanged(EventRegistrationToken token)
@@ -75,7 +87,16 @@ namespace Diga.WebView2.Wrapper
 
         public void add_Destroyed(ICoreWebView2FrameDestroyedEventHandler eventHandler, out EventRegistrationToken token)
         {
-            this._Frame.add_Destroyed(eventHandler, out token);
+            try
+            {
+                this._Frame.add_Destroyed(eventHandler, out token);
+            }
+            catch (Exception ex)
+            {
+                token = new EventRegistrationToken();
+                Debug.Print(ex.Message);
+            }
+            
         }
 
         public void remove_Destroyed(EventRegistrationToken token)
@@ -88,7 +109,7 @@ namespace Diga.WebView2.Wrapper
             return this._Frame.IsDestroyed();
         }
 
-        protected virtual void OnFrameNameChanged(FrameNameChangedEventArgs e)
+        protected virtual  void OnFrameNameChanged(FrameNameChangedEventArgs e)
         {
             FrameNameChanged?.Invoke(this, e);
         }

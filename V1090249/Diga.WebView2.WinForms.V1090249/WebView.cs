@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Design;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,109 +15,6 @@ using MimeTypeExtension;
 
 namespace Diga.WebView2.WinForms
 {
-      public class FolderNameEditor : UITypeEditor
-    {
-        private FolderBrowser _folderBrowser;
- 
-        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
-        {
-            if (_folderBrowser is null)
-            {
-                _folderBrowser = new FolderBrowser();
-                InitializeDialog(_folderBrowser);
-            }
- 
-            if (_folderBrowser.ShowDialog() == DialogResult.OK)
-            {
-                return _folderBrowser.DirectoryPath;
-            }
- 
-            return value;
-        }
- 
-        /// <summary>
-        ///  Retrieves the editing style of the Edit method.
-        /// </summary>
-        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
-        {
-            return UITypeEditorEditStyle.Modal;
-        }
- 
-        /// <summary>
-        ///  Initializes the folder browser dialog when it is created. This gives you an opportunity
-        ///  to configure the dialog as you please. The default implementation provides a generic folder browser.
-        /// </summary>
-        protected virtual void InitializeDialog(FolderBrowser folderBrowser)
-        {
-        }
- 
-        protected sealed class FolderBrowser : Component
-        {
-            // Description text to show.
-            private string _descriptionText = string.Empty;
- 
-          
-            /// <summary>
-            ///  Gets the directory path of the folder the user picked.
-            /// </summary>
-            public string DirectoryPath { get; private set; } = string.Empty;
- 
-            /// <summary>
-            ///  Gets/sets the start location of the root node.
-            /// </summary>
-            public Environment.SpecialFolder StartLocation { get; set; } = Environment.SpecialFolder.Desktop;
- 
-            /// <summary>
-            ///  Gets or sets a description to show above the folders. Here you can provide instructions for
-            ///  selecting a folder.
-            /// </summary>
-            public string Description
-            {
-                get => _descriptionText;
-                set => _descriptionText = value ?? string.Empty;
-            }
- 
-            /// <summary>
-            ///  Shows the folder browser dialog.
-            /// </summary>
-            public DialogResult ShowDialog() => ShowDialog(null);
- 
-            /// <summary>
-            ///  Shows the folder browser dialog with the specified owner.
-            /// </summary>
-            public  DialogResult ShowDialog(IWin32Window owner)
-            {
-                IWin32Window activeForm = Form.ActiveForm;
-                if (owner != null)
-                {
-                    activeForm = owner;
-                }
-
-
-                FolderBrowserDialog dialog = new FolderBrowserDialog {RootFolder = Environment.SpecialFolder.Desktop};
-                DialogResult result = dialog.ShowDialog(activeForm);
-                if (result != DialogResult.OK)
-                    return result;
-
-                DirectoryPath = dialog.SelectedPath;
-                return result;
-
-
-            }
-        }
-
-        
-
-       
-       
-
-
-       
- 
-        
-    }
-
-
     public partial class WebView : UserControl
     {
         private WebView2Control _WebViewControl;
@@ -159,6 +55,10 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<WebMessageReceivedEventArgs> WebMessageReceived;
         public event EventHandler<AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>
             ScriptToExecuteOnDocumentCreatedCompleted;
+        public event EventHandler<EnvironmentCompletedHandlerArgs> BeforeEnvironmentCompleted;
+        public event EventHandler<DownloadStartingEventArgs> DownloadStarting; 
+        public event EventHandler<FrameCreatedEventArgs> FrameCreated;
+        public event EventHandler<WebView2EventArgs> RasterizationScaleChanged;
 
         public event EventHandler<DOMContentLoadedEventArgs> DOMContentLoaded;
         public event EventHandler<WebResourceResponseReceivedEventArgs> WebResourceResponseReceived;
@@ -589,9 +489,27 @@ namespace Diga.WebView2.WinForms
                 this._WebViewControl.NewBrowserVersionAvailable += OnNewBrowserVersionAvailableIntern;
                 this._WebViewControl.DOMContentLoaded += OnDOMContentLoadedIntern;
                 this._WebViewControl.WebResourceResponseReceived += WebResourceResponseReceivedIntern;
+                this._WebViewControl.DownloadStarting += OnDownalodStartingIntern;
+                this._WebViewControl.FrameCreated += OnFrameCreatedIntern;
+                this._WebViewControl.RasterizationScaleChanged += OnRasterizationScaleChangedIntern;
 
 
             }
+        }
+
+        private void OnRasterizationScaleChangedIntern(object sender, WebView2EventArgs e)
+        {
+            OnRasterizationScaleChanged(e);
+        }
+
+        private void OnFrameCreatedIntern(object sender, FrameCreatedEventArgs e)
+        {
+            OnFrameCreated(e);
+        }
+
+        private void OnDownalodStartingIntern(object sender, DownloadStartingEventArgs e)
+        {
+            OnDownloadStarting(e);
         }
 
         private void WebResourceResponseReceivedIntern(object sender, WebResourceResponseReceivedEventArgs e)
@@ -968,6 +886,26 @@ namespace Diga.WebView2.WinForms
         protected virtual void OnWebResourceResponseReceived(WebResourceResponseReceivedEventArgs e)
         {
             WebResourceResponseReceived?.Invoke(this, e);
+        }
+
+        protected virtual void OnBeforeEnvironmentCompleted(EnvironmentCompletedHandlerArgs e)
+        {
+            BeforeEnvironmentCompleted?.Invoke(this, e);
+        }
+
+        protected virtual void OnDownloadStarting(DownloadStartingEventArgs e)
+        {
+            DownloadStarting?.Invoke(this, e);
+        }
+
+        protected virtual void OnFrameCreated(FrameCreatedEventArgs e)
+        {
+            FrameCreated?.Invoke(this, e);
+        }
+
+        protected virtual void OnRasterizationScaleChanged(WebView2EventArgs e)
+        {
+            RasterizationScaleChanged?.Invoke(this, e);
         }
     }
 }

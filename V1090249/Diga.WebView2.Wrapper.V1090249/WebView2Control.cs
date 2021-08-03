@@ -50,6 +50,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<DownloadStartingEventArgs> DownloadStarting; 
         public event EventHandler<FrameCreatedEventArgs> FrameCreated;
         public event EventHandler<WebView2EventArgs> RasterizationScaleChanged;
+        public event EventHandler<CompositionControllerCompletedEventArgs> CompositionControllerCompleted; 
         private WebView2Settings _Settings;
         private string _BrowserInfo;
         private object HostHelper;
@@ -83,7 +84,7 @@ namespace Diga.WebView2.Wrapper
             handler.BeforeEnvironmentCompleted += OnBeforeEnvironmentCompletedIntern;
             handler.AfterEnvironmentCompleted += OnAfterEnvironmentCompletedIntern;
             handler.PrepareControllerCreate += OnBeforeControllerCreateIntern;
-
+            handler.CompositionControllerCompleted += OnCompositionControllerCompletedIntern;
             Native.GetAvailableCoreWebView2BrowserVersionString(this.BrowserExecutableFolder, out string browserInfo);
             this._BrowserInfo = browserInfo;
 
@@ -97,6 +98,18 @@ namespace Diga.WebView2.Wrapper
             Native.CreateCoreWebView2EnvironmentWithOptions(this.BrowserExecutableFolder, this.UserDataFolder, options,
                 handler);
 
+        }
+
+        private void OnCompositionControllerCompletedIntern(object sender, CompositionControllerCompletedEventArgs e)
+        {
+            this.CompositionController =e.CompositionController;
+            this.CompositionController.CursorChanged += OnCompoisitionControllerCursorChangedIntern;
+            OnCompositionControllerCompleted(e);
+        }
+
+        private void OnCompoisitionControllerCursorChangedIntern(object sender, CursorChangedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         public string BrowserInfo => this._BrowserInfo;
@@ -190,9 +203,13 @@ namespace Diga.WebView2.Wrapper
                 this.Controller.LostFocus -= OnLostFocusIntern;
                 this.Controller.MoveFocusRequested -= OnMoveFocusRequestedIntern;
                 this.Controller.ZoomFactorChanged -= OnZoomFactorChangedIntern;
-
+                this.Controller.RasterizationScaleChanged -= OnRasterizationScaleChangedIntern;
             }
 
+            if (this.CompositionController != null)
+            {
+                this.CompositionController.CursorChanged -= OnCompoisitionControllerCursorChangedIntern;
+            }
             if (this.WebView != null)
             {
                 this.WebView.NavigationStarting -= OnNavigateStartIntern;
@@ -354,6 +371,7 @@ namespace Diga.WebView2.Wrapper
         }
 
         private WebView2Controller Controller { get; set; }
+        private WebView2CompositionController CompositionController { get; set; }
         public CookieManager GetCookieManager =>  new CookieManager( this.WebView.CookieManager);
         public void DockToParent()
         {
@@ -370,6 +388,72 @@ namespace Diga.WebView2.Wrapper
 
         }
 
+        public uint SystemCursorId
+        {
+            get
+            {
+                if (this.CompositionController != null)
+                {
+                    
+                    return this.CompositionController.SystemCursorId;
+                }
+
+                return 0;
+            }
+        }
+
+        public object RootVisualTarget
+        {
+            get
+            {
+                if (this.CompositionController == null) return null;
+                return this.CompositionController.RootVisualTarget;
+            }
+            set
+            {
+                if (this.CompositionController != null)
+                {
+                    this.CompositionController.RootVisualTarget = value;
+                }
+            }
+        }
+        public object UIProvider
+        {
+            get
+            {
+                if (this.CompositionController != null)
+                {
+                    return this.CompositionController.UIAProvider;
+                }
+                
+                return null;
+            }
+        }
+
+        public void SendMouseInput(COREWEBVIEW2_MOUSE_EVENT_KIND kind,
+            COREWEBVIEW2_MOUSE_EVENT_VIRTUAL_KEYS virtualKeys, uint mouseDate, Point point)
+        {
+            if (this.CompositionController == null) return;
+            this.CompositionController.SendMouseInput(kind,virtualKeys, mouseDate, point);
+        }
+
+        public void SendPointInput(COREWEBVIEW2_POINTER_EVENT_KIND kind, WebView2PointerInfo pointInfo)
+        {
+            if (this.CompositionController == null) return;
+            this.CompositionController.SendPointerInput(kind,pointInfo);
+        }
+        public IntPtr CursorHandle
+        {
+            get
+            {
+                if (this.CompositionController != null)
+                {
+                    return this.CompositionController.Cursor;
+                }
+                return IntPtr.Zero;
+            }
+            
+        }
         public void NavigateToString(string htmlContent)
         {
             this.WebView.NavigateToString(htmlContent);
@@ -419,6 +503,7 @@ namespace Diga.WebView2.Wrapper
                 this.Close();
             this.WebView?.Dispose();
             this.Controller?.Dispose();
+            this.CompositionController?.Dispose();
             this.Environment?.Dispose();
             
            
@@ -703,6 +788,11 @@ namespace Diga.WebView2.Wrapper
         protected virtual void OnRasterizationScaleChanged(WebView2EventArgs e)
         {
             RasterizationScaleChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnCompositionControllerCompleted(CompositionControllerCompletedEventArgs e)
+        {
+            CompositionControllerCompleted?.Invoke(this, e);
         }
     }
 }
