@@ -16,6 +16,10 @@
 	 <RepositoryUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</RepositoryUrl>
 	 <PackageId>Diga.WebView2.Wrapper</PackageId>
   </PropertyGroup>
+	<PropertyGroup>
+		<DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<None Include="..\..\package_create_folder\logo.png" Pack="true" PackagePath="\" />
 		<None Include="native\arm64\WebView2Loader.dll" Pack="true" PackagePath="\build\native\arm64" />

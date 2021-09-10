@@ -20,6 +20,10 @@
     <RepositoryUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="MimeTypeExtension" Version="1.0.28" />
   </ItemGroup>

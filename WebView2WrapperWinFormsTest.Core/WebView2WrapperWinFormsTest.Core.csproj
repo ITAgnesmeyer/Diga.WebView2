@@ -11,6 +11,9 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DefineConstants>TRACE;CORE</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup>
+    <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
+  </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="..\WebView2WrapperWinFormsTest\Form1.cs" Link="Form1.cs" />
@@ -27,9 +30,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\V1090249\Diga.WebView2.Interop.V1090249\Diga.WebView2.Interop.V1090249.csproj" />
-    <ProjectReference Include="..\V1090249\Diga.WebView2.WinForms.V1090249\Diga.WebView2.WinForms.V1090249.csproj" />
-    <ProjectReference Include="..\V1090249\Diga.WebView2.Wrapper.V1090249\Diga.WebView2.Wrapper.V1090249.csproj" />
+    <ProjectReference Include="..\V1096133\Diga.WebView2.Interop.V1096133\Diga.WebView2.Interop.V1096133.csproj" />
+    <ProjectReference Include="..\V1096133\Diga.WebView2.WinForms.V1096133\Diga.WebView2.WinForms.V1096133.csproj" />
+    <ProjectReference Include="..\V1096133\Diga.WebView2.Wrapper.V1096133\Diga.WebView2.Wrapper.V1096133.csproj" />
   </ItemGroup>
 
   <ItemGroup>
