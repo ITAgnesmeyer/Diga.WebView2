@@ -1,0 +1,96 @@
+<html>
+
+
+<body>
+    <button id="myButton" >Call .NET</button>
+    <button id="FirstButton" onclick="callDotNet(new RPC(NewGuid(),'mainDiv','run_script_with_result','alert(\'hallo aus Script\')'))">Call .NET</button>
+    <div id="mainDiv">
+
+    </div>
+    <script>
+        document.getElementById("myButton").addEventListener("click", async ()=>{
+            await TestEventSync("myButton");
+        } );
+
+        async function TestEventSync(objId) {
+            var sender = document.getElementById(objId);
+            /*var propertyValue =
+                "Dies ist ein Synchroner Aufurf"; //await chrome.webview.remoteObjects.testObject.FirstMessage;
+                */
+            
+            
+            let appobject = await window.chrome.webview.hostObjects.testObject;
+            //let appobject = await window.chrome.webview.remoteObjects.testObject;
+            appobject.Name = "hallo Guido";
+            let value = await appobject.GetValue("TEST");
+            alert(value);
+        }
+
+       
+
+
+        class RPC {
+            constructor(id, oId, act, p) {
+                this.id = id;
+                this.objId = oId;
+                this.action = act;
+                this.param = p;
+            }
+        }
+
+        function GetTableScript() {
+        var script = "<table>";
+        for (var i = 0; i < 100; i++) {
+            script += "<tr>";
+            script += "<td>" + "value" + i + "</td>";
+            script += "<td>" + "param" + i + "</td>";
+            script += "<td>" + "wert" + i + "</td>";
+
+            script += "</tr>";
+        }
+        script += "</table>";
+        return script;
+    }
+  
+    function NewGuid() { // Public Domain/MIT
+        var d = new Date().getTime();//Timestamp
+        var d2 = (performance && performance.now && (performance.now()*1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16;//random number between 0 and 16
+            if(d > 0){//Use timestamp until depleted
+                r = (d + r)%16 | 0;
+                d = Math.floor(d/16);
+            } else {//Use microseconds since page-load if supported
+                r = (d2 + r)%16 | 0;
+                d2 = Math.floor(d2/16);
+            }
+            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+    }
+
+        function callDotNet(obj) {
+            var meldung = JSON.stringify(obj);
+            window.external.sendMessage(meldung);
+        }
+
+        window.external.receiveMessage(function (message) {
+            var rpc = JSON.parse(message);
+            switch (rpc.action) {
+                case "get_script_result":
+                    var getScrptResult = new RPC(rpc.id, rpc.objId, rpc.action, rpc.param);
+                    callDotNet(getScrptResult);
+                    break;
+                case "return_script_result":
+                    var sr = rpc.param;
+                    document.getElementById(rpc.objId).innerText = rpc.param.ResultMessage;
+                    break;
+                case "set_object_innerHtml":
+                    var obj = document.getElementById(rpc.objId);
+                    obj.innerHTML = rpc.param;
+                    break;
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -24,7 +24,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="..\..\package_create_folder\logo.png" Pack="true" PackagePath="\" />
+		<None Include="..\..\V1099228\Diga.WebView2.WinForms.V1099228\logo.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 

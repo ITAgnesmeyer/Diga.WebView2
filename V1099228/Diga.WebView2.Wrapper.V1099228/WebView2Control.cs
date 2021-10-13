@@ -517,6 +517,7 @@ namespace Diga.WebView2.Wrapper
             UnWireEvents();
             RefCounter -= 1;
             this.ParentHandle = IntPtr.Zero;
+            
             if (RefCounter <= 0)
                 this.Close();
             this.WebView?.Dispose();

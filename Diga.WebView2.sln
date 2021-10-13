@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.29924.181
+VisualStudioVersion = 16.0.31727.386
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebView2WrapperWinFormsTest", "WebView2WrapperWinFormsTest\WebView2WrapperWinFormsTest.csproj", "{F94D431B-B4EA-45AB-9864-FEB3148B95EC}"
 EndProject
@@ -34,6 +34,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.Wrapper.V1099228", "V1099228\Diga.WebView2.Wrapper.V1099228\Diga.WebView2.Wrapper.V1099228.csproj", "{346B9DEC-8022-4969-84EE-DD1CBCC4147D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.WinForms.V1099228", "V1099228\Diga.WebView2.WinForms.V1099228\Diga.WebView2.WinForms.V1099228.csproj", "{EDB6D0D2-EB86-490C-A113-4ADED43644C8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.WebView2.Wpf.V1099228", "V1099228\Diga.WebView2.Wpf.V1099228\Diga.WebView2.Wpf.V1099228.csproj", "{C8175AA5-EF22-48FB-B33B-598CEBDBB24C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebView2WrapperWpfTest", "WebView2WrapperWpfTest\WebView2WrapperWpfTest.csproj", "{C0868E8A-4599-447F-85DE-320BB489DF1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -131,6 +135,22 @@ Global
 		{EDB6D0D2-EB86-490C-A113-4ADED43644C8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EDB6D0D2-EB86-490C-A113-4ADED43644C8}.Release|x86.ActiveCfg = Release|Any CPU
 		{EDB6D0D2-EB86-490C-A113-4ADED43644C8}.Release|x86.Build.0 = Release|Any CPU
+		{C8175AA5-EF22-48FB-B33B-598CEBDBB24C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8175AA5-EF22-48FB-B33B-598CEBDBB24C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8175AA5-EF22-48FB-B33B-598CEBDBB24C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C8175AA5-EF22-48FB-B33B-598CEBDBB24C}.Debug|x86.Build.0 = Debug|Any CPU
+		{C8175AA5-EF22-48FB-B33B-598CEBDBB24C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8175AA5-EF22-48FB-B33B-598CEBDBB24C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8175AA5-EF22-48FB-B33B-598CEBDBB24C}.Release|x86.ActiveCfg = Release|Any CPU
+		{C8175AA5-EF22-48FB-B33B-598CEBDBB24C}.Release|x86.Build.0 = Release|Any CPU
+		{C0868E8A-4599-447F-85DE-320BB489DF1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0868E8A-4599-447F-85DE-320BB489DF1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0868E8A-4599-447F-85DE-320BB489DF1E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C0868E8A-4599-447F-85DE-320BB489DF1E}.Debug|x86.Build.0 = Debug|Any CPU
+		{C0868E8A-4599-447F-85DE-320BB489DF1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0868E8A-4599-447F-85DE-320BB489DF1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0868E8A-4599-447F-85DE-320BB489DF1E}.Release|x86.ActiveCfg = Release|Any CPU
+		{C0868E8A-4599-447F-85DE-320BB489DF1E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,6 +165,7 @@ Global
 		{C7162E65-48A1-4408-A48C-4507B2214E1B} = {2DD059A2-0A62-4A1E-88C6-E0C08E86D261}
 		{346B9DEC-8022-4969-84EE-DD1CBCC4147D} = {2DD059A2-0A62-4A1E-88C6-E0C08E86D261}
 		{EDB6D0D2-EB86-490C-A113-4ADED43644C8} = {2DD059A2-0A62-4A1E-88C6-E0C08E86D261}
+		{C8175AA5-EF22-48FB-B33B-598CEBDBB24C} = {2DD059A2-0A62-4A1E-88C6-E0C08E86D261}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {98BF9103-62BD-4877-BB96-07700B326B3D}

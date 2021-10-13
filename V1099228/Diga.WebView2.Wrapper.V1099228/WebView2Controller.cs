@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Runtime.ExceptionServices;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
@@ -19,7 +21,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<WebView2EventArgs> GotFocus;
         public event EventHandler<WebView2EventArgs> LostFocus;
         public event EventHandler<MoveFocusRequestedEventArgs> MoveFocusRequested;
-        public event EventHandler<WebView2EventArgs> RasterizationScaleChanged; 
+        public event EventHandler<WebView2EventArgs> RasterizationScaleChanged;
 
         public WebView2Controller(ICoreWebView2Controller3 controller)
         {
@@ -97,14 +99,23 @@ namespace Diga.WebView2.Wrapper
             OnAcceleratorKeyPressed(e);
         }
 
+        [HandleProcessCorruptedStateExceptions]
         private void UnRegisterEvents()
         {
-            this.ToInterface().remove_AcceleratorKeyPressed(this._AcceleratorKeyPressedToken);
-            this.ToInterface().remove_MoveFocusRequested(this._MoveFocusRequestedToken);
-            this.ToInterface().remove_ZoomFactorChanged(this._ZoomFactorChangedToken);
-            this.ToInterface().remove_GotFocus(this._GotFocusToken);
-            this.ToInterface().remove_LostFocus(this._LostFocusToken);
-            this.ToInterface().remove_RasterizationScaleChanged(this._RasterizationScaleChangedToken);
+            try
+            {
+               
+                EventRegistrationTool.UnWireToken(  this._AcceleratorKeyPressedToken,this.ToInterface().remove_AcceleratorKeyPressed);
+                EventRegistrationTool.UnWireToken(this._MoveFocusRequestedToken,this.ToInterface().remove_MoveFocusRequested);
+                EventRegistrationTool.UnWireToken(this._ZoomFactorChangedToken,this.ToInterface().remove_ZoomFactorChanged);
+                EventRegistrationTool.UnWireToken(this._GotFocusToken,this.ToInterface().remove_GotFocus);
+                EventRegistrationTool.UnWireToken(this._LostFocusToken,this.ToInterface().remove_LostFocus);
+                EventRegistrationTool.UnWireToken(this._RasterizationScaleChangedToken,this.ToInterface().remove_RasterizationScaleChanged);
+            }
+            catch (Exception e)
+            {
+                Debug.Print(e.ToString());
+            }
         }
 
         public tagRECT Bounds
@@ -140,7 +151,7 @@ namespace Diga.WebView2.Wrapper
             this.ToInterface().Close();
         }
 
-        public WebView2View WebView => new WebView2View((ICoreWebView2_6) this.ToInterface().CoreWebView2);
+        public WebView2View WebView => new WebView2View((ICoreWebView2_6)this.ToInterface().CoreWebView2);
 
         public void Dispose()
         {
@@ -173,12 +184,12 @@ namespace Diga.WebView2.Wrapper
             MoveFocusRequested?.Invoke(this, e);
         }
 
-        public ICoreWebView2 CoreWebView2 => ((ICoreWebView2Controller) this._Controller).CoreWebView2;
+        public ICoreWebView2 CoreWebView2 => ((ICoreWebView2Controller)this._Controller).CoreWebView2;
 
         public COREWEBVIEW2_COLOR DefaultBackgroundColor
         {
-            get => ((ICoreWebView2Controller2) this._Controller).DefaultBackgroundColor;
-            set => ((ICoreWebView2Controller2) this._Controller).DefaultBackgroundColor = value;
+            get => ((ICoreWebView2Controller2)this._Controller).DefaultBackgroundColor;
+            set => ((ICoreWebView2Controller2)this._Controller).DefaultBackgroundColor = value;
         }
 
         public double RasterizationScale

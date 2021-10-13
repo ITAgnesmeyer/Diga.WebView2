@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Runtime.ExceptionServices;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
@@ -57,9 +59,19 @@ namespace Diga.WebView2.Wrapper
             this.ToInterface().add_CursorChanged(eventHandler, out this._CursorChangedToken);
         }
 
+        [HandleProcessCorruptedStateExceptions]
         private void UnRegisterEvents()
         {
-            this.ToInterface().remove_CursorChanged(this._CursorChangedToken);
+            try
+            {
+               EventRegistrationTool.UnWireToken(  this._CursorChangedToken,this.ToInterface().remove_CursorChanged);
+            }
+            catch (Exception e)
+            {
+                Debug.Print(e.ToString());
+
+            }
+            
         }
         private void OnCursorChangedIntern(object sender, CursorChangedEventArgs e)
         {

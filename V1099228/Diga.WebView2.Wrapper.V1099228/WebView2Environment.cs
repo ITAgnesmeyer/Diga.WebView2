@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using Diga.WebView2.Interop;
@@ -53,12 +55,20 @@ namespace Diga.WebView2.Wrapper
             OnBrowserProcessExited(e);
         }
 
-        private void UnregisterEvents()
+        [HandleProcessCorruptedStateExceptions]
+        private void UnRegisterEvents()
         {   
             if(this._Interface == null) return;
-
-            this.ToInterface().remove_NewBrowserVersionAvailable(this._NewBrowserVersionAvailableToken);
-            this.ToInterface().remove_BrowserProcessExited(this._BrowserProcessExitedToken);
+            try
+            {
+                EventRegistrationTool.UnWireToken(this._NewBrowserVersionAvailableToken,  this.ToInterface().remove_NewBrowserVersionAvailable);
+                EventRegistrationTool.UnWireToken(this._BrowserProcessExitedToken,this.ToInterface().remove_BrowserProcessExited);
+            }
+            catch (Exception exception)
+            {
+                Debug.Print(exception.ToString());
+            }
+            
         }
         private void OnNewBrowserVersionAvailableInternal(object sender, WebView2EventArgs e)
         {
@@ -79,7 +89,7 @@ namespace Diga.WebView2.Wrapper
 
         public void Dispose()
         {
-            this.UnregisterEvents();
+            this.UnRegisterEvents();
             this._Interface = null;
         }
 

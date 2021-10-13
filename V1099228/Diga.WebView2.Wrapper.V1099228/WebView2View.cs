@@ -13,9 +13,9 @@ using Diga.WebView2.Wrapper.Types;
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
 {
-    public partial class WebView2View :  IDisposable
+    public partial class WebView2View : IDisposable
     {
-       
+
         public event EventHandler<NavigationStartingEventArgs> NavigationStarting;
         public event EventHandler<ContentLoadingEventArgs> ContentLoading;
         public event EventHandler<ExecuteScriptCompletedEventArgs> ExecuteScriptCompleted;
@@ -205,7 +205,7 @@ namespace Diga.WebView2.Wrapper
         private void OnWindowCloseRequestedIntern(object sender, WebView2EventArgs e)
         {
             OnWindowCloseRequested(e);
-           
+
 
         }
 
@@ -274,77 +274,78 @@ namespace Diga.WebView2.Wrapper
             OnContentLoading(e);
         }
 
-        private static void UnWireToken(EventRegistrationToken token,
-            Action<EventRegistrationToken> action)
-        {
-            if(token.value == 0) return;
-            action.Invoke(token);
-            token.value = 0;
-        }
+        
+
         [HandleProcessCorruptedStateExceptions]
         private void UnRegisterEvents()
         {
-            if(this._WebView == null) return;
-            UnWireToken(this._NavigationStartingToken, this.ToInterface().remove_NavigationStarting);
-            //this.ToInterface().remove_NavigationStarting(this._NavigationStartingToken);
-            
-            
-            this.ToInterface().remove_ContentLoading(this._ContentLoadingToken);
-            this._ContentLoadingToken.value = 0;
-            this.ToInterface().remove_SourceChanged(this._SourceChangedToken);
-            this._SourceChangedToken.value = 0;
-            this.ToInterface().remove_HistoryChanged(this._HistoryChangeToken);
-            this._HistoryChangeToken.value = 0;
-            this.ToInterface().remove_NavigationCompleted(this._NavigationCompletedToken);
-            this._NavigationCompletedToken.value = 0;
-            this.ToInterface().remove_ContainsFullScreenElementChanged(this._ContainsFullScreenElementChanged);
-            this._ContainsFullScreenElementChanged.value = 0;
-            this.ToInterface().remove_WebResourceRequested(this._WebResourceRequested);
-            this._WebResourceRequested.value = 0;
-            this.ToInterface().remove_DocumentTitleChanged(this._DocumentTitleChangedToken);
-            this._DocumentTitleChangedToken.value = 0;
-            this.ToInterface().remove_FrameNavigationCompleted(this._FrameNavigationCompletedToken);
-            this._FrameNavigationCompletedToken.value = 0;
-            this.ToInterface().remove_FrameNavigationStarting(this._FrameNavigationStartingToken);
-            this._FrameNavigationStartingToken.value = 0;
-            this.ToInterface().remove_NewWindowRequested(this._NewWindowRequestedToken);
-            this._NewWindowRequestedToken.value = 0;
-            this.ToInterface().remove_PermissionRequested(this._PermissionRequestedToken);
-            this._PermissionRequestedToken.value = 0;
-            this.ToInterface().remove_ProcessFailed(this._ProcessFailedToken);
-            this._ProcessFailedToken.value = 0;
-            this.ToInterface().remove_ScriptDialogOpening(this._ScriptDialogOpeningToken);
-            this._ScriptDialogOpeningToken.value = 0;
-            this.ToInterface().remove_WebMessageReceived(this._WebMessageReceivedToken);
-            this._WebMessageReceivedToken.value = 0;
-            this.ToInterface().remove_WindowCloseRequested(this._WindowCloseRequestedToken);
-            this._WindowCloseRequestedToken.value = 0;
-            this.ToInterface().remove_DOMContentLoaded(this._DOMContentLoadedToken);
-            this._DOMContentLoadedToken.value = 0;
-            this.ToInterface().remove_WebResourceResponseReceived(this._WebResourceResponseReceivedToken);
-            this._WebResourceResponseReceivedToken.value = 0;
+            if (this._WebView == null) return;
             try
             {
-                this.ToInterface().remove_DownloadStarting(this._DownloadStartingToken);
+                
+               EventRegistrationTool.UnWireToken(this._NavigationStartingToken, this.ToInterface().remove_NavigationStarting);
+                
+               EventRegistrationTool.UnWireToken(this._ContentLoadingToken,this.ToInterface().remove_ContentLoading);
+
+               EventRegistrationTool.UnWireToken(this._SourceChangedToken, this.ToInterface().remove_SourceChanged);
+                
+               EventRegistrationTool.UnWireToken(this._HistoryChangeToken,this.ToInterface().remove_HistoryChanged);
+                
+               EventRegistrationTool.UnWireToken(this._NavigationCompletedToken,this.ToInterface().remove_NavigationCompleted);
+                
+               EventRegistrationTool.UnWireToken(this._ContainsFullScreenElementChanged,this.ToInterface().remove_ContainsFullScreenElementChanged);
+                
+               EventRegistrationTool.UnWireToken(this._WebResourceRequested,this.ToInterface().remove_WebResourceRequested);
+                
+               EventRegistrationTool.UnWireToken(this._DocumentTitleChangedToken,this.ToInterface().remove_DocumentTitleChanged);
+                
+               EventRegistrationTool.UnWireToken(this._FrameNavigationCompletedToken,this.ToInterface().remove_FrameNavigationCompleted);
+                
+               EventRegistrationTool.UnWireToken(this._FrameNavigationStartingToken,this.ToInterface().remove_FrameNavigationStarting);
+                
+               EventRegistrationTool.UnWireToken(this._NewWindowRequestedToken,this.ToInterface().remove_NewWindowRequested);
+                
+               EventRegistrationTool.UnWireToken(this._PermissionRequestedToken,this.ToInterface().remove_PermissionRequested);
+                
+               EventRegistrationTool.UnWireToken((this._ProcessFailedToken),this.ToInterface().remove_ProcessFailed);
+                
+               EventRegistrationTool.UnWireToken(this._ScriptDialogOpeningToken,this.ToInterface().remove_ScriptDialogOpening);
+                
+               EventRegistrationTool.UnWireToken(this._WebMessageReceivedToken,this.ToInterface().remove_WebMessageReceived);
+                
+               EventRegistrationTool.UnWireToken(this._WindowCloseRequestedToken,this.ToInterface().remove_WindowCloseRequested);
+                
+               EventRegistrationTool.UnWireToken(this._DOMContentLoadedToken,this.ToInterface().remove_DOMContentLoaded);
+                
+               EventRegistrationTool.UnWireToken(this._WebResourceResponseReceivedToken,this.ToInterface().remove_WebResourceResponseReceived);
+                
+                try
+                {
+                    EventRegistrationTool.UnWireToken(this._DownloadStartingToken,this.ToInterface().remove_DownloadStarting);
+                }
+                catch (Exception e)
+                {
+                    Debug.Print("WebView2View UnregisterEvents" + e.Message);
+                }
+
+                
+                EventRegistrationTool.UnWireToken(this._FrameCreatedToken,this.ToInterface().remove_FrameCreated);
+                
+                try
+                {
+                    EventRegistrationTool.UnWireToken(this._CertificateRequestedToken,this.ToInterface().remove_ClientCertificateRequested);
+
+                }
+                catch (Exception e)
+                {
+                    Debug.Print("WebView2View UnregisterEvents => Exception:" + e.Message);
+                }
+                
             }
             catch (Exception e)
             {
-                Debug.Print("WebView2View UnregisterEvents" + e.Message);
+                Debug.Print(e.ToString());
             }
-
-            this._DownloadStartingToken.value = 0;
-            this.ToInterface().remove_FrameCreated(this._FrameCreatedToken);
-            this._FrameCreatedToken.value = 0;
-            try
-            {
-                this.ToInterface().remove_ClientCertificateRequested(this._CertificateRequestedToken);
-
-            }
-            catch (Exception e)
-            {
-                Debug.Print("WebView2View UnregisterEvents => Exception:" + e.Message);
-            }
-            this._CertificateRequestedToken.value = 0;
 
         }
 
@@ -483,7 +484,7 @@ namespace Diga.WebView2.Wrapper
         public void GoBack()
         {
             this.ToInterface().GoBack();
-            
+
         }
 
 
@@ -496,7 +497,7 @@ namespace Diga.WebView2.Wrapper
         public void Stop()
         {
             this.ToInterface().Stop();
-            
+
         }
 
         public string DocumentTitle => this.ToInterface().DocumentTitle;
@@ -523,7 +524,7 @@ namespace Diga.WebView2.Wrapper
 
         public void AddRemoteObject(string name, ref object @object)
         {
-            
+
             this.ToInterface().AddHostObjectToScript(name, ref @object);
 
         }
@@ -677,7 +678,7 @@ namespace Diga.WebView2.Wrapper
     }
 
 
-    
 
-  
+
+
 }
