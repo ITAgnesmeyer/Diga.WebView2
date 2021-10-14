@@ -111,5 +111,23 @@ namespace WebView2WrapperWpfTest
                     break;
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WebView1.IsVisible)
+                this.WebView1.IsVisible = false;
+            else
+            {
+                this.WebView1.IsVisible = true;
+            }
+
+            if (this.WebView2.Visibility == Visibility.Hidden)
+                this.WebView2.Visibility = Visibility.Visible;
+            else
+            {
+                this.WebView2.Visibility = Visibility.Hidden;
+            }
+
+        }
     }
 }

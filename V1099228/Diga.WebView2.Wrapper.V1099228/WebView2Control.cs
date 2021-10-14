@@ -106,11 +106,11 @@ namespace Diga.WebView2.Wrapper
         private void OnCompositionControllerCompletedIntern(object sender, CompositionControllerCompletedEventArgs e)
         {
             this.CompositionController =e.CompositionController;
-            this.CompositionController.CursorChanged += OnCompoisitionControllerCursorChangedIntern;
+            this.CompositionController.CursorChanged += OnCompositionControllerCursorChangedIntern;
             OnCompositionControllerCompleted(e);
         }
 
-        private void OnCompoisitionControllerCursorChangedIntern(object sender, CursorChangedEventArgs e)
+        private void OnCompositionControllerCursorChangedIntern(object sender, CursorChangedEventArgs e)
         {
             OnCompoisitionControllerCursorChanged(e);
         }
@@ -226,7 +226,7 @@ namespace Diga.WebView2.Wrapper
 
             if (this.CompositionController != null)
             {
-                this.CompositionController.CursorChanged -= OnCompoisitionControllerCursorChangedIntern;
+                this.CompositionController.CursorChanged -= OnCompositionControllerCursorChangedIntern;
             }
             if (this.WebView != null)
             {
@@ -517,13 +517,14 @@ namespace Diga.WebView2.Wrapper
             UnWireEvents();
             RefCounter -= 1;
             this.ParentHandle = IntPtr.Zero;
-            
-            if (RefCounter <= 0)
-                this.Close();
             this.WebView?.Dispose();
-            this.Controller?.Dispose();
             this.CompositionController?.Dispose();
             this.Environment?.Dispose();
+            if (RefCounter <= 0)
+                this.Close();
+            
+            this.Controller?.Dispose();
+            
             
            
         }
@@ -692,7 +693,7 @@ namespace Diga.WebView2.Wrapper
             try
             {
                 DispatchWrapper dw = new DispatchWrapper(obj);
-
+                
 
                 // If we got here without throwing an exception, the QI for IDispatch succeeded.
 

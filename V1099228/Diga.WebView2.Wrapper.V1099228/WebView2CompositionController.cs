@@ -62,9 +62,10 @@ namespace Diga.WebView2.Wrapper
         [HandleProcessCorruptedStateExceptions]
         private void UnRegisterEvents()
         {
+            if (this._Controller == null) return;
             try
             {
-               EventRegistrationTool.UnWireToken(  this._CursorChangedToken,this.ToInterface().remove_CursorChanged);
+               EventRegistrationTool.UnWireToken(  this._CursorChangedToken,this._Controller.remove_CursorChanged);
             }
             catch (Exception e)
             {
@@ -81,6 +82,7 @@ namespace Diga.WebView2.Wrapper
         public void Dispose()
         {
             UnRegisterEvents();
+            this._Controller = null;
         }
 
         protected virtual void OnCursorChanged(CursorChangedEventArgs e)

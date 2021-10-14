@@ -102,15 +102,16 @@ namespace Diga.WebView2.Wrapper
         [HandleProcessCorruptedStateExceptions]
         private void UnRegisterEvents()
         {
+            if (this._Controller == null) return;
             try
             {
                
-                EventRegistrationTool.UnWireToken(  this._AcceleratorKeyPressedToken,this.ToInterface().remove_AcceleratorKeyPressed);
-                EventRegistrationTool.UnWireToken(this._MoveFocusRequestedToken,this.ToInterface().remove_MoveFocusRequested);
-                EventRegistrationTool.UnWireToken(this._ZoomFactorChangedToken,this.ToInterface().remove_ZoomFactorChanged);
-                EventRegistrationTool.UnWireToken(this._GotFocusToken,this.ToInterface().remove_GotFocus);
-                EventRegistrationTool.UnWireToken(this._LostFocusToken,this.ToInterface().remove_LostFocus);
-                EventRegistrationTool.UnWireToken(this._RasterizationScaleChangedToken,this.ToInterface().remove_RasterizationScaleChanged);
+                EventRegistrationTool.UnWireToken(  this._AcceleratorKeyPressedToken,this._Controller.remove_AcceleratorKeyPressed);
+                EventRegistrationTool.UnWireToken(this._MoveFocusRequestedToken,this._Controller.remove_MoveFocusRequested);
+                EventRegistrationTool.UnWireToken(this._ZoomFactorChangedToken,this._Controller.remove_ZoomFactorChanged);
+                EventRegistrationTool.UnWireToken(this._GotFocusToken,this._Controller.remove_GotFocus);
+                EventRegistrationTool.UnWireToken(this._LostFocusToken,this._Controller.remove_LostFocus);
+                EventRegistrationTool.UnWireToken(this._RasterizationScaleChangedToken,this._Controller.remove_RasterizationScaleChanged);
             }
             catch (Exception e)
             {

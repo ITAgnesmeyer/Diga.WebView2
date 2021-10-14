@@ -562,6 +562,7 @@ namespace Diga.WebView2.Wrapper
         public void Dispose()
         {
             UnRegisterEvents();
+            
             this._WebView = null;
         }
 

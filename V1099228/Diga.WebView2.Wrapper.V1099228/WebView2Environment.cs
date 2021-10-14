@@ -61,8 +61,8 @@ namespace Diga.WebView2.Wrapper
             if(this._Interface == null) return;
             try
             {
-                EventRegistrationTool.UnWireToken(this._NewBrowserVersionAvailableToken,  this.ToInterface().remove_NewBrowserVersionAvailable);
-                EventRegistrationTool.UnWireToken(this._BrowserProcessExitedToken,this.ToInterface().remove_BrowserProcessExited);
+                EventRegistrationTool.UnWireToken(this._NewBrowserVersionAvailableToken,  this._Interface.remove_NewBrowserVersionAvailable);
+                EventRegistrationTool.UnWireToken(this._BrowserProcessExitedToken,this._Interface.remove_BrowserProcessExited);
             }
             catch (Exception exception)
             {

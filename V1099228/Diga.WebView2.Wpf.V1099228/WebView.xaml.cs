@@ -84,7 +84,22 @@ namespace Diga.WebView2.Wpf
             get => _HtmlContent;
             set => this.NavigateToString(value);
         }
+        
+        public new bool IsVisible
+        {
+            get
+            {
 
+                return this._WebViewControl.IsVisible;
+                
+
+            }
+            set
+            {
+                this._WebViewControl.IsVisible = value;
+
+            }
+        }
         public bool IsZoomControlEnabled
         {
             get => _IsZoomControlEnabled;

@@ -12,7 +12,12 @@
           <ColumnDefinition></ColumnDefinition>
           <ColumnDefinition></ColumnDefinition>
       </Grid.ColumnDefinitions>
-      <a:WebView x:Name="WebView1" Grid.Column="0"  Margin="10"  Url="https://www.itagnesmeyer.de" WebViewCreated="WebView1_WebViewCreated" WebMessageReceived="WebView1_WebMessageReceived"></a:WebView>
-      <a:WebView x:Name="WebView2"  Grid.Column="1"  Margin="10"  Url="https://www.google.de" WebViewCreated="WebView2_WebViewCreated" WebMessageReceived="WebView2_WebMessageReceived"></a:WebView>
+      <Grid.RowDefinitions>
+          <RowDefinition></RowDefinition>
+          <RowDefinition Height="100"></RowDefinition>
+      </Grid.RowDefinitions>
+      <a:WebView Grid.Row="0"  x:Name="WebView1" Background="Black"  Grid.Column="0"  Margin="10"  Url="https://www.itagnesmeyer.de" WebViewCreated="WebView1_WebViewCreated" WebMessageReceived="WebView1_WebMessageReceived"></a:WebView>
+      <a:WebView Grid.Row="0" x:Name="WebView2"  Background="Blue"  Grid.Column="1"  Margin="10"  Url="https://www.google.de" WebViewCreated="WebView2_WebViewCreated" WebMessageReceived="WebView2_WebMessageReceived"></a:WebView>
+      <Button Grid.Row="1" Grid.Column="0" Click="Button_Click" >Test</Button>
   </Grid>
 </Window>
