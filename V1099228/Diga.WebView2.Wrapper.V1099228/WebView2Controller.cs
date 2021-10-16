@@ -199,22 +199,22 @@ namespace Diga.WebView2.Wrapper
             set => this._Controller.RasterizationScale = value;
         }
 
-        public int ShouldDetectMonitorScaleChanges
+        public bool ShouldDetectMonitorScaleChanges
         {
-            get => this._Controller.ShouldDetectMonitorScaleChanges;
-            set => this._Controller.ShouldDetectMonitorScaleChanges = value;
+            get => (CBOOL)this._Controller.ShouldDetectMonitorScaleChanges;
+            set => this._Controller.ShouldDetectMonitorScaleChanges = (CBOOL)value;
         }
 
-        public void add_RasterizationScaleChanged(ICoreWebView2RasterizationScaleChangedEventHandler eventHandler,
-            out EventRegistrationToken token)
-        {
-            this._Controller.add_RasterizationScaleChanged(eventHandler, out token);
-        }
+        //public void add_RasterizationScaleChanged(ICoreWebView2RasterizationScaleChangedEventHandler eventHandler,
+        //    out EventRegistrationToken token)
+        //{
+        //    this._Controller.add_RasterizationScaleChanged(eventHandler, out token);
+        //}
 
-        public void remove_RasterizationScaleChanged(EventRegistrationToken token)
-        {
-            this._Controller.remove_RasterizationScaleChanged(token);
-        }
+        //public void remove_RasterizationScaleChanged(EventRegistrationToken token)
+        //{
+        //    this._Controller.remove_RasterizationScaleChanged(token);
+        //}
 
         public COREWEBVIEW2_BOUNDS_MODE BoundsMode
         {

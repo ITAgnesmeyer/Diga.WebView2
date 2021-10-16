@@ -850,7 +850,16 @@ namespace Diga.WebView2.Wpf
             
             if (h.Handle  == IntPtr.Zero )
                 return;
-            this._WebViewControl = new WebView2Control(h.Handle);
+            try
+            {
+                this._WebViewControl = new WebView2Control(h.Handle);
+            }
+            catch (Exception ex)
+            {
+                Debug.Print("ViewHwend_Loaded Exception:" + ex.Message);
+                
+            }
+            if(this._WebViewControl == null) return;
             this._WebViewControl.Created += OnWebWindowCreated;
             this._WebViewControl.BeforeCreate += OnWebWindowBeforeCreate;
             this._WebViewControl.NavigateStart += OnNavigationStartIntern;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
 
 namespace Diga.WebView2.Wrapper
@@ -198,8 +199,17 @@ namespace Diga.WebView2.Wrapper
             ((ICoreWebView2Controller)this._Controller).remove_AcceleratorKeyPressed(token);
         }
 
+        int ICoreWebView2Controller3.ShouldDetectMonitorScaleChanges { get => this._Controller.ShouldDetectMonitorScaleChanges; set => this._Controller.ShouldDetectMonitorScaleChanges = value; }
 
-       
+        public void add_RasterizationScaleChanged([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2RasterizationScaleChangedEventHandler eventHandler, out EventRegistrationToken token)
+        {
+            this._Controller.add_RasterizationScaleChanged(eventHandler, out token);
+        }
+
+        public void remove_RasterizationScaleChanged([In] EventRegistrationToken token)
+        {
+            this._Controller.remove_RasterizationScaleChanged(token);
+        }
     }
 
 }

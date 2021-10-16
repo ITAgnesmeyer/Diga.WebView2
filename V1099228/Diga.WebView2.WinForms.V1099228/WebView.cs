@@ -279,6 +279,8 @@ namespace Diga.WebView2.WinForms
             e.Settings.IsStatusBarEnabled = new CBOOL(this._IsStatusBarEnabled);
             e.Settings.IsWebMessageEnabled = new CBOOL(this._IsWebMessageEnabled);
             e.Settings.IsZoomControlEnabled = new CBOOL(this._IsZoomControlEnabled);
+            e.Settings.IsBuiltInErrorPageEnabled = new CBOOL(true);
+            
             
         }
 

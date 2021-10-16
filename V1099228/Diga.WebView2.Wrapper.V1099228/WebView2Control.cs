@@ -47,19 +47,19 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<WebResourceResponseReceivedEventArgs> WebResourceResponseReceived;
         public event EventHandler<WebView2EventArgs> NewBrowserVersionAvailable;
         public event EventHandler<EnvironmentCompletedHandlerArgs> BeforeEnvironmentCompleted;
-        public event EventHandler<DownloadStartingEventArgs> DownloadStarting; 
+        public event EventHandler<DownloadStartingEventArgs> DownloadStarting;
         public event EventHandler<FrameCreatedEventArgs> FrameCreated;
         public event EventHandler<ClientCertificateRequestedEventArgs> ClientCertificateRequested;
         public event EventHandler<WebView2EventArgs> RasterizationScaleChanged;
         public event EventHandler<CompositionControllerCompletedEventArgs> CompositionControllerCompleted;
         public event EventHandler<CursorChangedEventArgs> CompoisitionControllerCursorChanged;
-        public event EventHandler<BrowserProcessExitedEventArgs> BrowserProcessExited; 
+        public event EventHandler<BrowserProcessExitedEventArgs> BrowserProcessExited;
         private WebView2Settings _Settings;
         private string _BrowserInfo;
         private object HostHelper;
         private const string HostHelperName = "{60A417CA-F1AB-4307-801B-F96003F8938B} Host Object Helper";
         private readonly Dictionary<string, object> _RemoteObjects = new Dictionary<string, object>();
-
+        
         private WebView2Environment Environment { get; set; }
         public WebView2Control(IntPtr parentHandle) : this(parentHandle, string.Empty, string.Empty, string.Empty)
         {
@@ -75,7 +75,7 @@ namespace Diga.WebView2.Wrapper
             RefCounter += 1;
         }
 
-        private IntPtr ParentHandle { get;  set; }
+        private IntPtr ParentHandle { get; set; }
         public string BrowserExecutableFolder { get; }
         public string UserDataFolder { get; }
         public string AdditionalBrowserArguments { get; }
@@ -94,7 +94,7 @@ namespace Diga.WebView2.Wrapper
             //Native.CreateCoreWebView2EnvironmentWithDetails(this.BrowserExecutableFolder, this.UserDataFolder, this.AdditionalBrowserArguments, handler);
             WebView2EnvironmentOptions options = new WebView2EnvironmentOptions
             {
-               
+
                 AdditionalBrowserArguments = this.AdditionalBrowserArguments
             };
 
@@ -105,7 +105,7 @@ namespace Diga.WebView2.Wrapper
 
         private void OnCompositionControllerCompletedIntern(object sender, CompositionControllerCompletedEventArgs e)
         {
-            this.CompositionController =e.CompositionController;
+            this.CompositionController = e.CompositionController;
             this.CompositionController.CursorChanged += OnCompositionControllerCursorChangedIntern;
             OnCompositionControllerCompleted(e);
         }
@@ -124,8 +124,9 @@ namespace Diga.WebView2.Wrapper
         private void OnAfterEnvironmentCompletedIntern(object sender, EnvironmentCompletedHandlerArgs e)
         {
             this.Environment = e.Environment;
-            this.Environment.NewBrowserVersionAvailable += OnNewBrowserVersionAvailableIntern;
             this.Environment.BrowserProcessExited += OnBrowserProcessExitedIntern;
+            this.Environment.NewBrowserVersionAvailable += OnNewBrowserVersionAvailableIntern;
+            
         }
 
         private void OnBrowserProcessExitedIntern(object sender, BrowserProcessExitedEventArgs e)
@@ -150,36 +151,37 @@ namespace Diga.WebView2.Wrapper
             this.Controller.GotFocus += OnGotFocusIntern;
             this.Controller.LostFocus += OnLostFocusIntern;
             this.Controller.MoveFocusRequested += OnMoveFocusRequestedIntern;
-            this.Controller.ZoomFactorChanged += OnZoomFactorChangedIntern;
             this.Controller.RasterizationScaleChanged += OnRasterizationScaleChangedIntern;
-            
+            this.Controller.ZoomFactorChanged += OnZoomFactorChangedIntern;
+
             this.WebView = new WebView2View((ICoreWebView2_6)e.WebView);
-            this.WebView.NavigationStarting += OnNavigateStartIntern;
-            this.WebView.ContentLoading += OnContentLoadingIntern;
-            this.WebView.SourceChanged += OnSourceChangedInternal;
-            this.WebView.HistoryChanged += OnHistoryChangedInternal;
-            this.WebView.NavigationCompleted += OnNavigationCompletedIntern;
-            this.WebView.WebResourceRequested += OnWebResourceRequestedIntern;
+            this.WebView.ClientCertificateRequested += OnClientCertificateRequestedIntern;
             this.WebView.ContainsFullScreenElementChanged += OnContainsFullScreenElementChangedIntern;
+            this.WebView.ContentLoading += OnContentLoadingIntern;
             this.WebView.DocumentTitleChanged += OnDocumentTitleChangedIntern;
-            this.WebView.NewWindowRequested += OnNewWindowRequestedIntern;
-            this.WebView.PermissionRequested += OnPermissionRequestedIntern;
+            this.WebView.DOMContentLoaded += OnDOMContentLoadedIntern;
+            this.WebView.DownloadStarting += OnDownloadStartingIntern;
+            this.WebView.ExecuteScriptCompleted += OnExecuteScriptCompletedIntern;
+            this.WebView.FrameCreated += OnFrameCreatedIntern;
             this.WebView.FrameNavigationCompleted += OnFrameNavigationCompletedIntern;
             this.WebView.FrameNavigationStarting += OnFrameNavigationStartingIntern;
-            this.WebView.ExecuteScriptCompleted += OnExecuteScriptCompletedIntern;
+            this.WebView.HistoryChanged += OnHistoryChangedInternal;
+            this.WebView.NavigationCompleted += OnNavigationCompletedIntern;
+            this.WebView.NavigationStarting += OnNavigateStartIntern;
+            this.WebView.NewWindowRequested += OnNewWindowRequestedIntern;
+            this.WebView.PermissionRequested += OnPermissionRequestedIntern;
             this.WebView.ProcessFailed += OnProcessFailedIntern;
             this.WebView.ScriptDialogOpening += OnScriptDialogOpeningIntern;
-            this.WebView.WebMessageReceived += OnWebMessageReceivedIntern;
-            this.WebView.WindowCloseRequested += OnWindowCloseRequestedIntern;
             this.WebView.ScriptToExecuteOnDocumentCreated += OnScriptToExecuteOnDocumentCreatedIntern;
-            this.WebView.DOMContentLoaded += OnDOMContentLoadedIntern;
+            this.WebView.SourceChanged += OnSourceChangedInternal;
+            this.WebView.WebMessageReceived += OnWebMessageReceivedIntern;
+            this.WebView.WebResourceRequested += OnWebResourceRequestedIntern;
             this.WebView.WebResourceResponseReceived += OnWebResourceResponseReceivedIntern;
-            this.WebView.DownloadStarting += OnDownloadStartingIntern;
-            this.WebView.FrameCreated += OnFrameCreatedIntern;
-            this.WebView.ClientCertificateRequested += OnClientCertificateRequestedIntern;
+            this.WebView.WindowCloseRequested += OnWindowCloseRequestedIntern;
+
             this._Settings = new WebView2Settings(this.WebView.Settings);
-            this.WebView.AddRemoteObject(HostHelperName,ref this.HostHelper);
-            
+            this.WebView.AddRemoteObject(HostHelperName, ref this.HostHelper);
+
             OnCreated();
         }
 
@@ -222,6 +224,7 @@ namespace Diga.WebView2.Wrapper
                 this.Controller.MoveFocusRequested -= OnMoveFocusRequestedIntern;
                 this.Controller.ZoomFactorChanged -= OnZoomFactorChangedIntern;
                 this.Controller.RasterizationScaleChanged -= OnRasterizationScaleChangedIntern;
+
             }
 
             if (this.CompositionController != null)
@@ -230,28 +233,30 @@ namespace Diga.WebView2.Wrapper
             }
             if (this.WebView != null)
             {
-                this.WebView.NavigationStarting -= OnNavigateStartIntern;
-                this.WebView.ContentLoading -= OnContentLoadingIntern;
-                this.WebView.SourceChanged -= OnSourceChangedInternal;
-                this.WebView.HistoryChanged -= OnHistoryChangedInternal;
-                this.WebView.NavigationCompleted -= OnNavigationCompletedIntern;
-                this.WebView.WebResourceRequested -= OnWebResourceRequestedIntern;
+                this.WebView.ClientCertificateRequested -= OnClientCertificateRequestedIntern;
                 this.WebView.ContainsFullScreenElementChanged -= OnContainsFullScreenElementChangedIntern;
+                this.WebView.ContentLoading -= OnContentLoadingIntern;
                 this.WebView.DocumentTitleChanged -= OnDocumentTitleChangedIntern;
-                this.WebView.NewWindowRequested -= OnNewWindowRequestedIntern;
-                this.WebView.PermissionRequested -= OnPermissionRequestedIntern;
+                this.WebView.DOMContentLoaded -= OnDOMContentLoadedIntern;
+                this.WebView.DownloadStarting -= OnDownloadStartingIntern;
+                this.WebView.ExecuteScriptCompleted -= OnExecuteScriptCompletedIntern;
+                this.WebView.FrameCreated -= OnFrameCreatedIntern;
                 this.WebView.FrameNavigationCompleted -= OnFrameNavigationCompletedIntern;
                 this.WebView.FrameNavigationStarting -= OnFrameNavigationStartingIntern;
-                this.WebView.ExecuteScriptCompleted -= OnExecuteScriptCompletedIntern;
+                this.WebView.HistoryChanged -= OnHistoryChangedInternal;
+                this.WebView.NavigationCompleted -= OnNavigationCompletedIntern;
+                this.WebView.NavigationStarting -= OnNavigateStartIntern;
+                this.WebView.NewWindowRequested -= OnNewWindowRequestedIntern;
+                this.WebView.PermissionRequested -= OnPermissionRequestedIntern;
                 this.WebView.ProcessFailed -= OnProcessFailedIntern;
                 this.WebView.ScriptDialogOpening -= OnScriptDialogOpeningIntern;
-                this.WebView.WebMessageReceived -= OnWebMessageReceivedIntern;
-                this.WebView.WindowCloseRequested -= OnWindowCloseRequestedIntern;
                 this.WebView.ScriptToExecuteOnDocumentCreated -= OnScriptToExecuteOnDocumentCreatedIntern;
-                this.WebView.DOMContentLoaded -= OnDOMContentLoadedIntern;
+                this.WebView.SourceChanged -= OnSourceChangedInternal;
+                this.WebView.WebMessageReceived -= OnWebMessageReceivedIntern;
+                this.WebView.WebResourceRequested -= OnWebResourceRequestedIntern;
                 this.WebView.WebResourceResponseReceived -= OnWebResourceResponseReceivedIntern;
-                this.WebView.DownloadStarting -= OnDownloadStartingIntern;
-                this.WebView.FrameCreated -= OnFrameCreatedIntern;
+                this.WebView.WindowCloseRequested -= OnWindowCloseRequestedIntern;
+
             }
         }
 
@@ -390,10 +395,10 @@ namespace Diga.WebView2.Wrapper
 
         private WebView2Controller Controller { get; set; }
         private WebView2CompositionController CompositionController { get; set; }
-        public CookieManager GetCookieManager =>  new CookieManager( this.WebView.CookieManager);
+        public CookieManager GetCookieManager => new CookieManager(this.WebView.CookieManager);
         public void DockToParent()
         {
-            if(this.ParentHandle == IntPtr.Zero) return;
+            if (this.ParentHandle == IntPtr.Zero) return;
             Native.GetClientRect(this.ParentHandle, out var rect);
             this.Controller.Bounds = rect;
         }
@@ -412,7 +417,7 @@ namespace Diga.WebView2.Wrapper
             {
                 if (this.CompositionController != null)
                 {
-                    
+
                     return this.CompositionController.SystemCursorId;
                 }
 
@@ -443,7 +448,7 @@ namespace Diga.WebView2.Wrapper
                 {
                     return this.CompositionController.UIAProvider;
                 }
-                
+
                 return null;
             }
         }
@@ -452,13 +457,13 @@ namespace Diga.WebView2.Wrapper
             COREWEBVIEW2_MOUSE_EVENT_VIRTUAL_KEYS virtualKeys, uint mouseDate, Point point)
         {
             if (this.CompositionController == null) return;
-            this.CompositionController.SendMouseInput(kind,virtualKeys, mouseDate, point);
+            this.CompositionController.SendMouseInput(kind, virtualKeys, mouseDate, point);
         }
 
         public void SendPointInput(COREWEBVIEW2_POINTER_EVENT_KIND kind, WebView2PointerInfo pointInfo)
         {
             if (this.CompositionController == null) return;
-            this.CompositionController.SendPointerInput(kind,pointInfo);
+            this.CompositionController.SendPointerInput(kind, pointInfo);
         }
         public IntPtr CursorHandle
         {
@@ -470,7 +475,7 @@ namespace Diga.WebView2.Wrapper
                 }
                 return IntPtr.Zero;
             }
-            
+
         }
         public void NavigateToString(string htmlContent)
         {
@@ -507,7 +512,7 @@ namespace Diga.WebView2.Wrapper
 
         public void CleanupControls()
         {
-           
+
 
             while (this._RemoteObjects.Count > 0)
             {
@@ -522,17 +527,17 @@ namespace Diga.WebView2.Wrapper
             this.Environment?.Dispose();
             if (RefCounter <= 0)
                 this.Close();
-            
+
             this.Controller?.Dispose();
-            
-            
-           
+
+
+
         }
         public void Dispose()
         {
             UnWireEvents();
-            
-            
+
+
         }
 
         protected virtual void OnCreated()
@@ -682,18 +687,18 @@ namespace Diga.WebView2.Wrapper
         {
             this.WebView.PostWebMessageAsString(webMessageAsString);
         }
-        
+
         public void AddRemoteObject(string name, object obj)
         {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentException("Name cannot be empty");
 
-            if(name == HostHelperName)
+            if (name == HostHelperName)
                 throw new InvalidOperationException($"The object({name}) already exists");
             try
             {
                 DispatchWrapper dw = new DispatchWrapper(obj);
-                
+
 
                 // If we got here without throwing an exception, the QI for IDispatch succeeded.
 
