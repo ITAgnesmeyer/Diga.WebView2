@@ -834,5 +834,11 @@ namespace Diga.WebView2.Wrapper
         {
             BrowserProcessExited?.Invoke(this, e);
         }
+
+        public WebViewColor DefaultBackgroundColor
+        {
+            get=> this.Controller.DefaultBackgroundColor;
+            set=> this.Controller.DefaultBackgroundColor = value;
+        }
     }
 }

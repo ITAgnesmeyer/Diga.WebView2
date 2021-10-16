@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using Diga.WebView2.WinForms;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
@@ -34,6 +35,9 @@ namespace Diga.WebView2.Wpf
 
         private bool _IsStatusBarEnabled;
         private bool _IsWebMessageEnabled = true;
+       
+        private Brush _DefaultBackgroundColor = Brushes.White;
+
 
         private string _HtmlContent;
         public event EventHandler<NavigationStartingEventArgs> NavigationStart;
@@ -78,6 +82,7 @@ namespace Diga.WebView2.Wpf
         public WebView()
         {
             InitializeComponent();
+            
         }
         public string HtmlContent
         {
@@ -332,6 +337,24 @@ namespace Diga.WebView2.Wpf
             }
         }
 
+
+        public Brush DefaultBackgroundColor
+        {
+            get => _DefaultBackgroundColor;
+            set
+            {
+                _DefaultBackgroundColor =  value;
+                if(this.IsCreated)
+                {
+                    
+                    Brush  newColor = this._DefaultBackgroundColor;
+                    SolidColorBrush sc = (SolidColorBrush)newColor;
+                    this._WebViewControl.DefaultBackgroundColor = new WebViewColor(sc.Color.A , sc.Color.R,sc.Color.G,sc.Color.B);
+
+                    //this._WebViewControl.DefaultBackgroundColor = new WebViewColor( _DefaultBackgroundColor.a,((Color)_DefaultBackgroundColor).R,((Color)_DefaultBackgroundColor).G, ((Color)_DefaultBackgroundColor).B)   ;
+                }
+            }
+        }
         public void GoBack()
         {
             if (!this.IsCreated) return;
@@ -832,7 +855,7 @@ namespace Diga.WebView2.Wpf
                 this.Navigate(this.Url);
             if (!string.IsNullOrEmpty(this._HtmlContent))
                 this.NavigateToString(this._HtmlContent);
-
+            this.DefaultBackgroundColor = _DefaultBackgroundColor;
             OnWebViewCreated();
         }
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
