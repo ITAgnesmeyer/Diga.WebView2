@@ -56,7 +56,7 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>
             ScriptToExecuteOnDocumentCreatedCompleted;
         public event EventHandler<EnvironmentCompletedHandlerArgs> BeforeEnvironmentCompleted;
-        public event EventHandler<DownloadStartingEventArgs> DownloadStarting; 
+        public event EventHandler<DownloadStartingEventArgs> DownloadStarting;
         public event EventHandler<FrameCreatedEventArgs> FrameCreated;
         public event EventHandler<WebView2EventArgs> RasterizationScaleChanged;
 
@@ -280,8 +280,8 @@ namespace Diga.WebView2.WinForms
             e.Settings.IsWebMessageEnabled = new CBOOL(this._IsWebMessageEnabled);
             e.Settings.IsZoomControlEnabled = new CBOOL(this._IsZoomControlEnabled);
             e.Settings.IsBuiltInErrorPageEnabled = new CBOOL(true);
-            
-            
+
+
         }
 
         private void OnWebWindowCreated(object sender, EventArgs e)
@@ -289,6 +289,8 @@ namespace Diga.WebView2.WinForms
             this.IsCreated = true;
             this.AddScriptToExecuteOnDocumentCreated(
                 "window.external = { sendMessage: function(message) { window.chrome.webview.postMessage(message); }, receiveMessage: function(callback) { window.chrome.webview.addEventListener('message', function(e) { callback(e.data); }); } };");
+            if(this._DefaultBackgroundColor != Color.Empty)
+                this._WebViewControl.DefaultBackgroundColor = _DefaultBackgroundColor;
             if (!string.IsNullOrEmpty(this._Url))
                 this.Navigate(this.Url);
             if (!string.IsNullOrEmpty(this._HtmlContent))
@@ -435,7 +437,10 @@ namespace Diga.WebView2.WinForms
             this._WebViewControl.OpenDevToolsWindow();
         }
 
-
+        public void OpenTaskManagerWindow()
+        {
+            this._WebViewControl.OpenTaskManagerWindow();
+        }
         private bool IsInDesignMode()
         {
             if (LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
@@ -909,5 +914,32 @@ namespace Diga.WebView2.WinForms
         {
             RasterizationScaleChanged?.Invoke(this, e);
         }
+
+        private Color _DefaultBackgroundColor = Color.Empty;
+        public Color DefaultBackgroundColor
+        {
+            get
+            {
+                
+                
+                if(this.IsCreated)
+                {
+                    this._DefaultBackgroundColor  = this._WebViewControl.DefaultBackgroundColor;
+                }
+                
+                return _DefaultBackgroundColor;
+            }
+            set
+            {
+                _DefaultBackgroundColor = value;
+                if(this.IsCreated)
+                {
+                    this._WebViewControl.DefaultBackgroundColor = _DefaultBackgroundColor;
+                }
+                
+            }
+
+        }
+
     }
 }

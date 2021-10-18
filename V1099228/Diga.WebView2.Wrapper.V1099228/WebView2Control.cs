@@ -187,7 +187,7 @@ namespace Diga.WebView2.Wrapper
 
         public void OpenTaskManagerWindow()
         {
-            this.WebView.OpenTaskManagerWindow();
+            this.WebView?.OpenTaskManagerWindow();
         }
         private void OnClientCertificateRequestedIntern(object sender, ClientCertificateRequestedEventArgs e)
         {
@@ -406,7 +406,7 @@ namespace Diga.WebView2.Wrapper
         public void Navigate(string url)
         {
 
-            this.WebView.Navigate(url);
+            this.WebView?.Navigate(url);
 
 
         }
@@ -479,29 +479,29 @@ namespace Diga.WebView2.Wrapper
         }
         public void NavigateToString(string htmlContent)
         {
-            this.WebView.NavigateToString(htmlContent);
+            this.WebView?.NavigateToString(htmlContent);
 
         }
 
         public void GoBack()
         {
-            this.WebView.GoBack();
+            this.WebView?.GoBack();
 
         }
 
         public void GoForward()
         {
-            this.WebView.GoForward();
+            this.WebView?.GoForward();
 
         }
 
         public void Close()
         {
-            this.Controller.Close();
+            this.Controller?.Close();
         }
         public void Reload()
         {
-            this.WebView.Reload();
+            this.WebView?.Reload();
         }
         public bool CanGoBack => this.WebView.CanGoBack;
         public bool CanGoForward => this.WebView.CanGoForward;
@@ -594,7 +594,7 @@ namespace Diga.WebView2.Wrapper
 
         public void OpenDevToolsWindow()
         {
-            this.WebView.OpenDevToolsWindow();
+            this.WebView?.OpenDevToolsWindow();
         }
 
 
@@ -675,12 +675,12 @@ namespace Diga.WebView2.Wrapper
 
         public void AddScriptToExecuteOnDocumentCreated(string javaScript)
         {
-            this.WebView.AddScriptToExecuteOnDocumentCreated(javaScript);
+            this.WebView?.AddScriptToExecuteOnDocumentCreated(javaScript);
         }
 
         public void PostWebMessageAsJson(string webMessageAsJson)
         {
-            this.WebView.PostWebMessageAsJson(webMessageAsJson);
+            this.WebView?.PostWebMessageAsJson(webMessageAsJson);
         }
 
         public void PostWebMessageAsString(string webMessageAsString)
@@ -740,7 +740,7 @@ namespace Diga.WebView2.Wrapper
 
         public void ExecuteScript(string javaScript)
         {
-            this.WebView.ExecuteScript(javaScript);
+            this.WebView?.ExecuteScript(javaScript);
         }
 
         public async Task<string> ExecuteScriptAsync(string javaScript)
@@ -752,12 +752,16 @@ namespace Diga.WebView2.Wrapper
         {
             return this.WebView.InvokeScript(javaScript, actionToInvoke);
         }
-
+        private bool _IsVisible = false;
         public bool IsVisible
         {
             get
             {
-                return new CBOOL(this.Controller.IsVisible);
+                if(this.Controller != null)
+                {
+                    this._IsVisible = (CBOOL)this.Controller.IsVisible;
+                }
+                return this._IsVisible;
             }
             set
             {
@@ -834,11 +838,28 @@ namespace Diga.WebView2.Wrapper
         {
             BrowserProcessExited?.Invoke(this, e);
         }
-
+        private WebViewColor _DefaultBackgroundColor = new WebViewColor();
         public WebViewColor DefaultBackgroundColor
         {
-            get=> this.Controller.DefaultBackgroundColor;
-            set=> this.Controller.DefaultBackgroundColor = value;
+            get
+            { 
+                if(this.Controller != null)
+                {
+                    this._DefaultBackgroundColor = this.Controller.DefaultBackgroundColor;
+                }
+                return this._DefaultBackgroundColor; 
+            }
+            set
+            { 
+                this._DefaultBackgroundColor = value;
+                if(this.Controller != null)
+                {
+                    this.Controller.DefaultBackgroundColor = this._DefaultBackgroundColor;
+                }
+                
+            }
         }
+
+       
     }
 }

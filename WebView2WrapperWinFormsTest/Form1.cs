@@ -305,5 +305,10 @@ namespace WebView2WrapperWinFormsTest
                 Debug.Print("FrameNameChanged:" + e.Frame.name);
             };
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.webView1.OpenTaskManagerWindow();
+        }
     }
 }
