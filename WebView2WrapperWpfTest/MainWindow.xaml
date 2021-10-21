@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WebView2WrapperWpfTest"
         xmlns:a="clr-namespace:Diga.WebView2.Wpf;assembly=Diga.WebView2.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="655" Width="1042">
     <Grid Margin="10" Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -16,9 +16,9 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="100"></RowDefinition>
         </Grid.RowDefinitions>
-        <a:WebView Grid.Row="0"  x:Name="WebView1"  Grid.Column="0"  Margin="10" WebViewCreated="WebView1_WebViewCreated" WebMessageReceived="WebView1_WebMessageReceived" DefaultBackgroundColor="Green" />
-        <a:WebView Grid.Row="0" x:Name="WebView2" Grid.Column="1"   Margin="10" WebViewCreated="WebView2_WebViewCreated" WebMessageReceived="WebView2_WebMessageReceived" DefaultBackgroundColor="Blue"/>
+        <a:WebView Grid.Row="0"  x:Name="WebView1"  Grid.Column="0"  Margin="10" WebViewCreated="WebView1_WebViewCreated" WebMessageReceived="WebView1_WebMessageReceived" DefaultBackgroundColor="#FFA4DAAC"  />
+        <a:WebView Grid.Row="0" x:Name="WebView2" Grid.Column="1"   Margin="10" WebViewCreated="WebView2_WebViewCreated" WebMessageReceived="WebView2_WebMessageReceived" DefaultBackgroundColor="#FFEDA2A2" />
         <Button Grid.Row="1" Grid.Column="0" Click="Button_Click" >Test</Button>
-        <a:WebView Grid.Row="1" Grid.Column="1"  IsManipulationEnabled="True" HtmlContent="&lt;button&gt;test&lt;/buttons&gt;" DefaultBackgroundColor="WhiteSmoke"  />
+        <a:WebView Grid.Row="1" Grid.Column="1"  IsManipulationEnabled="True" HtmlContent="&lt;button&gt;test&lt;/buttons&gt;" DefaultBackgroundColor="#FFF3F3F3"   />
     </Grid>
 </Window>

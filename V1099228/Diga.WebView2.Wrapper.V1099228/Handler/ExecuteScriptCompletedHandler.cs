@@ -12,7 +12,7 @@ namespace Diga.WebView2.Wrapper.Handler
         public void Invoke(int errorCode, string resultObjectAsJson)
         {
             InvokeAction(this.Id, errorCode, resultObjectAsJson);
-            OnScriptCompleted(new ExecuteScriptCompletedEventArgs(errorCode, resultObjectAsJson));
+            OnScriptCompleted(new ExecuteScriptCompletedEventArgs(errorCode, resultObjectAsJson, this.Id));
         }
         protected virtual void InvokeAction(string id, int errorCode, string resultObjectAsString)
         {

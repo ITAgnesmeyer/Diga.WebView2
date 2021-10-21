@@ -36,7 +36,7 @@ namespace Diga.WebView2.Wpf
         private bool _IsStatusBarEnabled;
         private bool _IsWebMessageEnabled = true;
        
-        private Brush _DefaultBackgroundColor = Brushes.White;
+        private Color _DefaultBackgroundColor = Colors.White;
 
 
         private string _HtmlContent;
@@ -338,7 +338,7 @@ namespace Diga.WebView2.Wpf
         }
 
 
-        public Brush DefaultBackgroundColor
+        public Color DefaultBackgroundColor
         {
             get => _DefaultBackgroundColor;
             set
@@ -347,10 +347,17 @@ namespace Diga.WebView2.Wpf
                 if(this.IsCreated)
                 {
                     
-                    Brush  newColor = this._DefaultBackgroundColor;
-                    SolidColorBrush sc = (SolidColorBrush)newColor;
-                    this._WebViewControl.DefaultBackgroundColor = new WebViewColor(sc.Color.A , sc.Color.R,sc.Color.G,sc.Color.B);
+                    Color  newColor = this._DefaultBackgroundColor;
+                    try
+                    {
+                        
+                        this._WebViewControl.DefaultBackgroundColor = new WebViewColor(newColor.A , newColor.R,newColor.G,newColor.B);
+                    }
+                    catch (Exception ex)
+                    {
 
+                        Debug.Print("DefaultBackgroundColor-Set Exceptions:" + ex.Message);                        
+                    }
                     //this._WebViewControl.DefaultBackgroundColor = new WebViewColor( _DefaultBackgroundColor.a,((Color)_DefaultBackgroundColor).R,((Color)_DefaultBackgroundColor).G, ((Color)_DefaultBackgroundColor).B)   ;
                 }
             }
@@ -933,7 +940,7 @@ namespace Diga.WebView2.Wpf
 
         private void ViewHwnd_Destroy(object sender, EventArgs e)
         {
-            this._WebViewControl.CleanupControls();
+            this._WebViewControl?.CleanupControls();
         }
     }
 }
