@@ -5,9 +5,9 @@
 	<RootNamespace>Diga.WebView2.Wpf</RootNamespace>
 	  <AssemblyName>Diga.WebView2.Wpf</AssemblyName>
 	  <UseWPF>true</UseWPF>
-	  <Version>12.0.2</Version>
+	  <Version>12.0.3</Version>
 	  <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
-	  <Product>Diga.WebView2.WinForms</Product>
+	  <Product>Diga.WebView2.Wpf</Product>
 	  <Copyright>Copyright © 2021 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <SignAssembly>true</SignAssembly>
