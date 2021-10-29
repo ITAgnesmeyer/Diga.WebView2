@@ -4,13 +4,16 @@ using Diga.WebView2.Interop;
 
 namespace Diga.WebView2.Wrapper
 {
-    
-
-    public partial class WebView2Controller : ICoreWebView2Controller3
+    public  class WebView2ControllerInterface : ICoreWebView2Controller
     {
-        private ICoreWebView2Controller3 _Controller;
-
-        int ICoreWebView2Controller3.IsVisible { get => _Controller.IsVisible; set => _Controller.IsVisible = value; }
+        private ICoreWebView2Controller _Controller;
+        public WebView2ControllerInterface(ICoreWebView2Controller controller)
+        {
+            this._Controller = controller;
+        }
+        public int IsVisible { get => _Controller.IsVisible; set => _Controller.IsVisible = value; }
+        public tagRECT Bounds { get => _Controller.Bounds; set => _Controller.Bounds = value; }
+        public double ZoomFactor { get => _Controller.ZoomFactor; set => _Controller.ZoomFactor = value; }
 
         public void add_ZoomFactorChanged([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2ZoomFactorChangedEventHandler eventHandler, out EventRegistrationToken token)
         {
@@ -72,20 +75,19 @@ namespace Diga.WebView2.Wrapper
             _Controller.remove_AcceleratorKeyPressed(token);
         }
 
-        int ICoreWebView2Controller3.ShouldDetectMonitorScaleChanges { get => _Controller.ShouldDetectMonitorScaleChanges; set => _Controller.ShouldDetectMonitorScaleChanges = value; }
+        public IntPtr ParentWindow { get => _Controller.ParentWindow; set => _Controller.ParentWindow = value; }
 
-        public void add_RasterizationScaleChanged([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2RasterizationScaleChangedEventHandler eventHandler, out EventRegistrationToken token)
+        public void NotifyParentWindowPositionChanged()
         {
-            _Controller.add_RasterizationScaleChanged(eventHandler, out token);
+            _Controller.NotifyParentWindowPositionChanged();
         }
 
-        public void remove_RasterizationScaleChanged([In] EventRegistrationToken token)
+        public void Close()
         {
-            _Controller.remove_RasterizationScaleChanged(token);
+            _Controller.Close();
         }
 
-        int ICoreWebView2Controller2.IsVisible { get => ((ICoreWebView2Controller2)_Controller).IsVisible; set => ((ICoreWebView2Controller2)_Controller).IsVisible = value; }
-        int ICoreWebView2Controller.IsVisible { get => ((ICoreWebView2Controller)_Controller).IsVisible; set => ((ICoreWebView2Controller)_Controller).IsVisible = value; }
+        public ICoreWebView2 CoreWebView2 => _Controller.CoreWebView2;
     }
 
 }

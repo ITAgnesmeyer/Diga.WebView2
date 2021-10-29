@@ -12,7 +12,7 @@ namespace Diga.WebView2.Wrapper
 {
    
 
-    public partial class WebView2Environment : IDisposable
+    public partial class WebView2Environment : WebView2Environment6Interface, IDisposable
     {
         public event EventHandler<WebView2EventArgs> NewBrowserVersionAvailable;
         public event EventHandler<BrowserProcessExitedEventArgs> BrowserProcessExited;
@@ -20,20 +20,17 @@ namespace Diga.WebView2.Wrapper
         private EventRegistrationToken _BrowserProcessExitedToken;
 
 
-        public WebView2Environment(ICoreWebView2Environment6 iface)
+        public WebView2Environment(ICoreWebView2Environment6 iface):base(iface)
         {
-            this._Interface = iface;
+            
             this.RegisterEvents();
         }
 
-        private ICoreWebView2Environment6 ToInterface()
-        {
-            return this;
-        }
+     
 
-        public WebView2PointerInfo CreateCoreWebView2PointerInfo()
+        new public WebView2PointerInfo CreateCoreWebView2PointerInfo()
         {
-            return new WebView2PointerInfo(this._Interface.CreateCoreWebView2PointerInfo());
+            return new WebView2PointerInfo(base.CreateCoreWebView2PointerInfo());
         }
 
         private void RegisterEvents()
@@ -42,12 +39,11 @@ namespace Diga.WebView2.Wrapper
 
             NewBrowserVersionAvailableEventHandler newBrowserVersionAvailableHandler = new NewBrowserVersionAvailableEventHandler();
             newBrowserVersionAvailableHandler.NewBrowserVersionAvailable += OnNewBrowserVersionAvailableInternal;
-            this.ToInterface().add_NewBrowserVersionAvailable(newBrowserVersionAvailableHandler,
+            this.add_NewBrowserVersionAvailable(newBrowserVersionAvailableHandler,
                 out this._NewBrowserVersionAvailableToken);
             BrowserProcessExitedEventHandler browserProcessExitedEventHandler = new BrowserProcessExitedEventHandler();
             browserProcessExitedEventHandler.BrowserProcessExited += OnBrowserProcessExitedIntern;
-            this.ToInterface()
-                .add_BrowserProcessExited(browserProcessExitedEventHandler, out this._BrowserProcessExitedToken);
+            this.add_BrowserProcessExited(browserProcessExitedEventHandler, out this._BrowserProcessExitedToken);
         }
 
         private void OnBrowserProcessExitedIntern(object sender, BrowserProcessExitedEventArgs e)
@@ -58,11 +54,11 @@ namespace Diga.WebView2.Wrapper
         [HandleProcessCorruptedStateExceptions]
         private void UnRegisterEvents()
         {   
-            if(this._Interface == null) return;
+            //if(this._Interface == null) return;
             try
             {
-                EventRegistrationTool.UnWireToken(this._NewBrowserVersionAvailableToken,  this._Interface.remove_NewBrowserVersionAvailable);
-                EventRegistrationTool.UnWireToken(this._BrowserProcessExitedToken,this._Interface.remove_BrowserProcessExited);
+                EventRegistrationTool.UnWireToken(this._NewBrowserVersionAvailableToken,  this.remove_NewBrowserVersionAvailable);
+                EventRegistrationTool.UnWireToken(this._BrowserProcessExitedToken,this.remove_BrowserProcessExited);
             }
             catch (Exception exception)
             {
@@ -75,39 +71,25 @@ namespace Diga.WebView2.Wrapper
             OnNewBrowserVersionAvailable(e);
         }
 
-        public ICoreWebView2WebResourceResponse CreateWebResourceResponse(IStream content, int statusCode, string reasonPhrase, string headers)
-        {
-            return this.ToInterface().CreateWebResourceResponse(content, statusCode, reasonPhrase, headers);
-        }
-
-        public string BrowserVersionString => this.ToInterface().BrowserVersionString;
-
+        
         protected virtual void OnNewBrowserVersionAvailable(WebView2EventArgs e)
         {
             NewBrowserVersionAvailable?.Invoke(this, e);
         }
-
+        public virtual void Dispose(bool dispose)
+        {
+            if (dispose)
+            {
+                this.UnRegisterEvents();
+            }
+        }
         public void Dispose()
         {
-            this.UnRegisterEvents();
-            this._Interface = null;
+            Dispose(true);
+            GC.SuppressFinalize(this);
+            
         }
 
-        public void CreateCoreWebView2Controller(IntPtr ParentWindow, [MarshalAs(UnmanagedType.Interface)] ICoreWebView2CreateCoreWebView2ControllerCompletedHandler handler)
-        {
-            _Interface.CreateCoreWebView2Controller(ParentWindow, handler);
-        }
-
-        public void CreateCoreWebView2CompositionController(IntPtr ParentWindow,
-            [MarshalAs(UnmanagedType.Interface)] ICoreWebView2CreateCoreWebView2CompositionControllerCompletedHandler handler)
-        {
-            this._Interface.CreateCoreWebView2CompositionController(ParentWindow, handler);
-        }
-
-        public object GetProviderForHwnd(IntPtr hwnd)
-        {
-            return this._Interface.GetProviderForHwnd(hwnd);
-        }
 
         protected virtual void OnBrowserProcessExited(BrowserProcessExitedEventArgs e)
         {

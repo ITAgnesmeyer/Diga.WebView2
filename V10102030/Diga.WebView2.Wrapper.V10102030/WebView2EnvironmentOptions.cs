@@ -7,7 +7,7 @@ namespace Diga.WebView2.Wrapper
     {
         public WebView2EnvironmentOptions()
         {
-            this.TargetCompatibleBrowserVersion = "94.0.992.28";
+            this.TargetCompatibleBrowserVersion = "95.0.1020.30";
             this.AllowSingleSignOnUsingOSPrimaryAccount = new CBOOL(true);
         }
         public string AdditionalBrowserArguments { get; set; }

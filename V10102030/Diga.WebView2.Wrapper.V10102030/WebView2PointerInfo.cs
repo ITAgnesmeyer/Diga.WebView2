@@ -3,179 +3,63 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper
 {
-    public partial class WebView2PointerInfo
+    public class WebView2PointerInfo:WebView2PointerInfoInterface
     {
-        private ICoreWebView2PointerInfo ToInterface()
+        public WebView2PointerInfo(ICoreWebView2PointerInfo iface):base(iface)
         {
-            return this;
+
         }
-        public uint PointerKind
+       
+        new public Rectangle PointerDeviceRect
         {
-            get => this.ToInterface().PointerKind;
-            set => this.ToInterface().PointerKind = value;
+            get => base.PointerDeviceRect;
+            set => base.PointerDeviceRect = value;
         }
 
-        public uint PointerId
+        new public Rectangle DisplayRect
         {
-            get => this.ToInterface().PointerId;
-            set => this.ToInterface().PointerId = value;
+            get => base.DisplayRect;
+            set => base.DisplayRect = value;
         }
 
-        public uint FrameId
+        new public Point PixelLocation
         {
-            get => this.ToInterface().FrameId;
-            set => this.ToInterface().FrameId = value;
+            get => base.PixelLocation;
+            set => base.PixelLocation = value;
         }
 
-        public uint PointerFlags
+        new public Point HimetricLocation
         {
-            get => this.ToInterface().PointerFlags;
-            set => this.ToInterface().PointerFlags = value;
+            get => base.HimetricLocation;
+            set => base.HimetricLocation = value;
         }
 
-        public Rectangle PointerDeviceRect
+        new public Point PixelLocationRaw
         {
-            get => this.ToInterface().PointerDeviceRect;
-            set => this.ToInterface().PointerDeviceRect = value;
+            get => base.PixelLocationRaw;
+            set => base.PixelLocationRaw = value;
         }
 
-        public Rectangle DisplayRect
+        new public Point HimetricLocationRaw
         {
-            get => this.ToInterface().DisplayRect;
-            set => this.ToInterface().DisplayRect = value;
+            get => base.HimetricLocationRaw;
+            set => base.HimetricLocationRaw = value;
         }
 
-        public Point PixelLocation
+
+
+        new public Rectangle TouchContact
         {
-            get => this.ToInterface().PixelLocation;
-            set => this.ToInterface().PixelLocation = value;
+            get => base.TouchContact;
+            set => base.TouchContact = value;
         }
 
-        public Point HimetricLocation
+        new public Rectangle TouchContactRaw
         {
-            get => this.ToInterface().HimetricLocation;
-            set => this.ToInterface().HimetricLocation = value;
+            get => base.TouchContactRaw;
+            set => base.TouchContactRaw = value;
         }
 
-        public Point PixelLocationRaw
-        {
-            get => this.ToInterface().PixelLocationRaw;
-            set => this.ToInterface().PixelLocationRaw = value;
-        }
-
-        public Point HimetricLocationRaw
-        {
-            get => this.ToInterface().HimetricLocationRaw;
-            set => this.ToInterface().HimetricLocationRaw = value;
-        }
-
-        public uint Time
-        {
-            get => this.ToInterface().Time;
-            set => this.ToInterface().Time = value;
-        }
-
-        public uint HistoryCount
-        {
-            get => this.ToInterface().HistoryCount;
-            set => this.ToInterface().HistoryCount = value;
-        }
-
-        public int InputData
-        {
-            get => this.ToInterface().InputData;
-            set => this.ToInterface().InputData = value;
-        }
-
-        public uint KeyStates
-        {
-            get => this.ToInterface().KeyStates;
-            set => this.ToInterface().KeyStates = value;
-        }
-
-        public ulong PerformanceCount
-        {
-            get => this.ToInterface().PerformanceCount;
-            set => this.ToInterface().PerformanceCount = value;
-        }
-
-        public int ButtonChangeKind
-        {
-            get => this.ToInterface().ButtonChangeKind;
-            set => this.ToInterface().ButtonChangeKind = value;
-        }
-
-        public uint PenFlags
-        {
-            get => this.ToInterface().PenFlags;
-            set => this.ToInterface().PenFlags = value;
-        }
-
-        public uint PenMask
-        {
-            get => this.ToInterface().PenMask;
-            set => this.ToInterface().PenMask = value;
-        }
-
-        public uint PenPressure
-        {
-            get => this.ToInterface().PenPressure;
-            set => this.ToInterface().PenPressure = value;
-        }
-
-        public uint PenRotation
-        {
-            get => this.ToInterface().PenRotation;
-            set => this.ToInterface().PenRotation = value;
-        }
-
-        public int PenTiltX
-        {
-            get => this.ToInterface().PenTiltX;
-            set => this.ToInterface().PenTiltX = value;
-        }
-
-        public int PenTiltY
-        {
-            get => this.ToInterface().PenTiltY;
-            set => this.ToInterface().PenTiltY = value;
-        }
-
-        public uint TouchFlags
-        {
-            get => this.ToInterface().TouchFlags;
-            set => this.ToInterface().TouchFlags = value;
-        }
-
-        public uint TouchMask
-        {
-            get => this.ToInterface().TouchMask;
-            set => this.ToInterface().TouchMask = value;
-        }
-
-        public tagRECT TouchContact
-        {
-            get => this.ToInterface().TouchContact;
-            set => this.ToInterface().TouchContact = value;
-        }
-
-        public tagRECT TouchContactRaw
-        {
-            get => this.ToInterface().TouchContactRaw;
-            set => this.ToInterface().TouchContactRaw = value;
-        }
-
-        public uint TouchOrientation
-        {
-            get => this.ToInterface().TouchOrientation;
-            set => this.ToInterface().TouchOrientation = value;
-        }
-
-        public uint TouchPressure
-        {
-            get => this.ToInterface().TouchPressure;
-            set => this.ToInterface().TouchPressure = value;
-        }
     }
 
    

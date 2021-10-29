@@ -190,7 +190,7 @@ namespace Diga.WebView2.Interop
     string DocumentTitle { [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)] [return: MarshalAs(UnmanagedType.LPWStr)] get; }
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-    void AddHostObjectToScript([MarshalAs(UnmanagedType.LPWStr), In] string name, [MarshalAs(UnmanagedType.Struct), In] ref object @object);
+    void AddHostObjectToScript([MarshalAs(UnmanagedType.LPWStr), In] string name, [ In] ref object @object);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     void RemoveHostObjectFromScript([MarshalAs(UnmanagedType.LPWStr), In] string name);

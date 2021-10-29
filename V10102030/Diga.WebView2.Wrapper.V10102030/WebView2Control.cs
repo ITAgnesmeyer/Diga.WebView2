@@ -256,6 +256,7 @@ namespace Diga.WebView2.Wrapper
                 this.WebView.WebResourceRequested -= OnWebResourceRequestedIntern;
                 this.WebView.WebResourceResponseReceived -= OnWebResourceResponseReceivedIntern;
                 this.WebView.WindowCloseRequested -= OnWindowCloseRequestedIntern;
+               
                 
             }
         }
@@ -533,9 +534,17 @@ namespace Diga.WebView2.Wrapper
 
 
         }
+        public virtual void Dispose(bool dispose)
+        {
+            if (dispose)
+            {
+                UnWireEvents();
+            }
+        }
         public void Dispose()
         {
-            UnWireEvents();
+            Dispose(true);
+            GC.SuppressFinalize(this);
 
 
         }
@@ -740,6 +749,7 @@ namespace Diga.WebView2.Wrapper
 
         public void ExecuteScript(string javaScript)
         {
+            
             this.WebView?.ExecuteScript(javaScript);
         }
 

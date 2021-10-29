@@ -78,11 +78,19 @@ namespace Diga.WebView2.Wrapper
         {
             OnCursorChanged(e);
         }
+        public virtual void Dispose(bool dispose)
+        {
+            if(dispose)
+            {
+                UnRegisterEvents();
+                this._Controller = null;
 
+            }
+        }
         public void Dispose()
         {
-            UnRegisterEvents();
-            this._Controller = null;
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         protected virtual void OnCursorChanged(CursorChangedEventArgs e)

@@ -113,7 +113,7 @@ namespace Diga.WebView2.Wpf
                 _IsZoomControlEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebViewControl.Settings.IsZoomControlEnabled = new CBOOL(value);
+                    this._WebViewControl.Settings.IsZoomControlEnabled = value;
                 }
             }
         }
@@ -130,7 +130,7 @@ namespace Diga.WebView2.Wpf
                 this._IsPasswordAutosaveEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebViewControl.Settings.IsPasswordAutosaveEnabled = new CBOOL(value);
+                    this._WebViewControl.Settings.IsPasswordAutosaveEnabled = value;
                 }
             }
         }
@@ -143,7 +143,7 @@ namespace Diga.WebView2.Wpf
                 this._IsGeneralAutoFillEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebViewControl.Settings.IsGeneralAutofillEnabled = new CBOOL(value);
+                    this._WebViewControl.Settings.IsGeneralAutofillEnabled = value;
                 }
             }
         }
@@ -155,7 +155,7 @@ namespace Diga.WebView2.Wpf
             {
                 this._AreBrowserAcceleratorKeysEnabled = value;
                 if (this.IsCreated)
-                    this._WebViewControl.Settings.AreBrowserAcceleratorKeysEnabled = new CBOOL(value);
+                    this._WebViewControl.Settings.AreBrowserAcceleratorKeysEnabled = value;
             }
         }
 
@@ -167,7 +167,7 @@ namespace Diga.WebView2.Wpf
                 _IsWebMessageEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebViewControl.Settings.IsWebMessageEnabled = new CBOOL(value);
+                    this._WebViewControl.Settings.IsWebMessageEnabled = value;
                 }
             }
         }
@@ -180,7 +180,7 @@ namespace Diga.WebView2.Wpf
                 _IsStatusBarEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebViewControl.Settings.IsStatusBarEnabled = new CBOOL(value);
+                    this._WebViewControl.Settings.IsStatusBarEnabled = value;
                 }
             }
         }
@@ -193,7 +193,7 @@ namespace Diga.WebView2.Wpf
                 _IsScriptEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebViewControl.Settings.IsScriptEnabled = new CBOOL(value);
+                    this._WebViewControl.Settings.IsScriptEnabled = value;
                 }
             }
         }
@@ -207,7 +207,7 @@ namespace Diga.WebView2.Wpf
                 _RemoteObjectsAllowed = value;
                 if (this.IsCreated)
                 {
-                    this._WebViewControl.Settings.AreHostObjectsAllowed = new CBOOL(value);
+                    this._WebViewControl.Settings.AreHostObjectsAllowed = value;
                 }
             }
         }
@@ -222,7 +222,7 @@ namespace Diga.WebView2.Wpf
                 _DevToolsEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebViewControl.Settings.AreDevToolsEnabled = new CBOOL(value);
+                    this._WebViewControl.Settings.AreDevToolsEnabled = value;
                 }
             }
         }
@@ -234,7 +234,7 @@ namespace Diga.WebView2.Wpf
                 _DefaultScriptDialogsEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebViewControl.Settings.AreDefaultScriptDialogsEnabled = new CBOOL(value);
+                    this._WebViewControl.Settings.AreDefaultScriptDialogsEnabled = value;
                 }
             }
         }
@@ -246,7 +246,7 @@ namespace Diga.WebView2.Wpf
                 _DefaultContextMenusEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebViewControl.Settings.AreDefaultContextMenusEnabled = new CBOOL(value);
+                    this._WebViewControl.Settings.AreDefaultContextMenusEnabled = value;
                 }
             }
         }
@@ -840,17 +840,17 @@ namespace Diga.WebView2.Wpf
 
         private void OnWebWindowBeforeCreate(object sender, BeforeCreateEventArgs e)
         {
-            e.Settings.AreBrowserAcceleratorKeysEnabled = new CBOOL(this._AreBrowserAcceleratorKeysEnabled);
-            e.Settings.AreDefaultContextMenusEnabled = new CBOOL(this._DefaultContextMenusEnabled);
-            e.Settings.AreDefaultScriptDialogsEnabled = new CBOOL(this._DefaultScriptDialogsEnabled);
-            e.Settings.AreDevToolsEnabled = new CBOOL(this._DevToolsEnabled);
-            e.Settings.AreHostObjectsAllowed = new CBOOL(this._RemoteObjectsAllowed);
-            e.Settings.IsGeneralAutofillEnabled = new CBOOL(this._IsGeneralAutoFillEnabled);
-            e.Settings.IsPasswordAutosaveEnabled = new CBOOL(this._IsPasswordAutosaveEnabled);
-            e.Settings.IsScriptEnabled = new CBOOL(this._IsScriptEnabled);
-            e.Settings.IsStatusBarEnabled = new CBOOL(this._IsStatusBarEnabled);
-            e.Settings.IsWebMessageEnabled = new CBOOL(this._IsWebMessageEnabled);
-            e.Settings.IsZoomControlEnabled = new CBOOL(this._IsZoomControlEnabled);
+            e.Settings.AreBrowserAcceleratorKeysEnabled = this._AreBrowserAcceleratorKeysEnabled;
+            e.Settings.AreDefaultContextMenusEnabled = this._DefaultContextMenusEnabled;
+            e.Settings.AreDefaultScriptDialogsEnabled = this._DefaultScriptDialogsEnabled;
+            e.Settings.AreDevToolsEnabled = this._DevToolsEnabled;
+            e.Settings.AreHostObjectsAllowed = this._RemoteObjectsAllowed;
+            e.Settings.IsGeneralAutofillEnabled = this._IsGeneralAutoFillEnabled;
+            e.Settings.IsPasswordAutosaveEnabled = this._IsPasswordAutosaveEnabled;
+            e.Settings.IsScriptEnabled = this._IsScriptEnabled;
+            e.Settings.IsStatusBarEnabled = this._IsStatusBarEnabled;
+            e.Settings.IsWebMessageEnabled = this._IsWebMessageEnabled;
+            e.Settings.IsZoomControlEnabled = this._IsZoomControlEnabled;
         }
 
         private void OnWebWindowCreated(object sender, EventArgs e)

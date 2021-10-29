@@ -4,9 +4,9 @@ using Diga.WebView2.Interop;
 
 namespace Diga.WebView2.Wrapper
 {
-public partial class WebView2CompositionController : ICoreWebView2CompositionController2
+    public partial class WebView2CompositionController : ICoreWebView2CompositionController2
     {
-        private  ICoreWebView2CompositionController2 _Controller;
+        private ICoreWebView2CompositionController2 _Controller;
 
 
         object ICoreWebView2CompositionController.RootVisualTarget

@@ -15,6 +15,6 @@ namespace Diga.WebView2.Interop
   public interface ICoreWebView2Interop
   {
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-    void AddHostObjectToScript([MarshalAs(UnmanagedType.LPWStr), In] string name, [MarshalAs(UnmanagedType.Struct), In] ref object @object);
+    void AddHostObjectToScript([MarshalAs(UnmanagedType.LPWStr), In] string name, [ In] ref object @object);
   }
 }

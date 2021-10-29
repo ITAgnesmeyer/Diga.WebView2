@@ -28,7 +28,7 @@ namespace Diga.WebView2.Interop
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     void AddHostObjectToScriptWithOrigins(
       [MarshalAs(UnmanagedType.LPWStr), In] string name,
-      [MarshalAs(UnmanagedType.Struct), In] ref object @object,
+       ref object @object,
       [In] uint originsCount,
       [MarshalAs(UnmanagedType.LPWStr), In] ref string origins);
 

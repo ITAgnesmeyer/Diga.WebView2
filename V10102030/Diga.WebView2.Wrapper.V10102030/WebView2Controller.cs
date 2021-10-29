@@ -8,7 +8,7 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper
 {
-    public partial class WebView2Controller
+    public  class WebView2Controller:WebView2Controller3Interface,IDisposable
     {
         private EventRegistrationToken _ZoomFactorChangedToken;
         private EventRegistrationToken _GotFocusToken;
@@ -23,15 +23,15 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<MoveFocusRequestedEventArgs> MoveFocusRequested;
         public event EventHandler<WebView2EventArgs> RasterizationScaleChanged;
 
-        public WebView2Controller(ICoreWebView2Controller3 controller)
+        public WebView2Controller(ICoreWebView2Controller3 controller):base(controller)
         {
-            this._Controller = controller;
+            
             RegisterEvents();
         }
 
         protected ICoreWebView2Controller3 ToInterface()
         {
-            return _Controller;
+            return this;
         }
 
         private void RegisterEvents()
@@ -40,33 +40,32 @@ namespace Diga.WebView2.Wrapper
             AcceleratorKeyPressedEventHandler acceleratorKeyPressedEventHandler =
                 new AcceleratorKeyPressedEventHandler();
             acceleratorKeyPressedEventHandler.AcceleratorKeyPressed += OnAcceleratorKeyPressedIntern;
-            this.ToInterface()
-                .add_AcceleratorKeyPressed(acceleratorKeyPressedEventHandler, out this._AcceleratorKeyPressedToken);
+            this.add_AcceleratorKeyPressed(acceleratorKeyPressedEventHandler, out this._AcceleratorKeyPressedToken);
 
             //add_GotFocus
             FocusChangedEventHandler focusChange = new FocusChangedEventHandler();
             focusChange.FocusChanged += OnGotFocusIntern;
-            this.ToInterface().add_GotFocus(focusChange, out this._GotFocusToken);
+            this.add_GotFocus(focusChange, out this._GotFocusToken);
 
             //add_LostFocus
             FocusChangedEventHandler lostFocusChange = new FocusChangedEventHandler();
             lostFocusChange.FocusChanged += OnLostFocusIntern;
-            this.ToInterface().add_LostFocus(lostFocusChange, out this._LostFocusToken);
+            this.add_LostFocus(lostFocusChange, out this._LostFocusToken);
 
             //add_MoveFocusRequested
             MoveFocusRequestedEventHandler moveFocusRequestedHandler = new MoveFocusRequestedEventHandler();
             moveFocusRequestedHandler.MoveFocusRequested += OnMoveFocusRequestedIntern;
-            this.ToInterface().add_MoveFocusRequested(moveFocusRequestedHandler, out this._MoveFocusRequestedToken);
+            this.add_MoveFocusRequested(moveFocusRequestedHandler, out this._MoveFocusRequestedToken);
 
             //add_ZoomFactorChanged
             ZoomFactorChangedEventHandler zoomFactorChangedEventHandler = new ZoomFactorChangedEventHandler();
             zoomFactorChangedEventHandler.ZoomFactorChanged += OnZoomFactorChangedIntern;
-            this.ToInterface().add_ZoomFactorChanged(zoomFactorChangedEventHandler, out this._ZoomFactorChangedToken);
+            this.add_ZoomFactorChanged(zoomFactorChangedEventHandler, out this._ZoomFactorChangedToken);
 
             RasterizationScaleChangedEventHandler rasterizationScaleChangedEventHandler =
                 new RasterizationScaleChangedEventHandler();
             rasterizationScaleChangedEventHandler.RasteriazationScaleChanged += OnRasterizationScaleChangedIntern;
-            this.ToInterface().add_RasterizationScaleChanged(rasterizationScaleChangedEventHandler, out this._RasterizationScaleChangedToken);
+            this.add_RasterizationScaleChanged(rasterizationScaleChangedEventHandler, out this._RasterizationScaleChangedToken);
         }
 
         private void OnRasterizationScaleChangedIntern(object sender, WebView2EventArgs e)
@@ -102,16 +101,16 @@ namespace Diga.WebView2.Wrapper
         [HandleProcessCorruptedStateExceptions]
         private void UnRegisterEvents()
         {
-            if (this._Controller == null) return;
+           
             try
             {
                
-                EventRegistrationTool.UnWireToken(  this._AcceleratorKeyPressedToken,this._Controller.remove_AcceleratorKeyPressed);
-                EventRegistrationTool.UnWireToken(this._MoveFocusRequestedToken,this._Controller.remove_MoveFocusRequested);
-                EventRegistrationTool.UnWireToken(this._ZoomFactorChangedToken,this._Controller.remove_ZoomFactorChanged);
-                EventRegistrationTool.UnWireToken(this._GotFocusToken,this._Controller.remove_GotFocus);
-                EventRegistrationTool.UnWireToken(this._LostFocusToken,this._Controller.remove_LostFocus);
-                EventRegistrationTool.UnWireToken(this._RasterizationScaleChangedToken,this._Controller.remove_RasterizationScaleChanged);
+                EventRegistrationTool.UnWireToken(  this._AcceleratorKeyPressedToken,this.remove_AcceleratorKeyPressed);
+                EventRegistrationTool.UnWireToken(this._MoveFocusRequestedToken,this.remove_MoveFocusRequested);
+                EventRegistrationTool.UnWireToken(this._ZoomFactorChangedToken,this.remove_ZoomFactorChanged);
+                EventRegistrationTool.UnWireToken(this._GotFocusToken,this.remove_GotFocus);
+                EventRegistrationTool.UnWireToken(this._LostFocusToken,this.remove_LostFocus);
+                EventRegistrationTool.UnWireToken(this._RasterizationScaleChangedToken,this.remove_RasterizationScaleChanged);
             }
             catch (Exception e)
             {
@@ -119,45 +118,31 @@ namespace Diga.WebView2.Wrapper
             }
         }
 
-        public tagRECT Bounds
-        {
-            get => this.ToInterface().Bounds;
-            set => this.ToInterface().Bounds = value;
-        }
 
-        public double ZoomFactor
-        {
-            get => this.ToInterface().ZoomFactor;
-            set => this.ToInterface().ZoomFactor = value;
-        }
+ 
 
         public void SetBoundsAndZoomFactor(Rectangle bounds, double zoomFactor)
         {
-            this.ToInterface().SetBoundsAndZoomFactor(bounds, zoomFactor);
+            base.SetBoundsAndZoomFactor(bounds, zoomFactor);
         }
 
-        public IntPtr ParentWindow
-        {
-            get => this.ToInterface().ParentWindow;
-            set => this.ToInterface().ParentWindow = value;
-        }
 
-        public void NotifyParentWindowPositionChanged()
-        {
-            this.ToInterface().NotifyParentWindowPositionChanged();
-        }
 
-        public void Close()
-        {
-            this.ToInterface().Close();
-        }
+
 
         public WebView2View WebView => new WebView2View((ICoreWebView2_7)this.ToInterface().CoreWebView2);
-
+        public virtual void Dispose(bool dispose)
+        {
+            if(dispose)
+            {
+                UnRegisterEvents();
+            }
+        }
         public void Dispose()
         {
-            UnRegisterEvents();
-            this._Controller = null;
+            Dispose(true);
+            GC.SuppressFinalize(this);
+            
         }
 
         protected virtual void OnAcceleratorKeyPressed(AcceleratorKeyPressedEventArgs e)
@@ -185,48 +170,6 @@ namespace Diga.WebView2.Wrapper
             MoveFocusRequested?.Invoke(this, e);
         }
 
-        public ICoreWebView2 CoreWebView2 => this.ToInterface().CoreWebView2;
-
-        public COREWEBVIEW2_COLOR DefaultBackgroundColor
-        {
-            get => this.ToInterface().DefaultBackgroundColor;
-            set => this.ToInterface().DefaultBackgroundColor = value;
-        }
-
-        public double RasterizationScale
-        {
-            get => this.ToInterface().RasterizationScale;
-            set => this.ToInterface().RasterizationScale = value;
-        }
-
-        public bool ShouldDetectMonitorScaleChanges
-        {
-            get => (CBOOL)this.ToInterface().ShouldDetectMonitorScaleChanges;
-            set => this.ToInterface().ShouldDetectMonitorScaleChanges = (CBOOL)value;
-        }
-
-        //public void add_RasterizationScaleChanged(ICoreWebView2RasterizationScaleChangedEventHandler eventHandler,
-        //    out EventRegistrationToken token)
-        //{
-        //    this._Controller.add_RasterizationScaleChanged(eventHandler, out token);
-        //}
-
-        //public void remove_RasterizationScaleChanged(EventRegistrationToken token)
-        //{
-        //    this._Controller.remove_RasterizationScaleChanged(token);
-        //}
-
-        public COREWEBVIEW2_BOUNDS_MODE BoundsMode
-        {
-            get => this.ToInterface().BoundsMode;
-            set => this.ToInterface().BoundsMode = value;
-        }
-
-        public bool IsVisible
-        {
-            get => (CBOOL)(this.ToInterface().IsVisible);
-            set => this.ToInterface().IsVisible = (CBOOL)value;
-        }
         protected virtual void OnRasterizationScaleChanged(WebView2EventArgs e)
         {
             RasterizationScaleChanged?.Invoke(this, e);

@@ -5,5 +5,11 @@
         BrowserProcessExited,
         RenderProcessExited,
         RenderProcessUnresponsive,
+        FrameRenderProcessExited,
+        SandboxHelperProcessExited,
+        GpuProcessExited,
+        PpapiPluginProcessExited,
+        PpapiBrokerProcessExited,
+        UnknownProcessExited
     }
 }

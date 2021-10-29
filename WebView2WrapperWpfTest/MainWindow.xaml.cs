@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
+using System.Numerics;
 using System.Windows;
 using Diga.WebView2.Wrapper.EventArguments;
 using Newtonsoft.Json;
@@ -25,10 +27,11 @@ namespace WebView2WrapperWpfTest
         {
             this._TestObject.Name = "hallo Welt";
             this.WebView1.AddRemoteObject("testObject", this._TestObject);
+
             var value = File.ReadAllText("index.html");
             this.WebView1.NavigateToString(value);
             //this.textBox1.AutoCompleteCustomSource.Add(this.WebView1.MonitoringUrl);
-            
+
         }
 
         private void WebView2_WebViewCreated(object sender, EventArgs e)
@@ -62,7 +65,7 @@ namespace WebView2WrapperWpfTest
                     break;
                 case "get_script_result":
                     var scriptId = rpc.param;
-                    
+
                     break;
                 case "set_object_innerHtml":
                     this.WebView2.InvokeScript($"document.getElementById('{rpc.objId}').innerHTML='{rpc.param}'");
@@ -94,7 +97,7 @@ namespace WebView2WrapperWpfTest
                     break;
                 case "get_script_result":
                     var scriptId = rpc.param;
-                    
+
                     break;
                 case "set_object_innerHtml":
                     this.WebView1.InvokeScript($"document.getElementById('{rpc.objId}').innerHTML='{rpc.param}'");
@@ -104,9 +107,18 @@ namespace WebView2WrapperWpfTest
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.WebView1.IsVisible = !this.WebView1.IsVisible;
+            
+            var now = DateTime.Now;
+            var zeroDate = DateTime.MinValue.AddHours(now.Hour).AddMinutes(now.Minute).AddSeconds(now.Second).AddMilliseconds(now.Millisecond);
+            int uniqueId = (int)(zeroDate.Ticks / 10000) ;
+            Random r = new Random(uniqueId);
+            int nr = r.Next();
+            
+            this.WebView1.NavigateToString($"<h1>{uniqueId}</h1><h2>{nr}</h2>");
 
-            this.WebView2.Visibility = this.WebView2.Visibility == Visibility.Hidden ? Visibility.Visible : Visibility.Hidden;
+            //this.WebView1.IsVisible = !this.WebView1.IsVisible;
+
+            //this.WebView2.Visibility = this.WebView2.Visibility == Visibility.Hidden ? Visibility.Visible : Visibility.Hidden;
         }
     }
 }
