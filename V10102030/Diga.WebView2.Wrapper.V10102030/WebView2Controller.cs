@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.ExceptionServices;
+using System.Security;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
@@ -97,7 +98,7 @@ namespace Diga.WebView2.Wrapper
         {
             OnAcceleratorKeyPressed(e);
         }
-
+        [SecurityCritical]
         [HandleProcessCorruptedStateExceptions]
         private void UnRegisterEvents()
         {
@@ -131,19 +132,16 @@ namespace Diga.WebView2.Wrapper
 
 
         public WebView2View WebView => new WebView2View((ICoreWebView2_7)this.ToInterface().CoreWebView2);
-        public virtual void Dispose(bool dispose)
+        protected override void Dispose(bool disposing)
         {
-            if(dispose)
+            if(disposing)
             {
                 UnRegisterEvents();
             }
+            base.Dispose(disposing);
+
         }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-            
-        }
+        
 
         protected virtual void OnAcceleratorKeyPressed(AcceleratorKeyPressedEventArgs e)
         {

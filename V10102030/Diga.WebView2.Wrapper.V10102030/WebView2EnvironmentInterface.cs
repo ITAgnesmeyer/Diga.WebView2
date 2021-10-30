@@ -6,9 +6,11 @@ using System.Runtime.InteropServices.ComTypes;
 namespace Diga.WebView2.Wrapper
 {
 
-    public  class WebView2EnvironmentInterface : ICoreWebView2Environment 
+    public  class WebView2EnvironmentInterface : ICoreWebView2Environment ,IDisposable
     {
-        private readonly ICoreWebView2Environment _Environment;
+        private  ICoreWebView2Environment _Environment;
+        private bool disposedValue;
+
         public WebView2EnvironmentInterface(ICoreWebView2Environment environment)
         {
             this._Environment = environment;
@@ -34,6 +36,35 @@ namespace Diga.WebView2.Wrapper
         public void remove_NewBrowserVersionAvailable([In] EventRegistrationToken token)
         {
             _Environment.remove_NewBrowserVersionAvailable(token);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    this._Environment = null;
+                }
+
+                // TODO: Nicht verwaltete Ressourcen (nicht verwaltete Objekte) freigeben und Finalizer überschreiben
+                // TODO: Große Felder auf NULL setzen
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: Finalizer nur überschreiben, wenn "Dispose(bool disposing)" Code für die Freigabe nicht verwalteter Ressourcen enthält
+        // ~WebView2EnvironmentInterface()
+        // {
+        //     // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+        //     Dispose(disposing: false);
+        // }
+
+        public void Dispose()
+        {
+            // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

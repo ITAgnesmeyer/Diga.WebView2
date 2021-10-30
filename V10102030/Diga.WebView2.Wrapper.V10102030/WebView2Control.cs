@@ -522,14 +522,19 @@ namespace Diga.WebView2.Wrapper
             }
             UnWireEvents();
             RefCounter -= 1;
+            
             this.ParentHandle = IntPtr.Zero;
             this.WebView?.Dispose();
-            this.CompositionController?.Dispose();
-            this.Environment?.Dispose();
+            this.WebView = null;
             if (RefCounter <= 0)
                 this.Close();
-
             this.Controller?.Dispose();
+            this.Controller = null;
+            
+            this.CompositionController?.Dispose();
+            this.CompositionController = null;
+            this.Environment?.Dispose();
+            this.Environment = null;
 
 
 

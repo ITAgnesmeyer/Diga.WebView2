@@ -42,5 +42,14 @@ namespace Diga.WebView2.Wrapper
         public ICoreWebView2CookieManager CookieManager => _WebView.CookieManager;
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ICoreWebView2Environment Environment => _WebView.Environment;
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this._WebView = null;
+            }
+            base.Dispose(disposing);
+        }
     }
 }

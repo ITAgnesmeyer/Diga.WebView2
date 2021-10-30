@@ -481,20 +481,15 @@ namespace Diga.WebView2.Wrapper
             NavigationStarting?.Invoke(this, e);
         }
 
-        public virtual void Dispose(bool dispose)
+        protected override void Dispose(bool dispose)
         {
             if (dispose)
             {
                 UnRegisterEvents();
             }
+            base.Dispose(dispose);
         }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-            
-           
-        }
+       
 
         protected virtual void OnContentLoading(ContentLoadingEventArgs e)
         {

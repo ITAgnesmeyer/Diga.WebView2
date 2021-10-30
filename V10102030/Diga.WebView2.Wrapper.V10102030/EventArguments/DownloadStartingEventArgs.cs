@@ -10,7 +10,7 @@ namespace Diga.WebView2.Wrapper.EventArguments
         public event EventHandler<WebView2EventArgs> StateChanged;
         public void Invoke([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2DownloadOperation sender, [In, MarshalAs(UnmanagedType.IUnknown)] object args)
         {
-            throw new NotImplementedException();
+            OnStateChanged(sender, args);
         }
 
         private void OnStateChanged(ICoreWebView2DownloadOperation sender, object obj)

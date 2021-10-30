@@ -24,6 +24,15 @@ namespace Diga.WebView2.Wrapper
         }
 
         public COREWEBVIEW2_BOUNDS_MODE BoundsMode { get => _Controller3.BoundsMode; set => _Controller3.BoundsMode = value; }
+
+        protected override void Dispose(bool disposing)
+        {
+            if(disposing)
+            {
+                this._Controller3 = null;
+            }
+            base.Dispose(disposing);
+        }
     }
 
 }

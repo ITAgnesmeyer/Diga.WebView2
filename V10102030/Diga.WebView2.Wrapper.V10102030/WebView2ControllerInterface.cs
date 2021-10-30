@@ -4,9 +4,11 @@ using Diga.WebView2.Interop;
 
 namespace Diga.WebView2.Wrapper
 {
-    public  class WebView2ControllerInterface : ICoreWebView2Controller
+    public  class WebView2ControllerInterface : ICoreWebView2Controller,IDisposable
     {
         private ICoreWebView2Controller _Controller;
+        private bool disposedValue;
+
         public WebView2ControllerInterface(ICoreWebView2Controller controller)
         {
             this._Controller = controller;
@@ -88,6 +90,35 @@ namespace Diga.WebView2.Wrapper
         }
 
         public ICoreWebView2 CoreWebView2 => _Controller.CoreWebView2;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    this._Controller = null;
+                }
+
+                // TODO: Nicht verwaltete Ressourcen (nicht verwaltete Objekte) freigeben und Finalizer überschreiben
+                // TODO: Große Felder auf NULL setzen
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: Finalizer nur überschreiben, wenn "Dispose(bool disposing)" Code für die Freigabe nicht verwalteter Ressourcen enthält
+        // ~WebView2ControllerInterface()
+        // {
+        //     // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+        //     Dispose(disposing: false);
+        // }
+
+        public void Dispose()
+        {
+            // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
     }
 
 }

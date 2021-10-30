@@ -33,5 +33,14 @@ namespace Diga.WebView2.Wrapper
         {
             _WebView.remove_DownloadStarting(token);
         }
+
+         protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this._WebView = null;
+            }
+            base.Dispose(disposing);
+        }
     }
 }

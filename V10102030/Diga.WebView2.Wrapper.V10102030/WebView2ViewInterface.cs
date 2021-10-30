@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using Diga.WebView2.Interop;
@@ -6,7 +7,7 @@ using Diga.WebView2.Interop;
 namespace Diga.WebView2.Wrapper
 {
     [EditorBrowsable(EditorBrowsableState.Advanced )]
-    public class WebView2ViewInterface : ICoreWebView2
+    public class WebView2ViewInterface : ICoreWebView2,IDisposable
     {
         private ICoreWebView2 _WebView;
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -283,6 +284,35 @@ namespace Diga.WebView2.Wrapper
         public void remove_WindowCloseRequested([In] EventRegistrationToken token)
         {
             _WebView.remove_WindowCloseRequested(token);
+        }
+         private bool disposedValue;
+         protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    this._WebView = null;
+                }
+
+                // TODO: Nicht verwaltete Ressourcen (nicht verwaltete Objekte) freigeben und Finalizer überschreiben
+                // TODO: Große Felder auf NULL setzen
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: Finalizer nur überschreiben, wenn "Dispose(bool disposing)" Code für die Freigabe nicht verwalteter Ressourcen enthält
+        // ~WebView2View7Interface()
+        // {
+        //     // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+        //     Dispose(disposing: false);
+        // }
+
+        public void Dispose()
+        {
+            // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

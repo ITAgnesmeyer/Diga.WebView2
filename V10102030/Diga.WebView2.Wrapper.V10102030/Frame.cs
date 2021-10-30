@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.ExceptionServices;
+using System.Security;
 using System.Threading.Tasks;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
@@ -13,6 +15,8 @@ namespace Diga.WebView2.Wrapper
         private ICoreWebView2Frame _Frame;
         private EventRegistrationToken _FrameNameChangedToken;
         private EventRegistrationToken _DestroyedToken;
+        private bool disposedValue;
+
         public event EventHandler<FrameNameChangedEventArgs> FrameNameChanged;
         public event EventHandler<FrameDestroyedEventArgs> FrameDestroyed;
 
@@ -22,13 +26,22 @@ namespace Diga.WebView2.Wrapper
             WireEvents();
         }
 
+        [SecurityCritical]
+        [HandleProcessCorruptedStateExceptions]
         private void UnWireEvents()
         {
             if (this._Frame == null) return;
-            this.remove_NameChanged(this._FrameNameChangedToken);
-            this._FrameNameChangedToken.value = 0;
-            this.remove_Destroyed(this._DestroyedToken);
-            this._DestroyedToken.value = 0;
+            try
+            {
+                EventRegistrationTool.UnWireToken(this._FrameNameChangedToken, this.remove_NameChanged);
+                EventRegistrationTool.UnWireToken(this._DestroyedToken, this.remove_Destroyed);
+            }
+            catch (Exception ex)
+            {
+
+                Debug.Print("Frame UnWireEvents:" + ex.Message);
+            }
+
         }
 
         private void WireEvents()
@@ -47,9 +60,9 @@ namespace Diga.WebView2.Wrapper
             OnFrameDestroyed(e);
         }
 
-        private  void OnFrameNameChangedIntern(object sender, FrameNameChangedEventArgs e)
+        private void OnFrameNameChangedIntern(object sender, FrameNameChangedEventArgs e)
         {
-           OnFrameNameChanged(e);
+            OnFrameNameChanged(e);
         }
 
         public string name => this._Frame.name;
@@ -57,7 +70,7 @@ namespace Diga.WebView2.Wrapper
         public void add_NameChanged(ICoreWebView2FrameNameChangedEventHandler eventHandler,
             out EventRegistrationToken token)
         {
-            
+
             try
             {
                 this._Frame.add_NameChanged(eventHandler, out token);
@@ -67,7 +80,7 @@ namespace Diga.WebView2.Wrapper
                 token = new EventRegistrationToken();
                 Debug.Print(ex.Message);
             }
-            
+
         }
 
         public void remove_NameChanged(EventRegistrationToken token)
@@ -96,7 +109,7 @@ namespace Diga.WebView2.Wrapper
                 token = new EventRegistrationToken();
                 Debug.Print(ex.Message);
             }
-            
+
         }
 
         public void remove_Destroyed(EventRegistrationToken token)
@@ -109,7 +122,7 @@ namespace Diga.WebView2.Wrapper
             return this._Frame.IsDestroyed();
         }
 
-        protected virtual  void OnFrameNameChanged(FrameNameChangedEventArgs e)
+        protected virtual void OnFrameNameChanged(FrameNameChangedEventArgs e)
         {
             FrameNameChanged?.Invoke(this, e);
         }
@@ -119,9 +132,34 @@ namespace Diga.WebView2.Wrapper
             FrameDestroyed?.Invoke(this, e);
         }
 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    this.UnWireEvents();
+                    this._Frame = null;
+                }
+
+                // TODO: Nicht verwaltete Ressourcen (nicht verwaltete Objekte) freigeben und Finalizer überschreiben
+                // TODO: Große Felder auf NULL setzen
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: Finalizer nur überschreiben, wenn "Dispose(bool disposing)" Code für die Freigabe nicht verwalteter Ressourcen enthält
+        // ~Frame()
+        // {
+        //     // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+        //     Dispose(disposing: false);
+        // }
+
         public void Dispose()
         {
-            this.UnWireEvents();
+            // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

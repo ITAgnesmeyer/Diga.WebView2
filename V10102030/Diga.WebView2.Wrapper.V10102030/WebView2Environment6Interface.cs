@@ -5,7 +5,7 @@ namespace Diga.WebView2.Wrapper
 {
     public class WebView2Environment6Interface:WebView2Environment5Interface,ICoreWebView2Environment6
     {
-        private readonly ICoreWebView2Environment6 _Environment6;
+        private  ICoreWebView2Environment6 _Environment6;
         public WebView2Environment6Interface(ICoreWebView2Environment6 environment):base(environment)
         {
             this._Environment6 = environment;
@@ -15,6 +15,15 @@ namespace Diga.WebView2.Wrapper
         public ICoreWebView2PrintSettings CreatePrintSettings()
         {
             return _Environment6.CreatePrintSettings();
+        }
+
+         protected override void Dispose(bool disposing)
+        {
+            if(disposing)
+            {
+                this._Environment6 = null;
+            }
+            base.Dispose(disposing);
         }
     }
 }

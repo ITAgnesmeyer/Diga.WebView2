@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
 
@@ -8,6 +9,8 @@ namespace Diga.WebView2.Wrapper
     public class WebView2View7Interface : WebView2View6Interface, ICoreWebView2_7
     {
         private ICoreWebView2_7 _WebView;
+       
+
         [EditorBrowsable(EditorBrowsableState.Never)]
         public WebView2View7Interface(ICoreWebView2_7 webView) : base(webView)
         {
@@ -18,5 +21,14 @@ namespace Diga.WebView2.Wrapper
         {
             _WebView.PrintToPdf(ResultFilePath, printSettings, handler);
         }
+          protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this._WebView = null;
+            }
+            base.Dispose(disposing);
+        }
+       
     }
 }

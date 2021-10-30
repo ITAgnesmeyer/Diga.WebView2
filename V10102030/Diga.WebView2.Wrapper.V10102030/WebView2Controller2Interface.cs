@@ -10,6 +10,16 @@ namespace Diga.WebView2.Wrapper
             this._Controller2 = controller;
         }
         public COREWEBVIEW2_COLOR DefaultBackgroundColor { get => _Controller2.DefaultBackgroundColor; set => _Controller2.DefaultBackgroundColor = value; }
+        protected override void Dispose(bool disposing)
+        {
+            if(disposing)
+            {
+                this._Controller2 = null;
+            }
+            base.Dispose(disposing);
+        }
     }
+
+    
 
 }

@@ -76,19 +76,15 @@ namespace Diga.WebView2.Wrapper
         {
             NewBrowserVersionAvailable?.Invoke(this, e);
         }
-        public virtual void Dispose(bool dispose)
+        protected override void Dispose(bool disposing)
         {
-            if (dispose)
+            if(disposing)
             {
                 this.UnRegisterEvents();
             }
+            base.Dispose(disposing);
         }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-            
-        }
+      
 
 
         protected virtual void OnBrowserProcessExited(BrowserProcessExitedEventArgs e)

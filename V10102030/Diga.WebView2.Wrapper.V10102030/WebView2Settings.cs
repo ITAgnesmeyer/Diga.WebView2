@@ -27,5 +27,9 @@ namespace Diga.WebView2.Wrapper
         new public bool IsPasswordAutosaveEnabled { get => (CBOOL)base.IsPasswordAutosaveEnabled; set => base.IsPasswordAutosaveEnabled = (CBOOL)value; }
         new public bool IsGeneralAutofillEnabled { get => (CBOOL)base.IsGeneralAutofillEnabled; set => base.IsGeneralAutofillEnabled = (CBOOL)value; }
         new public bool AreBrowserAcceleratorKeysEnabled { get => (CBOOL)base.AreBrowserAcceleratorKeysEnabled; set => base.AreBrowserAcceleratorKeysEnabled = (CBOOL)value; }
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+        }
     }
 }

@@ -17,5 +17,14 @@ namespace Diga.WebView2.Wrapper
         {
             _WebView.OpenTaskManagerWindow();
         }
+
+         protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this._WebView = null;
+            }
+            base.Dispose(disposing);
+        }
     }
 }

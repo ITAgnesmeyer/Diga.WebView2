@@ -77,6 +77,7 @@ namespace WebView2WrapperWinFormsTest
             {
                 if (this.FormBorderStyle == FormBorderStyle.None)
                 {
+                    this.panel1.Visible = true;
                     this.FormBorderStyle = FormBorderStyle.Sizable;
                     this.WindowState = FormWindowState.Normal;
                     this.Bounds = this.LastBound;
@@ -85,7 +86,9 @@ namespace WebView2WrapperWinFormsTest
                 }
                 else
                 {
+
                     this.LastBound = this.Bounds;
+                    this.panel1.Visible = false;
                     var rect = Screen.GetBounds(this);
                     this.FormBorderStyle = FormBorderStyle.None;
                     this.Bounds = rect;
@@ -248,7 +251,8 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_FrameNavigationCompleted(object sender, NavigationCompletedEventArgs e)
         {
-            MessageBox.Show(this, "webView1_FrameNavigationCompleted");
+            //MessageBox.Show(this, "webView1_FrameNavigationCompleted");
+            
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -272,6 +276,7 @@ namespace WebView2WrapperWinFormsTest
         private void webView1_DOMContentLoaded(object sender, DOMContentLoadedEventArgs e)
         {
             Debug.Print(e.NavigationId.ToString());
+            
         }
 
         private void webView1_WebResourceResponseReceived(object sender, WebResourceResponseReceivedEventArgs e)
@@ -293,9 +298,15 @@ namespace WebView2WrapperWinFormsTest
         {
             e.Frame.FrameDestroyed += (s,o) =>
             {
+                
                 if (o.Frame != null)
                 {
-                    Debug.Print("Frame Name:" + o.Frame.name);
+                    if(e.Frame.IsDestroyed() == 0)
+                    {
+                        Debug.Print("Frame Name:" + o.Frame.name);
+                    }
+
+                    
                 }
                 Debug.Print("Frame Destroyed");
             };
@@ -309,6 +320,44 @@ namespace WebView2WrapperWinFormsTest
         private void button5_Click(object sender, EventArgs e)
         {
             this.webView1.OpenTaskManagerWindow();
+        }
+
+        private void webView1_DownloadStarting(object sender, DownloadStartingEventArgs e)
+        {
+           WebView2DownloadOperation opt =  e.DownloadOperation;
+            opt.BytesReceivedChanged+=OnByteReceived;
+            opt.EstimatedEndTimeChanged+=OnEstimatedEndTimeChanged;
+            opt.StateChanged+=OnDownloadStateChanged;
+        }
+
+        private void OnDownloadStateChanged(object sender, WebView2EventArgs e)
+        {
+            WebView2DownloadOperation opt = sender as WebView2DownloadOperation;
+            if (opt != null)
+            {
+                Debug.Print("Download State Changed:" + opt.State.ToString());
+            }
+        }
+
+        private void OnEstimatedEndTimeChanged(object sender, WebView2EventArgs e)
+        {
+             WebView2DownloadOperation opt = sender as WebView2DownloadOperation;
+            if(opt != null)
+            {
+                Debug.Print("EstimatedEndTime:" + opt.EstimatedEndTime);
+
+            }
+            
+        }
+
+        private void OnByteReceived(object sender, WebView2EventArgs e)
+        {
+            WebView2DownloadOperation opt = sender as WebView2DownloadOperation;
+            if(opt != null)
+            {
+                Debug.Print("Byte Received:" + opt.BytesReceived.ToString());
+
+            }
         }
     }
 }

@@ -23,5 +23,14 @@ namespace Diga.WebView2.Wrapper
         {
             _WebView.remove_ClientCertificateRequested(token);
         }
+
+         protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this._WebView = null;
+            }
+            base.Dispose(disposing);
+        }
     }
 }

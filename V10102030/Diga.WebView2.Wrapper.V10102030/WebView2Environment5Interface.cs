@@ -5,7 +5,7 @@ namespace Diga.WebView2.Wrapper
 {
     public class WebView2Environment5Interface:WebView2Environment4Interface,ICoreWebView2Environment5
     {
-        private readonly ICoreWebView2Environment5 _Environment5;
+        private  ICoreWebView2Environment5 _Environment5;
         public WebView2Environment5Interface(ICoreWebView2Environment5 environment):base(environment)
         {
             this._Environment5 = environment;
@@ -19,6 +19,15 @@ namespace Diga.WebView2.Wrapper
         public void remove_BrowserProcessExited([In] EventRegistrationToken token)
         {
             _Environment5.remove_BrowserProcessExited(token);
+        }
+
+         protected override void Dispose(bool disposing)
+        {
+            if(disposing)
+            {
+                this._Environment5 = null;
+            }
+            base.Dispose(disposing);
         }
     }
 }
