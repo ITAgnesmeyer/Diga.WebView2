@@ -875,6 +875,16 @@ namespace Diga.WebView2.Wrapper
             }
         }
 
+        public WebView2PrintSettings CreatePrintSettings()
+        {
+            return this.Environment?.CreatePrintSettings();
+        }
        
+        public Task<bool> PrintPdfAsync(string file, WebView2PrintSettings printSettings)
+        {
+           return this.WebView.PrintToPdfAsync(file, printSettings);
+        }
     }
+
+    
 }

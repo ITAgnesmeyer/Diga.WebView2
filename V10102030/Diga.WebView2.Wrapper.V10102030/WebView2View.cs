@@ -270,6 +270,7 @@ namespace Diga.WebView2.Wrapper
         [HandleProcessCorruptedStateExceptions]
         private void UnRegisterEvents()
         {
+            
             //if (this._WebView == null) return;
             try
             {
@@ -394,7 +395,17 @@ namespace Diga.WebView2.Wrapper
             handler.ScriptCompleted += OnExecuteScriptCompletedIntern;
             base.ExecuteScript(javaScript, handler);
         }
-
+        public async Task<bool> PrintToPdfAsync(string file, WebView2PrintSettings printSettings)
+        {
+            var source = new TaskCompletionSource<(int, int)>();
+            var printToPdfDelegate = new PrintToPdfCompletedDelegate(source);
+            base.PrintToPdf(file,printSettings, printToPdfDelegate);
+            (int errorCode, int isSuccess) result = await source.Task;
+            HRESULT hr = result.errorCode;
+            if(hr != HRESULT.S_OK)
+                throw Marshal.GetExceptionForHR(hr);
+            return (CBOOL)result.isSuccess;
+        }
         public async Task<string> ExecuteScriptAsync(string javaScript)
         {
             //if (this._WebView == null)

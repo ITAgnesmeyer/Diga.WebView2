@@ -268,9 +268,10 @@ namespace WebView2WrapperWinFormsTest
 
         }
 
-        private void bnPostMessage_Click(object sender, EventArgs e)
+        private async void bnPostMessage_Click(object sender, EventArgs e)
         {
-            
+            WebView2PrintSettings settings = this.webView1.CreatePrintSettings();
+            bool ok = await this.webView1.PrintToPdfAsync("C:\\temp\\test.pdf", settings);
         }
 
         private void webView1_DOMContentLoaded(object sender, DOMContentLoadedEventArgs e)

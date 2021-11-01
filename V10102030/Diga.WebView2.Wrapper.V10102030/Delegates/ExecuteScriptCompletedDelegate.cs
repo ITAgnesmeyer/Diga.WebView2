@@ -3,6 +3,7 @@ using Diga.WebView2.Interop;
 
 namespace Diga.WebView2.Wrapper.Delegates
 {
+
     public class ExecuteScriptCompletedDelegate : ICoreWebView2ExecuteScriptCompletedHandler
     {
         private readonly TaskCompletionSource<(int, string)> _Source;

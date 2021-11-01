@@ -409,7 +409,14 @@ namespace Diga.WebView2.WinForms
         {
             return await this._WebViewControl.ExecuteScriptAsync(javaScript);
         }
-
+        public WebView2PrintSettings CreatePrintSettings()
+        {
+            return this._WebViewControl.CreatePrintSettings();
+        }
+        public async Task<bool> PrintToPdfAsync(string file , WebView2PrintSettings printSettings)
+        {
+            return await this._WebViewControl.PrintPdfAsync(file, printSettings);
+        }
 
 
         public string InvokeScript(string javaScript)
@@ -864,18 +871,18 @@ namespace Diga.WebView2.WinForms
         protected override void WndProc(ref Message m)
         {
 
-
-            Debug.Print(m.Msg.ToString());
+             
+           
             switch (m.Msg)
             {
                 //WM_DESTROY
                 case 0x02:
                     OnBeforeWebViewDestroy();
                     this._WebViewControl?.CleanupControls();
-                    Thread.Sleep(100);
+                    //Thread.Sleep(100);
                     break;
             }
-            base.WndProc(ref m);
+           base.WndProc(ref m);
 
         }
 

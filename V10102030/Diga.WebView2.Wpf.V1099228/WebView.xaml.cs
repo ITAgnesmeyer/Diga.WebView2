@@ -423,6 +423,14 @@ namespace Diga.WebView2.Wpf
             return await this._WebViewControl.ExecuteScriptAsync(javaScript);
         }
 
+        public WebView2PrintSettings CreatePrintSettings()
+        {
+            return this._WebViewControl.CreatePrintSettings();
+        }
+        public async Task<bool> PrintToPdfAsync(string file , WebView2PrintSettings printSettings)
+        {
+            return await this._WebViewControl.PrintPdfAsync(file, printSettings);
+        }
 
 
         public string InvokeScript(string javaScript)

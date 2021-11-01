@@ -91,5 +91,11 @@ namespace Diga.WebView2.Wrapper
         {
             BrowserProcessExited?.Invoke(this, e);
         }
+
+
+        new public WebView2PrintSettings CreatePrintSettings()
+        {
+            return new WebView2PrintSettings(base.CreatePrintSettings());
+        }
     }
 }
