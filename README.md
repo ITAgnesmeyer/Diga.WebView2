@@ -9,6 +9,7 @@ There are NUGET-PACKAGES
 - Diga.WebView2.Interop => [NuGet](https://www.nuget.org/packages/Diga.WebView2.Interop/ "NuGet")
 - Diga.WebView2.Wrapper => [NuGet](https://www.nuget.org/packages/Diga.WebView2.Wrapper/ "NuGet")
 - Diga.WebView2.WinForms => [NuGet](https://www.nuget.org/packages/Diga.WebView2.WinForms/ "NuGet")
+- Diga.WebView2.Wpf => [NuGet](https://www.nuget.org/packages/Diga.WebView2.Wpf/ "NuGet")
 
 [WebView2 Runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)
 
@@ -35,30 +36,8 @@ This is to be fixed with this project.
 ### packages are currently supported.
 microsoft.web.webview2
 
-- WebView2=> 0.8.355
-- WebView2=> 0.9.430
-- WebView2=> 0.9.488
-- WebView2=> 0.9.515-Prerelease
-- WebView2=> 0.9.538
-- WebView2=> 0.9.579
-- WebView2=> 0.9.622.11
-- WebView2=> 1.0.622.22
-- WebView2=> 1.0.664.37
-
-Since Microsoft has completely changed the interface between version 0.8 and 0.9.
-3 projects are necessary.
-
-- Version 0.9.430 is equipped with completely different interfaces.
-- Version 0.8.355 no longer works on Client - PC.
-- Version 0.9.430 no longer works on Client - PC
-- Version 0.9.488 is the current Version on Client - PC's
-- Version 0.9.515 no longer works on Client - PC
-- Version 0.9.538 is the current Version on Client - PC's
-- Version 0.9.579 is the current Version on Client - PC's
-- Version 0.9.622.11 is the current Version on Client - PC's
-- Version 1.0.622.22 is the current Version on Client - PC's
-- Version 1.0.664.37 is the current Version on Client - PC's
-- Version 1.0.774.44 is the current Version on Client - PC's
+- Version 1.0.992.28 is the current Version on Client - PC's
+- Version 1.0.1020.30 is the current Version on Client - PC's
 
 WebView2 [Release-Notes](https://docs.microsoft.com/de-de/microsoft-edge/webview2/releasenotes)
 
@@ -68,18 +47,6 @@ The packages are always added only based on the setting of the projects.
 The API calls in this project are designed to draw the correct DLL depending on CPU usage.
 Therefore, the DLL's were included in the project.
 The NATIVEN-DLL's can then be found in the bin directory under native/x86 or native/x64.
-
-
-### Why are the sources in the projects only linked?
-It may be that this is only temporary. 
-Currently, the STD and CORE projects refer to the framework sources.
-This has the advantage that the sources only have to be edited once and are kept the same.
-
-- V9515 has its own source code.
-- V9538 has its own source code.
-
-
-The experimental interface was also integrated here. However, there is no wrapper for this.
 
 ### Name of the project files.
 To enable quick switching between WebView2 versions, the namespaces are kept the same.
@@ -93,30 +60,16 @@ package to decide which version of WebView2 to use.
 - Since version V106643 a name extension is no longer added.
 
 ### Framework:
-- Std => Standard 2.1
-- Core => Dotnet core 3.1
-- no deposit => NET framework 4.7.2
-
-
-### Why is there a difference between Std and Framework at all?
-Because Microsoft has chosen to keep the Std version 2.1 out of the net framework, 
-separation is absolutely necessary.
-According to Microsoft, STD 2.0 is no longer supported.
+- Std =>  Standard 2.0, Standard 2.1
+- Core => Dotnet core 3.1, 5.0, 6.0
+- Framework => NET framework 4.7.2
 
 
 ### Package version:
 This means the version of the WebView2 packages.
 
-- V8355 => [microsoft.web.webview2 0.8.355](https://www.nuget.org/packages/Microsoft.Web.WebView2/0.8.355)
-- V9430 => [microsoft.web.webview2 0.9.430](https://www.nuget.org/packages/Microsoft.Web.WebView2/0.9.430)
-- V9488 => [microsoft.web.webview2 0.9.488](https://www.nuget.org/packages/Microsoft.Web.WebView2/0.9.488)
-- V9515 => [microsoft.web.webview2 0.9.515-preview](https://www.nuget.org/packages/Microsoft.Web.WebView2/0.9.515-prerelease)
-- V9538 => [microsoft.web.webview2 0.9.538](https://www.nuget.org/packages/Microsoft.Web.WebView2/0.9.538)
-- V9622 => [microsoft.web.webview2 0.9.622.11](https://www.nuget.org/packages/Microsoft.Web.WebView2/0.9.622.11)
-- V9622 => [microsoft.web.webview2 1.0.622.22](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.622.22)
-- V10664 => [microsoft.web.webview2 1.0.664.37](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.664.37)
-- V1077444 => [microsoft.web.webview2 1.0.774.44](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.774.44)
-- V1086435 => [microsoft.web.webview2 1.0.864.35](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.864.35)
+- V1099228 => [microsoft.web.webview2 1.0.992.28](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.992.28)
+- V10102030 => [microsoft.web.webview2 1.0.1020.30](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1020.30)
 
 ### How were the interop sources created?
 The Microsoft microsoft.web.webview2 package contains webview2.tlb.
