@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
@@ -511,9 +512,9 @@ namespace Diga.WebView2.Wrapper
 
         public string Source => this.WebView.Source;
 
-        public void CleanupControls()
+        private void CleanupControls()
         {
-
+            
 
             while (this._RemoteObjects.Count > 0)
             {
@@ -526,24 +527,33 @@ namespace Diga.WebView2.Wrapper
             this.ParentHandle = IntPtr.Zero;
             this.WebView?.Dispose();
             this.WebView = null;
-            if (RefCounter <= 0)
-                this.Close();
-            this.Controller?.Dispose();
-            this.Controller = null;
+           
+
+           Thread.Sleep(100);
+            this._Settings?.Dispose();
+            this._Settings = null;
             
-            this.CompositionController?.Dispose();
-            this.CompositionController = null;
             this.Environment?.Dispose();
             this.Environment = null;
+              this.CompositionController?.Dispose();
+            this.CompositionController = null;
+            this.Controller?.Dispose();
+            this.Controller = null;
+
+           
+
 
 
 
         }
+        private bool _IsDisposed;
         public virtual void Dispose(bool dispose)
         {
+            if (_IsDisposed) return;
             if (dispose)
             {
-                UnWireEvents();
+                CleanupControls();
+                this._IsDisposed = true;
             }
         }
         public void Dispose()
@@ -711,7 +721,9 @@ namespace Diga.WebView2.Wrapper
                 throw new InvalidOperationException($"The object({name}) already exists");
             try
             {
-                DispatchWrapper dw = new DispatchWrapper(obj);
+                Type type = obj.GetType();
+                if (!type.IsClass || type.IsCOMObject)
+                throw new COMException(null, -2147352571);
 
 
                 // If we got here without throwing an exception, the QI for IDispatch succeeded.
@@ -780,11 +792,39 @@ namespace Diga.WebView2.Wrapper
             }
             set
             {
-                CBOOL b = value;
-                this.Controller.IsVisible = b;
+                this._IsVisible=value;
+                if(this.Controller != null)
+                {
+
+                    this.Controller.IsVisible = (CBOOL)this._IsVisible;
+                }
+                
             }
         }
+        private double _ZoomFactor;
+        public double ZoomFactor
+        {
+            get
+            { 
+                if(this.Controller != null)
+                {
+                    this._ZoomFactor = this.Controller.ZoomFactor;
+                }
+                return this._ZoomFactor; 
+            }
+            set
+            {
+                if(value <= 0)
+                    throw new ArgumentOutOfRangeException("Plase Set a value above 0");
 
+                this._ZoomFactor = value;
+                if(this.Controller != null)
+                {
+                    this.Controller.ZoomFactor = this._ZoomFactor;
+                }
+            }
+        }
+        
         public async Task CapturePreviewAsync(Stream stream, ImageFormat imageFormat)
         {
             await this.WebView.CapturePreviewAsync(stream, imageFormat);

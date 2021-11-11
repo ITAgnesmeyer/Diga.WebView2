@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Runtime.ExceptionServices;
+using System.Security;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,6 +19,7 @@ namespace Diga.WebView2.WinForms
 {
     public partial class WebView : UserControl
     {
+        private NWindow _NWindow;
         private WebView2Control _WebViewControl;
         private bool _DefaultContextMenusEnabled;
         private string _Url;
@@ -225,6 +228,26 @@ namespace Diga.WebView2.WinForms
             }
         }
 
+        private double _ZoomFactor;
+        public double ZoomFactor
+        {
+            get
+            {
+                if(this.IsCreated)
+                { 
+                    this._ZoomFactor = this._WebViewControl.ZoomFactor;
+                } 
+                return _ZoomFactor;
+            }
+            set
+            {
+                this._ZoomFactor = value;
+                if(this.IsCreated)
+                { 
+                    this._WebViewControl.ZoomFactor = this._ZoomFactor;
+                }
+            }
+        }
 
         public WebView()
         {
@@ -280,7 +303,8 @@ namespace Diga.WebView2.WinForms
             e.Settings.IsWebMessageEnabled = this._IsWebMessageEnabled;
             e.Settings.IsZoomControlEnabled = this._IsZoomControlEnabled;
             e.Settings.IsBuiltInErrorPageEnabled = true;
-
+            e.Settings.IsPinchZoomEnabled = true;
+            
 
         }
 
@@ -289,12 +313,14 @@ namespace Diga.WebView2.WinForms
             this.IsCreated = true;
             this.AddScriptToExecuteOnDocumentCreated(
                 "window.external = { sendMessage: function(message) { window.chrome.webview.postMessage(message); }, receiveMessage: function(callback) { window.chrome.webview.addEventListener('message', function(e) { callback(e.data); }); } };");
-            if(this._DefaultBackgroundColor != Color.Empty)
+            if (this._DefaultBackgroundColor != Color.Empty)
                 this._WebViewControl.DefaultBackgroundColor = _DefaultBackgroundColor;
             if (!string.IsNullOrEmpty(this._Url))
                 this.Navigate(this.Url);
             if (!string.IsNullOrEmpty(this._HtmlContent))
                 this.NavigateToString(this._HtmlContent);
+            if(this._ZoomFactor != 0)
+                this.ZoomFactor = this._ZoomFactor;
 
             OnWebViewCreated();
 
@@ -413,7 +439,7 @@ namespace Diga.WebView2.WinForms
         {
             return this._WebViewControl.CreatePrintSettings();
         }
-        public async Task<bool> PrintToPdfAsync(string file , WebView2PrintSettings printSettings)
+        public async Task<bool> PrintToPdfAsync(string file, WebView2PrintSettings printSettings)
         {
             return await this._WebViewControl.PrintPdfAsync(file, printSettings);
         }
@@ -466,49 +492,71 @@ namespace Diga.WebView2.WinForms
                 return System.Diagnostics.Process.GetCurrentProcess().ProcessName == "devenv";
             }
         }
+        private void CreateWebViewControl(IntPtr parent)
+        {
 
+            this._WebViewControl = new WebView2Control(parent);
+            this._WebViewControl.Created += OnWebWindowCreated;
+            this._WebViewControl.BeforeCreate += OnWebWindowBeforeCreate;
+            this._WebViewControl.NavigateStart += OnNavigationStartIntern;
+            this._WebViewControl.AcceleratorKeyPressed += OnAcceleratorKeyPressedIntern;
+            this._WebViewControl.GotFocus += OnGotFocusIntern;
+            this._WebViewControl.LostFocus += OnLostFocusIntern;
+            this._WebViewControl.MoveFocusRequested += OnMoveFocusRequestedIntern;
+            this._WebViewControl.ZoomFactorChanged += OnZoomFactorChangedIntern;
+            this._WebViewControl.ContainsFullScreenElementChanged += OnContainsFullScreenElementChangedIntern;
+
+            this._WebViewControl.NewWindowRequested += OnNewWindowRequestedIntern;
+            this._WebViewControl.PermissionRequested += OnPermissionRequestedIntern;
+            this._WebViewControl.DocumentTitleChanged += OnDocumentTitleChangedIntern;
+            this._WebViewControl.FrameNavigationCompleted += OnFrameNavigationCompletedIntern;
+            this._WebViewControl.FrameNavigationStarting += OnFrameNavigationStartingIntern;
+            this._WebViewControl.ProcessFailed += OnProcessFailedIntern;
+            this._WebViewControl.ScriptDialogOpening += OnScriptDialogOpeningIntern;
+            this._WebViewControl.WebMessageReceived += OnWebMessageReceivedIntern;
+            this._WebViewControl.ScriptToExecuteOnDocumentCreatedCompleted += ScriptToExecuteOnDocumentCreatedCompletedIntern;
+
+            this._WebViewControl.WindowCloseRequested += OnWindowCloseRequestedIntern;
+            this._WebViewControl.ExecuteScriptCompleted += OnExecuteScriptCompletedIntern;
+            this._WebViewControl.WebResourceRequested += OnWebResourceRequestedIntern;
+            this._WebViewControl.ContentLoading += OnContentLoadingIntern;
+            this._WebViewControl.SourceChanged += OnSourceChangedIntern;
+            this._WebViewControl.HistoryChanged += OnHistoryChangedIntern;
+            this._WebViewControl.NavigationCompleted += OnNavigationCompletedIntern;
+            this._WebViewControl.NewBrowserVersionAvailable += OnNewBrowserVersionAvailableIntern;
+            this._WebViewControl.DOMContentLoaded += OnDOMContentLoadedIntern;
+            this._WebViewControl.WebResourceResponseReceived += WebResourceResponseReceivedIntern;
+            this._WebViewControl.DownloadStarting += OnDownalodStartingIntern;
+            this._WebViewControl.FrameCreated += OnFrameCreatedIntern;
+            this._WebViewControl.RasterizationScaleChanged += OnRasterizationScaleChangedIntern;
+
+
+        }
         private void WebView_Load(object sender, EventArgs e)
         {
-            if (this.IsInDesignMode() == false)
-            {
+            this._NWindow = new NWindow(this);
+            this._NWindow.Create += OnNativeWindowCreate;
+            this._NWindow.Resize += OnNativeWindowResize;
+            this._NWindow.Destroy += OnNativeWindowDestroy;
+            if (!this.IsInDesignMode())
+                this._NWindow.CreateControl();
 
-                this._WebViewControl = new WebView2Control(this.Handle);
-                this._WebViewControl.Created += OnWebWindowCreated;
-                this._WebViewControl.BeforeCreate += OnWebWindowBeforeCreate;
-                this._WebViewControl.NavigateStart += OnNavigationStartIntern;
-                this._WebViewControl.AcceleratorKeyPressed += OnAcceleratorKeyPressedIntern;
-                this._WebViewControl.GotFocus += OnGotFocusIntern;
-                this._WebViewControl.LostFocus += OnLostFocusIntern;
-                this._WebViewControl.MoveFocusRequested += OnMoveFocusRequestedIntern;
-                this._WebViewControl.ZoomFactorChanged += OnZoomFactorChangedIntern;
-                this._WebViewControl.ContainsFullScreenElementChanged += OnContainsFullScreenElementChangedIntern;
+        }
 
-                this._WebViewControl.NewWindowRequested += OnNewWindowRequestedIntern;
-                this._WebViewControl.PermissionRequested += OnPermissionRequestedIntern;
-                this._WebViewControl.DocumentTitleChanged += OnDocumentTitleChangedIntern;
-                this._WebViewControl.FrameNavigationCompleted += OnFrameNavigationCompletedIntern;
-                this._WebViewControl.FrameNavigationStarting += OnFrameNavigationStartingIntern;
-                this._WebViewControl.ProcessFailed += OnProcessFailedIntern;
-                this._WebViewControl.ScriptDialogOpening += OnScriptDialogOpeningIntern;
-                this._WebViewControl.WebMessageReceived += OnWebMessageReceivedIntern;
-                this._WebViewControl.ScriptToExecuteOnDocumentCreatedCompleted += ScriptToExecuteOnDocumentCreatedCompletedIntern;
+        private void OnNativeWindowDestroy(object sender, EventArgs e)
+        {
+            //this._WebViewControl?.CleanupControls();
+        }
 
-                this._WebViewControl.WindowCloseRequested += OnWindowCloseRequestedIntern;
-                this._WebViewControl.ExecuteScriptCompleted += OnExecuteScriptCompletedIntern;
-                this._WebViewControl.WebResourceRequested += OnWebResourceRequestedIntern;
-                this._WebViewControl.ContentLoading += OnContentLoadingIntern;
-                this._WebViewControl.SourceChanged += OnSourceChangedIntern;
-                this._WebViewControl.HistoryChanged += OnHistoryChangedIntern;
-                this._WebViewControl.NavigationCompleted += OnNavigationCompletedIntern;
-                this._WebViewControl.NewBrowserVersionAvailable += OnNewBrowserVersionAvailableIntern;
-                this._WebViewControl.DOMContentLoaded += OnDOMContentLoadedIntern;
-                this._WebViewControl.WebResourceResponseReceived += WebResourceResponseReceivedIntern;
-                this._WebViewControl.DownloadStarting += OnDownalodStartingIntern;
-                this._WebViewControl.FrameCreated += OnFrameCreatedIntern;
-                this._WebViewControl.RasterizationScaleChanged += OnRasterizationScaleChangedIntern;
+        private void OnNativeWindowResize(object sender, EventArgs e)
+        {
+            this._WebViewControl?.DockToParent();
+        }
 
+        private void OnNativeWindowCreate(object sender, EventArgs e)
+        {
+            CreateWebViewControl(this._NWindow.Handle.Handle);
 
-            }
         }
 
         private void OnRasterizationScaleChangedIntern(object sender, WebView2EventArgs e)
@@ -648,13 +696,13 @@ namespace Diga.WebView2.WinForms
             OnNavigationStart(e);
         }
 
-        private void WebView_Resize(object sender, EventArgs e)
-        {
-            if (this.IsCreated)
-            {
-                this._WebViewControl.DockToParent();
-            }
-        }
+        //private void WebView_Resize(object sender, EventArgs e)
+        //{
+        //    if (this.IsCreated)
+        //    {
+        //        this._WebViewControl.DockToParent();
+        //    }
+        //}
 
         protected virtual void OnNavigationStart(NavigationStartingEventArgs e)
         {
@@ -868,23 +916,24 @@ namespace Diga.WebView2.WinForms
             FrameNavigationCompleted?.Invoke(this, e);
         }
 
-        protected override void WndProc(ref Message m)
-        {
+        //[SecurityCritical]
+        //[HandleProcessCorruptedStateExceptions]
+        //protected override void WndProc(ref Message m)
+        //{
 
-             
-           
-            switch (m.Msg)
-            {
-                //WM_DESTROY
-                case 0x02:
-                    OnBeforeWebViewDestroy();
-                    this._WebViewControl?.CleanupControls();
-                    //Thread.Sleep(100);
-                    break;
-            }
-           base.WndProc(ref m);
 
-        }
+
+        //    switch (m.Msg)
+        //    {
+        //        //WM_DESTROY
+        //        case 0x0002:
+
+        //            //Thread.Sleep(100);
+        //            break;
+        //    }
+        //    base.WndProc(ref m);
+
+        //}
 
 
         protected virtual void OnBeforeWebViewDestroy()
@@ -927,26 +976,33 @@ namespace Diga.WebView2.WinForms
         {
             get
             {
-                
-                
-                if(this.IsCreated)
+
+
+                if (this.IsCreated)
                 {
-                    this._DefaultBackgroundColor  = this._WebViewControl.DefaultBackgroundColor;
+                    this._DefaultBackgroundColor = this._WebViewControl.DefaultBackgroundColor;
                 }
-                
+
                 return _DefaultBackgroundColor;
             }
             set
             {
                 _DefaultBackgroundColor = value;
-                if(this.IsCreated)
+                if (this.IsCreated)
                 {
                     this._WebViewControl.DefaultBackgroundColor = _DefaultBackgroundColor;
                 }
-                
+
             }
 
         }
 
+        private void WebView_Resize(object sender, EventArgs e)
+        {
+            if (this._NWindow != null)
+            {
+                this._NWindow.DockToParent();
+            }
+        }
     }
 }

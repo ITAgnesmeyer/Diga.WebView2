@@ -948,7 +948,7 @@ namespace Diga.WebView2.Wpf
 
         private void ViewHwnd_Destroy(object sender, EventArgs e)
         {
-            this._WebViewControl?.CleanupControls();
+            //this._WebViewControl?.CleanupControls();
         }
     }
 }

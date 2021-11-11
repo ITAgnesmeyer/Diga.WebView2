@@ -192,7 +192,7 @@ namespace WebView2WrapperWinFormsTest
        
         private void webView1_ZoomFactorChanged(object sender, WebView2EventArgs e)
         {
-            MessageBox.Show(this, "webView1_ZoomFactorChanged");
+            this.lblZoomFactor.Text = (this.webView1.ZoomFactor * 100).ToString();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -359,6 +359,15 @@ namespace WebView2WrapperWinFormsTest
                 Debug.Print("Byte Received:" + opt.BytesReceived.ToString());
 
             }
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            double dbl = this.trackBar1.Value / 100.000;
+            if(dbl == 0)
+                dbl = 1;
+            this.webView1.ZoomFactor = dbl;
+            this.lblZoomFactor.Text = (dbl*100).ToString();
         }
     }
 }

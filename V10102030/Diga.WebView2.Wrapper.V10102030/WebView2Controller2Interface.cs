@@ -1,25 +1,48 @@
 ﻿using Diga.WebView2.Interop;
+using System;
+using System.Diagnostics;
 
 namespace Diga.WebView2.Wrapper
 {
-    public class WebView2Controller2Interface:WebView2ControllerInterface,ICoreWebView2Controller2
+    public class WebView2Controller2Interface : WebView2ControllerInterface, ICoreWebView2Controller2
     {
-        private ICoreWebView2Controller2 _Controller2;
-        public WebView2Controller2Interface(ICoreWebView2Controller2 controller):base(controller)
+        private ICoreWebView2Controller2 _Controller;
+        public WebView2Controller2Interface(ICoreWebView2Controller2 controller) : base(controller)
         {
-            this._Controller2 = controller;
+              if(controller == null)
+                throw new ArgumentNullException(nameof(controller));
+
+            this.Controller = controller;
         }
-        public COREWEBVIEW2_COLOR DefaultBackgroundColor { get => _Controller2.DefaultBackgroundColor; set => _Controller2.DefaultBackgroundColor = value; }
+        public COREWEBVIEW2_COLOR DefaultBackgroundColor { get => Controller.DefaultBackgroundColor; set => Controller.DefaultBackgroundColor = value; }
+        private ICoreWebView2Controller2 Controller 
+        {
+              get
+            {
+                if (_Controller == null)
+                {
+                    Debug.Print(nameof(WebView2Controller2Interface) + "=>" + nameof(Controller) + " is null");
+
+                    throw new InvalidOperationException(nameof(WebView2Controller2Interface) + "=>" + nameof(Controller) + " is null");
+                }
+                return _Controller;
+            }
+            set => _Controller = value;
+        }
+
+        private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (this._IsDisposed) return;
+            if (disposing)
             {
-                this._Controller2 = null;
+                this.Controller = null;
+                this._IsDisposed = true;
             }
             base.Dispose(disposing);
         }
     }
 
-    
+
 
 }

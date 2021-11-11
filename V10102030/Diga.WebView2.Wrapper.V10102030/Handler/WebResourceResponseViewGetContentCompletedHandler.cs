@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices.ComTypes;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
@@ -25,7 +26,16 @@ namespace Diga.WebView2.Wrapper.Handler
         }
         public void Invoke(int errorCode, IStream Content)
         {
-            OnWebResourceResponseViewGetContent(new WebView2StreamEventArgs(errorCode, Content));
+            try
+            {
+                OnWebResourceResponseViewGetContent(new WebView2StreamEventArgs(errorCode, Content));
+            }
+            catch (Exception ex)
+            {
+
+                Debug.Print(nameof(WebResourceResponseViewGetContentCompletedHandler) + " Exception:" + ex.ToString());
+            }
+            
         }
 
         protected virtual void OnWebResourceResponseViewGetContent(WebView2StreamEventArgs e)

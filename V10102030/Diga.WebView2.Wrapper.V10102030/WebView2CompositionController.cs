@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.ExceptionServices;
+using System.Security;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
@@ -8,90 +9,63 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper
 {
-    public partial class WebView2CompositionController:IDisposable
+    public partial class WebView2CompositionController : WebView2CompositionController2Interface
     {
         public event EventHandler<CursorChangedEventArgs> CursorChanged;
 
-        public WebView2CompositionController()
+
+        public WebView2CompositionController(ICoreWebView2CompositionController2 controller) : base(controller)
         {
-            this._Controller = this;
+            if (controller == null)
+                throw new ArgumentNullException(nameof(controller));
+
             RegisterEvents();
         }
-        public WebView2CompositionController(ICoreWebView2CompositionController2 controller)
-        {
-            this._Controller = controller;
-            RegisterEvents();
-        }
 
-        private ICoreWebView2CompositionController2 ToInterface()
-        {
-            return this;
-        }
-
-        public object RootVisualTarget
-        {
-            get => this.ToInterface().RootVisualTarget;
-            set => this.ToInterface().RootVisualTarget = value;
-        }
-
-        public void SendMouseInput(COREWEBVIEW2_MOUSE_EVENT_KIND eventKind,
-            COREWEBVIEW2_MOUSE_EVENT_VIRTUAL_KEYS virtualKeys,
-            uint mouseData, Point point)
-        {
-            this.ToInterface().SendMouseInput(eventKind, virtualKeys, mouseData, point);
-        }
-
-        public void SendPointerInput(COREWEBVIEW2_POINTER_EVENT_KIND eventKind, WebView2PointerInfo pointerInfo)
-        {
-            this.ToInterface().SendPointerInput(eventKind, pointerInfo);
-        }
-
-        public IntPtr Cursor => this.ToInterface().Cursor;
-        public uint SystemCursorId => this.ToInterface().SystemCursorId;
-        public object UIAProvider => this.ToInterface().UIAProvider;
         private EventRegistrationToken _CursorChangedToken;
         private void RegisterEvents()
         {
-            if (this._Controller == null) return;
 
-           CursorChangedEventHandler eventHandler = new CursorChangedEventHandler();
-           eventHandler.CursorChanged += OnCursorChangedIntern;
-            this.ToInterface().add_CursorChanged(eventHandler, out this._CursorChangedToken);
+
+            CursorChangedEventHandler eventHandler = new CursorChangedEventHandler();
+            eventHandler.CursorChanged += OnCursorChangedIntern;
+            base.add_CursorChanged(eventHandler, out this._CursorChangedToken);
+
         }
 
+        [SecurityCritical]
         [HandleProcessCorruptedStateExceptions]
         private void UnRegisterEvents()
         {
-            if (this._Controller == null) return;
+
             try
             {
-               EventRegistrationTool.UnWireToken(  this._CursorChangedToken,this._Controller.remove_CursorChanged);
+                EventRegistrationTool.UnWireToken(this._CursorChangedToken, base.remove_CursorChanged);
             }
             catch (Exception e)
             {
                 Debug.Print(e.ToString());
 
             }
-            
+
         }
         private void OnCursorChangedIntern(object sender, CursorChangedEventArgs e)
         {
             OnCursorChanged(e);
         }
-        public virtual void Dispose(bool dispose)
+        private bool _IsDisposed;
+        protected override void Dispose(bool disposing)
         {
-            if(dispose)
+            if (this._IsDisposed) return;
+            if (disposing)
             {
                 UnRegisterEvents();
-                this._Controller = null;
+                this._IsDisposed = true;
 
             }
+            base.Dispose(disposing);
         }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+
 
         protected virtual void OnCursorChanged(CursorChangedEventArgs e)
         {
@@ -99,5 +73,5 @@ namespace Diga.WebView2.Wrapper
         }
     }
 
-    
+
 }

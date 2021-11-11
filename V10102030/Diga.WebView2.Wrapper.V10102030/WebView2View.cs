@@ -9,11 +9,12 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Diga.WebView2.Wrapper.Delegates;
 using Diga.WebView2.Wrapper.Types;
+using System.Security;
 
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
 {
-    public partial class WebView2View :WebView2View7Interface, IDisposable
+    public partial class WebView2View : WebView2View7Interface, IDisposable
     {
 
         public event EventHandler<NavigationStartingEventArgs> NavigationStarting;
@@ -42,13 +43,13 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<FrameCreatedEventArgs> FrameCreated;
         public event EventHandler<ClientCertificateRequestedEventArgs> ClientCertificateRequested;
 
-        public WebView2View(ICoreWebView2_7 webView):base(webView)
+        public WebView2View(ICoreWebView2_7 webView) : base(webView)
         {
-            
+
             RegisterEvents();
         }
 
-        
+
         private void RegisterEvents()
         {
 
@@ -259,80 +260,80 @@ namespace Diga.WebView2.Wrapper
         {
             OnSourceChanged(e);
         }
-        
+
         private void OnContentLoadingIntern(object sender, ContentLoadingEventArgs e)
         {
             OnContentLoading(e);
         }
 
-        
 
+        [SecurityCritical]
         [HandleProcessCorruptedStateExceptions]
         private void UnRegisterEvents()
         {
-            
+
             //if (this._WebView == null) return;
             try
             {
-                
-               EventRegistrationTool.UnWireToken(this._NavigationStartingToken, base.remove_NavigationStarting);
-                
-               EventRegistrationTool.UnWireToken(this._ContentLoadingToken,base.remove_ContentLoading);
 
-               EventRegistrationTool.UnWireToken(this._SourceChangedToken, base.remove_SourceChanged);
-                
-               EventRegistrationTool.UnWireToken(this._HistoryChangeToken,base.remove_HistoryChanged);
-                
-               EventRegistrationTool.UnWireToken(this._NavigationCompletedToken,base.remove_NavigationCompleted);
-                
-               EventRegistrationTool.UnWireToken(this._ContainsFullScreenElementChanged,base.remove_ContainsFullScreenElementChanged);
-                
-               EventRegistrationTool.UnWireToken(this._WebResourceRequested,base.remove_WebResourceRequested);
-                
-               EventRegistrationTool.UnWireToken(this._DocumentTitleChangedToken,base.remove_DocumentTitleChanged);
-                
-               EventRegistrationTool.UnWireToken(this._FrameNavigationCompletedToken,base.remove_FrameNavigationCompleted);
-                
-               EventRegistrationTool.UnWireToken(this._FrameNavigationStartingToken,base.remove_FrameNavigationStarting);
-                
-               EventRegistrationTool.UnWireToken(this._NewWindowRequestedToken,base.remove_NewWindowRequested);
-                
-               EventRegistrationTool.UnWireToken(this._PermissionRequestedToken,base.remove_PermissionRequested);
-                
-               EventRegistrationTool.UnWireToken((this._ProcessFailedToken),base.remove_ProcessFailed);
-                
-               EventRegistrationTool.UnWireToken(this._ScriptDialogOpeningToken,base.remove_ScriptDialogOpening);
-                
-               EventRegistrationTool.UnWireToken(this._WebMessageReceivedToken,base.remove_WebMessageReceived);
-                
-               EventRegistrationTool.UnWireToken(this._WindowCloseRequestedToken,base.remove_WindowCloseRequested);
-                
-               EventRegistrationTool.UnWireToken(this._DOMContentLoadedToken,base.remove_DOMContentLoaded);
-                
-               EventRegistrationTool.UnWireToken(this._WebResourceResponseReceivedToken,base.remove_WebResourceResponseReceived);
-                
+                EventRegistrationTool.UnWireToken(this._NavigationStartingToken, base.remove_NavigationStarting);
+
+                EventRegistrationTool.UnWireToken(this._ContentLoadingToken, base.remove_ContentLoading);
+
+                EventRegistrationTool.UnWireToken(this._SourceChangedToken, base.remove_SourceChanged);
+
+                EventRegistrationTool.UnWireToken(this._HistoryChangeToken, base.remove_HistoryChanged);
+
+                EventRegistrationTool.UnWireToken(this._NavigationCompletedToken, base.remove_NavigationCompleted);
+
+                EventRegistrationTool.UnWireToken(this._ContainsFullScreenElementChanged, base.remove_ContainsFullScreenElementChanged);
+
+                EventRegistrationTool.UnWireToken(this._WebResourceRequested, base.remove_WebResourceRequested);
+
+                EventRegistrationTool.UnWireToken(this._DocumentTitleChangedToken, base.remove_DocumentTitleChanged);
+
+                EventRegistrationTool.UnWireToken(this._FrameNavigationCompletedToken, base.remove_FrameNavigationCompleted);
+
+                EventRegistrationTool.UnWireToken(this._FrameNavigationStartingToken, base.remove_FrameNavigationStarting);
+
+                EventRegistrationTool.UnWireToken(this._NewWindowRequestedToken, base.remove_NewWindowRequested);
+
+                EventRegistrationTool.UnWireToken(this._PermissionRequestedToken, base.remove_PermissionRequested);
+
+                EventRegistrationTool.UnWireToken((this._ProcessFailedToken), base.remove_ProcessFailed);
+
+                EventRegistrationTool.UnWireToken(this._ScriptDialogOpeningToken, base.remove_ScriptDialogOpening);
+
+                EventRegistrationTool.UnWireToken(this._WebMessageReceivedToken, base.remove_WebMessageReceived);
+
+                EventRegistrationTool.UnWireToken(this._WindowCloseRequestedToken, base.remove_WindowCloseRequested);
+
+                EventRegistrationTool.UnWireToken(this._DOMContentLoadedToken, base.remove_DOMContentLoaded);
+
+                EventRegistrationTool.UnWireToken(this._WebResourceResponseReceivedToken, base.remove_WebResourceResponseReceived);
+
                 try
                 {
-                    EventRegistrationTool.UnWireToken(this._DownloadStartingToken,base.remove_DownloadStarting);
+                    //EventRegistrationTool.UnWireToken(this._DownloadStartingToken, base.remove_DownloadStarting);
                 }
                 catch (Exception e)
                 {
                     Debug.Print("WebView2View UnregisterEvents" + e.Message);
                 }
 
-                
-                EventRegistrationTool.UnWireToken(this._FrameCreatedToken,base.remove_FrameCreated);
-                
+
+                EventRegistrationTool.UnWireToken(this._FrameCreatedToken, base.remove_FrameCreated);
+
                 try
                 {
-                    EventRegistrationTool.UnWireToken(this._CertificateRequestedToken,base.remove_ClientCertificateRequested);
+                   //EventRegistrationTool.UnWireToken(this._CertificateRequestedToken, base.remove_ClientCertificateRequested);
 
                 }
                 catch (Exception e)
                 {
                     Debug.Print("WebView2View UnregisterEvents => Exception:" + e.Message);
                 }
-                
+
             }
             catch (Exception e)
             {
@@ -399,10 +400,10 @@ namespace Diga.WebView2.Wrapper
         {
             var source = new TaskCompletionSource<(int, int)>();
             var printToPdfDelegate = new PrintToPdfCompletedDelegate(source);
-            base.PrintToPdf(file,printSettings, printToPdfDelegate);
+            base.PrintToPdf(file, printSettings, printToPdfDelegate);
             (int errorCode, int isSuccess) result = await source.Task;
             HRESULT hr = result.errorCode;
-            if(hr != HRESULT.S_OK)
+            if (hr != HRESULT.S_OK)
                 throw Marshal.GetExceptionForHR(hr);
             return (CBOOL)result.isSuccess;
         }
@@ -470,7 +471,7 @@ namespace Diga.WebView2.Wrapper
             base.RemoveHostObjectFromScript(name);
         }
 
-        
+
 
         new public bool ContainsFullScreenElement => new CBOOL(base.ContainsFullScreenElement);
 
@@ -491,16 +492,18 @@ namespace Diga.WebView2.Wrapper
         {
             NavigationStarting?.Invoke(this, e);
         }
-
+        private bool _IsDisposed;
         protected override void Dispose(bool dispose)
         {
+            if (this._IsDisposed) return;
             if (dispose)
             {
                 UnRegisterEvents();
+                this._IsDisposed = true;
             }
             base.Dispose(dispose);
         }
-       
+
 
         protected virtual void OnContentLoading(ContentLoadingEventArgs e)
         {

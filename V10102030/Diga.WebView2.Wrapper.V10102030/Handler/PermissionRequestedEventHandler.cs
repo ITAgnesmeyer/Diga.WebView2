@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
 
@@ -16,7 +17,16 @@ namespace Diga.WebView2.Wrapper.Handler
 
         public void Invoke(ICoreWebView2 sender, ICoreWebView2PermissionRequestedEventArgs args)
         {
-            OnPermissionRequested(new PermissionRequestedEventArgs(args));
+            try
+            {
+                OnPermissionRequested(new PermissionRequestedEventArgs(args));
+            }
+            catch (Exception ex)
+            {
+
+                Debug.Print(nameof(PermissionRequestedEventHandler) + " Exception:" + ex.ToString());
+            }
+            
         }
     }
 }

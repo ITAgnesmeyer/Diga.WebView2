@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
 
@@ -7,7 +8,7 @@ namespace Diga.WebView2.Wrapper.Handler
     public class ProcessFailedEventHandler : ICoreWebView2ProcessFailedEventHandler
     {
         public event EventHandler<ProcessFailedEventArgs> ProcessFailed;
-        
+
 
         protected virtual void OnProcessFailed(ProcessFailedEventArgs e)
         {
@@ -16,7 +17,16 @@ namespace Diga.WebView2.Wrapper.Handler
 
         public void Invoke(ICoreWebView2 sender, ICoreWebView2ProcessFailedEventArgs args)
         {
-            OnProcessFailed(new ProcessFailedEventArgs(args));
+            try
+            {
+                OnProcessFailed(new ProcessFailedEventArgs(args));
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(nameof(ProcessFailedEventHandler) + " Exception:" + ex.ToString());
+
+            }
+
         }
     }
 }

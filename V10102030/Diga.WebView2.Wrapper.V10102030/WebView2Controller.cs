@@ -9,7 +9,7 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper
 {
-    public  class WebView2Controller:WebView2Controller3Interface,IDisposable
+    public class WebView2Controller : WebView2Controller3Interface, IDisposable
     {
         private EventRegistrationToken _ZoomFactorChangedToken;
         private EventRegistrationToken _GotFocusToken;
@@ -24,16 +24,15 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<MoveFocusRequestedEventArgs> MoveFocusRequested;
         public event EventHandler<WebView2EventArgs> RasterizationScaleChanged;
 
-        public WebView2Controller(ICoreWebView2Controller3 controller):base(controller)
+        public WebView2Controller(ICoreWebView2Controller3 controller) : base(controller)
         {
-            
+            if(controller == null)
+                throw new ArgumentNullException(nameof(controller));
+
             RegisterEvents();
         }
 
-        protected ICoreWebView2Controller3 ToInterface()
-        {
-            return this;
-        }
+
 
         private void RegisterEvents()
         {
@@ -102,16 +101,16 @@ namespace Diga.WebView2.Wrapper
         [HandleProcessCorruptedStateExceptions]
         private void UnRegisterEvents()
         {
-           
+
             try
             {
-               
-                EventRegistrationTool.UnWireToken(  this._AcceleratorKeyPressedToken,this.remove_AcceleratorKeyPressed);
-                EventRegistrationTool.UnWireToken(this._MoveFocusRequestedToken,this.remove_MoveFocusRequested);
-                EventRegistrationTool.UnWireToken(this._ZoomFactorChangedToken,this.remove_ZoomFactorChanged);
-                EventRegistrationTool.UnWireToken(this._GotFocusToken,this.remove_GotFocus);
-                EventRegistrationTool.UnWireToken(this._LostFocusToken,this.remove_LostFocus);
-                EventRegistrationTool.UnWireToken(this._RasterizationScaleChangedToken,this.remove_RasterizationScaleChanged);
+
+                EventRegistrationTool.UnWireToken(this._AcceleratorKeyPressedToken, this.remove_AcceleratorKeyPressed);
+                EventRegistrationTool.UnWireToken(this._MoveFocusRequestedToken, this.remove_MoveFocusRequested);
+                EventRegistrationTool.UnWireToken(this._ZoomFactorChangedToken, this.remove_ZoomFactorChanged);
+                EventRegistrationTool.UnWireToken(this._GotFocusToken, this.remove_GotFocus);
+                EventRegistrationTool.UnWireToken(this._LostFocusToken, this.remove_LostFocus);
+                EventRegistrationTool.UnWireToken(this._RasterizationScaleChangedToken, this.remove_RasterizationScaleChanged);
             }
             catch (Exception e)
             {
@@ -120,7 +119,7 @@ namespace Diga.WebView2.Wrapper
         }
 
 
- 
+
 
         public void SetBoundsAndZoomFactor(Rectangle bounds, double zoomFactor)
         {
@@ -131,17 +130,22 @@ namespace Diga.WebView2.Wrapper
 
 
 
-        public WebView2View WebView => new WebView2View((ICoreWebView2_7)this.ToInterface().CoreWebView2);
+        public WebView2View WebView => new WebView2View((ICoreWebView2_7)base.CoreWebView2);
+        private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (this._IsDisposed) return;
+            if (disposing)
             {
                 UnRegisterEvents();
+                
+                this.Close();
+                this._IsDisposed = true;
             }
             base.Dispose(disposing);
 
         }
-        
+
 
         protected virtual void OnAcceleratorKeyPressed(AcceleratorKeyPressedEventArgs e)
         {

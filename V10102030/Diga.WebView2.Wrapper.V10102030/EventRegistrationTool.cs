@@ -8,10 +8,14 @@ using Diga.WebView2.Interop;
 
 namespace Diga.WebView2.Wrapper
 {
+    
+
     internal static class EventRegistrationTool
     {
         [SecurityCritical]
+      
         [HandleProcessCorruptedStateExceptions]
+
         public static void UnWireToken(EventRegistrationToken token,
             Action<EventRegistrationToken> action)
         {
@@ -27,5 +31,7 @@ namespace Diga.WebView2.Wrapper
             
             token.value = 0;
         }
+
+       
     }
 }

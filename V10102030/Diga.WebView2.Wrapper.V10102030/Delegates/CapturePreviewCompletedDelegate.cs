@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Diga.WebView2.Interop;
 
 namespace Diga.WebView2.Wrapper.Delegates
@@ -13,7 +15,17 @@ namespace Diga.WebView2.Wrapper.Delegates
         }
         void ICoreWebView2CapturePreviewCompletedHandler.Invoke(int result)
         {
-            this._Source.SetResult(result);
+            try
+            {
+                this._Source.SetResult(result);
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(nameof(CapturePreviewCompletedDelegate) + " Exception:" + ex.ToString());
+
+            }
+
+            
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Diga.WebView2.Wrapper.Types;
 using System;
+using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace WebView2WrapperWinFormsTest
@@ -47,9 +49,33 @@ namespace WebView2WrapperWinFormsTest
         [STAThread]
         static void Main()
         {
+            Application.ThreadException +=OnTreadException;
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+            currentDomain.UnhandledException+=OnUnHandledException;
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+        }
+
+        private static void OnTreadException(object sender, ThreadExceptionEventArgs e)
+        {
+            Exception ex = e.Exception;
+            if(ex != null)
+            {
+                Debug.Print(ex.ToString());
+            }
+        }
+
+        private static void OnUnHandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Exception ex = (Exception)e.ExceptionObject;
+
+            if (ex != null)
+            {
+                Debug.Print(ex.ToString());
+            }
         }
     }
 }

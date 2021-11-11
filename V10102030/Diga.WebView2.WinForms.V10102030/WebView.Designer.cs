@@ -16,11 +16,16 @@
         protected override void Dispose(bool disposing)
         {
             
-            if (disposing && (components != null))
+            if (disposing )
             {
-
-                components.Dispose();
+               
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+               
             }
+
             base.Dispose(disposing);
         }
 
@@ -36,12 +41,11 @@
             // 
             // WebView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "WebView";
-            this.Size = new System.Drawing.Size(933, 519);
+            this.Size = new System.Drawing.Size(800, 450);
             this.Load += new System.EventHandler(this.WebView_Load);
             this.Resize += new System.EventHandler(this.WebView_Resize);
             this.ResumeLayout(false);

@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Diga.WebView2.Wrapper.Delegates;
 using Diga.WebView2.Wrapper.Types;
+using System.Security;
 
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
@@ -275,7 +276,7 @@ namespace Diga.WebView2.Wrapper
         }
 
         
-
+        [SecurityCritical]
         [HandleProcessCorruptedStateExceptions]
         private void UnRegisterEvents()
         {

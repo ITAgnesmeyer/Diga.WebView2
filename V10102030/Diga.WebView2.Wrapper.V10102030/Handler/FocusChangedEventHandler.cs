@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
 
@@ -9,7 +10,16 @@ namespace Diga.WebView2.Wrapper.Handler
         public event EventHandler<WebView2EventArgs> FocusChanged;
         public void Invoke(ICoreWebView2Controller sender, object args)
         {
-            OnFocusChanged(new WebView2EventArgs(sender,args));
+            try
+            {
+                OnFocusChanged(new WebView2EventArgs(sender,args));
+            }
+            catch (Exception ex)
+            {
+
+                Debug.Print("FocusChangedEventHandler Exception:" + ex.ToString());
+            }
+            
         }
 
 

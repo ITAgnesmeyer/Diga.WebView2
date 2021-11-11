@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
 
@@ -10,7 +11,16 @@ namespace Diga.WebView2.Wrapper.Handler
 
         public void Invoke(ICoreWebView2 sender, ICoreWebView2NavigationStartingEventArgs args)
         {
-            OnNavigationStarting(new NavigationStartingEventArgs(args));
+            try
+            {
+                OnNavigationStarting(new NavigationStartingEventArgs(args));
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(nameof(NavigationStartingEventHandler) + " Exception:" + ex.ToString());
+
+            }
+
         }
 
         protected virtual void OnNavigationStarting(NavigationStartingEventArgs e)

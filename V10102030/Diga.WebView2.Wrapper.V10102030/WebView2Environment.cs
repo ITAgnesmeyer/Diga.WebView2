@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
+using System.Security;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
@@ -10,7 +11,7 @@ using Diga.WebView2.Wrapper.Handler;
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
 {
-   
+
 
     public partial class WebView2Environment : WebView2Environment6Interface, IDisposable
     {
@@ -20,13 +21,15 @@ namespace Diga.WebView2.Wrapper
         private EventRegistrationToken _BrowserProcessExitedToken;
 
 
-        public WebView2Environment(ICoreWebView2Environment6 iface):base(iface)
+        public WebView2Environment(ICoreWebView2Environment6 environment) : base(environment)
         {
-            
+             if (environment == null)
+                throw new ArgumentNullException(nameof(environment));
+
             this.RegisterEvents();
         }
 
-     
+
 
         new public WebView2PointerInfo CreateCoreWebView2PointerInfo()
         {
@@ -50,41 +53,45 @@ namespace Diga.WebView2.Wrapper
         {
             OnBrowserProcessExited(e);
         }
-
+        [SecurityCritical]
         [HandleProcessCorruptedStateExceptions]
         private void UnRegisterEvents()
-        {   
+        {
             //if(this._Interface == null) return;
             try
             {
-                EventRegistrationTool.UnWireToken(this._NewBrowserVersionAvailableToken,  this.remove_NewBrowserVersionAvailable);
-                EventRegistrationTool.UnWireToken(this._BrowserProcessExitedToken,this.remove_BrowserProcessExited);
+                EventRegistrationTool.UnWireToken(this._NewBrowserVersionAvailableToken, this.remove_NewBrowserVersionAvailable);
+                EventRegistrationTool.UnWireToken(this._BrowserProcessExitedToken, this.remove_BrowserProcessExited);
             }
             catch (Exception exception)
             {
                 Debug.Print(exception.ToString());
             }
-            
+
         }
         private void OnNewBrowserVersionAvailableInternal(object sender, WebView2EventArgs e)
         {
             OnNewBrowserVersionAvailable(e);
         }
 
-        
+
         protected virtual void OnNewBrowserVersionAvailable(WebView2EventArgs e)
         {
             NewBrowserVersionAvailable?.Invoke(this, e);
         }
+        private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (this._IsDisposed) return;
+
+            if (disposing)
             {
                 this.UnRegisterEvents();
+                this._IsDisposed = true;
             }
             base.Dispose(disposing);
         }
-      
+
 
 
         protected virtual void OnBrowserProcessExited(BrowserProcessExitedEventArgs e)

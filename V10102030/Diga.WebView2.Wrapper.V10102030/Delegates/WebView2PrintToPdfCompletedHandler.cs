@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Diga.WebView2.Interop;
 
 namespace Diga.WebView2.Wrapper.Delegates
@@ -13,7 +15,17 @@ namespace Diga.WebView2.Wrapper.Delegates
         }
         void ICoreWebView2PrintToPdfCompletedHandler.Invoke(int errorCode, int isSuccessful)
         {
-            this._Source.SetResult((errorCode, isSuccessful));
+            try
+            {
+                this._Source.SetResult((errorCode, isSuccessful));
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(nameof(PrintToPdfCompletedDelegate) + " Exception:" + ex.ToString());
+
+            }
+
+            
         }
     }
 }
