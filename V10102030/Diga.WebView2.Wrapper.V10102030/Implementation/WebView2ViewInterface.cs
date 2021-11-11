@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using Diga.WebView2.Interop;
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Implementation
 {
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     public class WebView2ViewInterface : ICoreWebView2, IDisposable
@@ -33,10 +33,10 @@ namespace Diga.WebView2.Wrapper
         [EditorBrowsable(EditorBrowsableState.Never)]
         public WebView2ViewInterface(ICoreWebView2 webView)
         {
-             if (webView == null)
+            if (webView == null)
                 throw new ArgumentNullException(nameof(webView));
 
-            this.WebView = webView;
+            WebView = webView;
         }
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ICoreWebView2Settings Settings => WebView.Settings;
@@ -315,14 +315,14 @@ namespace Diga.WebView2.Wrapper
             {
                 if (disposing)
                 {
-                    this._WebView = null;
+                    _WebView = null;
                 }
 
                 _IsDesposed = true;
             }
         }
 
-      
+
 
         public void Dispose()
         {

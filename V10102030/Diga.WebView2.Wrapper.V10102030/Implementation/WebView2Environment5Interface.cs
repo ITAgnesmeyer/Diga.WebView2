@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Implementation
 {
     public class WebView2Environment5Interface : WebView2Environment4Interface, ICoreWebView2Environment5
     {
@@ -25,10 +25,10 @@ namespace Diga.WebView2.Wrapper
 
         public WebView2Environment5Interface(ICoreWebView2Environment5 environment) : base(environment)
         {
-              if(environment == null)
+            if (environment == null)
                 throw new ArgumentNullException(nameof(environment));
 
-            this._Environment = environment;
+            _Environment = environment;
         }
 
         public void add_BrowserProcessExited([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2BrowserProcessExitedEventHandler eventHandler, out EventRegistrationToken token)
@@ -43,11 +43,11 @@ namespace Diga.WebView2.Wrapper
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {
-            if (this._IsDisposed) return;
+            if (_IsDisposed) return;
             if (disposing)
             {
-                this._Environment = null;
-                this._IsDisposed = true;
+                _Environment = null;
+                _IsDisposed = true;
             }
             base.Dispose(disposing);
         }

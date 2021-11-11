@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
+using Diga.WebView2.Wrapper.interop;
 using Diga.WebView2.Wrapper.Types;
 
 

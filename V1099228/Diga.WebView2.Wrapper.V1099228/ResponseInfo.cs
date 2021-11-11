@@ -4,22 +4,22 @@ using System.IO;
 using System.Text;
 
 // ReSharper disable once CheckNamespace
-namespace Diga.WebView2.WinForms
+namespace Diga.WebView2.Wrapper
 {
     public class ResponseInfo
     {
         private ResponseInfo()
         {
-            this.Header = new Dictionary<string, string>();
+            Header = new Dictionary<string, string>();
         }
         public ResponseInfo(Stream stream) : this()
         {
-            this.Stream = stream;
-            this.Header.Add("date", DateTime.Now.ToString("ddd, dd MMM yyy HH':'mm':'ss 'GMT'"));
-            this.Header.Add("accept-ranges", "bytes");
-            this.Header.Add("Access-Control-Allow-Origin", "*");
-            this.Header.Add("content-length", this.Stream.Length.ToString());
-            this.Header.Add("X-Content-Type-Options", "nosniff");
+            Stream = stream;
+            Header.Add("date", DateTime.Now.ToString("ddd, dd MMM yyy HH':'mm':'ss 'GMT'"));
+            Header.Add("accept-ranges", "bytes");
+            Header.Add("Access-Control-Allow-Origin", "*");
+            Header.Add("content-length", Stream.Length.ToString());
+            Header.Add("X-Content-Type-Options", "nosniff");
 
         }
 
@@ -35,11 +35,11 @@ namespace Diga.WebView2.WinForms
         public string HeaderToString()
         {
 
-            this.Header.Add("Cache-Control", "max-age=31536000, immutable");
+            Header.Add("Cache-Control", "max-age=31536000, immutable");
 
             string headerString = "";
-            headerString = $"HTTP/2 {this.StatusCode} {this.StatusText}\r\n";
-            foreach (var headerValue in this.Header)
+            headerString = $"HTTP/2 {StatusCode} {StatusText}\r\n";
+            foreach (var headerValue in Header)
             {
 
                 headerString += headerValue.Key + ":" + headerValue.Value;

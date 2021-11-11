@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Implementation
 {
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     public class WebView2View4Interface : WebView2View3Interface, ICoreWebView2_4
@@ -34,7 +34,7 @@ namespace Diga.WebView2.Wrapper
         {
             if (webView == null)
                 throw new ArgumentNullException(nameof(webView));
-            this._WebView = webView;
+            _WebView = webView;
         }
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void add_FrameCreated([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2FrameCreatedEventHandler eventHandler, out EventRegistrationToken token)
@@ -60,20 +60,20 @@ namespace Diga.WebView2.Wrapper
             }
             catch (COMException comEx)
             {
-                Debug.Print(nameof(remove_DownloadStarting) + " Exception" + comEx.ToString() );
-                
+                Debug.Print(nameof(remove_DownloadStarting) + " Exception" + comEx.ToString());
+
             }
-            
+
         }
 
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {
-            if (this._IsDisposed) return;
+            if (_IsDisposed) return;
             if (disposing)
             {
-                this._WebView = null;
-                this._IsDisposed = true;
+                _WebView = null;
+                _IsDisposed = true;
             }
             base.Dispose(disposing);
         }

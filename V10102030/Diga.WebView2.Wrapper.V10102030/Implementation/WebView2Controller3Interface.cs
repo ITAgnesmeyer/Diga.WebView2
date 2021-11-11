@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Implementation
 {
     public class WebView2Controller3Interface : WebView2Controller2Interface, ICoreWebView2Controller3
     {
@@ -13,7 +13,7 @@ namespace Diga.WebView2.Wrapper
             if (controller == null)
                 throw new ArgumentNullException(nameof(controller));
 
-            this.Controller = controller;
+            Controller = controller;
         }
         public double RasterizationScale { get => Controller.RasterizationScale; set => Controller.RasterizationScale = value; }
         public int ShouldDetectMonitorScaleChanges { get => Controller.ShouldDetectMonitorScaleChanges; set => Controller.ShouldDetectMonitorScaleChanges = value; }
@@ -47,11 +47,11 @@ namespace Diga.WebView2.Wrapper
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {
-            if (this._IsDisposed) return;
+            if (_IsDisposed) return;
             if (disposing)
             {
-                this.Controller = null;
-                this._IsDisposed = true;
+                Controller = null;
+                _IsDisposed = true;
             }
             base.Dispose(disposing);
         }

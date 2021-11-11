@@ -2,22 +2,22 @@
 using System;
 using System.Diagnostics;
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Implementation
 {
     public class WebView2Controller2Interface : WebView2ControllerInterface, ICoreWebView2Controller2
     {
         private ICoreWebView2Controller2 _Controller;
         public WebView2Controller2Interface(ICoreWebView2Controller2 controller) : base(controller)
         {
-              if(controller == null)
+            if (controller == null)
                 throw new ArgumentNullException(nameof(controller));
 
-            this.Controller = controller;
+            Controller = controller;
         }
         public COREWEBVIEW2_COLOR DefaultBackgroundColor { get => Controller.DefaultBackgroundColor; set => Controller.DefaultBackgroundColor = value; }
-        private ICoreWebView2Controller2 Controller 
+        private ICoreWebView2Controller2 Controller
         {
-              get
+            get
             {
                 if (_Controller == null)
                 {
@@ -33,11 +33,11 @@ namespace Diga.WebView2.Wrapper
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {
-            if (this._IsDisposed) return;
+            if (_IsDisposed) return;
             if (disposing)
             {
-                this.Controller = null;
-                this._IsDisposed = true;
+                Controller = null;
+                _IsDisposed = true;
             }
             base.Dispose(disposing);
         }

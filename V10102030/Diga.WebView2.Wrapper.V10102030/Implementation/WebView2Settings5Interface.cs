@@ -3,12 +3,12 @@ using System;
 using System.Diagnostics;
 
 // ReSharper disable once CheckNamespace
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2Settings6Interface : WebView2Settings5Interface, ICoreWebView2Settings6
+    public class WebView2Settings5Interface : WebView2Settings4Interface, ICoreWebView2Settings5
     {
-        private ICoreWebView2Settings6 _Settings;
-        private ICoreWebView2Settings6 Settings
+        private ICoreWebView2Settings5 _Settings;
+        private ICoreWebView2Settings5 Settings
         {
             get
             {
@@ -25,24 +25,23 @@ namespace Diga.WebView2.Wrapper
                 _Settings = value;
             }
         }
-
-        public WebView2Settings6Interface(ICoreWebView2Settings6 settings) : base(settings)
+        public WebView2Settings5Interface(ICoreWebView2Settings5 settings) : base(settings)
         {
             if (settings == null)
                 throw new ArgumentNullException(nameof(settings));
 
-            this._Settings = settings;
+            _Settings = settings;
         }
 
-        public int IsSwipeNavigationEnabled { get => Settings.IsSwipeNavigationEnabled; set => Settings.IsSwipeNavigationEnabled = value; }
+        public int IsPinchZoomEnabled { get => Settings.IsPinchZoomEnabled; set => Settings.IsPinchZoomEnabled = value; }
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {
-            if (this._IsDisposed) return;
+            if (_IsDisposed) return;
             if (disposing)
             {
-                this._Settings = null;
-                this._IsDisposed = true;
+                _Settings = null;
+                _IsDisposed = true;
             }
 
 

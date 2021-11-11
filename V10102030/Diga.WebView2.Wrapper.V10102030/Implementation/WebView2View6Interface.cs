@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Implementation
 {
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     public class WebView2View6Interface : WebView2View5Interface, ICoreWebView2_6
@@ -33,7 +33,7 @@ namespace Diga.WebView2.Wrapper
         {
             if (webView == null)
                 throw new ArgumentNullException(nameof(webView));
-            this._WebView = webView;
+            _WebView = webView;
         }
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void OpenTaskManagerWindow()
@@ -43,11 +43,11 @@ namespace Diga.WebView2.Wrapper
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {
-            if (this._IsDisposed) return;
+            if (_IsDisposed) return;
             if (disposing)
             {
-                this._WebView = null;
-                this._IsDisposed = true;
+                _WebView = null;
+                _IsDisposed = true;
             }
             base.Dispose(disposing);
         }

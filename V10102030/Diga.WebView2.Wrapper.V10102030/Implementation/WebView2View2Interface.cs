@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Implementation
 {
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class WebView2View2Interface : WebView2ViewInterface, ICoreWebView2_2
@@ -34,7 +34,7 @@ namespace Diga.WebView2.Wrapper
             if (webView == null)
                 throw new ArgumentNullException(nameof(webView));
 
-            this._WebView = webView;
+            _WebView = webView;
         }
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void add_WebResourceResponseReceived([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2WebResourceResponseReceivedEventHandler eventHandler, out EventRegistrationToken token)
@@ -69,11 +69,11 @@ namespace Diga.WebView2.Wrapper
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {
-            if (this._IsDisposed) return;
+            if (_IsDisposed) return;
             if (disposing)
             {
-                this._WebView = null;
-                this._IsDisposed = true;
+                _WebView = null;
+                _IsDisposed = true;
             }
             base.Dispose(disposing);
         }

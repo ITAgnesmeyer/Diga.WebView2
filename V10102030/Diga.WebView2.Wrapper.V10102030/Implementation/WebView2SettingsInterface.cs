@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 
 // ReSharper disable once CheckNamespace
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Implementation
 {
     public class WebView2SettingsInterface : ICoreWebView2Settings, IDisposable
     {
@@ -31,9 +31,9 @@ namespace Diga.WebView2.Wrapper
 
         public WebView2SettingsInterface(ICoreWebView2Settings settings)
         {
-             if (settings == null)
+            if (settings == null)
                 throw new ArgumentNullException(nameof(settings));
-            this._Settings = settings;
+            _Settings = settings;
         }
 
         public int IsScriptEnabled { get => Settings.IsScriptEnabled; set => Settings.IsScriptEnabled = value; }
@@ -49,11 +49,11 @@ namespace Diga.WebView2.Wrapper
         private bool _IsDisposed;
         protected virtual void Dispose(bool disposing)
         {
-            if (this._IsDisposed) return;
+            if (_IsDisposed) return;
             if (disposing)
             {
-                this._Settings = null;
-                this._IsDisposed = true;
+                _Settings = null;
+                _IsDisposed = true;
             }
         }
 

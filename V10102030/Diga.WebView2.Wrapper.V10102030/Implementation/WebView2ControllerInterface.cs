@@ -3,19 +3,19 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Implementation
 {
-    public  class WebView2ControllerInterface : ICoreWebView2Controller,IDisposable
+    public class WebView2ControllerInterface : ICoreWebView2Controller, IDisposable
     {
         private ICoreWebView2Controller _Controller;
         private bool _IsDesposed;
 
         public WebView2ControllerInterface(ICoreWebView2Controller controller)
         {
-            if(controller == null)
+            if (controller == null)
                 throw new ArgumentNullException(nameof(controller));
 
-            this.Controller = controller;
+            Controller = controller;
         }
         public int IsVisible { get => Controller.IsVisible; set => Controller.IsVisible = value; }
         public tagRECT Bounds { get => Controller.Bounds; set => Controller.Bounds = value; }
@@ -97,28 +97,28 @@ namespace Diga.WebView2.Wrapper
             catch (Exception ex)
             {
                 Debug.Print("Controller.Close Exception:" + ex.ToString());
-                
+
             }
 
-            
+
         }
 
         public ICoreWebView2 CoreWebView2 => Controller.CoreWebView2;
 
-        private ICoreWebView2Controller Controller 
-        { 
-            get 
-            { 
-                if(_Controller == null)
+        private ICoreWebView2Controller Controller
+        {
+            get
+            {
+                if (_Controller == null)
                 {
-                    Debug.Print(nameof(WebView2ControllerInterface) +  "Controller is null");
+                    Debug.Print(nameof(WebView2ControllerInterface) + "Controller is null");
 
                     throw new InvalidOperationException("Controller is null!");
                 }
-                    
-                return _Controller; 
+
+                return _Controller;
             }
-            set => _Controller = value; 
+            set => _Controller = value;
         }
 
         protected virtual void Dispose(bool disposing)
@@ -127,7 +127,7 @@ namespace Diga.WebView2.Wrapper
             {
                 if (disposing)
                 {
-                    this.Controller = null;
+                    Controller = null;
                 }
 
 
@@ -135,7 +135,7 @@ namespace Diga.WebView2.Wrapper
             }
         }
 
- 
+
 
         public void Dispose()
         {

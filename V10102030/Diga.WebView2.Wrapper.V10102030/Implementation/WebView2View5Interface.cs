@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Implementation
 {
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     public class WebView2View5Interface : WebView2View4Interface, ICoreWebView2_5
@@ -34,7 +34,7 @@ namespace Diga.WebView2.Wrapper
             if (webView == null)
                 throw new ArgumentNullException(nameof(webView));
 
-            this._WebView = webView;
+            _WebView = webView;
         }
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void add_ClientCertificateRequested([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2ClientCertificateRequestedEventHandler eventHandler, out EventRegistrationToken token)
@@ -46,7 +46,7 @@ namespace Diga.WebView2.Wrapper
         {
             try
             {
-                
+
                 WebView.remove_ClientCertificateRequested(token);
             }
             catch (AccessViolationException accessViolation)
@@ -54,16 +54,16 @@ namespace Diga.WebView2.Wrapper
 
                 Debug.Print("AccessViolation Exception:" + accessViolation.ToString());
             }
-            
+
         }
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {
-            if (this._IsDisposed) return;
+            if (_IsDisposed) return;
             if (disposing)
             {
-                this._WebView = null;
-                this._IsDisposed = true;
+                _WebView = null;
+                _IsDisposed = true;
             }
             base.Dispose(disposing);
         }

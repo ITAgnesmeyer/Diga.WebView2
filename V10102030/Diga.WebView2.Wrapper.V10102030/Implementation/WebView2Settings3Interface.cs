@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 
 // ReSharper disable once CheckNamespace
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Implementation
 {
     public class WebView2Settings3Interface : WebView2Settings2Interface, ICoreWebView2Settings3
     {
@@ -29,18 +29,18 @@ namespace Diga.WebView2.Wrapper
         {
             if (settings == null)
                 throw new ArgumentNullException(nameof(settings));
-            this._Settings = settings;
+            _Settings = settings;
         }
 
         public int AreBrowserAcceleratorKeysEnabled { get => Settings.AreBrowserAcceleratorKeysEnabled; set => Settings.AreBrowserAcceleratorKeysEnabled = value; }
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {
-            if (this._IsDisposed) return;
+            if (_IsDisposed) return;
             if (disposing)
             {
-                this._Settings = null;
-                this._IsDisposed = true;
+                _Settings = null;
+                _IsDisposed = true;
             }
 
 

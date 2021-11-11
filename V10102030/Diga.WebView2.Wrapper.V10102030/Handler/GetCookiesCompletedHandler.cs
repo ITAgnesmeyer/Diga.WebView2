@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Diga.WebView2.Interop;
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Handler
 {
     public class GetCookiesCompletedHandler : ICoreWebView2GetCookiesCompletedHandler
     {
@@ -10,13 +10,13 @@ namespace Diga.WebView2.Wrapper
 
         public GetCookiesCompletedHandler(TaskCompletionSource<(int, ICoreWebView2CookieList)> source)
         {
-            this._Source = source;
+            _Source = source;
         }
         void ICoreWebView2GetCookiesCompletedHandler.Invoke(int result, ICoreWebView2CookieList cookieList)
         {
-            this._Source.SetResult((result, cookieList));
+            _Source.SetResult((result, cookieList));
         }
 
-        
+
     }
 }

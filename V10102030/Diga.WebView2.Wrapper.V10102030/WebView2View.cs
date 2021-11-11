@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Diga.WebView2.Wrapper.Delegates;
 using Diga.WebView2.Wrapper.Types;
 using System.Security;
+using Diga.WebView2.Wrapper.Implementation;
 
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper

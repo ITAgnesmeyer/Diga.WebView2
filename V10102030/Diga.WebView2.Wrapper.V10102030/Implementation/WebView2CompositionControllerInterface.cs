@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Implementation
 {
     public class WebView2CompositionControllerInterface : ICoreWebView2CompositionController, IDisposable
     {
@@ -67,7 +67,7 @@ namespace Diga.WebView2.Wrapper
             {
                 if (disposing)
                 {
-                    this._Controller = null;
+                    _Controller = null;
                 }
 
                 _IsDisposed = true;

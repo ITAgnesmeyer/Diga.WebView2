@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Implementation
 {
     public class WebView2Environment2Interface : WebView2EnvironmentInterface, ICoreWebView2Environment2
     {
@@ -28,7 +28,7 @@ namespace Diga.WebView2.Wrapper
         {
             if (environment == null)
                 throw new ArgumentNullException(nameof(environment));
-            this._Environment = environment;
+            _Environment = environment;
         }
 
         [return: MarshalAs(UnmanagedType.Interface)]
@@ -39,11 +39,11 @@ namespace Diga.WebView2.Wrapper
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {
-            if (this._IsDisposed) return;
+            if (_IsDisposed) return;
             if (disposing)
             {
-                this._Environment = null;
-                this._IsDisposed = true;
+                _Environment = null;
+                _IsDisposed = true;
             }
             base.Dispose(disposing);
         }

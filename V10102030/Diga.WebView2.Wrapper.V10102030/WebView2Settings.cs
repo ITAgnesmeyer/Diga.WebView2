@@ -1,4 +1,5 @@
 ﻿using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Implementation;
 using Diga.WebView2.Wrapper.Types;
 
 // ReSharper disable once CheckNamespace

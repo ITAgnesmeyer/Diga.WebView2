@@ -5,6 +5,7 @@ using System.Security;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
+using Diga.WebView2.Wrapper.Implementation;
 using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper

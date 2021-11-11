@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
-using Diga.WebView2.Wrapper.interop;
 using Diga.WebView2.Wrapper.Types;
 
 // ReSharper disable once CheckNamespace
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.interop
 {
 
     internal static class Native
@@ -45,14 +44,14 @@ namespace Diga.WebView2.Wrapper
                     return Native64.CreateCoreWebView2EnvironmentWithOptions(browserExecutableFolder, userDataFolder,
                         environmentOptions, environmentCreatedHandler);
                 case Architecture.X86:
-                    return  Native32.CreateCoreWebView2EnvironmentWithOptions(browserExecutableFolder, userDataFolder,
+                    return Native32.CreateCoreWebView2EnvironmentWithOptions(browserExecutableFolder, userDataFolder,
                         environmentOptions, environmentCreatedHandler);
                 case Architecture.Arm64:
                     return NativeArm64.CreateCoreWebView2EnvironmentWithOptions(browserExecutableFolder, userDataFolder,
                         environmentOptions, environmentCreatedHandler);
                 default:
                     throw new PlatformNotSupportedException();
-                    
+
             }
 
         }
@@ -77,7 +76,7 @@ namespace Diga.WebView2.Wrapper
                 default:
                     throw new PlatformNotSupportedException();
             }
-            
+
 
         }
 
@@ -112,7 +111,7 @@ namespace Diga.WebView2.Wrapper
                 case Architecture.X86:
                     return Native32.GetAvailableCoreWebView2BrowserVersionString(browserExecutableFolder, out versionInfo);
                 case Architecture.Arm64:
-                    return  NativeArm64.GetAvailableCoreWebView2BrowserVersionString(browserExecutableFolder,
+                    return NativeArm64.GetAvailableCoreWebView2BrowserVersionString(browserExecutableFolder,
                         out versionInfo);
                 default:
                     throw new PlatformNotSupportedException();

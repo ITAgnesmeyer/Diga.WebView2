@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Diga.WebView2.WinForms;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Types;

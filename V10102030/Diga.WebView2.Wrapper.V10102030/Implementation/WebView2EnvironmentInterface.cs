@@ -4,32 +4,32 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Implementation
 {
 
-    public  class WebView2EnvironmentInterface : ICoreWebView2Environment ,IDisposable
+    public class WebView2EnvironmentInterface : ICoreWebView2Environment, IDisposable
     {
-        private  ICoreWebView2Environment _Environment;
+        private ICoreWebView2Environment _Environment;
         private bool _IsDisposed;
         private ICoreWebView2Environment Environment
         {
-            get 
-            { 
-                if( _Environment == null )
+            get
+            {
+                if (_Environment == null)
                 {
-                    Debug.Print(nameof(WebView2EnvironmentInterface)+ "." + nameof(Environment) + " is null");
-                    throw new InvalidOperationException(nameof(WebView2EnvironmentInterface)+ "." + nameof(Environment) + " is null");
-                    
+                    Debug.Print(nameof(WebView2EnvironmentInterface) + "." + nameof(Environment) + " is null");
+                    throw new InvalidOperationException(nameof(WebView2EnvironmentInterface) + "." + nameof(Environment) + " is null");
+
                 }
-                return _Environment; 
+                return _Environment;
             }
             set { _Environment = value; }
         }
         public WebView2EnvironmentInterface(ICoreWebView2Environment environment)
         {
-              if(environment == null)
+            if (environment == null)
                 throw new ArgumentNullException(nameof(environment));
-            this.Environment = environment;
+            Environment = environment;
         }
         public void CreateCoreWebView2Controller(IntPtr ParentWindow, [MarshalAs(UnmanagedType.Interface)] ICoreWebView2CreateCoreWebView2ControllerCompletedHandler handler)
         {
@@ -60,14 +60,14 @@ namespace Diga.WebView2.Wrapper
             {
                 if (disposing)
                 {
-                    this._Environment = null;
+                    _Environment = null;
                 }
 
                 _IsDisposed = true;
             }
         }
 
-       
+
 
         public void Dispose()
         {

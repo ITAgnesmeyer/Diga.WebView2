@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 using Diga.WebView2.Interop;
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Implementation
 {
     public class WebView2CompositionController2Interface : WebView2CompositionControllerInterface, ICoreWebView2CompositionController2
     {
@@ -25,9 +25,9 @@ namespace Diga.WebView2.Wrapper
                 _Controller = value;
             }
         }
-        public WebView2CompositionController2Interface(ICoreWebView2CompositionController2 controller):base(controller)
+        public WebView2CompositionController2Interface(ICoreWebView2CompositionController2 controller) : base(controller)
         {
-             if (controller == null)
+            if (controller == null)
                 throw new ArgumentNullException(nameof(controller));
             Controller = controller;
         }
@@ -35,12 +35,12 @@ namespace Diga.WebView2.Wrapper
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {
-            if (this._IsDisposed) return;
+            if (_IsDisposed) return;
 
             if (disposing)
             {
-                this._Controller = null;
-                this._IsDisposed = true;
+                _Controller = null;
+                _IsDisposed = true;
             }
             base.Dispose(disposing);
         }

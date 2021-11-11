@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Implementation
 {
     public class WebView2Environment4Interface : WebView2Environment3Interface, ICoreWebView2Environment4
     {
@@ -28,7 +28,7 @@ namespace Diga.WebView2.Wrapper
             if (environment == null)
                 throw new ArgumentNullException(nameof(environment));
 
-            this._Environment = environment;
+            _Environment = environment;
         }
 
         [return: MarshalAs(UnmanagedType.IUnknown)]
@@ -40,7 +40,7 @@ namespace Diga.WebView2.Wrapper
         {
             if (disposing)
             {
-                this._Environment = null;
+                _Environment = null;
             }
             base.Dispose(disposing);
         }
