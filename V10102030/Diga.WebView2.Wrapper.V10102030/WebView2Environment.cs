@@ -55,7 +55,9 @@ namespace Diga.WebView2.Wrapper
             OnBrowserProcessExited(e);
         }
         [SecurityCritical]
+#pragma warning disable SYSLIB0032 // Typ oder Element ist veraltet
         [HandleProcessCorruptedStateExceptions]
+#pragma warning restore SYSLIB0032 // Typ oder Element ist veraltet
         private void UnRegisterEvents()
         {
             //if(this._Interface == null) return;

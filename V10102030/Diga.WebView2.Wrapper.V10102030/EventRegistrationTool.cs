@@ -13,8 +13,10 @@ namespace Diga.WebView2.Wrapper
     internal static class EventRegistrationTool
     {
         [SecurityCritical]
-      
+
+#pragma warning disable SYSLIB0032 // Typ oder Element ist veraltet
         [HandleProcessCorruptedStateExceptions]
+#pragma warning restore SYSLIB0032 // Typ oder Element ist veraltet
 
         public static void UnWireToken(EventRegistrationToken token,
             Action<EventRegistrationToken> action)
