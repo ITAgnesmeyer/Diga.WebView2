@@ -69,22 +69,23 @@ namespace Diga.WebView2.Wrapper
         }
         public WebView2Control(IntPtr parentHandle, string browserExecutableFolder, string userDataFolder, string additionalBrowserArguments)
         {
-            this.ParentHandle = parentHandle;
+            this._ParentHandle =new HandleRef(this, parentHandle);
             this.BrowserExecutableFolder = browserExecutableFolder;
             this.UserDataFolder = userDataFolder;
             this.AdditionalBrowserArguments = additionalBrowserArguments;
             CreateWebView();
             RefCounter += 1;
         }
+        
+        private HandleRef _ParentHandle { get; set; }
 
-        private IntPtr ParentHandle { get; set; }
         public string BrowserExecutableFolder { get; }
         public string UserDataFolder { get; }
         public string AdditionalBrowserArguments { get; }
         private void CreateWebView()
         {
             this.HostHelper = new HostObjectHelper();
-            var handler = new EnvironmentCompletedHandler(this.ParentHandle);
+            var handler = new EnvironmentCompletedHandler(this._ParentHandle.Handle);
             handler.ControllerCompleted += OnControllerCompleted;
             handler.BeforeEnvironmentCompleted += OnBeforeEnvironmentCompletedIntern;
             handler.AfterEnvironmentCompleted += OnAfterEnvironmentCompletedIntern;
@@ -210,7 +211,26 @@ namespace Diga.WebView2.Wrapper
         {
             OnFrameCreated(e);
         }
+        public HandleRef ParentWindow
+        {
+            get
+            {
+                if(this.Controller != null)
+                {
+                    this._ParentHandle = new HandleRef( this,this.Controller.ParentWindow);
+                }
+                return _ParentHandle;
+            }
+            set
+            {
+                this._ParentHandle = value;
+                if(this.Controller != null)
+                {
+                    this.Controller.ParentWindow = (IntPtr)this._ParentHandle;
+                }
+            }
 
+        }
         private void UnWireEvents()
         {
             if (this.Environment != null)
@@ -401,8 +421,8 @@ namespace Diga.WebView2.Wrapper
         public CookieManager GetCookieManager => this.WebView.CookieManager;
         public void DockToParent()
         {
-            if (this.ParentHandle == IntPtr.Zero) return;
-            Native.GetClientRect(this.ParentHandle, out var rect);
+            if (this._ParentHandle.Handle == IntPtr.Zero) return;
+            Native.GetClientRect(this._ParentHandle.Handle, out var rect);
             this.Controller.Bounds = rect;
         }
 
@@ -525,7 +545,7 @@ namespace Diga.WebView2.Wrapper
             UnWireEvents();
             RefCounter -= 1;
             
-            this.ParentHandle = IntPtr.Zero;
+            this._ParentHandle = new HandleRef(this,IntPtr.Zero);
             this.WebView?.Dispose();
             this.WebView = null;
            

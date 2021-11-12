@@ -1,4 +1,6 @@
-﻿namespace Diga.WebView2.WinForms
+﻿using System;
+
+namespace Diga.WebView2.WinForms
 {
     partial class WebView
     {
@@ -19,6 +21,7 @@
             if (disposing )
             {
                
+
                 if (components != null)
                 {
                     components.Dispose();
@@ -51,6 +54,8 @@
             this.ResumeLayout(false);
 
         }
+
+        
 
         #endregion
     }

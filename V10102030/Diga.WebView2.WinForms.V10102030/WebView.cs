@@ -19,7 +19,7 @@ namespace Diga.WebView2.WinForms
 {
     public partial class WebView : UserControl
     {
-        private NWindow _NWindow;
+      
         private WebView2Control _WebViewControl;
         private bool _DefaultContextMenusEnabled;
         private string _Url;
@@ -531,32 +531,7 @@ namespace Diga.WebView2.WinForms
             this._WebViewControl.RasterizationScaleChanged += OnRasterizationScaleChangedIntern;
 
 
-        }
-        private void WebView_Load(object sender, EventArgs e)
-        {
-            this._NWindow = new NWindow(this);
-            this._NWindow.Create += OnNativeWindowCreate;
-            this._NWindow.Resize += OnNativeWindowResize;
-            this._NWindow.Destroy += OnNativeWindowDestroy;
-            if (!this.IsInDesignMode())
-                this._NWindow.CreateControl();
-
-        }
-
-        private void OnNativeWindowDestroy(object sender, EventArgs e)
-        {
-            //this._WebViewControl?.CleanupControls();
-        }
-
-        private void OnNativeWindowResize(object sender, EventArgs e)
-        {
-            this._WebViewControl?.DockToParent();
-        }
-
-        private void OnNativeWindowCreate(object sender, EventArgs e)
-        {
-            CreateWebViewControl(this._NWindow.Handle.Handle);
-
+    
         }
 
         private void OnRasterizationScaleChangedIntern(object sender, WebView2EventArgs e)
@@ -696,13 +671,13 @@ namespace Diga.WebView2.WinForms
             OnNavigationStart(e);
         }
 
-        //private void WebView_Resize(object sender, EventArgs e)
-        //{
-        //    if (this.IsCreated)
-        //    {
-        //        this._WebViewControl.DockToParent();
-        //    }
-        //}
+        private void WebView_Resize(object sender, EventArgs e)
+        {
+            if (this.IsCreated)
+            {
+                this._WebViewControl.DockToParent();
+            }
+        }
 
         protected virtual void OnNavigationStart(NavigationStartingEventArgs e)
         {
@@ -916,29 +891,50 @@ namespace Diga.WebView2.WinForms
             FrameNavigationCompleted?.Invoke(this, e);
         }
 
-        //[SecurityCritical]
-        //[HandleProcessCorruptedStateExceptions]
-        //protected override void WndProc(ref Message m)
-        //{
+        protected override void WndProc(ref Message m)
+        {
 
 
+            Debug.Print("MSG=>" + m.Msg.ToString());
+            switch (m.Msg)
+            {
+                //WM_DESTROY
+                case 0x0002:
+                    
+                    Thread.Sleep(100);
+                    
+                    Thread.Sleep(100);
+                    break;
+            }
+            base.WndProc(ref m);
 
-        //    switch (m.Msg)
-        //    {
-        //        //WM_DESTROY
-        //        case 0x0002:
+        }
 
-        //            //Thread.Sleep(100);
-        //            break;
-        //    }
-        //    base.WndProc(ref m);
+        protected override void DestroyHandle()
+        {
+            if (this._WebViewControl != null)
+            {
+                OnBeforeWebViewDestroy();
+                this._WebViewControl.IsVisible = false;
+                this._WebViewControl.ParentWindow = new System.Runtime.InteropServices.HandleRef(this._WebViewControl, IntPtr.Zero);
+            }
+            base.DestroyHandle();
+        }
 
-        //}
 
 
         protected virtual void OnBeforeWebViewDestroy()
         {
-            BeforeWebViewDestroy?.Invoke(this, EventArgs.Empty);
+            try
+            {
+                 BeforeWebViewDestroy?.Invoke(this, EventArgs.Empty);
+            }
+            catch (Exception ex)
+            {
+
+                Debug.Print(nameof(OnBeforeWebViewDestroy) + " Exception:" + ex.ToString());
+            }
+           
         }
 
         protected virtual void OnDomContentLoaded(DOMContentLoadedEventArgs e)
@@ -997,12 +993,11 @@ namespace Diga.WebView2.WinForms
 
         }
 
-        private void WebView_Resize(object sender, EventArgs e)
+      
+
+        private void WebView_Load(object sender, EventArgs e)
         {
-            if (this._NWindow != null)
-            {
-                this._NWindow.DockToParent();
-            }
+            CreateWebViewControl(this.Handle);
         }
     }
 }
