@@ -19,7 +19,7 @@ namespace Diga.WebView2.WinForms
 {
     public partial class WebView : UserControl
     {
-      
+
         private WebView2Control _WebViewControl;
         private bool _DefaultContextMenusEnabled;
         private string _Url;
@@ -233,17 +233,17 @@ namespace Diga.WebView2.WinForms
         {
             get
             {
-                if(this.IsCreated)
-                { 
+                if (this.IsCreated)
+                {
                     this._ZoomFactor = this._WebViewControl.ZoomFactor;
-                } 
+                }
                 return _ZoomFactor;
             }
             set
             {
                 this._ZoomFactor = value;
-                if(this.IsCreated)
-                { 
+                if (this.IsCreated)
+                {
                     this._WebViewControl.ZoomFactor = this._ZoomFactor;
                 }
             }
@@ -304,7 +304,7 @@ namespace Diga.WebView2.WinForms
             e.Settings.IsZoomControlEnabled = this._IsZoomControlEnabled;
             e.Settings.IsBuiltInErrorPageEnabled = true;
             e.Settings.IsPinchZoomEnabled = true;
-            
+
 
         }
 
@@ -319,7 +319,7 @@ namespace Diga.WebView2.WinForms
                 this.Navigate(this.Url);
             if (!string.IsNullOrEmpty(this._HtmlContent))
                 this.NavigateToString(this._HtmlContent);
-            if(this._ZoomFactor != 0)
+            if (this._ZoomFactor != 0)
                 this.ZoomFactor = this._ZoomFactor;
 
             OnWebViewCreated();
@@ -494,44 +494,52 @@ namespace Diga.WebView2.WinForms
         }
         private void CreateWebViewControl(IntPtr parent)
         {
-
-            this._WebViewControl = new WebView2Control(parent);
-            this._WebViewControl.Created += OnWebWindowCreated;
-            this._WebViewControl.BeforeCreate += OnWebWindowBeforeCreate;
-            this._WebViewControl.NavigateStart += OnNavigationStartIntern;
-            this._WebViewControl.AcceleratorKeyPressed += OnAcceleratorKeyPressedIntern;
-            this._WebViewControl.GotFocus += OnGotFocusIntern;
-            this._WebViewControl.LostFocus += OnLostFocusIntern;
-            this._WebViewControl.MoveFocusRequested += OnMoveFocusRequestedIntern;
-            this._WebViewControl.ZoomFactorChanged += OnZoomFactorChangedIntern;
-            this._WebViewControl.ContainsFullScreenElementChanged += OnContainsFullScreenElementChangedIntern;
-
-            this._WebViewControl.NewWindowRequested += OnNewWindowRequestedIntern;
-            this._WebViewControl.PermissionRequested += OnPermissionRequestedIntern;
-            this._WebViewControl.DocumentTitleChanged += OnDocumentTitleChangedIntern;
-            this._WebViewControl.FrameNavigationCompleted += OnFrameNavigationCompletedIntern;
-            this._WebViewControl.FrameNavigationStarting += OnFrameNavigationStartingIntern;
-            this._WebViewControl.ProcessFailed += OnProcessFailedIntern;
-            this._WebViewControl.ScriptDialogOpening += OnScriptDialogOpeningIntern;
-            this._WebViewControl.WebMessageReceived += OnWebMessageReceivedIntern;
-            this._WebViewControl.ScriptToExecuteOnDocumentCreatedCompleted += ScriptToExecuteOnDocumentCreatedCompletedIntern;
-
-            this._WebViewControl.WindowCloseRequested += OnWindowCloseRequestedIntern;
-            this._WebViewControl.ExecuteScriptCompleted += OnExecuteScriptCompletedIntern;
-            this._WebViewControl.WebResourceRequested += OnWebResourceRequestedIntern;
-            this._WebViewControl.ContentLoading += OnContentLoadingIntern;
-            this._WebViewControl.SourceChanged += OnSourceChangedIntern;
-            this._WebViewControl.HistoryChanged += OnHistoryChangedIntern;
-            this._WebViewControl.NavigationCompleted += OnNavigationCompletedIntern;
-            this._WebViewControl.NewBrowserVersionAvailable += OnNewBrowserVersionAvailableIntern;
-            this._WebViewControl.DOMContentLoaded += OnDOMContentLoadedIntern;
-            this._WebViewControl.WebResourceResponseReceived += WebResourceResponseReceivedIntern;
-            this._WebViewControl.DownloadStarting += OnDownalodStartingIntern;
-            this._WebViewControl.FrameCreated += OnFrameCreatedIntern;
-            this._WebViewControl.RasterizationScaleChanged += OnRasterizationScaleChangedIntern;
+            try
+            {
 
 
-    
+                this._WebViewControl = new WebView2Control(parent);
+                this._WebViewControl.Created += OnWebWindowCreated;
+                this._WebViewControl.BeforeCreate += OnWebWindowBeforeCreate;
+                this._WebViewControl.NavigateStart += OnNavigationStartIntern;
+                this._WebViewControl.AcceleratorKeyPressed += OnAcceleratorKeyPressedIntern;
+                this._WebViewControl.GotFocus += OnGotFocusIntern;
+                this._WebViewControl.LostFocus += OnLostFocusIntern;
+                this._WebViewControl.MoveFocusRequested += OnMoveFocusRequestedIntern;
+                this._WebViewControl.ZoomFactorChanged += OnZoomFactorChangedIntern;
+                this._WebViewControl.ContainsFullScreenElementChanged += OnContainsFullScreenElementChangedIntern;
+
+                this._WebViewControl.NewWindowRequested += OnNewWindowRequestedIntern;
+                this._WebViewControl.PermissionRequested += OnPermissionRequestedIntern;
+                this._WebViewControl.DocumentTitleChanged += OnDocumentTitleChangedIntern;
+                this._WebViewControl.FrameNavigationCompleted += OnFrameNavigationCompletedIntern;
+                this._WebViewControl.FrameNavigationStarting += OnFrameNavigationStartingIntern;
+                this._WebViewControl.ProcessFailed += OnProcessFailedIntern;
+                this._WebViewControl.ScriptDialogOpening += OnScriptDialogOpeningIntern;
+                this._WebViewControl.WebMessageReceived += OnWebMessageReceivedIntern;
+                this._WebViewControl.ScriptToExecuteOnDocumentCreatedCompleted += ScriptToExecuteOnDocumentCreatedCompletedIntern;
+
+                this._WebViewControl.WindowCloseRequested += OnWindowCloseRequestedIntern;
+                this._WebViewControl.ExecuteScriptCompleted += OnExecuteScriptCompletedIntern;
+                this._WebViewControl.WebResourceRequested += OnWebResourceRequestedIntern;
+                this._WebViewControl.ContentLoading += OnContentLoadingIntern;
+                this._WebViewControl.SourceChanged += OnSourceChangedIntern;
+                this._WebViewControl.HistoryChanged += OnHistoryChangedIntern;
+                this._WebViewControl.NavigationCompleted += OnNavigationCompletedIntern;
+                this._WebViewControl.NewBrowserVersionAvailable += OnNewBrowserVersionAvailableIntern;
+                this._WebViewControl.DOMContentLoaded += OnDOMContentLoadedIntern;
+                this._WebViewControl.WebResourceResponseReceived += WebResourceResponseReceivedIntern;
+                this._WebViewControl.DownloadStarting += OnDownalodStartingIntern;
+                this._WebViewControl.FrameCreated += OnFrameCreatedIntern;
+                this._WebViewControl.RasterizationScaleChanged += OnRasterizationScaleChangedIntern;
+
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(nameof(CreateWebViewControl) + " Exception:" + ex.ToString());
+
+            }
+
         }
 
         private void OnRasterizationScaleChangedIntern(object sender, WebView2EventArgs e)
@@ -900,9 +908,9 @@ namespace Diga.WebView2.WinForms
             {
                 //WM_DESTROY
                 case 0x0002:
-                    
+
                     Thread.Sleep(100);
-                    
+
                     Thread.Sleep(100);
                     break;
             }
@@ -927,14 +935,14 @@ namespace Diga.WebView2.WinForms
         {
             try
             {
-                 BeforeWebViewDestroy?.Invoke(this, EventArgs.Empty);
+                BeforeWebViewDestroy?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception ex)
             {
 
                 Debug.Print(nameof(OnBeforeWebViewDestroy) + " Exception:" + ex.ToString());
             }
-           
+
         }
 
         protected virtual void OnDomContentLoaded(DOMContentLoadedEventArgs e)
@@ -993,7 +1001,7 @@ namespace Diga.WebView2.WinForms
 
         }
 
-      
+
 
         private void WebView_Load(object sender, EventArgs e)
         {
