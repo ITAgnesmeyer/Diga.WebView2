@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.bnScriptTest = new System.Windows.Forms.Button();
             this.lblZoomFactor = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.button5 = new System.Windows.Forms.Button();
@@ -49,6 +50,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.bnScriptTest);
             this.panel1.Controls.Add(this.lblZoomFactor);
             this.panel1.Controls.Add(this.trackBar1);
             this.panel1.Controls.Add(this.button5);
@@ -67,10 +69,20 @@
             this.panel1.Size = new System.Drawing.Size(1418, 37);
             this.panel1.TabIndex = 0;
             // 
+            // bnScriptTest
+            // 
+            this.bnScriptTest.Location = new System.Drawing.Point(1384, 8);
+            this.bnScriptTest.Name = "bnScriptTest";
+            this.bnScriptTest.Size = new System.Drawing.Size(22, 23);
+            this.bnScriptTest.TabIndex = 11;
+            this.bnScriptTest.Text = "ST";
+            this.bnScriptTest.UseVisualStyleBackColor = true;
+            this.bnScriptTest.Click += new System.EventHandler(this.bnScriptTest_Click);
+            // 
             // lblZoomFactor
             // 
             this.lblZoomFactor.AutoSize = true;
-            this.lblZoomFactor.Location = new System.Drawing.Point(1356, 10);
+            this.lblZoomFactor.Location = new System.Drawing.Point(1353, 10);
             this.lblZoomFactor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblZoomFactor.Name = "lblZoomFactor";
             this.lblZoomFactor.Size = new System.Drawing.Size(25, 15);
@@ -221,14 +233,13 @@
             // 
             this.webView1.AreBrowserAcceleratorKeysEnabled = true;
             this.webView1.BackColor = System.Drawing.Color.Black;
-            this.webView1.DefaultBackgroundColor = System.Drawing.Color.Wheat;
+            this.webView1.DefaultBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.webView1.DefaultContextMenusEnabled = true;
             this.webView1.DefaultScriptDialogsEnabled = false;
             this.webView1.DevToolsEnabled = true;
             this.webView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webView1.EnableMonitoring = true;
             this.webView1.HtmlContent = null;
-            this.webView1.IsCreated = false;
             this.webView1.IsGeneralAutoFillEnabled = true;
             this.webView1.IsPasswordAutosaveEnabled = true;
             this.webView1.IsScriptEnabled = true;
@@ -244,7 +255,7 @@
             this.webView1.Size = new System.Drawing.Size(1418, 482);
             this.webView1.TabIndex = 0;
             this.webView1.Url = "https://5b834d57-0891-4730-b6ba-c793b4e76468";
-            this.webView1.ZoomFactor = 0D;
+            this.webView1.ZoomFactor = 1D;
             this.webView1.NavigationStart += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.NavigationStartingEventArgs>(this.webView1_NavigationStart);
             this.webView1.ContentLoading += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.ContentLoadingEventArgs>(this.webView1_ContentLoading);
             this.webView1.SourceChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.SourceChangedEventArgs>(this.webView1_SourceChanged);
@@ -261,6 +272,7 @@
             this.webView1.PermissionRequested += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.PermissionRequestedEventArgs>(this.webView1_PermissionRequested);
             this.webView1.FrameNavigationCompleted += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.NavigationCompletedEventArgs>(this.webView1_FrameNavigationCompleted);
             this.webView1.FrameNavigationStarting += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.NavigationStartingEventArgs>(this.webView1_FrameNavigationStarting);
+            this.webView1.ExecuteScriptCompleted += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.ExecuteScriptCompletedEventArgs>(this.webView1_ExecuteScriptCompleted);
             this.webView1.WebMessageReceived += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebMessageReceivedEventArgs>(this.webView1_WebMessageReceived);
             this.webView1.ScriptToExecuteOnDocumentCreatedCompleted += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>(this.webView1_ScriptToExecuteOnDocumentCreatedCompleted);
             this.webView1.DownloadStarting += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.DownloadStartingEventArgs>(this.webView1_DownloadStarting);
@@ -306,6 +318,7 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Label lblZoomFactor;
+        private System.Windows.Forms.Button bnScriptTest;
     }
 }
 

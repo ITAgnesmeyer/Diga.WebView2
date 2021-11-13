@@ -211,7 +211,7 @@ namespace Diga.WebView2.Wpf
             }
         }
         [Browsable(false)]
-        public bool IsCreated { get; set; }
+        public bool IsCreated { get; private set; } = false;
 
         public bool DevToolsEnabled
         {
@@ -437,7 +437,7 @@ namespace Diga.WebView2.Wpf
 
             string result = this._WebViewControl.InvokeScript(javaScript, (id, errorCode, jsonResult) =>
             {
-                Debug.Print(id);
+                OnExecuteScriptCompleted(new ExecuteScriptCompletedEventArgs(errorCode, jsonResult, id));
 
             });
 

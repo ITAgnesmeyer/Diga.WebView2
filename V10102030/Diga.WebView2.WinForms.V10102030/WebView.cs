@@ -119,7 +119,8 @@ namespace Diga.WebView2.WinForms
                 this._IsGeneralAutoFillEnabled = value;
                 if (this.IsCreated)
                 {
-                    this._WebViewControl.Settings.IsGeneralAutofillEnabled = value;
+                    if(this._WebViewControl.Settings != null)
+                        this._WebViewControl.Settings.IsGeneralAutofillEnabled = value;
                 }
             }
         }
@@ -188,7 +189,7 @@ namespace Diga.WebView2.WinForms
         }
 
         [Browsable(false)]
-        public bool IsCreated { get; set; }
+        public bool IsCreated { get; private set; } = false;
 
         public bool DevToolsEnabled
         {
@@ -450,7 +451,7 @@ namespace Diga.WebView2.WinForms
 
             string result = this._WebViewControl.InvokeScript(javaScript, (id, errorCode, jsonResult) =>
            {
-               Debug.Print(id);
+               OnExecuteScriptCompleted(new ExecuteScriptCompletedEventArgs(errorCode, jsonResult, id));
 
            });
 

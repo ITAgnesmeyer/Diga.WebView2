@@ -369,5 +369,28 @@ namespace WebView2WrapperWinFormsTest
             this.webView1.ZoomFactor = dbl;
             this.lblZoomFactor.Text = (dbl*100).ToString();
         }
+
+        private  async  void bnScriptTest_Click(object sender, EventArgs e)
+        {
+            string script = $"let obj=document.createElement(\"button\");obj.innerHTML=\"Click Me\";obj.id=\"{Guid.NewGuid()}\";document.body.appendChild(obj);obj.id";
+
+
+
+            var id = await this.webView1.ExecuteScriptAsync(script);
+            string v = "hallo du da";
+            script = $"document.getElementById({id}).innerHTML=\"{v}\"";
+            var o = await  this.webView1.ExecuteScriptAsync(script);
+            
+            
+
+        }
+
+        private void webView1_ExecuteScriptCompleted(object sender, ExecuteScriptCompletedEventArgs e)
+        {
+            if(e.ErrorCode != 0)
+            {
+                Debug.Print(e.ResultObjectAsJson);
+            }
+        }
     }
 }
