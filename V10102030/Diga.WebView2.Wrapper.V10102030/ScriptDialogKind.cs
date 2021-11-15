@@ -5,5 +5,6 @@
         Alert,
         Confirm,
         Prompt,
+        BeforeUnload
     }
 }

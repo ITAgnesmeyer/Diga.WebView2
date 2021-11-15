@@ -3,32 +3,32 @@ using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace Diga.WebView2.Wrapper.EventArguments
+namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class NewWindowRequestedEventArgsInterface:ICoreWebView2NewWindowRequestedEventArgs,IDisposable
+    public class NewWindowRequestedEventArgsInterface : ICoreWebView2NewWindowRequestedEventArgs, IDisposable
     {
         private ICoreWebView2NewWindowRequestedEventArgs _Args;
         private bool _IsDisposed;
 
         private ICoreWebView2NewWindowRequestedEventArgs Args
         {
-            get 
-            { 
-               if (_Args == null)
+            get
+            {
+                if (_Args == null)
                 {
                     Debug.Print(nameof(NewWindowRequestedEventArgsInterface) + "=>" + nameof(Args) + " is null");
 
                     throw new InvalidOperationException(nameof(NewWindowRequestedEventArgsInterface) + "=>" + nameof(Args) + " is null");
                 }
-                return _Args; 
+                return _Args;
             }
             set { _Args = value; }
         }
         public NewWindowRequestedEventArgsInterface(ICoreWebView2NewWindowRequestedEventArgs args)
         {
-            if(args == null)
+            if (args == null)
                 throw new ArgumentNullException(nameof(args));
-            this._Args = args;
+            _Args = args;
         }
         public string uri => Args.uri;
 
@@ -51,7 +51,7 @@ namespace Diga.WebView2.Wrapper.EventArguments
             {
                 if (disposing)
                 {
-                   this._Args = null;
+                    _Args = null;
                 }
 
                 _IsDisposed = true;

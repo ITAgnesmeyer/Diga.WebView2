@@ -17,6 +17,7 @@ using MimeTypeExtension;
 
 namespace Diga.WebView2.WinForms
 {
+
     public partial class WebView : UserControl
     {
 
@@ -312,8 +313,8 @@ namespace Diga.WebView2.WinForms
         private void OnWebWindowCreated(object sender, EventArgs e)
         {
             this.IsCreated = true;
-            this.AddScriptToExecuteOnDocumentCreated(
-                "window.external = { sendMessage: function(message) { window.chrome.webview.postMessage(message); }, receiveMessage: function(callback) { window.chrome.webview.addEventListener('message', function(e) { callback(e.data); }); } };");
+            this.AddScriptToExecuteOnDocumentCreated("class ScriptErrorObject{constructor(e,t,r,n,i,c){this.name=e,this.message=t,this.fileName=r,this.lineNumber=n,this.columnNumber=i,this.stack=c}}window.external={sendMessage:function(e){window.chrome.webview.postMessage(e)},receiveMessage:function(e){window.chrome.webview.addEventListener(\"message\",(function(t){e(t.data)}))},evalScript:function(e){try{return eval(e)}catch(e){let t=new ScriptErrorObject(e.name,e.message,e.fileName,e.lineNumber,e.columnNumber,e.stack);return JSON.stringify(t)}},executeScript:function(e){try{return new Function(e)()}catch(e){let t=new ScriptErrorObject(e.name,e.message,e.fileName,e.lineNumber,e.columnNumber,e.stack);return JSON.stringify(t)}}};");
+                ///"window.external = { sendMessage: function(message) { window.chrome.webview.postMessage(message); }, receiveMessage: function(callback) { window.chrome.webview.addEventListener('message', function(e) { callback(e.data); }); } };");
             if (this._DefaultBackgroundColor != Color.Empty)
                 this._WebViewControl.DefaultBackgroundColor = _DefaultBackgroundColor;
             if (!string.IsNullOrEmpty(this._Url))
@@ -429,12 +430,46 @@ namespace Diga.WebView2.WinForms
 
         public void ExecuteScript(string javaScript)
         {
-            this._WebViewControl.ExecuteScript(javaScript);
+            string scrptToExecute =$"window.external.executeScript(\"{{{javaScript.Replace("\"","\\'")}}}\")";
+            this._WebViewControl.ExecuteScript(scrptToExecute);
         }
+        public void EvalScript(string javaScript)
+        {
+            string scriptToExecute = $"window.external.evalScript(\"{javaScript.Replace("\"", "\\'")}\")";
+            this._WebViewControl.ExecuteScript(scriptToExecute);
+        }
+        private ScriptErrorObject GetScriptErrorObject(string value)
+        {
+            try
+            {
+                string clanSer = value.Replace("\\u003C", "");
+                clanSer = clanSer.Replace("\\", "");
+                clanSer = clanSer.Substring(1, clanSer.Length - 2);
+                ScriptErrorObject errObj = Newtonsoft.Json.JsonConvert.DeserializeObject<ScriptErrorObject>(clanSer);   
+                return errObj;            
+            }
+            catch (Exception)
+            {
 
+                return null;
+            }
+            
+        }
+        public async Task<string> EvalScriptAsync(string javaScript)
+        {
+            string scriptToExecute = $"window.external.evalScript(\"{javaScript.Replace("\"", "\\'")}\")";
+            string result = await this._WebViewControl.ExecuteScriptAsync(scriptToExecute);
+            ScriptErrorObject errObj = GetScriptErrorObject(result);
+            if(errObj != null)
+            {
+                throw new ScriptException(errObj);
+            }
+            return result;
+        }
         public async Task<string> ExecuteScriptAsync(string javaScript)
         {
-            return await this._WebViewControl.ExecuteScriptAsync(javaScript);
+            string scrptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"","\\'")}}}\")";
+            return await this._WebViewControl.ExecuteScriptAsync(scrptToExecute);
         }
         public WebView2PrintSettings CreatePrintSettings()
         {

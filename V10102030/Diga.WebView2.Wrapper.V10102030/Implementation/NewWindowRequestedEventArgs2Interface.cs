@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics;
 
-namespace Diga.WebView2.Wrapper.EventArguments
+namespace Diga.WebView2.Wrapper.Implementation
 {
     public class NewWindowRequestedEventArgs2Interface : NewWindowRequestedEventArgsInterface, ICoreWebView2NewWindowRequestedEventArgs2
     {
@@ -25,19 +25,19 @@ namespace Diga.WebView2.Wrapper.EventArguments
         {
             if (args == null)
                 throw new ArgumentNullException(nameof(args));
-            this._Args = args;
+            _Args = args;
         }
         public string name => Args.name;
 
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {
-            if (this._IsDisposed) return;
+            if (_IsDisposed) return;
             if (disposing)
             {
-                this._Args = null;
+                _Args = null;
             }
-            this._IsDisposed = true;
+            _IsDisposed = true;
             base.Dispose(disposing);
         }
     }

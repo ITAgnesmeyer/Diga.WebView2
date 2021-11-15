@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-
+using Diga.WebView2.WinForms;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
 
@@ -230,9 +230,32 @@ namespace WebView2WrapperWinFormsTest
 
         private async void bnScript_Click(object sender, EventArgs e)
         {
-            string script = "2+3";
-            string result = await this.webView1.ExecuteScriptAsync(script);
-            MessageBox.Show(result);
+
+            try
+            {
+            string script = "5+1";
+                string result = await this.webView1.EvalScriptAsync(script);
+                MessageBox.Show(result);
+            }
+            catch (ScriptException ex)
+            {
+
+                MessageBox.Show(ex.ErrorObject.message);
+            }
+
+            try
+            {
+                string script = "alert(\"hallo\"";
+                string result = await this.webView1.EvalScriptAsync(script);
+                MessageBox.Show(result);
+            }
+            catch (ScriptException ex)
+            {
+
+                MessageBox.Show(ex.ErrorObject.message);
+            }
+
+
         }
 
         private async void bnCapture_Click(object sender, EventArgs e)
@@ -372,7 +395,7 @@ namespace WebView2WrapperWinFormsTest
 
         private  async  void bnScriptTest_Click(object sender, EventArgs e)
         {
-            string script = $"let obj=document.createElement(\"button\");obj.innerHTML=\"Click Me\";obj.id=\"{Guid.NewGuid()}\";document.body.appendChild(obj);obj.id";
+            string script = $"let obj=document.createElement(\"button\");obj.innerHTML=\"Click Me\";obj.id=\"{Guid.NewGuid()}\";document.body.appendChild(obj);return obj.id";
 
 
 

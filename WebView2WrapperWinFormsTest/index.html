@@ -4,6 +4,7 @@
 <body>
     <button id="myButton" >Call .NET</button>
     <button id="FirstButton" onclick="callDotNet(new RPC(NewGuid(),'mainDiv','run_script_with_result','alert(\'hallo aus Script\')'))">Call .NET</button>
+    <button id="ScriptButton" onclick="alert(TestScript('{}'))">Call script</button>
     <div id="mainDiv">
 
     </div>
@@ -71,6 +72,31 @@
         function callDotNet(obj) {
             var meldung = JSON.stringify(obj);
             window.external.sendMessage(meldung);
+        }
+        function TestScript(script) {
+            console.log(script);
+            let o = executeScript(script);
+            return o;
+        }
+
+        function executeScript(script) { 
+            scriptToExecute = "try{" + script + "}catch(e){throw e}"
+            try { 
+                debugger;
+                let func = new Function(script);
+                let result = (func()); 
+                console.log(result);
+                return result;
+            } 
+            catch (error) { 
+                console.error(error.message);
+                console.error(error.name);
+                console.error(error.fileName);
+                console.error(error.linenumber);
+                console.error(error.columnNumber);
+                console.error(error.stack);
+                return "Error:" + error.message;
+            } 
         }
 
         window.external.receiveMessage(function (message) {

@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <PackageReference Include="MimeTypeExtension" Version="1.0.28" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
   <ItemGroup>
     <None Include="logo.png" Pack="true" PackagePath="\" />
