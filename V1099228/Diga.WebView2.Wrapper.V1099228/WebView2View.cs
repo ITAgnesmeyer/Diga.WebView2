@@ -58,7 +58,7 @@ namespace Diga.WebView2.Wrapper
         {
 
             //add_ContainsFullScreenElementChanged
-            ContainsFullScreenElementChangedEventHandler containsFullScreenElementChangedEventHandler =
+            var containsFullScreenElementChangedEventHandler =
                 new ContainsFullScreenElementChangedEventHandler();
             containsFullScreenElementChangedEventHandler.ContainsFullScreenElementChanged +=
                 OnContainsFullScreenElementChangedIntern;
@@ -66,106 +66,106 @@ namespace Diga.WebView2.Wrapper
                 out this._ContainsFullScreenElementChanged);
 
             //add_ContentLoading
-            ContentLoadingEventHandler contentLoadingHandler = new ContentLoadingEventHandler();
+            var contentLoadingHandler = new ContentLoadingEventHandler();
             contentLoadingHandler.ContentLoading += OnContentLoadingIntern;
             this.ToInterface().add_ContentLoading(contentLoadingHandler, out this._ContentLoadingToken);
 
             //add_DocumentTitleChanged
-            DocumentTitleChangedHandler documentTitleChangedHandler = new DocumentTitleChangedHandler();
+            var documentTitleChangedHandler = new DocumentTitleChangedHandler();
             documentTitleChangedHandler.DocumentTitleChanged += OnDocumentTitleChangedIntern;
             this.ToInterface()
                 .add_DocumentTitleChanged(documentTitleChangedHandler, out this._DocumentTitleChangedToken);
             //add_DOMContentLoaded
-            DOMContentLoadedEventHandler domContentLoadedHandler = new DOMContentLoadedEventHandler();
+            var domContentLoadedHandler = new DOMContentLoadedEventHandler();
             domContentLoadedHandler.DOMContentLoaded += OnDOMContentLoadedIntern;
             this.ToInterface().add_DOMContentLoaded(domContentLoadedHandler, out this._DOMContentLoadedToken);
 
             //add_FrameNavigationCompleted
-            NavigationCompletedEventHandler frameNavigationCompletedHandler = new NavigationCompletedEventHandler();
+            var frameNavigationCompletedHandler = new NavigationCompletedEventHandler();
             frameNavigationCompletedHandler.NavigaionCompleted += OnFrameNavigationCompletedIntern;
             this.ToInterface().add_FrameNavigationCompleted(frameNavigationCompletedHandler,
                 out this._FrameNavigationCompletedToken);
 
             //add_FrameNavigationStarting
-            NavigationStartingEventHandler frameNavigationStarting = new NavigationStartingEventHandler();
+            var frameNavigationStarting = new NavigationStartingEventHandler();
             frameNavigationStarting.NavigationStarting += OnFrameNavigationStartingIntern;
             this.ToInterface()
                 .add_FrameNavigationStarting(frameNavigationStarting, out this._FrameNavigationStartingToken);
 
             //add_HistoryChanged
-            HistoryChangedEventHandler historyChangedHandler = new HistoryChangedEventHandler();
+            var historyChangedHandler = new HistoryChangedEventHandler();
             historyChangedHandler.HistoryChanged += OnHistoryChangedIntern;
             this.ToInterface().add_HistoryChanged(historyChangedHandler, out this._HistoryChangeToken);
 
             //add_NavigationCompleted
-            NavigationCompletedEventHandler navigationCompletedHandler = new NavigationCompletedEventHandler();
+            var navigationCompletedHandler = new NavigationCompletedEventHandler();
             navigationCompletedHandler.NavigaionCompleted += OnNavigationCompletedIntern;
             this.ToInterface().add_NavigationCompleted(navigationCompletedHandler,
                 out this._NavigationCompletedToken);
             //add_NavigationStarting
-            NavigationStartingEventHandler navigationStartingHandler = new NavigationStartingEventHandler();
+            var navigationStartingHandler = new NavigationStartingEventHandler();
             navigationStartingHandler.NavigationStarting += OnNavigationStartingIntern;
             this.ToInterface().add_NavigationStarting(navigationStartingHandler, out this._NavigationStartingToken);
 
             //add_NewWindowRequested
-            NewWindowRequestedEventHandler newWindowRequested = new NewWindowRequestedEventHandler();
+            var newWindowRequested = new NewWindowRequestedEventHandler();
             newWindowRequested.NewWindowRequested += OnNewWindowRequestedIntern;
             this.ToInterface().add_NewWindowRequested(newWindowRequested, out this._NewWindowRequestedToken);
 
             //add_PermissionRequested
-            PermissionRequestedEventHandler permissionRequestedHandler = new PermissionRequestedEventHandler();
+            var permissionRequestedHandler = new PermissionRequestedEventHandler();
             permissionRequestedHandler.PermissionRequested += OnPermissionRequestedIntern;
             this.ToInterface().add_PermissionRequested(permissionRequestedHandler, out this._PermissionRequestedToken);
 
             //add_ProcessFailed
-            ProcessFailedEventHandler processFailedHandler = new ProcessFailedEventHandler();
+            var processFailedHandler = new ProcessFailedEventHandler();
             processFailedHandler.ProcessFailed += OnProcessFailedIntern;
             this.ToInterface().add_ProcessFailed(processFailedHandler, out this._ProcessFailedToken);
 
             //add_ScriptDialogOpening
-            ScriptDialogOpeningEventHandler scriptDialogOpeningHandler = new ScriptDialogOpeningEventHandler();
+            var scriptDialogOpeningHandler = new ScriptDialogOpeningEventHandler();
             scriptDialogOpeningHandler.ScriptDialogOpening += OnScriptDialogOpeningIntern;
             this.ToInterface().add_ScriptDialogOpening(scriptDialogOpeningHandler, out this._ScriptDialogOpeningToken);
 
             //add_SourceChanged
-            SourceChangedEventHandler sourceChangedHandler = new SourceChangedEventHandler();
+            var sourceChangedHandler = new SourceChangedEventHandler();
             sourceChangedHandler.SourceChanged += OnSourceChangedIntern;
             this.ToInterface().add_SourceChanged(sourceChangedHandler, out this._SourceChangedToken);
 
             //add_WebMessageReceived
-            WebMessageReceivedEventHandler webMessageReceivedHandler = new WebMessageReceivedEventHandler();
+            var webMessageReceivedHandler = new WebMessageReceivedEventHandler();
             webMessageReceivedHandler.WebMessageReceived += OnWebMessageReceivedIntern;
             this.ToInterface().add_WebMessageReceived(webMessageReceivedHandler, out this._WebMessageReceivedToken);
 
             //add_WebResourceRequested
-            WebResourceRequestedEventHandler webResourceRequestedEventHandler = new WebResourceRequestedEventHandler();
+            var webResourceRequestedEventHandler = new WebResourceRequestedEventHandler();
             webResourceRequestedEventHandler.WebResourceRequested += OnWebResourceRequestedIntern;
             this.ToInterface()
                 .add_WebResourceRequested(webResourceRequestedEventHandler, out this._WebResourceRequested);
 
             //add_WebResourceResponseReceived
-            WebResourceResponseReceivedEventHandler webResourceResponseReceivedHandler =
+            var webResourceResponseReceivedHandler =
                 new WebResourceResponseReceivedEventHandler();
             webResourceResponseReceivedHandler.WebResourceResponseReceived += WebResourceResponseReceivedIntern;
             this.ToInterface().add_WebResourceResponseReceived(webResourceResponseReceivedHandler,
                 out this._WebResourceResponseReceivedToken);
 
             //add_WindowCloseRequested
-            WindowCloseRequestedHandler windowCloseRequestedHandler = new WindowCloseRequestedHandler();
+            var windowCloseRequestedHandler = new WindowCloseRequestedHandler();
             windowCloseRequestedHandler.WindowCloseRequested += OnWindowCloseRequestedIntern;
             this.ToInterface()
                 .add_WindowCloseRequested(windowCloseRequestedHandler, out this._WindowCloseRequestedToken);
             //add_DownloadStarting
-            DownloadStartingEventHandler downloadStartingHandler = new DownloadStartingEventHandler();
+            var downloadStartingHandler = new DownloadStartingEventHandler();
             downloadStartingHandler.DownloadStarting += OnDownloadStartingIntern;
             this.ToInterface().add_DownloadStarting(downloadStartingHandler, out this._DownloadStartingToken);
             //add_FrameCreated
-            FrameCreatedEventHandler frameCreatedHandler = new FrameCreatedEventHandler();
+            var frameCreatedHandler = new FrameCreatedEventHandler();
             frameCreatedHandler.FrameCreated += OnFrameCreatedIntern;
             this.ToInterface().add_FrameCreated(frameCreatedHandler, out this._FrameCreatedToken);
 
             //add_ClientCertificateRequested
-            ClientCertificateRequestedEventHandler certificateRequestedHandler =
+            var certificateRequestedHandler =
                 new ClientCertificateRequestedEventHandler();
             certificateRequestedHandler.CertificateRequested += OncertificateRequestedIntern;
             this.ToInterface()
@@ -277,7 +277,9 @@ namespace Diga.WebView2.Wrapper
 
         
         [SecurityCritical]
+        #pragma warning disable SYSLIB0032
         [HandleProcessCorruptedStateExceptions]
+        #pragma warning restore SYSLIB0032
         private void UnRegisterEvents()
         {
             if (this._WebView == null) return;
@@ -402,7 +404,7 @@ namespace Diga.WebView2.Wrapper
 
         public void AddScriptToExecuteOnDocumentCreated(string javaScript)
         {
-            AddScriptToExecuteOnDocumentCreatedCompletedHandler handler =
+            var handler =
                 new AddScriptToExecuteOnDocumentCreatedCompletedHandler();
             handler.ScriptExecuted += OnScriptToExecuteOnDocumentCreatedIntern;
             this.ToInterface().AddScriptToExecuteOnDocumentCreated(javaScript, handler);
@@ -423,7 +425,7 @@ namespace Diga.WebView2.Wrapper
 
         public void ExecuteScript(string javaScript)
         {
-            ExecuteScriptCompletedHandler handler = new ExecuteScriptCompletedHandler();
+            var handler = new ExecuteScriptCompletedHandler();
             handler.ScriptCompleted += OnExecuteScriptCompletedIntern;
             this.ToInterface().ExecuteScript(javaScript, handler);
         }
@@ -436,11 +438,11 @@ namespace Diga.WebView2.Wrapper
             var executeScriptDelegate = new ExecuteScriptCompletedDelegate(source);
             this._WebView.ExecuteScript(javaScript, executeScriptDelegate);
 
-            (int errorCode, string resultObjectAsJson) result = await source.Task;
-            HRESULT resultCode = result.errorCode;
+            (int errorCode, string resultObjectAsJson) = await source.Task;
+            HRESULT resultCode = errorCode;
             if (resultCode != HRESULT.S_OK)
                 throw Marshal.GetExceptionForHR(resultCode);
-            return result.resultObjectAsJson;
+            return resultObjectAsJson;
         }
 
         public string InvokeScript(string javaScript, Action<string, int, string> actionToInvoke)

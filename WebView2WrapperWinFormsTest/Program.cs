@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
@@ -50,13 +51,22 @@ namespace WebView2WrapperWinFormsTest
         static void Main()
         {
             Application.ThreadException +=OnTreadException;
+            
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             AppDomain currentDomain = AppDomain.CurrentDomain;
             currentDomain.UnhandledException+=OnUnHandledException;
-            
+            currentDomain.FirstChanceException+=OnFirsChanceException;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+        }
+
+        private static void OnFirsChanceException(object sender, FirstChanceExceptionEventArgs e)
+        {
+            if(e.Exception != null)
+            {
+                Debug.Print("OnFirsChanceException:" + e.Exception.ToString());
+            }
         }
 
         private static void OnTreadException(object sender, ThreadExceptionEventArgs e)
@@ -64,8 +74,9 @@ namespace WebView2WrapperWinFormsTest
             Exception ex = e.Exception;
             if(ex != null)
             {
-                Debug.Print(ex.ToString());
+                Debug.Print("OnTreadException:" + ex.ToString());
             }
+           
         }
 
         private static void OnUnHandledException(object sender, UnhandledExceptionEventArgs e)
@@ -74,7 +85,7 @@ namespace WebView2WrapperWinFormsTest
 
             if (ex != null)
             {
-                Debug.Print(ex.ToString());
+                Debug.Print("OnUnHandledException:" + ex.ToString());
             }
         }
     }

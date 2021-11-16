@@ -8,6 +8,7 @@ using System.Security;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Diga.WebView2.WinForms.Scripting;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Types;
@@ -20,7 +21,7 @@ namespace Diga.WebView2.WinForms
 
     public partial class WebView : UserControl
     {
-
+        private const string JAVASCRIPT_CANNOT_BE_NULL_OR_EMPTY = "javaScript cannot be NULL or empty";
         private WebView2Control _WebViewControl;
         private bool _DefaultContextMenusEnabled;
         private string _Url;
@@ -427,39 +428,37 @@ namespace Diga.WebView2.WinForms
         {
             this._WebViewControl.RemoveRemoteObject(name);
         }
+#pragma warning disable CA2208
 
+        private static void ScriptZeroTest(string javaScript)
+        {
+            if(string.IsNullOrEmpty(javaScript))
+                throw new ArgumentNullException(JAVASCRIPT_CANNOT_BE_NULL_OR_EMPTY);
+
+        }
+#pragma warning restore CA2208
         public void ExecuteScript(string javaScript)
         {
+            ScriptZeroTest(javaScript);
+            
             string scrptToExecute =$"window.external.executeScript(\"{{{javaScript.Replace("\"","\\'")}}}\")";
             this._WebViewControl.ExecuteScript(scrptToExecute);
         }
         public void EvalScript(string javaScript)
         {
+            ScriptZeroTest(javaScript);
+
             string scriptToExecute = $"window.external.evalScript(\"{javaScript.Replace("\"", "\\'")}\")";
             this._WebViewControl.ExecuteScript(scriptToExecute);
         }
-        private ScriptErrorObject GetScriptErrorObject(string value)
-        {
-            try
-            {
-                string clanSer = value.Replace("\\u003C", "");
-                clanSer = clanSer.Replace("\\", "");
-                clanSer = clanSer.Substring(1, clanSer.Length - 2);
-                ScriptErrorObject errObj = Newtonsoft.Json.JsonConvert.DeserializeObject<ScriptErrorObject>(clanSer);   
-                return errObj;            
-            }
-            catch (Exception)
-            {
-
-                return null;
-            }
-            
-        }
+        
         public async Task<string> EvalScriptAsync(string javaScript)
         {
+            ScriptZeroTest(javaScript);
+
             string scriptToExecute = $"window.external.evalScript(\"{javaScript.Replace("\"", "\\'")}\")";
             string result = await this._WebViewControl.ExecuteScriptAsync(scriptToExecute);
-            ScriptErrorObject errObj = GetScriptErrorObject(result);
+            ScriptErrorObject errObj = ScriptSerializationHelper.GetScriptErrorObject(result);
             if(errObj != null)
             {
                 throw new ScriptException(errObj);
@@ -468,8 +467,16 @@ namespace Diga.WebView2.WinForms
         }
         public async Task<string> ExecuteScriptAsync(string javaScript)
         {
+            ScriptZeroTest(javaScript);
+
             string scrptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"","\\'")}}}\")";
-            return await this._WebViewControl.ExecuteScriptAsync(scrptToExecute);
+            string result =  await this._WebViewControl.ExecuteScriptAsync(scrptToExecute);
+            ScriptErrorObject errorObj = ScriptSerializationHelper.GetScriptErrorObject(result);
+            if(errorObj != null)
+            {
+                throw new ScriptException(errorObj);
+            }
+            return result;
         }
         public WebView2PrintSettings CreatePrintSettings()
         {
@@ -483,9 +490,11 @@ namespace Diga.WebView2.WinForms
 
         public string InvokeScript(string javaScript)
         {
+            ScriptZeroTest(javaScript);
 
-            string result = this._WebViewControl.InvokeScript(javaScript, (id, errorCode, jsonResult) =>
+           string result = this._WebViewControl.InvokeScript(javaScript, (id, errorCode, jsonResult) =>
            {
+               
                OnExecuteScriptCompleted(new ExecuteScriptCompletedEventArgs(errorCode, jsonResult, id));
 
            });
@@ -873,7 +882,7 @@ namespace Diga.WebView2.WinForms
 
         }
 
-        private string GetUtf8IfNeeded(string contentType)
+        private static string GetUtf8IfNeeded(string contentType)
         {
             if (string.IsNullOrEmpty(contentType))
                 return "";
@@ -935,24 +944,24 @@ namespace Diga.WebView2.WinForms
             FrameNavigationCompleted?.Invoke(this, e);
         }
 
-        protected override void WndProc(ref Message m)
-        {
+        //protected override void WndProc(ref Message m)
+        //{
 
 
-            Debug.Print("MSG=>" + m.Msg.ToString());
-            switch (m.Msg)
-            {
-                //WM_DESTROY
-                case 0x0002:
+        //    Debug.Print("MSG=>" + m.Msg.ToString());
+        //    switch (m.Msg)
+        //    {
+        //        //WM_DESTROY
+        //        case 0x0002:
 
-                    Thread.Sleep(100);
+        //            Thread.Sleep(100);
 
-                    Thread.Sleep(100);
-                    break;
-            }
-            base.WndProc(ref m);
+        //            Thread.Sleep(100);
+        //            break;
+        //    }
+        //    base.WndProc(ref m);
 
-        }
+        //}
 
         protected override void DestroyHandle()
         {

@@ -31,10 +31,7 @@ namespace Diga.WebView2.Wrapper.Implementation
         [EditorBrowsable(EditorBrowsableState.Never)]
         public WebView2View5Interface(ICoreWebView2_5 webView) : base(webView)
         {
-            if (webView == null)
-                throw new ArgumentNullException(nameof(webView));
-
-            _WebView = webView;
+            _WebView = webView ?? throw new ArgumentNullException(nameof(webView));
         }
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void add_ClientCertificateRequested([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2ClientCertificateRequestedEventHandler eventHandler, out EventRegistrationToken token)

@@ -2,8 +2,9 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using Diga.WebView2.WinForms;
+using Diga.WebView2.WinForms.Scripting;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
 
@@ -235,24 +236,24 @@ namespace WebView2WrapperWinFormsTest
             {
             string script = "5+1";
                 string result = await this.webView1.EvalScriptAsync(script);
-                MessageBox.Show(result);
+                await ShowMessageBoxAsync(result);
             }
             catch (ScriptException ex)
             {
 
-                MessageBox.Show(ex.ErrorObject.message);
+                await ShowMessageBoxAsync(ex.ErrorObject.message);
             }
 
             try
             {
                 string script = "alert(\"hallo\"";
                 string result = await this.webView1.EvalScriptAsync(script);
-                MessageBox.Show(result);
+                await ShowMessageBoxAsync(result);
             }
             catch (ScriptException ex)
             {
 
-                MessageBox.Show(ex.ErrorObject.message);
+                await ShowMessageBoxAsync(ex.ErrorObject.message);
             }
 
 
@@ -261,13 +262,17 @@ namespace WebView2WrapperWinFormsTest
         private async void bnCapture_Click(object sender, EventArgs e)
         {
             Image img = await this.webView1.CapturePreviewAsImageAsync(ImageFormat.Png);
-            Form frm = new Form();
-            frm.Width = img.Width;
-            frm.Height = img.Height;
-            frm.StartPosition = FormStartPosition.CenterParent;
-            PictureBox pb = new PictureBox();
-            pb.Dock = DockStyle.Fill;
-            pb.Image = img;
+            Form frm = new Form
+            {
+                Width = img.Width,
+                Height = img.Height,
+                StartPosition = FormStartPosition.CenterParent
+            };
+            PictureBox pb = new PictureBox
+            {
+                Dock = DockStyle.Fill,
+                Image = img
+            };
             frm.Controls.Add(pb);
             frm.ShowDialog(this);
         }
@@ -356,8 +361,7 @@ namespace WebView2WrapperWinFormsTest
 
         private void OnDownloadStateChanged(object sender, WebView2EventArgs e)
         {
-            WebView2DownloadOperation opt = sender as WebView2DownloadOperation;
-            if (opt != null)
+            if (sender is WebView2DownloadOperation opt)
             {
                 Debug.Print("Download State Changed:" + opt.State.ToString());
             }
@@ -365,19 +369,17 @@ namespace WebView2WrapperWinFormsTest
 
         private void OnEstimatedEndTimeChanged(object sender, WebView2EventArgs e)
         {
-             WebView2DownloadOperation opt = sender as WebView2DownloadOperation;
-            if(opt != null)
+            if (sender is WebView2DownloadOperation opt)
             {
                 Debug.Print("EstimatedEndTime:" + opt.EstimatedEndTime);
 
             }
-            
+
         }
 
         private void OnByteReceived(object sender, WebView2EventArgs e)
         {
-            WebView2DownloadOperation opt = sender as WebView2DownloadOperation;
-            if(opt != null)
+            if (sender is WebView2DownloadOperation opt)
             {
                 Debug.Print("Byte Received:" + opt.BytesReceived.ToString());
 
@@ -395,17 +397,44 @@ namespace WebView2WrapperWinFormsTest
 
         private  async  void bnScriptTest_Click(object sender, EventArgs e)
         {
-            string script = $"let obj=document.createElement(\"button\");obj.innerHTML=\"Click Me\";obj.id=\"{Guid.NewGuid()}\";document.body.appendChild(obj);return obj.id";
+            string script = $"let obj=document.createElement(\"button\");" +
+                $"obj.innerHTML=\"Click Me\";" +
+                $"obj.id=\"{Guid.NewGuid()}\";" +
+                $"document.body.appendChild(obj);" +
+                $"return obj.id";
 
 
+            try
+            {
+                var id = await this.webView1.ExecuteScriptAsync(script);
+                string v = "hallo du da";
+                script = $"document.getElementById({id}).innerHTML=\"{v}\"";
+                _ = await  this.webView1.ExecuteScriptAsync(script);
 
-            var id = await this.webView1.ExecuteScriptAsync(script);
-            string v = "hallo du da";
-            script = $"document.getElementById({id}).innerHTML=\"{v}\"";
-            var o = await  this.webView1.ExecuteScriptAsync(script);
+            }
+            catch (Exception ex)
+            {
+
+                await ShowMessageBoxAsync(ex.ToString());
+            }
             
-            
 
+        }
+        private async Task ShowMessageBoxAsync(string message, string caption="Message")
+        {
+           await Task.Run(() => ShowMessageBox(message, caption));
+        }
+        private void ShowMessageBox(string message, string caption = "Message")
+        {
+            if(this.InvokeRequired)
+            {
+               this.Invoke(new Action<string, string>(ShowMessageBox), new object[] { message, caption });
+                
+            }
+            else
+            {
+                MessageBox.Show(this, message, caption);
+            }
         }
 
         private void webView1_ExecuteScriptCompleted(object sender, ExecuteScriptCompletedEventArgs e)

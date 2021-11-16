@@ -60,6 +60,7 @@ namespace Diga.WebView2.Wrapper
         private string _BrowserInfo;
         private object HostHelper;
         private const string HostHelperName = "{60A417CA-F1AB-4307-801B-F96003F8938B} Host Object Helper";
+        private const string PLEASE_SET_A_VALUE_ABOVE_0 = "Plase Set a value above 0";
         private readonly Dictionary<string, object> _RemoteObjects = new Dictionary<string, object>();
         
         private WebView2Environment Environment { get; set; }
@@ -95,7 +96,7 @@ namespace Diga.WebView2.Wrapper
             this._BrowserInfo = browserInfo;
 
             //Native.CreateCoreWebView2EnvironmentWithDetails(this.BrowserExecutableFolder, this.UserDataFolder, this.AdditionalBrowserArguments, handler);
-            WebView2EnvironmentOptions options = new WebView2EnvironmentOptions
+            var options = new WebView2EnvironmentOptions
             {
 
                 AdditionalBrowserArguments = this.AdditionalBrowserArguments
@@ -629,7 +630,7 @@ namespace Diga.WebView2.Wrapper
         public WebResourceResponse GetResponseStream(Stream stream, int statusCode, string statusText, string headers,
             string contentType)
         {
-            ManagedIStream mStream = new ManagedIStream(stream);
+            var mStream = new ManagedIStream(stream);
 
 
             var responseInterface = this.Environment.CreateWebResourceResponse(mStream, statusCode, statusText, headers);
@@ -836,7 +837,7 @@ namespace Diga.WebView2.Wrapper
             set
             {
                 if(value <= 0)
-                    throw new ArgumentOutOfRangeException("Plase Set a value above 0");
+                    throw new ArgumentOutOfRangeException(PLEASE_SET_A_VALUE_ABOVE_0);
 
                 this._ZoomFactor = value;
                 if(this.Controller != null)
