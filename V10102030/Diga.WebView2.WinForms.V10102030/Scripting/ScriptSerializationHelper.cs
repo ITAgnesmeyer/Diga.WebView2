@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 using System;
 
 namespace Diga.WebView2.WinForms.Scripting
@@ -15,10 +15,10 @@ namespace Diga.WebView2.WinForms.Scripting
                 if (clanSer.StartsWith("\"") && clanSer.EndsWith("\""))
                     clanSer = clanSer.Substring(1, clanSer.Length - 2);
 
-                ScriptErrorObject errObj = Newtonsoft.Json.JsonConvert.DeserializeObject<ScriptErrorObject>(clanSer);
+                ScriptErrorObject errObj = Diga.Core.Json.DigaJson.Deserialize<ScriptErrorObject>(clanSer);
                 return errObj;
             }
-            catch (JsonSerializationException)
+            catch (Diga.Core.Json.DigaJsonException)
             {
                 return null;
             }
