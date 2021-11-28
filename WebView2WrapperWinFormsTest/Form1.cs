@@ -12,12 +12,12 @@ namespace WebView2WrapperWinFormsTest
 {
     public partial class Form1 : Form
     {
-       private TestObject _TestObject;
+        private TestObject _TestObject;
         public Form1()
         {
             this._TestObject = new TestObject();
             InitializeComponent();
-            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -48,18 +48,18 @@ namespace WebView2WrapperWinFormsTest
         private void webView1_SourceChanged(object sender, SourceChangedEventArgs e)
         {
             //MessageBox.Show("SourceChanged=>" + e.IsNewDocument);
-           
+
         }
 
         private void webView1_HistoryChanged(object sender, WebView2EventArgs e)
         {
-            
+
         }
 
         private void webView1_NavigationCompleted(object sender, NavigationCompletedEventArgs e)
         {
-            this.textBox1.Text =  this.webView1.Source;
-            if(e.IsSuccess == true)
+            this.textBox1.Text = this.webView1.Source;
+            if (e.IsSuccess == true)
             {
                 this.Text = this.webView1.BrowserVersion + "=>" + this.webView1.DocumentTitle;
             }
@@ -67,7 +67,7 @@ namespace WebView2WrapperWinFormsTest
             {
                 this.Text = this.webView1.BrowserVersion + "=> Error=" + e.GetErrorText() + "->" + e.WebErrorStatus;
             }
-            
+
         }
 
         private Rectangle LastBound;
@@ -96,12 +96,12 @@ namespace WebView2WrapperWinFormsTest
                     e.Handled = true;
                     return;
                 }
-                
+
             }
             e.Handled = false;
         }
 
-       
+
 
         private void webView1_DocumentTitleChanged(object sender, WebView2EventArgs e)
         {
@@ -141,46 +141,46 @@ namespace WebView2WrapperWinFormsTest
         private void webView1_WebMessageReceived(object sender, WebMessageReceivedEventArgs e)
         {
             string message = e.WebMessageAsString;
-                var rpc = Newtonsoft.Json.JsonConvert.DeserializeObject<Rpc>(message);
+            var rpc = Newtonsoft.Json.JsonConvert.DeserializeObject<Rpc>(message);
 
-                switch (rpc.action)
-                {
-                    case "run_script":
-                        this.webView1.InvokeScript(rpc.param.ToString());
-                        break;
-                    case "run_script_with_result":
-                        string id = this.webView1.InvokeScript(rpc.param.ToString());
-                        Rpc result = new Rpc()
-                        {
-                            id = id,
-                            action = "get_script_result",
-                            objId = rpc.objId,
-                            param = id
-                        };
-                        string js = Newtonsoft.Json.JsonConvert.SerializeObject(result);
-                        this.webView1.SendMessage(js);
-                        break;
-                    case "get_script_result":
-                        string scriptId = rpc.param.ToString();
-                        //if (window.ResultList.ContainsKey(scriptId))
-                        //{
-                        //    Rpc resultScriptResult = new Rpc()
-                        //    {
-                        //        id = rpc.id,
-                        //        action = "return_script_result",
-                        //        objId = rpc.objId,
-                        //        param = window.ResultList[scriptId]
-                        //    };
-                        //    string jsResult = Newtonsoft.Json.JsonConvert.SerializeObject(resultScriptResult);
-                        //    this.webView1.SendMessage(jsResult);
+            switch (rpc.action)
+            {
+                case "run_script":
+                    this.webView1.InvokeScript(rpc.param.ToString());
+                    break;
+                case "run_script_with_result":
+                    string id = this.webView1.InvokeScript(rpc.param.ToString());
+                    Rpc result = new Rpc()
+                    {
+                        id = id,
+                        action = "get_script_result",
+                        objId = rpc.objId,
+                        param = id
+                    };
+                    string js = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+                    this.webView1.SendMessage(js);
+                    break;
+                case "get_script_result":
+                    string scriptId = rpc.param.ToString();
+                    //if (window.ResultList.ContainsKey(scriptId))
+                    //{
+                    //    Rpc resultScriptResult = new Rpc()
+                    //    {
+                    //        id = rpc.id,
+                    //        action = "return_script_result",
+                    //        objId = rpc.objId,
+                    //        param = window.ResultList[scriptId]
+                    //    };
+                    //    string jsResult = Newtonsoft.Json.JsonConvert.SerializeObject(resultScriptResult);
+                    //    this.webView1.SendMessage(jsResult);
 
 
-                        //}
-                        break;
-                    case "set_object_innerHtml":
-                        this.webView1.InvokeScript($"document.getElementById('{rpc.objId}').innerHTML='{rpc.param}'");
-                        break;
-                }
+                    //}
+                    break;
+                case "set_object_innerHtml":
+                    this.webView1.InvokeScript($"document.getElementById('{rpc.objId}').innerHTML='{rpc.param}'");
+                    break;
+            }
         }
 
         private void webView1_WebResourceRequested(object sender, WebResourceRequestedEventArgs e)
@@ -190,7 +190,7 @@ namespace WebView2WrapperWinFormsTest
 
         }
 
-       
+
         private void webView1_ZoomFactorChanged(object sender, WebView2EventArgs e)
         {
             this.lblZoomFactor.Text = (this.webView1.ZoomFactor * 100).ToString();
@@ -208,7 +208,7 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_WebViewCreated(object sender, EventArgs e)
         {
-            
+
 #if CORE
             //this.webView1.OpenDevToolsWindow();
             this.webView1.RemoteObjectsAllowed = true;
@@ -220,7 +220,7 @@ namespace WebView2WrapperWinFormsTest
             string value = File.ReadAllText("index.html");
             this.webView1.NavigateToString(value);
             this.textBox1.AutoCompleteCustomSource.Add(this.webView1.MonitoringUrl);
-            
+
 
         }
 
@@ -234,7 +234,7 @@ namespace WebView2WrapperWinFormsTest
 
             try
             {
-            string script = "5+1";
+                string script = "5+1";
                 string result = await this.webView1.EvalScriptAsync(script);
                 await ShowMessageBoxAsync(result);
             }
@@ -280,19 +280,19 @@ namespace WebView2WrapperWinFormsTest
         private void webView1_FrameNavigationCompleted(object sender, NavigationCompletedEventArgs e)
         {
             //MessageBox.Show(this, "webView1_FrameNavigationCompleted");
-            
+
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-           
+
         }
 
         private void webView1_BeforeWebViewDestroy(object sender, EventArgs e)
         {
             //this.webView1.RemoveRemoteObject("{60A417CA-F1AB-4307-801B-F96003F8938B} Host Object Helper");
             //this.webView1.RemoveRemoteObject("testObject");
-            
+
 
         }
 
@@ -305,7 +305,7 @@ namespace WebView2WrapperWinFormsTest
         private void webView1_DOMContentLoaded(object sender, DOMContentLoadedEventArgs e)
         {
             Debug.Print(e.NavigationId.ToString());
-            
+
         }
 
         private void webView1_WebResourceResponseReceived(object sender, WebResourceResponseReceivedEventArgs e)
@@ -317,25 +317,25 @@ namespace WebView2WrapperWinFormsTest
 
             if (it.HasCurrent)
                 Debug.Print(it.Current.Name + "," + it.Current.Value);
-            while(it.MoveNext())
+            while (it.MoveNext())
             {
-                Debug.Print(it.Current.Name+ "," + it.Current.Value);
+                Debug.Print(it.Current.Name + "," + it.Current.Value);
             }
         }
 
         private void webView1_FrameCreated(object sender, FrameCreatedEventArgs e)
         {
-            e.Frame.FrameDestroyed += (s,o) =>
+            e.Frame.FrameDestroyed += (s, o) =>
             {
-                
+
                 if (o.Frame != null)
                 {
-                    if(e.Frame.IsDestroyed() == 0)
+                    if (e.Frame.IsDestroyed() == 0)
                     {
                         Debug.Print("Frame Name:" + o.Frame.name);
                     }
 
-                    
+
                 }
                 Debug.Print("Frame Destroyed");
             };
@@ -353,10 +353,10 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_DownloadStarting(object sender, DownloadStartingEventArgs e)
         {
-           WebView2DownloadOperation opt =  e.DownloadOperation;
-            opt.BytesReceivedChanged+=OnByteReceived;
-            opt.EstimatedEndTimeChanged+=OnEstimatedEndTimeChanged;
-            opt.StateChanged+=OnDownloadStateChanged;
+            WebView2DownloadOperation opt = e.DownloadOperation;
+            opt.BytesReceivedChanged += OnByteReceived;
+            opt.EstimatedEndTimeChanged += OnEstimatedEndTimeChanged;
+            opt.StateChanged += OnDownloadStateChanged;
         }
 
         private void OnDownloadStateChanged(object sender, WebView2EventArgs e)
@@ -389,13 +389,13 @@ namespace WebView2WrapperWinFormsTest
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
             double dbl = this.trackBar1.Value / 100.000;
-            if(dbl == 0)
+            if (dbl == 0)
                 dbl = 1;
             this.webView1.ZoomFactor = dbl;
-            this.lblZoomFactor.Text = (dbl*100).ToString();
+            this.lblZoomFactor.Text = (dbl * 100).ToString();
         }
 
-        private  async  void bnScriptTest_Click(object sender, EventArgs e)
+        private async void bnScriptTest_Click(object sender, EventArgs e)
         {
             string script = $"let obj=document.createElement(\"button\");" +
                 $"obj.innerHTML=\"Click Me\";" +
@@ -409,7 +409,7 @@ namespace WebView2WrapperWinFormsTest
                 var id = await this.webView1.ExecuteScriptAsync(script);
                 string v = "hallo du da";
                 script = $"document.getElementById({id}).innerHTML=\"{v}\"";
-                _ = await  this.webView1.ExecuteScriptAsync(script);
+                _ = await this.webView1.ExecuteScriptAsync(script);
 
             }
             catch (Exception ex)
@@ -417,19 +417,19 @@ namespace WebView2WrapperWinFormsTest
 
                 await ShowMessageBoxAsync(ex.ToString());
             }
-            
+
 
         }
-        private async Task ShowMessageBoxAsync(string message, string caption="Message")
+        private async Task ShowMessageBoxAsync(string message, string caption = "Message")
         {
-           await Task.Run(() => ShowMessageBox(message, caption));
+            await Task.Run(() => ShowMessageBox(message, caption));
         }
         private void ShowMessageBox(string message, string caption = "Message")
         {
-            if(this.InvokeRequired)
+            if (this.InvokeRequired)
             {
-               this.Invoke(new Action<string, string>(ShowMessageBox), new object[] { message, caption });
-                
+                this.Invoke(new Action<string, string>(ShowMessageBox), new object[] { message, caption });
+
             }
             else
             {
@@ -439,7 +439,7 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_ExecuteScriptCompleted(object sender, ExecuteScriptCompletedEventArgs e)
         {
-            if(e.ErrorCode != 0)
+            if (e.ErrorCode != 0)
             {
                 Debug.Print(e.ResultObjectAsJson);
             }
