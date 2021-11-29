@@ -21,7 +21,7 @@ namespace Diga.WebView2.Wrapper.interop
             [In] ICoreWebView2EnvironmentOptions environmentOptions,
             [In] ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler environmentCreatedHandler);
 
-
+        [Obsolete]
         [DllImport(EXTERNAL_DLL, SetLastError = true)]
         public static extern int CreateCoreWebView2EnvironmentWithDetails(
             [In, MarshalAs(UnmanagedType.LPWStr)]

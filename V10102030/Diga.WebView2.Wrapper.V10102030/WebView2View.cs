@@ -15,7 +15,7 @@ using Diga.WebView2.Wrapper.Implementation;
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
 {
-    public partial class WebView2View : WebView2View7Interface, IDisposable
+    public partial class WebView2View : WebView2View7Interface
     {
 
         public event EventHandler<NavigationStartingEventArgs> NavigationStarting;
@@ -317,7 +317,7 @@ namespace Diga.WebView2.Wrapper
 
                 try
                 {
-                    //EventRegistrationTool.UnWireToken(this._DownloadStartingToken, base.remove_DownloadStarting);
+                    EventRegistrationTool.UnWireToken(this._DownloadStartingToken, base.remove_DownloadStarting);
                 }
                 catch (Exception e)
                 {
@@ -329,7 +329,7 @@ namespace Diga.WebView2.Wrapper
 
                 try
                 {
-                   //EventRegistrationTool.UnWireToken(this._CertificateRequestedToken, base.remove_ClientCertificateRequested);
+                   EventRegistrationTool.UnWireToken(this._CertificateRequestedToken, base.remove_ClientCertificateRequested);
 
                 }
                 catch (Exception e)

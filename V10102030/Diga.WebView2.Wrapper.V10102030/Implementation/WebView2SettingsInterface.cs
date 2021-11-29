@@ -1,6 +1,8 @@
 ﻿using Diga.WebView2.Interop;
 using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
+using Microsoft.Win32.SafeHandles;
 
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper.Implementation
@@ -8,7 +10,10 @@ namespace Diga.WebView2.Wrapper.Implementation
     public class WebView2SettingsInterface : ICoreWebView2Settings, IDisposable
     {
         private ICoreWebView2Settings _Settings;
-
+        /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
+        ///             pattern for any type that is not sealed.
+        ///             https://docs.microsoft.com/dotnet/api/system.idisposable#idisposable-and-the-inheritance-hierarchy
+        private SafeHandle handle = (SafeHandle) new SafeFileHandle(IntPtr.Zero, true);
         private ICoreWebView2Settings Settings
         {
             get
@@ -52,6 +57,7 @@ namespace Diga.WebView2.Wrapper.Implementation
             if (_IsDisposed) return;
             if (disposing)
             {
+                this.handle.Dispose();
                 _Settings = null;
                 _IsDisposed = true;
             }

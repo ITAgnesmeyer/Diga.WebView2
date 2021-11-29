@@ -89,7 +89,7 @@ namespace Diga.WebView2.WinForms
             set
             {
                 _IsZoomControlEnabled = value;
-                if (this.IsCreated)
+                if (this.CheckIsCreatedOrEnded)
                 {
                     this._WebViewControl.Settings.IsZoomControlEnabled = value;
                 }
@@ -106,7 +106,7 @@ namespace Diga.WebView2.WinForms
             set
             {
                 this._IsPasswordAutosaveEnabled = value;
-                if (this.IsCreated)
+                if (this.CheckIsCreatedOrEnded)
                 {
                     this._WebViewControl.Settings.IsPasswordAutosaveEnabled = value;
                 }
@@ -119,9 +119,9 @@ namespace Diga.WebView2.WinForms
             set
             {
                 this._IsGeneralAutoFillEnabled = value;
-                if (this.IsCreated)
+                if (this.CheckIsCreatedOrEnded)
                 {
-                    if(this._WebViewControl.Settings != null)
+                    if (this._WebViewControl.Settings != null)
                         this._WebViewControl.Settings.IsGeneralAutofillEnabled = value;
                 }
             }
@@ -133,7 +133,7 @@ namespace Diga.WebView2.WinForms
             set
             {
                 this._AreBrowserAcceleratorKeysEnabled = value;
-                if (this.IsCreated)
+                if (this.CheckIsCreatedOrEnded)
                     this._WebViewControl.Settings.AreBrowserAcceleratorKeysEnabled = value;
             }
         }
@@ -143,7 +143,7 @@ namespace Diga.WebView2.WinForms
             set
             {
                 _IsWebMessageEnabled = value;
-                if (this.IsCreated)
+                if (this.CheckIsCreatedOrEnded)
                 {
                     this._WebViewControl.Settings.IsWebMessageEnabled = value;
                 }
@@ -156,7 +156,7 @@ namespace Diga.WebView2.WinForms
             set
             {
                 _IsStatusBarEnabled = value;
-                if (this.IsCreated)
+                if (this.CheckIsCreatedOrEnded)
                 {
                     this._WebViewControl.Settings.IsStatusBarEnabled = value;
                 }
@@ -169,7 +169,7 @@ namespace Diga.WebView2.WinForms
             set
             {
                 _IsScriptEnabled = value;
-                if (this.IsCreated)
+                if (this.CheckIsCreatedOrEnded)
                 {
                     this._WebViewControl.Settings.IsScriptEnabled = value;
                 }
@@ -183,7 +183,7 @@ namespace Diga.WebView2.WinForms
             set
             {
                 _RemoteObjectsAllowed = value;
-                if (this.IsCreated)
+                if (this.CheckIsCreatedOrEnded)
                 {
                     this._WebViewControl.Settings.AreHostObjectsAllowed = value;
                 }
@@ -193,13 +193,16 @@ namespace Diga.WebView2.WinForms
         [Browsable(false)]
         public bool IsCreated { get; private set; } = false;
 
+        [Browsable(false)]
+        public bool IsBrowserEnded { get; private set; } = false;
+
         public bool DevToolsEnabled
         {
             get => _DevToolsEnabled;
             set
             {
                 _DevToolsEnabled = value;
-                if (this.IsCreated)
+                if (this.CheckIsCreatedOrEnded)
                 {
                     this._WebViewControl.Settings.AreDevToolsEnabled = value;
                 }
@@ -212,7 +215,7 @@ namespace Diga.WebView2.WinForms
             set
             {
                 _DefaultScriptDialogsEnabled = value;
-                if (this.IsCreated)
+                if (this.CheckIsCreatedOrEnded)
                 {
                     this._WebViewControl.Settings.AreDefaultScriptDialogsEnabled = value;
                 }
@@ -224,7 +227,7 @@ namespace Diga.WebView2.WinForms
             set
             {
                 _DefaultContextMenusEnabled = value;
-                if (this.IsCreated)
+                if (this.CheckIsCreatedOrEnded)
                 {
                     this._WebViewControl.Settings.AreDefaultContextMenusEnabled = value;
                 }
@@ -236,7 +239,7 @@ namespace Diga.WebView2.WinForms
         {
             get
             {
-                if (this.IsCreated)
+                if (this.CheckIsCreatedOrEnded)
                 {
                     this._ZoomFactor = this._WebViewControl.ZoomFactor;
                 }
@@ -245,7 +248,7 @@ namespace Diga.WebView2.WinForms
             set
             {
                 this._ZoomFactor = value;
-                if (this.IsCreated)
+                if (this.CheckIsCreatedOrEnded)
                 {
                     this._WebViewControl.ZoomFactor = this._ZoomFactor;
                 }
@@ -261,7 +264,7 @@ namespace Diga.WebView2.WinForms
         {
             get
             {
-                if (this.IsCreated)
+                if (this.CheckIsCreatedOrEnded)
                 {
                     return this._WebViewControl.Source;
                 }
@@ -274,7 +277,7 @@ namespace Diga.WebView2.WinForms
         {
             get
             {
-                if (this.IsCreated)
+                if (this.CheckIsCreatedOrEnded)
                     return this._WebViewControl.GetCookieManager;
                 return null;
 
@@ -315,7 +318,7 @@ namespace Diga.WebView2.WinForms
         {
             this.IsCreated = true;
             this.AddScriptToExecuteOnDocumentCreated("class ScriptErrorObject{constructor(e,t,r,n,i,c){this.name=e,this.message=t,this.fileName=r,this.lineNumber=n,this.columnNumber=i,this.stack=c}}window.external={sendMessage:function(e){window.chrome.webview.postMessage(e)},receiveMessage:function(e){window.chrome.webview.addEventListener(\"message\",(function(t){e(t.data)}))},evalScript:function(e){try{return eval(e)}catch(e){let t=new ScriptErrorObject(e.name,e.message,e.fileName,e.lineNumber,e.columnNumber,e.stack);return JSON.stringify(t)}},executeScript:function(e){try{return new Function(e)()}catch(e){let t=new ScriptErrorObject(e.name,e.message,e.fileName,e.lineNumber,e.columnNumber,e.stack);return JSON.stringify(t)}}};");
-                ///"window.external = { sendMessage: function(message) { window.chrome.webview.postMessage(message); }, receiveMessage: function(callback) { window.chrome.webview.addEventListener('message', function(e) { callback(e.data); }); } };");
+            ///"window.external = { sendMessage: function(message) { window.chrome.webview.postMessage(message); }, receiveMessage: function(callback) { window.chrome.webview.addEventListener('message', function(e) { callback(e.data); }); } };");
             if (this._DefaultBackgroundColor != Color.Empty)
                 this._WebViewControl.DefaultBackgroundColor = _DefaultBackgroundColor;
             if (!string.IsNullOrEmpty(this._Url))
@@ -329,10 +332,19 @@ namespace Diga.WebView2.WinForms
 
         }
 
+        private bool CheckIsCreatedOrEnded
+        {
+            get
+            {
+                if (!this.IsCreated) return false;
+                if (this.IsBrowserEnded) return false;
+                return true;
+            }
+        }
         public void Navigate(string url)
         {
             this._Url = url;
-            if (this.IsCreated && !string.IsNullOrEmpty(this.Url))
+            if (this.CheckIsCreatedOrEnded && !string.IsNullOrEmpty(this.Url))
             {
                 try
                 {
@@ -351,7 +363,7 @@ namespace Diga.WebView2.WinForms
         public void NavigateToString(string htmlContent)
         {
             _HtmlContent = htmlContent;
-            if (this.IsCreated && !string.IsNullOrEmpty(this._HtmlContent))
+            if (this.CheckIsCreatedOrEnded && !string.IsNullOrEmpty(this._HtmlContent))
             {
                 try
                 {
@@ -370,7 +382,7 @@ namespace Diga.WebView2.WinForms
             set
             {
                 _Url = value;
-                if (this.IsCreated)
+                if (this.CheckIsCreatedOrEnded)
                 {
                     this.Navigate(value);
                 }
@@ -379,14 +391,14 @@ namespace Diga.WebView2.WinForms
 
         public void GoBack()
         {
-            if (!this.IsCreated) return;
+            if (!this.CheckIsCreatedOrEnded) return;
             if (this._WebViewControl.CanGoBack)
                 this._WebViewControl.GoBack();
         }
 
         public void GoForward()
         {
-            if (!this.IsCreated) return;
+            if (!this.CheckIsCreatedOrEnded) return;
             if (this._WebViewControl.CanGoForward)
                 this._WebViewControl.GoForward();
 
@@ -394,7 +406,7 @@ namespace Diga.WebView2.WinForms
         }
         public void AddScriptToExecuteOnDocumentCreated(string javaScript)
         {
-            if (!this.IsCreated) return;
+            if (!this.CheckIsCreatedOrEnded) return;
             this._WebViewControl.AddScriptToExecuteOnDocumentCreated(javaScript);
 
         }
@@ -416,7 +428,7 @@ namespace Diga.WebView2.WinForms
 
         public void AddRemoteObject(string name, object @object)
         {
-            if (!this.IsCreated) return;
+            if (!this.CheckIsCreatedOrEnded) return;
             this._WebViewControl.AddRemoteObject(name, @object);
         }
 
@@ -432,34 +444,42 @@ namespace Diga.WebView2.WinForms
 
         private static void ScriptZeroTest(string javaScript)
         {
-            if(string.IsNullOrEmpty(javaScript))
+            if (string.IsNullOrEmpty(javaScript))
                 throw new ArgumentNullException(JAVASCRIPT_CANNOT_BE_NULL_OR_EMPTY);
 
         }
 #pragma warning restore CA2208
         public void ExecuteScript(string javaScript)
         {
+            if (!this.CheckIsCreatedOrEnded)
+                return;
+
             ScriptZeroTest(javaScript);
-            
-            string scrptToExecute =$"window.external.executeScript(\"{{{javaScript.Replace("\"","\\'")}}}\")";
+
+            string scrptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"", "\\'")}}}\")";
             this._WebViewControl.ExecuteScript(scrptToExecute);
         }
         public void EvalScript(string javaScript)
         {
+            if(!this.CheckIsCreatedOrEnded) return;
+
             ScriptZeroTest(javaScript);
 
             string scriptToExecute = $"window.external.evalScript(\"{javaScript.Replace("\"", "\\'")}\")";
             this._WebViewControl.ExecuteScript(scriptToExecute);
         }
-        
+
         public async Task<string> EvalScriptAsync(string javaScript)
         {
+            if (!this.CheckIsCreatedOrEnded)
+                throw new InvalidOperationException("Browser already destroyed");
+
             ScriptZeroTest(javaScript);
 
             string scriptToExecute = $"window.external.evalScript(\"{javaScript.Replace("\"", "\\'")}\")";
             string result = await this._WebViewControl.ExecuteScriptAsync(scriptToExecute);
             ScriptErrorObject errObj = ScriptSerializationHelper.GetScriptErrorObject(result);
-            if(errObj != null)
+            if (errObj != null)
             {
                 throw new ScriptException(errObj);
             }
@@ -467,12 +487,14 @@ namespace Diga.WebView2.WinForms
         }
         public async Task<string> ExecuteScriptAsync(string javaScript)
         {
+            if (!this.CheckIsCreatedOrEnded)
+                throw new InvalidOperationException("Browser not created or Crashed");
             ScriptZeroTest(javaScript);
 
-            string scrptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"","\\'")}}}\")";
-            string result =  await this._WebViewControl.ExecuteScriptAsync(scrptToExecute);
+            string scrptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"", "\\'")}}}\")";
+            string result = await this._WebViewControl.ExecuteScriptAsync(scrptToExecute);
             ScriptErrorObject errorObj = ScriptSerializationHelper.GetScriptErrorObject(result);
-            if(errorObj != null)
+            if (errorObj != null)
             {
                 throw new ScriptException(errorObj);
             }
@@ -484,20 +506,25 @@ namespace Diga.WebView2.WinForms
         }
         public async Task<bool> PrintToPdfAsync(string file, WebView2PrintSettings printSettings)
         {
+            if (!this.CheckIsCreatedOrEnded)
+                throw new InvalidOperationException("Browser not Created or Crashed");
             return await this._WebViewControl.PrintPdfAsync(file, printSettings);
         }
 
 
         public string InvokeScript(string javaScript)
         {
+            if (!this.CheckIsCreatedOrEnded) 
+                throw new InvalidOperationException("Browser not created or Crashed");
+
             ScriptZeroTest(javaScript);
 
-           string result = this._WebViewControl.InvokeScript(javaScript, (id, errorCode, jsonResult) =>
-           {
-               
-               OnExecuteScriptCompleted(new ExecuteScriptCompletedEventArgs(errorCode, jsonResult, id));
+            string result = this._WebViewControl.InvokeScript(javaScript, (id, errorCode, jsonResult) =>
+            {
 
-           });
+                OnExecuteScriptCompleted(new ExecuteScriptCompletedEventArgs(errorCode, jsonResult, id));
+
+            });
 
             return result;
         }
@@ -677,6 +704,11 @@ namespace Diga.WebView2.WinForms
         }
         private void OnProcessFailedIntern(object sender, ProcessFailedEventArgs e)
         {
+            if (e.ProcessFailedKind == ProcessFailedKind.BrowserProcessExited)
+            {
+                this.IsBrowserEnded = true;
+            }
+
             OnProcessFailed(e);
         }
         private void OnFrameNavigationStartingIntern(object sender, NavigationStartingEventArgs e)
@@ -726,7 +758,7 @@ namespace Diga.WebView2.WinForms
 
         private void WebView_Resize(object sender, EventArgs e)
         {
-            if (this.IsCreated)
+            if (this.CheckIsCreatedOrEnded)
             {
                 this._WebViewControl.DockToParent();
             }
@@ -818,7 +850,7 @@ namespace Diga.WebView2.WinForms
         public WebResourceResponse CreateResponse(ResponseInfo responseInfo)
         {
             WebResourceResponse response = null;
-            if (this.IsCreated)
+            if (this.CheckIsCreatedOrEnded)
             {
                 response = this._WebViewControl.GetResponseStream(responseInfo.Stream, responseInfo.StatusCode,
                     responseInfo.StatusText, responseInfo.HeaderToString(), responseInfo.ContentType);
@@ -1027,7 +1059,7 @@ namespace Diga.WebView2.WinForms
             {
 
 
-                if (this.IsCreated)
+                if (this.CheckIsCreatedOrEnded)
                 {
                     this._DefaultBackgroundColor = this._WebViewControl.DefaultBackgroundColor;
                 }
@@ -1037,7 +1069,7 @@ namespace Diga.WebView2.WinForms
             set
             {
                 _DefaultBackgroundColor = value;
-                if (this.IsCreated)
+                if (this.CheckIsCreatedOrEnded)
                 {
                     this._WebViewControl.DefaultBackgroundColor = _DefaultBackgroundColor;
                 }

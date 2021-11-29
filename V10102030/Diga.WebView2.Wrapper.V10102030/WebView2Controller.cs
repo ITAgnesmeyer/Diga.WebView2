@@ -10,7 +10,7 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper
 {
-    public class WebView2Controller : WebView2Controller3Interface, IDisposable
+    public class WebView2Controller : WebView2Controller3Interface
     {
         private EventRegistrationToken _ZoomFactorChangedToken;
         private EventRegistrationToken _GotFocusToken;

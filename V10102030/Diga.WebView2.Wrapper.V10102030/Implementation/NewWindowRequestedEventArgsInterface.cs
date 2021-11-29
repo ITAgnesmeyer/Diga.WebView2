@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
@@ -9,7 +10,10 @@ namespace Diga.WebView2.Wrapper.Implementation
     {
         private ICoreWebView2NewWindowRequestedEventArgs _Args;
         private bool _IsDisposed;
-
+        /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
+        ///             pattern for any type that is not sealed.
+        ///             https://docs.microsoft.com/dotnet/api/system.idisposable#idisposable-and-the-inheritance-hierarchy
+        private SafeHandle handle = (SafeHandle) new SafeFileHandle(IntPtr.Zero, true);
         private ICoreWebView2NewWindowRequestedEventArgs Args
         {
             get
@@ -51,6 +55,7 @@ namespace Diga.WebView2.Wrapper.Implementation
             {
                 if (disposing)
                 {
+                    this.handle.Dispose();
                     _Args = null;
                 }
 

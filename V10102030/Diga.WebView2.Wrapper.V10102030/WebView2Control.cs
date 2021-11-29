@@ -101,6 +101,13 @@ namespace Diga.WebView2.Wrapper
 
                 AdditionalBrowserArguments = this.AdditionalBrowserArguments
             };
+            
+            Native.CompareBrowserVersions(browserInfo, options.TargetCompatibleBrowserVersion, out int result);
+            if (result == (int)Native.BrowserVersionState.Older)
+            {
+                throw new Exception("The installed Browser-Version is older than (" +
+                                    options.TargetCompatibleBrowserVersion + ")");
+            }
 
             Native.CreateCoreWebView2EnvironmentWithOptions(this.BrowserExecutableFolder, this.UserDataFolder, options,
                 handler);
