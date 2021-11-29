@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFrameworks>net4.7.2;netcoreapp3.1;net5.0-windows;net6.0-windows</TargetFrameworks>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>Diga.WebView2.WinForms</RootNamespace>
+    <Version>13.0.4</Version>
+    <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
+    <Product>Diga.WebView2.WinForms</Product>
+    <Copyright>Copyright © 2021 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>WinFormCoreSign.snk</AssemblyOriginatorKeyFile>
+    <AssemblyName>Diga.WebView2.WinForms</AssemblyName>
+    <PackageId>Diga.WebView2.WinForms</PackageId>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+    <PackageProjectUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</PackageProjectUrl>
+    <PackageTags>WebView2, WebView</PackageTags>
+    <RepositoryUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</RepositoryUrl>
+    <PackageIcon>logo.png</PackageIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Diga.Core.Json" Version="1.0.2" />
+    <PackageReference Include="MimeTypeExtension" Version="1.0.28" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="logo.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Diga.WebView2.Wrapper.V10105431\Diga.WebView2.Wrapper.V10105431.csproj" />
+  </ItemGroup>
+ 
+
+</Project>
