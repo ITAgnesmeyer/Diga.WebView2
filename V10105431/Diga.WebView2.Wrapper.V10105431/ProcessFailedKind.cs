@@ -6,6 +6,7 @@
         RenderProcessExited,
         RenderProcessUnresponsive,
         FrameRenderProcessExited,
+        UtilityProcessExited,
         SandboxHelperProcessExited,
         GpuProcessExited,
         PpapiPluginProcessExited,

@@ -19,7 +19,7 @@ namespace Diga.WebView2.Wrapper.Handler
         {
             try
             {
-                OnProcessFailed(new ProcessFailedEventArgs(args));
+                OnProcessFailed(new ProcessFailedEventArgs((ICoreWebView2ProcessFailedEventArgs2)args));
             }
             catch (Exception ex)
             {

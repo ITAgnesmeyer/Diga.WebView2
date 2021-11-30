@@ -1,24 +1,24 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Implementation;
+using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.EventArguments
 {
-    public class ProcessFailedEventArgs : EventArgs, ICoreWebView2ProcessFailedEventArgs
+
+    public class ProcessFailedEventArgs : ProcessFailedEventArgs2Interface
     {
-        private ICoreWebView2ProcessFailedEventArgs _Args;
 
-        public ProcessFailedEventArgs(ICoreWebView2ProcessFailedEventArgs args)
+        public ProcessFailedEventArgs(ICoreWebView2ProcessFailedEventArgs2 args):base(args)
         {
-            this._Args = args;
+            
         }
 
-        private ICoreWebView2ProcessFailedEventArgs ToInterface()
-        {
-            return _Args;
-        }
-        public ProcessFailedKind ProcessFailedKind => (ProcessFailedKind)this.ToInterface().ProcessFailedKind;
+        public new ProcessFailedKind ProcessFailedKind => (ProcessFailedKind)base.ProcessFailedKind;
 
-        COREWEBVIEW2_PROCESS_FAILED_KIND ICoreWebView2ProcessFailedEventArgs.ProcessFailedKind => this._Args.ProcessFailedKind;
+        
 
     }
 }
