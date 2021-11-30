@@ -141,7 +141,7 @@ namespace WebView2WrapperWinFormsTest
         private void webView1_WebMessageReceived(object sender, WebMessageReceivedEventArgs e)
         {
             string message = e.WebMessageAsString;
-            var rpc = Newtonsoft.Json.JsonConvert.DeserializeObject<Rpc>(message);
+            var rpc = Diga.Core.Json.DigaJson.Deserialize<Rpc>(message);
 
             switch (rpc.action)
             {
@@ -157,7 +157,7 @@ namespace WebView2WrapperWinFormsTest
                         objId = rpc.objId,
                         param = id
                     };
-                    string js = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+                    string js = Diga.Core.Json.DigaJson.Serialize(result);
                     this.webView1.SendMessage(js);
                     break;
                 case "get_script_result":

@@ -3,8 +3,9 @@ using System.Globalization;
 using System.IO;
 using System.Numerics;
 using System.Windows;
+using Diga.Core.Json;
 using Diga.WebView2.Wrapper.EventArguments;
-using Newtonsoft.Json;
+
 
 namespace WebView2WrapperWpfTest
 {
@@ -44,7 +45,7 @@ namespace WebView2WrapperWpfTest
         private void WebView2_WebMessageReceived(object sender, WebMessageReceivedEventArgs e)
         {
             var message = e.WebMessageAsString;
-            var rpc = JsonConvert.DeserializeObject<Rpc>(message);
+            var rpc = DigaJson.Deserialize<Rpc>(message);
 
             switch (rpc.action)
             {
@@ -60,7 +61,7 @@ namespace WebView2WrapperWpfTest
                         objId = rpc.objId,
                         param = id
                     };
-                    var js = JsonConvert.SerializeObject(result);
+                    var js = DigaJson.Serialize(result);
                     this.WebView2.SendMessage(js);
                     break;
                 case "get_script_result":
@@ -76,7 +77,7 @@ namespace WebView2WrapperWpfTest
         private void WebView1_WebMessageReceived(object sender, WebMessageReceivedEventArgs e)
         {
             var message = e.WebMessageAsString;
-            var rpc = JsonConvert.DeserializeObject<Rpc>(message);
+            var rpc = DigaJson.Deserialize<Rpc>(message);
 
             switch (rpc.action)
             {
@@ -92,7 +93,7 @@ namespace WebView2WrapperWpfTest
                         objId = rpc.objId,
                         param = id
                     };
-                    var js = JsonConvert.SerializeObject(result);
+                    var js = DigaJson.Serialize(result);
                     this.WebView1.SendMessage(js);
                     break;
                 case "get_script_result":
