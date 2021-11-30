@@ -444,5 +444,10 @@ namespace WebView2WrapperWinFormsTest
                 Debug.Print(e.ResultObjectAsJson);
             }
         }
+
+        private void webView1_ScriptDialogOpening(object sender, ScriptDialogOpeningEventArgs e)
+        {
+            Debug.Print(e.Message);
+        }
     }
 }

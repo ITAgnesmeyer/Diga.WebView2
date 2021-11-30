@@ -10,37 +10,37 @@ namespace Diga.WebView2.Wrapper
 
         }
        
-        new public Rectangle PointerDeviceRect
+        public new Rectangle PointerDeviceRect
         {
             get => base.PointerDeviceRect;
             set => base.PointerDeviceRect = value;
         }
 
-        new public Rectangle DisplayRect
+        public new Rectangle DisplayRect
         {
             get => base.DisplayRect;
             set => base.DisplayRect = value;
         }
 
-        new public Point PixelLocation
+        public new Point PixelLocation
         {
             get => base.PixelLocation;
             set => base.PixelLocation = value;
         }
 
-        new public Point HimetricLocation
+        public new Point HimetricLocation
         {
             get => base.HimetricLocation;
             set => base.HimetricLocation = value;
         }
 
-        new public Point PixelLocationRaw
+        public new Point PixelLocationRaw
         {
             get => base.PixelLocationRaw;
             set => base.PixelLocationRaw = value;
         }
 
-        new public Point HimetricLocationRaw
+        public new Point HimetricLocationRaw
         {
             get => base.HimetricLocationRaw;
             set => base.HimetricLocationRaw = value;
@@ -48,13 +48,13 @@ namespace Diga.WebView2.Wrapper
 
 
 
-        new public Rectangle TouchContact
+        public new Rectangle TouchContact
         {
             get => base.TouchContact;
             set => base.TouchContact = value;
         }
 
-        new public Rectangle TouchContactRaw
+        public new Rectangle TouchContactRaw
         {
             get => base.TouchContactRaw;
             set => base.TouchContactRaw = value;

@@ -16,7 +16,8 @@ namespace Diga.WebView2.Wrapper
         }
         new public bool IsScriptEnabled { get => (CBOOL)base.IsScriptEnabled; set => base.IsScriptEnabled = (CBOOL)value; }
         new public bool IsWebMessageEnabled { get => (CBOOL)base.IsWebMessageEnabled; set => base.IsWebMessageEnabled = (CBOOL)value; }
-        new public bool AreDefaultScriptDialogsEnabled { get => (CBOOL)base.AreDefaultScriptDialogsEnabled; set => base.AreDefaultScriptDialogsEnabled = (CBOOL)value; }
+        new public bool AreDefaultScriptDialogsEnabled { get => (CBOOL)base.AreDefaultScriptDialogsEnabled; 
+            set => base.AreDefaultScriptDialogsEnabled = (CBOOL)value; }
         new public bool IsStatusBarEnabled { get => (CBOOL)base.IsStatusBarEnabled; set => base.IsStatusBarEnabled = (CBOOL)value; }
         new public bool AreDevToolsEnabled { get => (CBOOL)base.AreDevToolsEnabled; set => base.AreDevToolsEnabled = (CBOOL)value; }
         new public bool AreDefaultContextMenusEnabled { get => (CBOOL)base.AreDefaultContextMenusEnabled; set => base.AreDefaultContextMenusEnabled = (CBOOL)value; }
@@ -28,9 +29,6 @@ namespace Diga.WebView2.Wrapper
         new public bool IsPasswordAutosaveEnabled { get => (CBOOL)base.IsPasswordAutosaveEnabled; set => base.IsPasswordAutosaveEnabled = (CBOOL)value; }
         new public bool IsGeneralAutofillEnabled { get => (CBOOL)base.IsGeneralAutofillEnabled; set => base.IsGeneralAutofillEnabled = (CBOOL)value; }
         new public bool AreBrowserAcceleratorKeysEnabled { get => (CBOOL)base.AreBrowserAcceleratorKeysEnabled; set => base.AreBrowserAcceleratorKeysEnabled = (CBOOL)value; }
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-        }
+       
     }
 }

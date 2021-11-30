@@ -62,7 +62,7 @@ namespace Diga.WebView2.Wrapper
         private const string HostHelperName = "{60A417CA-F1AB-4307-801B-F96003F8938B} Host Object Helper";
         private const string PLEASE_SET_A_VALUE_ABOVE_0 = "Plase Set a value above 0";
         private readonly Dictionary<string, object> _RemoteObjects = new Dictionary<string, object>();
-        
+
         private WebView2Environment Environment { get; set; }
         public WebView2Control(IntPtr parentHandle) : this(parentHandle, string.Empty, string.Empty, string.Empty)
         {
@@ -70,14 +70,14 @@ namespace Diga.WebView2.Wrapper
         }
         public WebView2Control(IntPtr parentHandle, string browserExecutableFolder, string userDataFolder, string additionalBrowserArguments)
         {
-            this._ParentHandle =new HandleRef(this, parentHandle);
+            this._ParentHandle = new HandleRef(this, parentHandle);
             this.BrowserExecutableFolder = browserExecutableFolder;
             this.UserDataFolder = userDataFolder;
             this.AdditionalBrowserArguments = additionalBrowserArguments;
             CreateWebView();
             RefCounter += 1;
         }
-        
+
         private HandleRef _ParentHandle { get; set; }
 
         public string BrowserExecutableFolder { get; }
@@ -101,7 +101,7 @@ namespace Diga.WebView2.Wrapper
 
                 AdditionalBrowserArguments = this.AdditionalBrowserArguments
             };
-            
+
             Native.CompareBrowserVersions(browserInfo, options.TargetCompatibleBrowserVersion, out int result);
             if (result == (int)Native.BrowserVersionState.Older)
             {
@@ -137,7 +137,7 @@ namespace Diga.WebView2.Wrapper
             this.Environment = e.Environment;
             this.Environment.BrowserProcessExited += OnBrowserProcessExitedIntern;
             this.Environment.NewBrowserVersionAvailable += OnNewBrowserVersionAvailableIntern;
-            
+
         }
 
         private void OnBrowserProcessExitedIntern(object sender, BrowserProcessExitedEventArgs e)
@@ -223,16 +223,16 @@ namespace Diga.WebView2.Wrapper
         {
             get
             {
-                if(this.Controller != null)
+                if (this.Controller != null)
                 {
-                    this._ParentHandle = new HandleRef( this,this.Controller.ParentWindow);
+                    this._ParentHandle = new HandleRef(this, this.Controller.ParentWindow);
                 }
                 return _ParentHandle;
             }
             set
             {
                 this._ParentHandle = value;
-                if(this.Controller != null)
+                if (this.Controller != null)
                 {
                     this.Controller.ParentWindow = (IntPtr)this._ParentHandle;
                 }
@@ -286,8 +286,8 @@ namespace Diga.WebView2.Wrapper
                 this.WebView.WebResourceRequested -= OnWebResourceRequestedIntern;
                 this.WebView.WebResourceResponseReceived -= OnWebResourceResponseReceivedIntern;
                 this.WebView.WindowCloseRequested -= OnWindowCloseRequestedIntern;
-               
-                
+
+
             }
         }
 
@@ -543,7 +543,7 @@ namespace Diga.WebView2.Wrapper
 
         private void CleanupControls()
         {
-            
+
 
             while (this._RemoteObjects.Count > 0)
             {
@@ -552,24 +552,24 @@ namespace Diga.WebView2.Wrapper
             }
             UnWireEvents();
             RefCounter -= 1;
-            
-            this._ParentHandle = new HandleRef(this,IntPtr.Zero);
+
+            this._ParentHandle = new HandleRef(this, IntPtr.Zero);
             this.WebView?.Dispose();
             this.WebView = null;
-           
 
-           Thread.Sleep(100);
+
+            Thread.Sleep(100);
             this._Settings?.Dispose();
             this._Settings = null;
-            
+
             this.Environment?.Dispose();
             this.Environment = null;
-              this.CompositionController?.Dispose();
+            this.CompositionController?.Dispose();
             this.CompositionController = null;
             this.Controller?.Dispose();
             this.Controller = null;
 
-           
+
 
 
 
@@ -752,7 +752,7 @@ namespace Diga.WebView2.Wrapper
             {
                 Type type = obj.GetType();
                 if (!type.IsClass || type.IsCOMObject)
-                throw new COMException(null, -2147352571);
+                    throw new COMException(null, -2147352571);
 
 
                 // If we got here without throwing an exception, the QI for IDispatch succeeded.
@@ -795,7 +795,7 @@ namespace Diga.WebView2.Wrapper
 
         public void ExecuteScript(string javaScript)
         {
-            
+
             this.WebView?.ExecuteScript(javaScript);
         }
 
@@ -813,7 +813,7 @@ namespace Diga.WebView2.Wrapper
         {
             get
             {
-                if(this.Controller != null)
+                if (this.Controller != null)
                 {
                     this._IsVisible = (CBOOL)this.Controller.IsVisible;
                 }
@@ -821,39 +821,39 @@ namespace Diga.WebView2.Wrapper
             }
             set
             {
-                this._IsVisible=value;
-                if(this.Controller != null)
+                this._IsVisible = value;
+                if (this.Controller != null)
                 {
 
                     this.Controller.IsVisible = (CBOOL)this._IsVisible;
                 }
-                
+
             }
         }
         private double _ZoomFactor;
         public double ZoomFactor
         {
             get
-            { 
-                if(this.Controller != null)
+            {
+                if (this.Controller != null)
                 {
                     this._ZoomFactor = this.Controller.ZoomFactor;
                 }
-                return this._ZoomFactor; 
+                return this._ZoomFactor;
             }
             set
             {
-                if(value <= 0)
+                if (value <= 0)
                     throw new ArgumentOutOfRangeException(PLEASE_SET_A_VALUE_ABOVE_0);
 
                 this._ZoomFactor = value;
-                if(this.Controller != null)
+                if (this.Controller != null)
                 {
                     this.Controller.ZoomFactor = this._ZoomFactor;
                 }
             }
         }
-        
+
         public async Task CapturePreviewAsync(Stream stream, ImageFormat imageFormat)
         {
             await this.WebView.CapturePreviewAsync(stream, imageFormat);
@@ -926,21 +926,21 @@ namespace Diga.WebView2.Wrapper
         public WebViewColor DefaultBackgroundColor
         {
             get
-            { 
-                if(this.Controller != null)
+            {
+                if (this.Controller != null)
                 {
                     this._DefaultBackgroundColor = this.Controller.DefaultBackgroundColor;
                 }
-                return this._DefaultBackgroundColor; 
+                return this._DefaultBackgroundColor;
             }
             set
-            { 
+            {
                 this._DefaultBackgroundColor = value;
-                if(this.Controller != null)
+                if (this.Controller != null)
                 {
                     this.Controller.DefaultBackgroundColor = this._DefaultBackgroundColor;
                 }
-                
+
             }
         }
 
@@ -948,12 +948,12 @@ namespace Diga.WebView2.Wrapper
         {
             return this.Environment?.CreatePrintSettings();
         }
-       
+
         public Task<bool> PrintPdfAsync(string file, WebView2PrintSettings printSettings)
         {
-           return this.WebView.PrintToPdfAsync(file, printSettings);
+            return this.WebView.PrintToPdfAsync(file, printSettings);
         }
     }
 
-    
+
 }

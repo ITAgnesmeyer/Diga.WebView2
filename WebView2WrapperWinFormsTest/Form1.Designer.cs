@@ -273,6 +273,7 @@
             this.webView1.FrameNavigationCompleted += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.NavigationCompletedEventArgs>(this.webView1_FrameNavigationCompleted);
             this.webView1.FrameNavigationStarting += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.NavigationStartingEventArgs>(this.webView1_FrameNavigationStarting);
             this.webView1.ExecuteScriptCompleted += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.ExecuteScriptCompletedEventArgs>(this.webView1_ExecuteScriptCompleted);
+            this.webView1.ScriptDialogOpening += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.ScriptDialogOpeningEventArgs>(this.webView1_ScriptDialogOpening);
             this.webView1.WebMessageReceived += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebMessageReceivedEventArgs>(this.webView1_WebMessageReceived);
             this.webView1.ScriptToExecuteOnDocumentCreatedCompleted += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>(this.webView1_ScriptToExecuteOnDocumentCreatedCompleted);
             this.webView1.DownloadStarting += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.DownloadStartingEventArgs>(this.webView1_DownloadStarting);
