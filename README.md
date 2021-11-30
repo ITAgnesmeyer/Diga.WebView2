@@ -68,7 +68,7 @@ package to decide which version of WebView2 to use.
 ### Package version:
 This means the version of the WebView2 packages.
 
-- V1099228 => [microsoft.web.webview2 1.0.992.28](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.992.28)
+- V10105431 => [microsoft.web.webview2 1.0.1054.31](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1054.31)
 - V10102030 => [microsoft.web.webview2 1.0.1020.30](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1020.30)
 
 ### How were the interop sources created?
