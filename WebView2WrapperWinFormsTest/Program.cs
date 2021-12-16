@@ -3,7 +3,6 @@ using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
-using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using System.Windows.Forms;
@@ -17,32 +16,8 @@ namespace WebView2WrapperWinFormsTest
     ////[ClassInterface(ClassInterfaceType.AutoDual)]
 //    #pragma warning restore 618
 //#endif
-    [ComVisible(true)]
-    public class TestObject
-    {
-
-        public string Name { get; set; }
-
-        public int GetStringLen()
-        {
-            return this.Name.Length;
-        }
-        public string GetValue(string input)
-        {
-            this.Name += input;
-            return this.Name;
-        }
-    }
 //HostObjectHelper will be added automatically:
-    public class Rpc
-    {
-        public string id { get; set; }
-        public string objId { get; set; }
-        public string action { get; set; }
-        public string param { get; set; }
-
-    }
-    static class Program
+static class Program
     {
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.

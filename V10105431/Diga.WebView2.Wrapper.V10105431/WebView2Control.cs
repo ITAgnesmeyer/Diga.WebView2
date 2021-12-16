@@ -191,7 +191,19 @@ namespace Diga.WebView2.Wrapper
             this.WebView.WindowCloseRequested += OnWindowCloseRequestedIntern;
 
             this._Settings = new WebView2Settings(this.WebView.Settings);
-            this.WebView.AddRemoteObject(HostHelperName, ref this.HostHelper);
+            object  wwInterface = e.WebView;
+
+            if (wwInterface is ICoreWebView2Staging stating)
+            {
+                StagingHostHelper statingHostHelper = new StagingHostHelper();
+
+                stating.AddHostObjectHelper(statingHostHelper);
+            }
+            else
+            {
+                this.WebView.AddRemoteObject(HostHelperName, ref this.HostHelper);    
+            }
+            
 
             OnCreated();
         }

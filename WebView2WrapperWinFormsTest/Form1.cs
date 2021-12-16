@@ -13,13 +13,41 @@ namespace WebView2WrapperWinFormsTest
     public partial class Form1 : Form
     {
         private TestObject _TestObject;
+        private RpcHandler _RpcHandler;
         public Form1()
         {
             this._TestObject = new TestObject();
+            this._RpcHandler = new RpcHandler();
+            this._RpcHandler.RpcEvent+= OnRpcEvent;
             InitializeComponent();
 
         }
 
+        private void OnRpcEvent(object sender, RpcEventHandlerArgs e)
+        {
+            string eventName = e.EventName;
+            string id = e.ObjectId;
+            IRpcCls rpcCls = e.RpcObject;
+            switch (eventName )
+            {
+                case "click":
+                    ShowMessage( "Object Click:" + rpcCls.objId);
+                    break;
+            }
+        }
+
+        private void ShowMessage(string msg)
+        {
+            if (this.InvokeRequired)
+            {
+                Action<string> ac = ShowMessage;
+                this.Invoke(ac, msg);
+            }
+            else
+            {
+                MessageBox.Show(this, msg);
+            }
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             this.webView1.Url = this.textBox1.Text;
@@ -141,7 +169,7 @@ namespace WebView2WrapperWinFormsTest
         private void webView1_WebMessageReceived(object sender, WebMessageReceivedEventArgs e)
         {
             string message = e.WebMessageAsString;
-            var rpc = Diga.Core.Json.DigaJson.Deserialize<Rpc>(message);
+            var rpc = Diga.Core.Json.DigaJson.Deserialize<RpcCls>(message);
 
             switch (rpc.action)
             {
@@ -150,7 +178,7 @@ namespace WebView2WrapperWinFormsTest
                     break;
                 case "run_script_with_result":
                     string id = this.webView1.InvokeScript(rpc.param.ToString());
-                    Rpc result = new Rpc()
+                    RpcCls result = new RpcCls()
                     {
                         id = id,
                         action = "get_script_result",
@@ -217,6 +245,9 @@ namespace WebView2WrapperWinFormsTest
             //this.webView1.AddRemoteObject("0E1B9FCAB5-FB86-4D78-91DE-7BC2B4077E5", (object) new HostObjectHelper());
             this._TestObject.Name = "hallo Welt";
             this.webView1.AddRemoteObject("testObject", this._TestObject);
+            this.webView1.AddRemoteObject("RpcHandler", this._RpcHandler);
+            this.webView1.AddScriptToExecuteOnDocumentCreated("window.external.raiseRpcEvent= async function(action, obj) { try { const rpcHandler = window.chrome.webview.hostObjects.RpcHandler;const rpcObj = await rpcHandler.GetNewRpc();rpcObj.objId = obj.id;rpcObj.action = action;rpcObj.param = \"empty\";let r = await rpcHandler.Handle(await rpcObj.id, await rpcObj.action, rpcObj); } catch (e) { alert(e); } }");
+            //this.webView1.InvokeScript("window.external.raiseRpcEvent= async function(action, obj) { try { const rpcHandler = window.chrome.webview.hostObjects.RpcHandler;const rpcObj = await rpcHandler.GetNewRpc();rpcObj.objId = obj.id;rpcObj.action = action;rpcObj.param = \"empty\";let r = await rpcHandler.Handle(await rpcObj.id, await rpcObj.action, rpcObj); } catch (e) { alert(e); } }");
             string value = File.ReadAllText("index.html");
             this.webView1.NavigateToString(value);
             this.textBox1.AutoCompleteCustomSource.Add(this.webView1.MonitoringUrl);
@@ -323,8 +354,10 @@ namespace WebView2WrapperWinFormsTest
             }
         }
 
+       
         private void webView1_FrameCreated(object sender, FrameCreatedEventArgs e)
         {
+      
             e.Frame.FrameDestroyed += (s, o) =>
             {
 
@@ -401,6 +434,7 @@ namespace WebView2WrapperWinFormsTest
                 $"obj.innerHTML=\"Click Me\";" +
                 $"obj.id=\"{Guid.NewGuid()}\";" +
                 $"document.body.appendChild(obj);" +
+                "obj.addEventListener(\"click\", async () => { await window.external.raiseRpcEvent(\"click\", this); });" +
                 $"return obj.id";
 
 

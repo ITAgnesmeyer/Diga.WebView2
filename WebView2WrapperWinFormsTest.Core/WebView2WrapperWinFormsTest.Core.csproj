@@ -19,6 +19,8 @@
     <Compile Include="..\WebView2WrapperWinFormsTest\Form1.cs" Link="Form1.cs" />
     <Compile Include="..\WebView2WrapperWinFormsTest\Form1.Designer.cs" Link="Form1.Designer.cs" />
     <Compile Include="..\WebView2WrapperWinFormsTest\Program.cs" Link="Program.cs" />
+    <Compile Include="..\WebView2WrapperWinFormsTest\Rpc.cs" Link="Rpc.cs" />
+    <Compile Include="..\WebView2WrapperWinFormsTest\TestObject.cs" Link="TestObject.cs" />
   </ItemGroup>
 
   <ItemGroup>

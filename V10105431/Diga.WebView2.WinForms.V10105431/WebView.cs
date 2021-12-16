@@ -468,7 +468,16 @@ namespace Diga.WebView2.WinForms
             string scriptToExecute = $"window.external.evalScript(\"{javaScript.Replace("\"", "\\'")}\")";
             this._WebViewControl.ExecuteScript(scriptToExecute);
         }
-
+        /// <summary>
+        /// Evaluate script async with Exception Check
+        /// </summary>
+        /// <remarks>
+        /// For exception check the added Function window.external.evalScript will bie executed
+        /// </remarks>
+        /// <param name="javaScript"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="ScriptException"></exception>
         public async Task<string> EvalScriptAsync(string javaScript)
         {
             if (!this.CheckIsCreatedOrEnded)
@@ -485,6 +494,30 @@ namespace Diga.WebView2.WinForms
             }
             return result;
         }
+
+
+        /// <summary>
+        /// Execute the Script directly no Exception will be thrown
+        /// </summary>
+        /// <param name="javaScript">Script to execute</param>
+        /// <returns>Result String</returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        public async Task<string> ExecuteScriptDirectAsync(string javaScript)
+        {
+            if (!this.CheckIsCreatedOrEnded)
+                throw new InvalidOperationException("Browser not created or Crashed");
+            ScriptZeroTest(javaScript);
+            string result = await this._WebViewControl.ExecuteScriptAsync(javaScript);
+            return result;
+        }
+
+        /// <summary>
+        /// Execute the Script with Exception - Check => window.external.executeScript
+        /// </summary>
+        /// <param name="javaScript"></param>
+        /// <returns>string</returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="ScriptException"></exception>
         public async Task<string> ExecuteScriptAsync(string javaScript)
         {
             if (!this.CheckIsCreatedOrEnded)
