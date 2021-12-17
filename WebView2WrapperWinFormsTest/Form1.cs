@@ -2,14 +2,21 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Diga.WebView2.WinForms.Scripting;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
 
+using DISPPARAMS = System.Runtime.InteropServices.ComTypes.DISPPARAMS;
+using EXCEPINFO = System.Runtime.InteropServices.ComTypes.EXCEPINFO;
+
 namespace WebView2WrapperWinFormsTest
 {
+  
+
     public partial class Form1 : Form
     {
         private TestObject _TestObject;
@@ -27,11 +34,19 @@ namespace WebView2WrapperWinFormsTest
         {
             string eventName = e.EventName;
             string id = e.ObjectId;
+
+            
+
             IRpcCls rpcCls = e.RpcObject;
+            
+
+          
+
+            string objId = rpcCls.objId;
             switch (eventName )
             {
                 case "click":
-                    ShowMessage( "Object Click:" + rpcCls.objId);
+                    ShowMessage( "Object Click:" + objId);
                     break;
             }
         }
@@ -246,7 +261,7 @@ namespace WebView2WrapperWinFormsTest
             this._TestObject.Name = "hallo Welt";
             this.webView1.AddRemoteObject("testObject", this._TestObject);
             this.webView1.AddRemoteObject("RpcHandler", this._RpcHandler);
-            this.webView1.AddScriptToExecuteOnDocumentCreated("window.external.raiseRpcEvent= async function(action, obj) { try { const rpcHandler = window.chrome.webview.hostObjects.RpcHandler;const rpcObj = await rpcHandler.GetNewRpc();rpcObj.objId = obj.id;rpcObj.action = action;rpcObj.param = \"empty\";let r = await rpcHandler.Handle(await rpcObj.id, await rpcObj.action, rpcObj); } catch (e) { alert(e); } }");
+            this.webView1.AddScriptToExecuteOnDocumentCreated("window.external.raiseRpcEvent= async function(action, obj) { try { const rpcHandler = window.chrome.webview.hostObjects.RpcHandler;const rpcObj = await rpcHandler.GetNewRpc();rpcObj.objId = obj.id;rpcObj.action = action;rpcObj.param = \"empty\";rpcObj.item=obj;let r = await rpcHandler.Handle(await rpcObj.id, await rpcObj.action, rpcObj); } catch (e) { alert(e); } }");
             //this.webView1.InvokeScript("window.external.raiseRpcEvent= async function(action, obj) { try { const rpcHandler = window.chrome.webview.hostObjects.RpcHandler;const rpcObj = await rpcHandler.GetNewRpc();rpcObj.objId = obj.id;rpcObj.action = action;rpcObj.param = \"empty\";let r = await rpcHandler.Handle(await rpcObj.id, await rpcObj.action, rpcObj); } catch (e) { alert(e); } }");
             string value = File.ReadAllText("index.html");
             this.webView1.NavigateToString(value);
@@ -434,7 +449,7 @@ namespace WebView2WrapperWinFormsTest
                 $"obj.innerHTML=\"Click Me\";" +
                 $"obj.id=\"{Guid.NewGuid()}\";" +
                 $"document.body.appendChild(obj);" +
-                "obj.addEventListener(\"click\", async () => { await window.external.raiseRpcEvent(\"click\", this); });" +
+                "obj.addEventListener(\"click\", async () => { await window.external.raiseRpcEvent(\"click\", obj); });" +
                 $"return obj.id";
 
 
@@ -482,6 +497,21 @@ namespace WebView2WrapperWinFormsTest
         private void webView1_ScriptDialogOpening(object sender, ScriptDialogOpeningEventArgs e)
         {
             Debug.Print(e.Message);
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "*.mp3|*.mp3";
+            ofd.Multiselect = false;
+            DialogResult result = ofd.ShowDialog(this);
+            if (result == DialogResult.OK)
+            {
+                string file = ofd.FileName;
+                Uri uri = new Uri(file);
+                
+                this.webView1.Navigate(uri.AbsolutePath);
+            }
         }
     }
 }

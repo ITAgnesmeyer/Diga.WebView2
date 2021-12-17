@@ -43,6 +43,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.webView1 = new Diga.WebView2.WinForms.WebView();
+            this.button6 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -50,6 +51,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button6);
             this.panel1.Controls.Add(this.bnScriptTest);
             this.panel1.Controls.Add(this.lblZoomFactor);
             this.panel1.Controls.Add(this.trackBar1);
@@ -92,12 +94,12 @@
             // trackBar1
             // 
             this.trackBar1.AutoSize = false;
-            this.trackBar1.Location = new System.Drawing.Point(1190, 5);
+            this.trackBar1.Location = new System.Drawing.Point(1209, 5);
             this.trackBar1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.trackBar1.Maximum = 500;
             this.trackBar1.Minimum = 1;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(155, 23);
+            this.trackBar1.Size = new System.Drawing.Size(136, 23);
             this.trackBar1.TabIndex = 9;
             this.trackBar1.Value = 100;
             this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
@@ -121,9 +123,9 @@
             this.bnPostMessage.Location = new System.Drawing.Point(1118, 5);
             this.bnPostMessage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.bnPostMessage.Name = "bnPostMessage";
-            this.bnPostMessage.Size = new System.Drawing.Size(65, 27);
+            this.bnPostMessage.Size = new System.Drawing.Size(38, 27);
             this.bnPostMessage.TabIndex = 7;
-            this.bnPostMessage.Text = "Post";
+            this.bnPostMessage.Text = "PDF";
             this.bnPostMessage.UseVisualStyleBackColor = true;
             this.bnPostMessage.Click += new System.EventHandler(this.bnPostMessage_Click);
             // 
@@ -283,6 +285,18 @@
             this.webView1.WebViewCreated += new System.EventHandler(this.webView1_WebViewCreated);
             this.webView1.BeforeWebViewDestroy += new System.EventHandler(this.webView1_BeforeWebViewDestroy);
             // 
+            // button6
+            // 
+            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button6.Location = new System.Drawing.Point(1163, 5);
+            this.button6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(47, 27);
+            this.button6.TabIndex = 12;
+            this.button6.Text = "MP3";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -320,6 +334,7 @@
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Label lblZoomFactor;
         private System.Windows.Forms.Button bnScriptTest;
+        private System.Windows.Forms.Button button6;
     }
 }
 

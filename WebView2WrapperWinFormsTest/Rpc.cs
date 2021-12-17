@@ -13,7 +13,7 @@ namespace WebView2WrapperWinFormsTest
         string objId { get; set; }
         string action { get; set; }
         string param { get; set; }
-
+        object item { get; set; }
 
     }
 
@@ -24,7 +24,7 @@ namespace WebView2WrapperWinFormsTest
         public string objId { get; set; }
         public string action { get; set; }
         public string param { get; set; }
-
+        public object item { get; set; }
     }
 
     public class RpcEventHandlerArgs : EventArgs
@@ -49,7 +49,9 @@ namespace WebView2WrapperWinFormsTest
         {
             var rpc = new RpcCls
             {
-                id = Guid.NewGuid().ToString()
+                id = Guid.NewGuid().ToString(),
+                item = null
+                
             };
             return rpc;
         }
@@ -63,16 +65,21 @@ namespace WebView2WrapperWinFormsTest
             return true;
         }
 
-        private Task _Task;
+        
         protected virtual void OnRpcEvent(RpcEventHandlerArgs e)
         {
+            try
+            {
+                RpcEvent?.Invoke( this, e);
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception);
+                
+            }
             
-            RpcEvent?.Invoke( this, e);
         }
 
-        private void AsyncCallbacFun(IAsyncResult ar)
-        {
-           
-        }
+     
     }
 }
