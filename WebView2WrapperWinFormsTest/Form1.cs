@@ -261,6 +261,7 @@ namespace WebView2WrapperWinFormsTest
             string value = File.ReadAllText("index.html");
             this.webView1.NavigateToString(value);
             this.textBox1.AutoCompleteCustomSource.Add(this.webView1.MonitoringUrl);
+            this.textBox1.AutoCompleteCustomSource.Add(this.webView1.MonitoringUrl + "mp3test/testmp3.html");
 
 
         }
@@ -507,6 +508,8 @@ namespace WebView2WrapperWinFormsTest
                 
                 this.webView1.Navigate(uri.AbsolutePath);
             }
+
+
         }
     }
 }

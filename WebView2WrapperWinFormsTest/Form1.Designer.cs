@@ -86,6 +86,7 @@
             // bnScriptTest
             // 
             this.bnScriptTest.Location = new System.Drawing.Point(1384, 8);
+            this.bnScriptTest.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.bnScriptTest.Name = "bnScriptTest";
             this.bnScriptTest.Size = new System.Drawing.Size(22, 23);
             this.bnScriptTest.TabIndex = 11;
@@ -262,7 +263,7 @@
             this.webView1.IsZoomControlEnabled = true;
             this.webView1.Location = new System.Drawing.Point(0, 0);
             this.webView1.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.webView1.MonitoringFolder = "C:\\tmp\\wwwroot";
+            this.webView1.MonitoringFolder = ".\\wwwroot";
             this.webView1.MonitoringUrl = "https://5b834d57-0891-4730-b6ba-c793b4e76468/";
             this.webView1.Name = "webView1";
             this.webView1.RemoteObjectsAllowed = true;
