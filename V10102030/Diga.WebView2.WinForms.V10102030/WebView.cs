@@ -310,6 +310,7 @@ namespace Diga.WebView2.WinForms
             e.Settings.IsZoomControlEnabled = this._IsZoomControlEnabled;
             e.Settings.IsBuiltInErrorPageEnabled = true;
             e.Settings.IsPinchZoomEnabled = true;
+            
 
 
         }

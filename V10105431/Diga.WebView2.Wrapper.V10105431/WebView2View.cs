@@ -2,6 +2,7 @@
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.ExceptionServices;
@@ -10,7 +11,10 @@ using System.Threading.Tasks;
 using Diga.WebView2.Wrapper.Delegates;
 using Diga.WebView2.Wrapper.Types;
 using System.Security;
+using System.Text;
+using System.Threading;
 using Diga.WebView2.Wrapper.Implementation;
+using MimeTypeExtension;
 
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
@@ -180,8 +184,43 @@ namespace Diga.WebView2.Wrapper
             OnDownloadStarting(e);
         }
 
-        private void WebResourceResponseReceivedIntern(object sender, WebResourceResponseReceivedEventArgs e)
+        public List<string> CurrentContent { get; } = new List<string>();
+        private async void WebResourceResponseReceivedIntern(object sender, WebResourceResponseReceivedEventArgs e)
         {
+            try
+            {
+               
+                //Thread.Sleep(100);
+                //if (e.Request.Method == "GET")
+                //{
+                    using (var stream =await  e.Response.GetContentAsync())
+                    {
+                        if (stream != null)
+                        {
+                            //Uri uri = new Uri(e.Request.Uri);
+                            //string mimeType = uri.MimeTypeOrDefault();
+                            //if (mimeType == "text/html")
+                            //{
+                                StreamReader sr = new StreamReader(stream,Encoding.UTF8);
+                                string content = await sr.ReadToEndAsync();
+
+                                 
+                                this.CurrentContent.Add(content);
+
+                            //}
+                        
+                        }
+
+                    }
+                //}
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception);
+
+            }
+
+
             OnWebResourceResponseReceived(e);
         }
 
@@ -329,7 +368,7 @@ namespace Diga.WebView2.Wrapper
 
                 try
                 {
-                   EventRegistrationTool.UnWireToken(this._CertificateRequestedToken, base.remove_ClientCertificateRequested);
+                    EventRegistrationTool.UnWireToken(this._CertificateRequestedToken, base.remove_ClientCertificateRequested);
 
                 }
                 catch (Exception e)
@@ -369,6 +408,7 @@ namespace Diga.WebView2.Wrapper
 
         private void OnNavigationStartingIntern(object sender, NavigationStartingEventArgs e)
         {
+            this.CurrentContent.Clear();
             OnNavigationStarting(e);
         }
 
@@ -432,6 +472,10 @@ namespace Diga.WebView2.Wrapper
             return handler.Id;
         }
 
+        public void NavigateWithWebResourceRequest(WebResourceRequest request)
+        {
+            base.NavigateWithWebResourceRequest(request);
+        }
         private void OnExecuteScriptCompletedIntern(object sender, ExecuteScriptCompletedEventArgs e)
         {
             OnExecuteScriptCompleted(e);

@@ -1,8 +1,12 @@
-﻿using Diga.WebView2.Interop;
+﻿using System;
+using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.Types;
+using System.Runtime.InteropServices;
 
 namespace Diga.WebView2.Wrapper
 {
+
+   
     public class HttpRequestHeaders : ICoreWebView2HttpRequestHeaders
     {
         private ICoreWebView2HttpRequestHeaders _Interface;

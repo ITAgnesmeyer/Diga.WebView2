@@ -10,16 +10,17 @@ namespace Diga.WebView2.Wrapper
     {
         private ResponseInfo()
         {
-            Header = new Dictionary<string, string>();
+            this.Header = new Dictionary<string, string>();
         }
-        public ResponseInfo(Stream stream) : this()
+
+        private ResponseInfo(Stream stream) : this()
         {
-            Stream = stream;
-            Header.Add("date", DateTime.Now.ToString("ddd, dd MMM yyy HH':'mm':'ss 'GMT'"));
-            Header.Add("accept-ranges", "bytes");
-            Header.Add("Access-Control-Allow-Origin", "*");
-            Header.Add("content-length", Stream.Length.ToString());
-            Header.Add("X-Content-Type-Options", "nosniff");
+            this.Stream = stream;
+            this.Header.Add("date", DateTime.Now.ToString("ddd, dd MMM yyy HH':'mm':'ss 'GMT'"));
+            this.Header.Add("accept-ranges", "bytes");
+            this.Header.Add("Access-Control-Allow-Origin", "*");
+            this.Header.Add("content-length", Stream.Length.ToString());
+            this.Header.Add("X-Content-Type-Options", "nosniff");
 
         }
 
@@ -36,22 +37,25 @@ namespace Diga.WebView2.Wrapper
         {
 
             Header.Add("Cache-Control", "max-age=31536000, immutable");
+            StringBuilder headerStringBuilder = new StringBuilder($"HTTP/2 {StatusCode} {StatusText}\r\n");
 
-            string headerString = "";
-            headerString = $"HTTP/2 {StatusCode} {StatusText}\r\n";
-            foreach (var headerValue in Header)
+            //string headerString = "";
+            //headerString = $"HTTP/2 {StatusCode} {StatusText}\r\n";
+            foreach (var headerValue in this.Header)
             {
-
-                headerString += headerValue.Key + ":" + headerValue.Value;
-                headerString += "\r\n";
+                headerStringBuilder.Append(headerValue.Key);
+                headerStringBuilder.Append(":");
+                headerStringBuilder.Append("\r\n");
+                //headerString += headerValue.Key + ":" + headerValue.Value;
+                //headerString += "\r\n";
             }
 
-            if (!string.IsNullOrEmpty(headerString))
-            {
-                headerString += "\r\n";
-            }
-
-            return headerString;
+            //if (!string.IsNullOrEmpty(headerString))
+            //{
+            //    headerString += "\r\n";
+            //}
+            headerStringBuilder.Append("\r\n");
+            return headerStringBuilder.ToString();
         }
     }
 }

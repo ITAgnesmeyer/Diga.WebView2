@@ -1,6 +1,6 @@
 ﻿using System;
 using Diga.WebView2.Interop;
-
+using System.Threading.Tasks;
 namespace Diga.WebView2.Wrapper.EventArguments
 {
     public class WebResourceRequestedEventArgs : EventArgs, ICoreWebView2WebResourceRequestedEventArgs
@@ -23,6 +23,8 @@ namespace Diga.WebView2.Wrapper.EventArguments
         {
             get
             {
+                if (this.ToInterface().Response == null)
+                    return null;
                 return new WebResourceResponse(this.ToInterface().Response);
             }
             set

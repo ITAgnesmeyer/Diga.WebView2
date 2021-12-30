@@ -1,67 +1,28 @@
-<!doctype html>
-<html lang="en-us">
-  <head>
-		<style>
-			body {
-				padding: 20px;
-				background-color:#ffffc9
-			  }
-				  
-			  p { margin : 0; }
-		</style>    	  
-  </head>
-  <body>
-	  C# output:
-	  <br>
-		 <textarea rows="10" cols="100" id="output"></textarea>
-	  <br>
-		  <button type="button" onclick="App.onClick()" id="button" disabled="true">Run</button>
-	  <br>
+<!DOCTYPE html>
+<html>
 
-	  <p><button onclick="App.geoFindMeCSharp()">Show my location</button></p>
-	  <div id="out"></div>	  
-	
-	<script type='text/javascript'>
-		var App = {
-			onClick: function () {
-				this.output.value = "...";
-				var res = this.string_GetMessage("Hallo from Script");
-				this.output.value = res;
-			},
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Diga.Wasm.Test</title>
+    <base href="/" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="Diga.Wasm.Test.styles.css" rel="stylesheet" />
+    <link href="manifest.json" rel="manifest" />
+    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
+</head>
 
-			init: function () {
-				this.int_add = Module.mono_bind_static_method ("[sample] Math:IntAdd");
-				this.string_GetMessage = Module.mono_bind_static_method("[sample] Diga:GetMessage");
-				this.output = document.getElementById ("output");
-				this.button = document.getElementById ("button");
+<body>
+    <div id="app">Loading...</div>
 
-				this.button.disabled = false;
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
+</body>
 
-				// initialize geolocation sample
-				BINDING.call_static_method("[sample] GeoLocation.Program:Main", []);
-			},
-            geoFindMeCSharp: function () {
-                BINDING.call_static_method("[sample] GeoLocation.Program:GeoFindMe", [ document.getElementById("out") ]);
-            }			
-		};
-
-        // Called from C# passing in the mime type of the image and the 
-        // image data converted from byte array to base64
-        function showMyPosition (mimeType, imageData)
-        {
-            var output = document.getElementById("out");
-
-            var img = new Image();
-            img.src = "data:" + mimeType + ";base64," + imageData;
-
-            output.appendChild(img);
-
-        }
-
-      </script>
-    <script type="text/javascript" src="mono-config.js"></script>
-	<script type="text/javascript" src="runtime.js"></script>
-      <script async type="text/javascript" src="dotnet.js"></script>
-  </body>
-  </html>
-  
+</html>

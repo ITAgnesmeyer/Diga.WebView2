@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -10,7 +11,7 @@ using Diga.WebView2.Wrapper.EventArguments;
 
 namespace WebView2WrapperWinFormsTest
 {
-  
+
 
     public partial class Form1 : Form
     {
@@ -20,44 +21,45 @@ namespace WebView2WrapperWinFormsTest
         {
             this._TestObject = new TestObject();
             this._RpcHandler = new RpcHandler();
-            this._RpcHandler.RpcEvent+= OnRpcEvent;
+            this._RpcHandler.RpcEvent += OnRpcEvent;
             InitializeComponent();
 
         }
 
-        private void OnRpcEvent(object sender, RpcEventHandlerArgs e)
+        private async  void OnRpcEvent(object sender, RpcEventHandlerArgs e)
         {
             string eventName = e.EventName;
             string id = e.ObjectId;
 
-            
+
 
             IRpcCls rpcCls = e.RpcObject;
-            
 
-          
+
+
 
             string objId = rpcCls.objId;
-            switch (eventName )
+            switch (eventName)
             {
                 case "click":
-                    ShowMessage( "Object Click:" + objId);
+                    {
+                        
+                        this.webView1.GetDOMConsole().log("Hallo from Prog");
+                        DOMWindow win = this.webView1.GetDOMWindow();
+                        string name = await win.GetName();
+                        DOMWindow val =win.open("https://www.google.de", "test");
+                        val.SetName("hallox");
+                        val.alert("test");
+
+                        win.SetName("hallo");
+                        win.alert("Object Click:" + objId);
+                    }
+
                     break;
             }
         }
 
-        private void ShowMessage(string msg)
-        {
-            if (this.InvokeRequired)
-            {
-                Action<string> ac = ShowMessage;
-                this.Invoke(ac, msg);
-            }
-            else
-            {
-                MessageBox.Show(this, msg);
-            }
-        }
+      
         private void button1_Click(object sender, EventArgs e)
         {
             this.webView1.Url = this.textBox1.Text;
@@ -86,6 +88,7 @@ namespace WebView2WrapperWinFormsTest
         private void webView1_SourceChanged(object sender, SourceChangedEventArgs e)
         {
             //MessageBox.Show("SourceChanged=>" + e.IsNewDocument);
+
 
         }
 
@@ -256,7 +259,7 @@ namespace WebView2WrapperWinFormsTest
             this._TestObject.Name = "hallo Welt";
             this.webView1.AddRemoteObject("testObject", this._TestObject);
             this.webView1.AddRemoteObject("RpcHandler", this._RpcHandler);
-            this.webView1.AddScriptToExecuteOnDocumentCreated("window.external.raiseRpcEvent= async function(action, obj) { try { const rpcHandler = window.chrome.webview.hostObjects.RpcHandler;const rpcObj = await rpcHandler.GetNewRpc();rpcObj.objId = obj.id;rpcObj.action = action;rpcObj.param = \"empty\";rpcObj.item=obj;let r = await rpcHandler.Handle(await rpcObj.id, await rpcObj.action, rpcObj); } catch (e) { alert(e); } }");
+            this.webView1.AddScriptToExecuteOnDocumentCreated("window.external.raiseRpcEvent= async function(action, obj) { try { const rpcHandler = window.chrome.webview.hostObjects.RpcHandler;const rpcObj = await rpcHandler.GetNewRpc();rpcObj.objId = obj.id;rpcObj.action = action;rpcObj.param = \"empty\";rpcObj.item=document.getElementById(obj.id);let r = await rpcHandler.Handle(await rpcObj.id, await rpcObj.action, rpcObj);let b = await rpcHandler.ReleaseObject(rpcObj); } catch (e) { alert(e); } }");
             //this.webView1.InvokeScript("window.external.raiseRpcEvent= async function(action, obj) { try { const rpcHandler = window.chrome.webview.hostObjects.RpcHandler;const rpcObj = await rpcHandler.GetNewRpc();rpcObj.objId = obj.id;rpcObj.action = action;rpcObj.param = \"empty\";let r = await rpcHandler.Handle(await rpcObj.id, await rpcObj.action, rpcObj); } catch (e) { alert(e); } }");
             string value = File.ReadAllText("index.html");
             this.webView1.NavigateToString(value);
@@ -327,14 +330,14 @@ namespace WebView2WrapperWinFormsTest
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            //this.webView1.Dispose();
         }
 
         private void webView1_BeforeWebViewDestroy(object sender, EventArgs e)
         {
             //this.webView1.RemoveRemoteObject("{60A417CA-F1AB-4307-801B-F96003F8938B} Host Object Helper");
             //this.webView1.RemoveRemoteObject("testObject");
-
+            //this.webView1.RemoveRemoteObject("RpcHandler");
 
         }
 
@@ -352,23 +355,23 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_WebResourceResponseReceived(object sender, WebResourceResponseReceivedEventArgs e)
         {
-            Debug.Print(e.Request.Uri);
-            Debug.Print(e.Response.StatusCode.ToString());
-            Debug.Print(e.Response.ReasonPhrase);
-            var it = e.Response.Headers.GetIterator();
+            //Debug.Print(e.Request.Uri);
+            //Debug.Print(e.Response.StatusCode.ToString());
+            //Debug.Print(e.Response.ReasonPhrase);
+            //var it = e.Response.Headers.GetIterator();
 
-            if (it.HasCurrent)
-                Debug.Print(it.Current.Name + "," + it.Current.Value);
-            while (it.MoveNext())
-            {
-                Debug.Print(it.Current.Name + "," + it.Current.Value);
-            }
+            //if (it.HasCurrent)
+            //    Debug.Print(it.Current.Name + "," + it.Current.Value);
+            //while (it.MoveNext())
+            //{
+            //    Debug.Print(it.Current.Name + "," + it.Current.Value);
+            //}
         }
 
-       
+
         private void webView1_FrameCreated(object sender, FrameCreatedEventArgs e)
         {
-      
+
             e.Frame.FrameDestroyed += (s, o) =>
             {
 
@@ -425,7 +428,7 @@ namespace WebView2WrapperWinFormsTest
         {
             if (sender is WebView2DownloadOperation opt)
             {
-                Debug.Print("Byte Received:" + opt.BytesReceived.ToString());
+                Debug.Print("Byte Received:" + opt.BytesReceived);
 
             }
         }
@@ -436,7 +439,7 @@ namespace WebView2WrapperWinFormsTest
             if (dbl == 0)
                 dbl = 1;
             this.webView1.ZoomFactor = dbl;
-            this.lblZoomFactor.Text = (dbl * 100).ToString();
+            this.lblZoomFactor.Text = (dbl * 100).ToString(CultureInfo.CurrentCulture);
         }
 
         private async void bnScriptTest_Click(object sender, EventArgs e)
@@ -467,7 +470,8 @@ namespace WebView2WrapperWinFormsTest
         }
         private async Task ShowMessageBoxAsync(string message, string caption = "Message")
         {
-            await Task.Run(() => ShowMessageBox(message, caption));
+            var result = await this.webView1.GetScriptObject().Alert(message);
+
         }
         private void ShowMessageBox(string message, string caption = "Message")
         {
@@ -498,18 +502,28 @@ namespace WebView2WrapperWinFormsTest
         private void button6_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "*.mp3|*.mp3";
+            ofd.Filter = @"*.mp3|*.mp3";
             ofd.Multiselect = false;
             DialogResult result = ofd.ShowDialog(this);
             if (result == DialogResult.OK)
             {
                 string file = ofd.FileName;
                 Uri uri = new Uri(file);
-                
+
                 this.webView1.Navigate(uri.AbsolutePath);
             }
 
 
+        }
+
+        private void bnSrc_Click(object sender, EventArgs e)
+        {
+            if (this.webView1.Content.Count <= 0) return;
+
+            using (frmSrc src = new frmSrc(this.webView1.Content))
+            {
+                src.ShowDialog(this);
+            }
         }
     }
 }
