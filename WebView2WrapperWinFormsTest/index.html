@@ -10,7 +10,7 @@
     </div>
     <script>
         document.getElementById("myButton").addEventListener("click", async () => { await window.external.raiseRpcEvent("click", this); });
-        window.external.raiseRpcEvent = async function(action, obj) { try { const rpcHandler = window.chrome.webview.hostObjects.RpcHandler;const rpcObj = await rpcHandler.GetNewRpc();rpcObj.objId = obj.id;rpcObj.action = action;rpcObj.param = "empty";let r = await rpcHandler.Handle(await rpcObj.id, await rpcObj.action, rpcObj); } catch (e) { alert(e); } }
+        //window.external.raiseRpcEvent = async function(action, obj) { try { const rpcHandler = window.chrome.webview.hostObjects.RpcHandler;const rpcObj = await rpcHandler.GetNewRpc();rpcObj.objId = obj.id;rpcObj.action = action;rpcObj.param = "empty";let r = await rpcHandler.Handle(await rpcObj.id, await rpcObj.action, rpcObj); } catch (e) { alert(e); } }
         async function TestEventSync(objId) {
             var sender = document.getElementById(objId);
             /*var propertyValue =
@@ -23,14 +23,16 @@
                 const rpcHandler = window.chrome.webview.hostObjects.RpcHandler;
 
                 const newRpc = await rpcHandler.GetNewRpc();
-                let g = NewGuid();
+                //let g = NewGuid();
 
-                newRpc.id = g;
+                //newRpc.id = g;
                 newRpc.objId = objId;
                 newRpc.action = "click";
                 newRpc.param = "empty";
                 let id = await newRpc.id;
                 let r = await rpcHandler.Handle(await newRpc.id, "click", newRpc);
+                let b = await rpcHandler.ReleaseObject(newRpc);
+
             } catch (e) {
                 alert(e);
             }

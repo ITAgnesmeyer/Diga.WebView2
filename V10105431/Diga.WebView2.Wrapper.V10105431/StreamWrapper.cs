@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Security;
+using System.Threading.Tasks;
 using STATSTG = System.Runtime.InteropServices.ComTypes.STATSTG;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable InconsistentNaming
@@ -271,6 +272,91 @@ namespace Diga.WebView2.Wrapper
         #region Fields
         private readonly Stream _ioStream;
         #endregion Fields
+    }
+
+
+    public class ComStream : Stream
+    {
+        private IStream _IStream;
+        private IntPtr _Int64;
+
+        public ComStream(IStream source)
+        {
+            this._IStream = source;
+            this._Int64 = Marshal.AllocCoTaskMem(8);
+        }
+        public override void Flush()
+        {
+            this._IStream.Commit(0);
+        }
+
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            if (offset != 0)
+                throw new NotImplementedException();
+            this._IStream.Read(buffer, count, this._Int64);
+            return Marshal.ReadInt32(this._Int64);
+        }
+
+        public async Task<byte[]> GetAllBytesAsync()
+        {
+            long len = this.Length;
+            
+            byte[] bytes = new byte[len];
+            int read = await this.ReadAsync(bytes, 0, (int)len);
+            return bytes;
+        }
+        public byte[] GetAllBytes()
+        {
+            long len = this.Length;
+            byte[] bytes = new byte[len];
+            this.Read(bytes, 0, (int)len);
+            return bytes;
+        }
+        public override long Seek(long offset, SeekOrigin origin)
+        {
+            this._IStream.Seek(offset, (int) origin, this._Int64);
+            return Marshal.ReadInt64(this._Int64);
+        }
+
+        public override void SetLength(long value)
+        {
+            this._IStream.SetSize(value);
+        }
+
+        public override void Write(byte[] buffer, int offset, int count)
+        {
+            if (offset != 0)
+                throw new NotImplementedException();
+            this._IStream.Write(buffer, count, IntPtr.Zero);
+        }
+
+        public override bool CanRead => true;
+
+        public override bool CanSeek => false;
+
+        public override bool CanWrite => true;
+
+        public override long Length
+        {
+            get
+            {
+                System.Runtime.InteropServices.ComTypes.STATSTG pstatstg;
+                this._IStream.Stat(out pstatstg, 1);
+                return pstatstg.cbSize;
+            }
+        }
+
+        public override long Position
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+
+        ~ComStream()
+        {
+            Marshal.FreeCoTaskMem(this._Int64);
+        }
     }
     public class StreamWrapper : IStream
     {

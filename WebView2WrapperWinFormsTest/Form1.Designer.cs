@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.bnSrc = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.bnScriptTest = new System.Windows.Forms.Button();
             this.lblZoomFactor = new System.Windows.Forms.Label();
@@ -51,6 +52,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.bnSrc);
             this.panel1.Controls.Add(this.button6);
             this.panel1.Controls.Add(this.bnScriptTest);
             this.panel1.Controls.Add(this.lblZoomFactor);
@@ -71,13 +73,25 @@
             this.panel1.Size = new System.Drawing.Size(1418, 37);
             this.panel1.TabIndex = 0;
             // 
+            // bnSrc
+            // 
+            this.bnSrc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bnSrc.Location = new System.Drawing.Point(1191, 3);
+            this.bnSrc.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.bnSrc.Name = "bnSrc";
+            this.bnSrc.Size = new System.Drawing.Size(40, 28);
+            this.bnSrc.TabIndex = 13;
+            this.bnSrc.Text = "SRC";
+            this.bnSrc.UseVisualStyleBackColor = true;
+            this.bnSrc.Click += new System.EventHandler(this.bnSrc_Click);
+            // 
             // button6
             // 
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Location = new System.Drawing.Point(1163, 5);
+            this.button6.Location = new System.Drawing.Point(1141, 3);
             this.button6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(47, 27);
+            this.button6.Size = new System.Drawing.Size(43, 27);
             this.button6.TabIndex = 12;
             this.button6.Text = "MP3";
             this.button6.UseVisualStyleBackColor = true;
@@ -107,12 +121,12 @@
             // trackBar1
             // 
             this.trackBar1.AutoSize = false;
-            this.trackBar1.Location = new System.Drawing.Point(1209, 5);
+            this.trackBar1.Location = new System.Drawing.Point(1232, 5);
             this.trackBar1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.trackBar1.Maximum = 500;
             this.trackBar1.Minimum = 1;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(136, 23);
+            this.trackBar1.Size = new System.Drawing.Size(113, 23);
             this.trackBar1.TabIndex = 9;
             this.trackBar1.Value = 100;
             this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
@@ -121,7 +135,7 @@
             // 
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.Font = new System.Drawing.Font("MS UI Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button5.Location = new System.Drawing.Point(929, 5);
+            this.button5.Location = new System.Drawing.Point(927, 3);
             this.button5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(38, 27);
@@ -133,7 +147,7 @@
             // bnPostMessage
             // 
             this.bnPostMessage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bnPostMessage.Location = new System.Drawing.Point(1118, 5);
+            this.bnPostMessage.Location = new System.Drawing.Point(1096, 3);
             this.bnPostMessage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.bnPostMessage.Name = "bnPostMessage";
             this.bnPostMessage.Size = new System.Drawing.Size(38, 27);
@@ -145,10 +159,10 @@
             // bnCapture
             // 
             this.bnCapture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bnCapture.Location = new System.Drawing.Point(1045, 5);
+            this.bnCapture.Location = new System.Drawing.Point(1041, 3);
             this.bnCapture.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.bnCapture.Name = "bnCapture";
-            this.bnCapture.Size = new System.Drawing.Size(65, 27);
+            this.bnCapture.Size = new System.Drawing.Size(46, 27);
             this.bnCapture.TabIndex = 6;
             this.bnCapture.Text = "Capture";
             this.bnCapture.UseVisualStyleBackColor = true;
@@ -157,7 +171,7 @@
             // bnScript
             // 
             this.bnScript.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bnScript.Location = new System.Drawing.Point(979, 5);
+            this.bnScript.Location = new System.Drawing.Point(974, 3);
             this.bnScript.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.bnScript.Name = "bnScript";
             this.bnScript.Size = new System.Drawing.Size(59, 27);
@@ -170,7 +184,7 @@
             // 
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Font = new System.Drawing.Font("MS UI Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button4.Location = new System.Drawing.Point(883, 5);
+            this.button4.Location = new System.Drawing.Point(882, 3);
             this.button4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(38, 27);
@@ -208,7 +222,7 @@
             // button1
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(836, 5);
+            this.button1.Location = new System.Drawing.Point(836, 3);
             this.button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(38, 27);
@@ -269,7 +283,7 @@
             this.webView1.RemoteObjectsAllowed = true;
             this.webView1.Size = new System.Drawing.Size(1418, 482);
             this.webView1.TabIndex = 0;
-            this.webView1.Url = "https://5b834d57-0891-4730-b6ba-c793b4e76468";
+            this.webView1.Url = "https://www.itagnesmeyer.de";
             this.webView1.ZoomFactor = 1D;
             this.webView1.NavigationStart += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.NavigationStartingEventArgs>(this.webView1_NavigationStart);
             this.webView1.ContentLoading += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.ContentLoadingEventArgs>(this.webView1_ContentLoading);
@@ -336,6 +350,7 @@
         private System.Windows.Forms.Label lblZoomFactor;
         private System.Windows.Forms.Button bnScriptTest;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button bnSrc;
     }
 }
 

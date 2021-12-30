@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.ExceptionServices;
 using System.Security;
 using Diga.WebView2.Interop;
@@ -29,8 +30,13 @@ namespace Diga.WebView2.Wrapper
         }
 
 
-
-        new public WebView2PointerInfo CreateCoreWebView2PointerInfo()
+        public WebResourceRequest CreateWebResourceRequest(string url, string method,Stream postData, string headerString)
+        {
+            ManagedIStream stream = new ManagedIStream(postData);
+            var request = base.CreateWebResourceRequest(url, method, stream, headerString);
+            return new WebResourceRequest(request);
+        }
+       public new WebView2PointerInfo CreateCoreWebView2PointerInfo()
         {
             return new WebView2PointerInfo(base.CreateCoreWebView2PointerInfo());
         }

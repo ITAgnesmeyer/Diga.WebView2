@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Diga.WebView2.WinForms
 {
-    public class FolderNameEditor : UITypeEditor
+    public sealed class FolderNameEditor : UITypeEditor
     {
         private FolderBrowser _folderBrowser;
  
@@ -37,11 +37,12 @@ namespace Diga.WebView2.WinForms
         ///  Initializes the folder browser dialog when it is created. This gives you an opportunity
         ///  to configure the dialog as you please. The default implementation provides a generic folder browser.
         /// </summary>
-        protected virtual void InitializeDialog(FolderBrowser folderBrowser)
+        private void InitializeDialog(FolderBrowser folderBrowser)
         {
+            this._folderBrowser = folderBrowser;
         }
- 
-        protected sealed class FolderBrowser : Component
+
+        private sealed class FolderBrowser : Component
         {
             // Description text to show.
             private string _descriptionText = string.Empty;

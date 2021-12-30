@@ -1,17 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Runtime.ExceptionServices;
-using System.Security;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Diga.WebView2.WinForms.Scripting;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
-using Diga.WebView2.Wrapper.Types;
 using MimeTypeExtension;
 
 
@@ -19,6 +16,7 @@ using MimeTypeExtension;
 namespace Diga.WebView2.WinForms
 {
 
+    // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
     public partial class WebView : UserControl
     {
         private const string JAVASCRIPT_CANNOT_BE_NULL_OR_EMPTY = "javaScript cannot be NULL or empty";
@@ -191,10 +189,10 @@ namespace Diga.WebView2.WinForms
         }
 
         [Browsable(false)]
-        public bool IsCreated { get; private set; } = false;
+        public bool IsCreated { get; private set; }
 
         [Browsable(false)]
-        public bool IsBrowserEnded { get; private set; } = false;
+        public bool IsBrowserEnded { get; private set; }
 
         public bool DevToolsEnabled
         {
@@ -318,7 +316,7 @@ namespace Diga.WebView2.WinForms
         {
             this.IsCreated = true;
             this.AddScriptToExecuteOnDocumentCreated("class ScriptErrorObject{constructor(e,t,r,n,i,c){this.name=e,this.message=t,this.fileName=r,this.lineNumber=n,this.columnNumber=i,this.stack=c}}window.external={sendMessage:function(e){window.chrome.webview.postMessage(e)},receiveMessage:function(e){window.chrome.webview.addEventListener(\"message\",(function(t){e(t.data)}))},evalScript:function(e){try{return eval(e)}catch(e){let t=new ScriptErrorObject(e.name,e.message,e.fileName,e.lineNumber,e.columnNumber,e.stack);return JSON.stringify(t)}},executeScript:function(e){try{return new Function(e)()}catch(e){let t=new ScriptErrorObject(e.name,e.message,e.fileName,e.lineNumber,e.columnNumber,e.stack);return JSON.stringify(t)}}};");
-            ///"window.external = { sendMessage: function(message) { window.chrome.webview.postMessage(message); }, receiveMessage: function(callback) { window.chrome.webview.addEventListener('message', function(e) { callback(e.data); }); } };");
+            //"window.external = { sendMessage: function(message) { window.chrome.webview.postMessage(message); }, receiveMessage: function(callback) { window.chrome.webview.addEventListener('message', function(e) { callback(e.data); }); } };");
             if (this._DefaultBackgroundColor != Color.Empty)
                 this._WebViewControl.DefaultBackgroundColor = _DefaultBackgroundColor;
             if (!string.IsNullOrEmpty(this._Url))
@@ -352,7 +350,7 @@ namespace Diga.WebView2.WinForms
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(this, e.Message, "Navigation Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(this, e.Message, @"Navigation Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
 
@@ -371,7 +369,7 @@ namespace Diga.WebView2.WinForms
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(owner: this, e.Message, "Navigation Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(owner: this, e.Message, @"Navigation Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }
@@ -461,7 +459,7 @@ namespace Diga.WebView2.WinForms
         }
         public void EvalScript(string javaScript)
         {
-            if(!this.CheckIsCreatedOrEnded) return;
+            if (!this.CheckIsCreatedOrEnded) return;
 
             ScriptZeroTest(javaScript);
 
@@ -511,6 +509,14 @@ namespace Diga.WebView2.WinForms
             return result;
         }
 
+        public void ExecuteScriptDirect(string javaScript)
+        {
+            if (!this.CheckIsCreatedOrEnded)
+                throw new InvalidOperationException("Browser not created or Crashed");
+            ScriptZeroTest(javaScript);
+            this._WebViewControl.ExecuteScript(javaScript);
+
+        }
         /// <summary>
         /// Execute the Script with Exception - Check => window.external.executeScript
         /// </summary>
@@ -544,10 +550,15 @@ namespace Diga.WebView2.WinForms
             return await this._WebViewControl.PrintPdfAsync(file, printSettings);
         }
 
-
+        /// <summary>
+        /// Invoke a script and returns a unique ID for the script 
+        /// </summary>
+        /// <param name="javaScript"></param>
+        /// <returns>Unique ID which can be used to identify the Return - Event</returns>
+        /// <exception cref="InvalidOperationException">Throws if the Control is not ready</exception>
         public string InvokeScript(string javaScript)
         {
-            if (!this.CheckIsCreatedOrEnded) 
+            if (!this.CheckIsCreatedOrEnded)
                 throw new InvalidOperationException("Browser not created or Crashed");
 
             ScriptZeroTest(javaScript);
@@ -569,7 +580,26 @@ namespace Diga.WebView2.WinForms
 
         }
 
+        public DOMObject GetScriptObject()
+        {
+            if (!this.CheckIsCreatedOrEnded)
+                throw new InvalidOperationException("Browser not created or Crashed");
+            return new DOMObject(this);
+        }
 
+        public DOMConsole GetDOMConsole()
+        {
+            if (!this.CheckIsCreatedOrEnded)
+                throw new InvalidOperationException("Browser not created or Crashed");
+            return new DOMConsole(this);
+        }
+
+        public DOMWindow GetDOMWindow()
+        {
+            if (!this.CheckIsCreatedOrEnded)
+                throw new InvalidOperationException("Browser not created or Crashed");
+            return new DOMWindow(this);
+        }
         public void OpenDevToolsWindow()
         {
             this._WebViewControl.OpenDevToolsWindow();
@@ -579,6 +609,7 @@ namespace Diga.WebView2.WinForms
         {
             this._WebViewControl.OpenTaskManagerWindow();
         }
+/*
         private bool IsInDesignMode()
         {
             if (LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
@@ -597,6 +628,7 @@ namespace Diga.WebView2.WinForms
                 return System.Diagnostics.Process.GetCurrentProcess().ProcessName == "devenv";
             }
         }
+*/
         private void CreateWebViewControl(IntPtr parent)
         {
             try
@@ -641,7 +673,7 @@ namespace Diga.WebView2.WinForms
             }
             catch (Exception ex)
             {
-                Debug.Print(nameof(CreateWebViewControl) + " Exception:" + ex.ToString());
+                Debug.Print(nameof(CreateWebViewControl) + " Exception:" + ex);
 
             }
 
@@ -969,8 +1001,23 @@ namespace Diga.WebView2.WinForms
                 return "; charset=utf-8";
             return "";
         }
+
+        public List<string> Content
+        {
+            get
+            {
+                if (!CheckIsCreatedOrEnded)
+                {
+                    return new List<string>();
+                }
+
+                return this._WebViewControl.Content;
+            }
+        }
         protected virtual void OnWebResourceRequested(WebResourceRequestedEventArgs e)
         {
+
+
             if (this.EnableMonitoring)
             {
                 if (GetFileStream(e.Request.Uri, out var responseInfo))
@@ -979,6 +1026,7 @@ namespace Diga.WebView2.WinForms
                     e.Response = response;
                 }
             }
+
 
             WebResourceRequested?.Invoke(this, e);
         }
@@ -1050,7 +1098,7 @@ namespace Diga.WebView2.WinForms
             catch (Exception ex)
             {
 
-                Debug.Print(nameof(OnBeforeWebViewDestroy) + " Exception:" + ex.ToString());
+                Debug.Print(nameof(OnBeforeWebViewDestroy) + " Exception:" + ex);
             }
 
         }
@@ -1062,6 +1110,8 @@ namespace Diga.WebView2.WinForms
 
         protected virtual void OnWebResourceResponseReceived(WebResourceResponseReceivedEventArgs e)
         {
+
+
             WebResourceResponseReceived?.Invoke(this, e);
         }
 

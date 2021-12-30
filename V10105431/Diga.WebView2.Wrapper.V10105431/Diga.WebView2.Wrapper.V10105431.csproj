@@ -57,6 +57,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="MimeTypeExtension" Version="1.0.28" />
+	  <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
 	</ItemGroup>
 	
 

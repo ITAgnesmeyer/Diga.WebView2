@@ -78,6 +78,15 @@ namespace Diga.WebView2.Wrapper
             RefCounter += 1;
         }
 
+        public List<string> Content
+        {
+            get
+            {
+                if (this.WebView == null)
+                    return new List<string>();
+                return this.WebView.CurrentContent;
+            }
+        }
         private HandleRef _ParentHandle { get; set; }
 
         public string BrowserExecutableFolder { get; }
@@ -526,6 +535,43 @@ namespace Diga.WebView2.Wrapper
 
         }
 
+
+        public void NavigateToUri(Uri uri)
+        {
+            if(uri == null)
+                throw new ArgumentNullException("uri");
+
+            string url = uri.IsAbsoluteUri ? uri.AbsoluteUri : uri.AbsolutePath;
+
+            this.Navigate(url);
+
+        }
+        public void NavigateWithWebResourceRequest(WebResourceRequest request)
+        {
+            this.WebView?.NavigateWithWebResourceRequest(request);
+        }
+
+        public WebResourceRequest CreateNewRequest(string url,string method, Stream requestBodyStream, string headerData)
+        {
+            WebResourceRequest request = GetWebResourceRequest(url, method, requestBodyStream, headerData);
+            return request;
+
+
+        }
+
+        public WebResourceRequest GetWebResourceRequest(string url, string method, Stream postDataStream,
+            string headers)
+        {
+            
+            if (this.Environment == null)
+            {
+                throw new InvalidOperationException("Environment not created");
+            }
+
+            var newRequest = this.Environment.CreateWebResourceRequest(url, method, postDataStream, headers);
+            return newRequest;
+
+        }
         public void GoBack()
         {
             this.WebView?.GoBack();
@@ -895,8 +941,10 @@ namespace Diga.WebView2.Wrapper
             DOMContentLoaded?.Invoke(this, e);
         }
 
-        protected virtual void OnWebResourceResponseReceived(WebResourceResponseReceivedEventArgs e)
+        protected virtual  void OnWebResourceResponseReceived(WebResourceResponseReceivedEventArgs e)
         {
+           
+
             WebResourceResponseReceived?.Invoke(this, e);
         }
 
