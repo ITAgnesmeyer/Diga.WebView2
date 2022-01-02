@@ -8,131 +8,137 @@
     <div id="mainDiv">
 
     </div>
-    <script>
-        document.getElementById("myButton").addEventListener("click", async () => { await window.external.raiseRpcEvent("click", this); });
-        //window.external.raiseRpcEvent = async function(action, obj) { try { const rpcHandler = window.chrome.webview.hostObjects.RpcHandler;const rpcObj = await rpcHandler.GetNewRpc();rpcObj.objId = obj.id;rpcObj.action = action;rpcObj.param = "empty";let r = await rpcHandler.Handle(await rpcObj.id, await rpcObj.action, rpcObj); } catch (e) { alert(e); } }
-        async function TestEventSync(objId) {
-            var sender = document.getElementById(objId);
-            /*var propertyValue =
-                "Dies ist ein Synchroner Aufurf"; //await chrome.webview.remoteObjects.testObject.FirstMessage;
-                */
+<script>
+	
+  if (document.diga == undefined) document.diga = new Object();
+  if(document.diga._heap == undefined) document.diga._heap = new Object();
 
-            try {
+	document.diga._heap.abc = document.getElementById("FirstButton");
+	alert(document.diga._heap.abc.id);
+	document.getElementById("myButton").addEventListener("click", async () => { await window.external.raiseRpcEvent("click", this); });
+	//window.external.raiseRpcEvent = async function(action, obj) { try { const rpcHandler = window.chrome.webview.hostObjects.RpcHandler;const rpcObj = await rpcHandler.GetNewRpc();rpcObj.objId = obj.id;rpcObj.action = action;rpcObj.param = "empty";let r = await rpcHandler.Handle(await rpcObj.id, await rpcObj.action, rpcObj); } catch (e) { alert(e); } }
+	async function TestEventSync(objId) {
+		var sender = document.getElementById(objId);
+		/*var propertyValue =
+		    "Dies ist ein Synchroner Aufurf"; //await chrome.webview.remoteObjects.testObject.FirstMessage;
+		    */
 
-
-                const rpcHandler = window.chrome.webview.hostObjects.RpcHandler;
-
-                const newRpc = await rpcHandler.GetNewRpc();
-                //let g = NewGuid();
-
-                //newRpc.id = g;
-                newRpc.objId = objId;
-                newRpc.action = "click";
-                newRpc.param = "empty";
-                let id = await newRpc.id;
-                let r = await rpcHandler.Handle(await newRpc.id, "click", newRpc);
-                let b = await rpcHandler.ReleaseObject(newRpc);
-
-            } catch (e) {
-                alert(e);
-            }
-            let appobject = await window.chrome.webview.hostObjects.testObject;
-            //let appobject = await window.chrome.webview.remoteObjects.testObject;
-            appobject.Name = "hallo Guido";
-            let value = await appobject.GetValue("TEST");
-            alert(value);
-        }
+		try {
 
 
+			const rpcHandler = window.chrome.webview.hostObjects.RpcHandler;
+
+			const newRpc = await rpcHandler.GetNewRpc();
+			//let g = NewGuid();
+
+			//newRpc.id = g;
+			newRpc.objId = objId;
+			newRpc.action = "click";
+			newRpc.param = "empty";
+			let id = await newRpc.id;
+			let r = await rpcHandler.Handle(await newRpc.id, "click", newRpc);
+			let b = await rpcHandler.ReleaseObject(newRpc);
+
+		} catch (e) {
+			alert(e);
+		}
+		let appobject = await window.chrome.webview.hostObjects.testObject;
+		//let appobject = await window.chrome.webview.remoteObjects.testObject;
+		appobject.Name = "hallo Guido";
+		let value = await appobject.GetValue("TEST");
+		alert(value);
+	}
 
 
-        class RPCC {
-            constructor(id, oId, act, p) {
-                this.id = id;
-                this.objId = oId;
-                this.action = act;
-                this.param = p;
-            }
-        }
 
-        function GetTableScript() {
-            var script = "<table>";
-            for (var i = 0; i < 100; i++) {
-                script += "<tr>";
-                script += "<td>" + "value" + i + "</td>";
-                script += "<td>" + "param" + i + "</td>";
-                script += "<td>" + "wert" + i + "</td>";
 
-                script += "</tr>";
-            }
-            script += "</table>";
-            return script;
-        }
+	class RPCC {
+		constructor(id, oId, act, p) {
+			this.id = id;
+			this.objId = oId;
+			this.action = act;
+			this.param = p;
+		}
+	}
 
-        function NewGuid() { // Public Domain/MIT
-            var d = new Date().getTime();//Timestamp
-            var d2 = (performance && performance.now && (performance.now() * 1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
-            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-                var r = Math.random() * 16;//random number between 0 and 16
-                if (d > 0) {//Use timestamp until depleted
-                    r = (d + r) % 16 | 0;
-                    d = Math.floor(d / 16);
-                } else {//Use microseconds since page-load if supported
-                    r = (d2 + r) % 16 | 0;
-                    d2 = Math.floor(d2 / 16);
-                }
-                return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-            });
-        }
+	function GetTableScript() {
+		var script = "<table>";
+		for (var i = 0; i < 100; i++) {
+			script += "<tr>";
+			script += "<td>" + "value" + i + "</td>";
+			script += "<td>" + "param" + i + "</td>";
+			script += "<td>" + "wert" + i + "</td>";
 
-        function callDotNet(obj) {
-            var meldung = JSON.stringify(obj);
-            window.external.sendMessage(meldung);
-        }
-        function TestScript(script) {
-            console.log(script);
-            let o = executeScript(script);
-            return o;
-        }
+			script += "</tr>";
+		}
+		script += "</table>";
+		return script;
+	}
 
-        function executeScript(script) {
-            //scriptToExecute = "try{" + script + "}catch(e){throw e}"
-            try {
-                debugger;
-                let func = new Function(script);
-                let result = (func());
-                console.log(result);
-                return result;
-            }
-            catch (error) {
-                console.error(error.message);
-                console.error(error.name);
-                console.error(error.fileName);
-                console.error(error.linenumber);
-                console.error(error.columnNumber);
-                console.error(error.stack);
-                return "Error:" + error.message;
-            }
-        }
+	function NewGuid() { // Public Domain/MIT
+		var d = new Date().getTime();//Timestamp
+		var d2 = (performance && performance.now && (performance.now() * 1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
+		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+			var r = Math.random() * 16;//random number between 0 and 16
+			if (d > 0) {//Use timestamp until depleted
+				r = (d + r) % 16 | 0;
+				d = Math.floor(d / 16);
+			} else {//Use microseconds since page-load if supported
+				r = (d2 + r) % 16 | 0;
+				d2 = Math.floor(d2 / 16);
+			}
+			return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+		});
+	}
 
-        window.external.receiveMessage(function (message) {
-            var rpc = JSON.parse(message);
-            switch (rpc.action) {
-                case "get_script_result":
-                    var getScrptResult = new RPCC(rpc.id, rpc.objId, rpc.action, rpc.param);
-                    callDotNet(getScrptResult);
-                    break;
-                case "return_script_result":
-                    var sr = rpc.param;
-                    document.getElementById(rpc.objId).innerText = rpc.param.ResultMessage;
-                    break;
-                case "set_object_innerHtml":
-                    var obj = document.getElementById(rpc.objId);
-                    obj.innerHTML = rpc.param;
-                    break;
-            }
-        });
-    </script>
+	function callDotNet(obj) {
+		var meldung = JSON.stringify(obj);
+		window.external.sendMessage(meldung);
+	}
+	function TestScript(script) {
+		console.log(script);
+		let o = executeScript(script);
+		return o;
+	}
+
+	function executeScript(script) {
+		//scriptToExecute = "try{" + script + "}catch(e){throw e}"
+		try {
+			debugger;
+			let func = new Function(script);
+			let result = (func());
+			console.log(result);
+			return result;
+		}
+		catch (error) {
+			console.error(error.message);
+			console.error(error.name);
+			console.error(error.fileName);
+			console.error(error.linenumber);
+			console.error(error.columnNumber);
+			console.error(error.stack);
+			return "Error:" + error.message;
+		}
+	}
+
+	window.external.receiveMessage(function (message) {
+		var rpc = JSON.parse(message);
+		switch (rpc.action) {
+		case "get_script_result":
+			var getScrptResult = new RPCC(rpc.id, rpc.objId, rpc.action, rpc.param);
+			callDotNet(getScrptResult);
+			break;
+		case "return_script_result":
+			var sr = rpc.param;
+			document.getElementById(rpc.objId).innerText = rpc.param.ResultMessage;
+			break;
+		case "set_object_innerHtml":
+			var obj = document.getElementById(rpc.objId);
+			obj.innerHTML = rpc.param;
+			break;
+		}
+	});
+</script>
 </body>
 
 </html>

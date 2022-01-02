@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Diga.WebView2.Wrapper.EventArguments;
 
 namespace Diga.WebView2.WinForms.Scripting
 {
@@ -12,6 +14,14 @@ namespace Diga.WebView2.WinForms.Scripting
         internal ScriptObjectBase(WebView control)
         {
             this._View2Control = control;
+            this._View2Control.ExecuteScriptCompleted += OnScriptComplete;
+        }
+
+        private void OnScriptComplete(object sender, ExecuteScriptCompletedEventArgs e)
+        {
+            Debug.Print(e.Id);
+            Debug.Print(e.ErrorCode.ToString());
+            Debug.Print(e.ResultObjectAsJson);
         }
 
         protected string BuildArgs(object[] args)
