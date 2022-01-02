@@ -16,6 +16,13 @@ namespace Diga.WebView2.WinForms.Scripting
             
         }
 
+        protected DOMVar GetGetVar([CallerMemberName] string member = "")
+        {
+            DOMVar var = new DOMVar(this._View2Control);
+            string scriptVal = $"{var.Name}={this.InstanceName}.{member};";
+            InvokeScript(scriptVal);
+            return var;
+        }
         protected DOMVar ExecGetVar(object[] args, [CallerMemberName] string member = "")
         {
             string argsValue = BuildArgs(args);

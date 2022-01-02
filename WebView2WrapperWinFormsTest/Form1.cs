@@ -47,10 +47,14 @@ namespace WebView2WrapperWinFormsTest
                         this.webView1.GetDOMConsole().log("Hallo from Prog");
                         DOMWindow win = this.webView1.GetDOMWindow();
                         string name = await win.GetName();
-                        DOMWindow val =win.open("https://www.google.de", "test");
+                        DOMWindow val =win.open("", "test","width=200,height=100");
+                        
+                        string nn = await val.GetName();
                         val.SetName("hallox");
-                        val.alert("test");
-
+                        win.alert("Warten");
+                        val.moveBy(100,100);
+                        win.alert("Move");
+                        val.moveTo(200,200);
                         win.SetName("hallo");
                         win.alert("Object Click:" + objId);
                     }

@@ -31,7 +31,10 @@ namespace Diga.WebView2.WinForms.Scripting
 
         private void CreateVar()
         {
-            string scriptValue = $"{this.Name}={{ }};";
+            string scritpTest = "if(window.diga == undefined) window.diga = new Object();";
+            //string scritpTest2 = "if(window.diga._HEAP_==undefined) window.diga._heap = new Object();";
+
+            string scriptValue = $"{scritpTest}\r\n{this.Name}=new Object();";
             InvokeScript(scriptValue);
         }
 
