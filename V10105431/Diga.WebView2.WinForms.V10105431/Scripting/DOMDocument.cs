@@ -76,7 +76,7 @@ namespace Diga.WebView2.WinForms.Scripting
 
         public Task<string> characterSet => GetAsync<string>();
 
-        public DOMAttribute creatAttibute(string attributeName)
+        public DOMAttribute createAttribute(string attributeName)
         {
             DOMVar var = ExecGetVar(new object[] {attributeName});
             return new DOMAttribute(this._View2Control, var);
