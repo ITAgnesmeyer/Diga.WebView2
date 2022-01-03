@@ -4,7 +4,8 @@ namespace Diga.WebView2.WinForms.Scripting
 {
     public class DOMElement : DOMObject
     {
-        private string _InstanceName = "document";
+
+        private string _InstanceName;
         protected override string InstanceName
         {
             get => this._InstanceName;
@@ -18,9 +19,14 @@ namespace Diga.WebView2.WinForms.Scripting
         public Task<string> GetAccessKey => GetAsync<string>("accessKey");
         public void SetAccessKey(string value) => Set(value, "accessKey");
 
+        public void addEventListener(string eventName, DOMScriptText scriptText , bool useCapture)
+        {
+            Exec(new object[]{eventName,scriptText, useCapture});
+        }
+
         public void appendChild(DOMElement element)
         {
-            Exec(new object[]{element.InstanceName});
+            Exec(new object[]{element});
         }
 
         public void blur() => Exec(new object[] { });
@@ -53,7 +59,7 @@ namespace Diga.WebView2.WinForms.Scripting
 
         public Task<bool> contains(DOMElement element)
         {
-            return Exec<bool>(new object[] { element.InstanceName });
+            return Exec<bool>(new object[] { element });
         }
 
         public Task<string> GetContentEditable => GetAsync<string>("contentEditable");
@@ -102,7 +108,7 @@ namespace Diga.WebView2.WinForms.Scripting
 
         public void insertAdjacentElement(string position, DOMElement element)
         {
-            Exec(new object[]{position,element.InstanceName});
+            Exec(new object[]{position,element});
         }
 
         public void insertAdjacentHTML(string position, string html)
@@ -117,16 +123,16 @@ namespace Diga.WebView2.WinForms.Scripting
 
         public void insertBefore(DOMElement newNode, DOMElement existingNode)
         {
-            Exec(new object[] { newNode.InstanceName, existingNode.InstanceName });
+            Exec(new object[] { newNode, existingNode });
         }
 
         public Task<bool> isContentEditable => GetAsync<bool>();
 
         public Task<bool> isDefaultNamespace(string nameSpace) => Exec<bool>(new object[] { nameSpace });
 
-        public Task<bool> isEqualNode(DOMElement element) => Exec<bool>(new object[] { element.InstanceName });
+        public Task<bool> isEqualNode(DOMElement element) => Exec<bool>(new object[] { element });
 
-        public Task<bool> isSameNode(DOMElement element) => Exec<bool>(new object[] { element.InstanceName });
+        public Task<bool> isSameNode(DOMElement element) => Exec<bool>(new object[] { element});
 
         public Task<bool> isSupported(string feature, string version) => Exec<bool>(new object[] { feature, version });
 
@@ -142,7 +148,7 @@ namespace Diga.WebView2.WinForms.Scripting
             }
         }
 
-        public Task<bool> matches(string selectros) => Exec<bool>(new object[] { selectros });
+        public Task<bool> matches(string selectors) => Exec<bool>(new object[] { selectors });
 
 
         public Task<string> namespaceURI => GetAsync<string>();
@@ -250,12 +256,12 @@ namespace Diga.WebView2.WinForms.Scripting
 
         public void removeAttribute(string name) => Exec(new object[] { name });
 
-        public void removeAttributeNode(DOMVar attr) => Exec(new object[] { attr.Name });
+        public void removeAttributeNode(DOMAttribute attr) => Exec(new object[] { attr });
 
-        public void removeChild(DOMVar elem) => Exec(new object[] { elem.Name });
+        public void removeChild(DOMElement elem) => Exec(new object[] { elem});
 
         public void replaceChild(DOMElement newNode, DOMElement oldNode) =>
-            Exec(new object[] { newNode.InstanceName, oldNode.InstanceName });
+            Exec(new object[] { newNode, oldNode });
 
         public void requestFullscreen() => Exec(new object[] { });
 
@@ -271,8 +277,7 @@ namespace Diga.WebView2.WinForms.Scripting
 
         public void setAttributeNode(DOMVar attr) => Exec(new object[] { attr.Name });
 
-
-
+       
     }
 
 

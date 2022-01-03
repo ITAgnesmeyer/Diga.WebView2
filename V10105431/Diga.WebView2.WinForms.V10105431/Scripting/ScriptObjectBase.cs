@@ -14,15 +14,15 @@ namespace Diga.WebView2.WinForms.Scripting
         internal ScriptObjectBase(WebView control)
         {
             this._View2Control = control;
-            this._View2Control.ExecuteScriptCompleted += OnScriptComplete;
+            //this._View2Control.ExecuteScriptCompleted += OnScriptComplete;
         }
 
-        private void OnScriptComplete(object sender, ExecuteScriptCompletedEventArgs e)
-        {
-            Debug.Print(e.Id);
-            Debug.Print(e.ErrorCode.ToString());
-            Debug.Print(e.ResultObjectAsJson);
-        }
+        //private void OnScriptComplete(object sender, ExecuteScriptCompletedEventArgs e)
+        //{
+        //    Debug.Print(e.Id);
+        //    Debug.Print(e.ErrorCode.ToString());
+        //    Debug.Print(e.ResultObjectAsJson);
+        //}
 
         protected string BuildArgs(object[] args)
         {
@@ -35,6 +35,17 @@ namespace Diga.WebView2.WinForms.Scripting
                 {
                     string val = (string)arg;
                     returnArgString += $"\"{val}\"";
+                }
+                else if (arg is bool)
+                {
+                    if ((bool)arg)
+                    {
+                        returnArgString += "true";
+                    }
+                    else
+                    {
+                        returnArgString += "false";
+                    }
                 }
                 else if (arg is DateTime)
                 {

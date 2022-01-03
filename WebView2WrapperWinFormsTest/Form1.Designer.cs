@@ -307,6 +307,7 @@
             this.webView1.ScriptToExecuteOnDocumentCreatedCompleted += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>(this.webView1_ScriptToExecuteOnDocumentCreatedCompleted);
             this.webView1.DownloadStarting += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.DownloadStartingEventArgs>(this.webView1_DownloadStarting);
             this.webView1.FrameCreated += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.FrameCreatedEventArgs>(this.webView1_FrameCreated);
+            this.webView1.ScriptEvent += new System.EventHandler<Diga.WebView2.WinForms.Scripting.RpcEventHandlerArgs>(this.OnRpcEvent);
             this.webView1.DOMContentLoaded += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.DOMContentLoadedEventArgs>(this.webView1_DOMContentLoaded);
             this.webView1.WebResourceResponseReceived += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebResourceResponseReceivedEventArgs>(this.webView1_WebResourceResponseReceived);
             this.webView1.WebViewCreated += new System.EventHandler(this.webView1_WebViewCreated);
