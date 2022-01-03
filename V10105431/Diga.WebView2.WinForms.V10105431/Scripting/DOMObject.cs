@@ -44,26 +44,26 @@ namespace Diga.WebView2.WinForms.Scripting
             return await ExecuteScriptAsync($"return document.getElementById(\"{id}\").{member};");
         }
 
-        public async Task<string> Alert(string message)
-        {
-            return await ExecuteScriptAsync($"return alert(\"{message}\");");
-        }
+        //public async Task<string> Alert(string message)
+        //{
+        //    return await ExecuteScriptAsync($"return alert(\"{message}\");");
+        //}
 
-        public async Task<string> Confirm(string message)
-        {
-            return await ExecuteScriptAsync($"return confirm(\"{message}\");");
-        }
+        //public async Task<string> Confirm(string message)
+        //{
+        //    return await ExecuteScriptAsync($"return confirm(\"{message}\");");
+        //}
 
-        public async Task<string> Prompt(string message, string defaultResult = null)
-        {
-            string promptScript = $"return prompt(\"{message}\",\"{defaultResult}\");";
-            if (defaultResult == null)
-            {
-                promptScript = $"return prompt(\"{message}\");";
-            }
+        //public async Task<string> Prompt(string message, string defaultResult = null)
+        //{
+        //    string promptScript = $"return prompt(\"{message}\",\"{defaultResult}\");";
+        //    if (defaultResult == null)
+        //    {
+        //        promptScript = $"return prompt(\"{message}\");";
+        //    }
 
-            return await ExecuteScriptAsync(promptScript);
-        }
+        //    return await ExecuteScriptAsync(promptScript);
+        //}
 
 
         public async Task<string> EncodeUri(string url)
@@ -110,6 +110,15 @@ namespace Diga.WebView2.WinForms.Scripting
         public void DocumentWriteLn(string value)
         {
             InvokeScript($"document.writeln(\"{value}\");");
+        }
+
+        public string GetVarName()
+        {
+            return this.InstanceName;
+        }
+        public override string ToString()
+        {
+            return this.InstanceName;
         }
     }
 }

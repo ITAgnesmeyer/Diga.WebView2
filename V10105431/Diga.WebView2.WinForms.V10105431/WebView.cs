@@ -19,6 +19,8 @@ namespace Diga.WebView2.WinForms
     // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
     public partial class WebView : UserControl
     {
+        private RpcHandler _RpcHandler;
+
         private const string JAVASCRIPT_CANNOT_BE_NULL_OR_EMPTY = "javaScript cannot be NULL or empty";
         private WebView2Control _WebViewControl;
         private bool _DefaultContextMenusEnabled;
@@ -62,7 +64,7 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<DownloadStartingEventArgs> DownloadStarting;
         public event EventHandler<FrameCreatedEventArgs> FrameCreated;
         public event EventHandler<WebView2EventArgs> RasterizationScaleChanged;
-
+        public event EventHandler<RpcEventHandlerArgs> ScriptEvent;
         public event EventHandler<DOMContentLoadedEventArgs> DOMContentLoaded;
         public event EventHandler<WebResourceResponseReceivedEventArgs> WebResourceResponseReceived;
 
@@ -255,7 +257,15 @@ namespace Diga.WebView2.WinForms
 
         public WebView()
         {
+            this._RpcHandler = new RpcHandler();
+            this._RpcHandler.RpcEvent += OnRpcEventIntern;
             InitializeComponent();
+            
+        }
+
+        private void OnRpcEventIntern(object sender, RpcEventHandlerArgs e)
+        {
+            OnScriptEvent(e);
         }
 
         public string Source
@@ -315,7 +325,10 @@ namespace Diga.WebView2.WinForms
         private void OnWebWindowCreated(object sender, EventArgs e)
         {
             this.IsCreated = true;
+            this.AddRemoteObject("RpcHandler",this._RpcHandler);
             this.AddScriptToExecuteOnDocumentCreated("class ScriptErrorObject{constructor(e,t,r,n,i,c){this.name=e,this.message=t,this.fileName=r,this.lineNumber=n,this.columnNumber=i,this.stack=c}}window.external={sendMessage:function(e){window.chrome.webview.postMessage(e)},receiveMessage:function(e){window.chrome.webview.addEventListener(\"message\",(function(t){e(t.data)}))},evalScript:function(e){try{return eval(e)}catch(e){let t=new ScriptErrorObject(e.name,e.message,e.fileName,e.lineNumber,e.columnNumber,e.stack);return JSON.stringify(t)}},executeScript:function(e){try{return new Function(e)()}catch(e){let t=new ScriptErrorObject(e.name,e.message,e.fileName,e.lineNumber,e.columnNumber,e.stack);return JSON.stringify(t)}}};");
+            this.AddScriptToExecuteOnDocumentCreated("window.external.raiseRpcEvent= async function(action, obj) { try {const varToString = varObj => Object.keys(varObj)[0]; const rpcHandler = window.chrome.webview.hostObjects.RpcHandler;const rpcObj = await rpcHandler.GetNewRpc();rpcObj.objId = obj.id;rpcObj.action = action;rpcObj.varname=varToString({obj}); rpcObj.param = \"empty\";rpcObj.item=document.getElementById(obj.id);let r = await rpcHandler.Handle(await rpcObj.id, await rpcObj.action, rpcObj);let b = await rpcHandler.ReleaseObject(rpcObj); } catch (e) { alert(e); } }");
+
             //"window.external = { sendMessage: function(message) { window.chrome.webview.postMessage(message); }, receiveMessage: function(callback) { window.chrome.webview.addEventListener('message', function(e) { callback(e.data); }); } };");
             if (this._DefaultBackgroundColor != Color.Empty)
                 this._WebViewControl.DefaultBackgroundColor = _DefaultBackgroundColor;
@@ -580,11 +593,11 @@ namespace Diga.WebView2.WinForms
 
         }
 
-        public DOMObject GetScriptObject()
+        public DOMDocument GetDOMDocument()
         {
             if (!this.CheckIsCreatedOrEnded)
                 throw new InvalidOperationException("Browser not created or Crashed");
-            return new DOMObject(this);
+            return new DOMDocument(this);
         }
 
         public DOMConsole GetDOMConsole()
@@ -1166,6 +1179,11 @@ namespace Diga.WebView2.WinForms
         private void WebView_Load(object sender, EventArgs e)
         {
             CreateWebViewControl(this.Handle);
+        }
+
+        protected virtual void OnScriptEvent(RpcEventHandlerArgs e)
+        {
+            ScriptEvent?.Invoke(this, e);
         }
     }
 }
