@@ -11,9 +11,9 @@ namespace Diga.WebView2.WinForms.Scripting
             set => this._InstanceName = value;
         }
 
-        internal DOMWindow(WebView control):base(control)
+        internal DOMWindow(WebView control) : base(control)
         {
-            
+
         }
 
         internal DOMWindow(WebView control, DOMVar domVar) : base(control)
@@ -22,7 +22,7 @@ namespace Diga.WebView2.WinForms.Scripting
         }
         public void alert(string message)
         {
-           base.Exec(new object[] { message });
+            base.Exec(new object[] { message });
         }
 
         public async Task<string> atob(string encoded)
@@ -32,7 +32,7 @@ namespace Diga.WebView2.WinForms.Scripting
 
         public void blur()
         {
-            Exec(new object[]{});
+            Exec(new object[] { });
         }
 
         public async Task<string> btoa(string text)
@@ -43,7 +43,7 @@ namespace Diga.WebView2.WinForms.Scripting
 
         public void close()
         {
-            Exec(new object[]{});
+            Exec(new object[] { });
         }
 
         public Task<bool> closed => GetAsync<bool>();
@@ -53,10 +53,56 @@ namespace Diga.WebView2.WinForms.Scripting
             return await Exec<bool>(new object[] { message });
         }
 
+        public DOMConsole console
+        {
+            get
+            {
+                DOMVar var = GetGetVar();
+                return new DOMConsole(this._View2Control, var);
+            }
+        }
+
+        public DOMDocument document
+        {
+            get
+            {
+                DOMVar var = GetGetVar();
+                return new DOMDocument(this._View2Control, var);
+            }
+        }
         public void focus()
         {
-            Exec(new object[]{});
+            Exec(new object[] { });
         }
+
+        public DOMElement frameElement
+        {
+            get
+            {
+                DOMVar var = GetGetVar();
+                return new DOMElement(this._View2Control, var);
+            }
+        }
+
+        public DOMObjectCollection frames
+        {
+            get
+            {
+                DOMVar var = GetGetVar();
+                return new DOMObjectCollection(this._View2Control, var);
+            }
+        }
+
+        public DOMHistory history
+        {
+            get
+            {
+                DOMVar var = GetGetVar();
+                return new DOMHistory(this._View2Control, var);
+            }
+        }
+
+
 
         public Task<int> innerHeight => GetAsync<int>();
 
@@ -66,12 +112,12 @@ namespace Diga.WebView2.WinForms.Scripting
 
         public void moveBy(int x, int y)
         {
-            Exec(new object[]{x,y});
+            Exec(new object[] { x, y });
         }
 
         public void moveTo(int x, int y)
         {
-            Exec(new object[]{x,y});
+            Exec(new object[] { x, y });
         }
 
         public async Task<string> GetName()
@@ -81,7 +127,7 @@ namespace Diga.WebView2.WinForms.Scripting
 
         public void SetName(string name)
         {
-            Set(name,"name");
+            Set(name, "name");
         }
 
         public DOMWindow open(string url, string windowName = null, string specs = null, string replace = null)
@@ -91,13 +137,13 @@ namespace Diga.WebView2.WinForms.Scripting
             return new DOMWindow(this._View2Control, var);
         }
 
-        public Task<int> outerHeight=> GetAsync<int>();
+        public Task<int> outerHeight => GetAsync<int>();
 
         public Task<int> outerWidth => GetAsync<int>();
 
         public Task<int> pageXOffset => GetAsync<int>();
 
-        public Task<int> pageYOffset=> GetAsync<int>();
+        public Task<int> pageYOffset => GetAsync<int>();
 
         public void print()
         {
@@ -111,12 +157,12 @@ namespace Diga.WebView2.WinForms.Scripting
 
         public void resizeBy(int x, int y)
         {
-            Exec(new object[]{x,y});
+            Exec(new object[] { x, y });
         }
 
         public void resizeTo(int x, int y)
         {
-            Exec(new object[]{x,y});
+            Exec(new object[] { x, y });
         }
 
         public Task<int> screenLeft => GetAsync<int>();
@@ -127,19 +173,19 @@ namespace Diga.WebView2.WinForms.Scripting
 
         public void scrollBy(int x, int y)
         {
-            Exec(new object[]{x,y});
+            Exec(new object[] { x, y });
         }
         public void scrollTo(int x, int y)
         {
-            Exec(new object[]{x,y});
+            Exec(new object[] { x, y });
         }
 
-        public Task<int> scrollX  => GetAsync<int>();
-        public Task<int> scrollY  => GetAsync<int>();
+        public Task<int> scrollX => GetAsync<int>();
+        public Task<int> scrollY => GetAsync<int>();
 
         public void stop()
         {
-            Exec(new object[]{});
+            Exec(new object[] { });
         }
 
     }
