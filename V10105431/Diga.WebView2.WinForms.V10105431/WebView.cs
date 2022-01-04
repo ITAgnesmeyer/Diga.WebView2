@@ -552,6 +552,23 @@ namespace Diga.WebView2.WinForms
             }
             return result;
         }
+
+        public string ExecuteScriptSync(string javaScript)
+        {
+            if (!this.CheckIsCreatedOrEnded)
+                throw new InvalidOperationException("Browser not created or Crashed");
+            ScriptZeroTest(javaScript);
+
+            string scrptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"", "\\'")}}}\")";
+            string result = this._WebViewControl.ExecuteScriptSync(scrptToExecute);
+            ScriptErrorObject errorObj = ScriptSerializationHelper.GetScriptErrorObject(result);
+            if (errorObj != null)
+            {
+                throw new ScriptException(errorObj);
+            }
+            return result;
+
+        }
         public WebView2PrintSettings CreatePrintSettings()
         {
             return this._WebViewControl.CreatePrintSettings();

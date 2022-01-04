@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using System.Security;
 using System.Text;
 using System.Threading;
 using Diga.WebView2.Wrapper.Implementation;
+using Diga.WebView2.Wrapper.interop;
 using MimeTypeExtension;
 
 // ReSharper disable once CheckNamespace
@@ -450,19 +452,64 @@ namespace Diga.WebView2.Wrapper
                 throw Marshal.GetExceptionForHR(hr);
             return (CBOOL)result.isSuccess;
         }
+
+        public string ExecuteScriptSync(string javaScript)
+        {
+            ScriptResultType result = Native.AsyncCall<ScriptResultType>(ExecuteScriptAsync3(javaScript));
+            HRESULT resultCode = result.ErrorCode;
+            if (resultCode != HRESULT.S_OK)
+                throw Marshal.GetExceptionForHR(resultCode);
+            return result.ResultAsJson;
+
+        }
+
+        private async Task<string> ExecuteScriptAsync2(string javaScript)
+        {
+            ExecuteScriptCompletedHandlerNotifyCompletion handler = new ExecuteScriptCompletedHandlerNotifyCompletion();
+            try
+            {
+                base.ExecuteScript(javaScript, handler);
+            }
+            catch (InvalidCastException ex)
+            {
+                if (ex.HResult == -2147467262)
+                    throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
+                throw;
+            }
+            catch (COMException ex)
+            {
+                if (ex.HResult == -2147019873)
+                    throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
+                throw;
+            }
+            string str = await handler;
+            Marshal.ThrowExceptionForHR(handler.ErrorCode);
+            string result = handler.ResultAsJson;
+            handler = null;
+            return result;
+        }
+
+        
+        private  Task<ScriptResultType> ExecuteScriptAsync3(string javaScript)
+        {
+            var source = new TaskCompletionSource<ScriptResultType>();
+            var executeScriptDelegate = new ExecuteScriptCompletedDelegate(source);
+            base.ExecuteScript(javaScript, executeScriptDelegate);
+            return source.Task;
+        }
         public async Task<string> ExecuteScriptAsync(string javaScript)
         {
             //if (this._WebView == null)
             //    throw new InvalidOperationException("Script control not Created!");
-            var source = new TaskCompletionSource<(int, string)>();
+            var source = new TaskCompletionSource<ScriptResultType>();
             var executeScriptDelegate = new ExecuteScriptCompletedDelegate(source);
             base.ExecuteScript(javaScript, executeScriptDelegate);
 
-            (int errorCode, string resultObjectAsJson) result = await source.Task;
-            HRESULT resultCode = result.errorCode;
+            ScriptResultType result = await source.Task;
+            HRESULT resultCode = result.ErrorCode;
             if (resultCode != HRESULT.S_OK)
                 throw Marshal.GetExceptionForHR(resultCode);
-            return result.resultObjectAsJson;
+            return result.ResultAsJson;
         }
 
         public string InvokeScript(string javaScript, Action<string, int, string> actionToInvoke)

@@ -1,8 +1,14 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Net.Mime;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Diga.WebView2.Wrapper.EventArguments;
 
 namespace Diga.WebView2.WinForms.Scripting
@@ -14,15 +20,27 @@ namespace Diga.WebView2.WinForms.Scripting
         internal ScriptObjectBase(WebView control)
         {
             this._View2Control = control;
-            //this._View2Control.ExecuteScriptCompleted += OnScriptComplete;
+            this._View2Control.ExecuteScriptCompleted += OnScriptComplete;
         }
 
-        //private void OnScriptComplete(object sender, ExecuteScriptCompletedEventArgs e)
-        //{
-        //    Debug.Print(e.Id);
-        //    Debug.Print(e.ErrorCode.ToString());
-        //    Debug.Print(e.ResultObjectAsJson);
-        //}
+        private ConcurrentDictionary<string,ExecuteScriptCompletedEventArgs> _CurrentScriptID=new ConcurrentDictionary<string, ExecuteScriptCompletedEventArgs>();
+        private void OnScriptComplete(object sender, ExecuteScriptCompletedEventArgs e)
+        {
+            if (e.ErrorCode != 0)
+            {
+                Marshal.ThrowExceptionForHR(e.ErrorCode);
+            }
+
+            if (e.ResultObjectAsJson != null)
+            {
+                ScriptErrorObject err = Diga.Core.Json.DigaJson.Deserialize<ScriptErrorObject>(e.ResultObjectAsJson);
+                if (err != null)
+                {
+                    if(err.message != null)
+                        throw new ScriptException(err);
+                }
+            }
+        }
 
         protected string BuildArgs(object[] args)
         {
@@ -34,6 +52,7 @@ namespace Diga.WebView2.WinForms.Scripting
                 if (arg is string)
                 {
                     string val = (string)arg;
+                    val = val.Replace("\"", "\\\"");
                     returnArgString += $"\"{val}\"";
                 }
                 else if (arg is bool)
@@ -112,8 +131,14 @@ namespace Diga.WebView2.WinForms.Scripting
             object result = ExecuteScript(propVal);
             return (T)result;
         }
-        
 
+        protected async Task SetAsync<T>(Task<T> value, [CallerMemberName] string member = "")
+        {
+            T val = await value;
+            string argsValue = BuildArgs(new object[] { val });
+            string funcValue = $"{this.InstanceName}.{member}={argsValue};";
+            var retVal = await ExecuteScriptAsync(funcValue);
+        }
         protected void Set<T>(T  value, [CallerMemberName] string member = "")
         {
             string argsValue = BuildArgs(new object[] { value });
@@ -125,10 +150,21 @@ namespace Diga.WebView2.WinForms.Scripting
         {
             return await this._View2Control.ExecuteScriptAsync(script);
         }
-
+        public static T AsyncCall<T>(Task<T> tsk)
+        {
+            TaskAwaiter<T> awaiter = tsk.GetAwaiter();
+            while (!awaiter.IsCompleted)
+            {
+                Thread.Sleep(10);
+                Application.DoEvents();
+            }
+            return awaiter.GetResult();
+        }
         protected string ExecuteScript(string script)
         {
-            return this._View2Control.ExecuteScriptAsync(script).Result;
+            string var = AsyncCall(ExecuteScriptAsync(script));
+
+            return var;
         }
 
         protected void InvokeScript(string script)

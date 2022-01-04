@@ -20,9 +20,9 @@ namespace Diga.WebView2.WinForms.Scripting
         {
             _InstanceName = domVar.Name;
         }
-        public void alert(string message)
+        public async Task alert(string message)
         {
-            base.Exec(new object[] { message });
+             await base.Exec<string>(new object[] { message });
         }
 
         public async Task<string> atob(string encoded)
