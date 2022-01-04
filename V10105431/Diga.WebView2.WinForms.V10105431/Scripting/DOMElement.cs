@@ -1,7 +1,31 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Diga.WebView2.WinForms.Scripting
 {
+    public class TaskVar<T>
+    {
+        public T Value { get; set; }
+
+        public TaskVar(T value)
+        {
+            this.Value = value;
+        }
+
+
+        public static implicit operator Task<T>(TaskVar<T> input)
+        {
+            var r = Task.FromResult<T>(input.Value);
+            return r;
+        }
+
+        public static implicit operator TaskVar<T>(T input)
+        {
+            return new TaskVar<T>(input);
+        }
+    }
+
     public class DOMElement : DOMObject
     {
 
@@ -16,7 +40,12 @@ namespace Diga.WebView2.WinForms.Scripting
             this._InstanceName = domVar.Name;
         }
 
-        public Task<string> GetAccessKey => GetAsync<string>("accessKey");
+        public  Task<string> accessKey
+        {
+            get => GetAsync<string>("accessKey");
+            set => _ = SetAsync<string>(value);
+        }
+
         public void SetAccessKey(string value) => Set(value, "accessKey");
 
         public void addEventListener(string eventName, DOMScriptText scriptText , bool useCapture)
@@ -97,6 +126,11 @@ namespace Diga.WebView2.WinForms.Scripting
 
         public Task<bool> hasChildNodes() => Exec<bool>(new object[] { });
 
+        public Task<string> id
+        {
+            get => GetAsync<string>();
+            set => _ = SetAsync(value);
+        }
         public Task<string> GetId => GetAsync<string>("id");
         public void SetId(string value) => Set(value, "id");
 

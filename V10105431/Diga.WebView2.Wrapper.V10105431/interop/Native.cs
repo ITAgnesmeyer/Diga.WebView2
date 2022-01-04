@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.Types;
 
@@ -10,6 +12,88 @@ namespace Diga.WebView2.Wrapper.interop
 
     internal static class Native
     {
+        [StructLayout(LayoutKind.Sequential,CharSet =CharSet.Auto)]
+        public struct MSG
+        {
+            public IntPtr hwnd;
+            public uint message;
+            public IntPtr wParam;
+            public IntPtr lParam;
+            public uint time;
+            public tagPOINT pt;
+        }
+        /// Return Type: BOOL->int
+        ///lpMsg: LPMSG->tagMSG*
+        ///hWnd: HWND->HWND__*
+        ///wMsgFilterMin: UINT->unsigned int
+        ///wMsgFilterMax: UINT->unsigned int
+        ///wRemoveMsg: UINT->unsigned int
+        [DllImport("user32.dll", EntryPoint="PeekMessageW")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern  bool PeekMessage(ref MSG lpMsg, IntPtr hWnd , uint wMsgFilterMin, uint wMsgFilterMax, uint wRemoveMsg) ;
+
+
+        [DllImport("user32.dll", EntryPoint = "TranslateMessage")]
+        private static extern bool TranslateMessage([In] ref MSG lpMsg);
+
+        [DllImport("user32.dll", EntryPoint = "DispatchMessage", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr DispatchMessage([In] ref MSG lpmsg);
+        //[DllImport("user32.dll", EntryPoint = "GetMessage", CharSet = CharSet.Auto)]
+        //public static extern sbyte GetMessage(ref MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
+
+        /// Return Type: BOOL->int
+        ///lpMsg: LPMSG->tagMSG*
+        ///hWnd: HWND->HWND__*
+        ///wMsgFilterMin: UINT->unsigned int
+        ///wMsgFilterMax: UINT->unsigned int
+        [DllImport("user32.dll", EntryPoint="GetMessage")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern  bool GetMessage(ref MSG lpMsg, [In()] IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax) ;
+
+
+        /// Return Type: BOOL->int
+        [DllImport("user32.dll", EntryPoint="WaitMessage")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern  bool WaitMessage() ;
+
+        public static void DoEvents()
+        {
+            var msg = new MSG();
+            bool continueLoop = true;
+            while (continueLoop)
+            {
+                if (PeekMessage(ref msg, IntPtr.Zero, 0, 0, 0x0000))
+                {
+                    if (!GetMessage(ref msg, IntPtr.Zero, 0, 0))
+                    {
+                        continue;
+                    }
+
+                    TranslateMessage(ref msg);
+                    DispatchMessage(ref msg);
+                }
+                else
+                {
+                    break;
+                }
+
+
+            }
+
+        }
+
+        public static T AsyncCall<T>(Task<T> tsk)
+        {
+            TaskAwaiter<T> awaiter = tsk.GetAwaiter();
+            while (!awaiter.IsCompleted)
+            {
+                Thread.Sleep(10);
+                DoEvents();
+            }
+            return awaiter.GetResult();
+        }
+
+
         [Flags]        
         public enum BrowserVersionState:int
         {

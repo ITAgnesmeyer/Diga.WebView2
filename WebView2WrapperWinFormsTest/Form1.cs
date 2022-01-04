@@ -50,13 +50,22 @@ namespace WebView2WrapperWinFormsTest
                         
                         string nn = await val.GetName();
                         val.SetName("hallox");
-                        val.alert("test");
-                        win.alert("Warten");
+                        var bn = val.document.createElement("button");
+                        bn.SetInnerHTML("hallo");
+                        
+                        bn.addEventListener("click",new DOMEventListenerScript(bn),false);
+                        val.document.GetBody.appendChild(bn);
+
+                        nn = "name=" + nn; 
+                       await win.alert("Warten");
+                       await val.alert(nn);
+                        val.console.log("werte die ich kenne");
                         val.moveBy(100,100);
-                        win.alert("Move");
+                       await win.alert("Move");
                         val.moveTo(200,200);
                         win.SetName("hallo");
-                        win.alert("Object Click:" + objId);
+                       await win.alert("Object Click:" + objId);
+                     
                     }
 
                     break;
@@ -451,7 +460,8 @@ namespace WebView2WrapperWinFormsTest
             DOMDocument doc = this.webView1.GetDOMDocument();
             DOMElement element = doc.createElement("button");
             element.SetInnerHTML("Click Me");
-            element.SetId(Guid.NewGuid().ToString());
+            element.id = Task.FromResult(Guid.NewGuid().ToString());
+
             DOMEventListenerScript scriptText = new DOMEventListenerScript(element);
             doc.GetBody.appendChild(element);
             element.addEventListener("click",scriptText,false);
