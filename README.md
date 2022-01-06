@@ -20,19 +20,6 @@ This does not support WebAssemblies.
 The motivation for this project, however, was to load and display WebAssembly applications (BLAZOR-SITES).
 It should also be possible to work completely without an HTTP server.
 
-### Addendum:
-From version 0.9.515-prerelease there will be a WinForms control included. (finally).
-
-Currently, however, it is not possible to create a real Any-CPU version with this control.
-If Any-CPU excludes the hook (pefere x86) on a 64bit machine, a run-time error occurs. This error occurs when the WebView2 NuGet-Package is bound. 
-See => Why is the "microsoft.web.webview2" package not linked.
-
-### Microsoft and WebView2
-Microsoft provides Edge Chromium, a modern browser for Windows.
-With the COM-based interface of WebView2, this can also be programmed.
-Unfortunately, this option is officially reserved only for C++ programmers.
-This is to be fixed with this project.
-
 ### packages are currently supported.
 microsoft.web.webview2
 
