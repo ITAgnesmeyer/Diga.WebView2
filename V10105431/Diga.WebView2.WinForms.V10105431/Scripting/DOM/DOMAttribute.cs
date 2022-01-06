@@ -1,17 +1,13 @@
 ﻿using System.Threading.Tasks;
 
-namespace Diga.WebView2.WinForms.Scripting
+namespace Diga.WebView2.WinForms.Scripting.DOM
 {
     public class DOMAttribute : DOMObject
     {
-        private string _InstanceName;
-        protected override string InstanceName
-        {
-            get => this._InstanceName;
-            set => this._InstanceName = value;
-        }
+
         public DOMAttribute(WebView control,DOMVar var):base(control)
         {
+            this._Var = var;
             this._InstanceName = var.Name;
         }
 

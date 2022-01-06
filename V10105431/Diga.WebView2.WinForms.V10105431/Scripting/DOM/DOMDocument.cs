@@ -1,22 +1,17 @@
-﻿using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace Diga.WebView2.WinForms.Scripting
+namespace Diga.WebView2.WinForms.Scripting.DOM
 {
     public class DOMDocument : DOMObject
     {
-        private string _InstanceName = "document";
-        protected override string InstanceName
-        {
-            get => this._InstanceName;
-            set => this._InstanceName = value;
-        }
+        
         internal DOMDocument(WebView control):base(control)
         {
-            
+            this._InstanceName = "document";
         }
         internal DOMDocument(WebView control, DOMVar domVar) : base(control)
         {
+            this._Var = domVar;
             this._InstanceName = domVar.Name;
         }
 

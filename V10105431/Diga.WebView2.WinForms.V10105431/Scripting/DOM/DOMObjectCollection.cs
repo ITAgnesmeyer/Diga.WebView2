@@ -1,19 +1,14 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace Diga.WebView2.WinForms.Scripting
+namespace Diga.WebView2.WinForms.Scripting.DOM
 {
     public class DOMObjectCollection : DOMObject
     {
-        private string _InstanceName;
-        protected override string InstanceName
-        {
-            get => this._InstanceName;
-            set => this._InstanceName = value;
-        }
+ 
 
         public DOMObjectCollection(WebView control, DOMVar var):base(control)
         {
+            this._Var = var;
             this._InstanceName = var.Name;
         }
 
