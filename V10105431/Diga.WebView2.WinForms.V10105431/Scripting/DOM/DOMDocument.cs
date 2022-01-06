@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace Diga.WebView2.WinForms.Scripting.DOM
 {
@@ -15,133 +16,114 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             this._InstanceName = domVar.Name;
         }
 
-        public DOMElement activeElement
+        public Task< DOMElement> activeElement
         {
-            get
-            {
-                DOMVar var = GetGetVar();
-                return new DOMElement(this._View2Control, var);
-            }
+            get=> GetTypedVar<DOMElement>();
+                
         }
 
-        public void addEventListener(string eventName, DOMScriptText scriptText , bool useCapture)
+        public Task addEventListener(string eventName, DOMScriptText scriptText , bool useCapture)
         {
-            Exec(new object[]{eventName,scriptText, useCapture});
+            return Exec<object>(new object[]{eventName,scriptText, useCapture});
         }
 
-        public DOMElement adoptNode(DOMElement node)
+        public async Task<DOMElement> adoptNode(DOMElement node)
         {
-            DOMVar var = ExecGetVar(new object[] { node});
+            DOMVar var = await ExecGetVarAsync(new object[] { node});
             return new DOMElement(this._View2Control, var);
         }
 
 
-        public DOMObjectCollection anchors
+        public Task<DOMObjectCollection> anchors
         {
-            get
-            {
-                DOMVar var = GetGetVar();
-                return new DOMObjectCollection(this._View2Control, var);
-            }
+            get => GetTypedVar<DOMObjectCollection>();
+           
         }
 
-        public DOMElement GetBody
+        public Task< DOMElement> body
         {
-            get
-            {
-                DOMVar var = GetGetVar("body");
-                return new DOMElement(this._View2Control, var);
-            }
+            get=> GetTypedVar<DOMElement>();
+            set => _ = SetAsync(value);
         }
 
-        public void SetBody(DOMElement element)
-        {
-            Set(element, "body");
-        }
 
         public Task<string> baseURI => GetAsync<string>();
-        public void close() => Exec(new object[] { });
+        public Task close() => Exec<object>(new object[] { });
 
-        public Task<string> GetCookie => GetAsync<string>("cookie");
-
-        public void SetCookie(string cookie)
+        public Task<string> cookie
         {
-            Set(cookie,"cookie");
+            get => GetAsync<string>();
+            set=> _ = SetAsync(value);
         }
 
         public Task<string> characterSet => GetAsync<string>();
 
-        public DOMAttribute createAttribute(string attributeName)
+        public async Task< DOMAttribute> createAttribute(string attributeName)
         {
-            DOMVar var = ExecGetVar(new object[] {attributeName});
+            DOMVar var = await ExecGetVarAsync( new object[] {attributeName});
             return new DOMAttribute(this._View2Control, var);
         }
 
-        public DOMElement createComment(string comment)
+        public async Task< DOMElement> createComment(string comment)
         {
-            DOMVar var = ExecGetVar(new object[] { comment });
+            DOMVar var = await ExecGetVarAsync( new object[] { comment });
             return new DOMElement(this._View2Control, var);
         }
 
-        public DOMElement createDocumentFragment()
+        public async Task< DOMElement> createDocumentFragment()
         {
-            DOMVar var = ExecGetVar(new object[] { });
+            DOMVar var = await ExecGetVarAsync( new object[] { });
             return new DOMElement(this._View2Control, var);
         }
 
-        public DOMElement createElement(string nodeName)
+        public async Task< DOMElement> createElement(string nodeName)
         {
-            DOMVar var = ExecGetVar(new object[] { nodeName });
+            DOMVar var = await ExecGetVarAsync(new object[] { nodeName });
             return new DOMElement(this._View2Control, var);
         }
 
-        public DOMVar createEvent(string typeName)
+        public async  Task<DOMVar> createEvent(string typeName)
         {
-            DOMVar var = ExecGetVar(new object[] { typeName });
+            DOMVar var = await ExecGetVarAsync( new object[] { typeName });
             return var;
         }
 
-        public DOMElement createTextNode(string text)
+        public async Task< DOMElement> createTextNode(string text)
         {
-            DOMVar var = ExecGetVar(new object[] { text });
+            DOMVar var = await  ExecGetVarAsync( new object[] { text });
             return new DOMElement(this._View2Control, var);
         }
 
 
-        public DOMWindow defaultView
+        public Task<DOMWindow> defaultView
         {
-            get
-            {
-                DOMVar var = GetGetVar();
-                return new DOMWindow(this._View2Control, var);
-            }
+            get => GetTypedVar<DOMWindow>();
+
         }
 
-        public DOMElement documentElement
+        public Task<DOMElement> documentElement
         {
-            get
-            {
-                DOMVar var = GetGetVar();
-                return new DOMElement(this._View2Control, var);
-            }
+            get => GetTypedVar<DOMElement>();
         }
-        public Task<string> GetDesignMode => GetAsync<string>("designMode");
 
-        public void SetDesignMode(string value) => Set( value , "designMode");
+        public Task<string> designMode
+        {
+            get => GetAsync<string>();
+            set => _ = SetAsync(value);
+        }
 
-        public Task<string> GetDocumentURI => GetAsync<string>("documentURI");
+        public Task<string> documentURI
+        {
+            get => GetAsync<string>();
+            set => _ = SetAsync(value);
+        }
 
-        public void SetDocumentURI(string value) => Set(value , "documentURI");
 
         public Task<string> domain => GetAsync<string>();
 
-        public DOMObjectCollection embeds
+        public Task< DOMObjectCollection> embeds
         {
-            get
-            {
-                DOMVar var = GetGetVar();
-                return new DOMObjectCollection(this._View2Control, var);
-            }
+            get => GetTypedVar<DOMObjectCollection>();
         }
 
 
@@ -150,77 +132,63 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             return Exec<bool>(new object[] { command, showUI, value });
         }
 
-        public DOMObjectCollection forms
+        public Task<DOMObjectCollection> forms
         {
-            get
-            {
-                DOMVar var = GetGetVar();
-                return new DOMObjectCollection(this._View2Control, var);
-            }
+            get=> GetTypedVar<DOMObjectCollection>();
+           
         }
 
 
-        public DOMElement fullscreenElement
+        public Task<DOMElement> fullscreenElement
         {
-            get
-            {
-                DOMVar var = GetGetVar();
-                return new DOMElement(this._View2Control, var);
-            }
+            get=> GetTypedVar<DOMElement>();
+            
         }
 
 
 
         public Task<bool> fullscreenEnabled() => Exec<bool>(new object[] { });
 
-        public DOMElement getElementById(string id)
+        public async  Task< DOMElement> getElementById(string id)
         {
-            DOMVar var = ExecGetVar(new object[] { id });
+            DOMVar var = await ExecGetVarAsync(new object[] { id });
             return new DOMElement(this._View2Control, var);
         }
 
-        public DOMObjectCollection getElementsByClassName(string className)
+        public async Task< DOMObjectCollection> getElementsByClassName(string className)
         {
-            DOMVar var = ExecGetVar(new object[] { className });
+            DOMVar var = await ExecGetVarAsync(new object[] { className });
             return new DOMObjectCollection(this._View2Control, var);
         }
 
-        public DOMObjectCollection getElementsByName(string name)
+        public async  Task< DOMObjectCollection> getElementsByName(string name)
         {
-            DOMVar var = ExecGetVar(new object[] { name });
+            DOMVar var = await ExecGetVarAsync(new object[] { name });
             return new DOMObjectCollection(this._View2Control, var);
         }
 
-        public DOMObjectCollection getElementsByTagName(string tagName)
+        public async Task< DOMObjectCollection> getElementsByTagName(string tagName)
         {
-            DOMVar var = ExecGetVar(new object[] { tagName });
+            DOMVar var = await ExecGetVarAsync(new object[] { tagName });
             return new DOMObjectCollection(this._View2Control, var);
         }
 
         public Task<bool> hasFocus() => Exec<bool>(new object[] { });
 
-        public DOMElement head
+        public Task<DOMElement> head
         {
-            get
-            {
-                DOMVar var = GetGetVar();
-                return new DOMElement(this._View2Control, var);
-            }
+            get => GetTypedVar<DOMElement>();
         }
 
-        public DOMObjectCollection images
+        public Task<DOMObjectCollection> images
         {
-            get
-            {
-                DOMVar var = GetGetVar();
-                return new DOMObjectCollection(this._View2Control, var);
+            get => GetTypedVar<DOMObjectCollection>();
 
-            }
         }
 
-        public DOMElement importNode(DOMElement node, bool deep)
+        public async Task< DOMElement> importNode(DOMElement node, bool deep)
         {
-            DOMVar var = ExecGetVar(new object[] { node, deep });
+            DOMVar var = await ExecGetVarAsync(new object[] { node, deep });
             return new DOMElement(this._View2Control, var);
         }
 
@@ -228,51 +196,54 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task<string> lastModified => GetAsync<string>();
 
-        public DOMObjectCollection links
+        public Task<DOMObjectCollection> links
         {
-            get
-            {
-                DOMVar var = GetGetVar();
-                return new DOMObjectCollection(this._View2Control, var);
-            }
+            get => GetTypedVar<DOMObjectCollection>();
         }
 
-        public void normalize() => Exec(new object[] { });
+        public Task normalize() => Exec<object>(new object[] { });
 
-        public void open() => Exec(new object[] { });
+        public Task open() => Exec<object>(new object[] { });
 
-        public DOMElement querySelector(string cssSelector)
+        public async Task< DOMElement> querySelector(string cssSelector)
         {
-            DOMVar var = ExecGetVar(new object[] { cssSelector });
+            DOMVar var = await  ExecGetVarAsync( new object[] { cssSelector });
             return new DOMElement(this._View2Control, var);
         }
 
-        public DOMObjectCollection querySelectorAll(string cssSelector)
+        public async Task< DOMObjectCollection> querySelectorAll(string cssSelector)
         {
-            DOMVar var = ExecGetVar(new object[] { cssSelector });
+            DOMVar var = await ExecGetVarAsync( new object[] { cssSelector });
             return new DOMObjectCollection(this._View2Control, var);
         }
         public Task<string> readyState => GetAsync<string>();
 
         public Task<string> referrer => GetAsync<string>();
 
-        public DOMElement renameNode(DOMElement node, string namespaceUri, string nodeName)
+        public async Task< DOMElement> renameNode(DOMElement node, string namespaceUri, string nodeName)
         {
-            DOMVar var = ExecGetVar(new object[] { node, namespaceUri, nodeName });
+            DOMVar var = await ExecGetVarAsync(new object[] { node, namespaceUri, nodeName });
             return new DOMElement(this._View2Control, var);
         }
 
-        public Task<bool> GetStrictErrorChecking => GetAsync<bool>("strictErrorChecking");
-        public void SetStrictErrorChecking(bool value) => Set(value , "strictErrorChecking");
+        public Task<bool> strictErrorChecking
+        {
+            get => GetAsync<bool>();
+            set=> _ = SetAsync(value);
+        }
 
-        public Task<string> GetTitle => GetAsync<string>("title");
-        public void SetTitle(string value) => Set(value, "title");
+        public Task<string> title
+        {
+            get => GetAsync<string>();
+            set => _ = SetAsync(value);
+        }
 
+        
         public Task<string> URL => GetAsync<string>();
 
-        public void write(params object[] parameters) => Exec(parameters);
+        public Task write(params object[] parameters) => Exec<object>(parameters);
 
-        public void writeln(params object[] parameters) => Exec(parameters);
+        public Task writeln(params object[] parameters) => Exec<object>(parameters);
 
     }
 }

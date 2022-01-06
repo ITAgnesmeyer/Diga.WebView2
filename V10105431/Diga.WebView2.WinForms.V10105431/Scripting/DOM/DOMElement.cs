@@ -2,21 +2,6 @@
 
 namespace Diga.WebView2.WinForms.Scripting.DOM
 {
-    public class DOMDialog : DOMElement
-    {
-        public DOMDialog(WebView control, DOMVar domVar):base(control, domVar)
-        {
-            
-        }
-
-        public Task<bool> open
-        {
-            get => GetAsync<bool>();
-            set => _ = SetAsync(value);
-        }
-
-
-    }
     public class DOMElement : DOMObject
     {
 
@@ -33,26 +18,29 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             set => _ = SetAsync<string>(value);
         }
 
-        public void SetAccessKey(string value) => Set(value, "accessKey");
-
-        public void addEventListener(string eventName, DOMScriptText scriptText , bool useCapture)
+        
+        public Task addEventListener(string eventName, DOMScriptText scriptText , bool useCapture)
         {
-            Exec(new object[]{eventName,scriptText, useCapture});
+            return Exec<object>(new object[]{eventName,scriptText, useCapture});
         }
 
-        public void appendChild(DOMElement element)
+        public Task appendChild(DOMElement element)
         {
-            Exec(new object[]{element});
+            return Exec<object>(new object[]{element});
         }
 
-        public void blur() => Exec(new object[] { });
+        public Task blur() => Exec<object>(new object[] { });
 
         public Task<int> childElementCount => GetAsync<int>();
 
-        public Task<string> GetClassName => GetAsync<string>("className");
-        public void SetClassName(string value) => Set(value, "className");
+        public Task<string> className
+        {
+            get=> GetAsync<string>();
+            set => _ = SetAsync(value);
 
-        public void click() => Exec(new object[] { });
+        }
+
+        public Task click() => Exec<object>(new object[] { });
 
         public Task<int> clientHeight => GetAsync<int>();
         public Task<int> clientLeft => GetAsync<int>();
@@ -86,22 +74,15 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public void exitFullscreen() => Exec(new object[] { });
 
-        public DOMElement firstChild
+        public Task< DOMElement> firstChild
         {
-            get
-            {
-                DOMVar domVar = GetGetVar();
-                return new DOMElement(this._View2Control, domVar);
-            }
+            get => GetTypedVar<DOMElement>();
+
         }
 
-        public DOMElement firstElementChild
+        public Task<DOMElement> firstElementChild
         {
-            get
-            {
-                DOMVar domVar = GetGetVar();
-                return new DOMElement(this._View2Control, domVar);
-            }
+            get => GetTypedVar<DOMElement>();
         }
 
         public void focus() => Exec(new object[] { });
@@ -160,13 +141,10 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         public Task<string> GetLang => GetAsync<string>("lang");
         public void SetLang(string value) => Set(value, "lang");
 
-        public DOMElement lastChild
+        public Task< DOMElement> lastChild
         {
-            get
-            {
-                DOMVar domVar = GetGetVar();
-                return new DOMElement(this._View2Control, domVar);
-            }
+            get => GetTypedVar<DOMElement>();
+
         }
 
         public Task<bool> matches(string selectors) => Exec<bool>(new object[] { selectors });
@@ -174,22 +152,16 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task<string> namespaceURI => GetAsync<string>();
 
-        public DOMElement nextSibling
+        public Task< DOMElement> nextSibling
         {
-            get
-            {
-                DOMVar domVar = GetGetVar();
-                return new DOMElement(this._View2Control, domVar);
-            }
+            get => GetTypedVar<DOMElement>();
+
         }
 
-        public DOMElement nextElementSibling
+        public Task<DOMElement> nextElementSibling
         {
-            get
-            {
-                DOMVar domVar = GetGetVar();
-                return new DOMElement(this._View2Control, domVar);
-            }
+            get => GetTypedVar<DOMElement>();
+
         }
 
         public Task<string> nodeName => GetAsync<string>();
@@ -206,13 +178,10 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         public Task<int> offsetLeft => GetAsync<int>();
         public Task<int> offsetTop => GetAsync<int>();
 
-        public DOMElement offsetParent
+        public Task<DOMElement > offsetParent
         {
-            get
-            {
-                DOMVar domVar = GetGetVar();
-                return new DOMElement(this._View2Control, domVar);
-            }
+            get => GetTypedVar<DOMElement>();
+
         }
 
         public Task<string> GetOuterHTML => GetAsync<string>("outerHTML");
@@ -221,50 +190,33 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         public Task<string> GetOuterText => GetAsync<string>("outerText");
         public void SetOuterText(string value) => Set(value, "outerText");
 
-        public DOMDocument ownerDocument
+        public Task<DOMDocument> ownerDocument
         {
-            get
-            {
-                DOMVar domVar = GetGetVar();
-                return new DOMDocument(this._View2Control, domVar);
-            }
+            get=> GetTypedVar<DOMDocument>();
+
+
         }
 
-        public DOMElement parentNode
+        public Task<DOMElement> parentNode
         {
-            get
-            {
-                DOMVar var = GetGetVar();
-                return new DOMElement(this._View2Control, var);
-            }
+            get=> GetTypedVar<DOMElement>();
+            
         }
 
-        public DOMElement parentElement
+        public Task< DOMElement> parentElement
         {
-            get
-            {
-                DOMVar var = GetGetVar();
-                return new DOMElement(this._View2Control, var);
-            }
+            get => GetTypedVar<DOMElement>();
+
         }
 
-        public DOMElement previousSibling
+        public Task<DOMElement> previousSibling
         {
-            get
-            {
-                DOMVar var = GetGetVar();
-                return new DOMElement(this._View2Control, var);
-            }
+            get => GetTypedVar<DOMElement>();
         }
 
-        public DOMElement previousElementSibling
+        public Task<DOMElement> previousElementSibling
         {
-            get
-            {
-                DOMVar var = GetGetVar();
-                return new DOMElement(this._View2Control, var);
-            }
-        }
+            get => GetTypedVar<DOMElement>();        }
 
         public DOMElement querySelector(string cssSelector)
         {

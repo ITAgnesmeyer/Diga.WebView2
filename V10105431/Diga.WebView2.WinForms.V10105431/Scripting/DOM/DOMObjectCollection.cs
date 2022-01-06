@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace Diga.WebView2.WinForms.Scripting.DOM
 {
@@ -12,18 +13,18 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             this._InstanceName = var.Name;
         }
 
-        public DOMElement item(int index)
+        public async Task< DOMElement> item(int index)
         {
-            DOMVar var = ExecGetVar(new object[] { index });
+            DOMVar var =await ExecGetVarAsync(new object[] { index });
             return new DOMElement(this._View2Control, var);
         }
-        public DOMElement this[int index] => item(index);
+        public Task<DOMElement> this[int index] => item(index);
 
         public Task<int> length => GetAsync<int>();
 
-        public DOMElement namedItem(string name)
+        public async Task< DOMElement> namedItem(string name)
         {
-            DOMVar var = ExecGetVar(new object[] { name });
+            DOMVar var = await ExecGetVarAsync(new object[] { name });
 
             return new DOMElement(this._View2Control, var);
         }

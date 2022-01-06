@@ -1061,7 +1061,8 @@ namespace Diga.WebView2.WinForms
             DOMDocument doc = this.GetDOMDocument();
             try
             {
-                string html = await doc.documentElement.GetOuterHTML;
+                DOMElement domElement = await doc.documentElement;
+                string html = await domElement.GetOuterHTML;
                 if (html.StartsWith("\""))
                     html = html.Substring(1);
                 if (html.EndsWith("\""))
