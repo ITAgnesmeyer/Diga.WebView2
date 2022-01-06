@@ -453,15 +453,15 @@ namespace Diga.WebView2.Wrapper
             return (CBOOL)result.isSuccess;
         }
 
-        public string ExecuteScriptSync(string javaScript)
-        {
-            ScriptResultType result = Native.AsyncCall<ScriptResultType>(ExecuteScriptAsync3(javaScript));
-            HRESULT resultCode = result.ErrorCode;
-            if (resultCode != HRESULT.S_OK)
-                throw Marshal.GetExceptionForHR(resultCode);
-            return result.ResultAsJson;
+        //public string ExecuteScriptSync(string javaScript)
+        //{
+        //    ScriptResultType result = Native.AsyncCall<ScriptResultType>(ExecuteScriptAsync3(javaScript));
+        //    HRESULT resultCode = result.ErrorCode;
+        //    if (resultCode != HRESULT.S_OK)
+        //        throw Marshal.GetExceptionForHR(resultCode);
+        //    return result.ResultAsJson;
 
-        }
+        //}
 
         private async Task<string> ExecuteScriptAsync2(string javaScript)
         {

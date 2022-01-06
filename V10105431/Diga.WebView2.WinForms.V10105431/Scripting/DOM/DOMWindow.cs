@@ -1,24 +1,20 @@
 ﻿using System.Threading.Tasks;
 
-namespace Diga.WebView2.WinForms.Scripting
+namespace Diga.WebView2.WinForms.Scripting.DOM
 {
     public class DOMWindow : DOMObject
     {
-        private string _InstanceName = "window";
-        protected override string InstanceName
-        {
-            get => this._InstanceName;
-            set => this._InstanceName = value;
-        }
+     
 
         internal DOMWindow(WebView control) : base(control)
         {
-
+            this._InstanceName = "window";
         }
 
         internal DOMWindow(WebView control, DOMVar domVar) : base(control)
         {
-            _InstanceName = domVar.Name;
+            this._Var = domVar;
+            this._InstanceName = domVar.Name;
         }
         public async Task alert(string message)
         {

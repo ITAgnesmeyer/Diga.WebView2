@@ -1,42 +1,29 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace Diga.WebView2.WinForms.Scripting
+namespace Diga.WebView2.WinForms.Scripting.DOM
 {
-    public class TaskVar<T>
+    public class DOMDialog : DOMElement
     {
-        public T Value { get; set; }
-
-        public TaskVar(T value)
+        public DOMDialog(WebView control, DOMVar domVar):base(control, domVar)
         {
-            this.Value = value;
+            
+        }
+
+        public Task<bool> open
+        {
+            get => GetAsync<bool>();
+            set => _ = SetAsync(value);
         }
 
 
-        public static implicit operator Task<T>(TaskVar<T> input)
-        {
-            var r = Task.FromResult<T>(input.Value);
-            return r;
-        }
-
-        public static implicit operator TaskVar<T>(T input)
-        {
-            return new TaskVar<T>(input);
-        }
     }
-
     public class DOMElement : DOMObject
     {
 
-        private string _InstanceName;
-        protected override string InstanceName
-        {
-            get => this._InstanceName;
-            set => this._InstanceName = value;
-        }
+      
         internal DOMElement(WebView control, DOMVar domVar) : base(control)
         {
+            this._Var = domVar;
             this._InstanceName = domVar.Name;
         }
 

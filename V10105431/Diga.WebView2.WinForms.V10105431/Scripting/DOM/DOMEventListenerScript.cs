@@ -1,4 +1,4 @@
-﻿namespace Diga.WebView2.WinForms.Scripting
+﻿namespace Diga.WebView2.WinForms.Scripting.DOM
 {
     public class DOMEventListenerScript : DOMScriptText
     {

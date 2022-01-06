@@ -1,22 +1,17 @@
-﻿namespace Diga.WebView2.WinForms.Scripting
+﻿namespace Diga.WebView2.WinForms.Scripting.DOM
 {
     public class DOMConsole : DOMObject
     {
-        private string _InstanceName = "console";
-
-        protected override string InstanceName
-        {
-            get => this._InstanceName;
-            set => this._InstanceName = value;
-        }
+        
 
         internal DOMConsole(WebView control):base(control)
         {
-            
+            this._InstanceName = "console";
         }
 
         internal DOMConsole(WebView control, DOMVar var) : base(control)
         {
+            this._Var = var;
             this._InstanceName = var.Name;
         }
         public void log(string message)

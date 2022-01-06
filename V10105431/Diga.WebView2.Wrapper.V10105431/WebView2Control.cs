@@ -857,10 +857,10 @@ namespace Diga.WebView2.Wrapper
             this.WebView?.ExecuteScript(javaScript);
         }
 
-        public string ExecuteScriptSync(string javaScript)
-        {
-            return this.WebView?.ExecuteScriptSync(javaScript);
-        }
+        //public string ExecuteScriptSync(string javaScript)
+        //{
+        //    return this.WebView?.ExecuteScriptSync(javaScript);
+        //}
         public async Task<string> ExecuteScriptAsync(string javaScript)
         {
             return await this.WebView.ExecuteScriptAsync(javaScript);

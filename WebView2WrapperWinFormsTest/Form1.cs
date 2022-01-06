@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Diga.WebView2.WinForms.Scripting;
+using Diga.WebView2.WinForms.Scripting.DOM;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
 
@@ -16,16 +19,16 @@ namespace WebView2WrapperWinFormsTest
     public partial class Form1 : Form
     {
         private TestObject _TestObject;
-       
+
         public Form1()
         {
             this._TestObject = new TestObject();
-            
+
             InitializeComponent();
 
         }
 
-        private async  void OnRpcEvent(object sender, RpcEventHandlerArgs e)
+        private async void OnRpcEvent(object sender, RpcEventHandlerArgs e)
         {
             string eventName = e.EventName;
             string id = e.ObjectId;
@@ -42,37 +45,37 @@ namespace WebView2WrapperWinFormsTest
             {
                 case "click":
                     {
-                        
+
                         this.webView1.GetDOMConsole().log("Hallo from Prog");
                         DOMWindow win = this.webView1.GetDOMWindow();
                         string name = await win.GetName();
-                        DOMWindow val =win.open("", "test","width=200,height=100");
-                        
+                        DOMWindow val = win.open("", "test", "width=200,height=100");
+
                         string nn = await val.GetName();
                         val.SetName("hallox");
                         var bn = val.document.createElement("button");
                         bn.SetInnerHTML("hallo");
-                        
-                        bn.addEventListener("click",new DOMEventListenerScript(bn),false);
+
+                        bn.addEventListener("click", new DOMEventListenerScript(bn), false);
                         val.document.GetBody.appendChild(bn);
 
-                        nn = "name=" + nn; 
-                       await win.alert("Warten");
-                       await val.alert(nn);
+                        nn = "name=" + nn;
+                        await win.alert("Warten");
+                        await val.alert(nn);
                         val.console.log("werte die ich kenne");
-                        val.moveBy(100,100);
-                       await win.alert("Move");
-                        val.moveTo(200,200);
+                        val.moveBy(100, 100);
+                        await win.alert("Move");
+                        val.moveTo(200, 200);
                         win.SetName("hallo");
-                       await win.alert("Object Click:" + objId);
-                     
+                        await win.alert("Object Click:" + objId);
+
                     }
 
                     break;
             }
         }
 
-      
+
         private void button1_Click(object sender, EventArgs e)
         {
             this.webView1.Url = this.textBox1.Text;
@@ -460,11 +463,11 @@ namespace WebView2WrapperWinFormsTest
             DOMDocument doc = this.webView1.GetDOMDocument();
             DOMElement element = doc.createElement("button");
             element.SetInnerHTML("Click Me");
-            element.id = Task.FromResult(Guid.NewGuid().ToString());
+            element.id = (TaskVar<string>)Guid.NewGuid().ToString();
 
             DOMEventListenerScript scriptText = new DOMEventListenerScript(element);
             doc.GetBody.appendChild(element);
-            element.addEventListener("click",scriptText,false);
+            element.addEventListener("click", scriptText, false);
 
             //string script = $"let obj=document.createElement(\"button\");" +
             //                $"obj.innerHTML=\"Click Me\";" +
@@ -485,13 +488,13 @@ namespace WebView2WrapperWinFormsTest
             catch (Exception ex)
             {
 
-                 ShowMessageBoxAsync(ex.ToString());
+                ShowMessageBoxAsync(ex.ToString());
 
             }
 
 
         }
-        private  void ShowMessageBoxAsync(string message, string caption = "Message")
+        private void ShowMessageBoxAsync(string message, string caption = "Message")
         {
             this.webView1.GetDOMWindow().alert(message);
 
@@ -547,6 +550,11 @@ namespace WebView2WrapperWinFormsTest
             {
                 src.ShowDialog(this);
             }
+        }
+
+        private async void bnSrcTest_Click(object sender, EventArgs e)
+        {
+            this.webView1.ShowPageSource();
         }
     }
 }

@@ -4,9 +4,11 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Diga.WebView2.WinForms.Scripting;
+using Diga.WebView2.WinForms.Scripting.DOM;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
 using MimeTypeExtension;
@@ -553,22 +555,22 @@ namespace Diga.WebView2.WinForms
             return result;
         }
 
-        public string ExecuteScriptSync(string javaScript)
-        {
-            if (!this.CheckIsCreatedOrEnded)
-                throw new InvalidOperationException("Browser not created or Crashed");
-            ScriptZeroTest(javaScript);
+        //private string ExecuteScriptSync(string javaScript)
+        //{
+        //    if (!this.CheckIsCreatedOrEnded)
+        //        throw new InvalidOperationException("Browser not created or Crashed");
+        //    ScriptZeroTest(javaScript);
 
-            string scrptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"", "\\'")}}}\")";
-            string result = this._WebViewControl.ExecuteScriptSync(scrptToExecute);
-            ScriptErrorObject errorObj = ScriptSerializationHelper.GetScriptErrorObject(result);
-            if (errorObj != null)
-            {
-                throw new ScriptException(errorObj);
-            }
-            return result;
+        //    string scrptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"", "\\'")}}}\")";
+        //    string result = this._WebViewControl.ExecuteScriptSync(scrptToExecute);
+        //    ScriptErrorObject errorObj = ScriptSerializationHelper.GetScriptErrorObject(result);
+        //    if (errorObj != null)
+        //    {
+        //        throw new ScriptException(errorObj);
+        //    }
+        //    return result;
 
-        }
+        //}
         public WebView2PrintSettings CreatePrintSettings()
         {
             return this._WebViewControl.CreatePrintSettings();
@@ -1043,6 +1045,41 @@ namespace Diga.WebView2.WinForms
 
                 return this._WebViewControl.Content;
             }
+        }
+
+        public Task<string> PageSource => GetDocumentText();
+
+        public void ShowPageSource()
+        {
+            string uri = this.Source;
+            
+
+            this.Navigate($"view-source:{uri}");
+        }
+        private async Task<string> GetDocumentText()
+        {
+            DOMDocument doc = this.GetDOMDocument();
+            try
+            {
+                string html = await doc.documentElement.GetOuterHTML;
+                if (html.StartsWith("\""))
+                    html = html.Substring(1);
+                if (html.EndsWith("\""))
+                {
+                    html = html.Substring(0, html.Length - 1);
+                }
+                html= System.Text.RegularExpressions.Regex.Unescape(html);
+                //string enc = html= System.Text.RegularExpressions.Regex.Escape(html);
+                html = html.Replace("\n", Environment.NewLine);
+                return html;
+
+            }
+            catch (Exception e)
+            {
+                Debug.Print(e.ToString());
+                throw;
+            }
+
         }
         protected virtual void OnWebResourceRequested(WebResourceRequestedEventArgs e)
         {

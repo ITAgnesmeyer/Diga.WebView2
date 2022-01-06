@@ -23,7 +23,7 @@ namespace Diga.WebView2.WinForms.Scripting
             this._View2Control.ExecuteScriptCompleted += OnScriptComplete;
         }
 
-        private ConcurrentDictionary<string,ExecuteScriptCompletedEventArgs> _CurrentScriptID=new ConcurrentDictionary<string, ExecuteScriptCompletedEventArgs>();
+        //private ConcurrentDictionary<string,ExecuteScriptCompletedEventArgs> _CurrentScriptID=new ConcurrentDictionary<string, ExecuteScriptCompletedEventArgs>();
         private void OnScriptComplete(object sender, ExecuteScriptCompletedEventArgs e)
         {
             if (e.ErrorCode != 0)
