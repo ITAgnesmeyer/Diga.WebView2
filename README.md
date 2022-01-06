@@ -48,22 +48,6 @@ The API calls in this project are designed to draw the correct DLL depending on 
 Therefore, the DLL's were included in the project.
 The NATIVEN-DLL's can then be found in the bin directory under native/x86 or native/x64.
 
-### Name of the project files.
-To enable quick switching between WebView2 versions, the namespaces are kept the same.
-This is how it should be possible to do so later in the goal- project, simply on the basis of the 
-package to decide which version of WebView2 to use.
-
-- Diga.WebView2.Interop. {Framework}. {PakteVersion}
-- Diga.WebView2.Wrapper. {Framework}. {PaketVersion}
-- Diga.WebView2.WinForms. {Framework}. {PaketVersion}
-
-- Since version V106643 a name extension is no longer added.
-
-### Framework:
-- Std =>  Standard 2.0, Standard 2.1
-- Core => Dotnet core 3.1, 5.0, 6.0
-- Framework => NET framework 4.7.2
-
 
 ### Package version:
 This means the version of the WebView2 packages.
@@ -85,40 +69,7 @@ Or it may be that only the Interop package is needed.
 #### Why I get an error when I try to add the core control in a WinForms application in the designer.
 This seems to be related to Visual Studio.
 
-### AddRemoteObject => COM interop
-It is possible to pass a dot-net object as a remote object to the web browser. In my tests, I was able to set and read properties. However, I did not manage to call functions without errors. Neither with parameters, nor without and not with and without return. < V9430.
-AddRemoteObject works fine when you use >=V9430. If you add the followin Rremote Object first:
-```c#
-    [ClassInterface(ClassInterfaceType.AutoDual)]
-    [ComVisible(true)]
-    public class HostObjectHelper
-    {
-        private const int DISP_E_MEMBERNOTFOUND = -2147352573;
-        private const int DISP_E_TYPEMISMATCH = -2147352571;
 
-        /// <summary>Check whether a member is a method of an object.</summary>
-        /// <param name="obj">The host object to check.</param>
-        /// <param name="name">The name of the member to check.</param>
-        public bool IsMethod(object obj, string name)
-        {
-            Type type = obj.GetType();
-            if (!type.IsClass || type.IsCOMObject)
-                throw new COMException((string) null, -2147352571);
-            if (type.GetMember(name).Length == 0)
-                throw new COMException((string) null, -2147352573);
-            foreach (MemberInfo memberInfo in type.GetMember(name))
-            {
-                if (memberInfo.MemberType == MemberTypes.Method)
-                    return true;
-            }
-            return false;
-        }
-    }
-```
-It is important that the object is given the following name:
-##### {60A417CA-F1AB-4307-801B-F96003F8938B} Host Object Helper
-
-#### The object is now added automatically. 
 
 ## Windows Forms
 If you use net Framework. You have to modify the Diga.WebView2.Interop.dll Reference.
@@ -147,6 +98,12 @@ public async Task InvokeSendMessage(string msg)
    await Task.Run(() => this.SendMessage(msg));
 }
 ```
+
+## DOM Objects
+The Windows Forms project now supports DOM objects.
+You can retrieve the DOM - Window object and the DOM - Document object directly by using the GetDOMWidow() and GetDOMDocument() functions.
+It should be noted that calls are asynchronous.
+
 
 ###### This text was automatically translated with the [Microsoft translator](https://www.bing.com/translator "Microsoft translator").
 
