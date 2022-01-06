@@ -16,10 +16,10 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task<object> value => GetAsync<object>();
 
-        public void add(params object[] objParams)
+        public Task add(params object[] objParams)
         {
             
-            Exec(objParams);
+            return Exec<object>(objParams);
         }
 
         public Task<bool> contains(string key)
@@ -32,9 +32,9 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             return Exec<object>(new object[] { index });
         }
 
-        public void remove(params object[] parObjects)
+        public Task remove(params object[] parObjects)
         {
-            Exec(parObjects);
+            return Exec<object>(parObjects);
         }
 
         public Task<bool> toggle(object obj, bool add)

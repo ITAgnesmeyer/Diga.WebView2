@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -48,25 +49,30 @@ namespace WebView2WrapperWinFormsTest
 
                         this.webView1.GetDOMConsole().log("Hallo from Prog");
                         DOMWindow win = this.webView1.GetDOMWindow();
-                        string name = await win.GetName();
-                        DOMWindow val = win.open("", "test", "width=200,height=100");
+                        string name = await win.name;
+                        DOMWindow val = await win.open("", "test", "width=200,height=100");
 
-                        string nn = await val.GetName();
-                        val.SetName("hallox");
-                        var bn = val.document.createElement("button");
+                        string nn = await val.name;
+                        val.name = (TaskVar<string>)"hallox";
+                        var docuemnt = await val.document;
+                        var bn = await docuemnt.createElement("button");
                         bn.SetInnerHTML("hallo");
 
-                        bn.addEventListener("click", new DOMEventListenerScript(bn), false);
-                        val.document.GetBody.appendChild(bn);
-
+                        await bn.addEventListener("click", new DOMEventListenerScript(bn), false);
+                        var vladoc = await val.document;
+                        var body = await vladoc.body;
+                        await body.appendChild(bn);
                         nn = "name=" + nn;
                         await win.alert("Warten");
                         await val.alert(nn);
-                        val.console.log("werte die ich kenne");
-                        val.moveBy(100, 100);
+                        DOMConsole console = await val.console;
+
+                        console.log("werte die ich kenne");
+                        await val.moveBy(100, 100);
                         await win.alert("Move");
-                        val.moveTo(200, 200);
-                        win.SetName("hallo");
+                        await val.moveTo(200, 200);
+                        win.name = (TaskVar<string>)"halllo";
+                        
                         await win.alert("Object Click:" + objId);
 
                     }
@@ -461,13 +467,14 @@ namespace WebView2WrapperWinFormsTest
         private async void bnScriptTest_Click(object sender, EventArgs e)
         {
             DOMDocument doc = this.webView1.GetDOMDocument();
-            DOMElement element = doc.createElement("button");
+            DOMElement element = await  doc.createElement("button");
             element.SetInnerHTML("Click Me");
             element.id = (TaskVar<string>)Guid.NewGuid().ToString();
 
             DOMEventListenerScript scriptText = new DOMEventListenerScript(element);
-            doc.GetBody.appendChild(element);
-            element.addEventListener("click", scriptText, false);
+            var docBody = await doc.body;
+            await docBody.appendChild(element);
+            await element.addEventListener("click", scriptText, false);
 
             //string script = $"let obj=document.createElement(\"button\");" +
             //                $"obj.innerHTML=\"Click Me\";" +
