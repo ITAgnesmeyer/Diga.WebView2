@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Diga.WebView2.WinForms.Scripting;
 using Diga.WebView2.WinForms.Scripting.DOM;
@@ -291,24 +292,23 @@ namespace WebView2WrapperWinFormsTest
             {
                 string script = "5+1";
                 string result = await this.webView1.EvalScriptAsync(script);
-                ShowMessageBoxAsync(result);
+                await ShowMessageBoxAsync(result);
             }
             catch (ScriptException ex)
             {
 
-                ShowMessageBoxAsync(ex.ErrorObject.message);
+                await ShowMessageBoxAsync(ex.ErrorObject.message);
             }
 
             try
             {
                 string script = "alert(\"hallo\"";
                 string result = await this.webView1.EvalScriptAsync(script);
-                ShowMessageBoxAsync(result);
+                await ShowMessageBoxAsync(result);
             }
             catch (ScriptException ex)
             {
-
-                ShowMessageBoxAsync(ex.ErrorObject.message);
+                 await ShowMessageBoxAsync(ex.ErrorObject.message);
             }
 
 
@@ -480,9 +480,9 @@ namespace WebView2WrapperWinFormsTest
 
            
         }
-        private void ShowMessageBoxAsync(string message, string caption = "Message")
+        private async Task ShowMessageBoxAsync(string message, string caption = "Message")
         {
-            this.webView1.GetDOMWindow().alert(message);
+            await this.webView1.GetDOMWindow().alert(message);
 
         }
         private void ShowMessageBox(string message, string caption = "Message")
