@@ -22,9 +22,9 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             set => _ = SetAsync(value);
         }
 
-        public void close() => Exec(new object[] { });
+        public Task close() => Exec<object>(new object[] { });
 
-        public void show() => Exec(new object[] { });
+        public Task show() => Exec<object>(new object[] { });
         public Task showModal() => Exec<object>(new object[] { });
 
     }

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Diga.WebView2.WinForms.Scripting;
 using Diga.WebView2.WinForms.Scripting.DOM;
@@ -31,54 +27,54 @@ namespace WebView2WrapperWinFormsTest
 
         private async void OnRpcEvent(object sender, RpcEventHandlerArgs e)
         {
-            string eventName = e.EventName;
-            string id = e.ObjectId;
+            //string eventName = e.EventName;
+            //string id = e.ObjectId;
 
 
 
-            IRpcObject rpcCls = e.RpcObject;
+            //IRpcObject rpcCls = e.RpcObject;
 
 
 
 
-            string objId = rpcCls.objId;
-            switch (eventName)
-            {
-                case "click":
-                    {
+            //string objId = rpcCls.objId;
+            //switch (eventName)
+            //{
+            //    case "click":
+            //        {
 
-                        this.webView1.GetDOMConsole().log("Hallo from Prog");
-                        DOMWindow win = this.webView1.GetDOMWindow();
-                        string name = await win.name;
-                        DOMWindow val = await win.open("", "test", "width=200,height=100");
+            //            await this.webView1.GetDOMConsole().log("Hallo from Prog");
+            //            DOMWindow win = this.webView1.GetDOMWindow();
+            //            string name = await win.name;
+            //            DOMWindow val = await win.open("", "test", "width=200,height=100");
 
-                        string nn = await val.name;
-                        val.name = (TaskVar<string>)"hallox";
-                        var docuemnt = await val.document;
-                        var bn = await docuemnt.createElement("button");
-                        bn.SetInnerHTML("hallo");
+            //            string nn = await val.name;
+            //            val.name = (TaskVar<string>)"hallox";
+            //            var docuemnt = await val.document;
+            //            var bn = await docuemnt.createElement("button");
+            //            bn.innerHTML=(TaskVar<string>)"hallo";
+            //            bn.id = (TaskVar<string>)"ABC";
+            //            await bn.addEventListener("click", new DOMEventListenerScript(bn), false);
+            //            var vladoc = await val.document;
+            //            var body = await vladoc.body;
+            //            await body.appendChild(bn);
+            //            nn = "name=" + nn;
+            //            await win.alert("Warten");
+            //            await val.alert(nn);
+            //            DOMConsole console = await val.console;
 
-                        await bn.addEventListener("click", new DOMEventListenerScript(bn), false);
-                        var vladoc = await val.document;
-                        var body = await vladoc.body;
-                        await body.appendChild(bn);
-                        nn = "name=" + nn;
-                        await win.alert("Warten");
-                        await val.alert(nn);
-                        DOMConsole console = await val.console;
-
-                        console.log("werte die ich kenne");
-                        await val.moveBy(100, 100);
-                        await win.alert("Move");
-                        await val.moveTo(200, 200);
-                        win.name = (TaskVar<string>)"halllo";
+            //            await console.log("werte die ich kenne");
+            //            await val.moveBy(100, 100);
+            //            await win.alert("Move");
+            //            await val.moveTo(200, 200);
+            //            win.name = (TaskVar<string>)"halllo";
                         
-                        await win.alert("Object Click:" + objId);
+            //            await win.alert("Object Click:" + objId);
 
-                    }
+            //        }
 
-                    break;
-            }
+            //        break;
+            //}
         }
 
 
@@ -272,17 +268,9 @@ namespace WebView2WrapperWinFormsTest
         private void webView1_WebViewCreated(object sender, EventArgs e)
         {
 
-#if CORE
-            //this.webView1.OpenDevToolsWindow();
-            this.webView1.RemoteObjectsAllowed = true;
-#endif//0E1B9FCAB5-FB86-4D78-91DE-7BC2B4077E5B
-            //this.webView1.AddRemoteObject("{60A417CA-F1AB-4307-801B-F96003F8938B} Host Object Helper", (object) new HostObjectHelper());
-            //this.webView1.AddRemoteObject("0E1B9FCAB5-FB86-4D78-91DE-7BC2B4077E5", (object) new HostObjectHelper());
+
             this._TestObject.Name = "hallo Welt";
             this.webView1.AddRemoteObject("testObject", this._TestObject);
-            //this.webView1.AddRemoteObject("RpcHandler", this._RpcHandler);
-            //this.webView1.AddScriptToExecuteOnDocumentCreated("window.external.raiseRpcEvent= async function(action, obj) { try { const rpcHandler = window.chrome.webview.hostObjects.RpcHandler;const rpcObj = await rpcHandler.GetNewRpc();rpcObj.objId = obj.id;rpcObj.action = action;rpcObj.param = \"empty\";rpcObj.item=document.getElementById(obj.id);let r = await rpcHandler.Handle(await rpcObj.id, await rpcObj.action, rpcObj);let b = await rpcHandler.ReleaseObject(rpcObj); } catch (e) { alert(e); } }");
-            //this.webView1.InvokeScript("window.external.raiseRpcEvent= async function(action, obj) { try { const rpcHandler = window.chrome.webview.hostObjects.RpcHandler;const rpcObj = await rpcHandler.GetNewRpc();rpcObj.objId = obj.id;rpcObj.action = action;rpcObj.param = \"empty\";let r = await rpcHandler.Handle(await rpcObj.id, await rpcObj.action, rpcObj); } catch (e) { alert(e); } }");
             string value = File.ReadAllText("index.html");
             this.webView1.NavigateToString(value);
             this.textBox1.AutoCompleteCustomSource.Add(this.webView1.MonitoringUrl);
@@ -468,38 +456,29 @@ namespace WebView2WrapperWinFormsTest
         {
             DOMDocument doc = this.webView1.GetDOMDocument();
             DOMElement element = await  doc.createElement("button");
-            element.SetInnerHTML("Click Me");
+            element.innerHTML=(TaskVar<string>)"Click Me";
             element.id = (TaskVar<string>)Guid.NewGuid().ToString();
-
+            DOMWindow window = this.webView1.GetDOMWindow();
             DOMEventListenerScript scriptText = new DOMEventListenerScript(element);
             var docBody = await doc.body;
             await docBody.appendChild(element);
-            await element.addEventListener("click", scriptText, false);
-
-            //string script = $"let obj=document.createElement(\"button\");" +
-            //                $"obj.innerHTML=\"Click Me\";" +
-            //                $"obj.id=\"{Guid.NewGuid()}\";" +
-            //                $"document.body.appendChild(obj);" +
-            //                "obj.addEventListener(\"click\", async () => { await window.external.raiseRpcEvent(\"click\", obj); });" +
-            //                $"return obj.id";
-
-
-            try
+            await element.addEventListener("click", scriptText, true);
+            element.DomEvent += async (o,ev) =>
             {
-                //var id = await this.webView1.ExecuteScriptAsync(script);
-                //string v = "hallo du da";
-                //script = $"document.getElementById({id}).innerHTML=\"{v}\"";
-                //_ = await this.webView1.ExecuteScriptAsync(script);
+                if (ev.EventName == "click")
+                {
+                    DOMMouseEvent me = element.GetDomObjectFromVarName<DOMMouseEvent>(ev.RpcObject.idFullName);
+                    await element.setAttribute("style", "background-color: coral;");
+                    int button = await me.button;
+                    bool isAlt = await me.altKey;
+                    bool isShift = await me.shiftKey;
+                    await window.alert($"set=>isShift={isShift}, isAlt={isAlt}, buttonNr={button}");
 
-            }
-            catch (Exception ex)
-            {
+                }
+            };
+          
 
-                ShowMessageBoxAsync(ex.ToString());
-
-            }
-
-
+           
         }
         private void ShowMessageBoxAsync(string message, string caption = "Message")
         {

@@ -12,6 +12,9 @@ namespace Diga.WebView2.WinForms.Scripting
         string action { get; set; }
         string param { get; set; }
         object item { get; set; }
+        string idFullName { get; }
+        string idName { get; }
+
         object Clone();
     }
 }

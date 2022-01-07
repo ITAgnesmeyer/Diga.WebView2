@@ -6,10 +6,9 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
     {
    
 
-        public DOMTokenList(WebView control, DOMVar var):base(control)
+        public DOMTokenList(WebView control, DOMVar var):base(control,var)
         {
-            this._Var = var;
-            this._InstanceName = var.Name;
+           
         }
 
         public Task<int> length => GetAsync<int>();

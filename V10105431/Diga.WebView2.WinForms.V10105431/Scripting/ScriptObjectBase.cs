@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
-using System.Net.Mime;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using Diga.WebView2.Wrapper.EventArguments;
 
 namespace Diga.WebView2.WinForms.Scripting
@@ -33,7 +27,7 @@ namespace Diga.WebView2.WinForms.Scripting
 
             if (e.ResultObjectAsJson != null)
             {
-                ScriptErrorObject err = Diga.Core.Json.DigaJson.Deserialize<ScriptErrorObject>(e.ResultObjectAsJson);
+                ScriptErrorObject err = Core.Json.DigaJson.Deserialize<ScriptErrorObject>(e.ResultObjectAsJson);
                 if (err != null)
                 {
                     if(err.message != null)
@@ -112,60 +106,60 @@ namespace Diga.WebView2.WinForms.Scripting
 
         }
 
-        protected void Exec(object[] args, [CallerMemberName] string member = "")
-        {
-            string argsString = BuildArgs(args);
-            string funcValue = $"{this.InstanceName}.{member}({argsString});";
-            InvokeScript(funcValue);
-        }
+        //protected void Exec(object[] args, [CallerMemberName] string member = "")
+        //{
+        //    string argsString = BuildArgs(args);
+        //    string funcValue = $"{this.InstanceName}.{member}({argsString});";
+        //    InvokeScript(funcValue);
+        //}
         protected async Task<T> GetAsync<T>([CallerMemberName] string member = "")
         {
             string propVal = $"return {this.InstanceName}.{member};";
             object result = await ExecuteScriptAsync(propVal);
-            return (T)result;
+            return (T)Convert.ChangeType(result, typeof(T));
         }
 
-        protected T Get<T>([CallerMemberName] string member = "")
-        {
-            string propVal = $"return {this.InstanceName}.{member};";
-            object result = ExecuteScript(propVal);
-            return (T)result;
-        }
+        //protected T Get<T>([CallerMemberName] string member = "")
+        //{
+        //    string propVal = $"return {this.InstanceName}.{member};";
+        //    object result = ExecuteScript(propVal);
+        //    return (T)result;
+        //}
 
         protected async Task SetAsync<T>(Task<T> value, [CallerMemberName] string member = "")
         {
             T val = await value;
             string argsValue = BuildArgs(new object[] { val });
             string funcValue = $"{this.InstanceName}.{member}={argsValue};";
-            var retVal = await ExecuteScriptAsync(funcValue);
+            await ExecuteScriptAsync(funcValue);
         }
-        protected void Set<T>(T  value, [CallerMemberName] string member = "")
-        {
-            string argsValue = BuildArgs(new object[] { value });
-            string funcValue = $"{this.InstanceName}.{member}={argsValue};";
-            InvokeScript(funcValue);
-        }
+        //protected void Set<T>(T  value, [CallerMemberName] string member = "")
+        //{
+        //    string argsValue = BuildArgs(new object[] { value });
+        //    string funcValue = $"{this.InstanceName}.{member}={argsValue};";
+        //    InvokeScript(funcValue);
+        //}
 
         protected async Task<string> ExecuteScriptAsync(string script)
         {
             return await this._View2Control.ExecuteScriptAsync(script);
         }
-        public static T AsyncCall<T>(Task<T> tsk)
-        {
-            TaskAwaiter<T> awaiter = tsk.GetAwaiter();
-            while (!awaiter.IsCompleted)
-            {
-                Thread.Sleep(10);
-                Application.DoEvents();
-            }
-            return awaiter.GetResult();
-        }
-        protected string ExecuteScript(string script)
-        {
-            string var = AsyncCall(ExecuteScriptAsync(script));
+        //public static T AsyncCall<T>(Task<T> tsk)
+        //{
+        //    TaskAwaiter<T> awaiter = tsk.GetAwaiter();
+        //    while (!awaiter.IsCompleted)
+        //    {
+        //        Thread.Sleep(10);
+        //        Application.DoEvents();
+        //    }
+        //    return awaiter.GetResult();
+        //}
+        //protected string ExecuteScript(string script)
+        //{
+        //    string var = AsyncCall(ExecuteScriptAsync(script));
 
-            return var;
-        }
+        //    return var;
+        //}
 
         protected void InvokeScript(string script)
         {

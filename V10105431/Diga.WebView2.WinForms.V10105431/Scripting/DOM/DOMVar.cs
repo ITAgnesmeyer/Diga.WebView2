@@ -13,13 +13,13 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             return dvar;
 
         }
-        private readonly Guid _ObjectId;
+        private readonly string _ObjectId;
         private bool disposedValue;
         private const string _VarBase = "window.diga._HEAP_";
 
-        internal  DOMVar(WebView control, bool noCreate = false):base(control)
+        private DOMVar(WebView control, bool noCreate = false):base(control)
         {
-            this._ObjectId = Guid.NewGuid();
+            this._ObjectId =$"{_VarBase}{Guid.NewGuid().ToString().Replace("-","_")}" ;
             if (noCreate)
             {
 
@@ -31,12 +31,12 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             
         }
 
-        internal DOMVar(WebView control, Guid objectId) : base(control)
+        internal DOMVar(WebView control, string objectId) : base(control)
         {
             this._ObjectId = objectId;
 
         }
-        public string Name => $"{_VarBase}{this._ObjectId.ToString().Replace("-","_")}";
+        public string Name => this._ObjectId;
 
         internal async Task CreateVarAsync()
         {
@@ -48,7 +48,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         private void CreateVar()
         {
             string scriptTest = "if(window.diga == undefined) window.diga = new Object();";
-            //string scritpTest2 = "if(window.diga._HEAP_==undefined) window.diga._heap = new Object();";
+           
             InvokeScript(scriptTest);
             string scriptValue = $"{this.Name}=new Object();";
             InvokeScript(scriptValue);

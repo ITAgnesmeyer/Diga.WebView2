@@ -6,21 +6,21 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
     {
 
       
-        internal DOMElement(WebView control, DOMVar domVar) : base(control)
+        internal DOMElement(WebView control, DOMVar domVar) : base(control,domVar)
         {
-            this._Var = domVar;
-            this._InstanceName = domVar.Name;
+
         }
 
         public  Task<string> accessKey
         {
-            get => GetAsync<string>("accessKey");
-            set => _ = SetAsync<string>(value);
+            get => GetAsync<string>();
+            set => _ = SetAsync(value);
         }
 
         
         public Task addEventListener(string eventName, DOMScriptText scriptText , bool useCapture)
         {
+            EventHandlerList.TryAdd(this.InstanceName,this);
             return Exec<object>(new object[]{eventName,scriptText, useCapture});
         }
 
@@ -49,15 +49,15 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task<int> clientWidth => GetAsync<int>();
 
-        public DOMElement cloneNode(bool deep)
+        public async Task<DOMElement> cloneNode(bool deep)
         {
-            DOMVar domVar = ExecGetVar(new object[] { deep });
+            DOMVar domVar = await ExecGetVarAsync(new object[] { deep });
             return new DOMElement(this._View2Control, domVar);
         }
 
-        public DOMElement closes(string selector)
+        public async Task<DOMElement> closes(string selector)
         {
-            DOMVar domVar = ExecGetVar(new object[] {selector});
+            DOMVar domVar = await ExecGetVarAsync( new object[] {selector});
             return new DOMElement(this._View2Control, domVar);
         }
 
@@ -66,13 +66,19 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             return Exec<bool>(new object[] { element });
         }
 
-        public Task<string> GetContentEditable => GetAsync<string>("contentEditable");
-        public void SetContentEditable(string value) => Set(value, "contentEditable");
+        public Task<string> contentEditable
+        {
+            get => GetAsync<string>();
+            set => _ = SetAsync(value);
+        }
 
-        public Task<string> GetDir => GetAsync<string>("dir");
-        public void SetDir(string value) => Set(value, "dir");
-
-        public void exitFullscreen() => Exec(new object[] { });
+        public Task<string> dir
+        {
+            get => GetAsync<string>();
+            set=> _ = SetAsync(value);
+        }
+        
+        public Task exitFullscreen() => Exec<object>(new object[] { });
 
         public Task< DOMElement> firstChild
         {
@@ -85,7 +91,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             get => GetTypedVar<DOMElement>();
         }
 
-        public void focus() => Exec(new object[] { });
+        public Task focus() => Exec<object>(new object[] { });
 
 
         public Task<bool> hasAttribute(string value) => Exec<bool>(new object[] { value });
@@ -99,33 +105,38 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             get => GetAsync<string>();
             set => _ = SetAsync(value);
         }
-        public Task<string> GetId => GetAsync<string>("id");
-        public void SetId(string value) => Set(value, "id");
 
-        public Task<string> GetInnerHTML => GetAsync<string>("innerHTML");
-        public void SetInnerHTML(string value) => Set(value, "innerHTML");
-
-        public Task<string> GetInnerText => GetAsync<string>("innerText");
-        public void SetInnerText(string value) => Set(value, "innerText");
-
-        public void insertAdjacentElement(string position, DOMElement element)
+        public Task<string> innerHTML
         {
-            Exec(new object[]{position,element});
+            get => GetAsync<string>();
+            set => _ = SetAsync(value);
         }
 
-        public void insertAdjacentHTML(string position, string html)
+        public Task<string> innerText
         {
-            Exec(new object[]{position,html});
+            get => GetAsync<string>();
+            set => _ = SetAsync(value);
         }
 
-        public void insertAdjacentText(string position, string text)
+        
+        public Task insertAdjacentElement(string position, DOMElement element)
         {
-            Exec(new object[]{position, text});
+            return Exec<object>(new object[]{position,element});
         }
 
-        public void insertBefore(DOMElement newNode, DOMElement existingNode)
+        public Task insertAdjacentHTML(string position, string html)
         {
-            Exec(new object[] { newNode, existingNode });
+            return Exec<object>(new object[]{position,html});
+        }
+
+        public Task insertAdjacentText(string position, string text)
+        {
+            return Exec<object>(new object[]{position, text});
+        }
+
+        public Task insertBefore(DOMElement newNode, DOMElement existingNode)
+        {
+            return Exec<object>(new object[] { newNode, existingNode });
         }
 
         public Task<bool> isContentEditable => GetAsync<bool>();
@@ -138,9 +149,12 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task<bool> isSupported(string feature, string version) => Exec<bool>(new object[] { feature, version });
 
-        public Task<string> GetLang => GetAsync<string>("lang");
-        public void SetLang(string value) => Set(value, "lang");
-
+        public Task<string> lang
+        {
+            get => GetAsync<string>();
+            set => _ = SetAsync(value);
+        }
+        
         public Task< DOMElement> lastChild
         {
             get => GetTypedVar<DOMElement>();
@@ -168,10 +182,13 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task<int> nodeType => GetAsync<int>();
 
-        public Task<string> GetNodeValue => GetAsync<string>("nodeValue");
-        public void SetNodeValue(string value) => Set(value, "nodeValue");
+        public Task<string> nodeValue
+        {
+            get => GetAsync<string>();
+            set => _ = SetAsync(value);
+        }
 
-        public void normalize() => Exec(new object[] { });
+        public Task normalize() => Exec<object>(new object[] { });
 
         public Task<int> offsetHeight => GetAsync<int>();
         public Task<int> offsetWidth => GetAsync<int>();
@@ -184,23 +201,26 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         }
 
-        public Task<string> GetOuterHTML => GetAsync<string>("outerHTML");
-        public void SetOuterHTML(string value) => Set(value, "outerHTML");
+        public Task<string> outerHTML
+        {
+            get => GetAsync<string>();
+            set => _ = SetAsync(value);
+        }
 
-        public Task<string> GetOuterText => GetAsync<string>("outerText");
-        public void SetOuterText(string value) => Set(value, "outerText");
+        public Task<string> outerText
+        {
+            get => GetAsync<string>();
+            set => _ = SetAsync(value);
+        }
 
         public Task<DOMDocument> ownerDocument
         {
             get=> GetTypedVar<DOMDocument>();
-
-
         }
 
         public Task<DOMElement> parentNode
         {
             get=> GetTypedVar<DOMElement>();
-            
         }
 
         public Task< DOMElement> parentElement
@@ -218,37 +238,37 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             get => GetTypedVar<DOMElement>();        }
 
-        public DOMElement querySelector(string cssSelector)
+        public async Task<DOMElement> querySelector(string cssSelector)
         {
-            DOMVar var = ExecGetVar(new object[] { cssSelector });
+            DOMVar var = await ExecGetVarAsync( new object[] { cssSelector });
             return new DOMElement(this._View2Control, var);
         }
 
 
-        public void remove() => Exec(new object[] { });
+        public Task remove() => Exec<object>(new object[] { });
 
-        public void removeAttribute(string name) => Exec(new object[] { name });
+        public Task removeAttribute(string name) => Exec<object>(new object[] { name });
 
-        public void removeAttributeNode(DOMAttribute attr) => Exec(new object[] { attr });
+        public Task removeAttributeNode(DOMAttribute attr) => Exec<object>(new object[] { attr });
 
-        public void removeChild(DOMElement elem) => Exec(new object[] { elem});
+        public Task removeChild(DOMElement elem) => Exec<object>(new object[] { elem});
 
-        public void replaceChild(DOMElement newNode, DOMElement oldNode) =>
-            Exec(new object[] { newNode, oldNode });
+        public Task replaceChild(DOMElement newNode, DOMElement oldNode) =>
+            Exec<object>(new object[] { newNode, oldNode });
 
-        public void requestFullscreen() => Exec(new object[] { });
+        public Task requestFullscreen() => Exec<object>(new object[] { });
 
         public Task<int> scrollHeight => GetAsync<int>();
-        public void scrollIntoView() => Exec(new object[] { });
+        public Task scrollIntoView() => Exec<object>(new object[] { });
         public Task<int> scrollLeft => GetAsync<int>();
 
         public Task<int> scrollTop => GetAsync<int>();
 
-        public void setAttribute(string attributename, string attributevalue) =>
-            Exec(new object[] { attributename, attributevalue });
+        public Task setAttribute(string attributename, string attributevalue) =>
+            Exec<object>(new object[] { attributename, attributevalue });
 
 
-        public void setAttributeNode(DOMVar attr) => Exec(new object[] { attr.Name });
+        public Task setAttributeNode(DOMVar attr) => Exec<object>(new object[] { attr.Name });
 
        
     }

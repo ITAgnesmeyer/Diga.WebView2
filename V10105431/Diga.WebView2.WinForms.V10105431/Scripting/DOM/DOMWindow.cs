@@ -12,14 +12,13 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             this._InstanceName = "window";
         }
 
-        internal DOMWindow(WebView control, DOMVar domVar) : base(control)
+        internal DOMWindow(WebView control, DOMVar domVar) : base(control,domVar)
         {
-            this._Var = domVar;
-            this._InstanceName = domVar.Name;
+            
         }
-        public async Task alert(string message)
+        public  Task alert(string message)
         {
-             await base.Exec<string>(new object[] { message });
+             return base.Exec<object>(new object[] { message });
         }
 
         public async Task<string> atob(string encoded)
@@ -38,9 +37,9 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         }
 
 
-        public void close()
+        public Task close()
         {
-            Exec(new object[] { });
+            return Exec<object>(new object[] { });
         }
 
         public Task<bool> closed => GetAsync<bool>();
