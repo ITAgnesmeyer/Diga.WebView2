@@ -6,27 +6,26 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
     {
 
 
-        public DOMHistory(WebView control, DOMVar var):base(control)
+        public DOMHistory(WebView control, DOMVar var):base(control,var)
         {
-            this._Var = var;
-            this._InstanceName = var.Name;
+           
         }
 
         public Task<int> length => GetAsync<int>();
 
-        public void back()
+        public Task back()
         {
-            Exec(new object[]{});
+            return Exec<object>(new object[]{});
         }
 
-        public void forward()
+        public Task forward()
         {
-            Exec(new object[]{});
+            return Exec<object>(new object[]{});
         }
 
-        public void go(int number)
+        public Task go(int number)
         {
-            Exec(new object[]{number});
+            return Exec<object>(new object[]{number});
         }
 
 

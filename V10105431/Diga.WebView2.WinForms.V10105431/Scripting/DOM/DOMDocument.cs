@@ -10,10 +10,9 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             this._InstanceName = "document";
         }
-        internal DOMDocument(WebView control, DOMVar domVar) : base(control)
+        internal DOMDocument(WebView control, DOMVar domVar) : base(control, domVar)
         {
-            this._Var = domVar;
-            this._InstanceName = domVar.Name;
+
         }
 
         public Task< DOMElement> activeElement
@@ -24,6 +23,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task addEventListener(string eventName, DOMScriptText scriptText , bool useCapture)
         {
+            EventHandlerList.TryAdd(this.InstanceName,this);
             return Exec<object>(new object[]{eventName,scriptText, useCapture});
         }
 

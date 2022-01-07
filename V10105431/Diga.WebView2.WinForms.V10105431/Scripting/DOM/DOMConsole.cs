@@ -1,4 +1,6 @@
-﻿namespace Diga.WebView2.WinForms.Scripting.DOM
+﻿using System.Threading.Tasks;
+
+namespace Diga.WebView2.WinForms.Scripting.DOM
 {
     public class DOMConsole : DOMObject
     {
@@ -9,65 +11,52 @@
             this._InstanceName = "console";
         }
 
-        internal DOMConsole(WebView control, DOMVar var) : base(control)
+        internal DOMConsole(WebView control, DOMVar var) : base(control,var)
         {
-            this._Var = var;
-            this._InstanceName = var.Name;
-        }
-        public void log(string message)
-        {
-            this.Exec(new object[]{message});
-        }
 
-
-        public void error(string message)
-        {
-            this.Exec(new object[]{message});
         }
-
-        public void clear()
+        public Task log(string message)
         {
-            this.Exec(new object[]{});
+            return Exec<object>(new object[]{message});
         }
 
 
-        public void group(string label = null)
+        public Task error(string message)
         {
-            if (label == null)
-            {
-                this.Exec(new object[]{});
-            }
-            else
-            {
-                this.Exec(new object[]{label});
-            }
+            return Exec<object>(new object[]{message});
         }
 
-        public void info(string message)
+        public Task clear()
         {
-            this.Exec(new object[]{message});
+            return Exec<object>(new object[]{});
         }
 
-        public void time()
+
+        public Task group(string label = null)
         {
-            this.Exec(new object[]{});
+            return Exec<object>(new object[] { label });
         }
 
-        public void timeEnd()
+        public Task info(string message)
         {
-            this.Exec(new object[]{});
+            return this.Exec<object>(new object[]{message});
         }
 
-        public void trace(string label = null)
+        public Task time()
         {
-            if (label == null)
-            {
-                this.Exec(new object[]{});
-            }
-            else
-            {
-                this.Exec(new object[]{label});
-            }
+            return this.Exec<object>(new object[]{});
+        }
+
+        public Task timeEnd()
+        {
+            return this.Exec<object>(new object[]{});
+        }
+
+        public Task trace(string label = null)
+        {
+            return this.Exec<object>(new object[]{label});
+
+            
         }
 
     }

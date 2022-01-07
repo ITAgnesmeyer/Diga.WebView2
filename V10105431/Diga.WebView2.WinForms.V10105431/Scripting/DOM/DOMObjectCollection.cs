@@ -7,10 +7,9 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
     {
  
 
-        public DOMObjectCollection(WebView control, DOMVar var):base(control)
+        public DOMObjectCollection(WebView control, DOMVar var):base(control,var)
         {
-            this._Var = var;
-            this._InstanceName = var.Name;
+           
         }
 
         public async Task< DOMElement> item(int index)

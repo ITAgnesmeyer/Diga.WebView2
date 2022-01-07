@@ -1,16 +1,13 @@
 ﻿using System;
-using System.CodeDom;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using Diga.WebView2.Interop;
 
 namespace Diga.WebView2.WinForms.Scripting.DOM
 {
     public class DOMObject : ScriptObjectBase, IDisposable
-
     {
         protected string _InstanceName;
-
+        public event EventHandler<RpcEventHandlerArgs> DomEvent; 
         protected override string InstanceName
         {
             get => this._InstanceName;
@@ -25,6 +22,11 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         }
 
+        internal DOMObject(WebView control, DOMVar var) : base(control)
+        {
+            this._InstanceName = var.Name;
+            this._Var = var;
+        }
         public object CreateNew(WebView control, DOMVar var, Type t)
         {
             if (t == null)
@@ -34,6 +36,10 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             if(var == null)
                 throw new ArgumentNullException(nameof(var));
 
+            if (t == typeof(DOMEvent))
+                return new DOMEvent(control, var);
+            if (t == typeof(DOMMouseEvent))
+                return new DOMMouseEvent(control, var);
             if (t == typeof(DOMAttribute))
                 return new DOMAttribute(control, var);
             if (t == typeof(DOMConsole))
@@ -61,16 +67,23 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             if (t == typeof(DOMWindow))
                 return new DOMWindow(control, var);
 
+            if (t == typeof(DOMObject))
+                return new DOMObject(control, var);
+
             throw new ArgumentException($"Type not supported:{t.Name}");
         }
 
-        //protected DOMVar GetGetVar([CallerMemberName] string member = "")
-        //{
-        //    DOMVar var = new DOMVar(this._View2Control);
-        //    string scriptVal = $"{var.Name}={this.InstanceName}.{member};";
-        //    InvokeScript(scriptVal);
-        //    return var;
-        //}
+        public T GetDomObjectFromVarName<T>(string varName) where T : DOMObject
+        {
+            DOMVar var = new DOMVar(this._View2Control, varName);
+            return GetDomObjectFromDomVar<T>(var);
+
+        }
+        public T GetDomObjectFromDomVar<T>(DOMVar var) where T : DOMObject
+        {
+            T v = (T)CreateNew(this._View2Control, var, typeof(T));
+            return v;
+        }
         protected async Task<T> GetTypedVar<T>([CallerMemberName] string member = "") where T:DOMObject
         {
             DOMVar domVar = await GetGetVarAsync(member);
@@ -78,8 +91,15 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             return v;
         }
 
-        
+        internal void RaiseEvent(RpcEventHandlerArgs e)
+        {
+            OnDomEvent(e);
+        }
 
+        protected void OnDomEvent(RpcEventHandlerArgs e)
+        {
+            DomEvent?.Invoke(this,e);
+        }
         protected async Task<DOMVar> GetGetVarAsync([CallerMemberName] string member = "")
         {
             DOMVar var = await DOMVar.CreateAsync(this._View2Control);
@@ -87,16 +107,16 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             await ExecuteScriptAsync(scriptVal);
             return var;
         }
-        protected DOMVar ExecGetVar(object[] args, [CallerMemberName] string member = "")
-        {
-            string argsValue = BuildArgs(args);
+        //protected DOMVar ExecGetVar(object[] args, [CallerMemberName] string member = "")
+        //{
+        //    string argsValue = BuildArgs(args);
 
-            DOMVar var = new DOMVar(this._View2Control);
+        //    DOMVar var = new DOMVar(this._View2Control);
 
-            string scripVal = $"{var.Name}={this.InstanceName}.{member}({argsValue});";
-            InvokeScript(scripVal);
-            return var;
-        }
+        //    string scripVal = $"{var.Name}={this.InstanceName}.{member}({argsValue});";
+        //    InvokeScript(scripVal);
+        //    return var;
+        //}
 
         protected async Task<DOMVar> ExecGetVarAsync(object[] args, [CallerMemberName] string member = "")
         {
@@ -108,9 +128,9 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             return var;
         }
 
-        protected void DomSet(string id, string value, [CallerMemberName] string member = null)
+        protected Task DomSet(string id, string value, [CallerMemberName] string member = null)
         {
-            this.InvokeScript($"document.getElementById(\"{id}\").{member}={value};");
+            return ExecuteScriptAsync($"document.getElementById(\"{id}\").{member}={value};");
         }
 
         protected async Task<string> DomGet(string id, [CallerMemberName] string member = null)
@@ -147,24 +167,24 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             return await ExecuteScriptAsync($"return eval(\"{script}\");");
         }
 
-        public void DocumentOpen()
+        public Task DocumentOpen()
         {
-            InvokeScript("document.open();");
+            return ExecuteScriptAsync("document.open();");
         }
 
-        public void DocumentClose()
+        public Task DocumentClose()
         {
-            InvokeScript("document.close();");
+            return ExecuteScriptAsync("document.close();");
         }
 
-        public void DocumentWrite(string value)
+        public Task DocumentWrite(string value)
         {
-            InvokeScript($"document.write(\"{value}\");");
+            return ExecuteScriptAsync($"document.write(\"{value}\");");
         }
 
-        public void DocumentWriteLn(string value)
+        public Task DocumentWriteLn(string value)
         {
-            InvokeScript($"document.writeln(\"{value}\");");
+            return ExecuteScriptAsync($"document.writeln(\"{value}\");");
         }
 
         public string GetVarName()

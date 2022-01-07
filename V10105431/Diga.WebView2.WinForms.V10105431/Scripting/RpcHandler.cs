@@ -1,10 +1,46 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Diga.WebView2.WinForms.Scripting.DOM;
 
 namespace Diga.WebView2.WinForms.Scripting
 {
+    internal static class EventHandlerList
+    {
+        public static readonly ConcurrentDictionary<string,DOMObject> EventObject;
+
+        static EventHandlerList()
+        {
+            EventObject = new ConcurrentDictionary<string, DOMObject>();
+        }
+
+        public static void TryAdd(string key, DOMObject obj)
+        {
+            EventObject.TryAdd(key, obj);
+        }
+
+        public static DOMObject FindObject(string key)
+        {
+            if (EventObject.TryGetValue(key, out DOMObject obj))
+            {
+                return obj;
+            }
+
+            return null;
+        }
+
+        public static void RaiseEvent(RpcEventHandlerArgs e)
+        {
+
+            DOMObject obj = FindObject(e.RpcObject.varname);
+            if (obj != null)
+                obj.RaiseEvent(e);
+
+        }
+    }
+
     [ComVisible(true)]
     public class RpcHandler
     {
@@ -41,13 +77,9 @@ namespace Diga.WebView2.WinForms.Scripting
         public bool Handle(string id,  string eventName, object obj )
         {
             IRpcObject o = (IRpcObject)obj;
-
-
-            //IRpcCls clonedObject = (IRpcCls)o.Clone();
-
-            Debug.Print(o.id);
             
             RpcEventHandlerArgs args = new RpcEventHandlerArgs(id, eventName, o);
+            EventHandlerList.RaiseEvent(args);
             OnRpcEvent(args);
             return true;
         }
