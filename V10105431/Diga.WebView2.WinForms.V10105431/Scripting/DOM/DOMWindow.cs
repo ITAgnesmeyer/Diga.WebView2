@@ -53,7 +53,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             get => GetTypedVar<DOMConsole>();
         }
-
+        
         public Task< DOMDocument> document
         {
             get=> GetTypedVar<DOMDocument>();
@@ -90,6 +90,10 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task<int> length => GetAsync<int>();
 
+        public Task<DOMStorage> localStorage => GetTypedVar<DOMStorage>();
+
+        
+
         public Task moveBy(int x, int y)
         {
             return Exec<object>(new object[] { x, y });
@@ -115,6 +119,8 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             return new DOMWindow(this._View2Control, var);
         }
 
+        public  Task<DOMWindow> opener => GetTypedVar<DOMWindow>();
+
         public Task<int> outerHeight => GetAsync<int>();
 
         public Task<int> outerWidth => GetAsync<int>();
@@ -122,6 +128,8 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         public Task<int> pageXOffset => GetAsync<int>();
 
         public Task<int> pageYOffset => GetAsync<int>();
+
+        public Task<DOMWindow> parent => GetTypedVar<DOMWindow>();
 
         public Task print()
         {
@@ -142,6 +150,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             return Exec<object>(new object[] { x, y });
         }
+        public Task<DOMScreen> screen=> GetTypedVar<DOMScreen>();
 
         public Task<int> screenLeft => GetAsync<int>();
         public Task<int> screenTop => GetAsync<int>();
@@ -161,10 +170,16 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         public Task<int> scrollX => GetAsync<int>();
         public Task<int> scrollY => GetAsync<int>();
 
+        public Task<DOMStorage> sessionStorage => GetTypedVar<DOMStorage>();
+
+        public Task<DOMWindow> self => GetTypedVar<DOMWindow>();
+
+        
         public Task stop()
         {
            return Exec<object>(new object[] { });
         }
 
+        public Task<DOMWindow> top => GetTypedVar<DOMWindow>();
     }
 }

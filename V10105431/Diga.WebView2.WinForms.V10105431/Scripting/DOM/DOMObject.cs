@@ -27,7 +27,8 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             this._InstanceName = var.Name;
             this._Var = var;
         }
-        public object CreateNew(WebView control, DOMVar var, Type t)
+
+        private object CreateNew(WebView control, DOMVar var, Type t)
         {
             if (t == null)
                 throw new ArgumentNullException(nameof(t));
@@ -35,6 +36,22 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
                 throw new ArgumentNullException(nameof(control));
             if(var == null)
                 throw new ArgumentNullException(nameof(var));
+            if (t == typeof(CSSRule))
+                return new CSSRule(control, var);
+            if (t == typeof(CSSRuleList))
+                return new CSSRuleList(control, var);
+            if (t == typeof(CSSImportRule))
+                return new CSSImportRule(control, var);
+
+            if (t == typeof(CSSStyleSheet))
+                return new CSSStyleSheet(control, var);
+            if (t == typeof(CSSStyleSheetList))
+                return new CSSStyleSheetList(control, var);
+
+
+
+            if (t == typeof(DOMStyleElement))
+                return new DOMStyleElement(control, var);
 
             if (t == typeof(DOMEvent))
                 return new DOMEvent(control, var);
@@ -61,6 +78,18 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             if (t == typeof(DOMScript))
                 return new DOMScript(control, var);
             
+            if (t == typeof(DOMStyle))
+                return new DOMStyle(control, var);
+
+            if (t == typeof(DOMStorage))
+                return new DOMStorage(control, var);
+
+            if (t == typeof(DOMScreen))
+                return new DOMScreen(control, var);
+            if (t == typeof(DOMLocation))
+                return new DOMLocation(control, var);
+
+
             if (t == typeof(DOMTokenList))
                 return new DOMTokenList(control, var);
 
@@ -79,7 +108,8 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             return GetDomObjectFromDomVar<T>(var);
 
         }
-        public T GetDomObjectFromDomVar<T>(DOMVar var) where T : DOMObject
+
+        private T GetDomObjectFromDomVar<T>(DOMVar var) where T : DOMObject
         {
             T v = (T)CreateNew(this._View2Control, var, typeof(T));
             return v;
@@ -100,7 +130,8 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             DomEvent?.Invoke(this,e);
         }
-        protected async Task<DOMVar> GetGetVarAsync([CallerMemberName] string member = "")
+
+        private async Task<DOMVar> GetGetVarAsync([CallerMemberName] string member = "")
         {
             DOMVar var = await DOMVar.CreateAsync(this._View2Control);
             string scriptVal = $"{var.Name}={this.InstanceName}.{member};";

@@ -232,6 +232,9 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             set=> _ = SetAsync(value);
         }
 
+
+        public Task<CSSStyleSheetList> styleSheets => GetTypedVar<CSSStyleSheetList>();
+
         public Task<string> title
         {
             get => GetAsync<string>();
