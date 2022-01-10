@@ -17,6 +17,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             set => _ = SetAsync(value);
         }
 
+        public Task<string> accessKeyLabel => GetAsync<string>();
         
         public Task addEventListener(string eventName, DOMScriptText scriptText , bool useCapture)
         {
@@ -77,7 +78,12 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             get => GetAsync<string>();
             set=> _ = SetAsync(value);
         }
-        
+
+        public Task<string> enterKeyHint
+        {
+            get => GetAsync<string>();
+            set => _ = SetAsync(value);
+        }
         public Task exitFullscreen() => Exec<object>(new object[] { });
 
         public Task< DOMElement> firstChild
@@ -100,6 +106,13 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task<bool> hasChildNodes() => Exec<bool>(new object[] { });
 
+
+        public Task<bool> hidden
+        {
+            get => GetAsync<bool>();
+            set => _ = SetAsync(value);
+        }
+
         public Task<string> id
         {
             get => GetAsync<string>();
@@ -110,6 +123,12 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             get => GetAsync<string>();
             set => _ = SetAsync(value);
+        }
+
+        public Task<bool> inert
+        {
+            get => GetAsync<bool>();
+            set=> _ = SetAsync(value);
         }
 
         public Task<string> innerText
@@ -270,7 +289,18 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task setAttributeNode(DOMVar attr) => Exec<object>(new object[] { attr.Name });
 
+        public Task<string> title
+        {
+            get => GetAsync<string>();
+            set => _ = SetAsync(value);
+        }
        
+        public Task<int> tabIndex 
+        {
+            get => GetAsync<int>();
+            set => _ = SetAsync(value);
+        }
+
     }
 
 

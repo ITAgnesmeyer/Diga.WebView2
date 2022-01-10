@@ -4,50 +4,50 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 {
     public class DOMScript : DOMElement
     {
-        public DOMScript(WebView control, DOMVar domVar):base(control, domVar)
+        public DOMScript(WebView control, DOMVar domVar) : base(control, domVar)
         {
-            
+
         }
 
         public Task<bool> async
         {
             get => GetAsync<bool>();
-            set => _= SetAsync(value);
+            set => _ = SetAsync(value);
         }
 
         public Task<string> charset
         {
             get => GetAsync<string>();
-            set=> _= SetAsync(value);
+            set => _ = SetAsync(value);
         }
 
         public Task<string> crossOrigin
         {
             get => GetAsync<string>();
-            set=> _ = SetAsync(value);
+            set => _ = SetAsync(value);
         }
 
         public Task<bool> defer
         {
-            get=> GetAsync<bool>();
-            set=> _ = SetAsync(value);
+            get => GetAsync<bool>();
+            set => _ = SetAsync(value);
         }
 
         public Task<string> src
         {
-            get=> GetAsync<string>();
+            get => GetAsync<string>();
             set => _ = SetAsync(value);
         }
 
         public Task<string> text
         {
-            get=> GetAsync<string>();
+            get => GetAsync<string>();
             set => _ = SetAsync(value);
         }
 
         public Task<string> type
         {
-            get=> GetAsync<string>();
+            get => GetAsync<string>();
             set => _ = SetAsync(value);
 
         }
