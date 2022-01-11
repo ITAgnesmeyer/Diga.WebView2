@@ -40,7 +40,7 @@ The NATIVEN-DLL's can then be found in the bin directory under native/x86 or nat
 This means the version of the WebView2 packages.
 
 - V10105431 => [microsoft.web.webview2 1.0.1054.31](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1054.31)
-- V10102030 => [microsoft.web.webview2 1.0.1020.30](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1020.30)
+- V10107254 => [microsoft.web.webview2 1.0.1072.54](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1072.54)
 
 ### How were the interop sources created?
 The Microsoft microsoft.web.webview2 package contains webview2.tlb.
