@@ -9,7 +9,6 @@
     <Version>15.0.1</Version>
     <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Copyright>Copyright © 2022 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
 	 <PackageProjectUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</PackageProjectUrl>
 	 <PackageIcon>logo.png</PackageIcon>
 	 <PackageTags>WebView2, WebView</PackageTags>
