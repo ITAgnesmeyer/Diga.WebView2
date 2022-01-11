@@ -253,7 +253,7 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_ZoomFactorChanged(object sender, WebView2EventArgs e)
         {
-            this.lblZoomFactor.Text = (this.webView1.ZoomFactor * 100).ToString();
+            this.lblZoomFactor.Text = (this.webView1.ZoomFactor * 100).ToString(CultureInfo.InvariantCulture);
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -302,6 +302,8 @@ namespace WebView2WrapperWinFormsTest
 
             try
             {
+                //Script with Error
+                //this throw ScriptException
                 string script = "alert(\"hallo\"";
                 string result = await this.webView1.EvalScriptAsync(script);
                 await ShowMessageBoxAsync(result);
@@ -355,6 +357,14 @@ namespace WebView2WrapperWinFormsTest
         {
             WebView2PrintSettings settings = this.webView1.CreatePrintSettings();
             bool ok = await this.webView1.PrintToPdfAsync("C:\\temp\\test.pdf", settings);
+            if (ok)
+            {
+                await ShowMessageBoxAsync("Content exported to PDF=C:\\temp\test.pdf");
+            }
+            else
+            {
+                await ShowMessageBoxAsync("could not export content to PDF!");
+            }
         }
 
         private void webView1_DOMContentLoaded(object sender, DOMContentLoadedEventArgs e)
@@ -452,26 +462,56 @@ namespace WebView2WrapperWinFormsTest
             this.lblZoomFactor.Text = (dbl * 100).ToString(CultureInfo.CurrentCulture);
         }
 
+        //Dom-Object example
         private async void bnScriptTest_Click(object sender, EventArgs e)
         {
+            //Get the script document
             DOMDocument doc = this.webView1.GetDOMDocument();
+
+            //add a button element
             DOMElement element = await  doc.createElement("button");
+            
+            //set inner html of button 
+            //StringTaskVar converts the string into Task<string>
             element.innerHTML=(StringTaskVar)"Click Me";
+            
+            //set id of Button-Element
+            //StringTaskVar converts GUID-String to Task<string>
             element.id = (StringTaskVar)Guid.NewGuid().ToString();
+            
+            //Get script window
             DOMWindow window = this.webView1.GetDOMWindow();
+            
+            //help Class for calling Events
             DOMEventListenerScript scriptText = new DOMEventListenerScript(element);
+            
+            //get the document body - Element
             var docBody = await doc.body;
+            
+            //append the Button
             await docBody.appendChild(element);
+            
+            //wire the click - Event to the button
             await element.addEventListener("click", scriptText, true);
+            
+            //handle the event
             element.DomEvent += async (o,ev) =>
             {
                 if (ev.EventName == "click")
                 {
+                    //you can get the event-Object by var name
+                    // this will be easier in in next version
                     DOMMouseEvent me = element.GetDomObjectFromVarName<DOMMouseEvent>(ev.RpcObject.idFullName);
+
+                    //set the attribute of the Button-Element
                     await element.setAttribute("style", "background-color: coral;");
+                    
+                    //read the values of MouseEvent-Object
                     int button = await me.button;
                     bool isAlt = await me.altKey;
                     bool isShift = await me.shiftKey;
+
+                    //Show the information in alert
                     await window.alert($"set=>isShift={isShift}, isAlt={isAlt}, buttonNr={button}");
 
                 }
@@ -485,18 +525,7 @@ namespace WebView2WrapperWinFormsTest
             await this.webView1.GetDOMWindow().alert(message);
 
         }
-        private void ShowMessageBox(string message, string caption = "Message")
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new Action<string, string>(ShowMessageBox), new object[] { message, caption });
 
-            }
-            else
-            {
-                MessageBox.Show(this, message, caption);
-            }
-        }
 
         private void webView1_ExecuteScriptCompleted(object sender, ExecuteScriptCompletedEventArgs e)
         {
