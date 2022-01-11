@@ -5,10 +5,10 @@
 	<RootNamespace>Diga.WebView2.Wpf</RootNamespace>
 	  <AssemblyName>Diga.WebView2.Wpf</AssemblyName>
 	  <UseWPF>true</UseWPF>
-	  <Version>14.0.1</Version>
+	  <Version>15.0.1</Version>
 	  <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
 	  <Product>Diga.WebView2.Wpf</Product>
-	  <Copyright>Copyright © 2021 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
+	  <Copyright>Copyright © 2022 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <SignAssembly>true</SignAssembly>
 	  <DelaySign>false</DelaySign>
