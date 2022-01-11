@@ -456,8 +456,8 @@ namespace WebView2WrapperWinFormsTest
         {
             DOMDocument doc = this.webView1.GetDOMDocument();
             DOMElement element = await  doc.createElement("button");
-            element.innerHTML=(TaskVar<string>)"Click Me";
-            element.id = (TaskVar<string>)Guid.NewGuid().ToString();
+            element.innerHTML=(StringTaskVar)"Click Me";
+            element.id = (StringTaskVar)Guid.NewGuid().ToString();
             DOMWindow window = this.webView1.GetDOMWindow();
             DOMEventListenerScript scriptText = new DOMEventListenerScript(element);
             var docBody = await doc.body;

@@ -15,11 +15,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         }
 
-        public Task< DOMElement> activeElement
-        {
-            get=> GetTypedVar<DOMElement>();
-                
-        }
+        public Task< DOMElement> activeElement => GetTypedVar<DOMElement>();
 
         public Task addEventListener(string eventName, DOMScriptText scriptText , bool useCapture)
         {
@@ -34,11 +30,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         }
 
 
-        public Task<DOMObjectCollection> anchors
-        {
-            get => GetTypedVar<DOMObjectCollection>();
-           
-        }
+        public Task<DOMObjectCollection> anchors => GetTypedVar<DOMObjectCollection>();
 
         public Task< DOMElement> body
         {
@@ -95,16 +87,9 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         }
 
 
-        public Task<DOMWindow> defaultView
-        {
-            get => GetTypedVar<DOMWindow>();
+        public Task<DOMWindow> defaultView => GetTypedVar<DOMWindow>();
 
-        }
-
-        public Task<DOMElement> documentElement
-        {
-            get => GetTypedVar<DOMElement>();
-        }
+        public Task<DOMElement> documentElement => GetTypedVar<DOMElement>();
 
         public Task<string> designMode
         {
@@ -121,10 +106,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task<string> domain => GetAsync<string>();
 
-        public Task< DOMObjectCollection> embeds
-        {
-            get => GetTypedVar<DOMObjectCollection>();
-        }
+        public Task< DOMObjectCollection> embeds => GetTypedVar<DOMObjectCollection>();
 
 
         public Task<bool> execCommand(string command, bool showUI, string value)
@@ -132,19 +114,10 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             return Exec<bool>(new object[] { command, showUI, value });
         }
 
-        public Task<DOMObjectCollection> forms
-        {
-            get=> GetTypedVar<DOMObjectCollection>();
-           
-        }
+        public Task<DOMObjectCollection> forms => GetTypedVar<DOMObjectCollection>();
 
 
-        public Task<DOMElement> fullscreenElement
-        {
-            get=> GetTypedVar<DOMElement>();
-            
-        }
-
+        public Task<DOMElement> fullscreenElement => GetTypedVar<DOMElement>();
 
 
         public Task<bool> fullscreenEnabled() => Exec<bool>(new object[] { });
@@ -175,16 +148,9 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task<bool> hasFocus() => Exec<bool>(new object[] { });
 
-        public Task<DOMElement> head
-        {
-            get => GetTypedVar<DOMElement>();
-        }
+        public Task<DOMElement> head => GetTypedVar<DOMElement>();
 
-        public Task<DOMObjectCollection> images
-        {
-            get => GetTypedVar<DOMObjectCollection>();
-
-        }
+        public Task<DOMObjectCollection> images => GetTypedVar<DOMObjectCollection>();
 
         public async Task< DOMElement> importNode(DOMElement node, bool deep)
         {
@@ -196,10 +162,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task<string> lastModified => GetAsync<string>();
 
-        public Task<DOMObjectCollection> links
-        {
-            get => GetTypedVar<DOMObjectCollection>();
-        }
+        public Task<DOMObjectCollection> links => GetTypedVar<DOMObjectCollection>();
 
         public Task normalize() => Exec<object>(new object[] { });
 

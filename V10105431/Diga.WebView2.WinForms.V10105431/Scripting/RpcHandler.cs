@@ -23,6 +23,8 @@ namespace Diga.WebView2.WinForms.Scripting
 
         public static DOMObject FindObject(string key)
         {
+            if (key == null) return null;
+
             if (EventObject.TryGetValue(key, out DOMObject obj))
             {
                 return obj;
