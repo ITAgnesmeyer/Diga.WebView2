@@ -11,9 +11,9 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper
 {
-    public class WebResourceResponseView : ICoreWebView2WebResourceResponseView
+    public class WebResourceResponseView : ICoreWebView2WebResourceResponseView, IDisposable
     {
-        private readonly ICoreWebView2WebResourceResponseView _Interface;
+        private  ICoreWebView2WebResourceResponseView _Interface;
 
         public WebResourceResponseView()
         {
@@ -39,6 +39,7 @@ namespace Diga.WebView2.Wrapper
         }
 
         private object LocObject = new object();
+        private bool disposedValue;
 
         public Stream GetContent()
         {
@@ -56,10 +57,14 @@ namespace Diga.WebView2.Wrapper
                 HRESULT hr = result.errorCode;
                 if (hr.Failed)
                     throw Marshal.GetExceptionForHR(hr);
-                ComStream sw = new ComStream(result.stream);
-                MemoryStream ms = new MemoryStream(await sw.GetAllBytesAsync());
-
-                return ms;
+                byte[] arr = null;
+                using (ComStream sw = new ComStream(result.stream))
+                {
+                    arr = await sw.GetAllBytesAsync();
+                }
+                
+                return new MemoryStream(arr);
+                
 
             }
             catch (Exception e)
@@ -80,6 +85,36 @@ namespace Diga.WebView2.Wrapper
         void ICoreWebView2WebResourceResponseView.GetContent(ICoreWebView2WebResourceResponseViewGetContentCompletedHandler handler)
         {
             this._Interface.GetContent(handler);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: Verwalteten Zustand (verwaltete Objekte) bereinigen
+                }
+
+                this._Interface = null;
+                // TODO: Nicht verwaltete Ressourcen (nicht verwaltete Objekte) freigeben und Finalizer überschreiben
+                // TODO: Große Felder auf NULL setzen
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: Finalizer nur überschreiben, wenn "Dispose(bool disposing)" Code für die Freigabe nicht verwalteter Ressourcen enthält
+        ~WebResourceResponseView()
+        {
+            // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+            Dispose(disposing: false);
+        }
+
+        public void Dispose()
+        {
+            // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

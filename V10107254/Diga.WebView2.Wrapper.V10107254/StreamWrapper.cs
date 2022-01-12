@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Security;
 using System.Threading.Tasks;
+using Microsoft.Win32.SafeHandles;
 using STATSTG = System.Runtime.InteropServices.ComTypes.STATSTG;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable InconsistentNaming
@@ -55,17 +56,17 @@ namespace Diga.WebView2.Wrapper
     // from managed code rather than the contrary.
     internal class ManagedIStream : IStream
     {
+
+        /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
+        ///             pattern for any type that is not sealed.
+        ///             https://docs.microsoft.com/dotnet/api/system.idisposable#idisposable-and-the-inheritance-hierarchy
+        private SafeHandle handle = (SafeHandle) new SafeFileHandle(IntPtr.Zero, true);
         /// <summary>
         /// Constructor
         /// </summary>
-        internal ManagedIStream(Stream ioStream)
+        internal ManagedIStream(ref Stream ioStream)
         {
-            if (ioStream == null)
-            {
-                throw new ArgumentNullException("ioStream");
-            }
-
-            this._ioStream = ioStream;
+            this._ioStream = ioStream ?? throw new ArgumentNullException("ioStream");
         }
 
         /// <summary>
@@ -127,10 +128,11 @@ namespace Diga.WebView2.Wrapper
             long position = this._ioStream.Seek(offset, seekOrigin);
 
             // Dereference newPositionPtr and assign to the pointed location.
-            if (newPositionPtr != IntPtr.Zero)
+            if ((newPositionPtr == IntPtr.Zero))
             {
-                Marshal.WriteInt64(newPositionPtr, position);
+                return;
             }
+            Marshal.WriteInt64(newPositionPtr, position);
         }
 
         /// <summary>
@@ -270,7 +272,8 @@ namespace Diga.WebView2.Wrapper
         #endregion Unimplemented methods
 
         #region Fields
-        private readonly Stream _ioStream;
+        private  Stream _ioStream;
+       
         #endregion Fields
     }
 
@@ -279,7 +282,7 @@ namespace Diga.WebView2.Wrapper
     {
         private IStream _IStream;
         private IntPtr _Int64;
-
+     
         public ComStream(IStream source)
         {
             this._IStream = source;
@@ -353,73 +356,117 @@ namespace Diga.WebView2.Wrapper
             set => throw new NotImplementedException();
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            if (disposing)
+            {
+                Marshal.FreeCoTaskMem(this._Int64);
+            }
+        }
+
         ~ComStream()
         {
             Marshal.FreeCoTaskMem(this._Int64);
         }
     }
-    public class StreamWrapper : IStream
-    {
-        private IStream _Interface;
+    //public class StreamWrapper : IStream,IDisposable
+    //{
+    //    private IStream _Interface;
+    //    private bool disposedValue;
+    //    /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
+    //    ///             pattern for any type that is not sealed.
+    //    ///             https://docs.microsoft.com/dotnet/api/system.idisposable#idisposable-and-the-inheritance-hierarchy
+    //    private SafeHandle handle = (SafeHandle) new SafeFileHandle(IntPtr.Zero, true);
+    //    public StreamWrapper(IStream iface)
+    //    {
+    //        this._Interface = iface;
+    //    }
 
-        public StreamWrapper(IStream iface)
-        {
-            this._Interface = iface;
-        }
+    //    public void Read(byte[] pv, int cb, IntPtr pcbRead)
+    //    {
+    //        this._Interface.Read(pv, cb, pcbRead);
+    //    }
 
-        public void Read(byte[] pv, int cb, IntPtr pcbRead)
-        {
-            this._Interface.Read(pv, cb, pcbRead);
-        }
+    //    public void Write(byte[] pv, int cb, IntPtr pcbWritten)
+    //    {
+    //        this._Interface.Write(pv, cb, pcbWritten);
+    //    }
 
-        public void Write(byte[] pv, int cb, IntPtr pcbWritten)
-        {
-            this._Interface.Write(pv, cb, pcbWritten);
-        }
+    //    public void Seek(long dlibMove, int dwOrigin, IntPtr plibNewPosition)
+    //    {
+    //        this._Interface.Seek(dlibMove, dwOrigin, plibNewPosition);
+    //    }
 
-        public void Seek(long dlibMove, int dwOrigin, IntPtr plibNewPosition)
-        {
-            this._Interface.Seek(dlibMove, dwOrigin, plibNewPosition);
-        }
+    //    public void SetSize(long libNewSize)
+    //    {
+    //        this._Interface.SetSize(libNewSize);
+    //    }
 
-        public void SetSize(long libNewSize)
-        {
-            this._Interface.SetSize(libNewSize);
-        }
+    //    public void CopyTo(IStream pstm, long cb, IntPtr pcbRead, IntPtr pcbWritten)
+    //    {
+    //        this._Interface.CopyTo(pstm, cb, pcbRead, pcbWritten);
+    //    }
 
-        public void CopyTo(IStream pstm, long cb, IntPtr pcbRead, IntPtr pcbWritten)
-        {
-            this._Interface.CopyTo(pstm, cb, pcbRead, pcbWritten);
-        }
+    //    public void Commit(int grfCommitFlags)
+    //    {
+    //        this._Interface.Commit(grfCommitFlags);
+    //    }
 
-        public void Commit(int grfCommitFlags)
-        {
-            this._Interface.Commit(grfCommitFlags);
-        }
+    //    public void Revert()
+    //    {
+    //        this._Interface.Revert();
+    //    }
 
-        public void Revert()
-        {
-            this._Interface.Revert();
-        }
+    //    public void LockRegion(long libOffset, long cb, int dwLockType)
+    //    {
+    //        this._Interface.LockRegion(libOffset, cb, dwLockType);
+    //    }
 
-        public void LockRegion(long libOffset, long cb, int dwLockType)
-        {
-            this._Interface.LockRegion(libOffset, cb, dwLockType);
-        }
+    //    public void UnlockRegion(long libOffset, long cb, int dwLockType)
+    //    {
+    //        this._Interface.UnlockRegion(libOffset, cb, dwLockType);
+    //    }
 
-        public void UnlockRegion(long libOffset, long cb, int dwLockType)
-        {
-            this._Interface.UnlockRegion(libOffset, cb, dwLockType);
-        }
+    //    public void Stat(out STATSTG pstatstg, int grfStatFlag)
+    //    {
+    //        this._Interface.Stat(out pstatstg, grfStatFlag);
+    //    }
 
-        public void Stat(out STATSTG pstatstg, int grfStatFlag)
-        {
-            this._Interface.Stat(out pstatstg, grfStatFlag);
-        }
+    //    public void Clone(out IStream ppstm)
+    //    {
+    //        this._Interface.Clone(out ppstm);
+    //    }
 
-        public void Clone(out IStream ppstm)
-        {
-            this._Interface.Clone(out ppstm);
-        }
-    }
+    //    protected virtual void Dispose(bool disposing)
+    //    {
+    //        if (!disposedValue)
+    //        {
+    //            if (disposing)
+    //            {
+    //                // TODO: Verwalteten Zustand (verwaltete Objekte) bereinigen
+
+    //            }
+
+    //            this._Interface = null;
+    //            // TODO: Nicht verwaltete Ressourcen (nicht verwaltete Objekte) freigeben und Finalizer überschreiben
+    //            // TODO: Große Felder auf NULL setzen
+    //            disposedValue = true;
+    //        }
+    //    }
+
+    //    // // TODO: Finalizer nur überschreiben, wenn "Dispose(bool disposing)" Code für die Freigabe nicht verwalteter Ressourcen enthält
+    //    ~StreamWrapper()
+    //    {
+    //        // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+    //        Dispose(disposing: false);
+    //    }
+
+    //    public void Dispose()
+    //    {
+    //        // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+    //        Dispose(disposing: true);
+    //        GC.SuppressFinalize(this);
+    //    }
+    //}
 }

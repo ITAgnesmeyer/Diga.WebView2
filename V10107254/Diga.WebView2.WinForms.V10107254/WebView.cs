@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -954,6 +955,66 @@ namespace Diga.WebView2.WinForms
 
             return response;
         }
+
+        //private bool _MimeTypeChecked = false;
+        //private void TestMimeTypes()
+        //{
+        //    if (this._MimeTypeChecked)
+        //        return;
+        //    FileInfo fi = new FileInfo("test.blat");
+        //    string mimeTypes = fi.MimeTypeOrDefault();
+        //    if (mimeTypes != "application/octet-stream")
+        //    {
+        //        MimeTypeExtension.MimeTypeExtension.AddOrUpdateMimeType(".blat", "application/octet-stream");
+        //    }
+
+        //    fi = new FileInfo("test.dat");
+        //    mimeTypes = fi.MimeTypeOrDefault();
+        //    if (mimeTypes != "application/octet-stream")
+        //    {
+        //        MimeTypeExtension.MimeTypeExtension.AddOrUpdateMimeType(".dat", "application/octet-stream");
+        //    }
+            
+        //    fi = new FileInfo("test.dll");
+        //    mimeTypes = fi.MimeTypeOrDefault();
+        //    if (mimeTypes != "application/octet-stream")
+        //    {
+        //        MimeTypeExtension.MimeTypeExtension.AddOrUpdateMimeType(".dll", "application/json");
+        //    }
+
+
+        //    fi = new FileInfo("test.json");
+        //    mimeTypes = fi.MimeTypeOrDefault();
+        //    if (mimeTypes != "application/json")
+        //    {
+        //        MimeTypeExtension.MimeTypeExtension.AddOrUpdateMimeType(".json", "application/json");
+        //    }
+
+        //    fi = new FileInfo("test.wasm");
+        //    mimeTypes = fi.MimeTypeOrDefault();
+        //    if (mimeTypes != "application/wasm")
+        //    {
+        //        MimeTypeExtension.MimeTypeExtension.AddOrUpdateMimeType(".wasm", "application/wasm");
+        //    }
+
+        //    fi = new FileInfo("test.woff");
+        //    mimeTypes = fi.MimeTypeOrDefault();
+        //    if (mimeTypes != "application/font-woff")
+        //    {
+        //        MimeTypeExtension.MimeTypeExtension.AddOrUpdateMimeType(".woff", "application/font-woff");
+        //    }
+
+        //    fi = new FileInfo("test.woff2");
+        //    mimeTypes = fi.MimeTypeOrDefault();
+        //    if (mimeTypes != "application/font-woff")
+        //    {
+        //        MimeTypeExtension.MimeTypeExtension.AddOrUpdateMimeType(".woff2", "application/font-woff");
+        //    }
+
+        //    this._MimeTypeChecked = true;
+        //}
+        private ConcurrentDictionary<string, ResponseInfo>
+            _Responses = new ConcurrentDictionary<string, ResponseInfo>();
         private bool GetFileStream(string url, out ResponseInfo responseInfo)
         {
             if (!url.StartsWith(this.MonitoringUrl))
@@ -961,7 +1022,7 @@ namespace Diga.WebView2.WinForms
                 responseInfo = null;
                 return false;
             }
-
+            //TestMimeTypes();
             string baseDirectory = this.MonitoringFolder;
             string file = url.Replace(this.MonitoringUrl, "");
             if (string.IsNullOrEmpty(file))
@@ -994,6 +1055,7 @@ namespace Diga.WebView2.WinForms
                 responseInfo.ContentType = "content-type: " + contentType + utf8Extension;
                 responseInfo.StatusCode = 200;
                 responseInfo.StatusText = "OK";
+               
                 return true;
             }
             catch (Exception e)
@@ -1087,10 +1149,13 @@ namespace Diga.WebView2.WinForms
 
             if (this.EnableMonitoring)
             {
+                //Debug.Print("url request=>" + e.Request.Uri);
                 if (GetFileStream(e.Request.Uri, out var responseInfo))
                 {
                     var response = this.CreateResponse(responseInfo);
                     e.Response = response;
+                    this._Responses.TryAdd(e.Request.Uri, responseInfo);
+                    //Debug.Print("Open response:" + this._Responses.Count);
                 }
             }
 
@@ -1180,6 +1245,16 @@ namespace Diga.WebView2.WinForms
 
 
             WebResourceResponseReceived?.Invoke(this, e);
+            if (this._Responses.ContainsKey(e.Request.Uri))
+            {
+                if(this._Responses.TryRemove(e.Request.Uri, out var resp))
+                {
+                    
+                    resp.Dispose();
+                }
+
+                //Debug.Print("Open response:" + this._Responses.Count);
+            }
         }
 
         protected virtual void OnBeforeEnvironmentCompleted(EnvironmentCompletedHandlerArgs e)

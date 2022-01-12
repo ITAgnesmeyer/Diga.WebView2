@@ -695,7 +695,7 @@ namespace Diga.WebView2.Wrapper
         public WebResourceResponse GetResponseStream(Stream stream, int statusCode, string statusText, string headers,
             string contentType)
         {
-            var mStream = new ManagedIStream(stream);
+            var mStream = new ManagedIStream(ref stream);
 
 
             var responseInterface = this.Environment.CreateWebResourceResponse(mStream, statusCode, statusText, headers);

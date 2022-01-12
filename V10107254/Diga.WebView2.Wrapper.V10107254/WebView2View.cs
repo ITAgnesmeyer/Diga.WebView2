@@ -13,6 +13,7 @@ using Diga.WebView2.Wrapper.Types;
 using System.Security;
 using System.Text;
 using Diga.WebView2.Wrapper.Implementation;
+using MimeTypeExtension;
 
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
@@ -47,7 +48,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<ClientCertificateRequestedEventArgs> ClientCertificateRequested;
         public event EventHandler<WebView2EventArgs> IsMutedChanged;
         public event EventHandler<WebView2EventArgs> IsDocumentPlayingAudioChanged;
-        public event EventHandler<WebView2EventArgs> IsDefaultDownloadDialogOpenChanged; 
+        public event EventHandler<WebView2EventArgs> IsDefaultDownloadDialogOpenChanged;
 
         public WebView2View(ICoreWebView2_9 webView) : base(webView)
         {
@@ -183,7 +184,7 @@ namespace Diga.WebView2.Wrapper
             isDefaultDownloadDialogOpenEventHandler.IsDefaultDownloadDialogOpenChanged +=
                 IsDefaultDownloadDialogOpenChangedIntern;
 
-            base.add_IsDefaultDownloadDialogOpenChanged(isDefaultDownloadDialogOpenEventHandler,out this._isDefaultDownloadDialogOpenEventToken);
+            base.add_IsDefaultDownloadDialogOpenChanged(isDefaultDownloadDialogOpenEventHandler, out this._isDefaultDownloadDialogOpenEventToken);
         }
 
         private void IsDefaultDownloadDialogOpenChangedIntern(object sender, WebView2EventArgs e)
@@ -221,30 +222,66 @@ namespace Diga.WebView2.Wrapper
         {
             try
             {
-               
+
                 //Thread.Sleep(100);
-                //if (e.Request.Method == "GET")
-                //{
-                    using (var stream =await  e.Response.GetContentAsync())
+                if (e.Request.Method == "GET")
+                {
+                    string mimeType = string.Empty;
+                    if (e.Request.Uri.StartsWith("data:text/html"))
                     {
-                        if (stream != null)
+                        mimeType = "text/html";
+                    }
+                    else
+                    {
+                        Uri uri = new Uri(e.Request.Uri);
+                        try
                         {
-                            //Uri uri = new Uri(e.Request.Uri);
-                            //string mimeType = uri.MimeTypeOrDefault();
-                            //if (mimeType == "text/html")
-                            //{
-                                StreamReader sr = new StreamReader(stream,Encoding.UTF8);
-                                string content = await sr.ReadToEndAsync();
+                            string path = uri.GetComponents(UriComponents.Path, UriFormat.Unescaped);
 
-                                 
-                                this.CurrentContent.Add(content);
-
-                            //}
-                        
+                            if (!string.IsNullOrEmpty(path))
+                            {
+                                mimeType = uri.MimeTypeOrDefault();
+                            }
+                            else
+                            {
+                                mimeType = "text/html";
+                            }
+                            
                         }
+                        catch (Exception exception)
+                        {
+                            Console.WriteLine(exception);
+                            
+                        }
+                        
 
                     }
-                //}
+
+
+                    if (mimeType == "text/html")
+                    {
+                        using (var stream = await e.Response.GetContentAsync())
+                        {
+                            if (stream != null)
+                            {
+
+
+                                using (StreamReader sr = new StreamReader(stream, Encoding.UTF8))
+                                {
+                                    string content = await sr.ReadToEndAsync();
+
+
+                                    this.CurrentContent.Add(content);
+
+                                }
+
+
+
+                            }
+
+                        }
+                    }
+                }
             }
             catch (Exception exception)
             {
@@ -525,8 +562,8 @@ namespace Diga.WebView2.Wrapper
             return result;
         }
 
-        
-        private  Task<ScriptResultType> ExecuteScriptAsync3(string javaScript)
+
+        private Task<ScriptResultType> ExecuteScriptAsync3(string javaScript)
         {
             var source = new TaskCompletionSource<ScriptResultType>();
             var executeScriptDelegate = new ExecuteScriptCompletedDelegate(source);
@@ -570,20 +607,22 @@ namespace Diga.WebView2.Wrapper
 
         public async Task CapturePreviewAsync(Stream stream, ImageFormat imageFormat)
         {
-            ManagedIStream ms = new ManagedIStream(stream);
-            StreamWrapper sw = new StreamWrapper(ms);
+
+
             var source = new TaskCompletionSource<int>();
             CapturePreviewCompletedDelegate handler = new CapturePreviewCompletedDelegate(source);
 
-            base.CapturePreview((COREWEBVIEW2_CAPTURE_PREVIEW_IMAGE_FORMAT)imageFormat, sw, handler);
-
-
+            base.CapturePreview((COREWEBVIEW2_CAPTURE_PREVIEW_IMAGE_FORMAT)imageFormat, new ManagedIStream(ref stream), handler);
 
             int hr = await source.Task;
+            handler = null;
             if (hr != HRESULT.S_OK)
             {
                 throw Marshal.GetExceptionForHR(hr);
             }
+
+
+
 
 
         }
@@ -623,7 +662,7 @@ namespace Diga.WebView2.Wrapper
             NavigationStarting?.Invoke(this, e);
         }
         private bool _IsDisposed;
-        
+
 
 
         protected override void Dispose(bool dispose)

@@ -3,9 +3,10 @@ using Diga.WebView2.Interop;
 
 namespace Diga.WebView2.Wrapper.EventArguments
 {
-    public class WebMessageReceivedEventArgs : EventArgs, ICoreWebView2WebMessageReceivedEventArgs
+    public class WebMessageReceivedEventArgs : EventArgs, ICoreWebView2WebMessageReceivedEventArgs,IDisposable
     {
         private ICoreWebView2WebMessageReceivedEventArgs _Args;
+        private bool disposedValue;
 
         public WebMessageReceivedEventArgs(ICoreWebView2WebMessageReceivedEventArgs args)
         {
@@ -37,6 +38,36 @@ namespace Diga.WebView2.Wrapper.EventArguments
         string ICoreWebView2WebMessageReceivedEventArgs.TryGetWebMessageAsString()
         {
             return this._Args.TryGetWebMessageAsString();
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    
+                }
+
+                this._Args = null;
+                // TODO: Nicht verwaltete Ressourcen (nicht verwaltete Objekte) freigeben und Finalizer überschreiben
+                // TODO: Große Felder auf NULL setzen
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: Finalizer nur überschreiben, wenn "Dispose(bool disposing)" Code für die Freigabe nicht verwalteter Ressourcen enthält
+        ~WebMessageReceivedEventArgs()
+        {
+            // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+            Dispose(disposing: false);
+        }
+
+        public void Dispose()
+        {
+            // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

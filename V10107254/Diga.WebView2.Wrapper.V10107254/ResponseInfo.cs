@@ -6,8 +6,10 @@ using System.Text;
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
 {
-    public class ResponseInfo
+    public class ResponseInfo:IDisposable
     {
+        private bool disposedValue;
+
         private ResponseInfo()
         {
             this.Header = new Dictionary<string, string>();
@@ -27,7 +29,7 @@ namespace Diga.WebView2.Wrapper
         public ResponseInfo(byte[] bytes) : this(new MemoryStream(bytes)) { }
 
         public ResponseInfo(string content) : this(Encoding.UTF8.GetBytes(content)) { }
-        public Stream Stream { get; }
+        public Stream Stream { get; private set; }
         public int StatusCode { get; set; }
         public string StatusText { get; set; }
         public string ContentType { get; set; }
@@ -56,6 +58,37 @@ namespace Diga.WebView2.Wrapper
             //}
             headerStringBuilder.Append("\r\n");
             return headerStringBuilder.ToString();
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    if (this.Stream != null)
+                    {
+                        this.Stream.Dispose();
+                        this.Stream = null;
+                    }
+                }
+               
+               
+                disposedValue = true;
+            }
+        }
+
+        //~ResponseInfo()
+        //{
+        //    // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+        //    Dispose(disposing: false);
+        //}
+
+        public void Dispose()
+        {
+            // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

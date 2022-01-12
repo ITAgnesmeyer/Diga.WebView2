@@ -954,6 +954,8 @@ namespace Diga.WebView2.WinForms
 
             return response;
         }
+
+       
         private bool GetFileStream(string url, out ResponseInfo responseInfo)
         {
             if (!url.StartsWith(this.MonitoringUrl))
@@ -961,7 +963,7 @@ namespace Diga.WebView2.WinForms
                 responseInfo = null;
                 return false;
             }
-
+            
             string baseDirectory = this.MonitoringFolder;
             string file = url.Replace(this.MonitoringUrl, "");
             if (string.IsNullOrEmpty(file))

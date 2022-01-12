@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections;
+using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.Types;
+using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper
 {
-    public class HttpHeadersCollectionIterator :IEnumerator,IEnumerable, ICoreWebView2HttpHeadersCollectionIterator
+    public class HttpHeadersCollectionIterator :IEnumerator,IEnumerable, ICoreWebView2HttpHeadersCollectionIterator,IDisposable
     {
         private ICoreWebView2HttpHeadersCollectionIterator _Interface;
-
-        
+        private bool disposedValue;
+        /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
+        ///             pattern for any type that is not sealed.
+        ///             https://docs.microsoft.com/dotnet/api/system.idisposable#idisposable-and-the-inheritance-hierarchy
+        private SafeHandle handle = (SafeHandle) new SafeFileHandle(IntPtr.Zero, true);
         public HttpHeadersCollectionIterator(ICoreWebView2HttpHeadersCollectionIterator iface)
         {
             this._Interface = iface;
@@ -71,6 +76,36 @@ namespace Diga.WebView2.Wrapper
         int ICoreWebView2HttpHeadersCollectionIterator.MoveNext()
         {
             return this._Interface.MoveNext();
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    this.handle.Dispose();
+                }
+
+                this._Interface = null;
+                // TODO: Nicht verwaltete Ressourcen (nicht verwaltete Objekte) freigeben und Finalizer überschreiben
+                // TODO: Große Felder auf NULL setzen
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: Finalizer nur überschreiben, wenn "Dispose(bool disposing)" Code für die Freigabe nicht verwalteter Ressourcen enthält
+        ~HttpHeadersCollectionIterator()
+        {
+            // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+            Dispose(disposing: false);
+        }
+
+        public void Dispose()
+        {
+            // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

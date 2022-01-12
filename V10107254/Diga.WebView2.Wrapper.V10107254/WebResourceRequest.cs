@@ -1,12 +1,15 @@
-﻿using Diga.WebView2.Interop;
+﻿using System;
+using System.IO;
+using Diga.WebView2.Interop;
 using System.Runtime.InteropServices.ComTypes;
 
 namespace Diga.WebView2.Wrapper
 {
-    public class WebResourceRequest : ICoreWebView2WebResourceRequest
+    public class WebResourceRequest : ICoreWebView2WebResourceRequest, IDisposable
     {
 
-        private readonly ICoreWebView2WebResourceRequest _Interface;
+        private ICoreWebView2WebResourceRequest _Interface;
+        private bool disposedValue;
 
         public WebResourceRequest(ICoreWebView2WebResourceRequest iface)
         {
@@ -26,17 +29,17 @@ namespace Diga.WebView2.Wrapper
             set => this.ToInterface().Method = value;
         }
 
-        public StreamWrapper Content
+        public Stream Content
         {
             get
             {
                 if (this.ToInterface().Content == null) return null;
-                return new StreamWrapper(this.ToInterface().Content);
+                return new ComStream(this.ToInterface().Content);
             }
             set
             {
 
-                this.ToInterface().Content = value;
+                this.ToInterface().Content = new ManagedIStream(ref value);
             }
         }
 
@@ -44,7 +47,7 @@ namespace Diga.WebView2.Wrapper
         {
             get
             {
-                if(this.ToInterface().Headers == null) return null;
+                if (this.ToInterface().Headers == null) return null;
                 return new HttpRequestHeaders(this.ToInterface().Headers);
             }
         }
@@ -68,5 +71,33 @@ namespace Diga.WebView2.Wrapper
         }
 
         ICoreWebView2HttpRequestHeaders ICoreWebView2WebResourceRequest.Headers => this._Interface.Headers;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    
+                }
+
+                this._Interface = null;
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: Finalizer nur überschreiben, wenn "Dispose(bool disposing)" Code für die Freigabe nicht verwalteter Ressourcen enthält
+        ~WebResourceRequest()
+        {
+            // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+            Dispose(disposing: false);
+        }
+
+        public void Dispose()
+        {
+            // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
     }
 }
