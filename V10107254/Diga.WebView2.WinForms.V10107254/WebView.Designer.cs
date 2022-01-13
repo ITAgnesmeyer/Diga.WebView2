@@ -20,8 +20,8 @@ namespace Diga.WebView2.WinForms
             
             if (disposing )
             {
-               
 
+                
                 if (components != null)
                 {
                     components.Dispose();

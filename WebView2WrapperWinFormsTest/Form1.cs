@@ -26,7 +26,7 @@ namespace WebView2WrapperWinFormsTest
 
         }
 
-        private async void OnRpcEvent(object sender, RpcEventHandlerArgs e)
+        private  void OnRpcEvent(object sender, RpcEventHandlerArgs e)
         {
             //string eventName = e.EventName;
             //string id = e.ObjectId;
@@ -567,7 +567,7 @@ namespace WebView2WrapperWinFormsTest
             }
         }
 
-        private async void bnSrcTest_Click(object sender, EventArgs e)
+        private  void bnSrcTest_Click(object sender, EventArgs e)
         {
             this.webView1.ShowPageSource();
         }

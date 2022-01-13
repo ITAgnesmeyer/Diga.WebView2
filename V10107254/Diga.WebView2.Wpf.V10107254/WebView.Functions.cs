@@ -1,0 +1,149 @@
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows;
+using Diga.WebView2.Wrapper;
+
+namespace Diga.WebView2.Wpf
+{
+    public partial class WebView
+    {
+        #region Public Functions
+
+        public async Task<System.Drawing.Image> CapturePreviewAsImageAsync(ImageFormat imageFormat)
+        {
+            using (var stream = new MemoryStream())
+            {
+                await this._WebViewControl.CapturePreviewAsync(stream, imageFormat);
+                var retImage = System.Drawing.Image.FromStream(stream);
+                return retImage;
+            }
+        }
+
+        public void Navigate(string url)
+        {
+            this._Url = url;
+            if (this.CheckIsCreatedOrEnded && !string.IsNullOrEmpty(this.Url))
+            {
+                try
+                {
+                    this._WebViewControl.Navigate(this._Url);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message, @"Navigation Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        public void NavigateToString(string htmlContent)
+        {
+            this._HtmlContent = htmlContent;
+            if (this.CheckIsCreatedOrEnded && !string.IsNullOrEmpty(this._HtmlContent))
+            {
+                try
+                {
+                    this._WebViewControl.NavigateToString(this._HtmlContent);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message, @"Navigation Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        public void GoBack()
+        {
+            if (!this.CheckIsCreatedOrEnded) return;
+            if (this._WebViewControl.CanGoBack)
+                this._WebViewControl.GoBack();
+        }
+
+        public void GoForward()
+        {
+            if (!this.CheckIsCreatedOrEnded) return;
+            if (this._WebViewControl.CanGoForward)
+                this._WebViewControl.GoForward();
+        }
+
+        public void AddScriptToExecuteOnDocumentCreated(string javaScript)
+        {
+            if (!this.CheckIsCreatedOrEnded) return;
+            this._WebViewControl.AddScriptToExecuteOnDocumentCreated(javaScript);
+        }
+
+        public void SendMessage(string message)
+        {
+            this._WebViewControl.PostWebMessageAsString(message);
+        }
+
+        public void PostWebMessageAsJson(string webMessageAsJson)
+        {
+            this._WebViewControl.PostWebMessageAsJson(webMessageAsJson);
+        }
+
+        public void PostWebMessageAsString(string webMessageAsString)
+        {
+            this._WebViewControl.PostWebMessageAsString(webMessageAsString);
+        }
+
+        public void AddRemoteObject(string name, object @object)
+        {
+            if (!this.CheckIsCreatedOrEnded) return;
+            this._WebViewControl.AddRemoteObject(name, @object);
+        }
+
+        public void Reload()
+        {
+            this._WebViewControl.Reload();
+        }
+
+        public void RemoveRemoteObject(string name)
+        {
+            this._WebViewControl.RemoveRemoteObject(name);
+        }
+
+        public WebView2PrintSettings CreatePrintSettings()
+        {
+            return this._WebViewControl.CreatePrintSettings();
+        }
+
+        public async Task<bool> PrintToPdfAsync(string file, WebView2PrintSettings printSettings)
+        {
+            CheckIsCreatedOrEndedWithThrow();
+            return await this._WebViewControl.PrintPdfAsync(file, printSettings);
+        }
+
+        public void OpenDevToolsWindow()
+        {
+            this._WebViewControl.OpenDevToolsWindow();
+        }
+
+        public void OpenTaskManagerWindow()
+        {
+            this._WebViewControl.OpenTaskManagerWindow();
+        }
+
+        public WebResourceResponse CreateResponse(ResponseInfo responseInfo)
+        {
+            WebResourceResponse response = null;
+            if (this.CheckIsCreatedOrEnded)
+            {
+                response = this._WebViewControl.GetResponseStream(responseInfo.Stream, responseInfo.StatusCode,
+                    responseInfo.StatusText, responseInfo.HeaderToString(), responseInfo.ContentType);
+            }
+
+            return response;
+        }
+
+        public void ShowPageSource()
+        {
+            string uri = this.Source;
+
+
+            Navigate($"view-source:{uri}");
+        }
+
+        #endregion
+    }
+}

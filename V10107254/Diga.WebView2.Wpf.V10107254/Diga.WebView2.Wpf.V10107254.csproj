@@ -23,6 +23,7 @@
 		<DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
 	</PropertyGroup>
 	<ItemGroup>
+	  <PackageReference Include="Diga.Core.Json" Version="1.0.2" />
 	  <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
 	</ItemGroup>
 	<ItemGroup>
@@ -30,6 +31,23 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Diga.WebView2.Wrapper.V10107254\Diga.WebView2.Wrapper.V10107254.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="WebView.Events.cs">
+	    <SubType>UserControl</SubType>
+	  </Compile>
+	  <Compile Update="WebView.Functions.cs">
+	    <SubType>UserControl</SubType>
+	  </Compile>
+	  <Compile Update="WebView.Monitoring.cs">
+	    <SubType>UserControl</SubType>
+	  </Compile>
+	  <Compile Update="WebView.Properties.cs">
+	    <SubType>UserControl</SubType>
+	  </Compile>
+	  <Compile Update="WebView.Scripting.cs">
+	    <SubType>UserControl</SubType>
+	  </Compile>
 	</ItemGroup>
 	
 </Project>
