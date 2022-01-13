@@ -47,6 +47,7 @@ namespace Diga.WebView2.Wrapper
             {
                 headerStringBuilder.Append(headerValue.Key);
                 headerStringBuilder.Append(":");
+                headerStringBuilder.Append(headerValue.Value);
                 headerStringBuilder.Append("\r\n");
                 //headerString += headerValue.Key + ":" + headerValue.Value;
                 //headerString += "\r\n";
@@ -56,7 +57,9 @@ namespace Diga.WebView2.Wrapper
             //{
             //    headerString += "\r\n";
             //}
+            
             headerStringBuilder.Append("\r\n");
+            //string h = headerStringBuilder.ToString();
             return headerStringBuilder.ToString();
         }
 

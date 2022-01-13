@@ -227,25 +227,39 @@ namespace Diga.WebView2.Wrapper
                 if (e.Request.Method == "GET")
                 {
                     string mimeType = string.Empty;
-                    if (e.Request.Uri.StartsWith("data:text/html"))
-                    {
-                        mimeType = "text/html";
-                    }
-                    else
-                    {
-                        Uri uri = new Uri(e.Request.Uri);
+                   
+                   
+                       
                         try
                         {
-                            string path = uri.GetComponents(UriComponents.Path, UriFormat.Unescaped);
 
-                            if (!string.IsNullOrEmpty(path))
+                            if (e.Response.Headers.Contains("Content-Type"))
                             {
-                                mimeType = uri.MimeTypeOrDefault();
+                                var header= e.Response.Headers.GetHeaders("Content-Type");
+                                if (header.HasCurrent)
+                                {
+                                    mimeType = header.Current.Value;
+                                }     
+
                             }
                             else
                             {
-                                mimeType = "text/html";
+                                Uri uri = new Uri(e.Request.Uri);
+                                string path = uri.GetComponents(UriComponents.Path, UriFormat.Unescaped);
+                                if (!string.IsNullOrEmpty(path) && path.Length < 260)
+                                {
+                                    mimeType = uri.MimeTypeOrDefault();
+                                }
+                                else
+                                {
+                                    if (e.Request.Uri.StartsWith("data:text/html"))
+                                    {
+                                        mimeType = "text/html";
+                                    }
+                                }
+                                
                             }
+
                             
                         }
                         catch (Exception exception)
@@ -255,10 +269,10 @@ namespace Diga.WebView2.Wrapper
                         }
                         
 
-                    }
+                   
 
 
-                    if (mimeType == "text/html")
+                    if (mimeType.StartsWith( "text/html"))
                     {
                         using (var stream = await e.Response.GetContentAsync())
                         {
@@ -272,10 +286,10 @@ namespace Diga.WebView2.Wrapper
 
 
                                     this.CurrentContent.Add(content);
-
+                                    sr.Close();
                                 }
 
-
+                                stream.Close();
 
                             }
 
