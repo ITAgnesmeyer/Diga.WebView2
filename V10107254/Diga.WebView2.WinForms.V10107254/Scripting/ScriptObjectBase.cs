@@ -116,6 +116,7 @@ namespace Diga.WebView2.WinForms.Scripting
         {
             string propVal = $"return {this.InstanceName}.{member};";
             object result = await ExecuteScriptAsync(propVal);
+            
             return (T)Convert.ChangeType(result, typeof(T));
         }
 

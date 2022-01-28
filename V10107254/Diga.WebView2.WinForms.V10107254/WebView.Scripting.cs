@@ -171,6 +171,7 @@ namespace Diga.WebView2.WinForms
                     html = html.Substring(0, html.Length - 1);
                 }
 
+               
                 html = System.Text.RegularExpressions.Regex.Unescape(html);
                 //string enc = html= System.Text.RegularExpressions.Regex.Escape(html);
                 html = html.Replace("\n", Environment.NewLine);

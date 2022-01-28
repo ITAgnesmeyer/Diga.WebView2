@@ -201,8 +201,14 @@ namespace WebView2WrapperWinFormsTest
         private void webView1_WebMessageReceived(object sender, WebMessageReceivedEventArgs e)
         {
             string message = e.WebMessageAsString;
-            var rpc = Diga.Core.Json.DigaJson.Deserialize<RpcObject>(message);
+            if (string.IsNullOrEmpty(message))
+                message = e.WebMessageAsJson;
 
+            var rpc = Diga.Core.Json.DigaJson.Deserialize<RpcObject>(message);
+            if (rpc == null)
+                return;
+            if (rpc.action == null)
+                return;
             switch (rpc.action)
             {
                 case "run_script":
@@ -570,6 +576,35 @@ namespace WebView2WrapperWinFormsTest
         private  void bnSrcTest_Click(object sender, EventArgs e)
         {
             this.webView1.ShowPageSource();
+        }
+
+        private void webView1_IsDocumentPlayingAudioChanged(object sender, WebView2EventArgs e)
+        {
+            if (this.lblMuted.Text == "PLAY")
+            {
+                this.lblMuted.Text = "STOP";
+            }
+            else
+            {
+                this.lblMuted.Text = "PLAY";
+            }
+        }
+
+        private void lblMuted_Click(object sender, EventArgs e)
+        {
+            
+            this.webView1.IsMuted =  !this.webView1.IsMuted;
+            if (this.webView1.IsMuted)
+            {
+                this.lblMuted.BackColor = Color.Red;
+            }
+            else
+            {
+                this.lblMuted.BackColor = Color.Green;
+            }
+                
+
+          
         }
     }
 }

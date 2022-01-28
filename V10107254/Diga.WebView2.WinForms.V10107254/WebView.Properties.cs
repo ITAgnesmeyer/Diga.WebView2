@@ -141,6 +141,20 @@ namespace Diga.WebView2.WinForms
             }
         }
 
+        private bool _IsMuted;
+
+        public bool IsMuted
+        {
+            get => this._IsMuted;
+            set
+            {
+                this._IsMuted = value;
+                if (this.CheckIsCreatedOrEnded)
+                {
+                    this._WebViewControl.IsMuted = this._IsMuted;
+                }
+            }
+        }
         public bool AreBrowserAcceleratorKeysEnabled
         {
             get => this._AreBrowserAcceleratorKeysEnabled;

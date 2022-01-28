@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblMuted = new System.Windows.Forms.Label();
             this.bnSrcTest = new System.Windows.Forms.Button();
             this.bnSrc = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
@@ -53,6 +54,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblMuted);
             this.panel1.Controls.Add(this.bnSrcTest);
             this.panel1.Controls.Add(this.bnSrc);
             this.panel1.Controls.Add(this.button6);
@@ -74,6 +76,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1546, 37);
             this.panel1.TabIndex = 0;
+            // 
+            // lblMuted
+            // 
+            this.lblMuted.AutoSize = true;
+            this.lblMuted.BackColor = System.Drawing.SystemColors.Info;
+            this.lblMuted.Location = new System.Drawing.Point(1501, 12);
+            this.lblMuted.Name = "lblMuted";
+            this.lblMuted.Size = new System.Drawing.Size(41, 15);
+            this.lblMuted.TabIndex = 15;
+            this.lblMuted.Text = "Sound";
+            this.lblMuted.Click += new System.EventHandler(this.lblMuted_Click);
             // 
             // bnSrcTest
             // 
@@ -277,7 +290,7 @@
             this.webView1.BackColor = System.Drawing.Color.Black;
             this.webView1.DefaultBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.webView1.DefaultContextMenusEnabled = true;
-            this.webView1.DefaultScriptDialogsEnabled = false;
+            this.webView1.DefaultScriptDialogsEnabled = true;
             this.webView1.DevToolsEnabled = true;
             this.webView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webView1.EnableMonitoring = true;
@@ -325,6 +338,7 @@
             this.webView1.WebResourceResponseReceived += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebResourceResponseReceivedEventArgs>(this.webView1_WebResourceResponseReceived);
             this.webView1.WebViewCreated += new System.EventHandler(this.webView1_WebViewCreated);
             this.webView1.BeforeWebViewDestroy += new System.EventHandler(this.webView1_BeforeWebViewDestroy);
+            this.webView1.IsDocumentPlayingAudioChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_IsDocumentPlayingAudioChanged);
             // 
             // Form1
             // 
@@ -366,6 +380,7 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button bnSrc;
         private System.Windows.Forms.Button bnSrcTest;
+        private System.Windows.Forms.Label lblMuted;
     }
 }
 

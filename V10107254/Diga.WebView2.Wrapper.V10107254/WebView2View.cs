@@ -619,6 +619,12 @@ namespace Diga.WebView2.Wrapper
 
         new public bool CanGoForward => new CBOOL(base.CanGoForward);
 
+        new public bool IsMuted
+        {
+            get => (CBOOL)base.IsMuted;
+            set => base.IsMuted = (CBOOL)value;
+        }
+
         public async Task CapturePreviewAsync(Stream stream, ImageFormat imageFormat)
         {
 

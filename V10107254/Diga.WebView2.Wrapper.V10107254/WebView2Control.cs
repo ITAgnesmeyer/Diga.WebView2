@@ -56,6 +56,9 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<CompositionControllerCompletedEventArgs> CompositionControllerCompleted;
         public event EventHandler<CursorChangedEventArgs> CompoisitionControllerCursorChanged;
         public event EventHandler<BrowserProcessExitedEventArgs> BrowserProcessExited;
+        public event EventHandler<WebView2EventArgs> IsMutedChanged;
+        public event EventHandler<WebView2EventArgs> IsDocumentPlayingAudioChanged;
+        public event EventHandler<WebView2EventArgs> IsDefaultDownloadDialogOpenChanged;
         private WebView2Settings _Settings;
         private string _BrowserInfo;
         private object HostHelper;
@@ -198,7 +201,9 @@ namespace Diga.WebView2.Wrapper
             this.WebView.WebResourceRequested += OnWebResourceRequestedIntern;
             this.WebView.WebResourceResponseReceived += OnWebResourceResponseReceivedIntern;
             this.WebView.WindowCloseRequested += OnWindowCloseRequestedIntern;
-
+            this.WebView.IsMutedChanged += OnIsMutedChangedIntern;
+            this.WebView.IsDocumentPlayingAudioChanged += OnIsDocumentPlayingAudioChangedÍntern;
+            this.WebView.IsDefaultDownloadDialogOpenChanged += OnIsDefaultDownloadDialogOpenChangedIntern;
             this._Settings = new WebView2Settings(this.WebView.Settings);
             object  wwInterface = e.WebView;
 
@@ -215,6 +220,21 @@ namespace Diga.WebView2.Wrapper
             
 
             OnCreated();
+        }
+
+        private void OnIsDefaultDownloadDialogOpenChangedIntern(object sender, WebView2EventArgs e)
+        {
+            OnIsDefaultDownloadDialogOpenChanged(e);
+        }
+
+        private void OnIsDocumentPlayingAudioChangedÍntern(object sender, WebView2EventArgs e)
+        {
+            OnIsDocumentPlayingAudioChanged(e);
+        }
+
+        private void OnIsMutedChangedIntern(object sender, WebView2EventArgs e)
+        {
+            OnIsMutedChanged(e);
         }
 
         public void OpenTaskManagerWindow()
@@ -307,7 +327,9 @@ namespace Diga.WebView2.Wrapper
                 this.WebView.WebResourceRequested -= OnWebResourceRequestedIntern;
                 this.WebView.WebResourceResponseReceived -= OnWebResourceResponseReceivedIntern;
                 this.WebView.WindowCloseRequested -= OnWindowCloseRequestedIntern;
-
+                this.WebView.IsMutedChanged -= OnIsMutedChangedIntern;
+                this.WebView.IsDocumentPlayingAudioChanged -= OnIsDocumentPlayingAudioChangedÍntern;
+                this.WebView.IsDefaultDownloadDialogOpenChanged -= OnIsDefaultDownloadDialogOpenChangedIntern;
 
             }
         }
@@ -924,6 +946,11 @@ namespace Diga.WebView2.Wrapper
             }
         }
 
+        public bool IsMuted
+        {
+            get => this.WebView.IsMuted;
+            set => this.WebView.IsMuted = value;
+        }
         public async Task CapturePreviewAsync(Stream stream, ImageFormat imageFormat)
         {
             await this.WebView.CapturePreviewAsync(stream, imageFormat);
@@ -1024,6 +1051,21 @@ namespace Diga.WebView2.Wrapper
         public Task<bool> PrintPdfAsync(string file, WebView2PrintSettings printSettings)
         {
             return this.WebView.PrintToPdfAsync(file, printSettings);
+        }
+
+        protected virtual void OnIsMutedChanged(WebView2EventArgs e)
+        {
+            IsMutedChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnIsDocumentPlayingAudioChanged(WebView2EventArgs e)
+        {
+            IsDocumentPlayingAudioChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnIsDefaultDownloadDialogOpenChanged(WebView2EventArgs e)
+        {
+            IsDefaultDownloadDialogOpenChanged?.Invoke(this, e);
         }
     }
 

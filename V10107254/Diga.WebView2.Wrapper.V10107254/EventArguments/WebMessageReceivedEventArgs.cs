@@ -25,7 +25,17 @@ namespace Diga.WebView2.Wrapper.EventArguments
         {
             get
             {
-                string value = this.ToInterface().TryGetWebMessageAsString();
+                string value = null;
+                try
+                {
+                    value = this.ToInterface().TryGetWebMessageAsString();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    
+                }
+                    
                 if (string.IsNullOrEmpty(value)) return "";
                 return value;
             }
