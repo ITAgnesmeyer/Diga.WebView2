@@ -57,6 +57,8 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
                 return new DOMEvent(control, var);
             if (t == typeof(DOMMouseEvent))
                 return new DOMMouseEvent(control, var);
+            if (t == typeof(DOMKeyboardEvent))
+                return new DOMKeyboardEvent(control, var);
             if (t == typeof(DOMAttribute))
                 return new DOMAttribute(control, var);
             if (t == typeof(DOMConsole))
@@ -126,7 +128,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             OnDomEvent(e);
         }
 
-        protected void OnDomEvent(RpcEventHandlerArgs e)
+        protected virtual void OnDomEvent(RpcEventHandlerArgs e)
         {
             DomEvent?.Invoke(this,e);
         }

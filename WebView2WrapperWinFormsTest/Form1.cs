@@ -501,26 +501,20 @@ namespace WebView2WrapperWinFormsTest
             await element.addEventListener("click", scriptText, true);
             
             //handle the event
-            element.DomEvent += async (o,ev) =>
+            element.Click += async (o,ev) =>
             {
-                if (ev.EventName == "click")
-                {
-                    //you can get the event-Object by var name
-                    // this will be easier in in next version
-                    DOMMouseEvent me = element.GetDomObjectFromVarName<DOMMouseEvent>(ev.RpcObject.idFullName);
-
                     //set the attribute of the Button-Element
                     await element.setAttribute("style", "background-color: coral;");
                     
                     //read the values of MouseEvent-Object
-                    int button = await me.button;
-                    bool isAlt = await me.altKey;
-                    bool isShift = await me.shiftKey;
+                    int button = await ev.Event.button;
+                    bool isAlt = await ev.Event.altKey;
+                    bool isShift = await ev.Event.shiftKey;
 
                     //Show the information in alert
                     await window.alert($"set=>isShift={isShift}, isAlt={isAlt}, buttonNr={button}");
 
-                }
+               
             };
           
 
