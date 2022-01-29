@@ -11,7 +11,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task<int> detail => GetAsync<int>();
 
-        public Task<DOMWindow> view => GetTypedVar<DOMWindow>();
+        public Task<DOMWindow> view => GetTypedVarAsync<DOMWindow>();
 
 
     }

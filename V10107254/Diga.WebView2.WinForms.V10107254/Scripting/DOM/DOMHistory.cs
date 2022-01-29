@@ -15,17 +15,17 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task back()
         {
-            return Exec<object>(new object[]{});
+            return ExecAsync<object>(new object[]{});
         }
 
         public Task forward()
         {
-            return Exec<object>(new object[]{});
+            return ExecAsync<object>(new object[]{});
         }
 
         public Task go(int number)
         {
-            return Exec<object>(new object[]{number});
+            return ExecAsync<object>(new object[]{number});
         }
 
 

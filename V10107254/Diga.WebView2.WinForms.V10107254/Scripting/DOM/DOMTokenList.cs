@@ -18,27 +18,27 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         public Task add(params object[] objParams)
         {
             
-            return Exec<object>(objParams);
+            return ExecAsync<object>(objParams);
         }
 
         public Task<bool> contains(string key)
         {
-            return Exec<bool>(new object[] { key });
+            return ExecAsync<bool>(new object[] { key });
         }
 
         public Task<object> item(int index)
         {
-            return Exec<object>(new object[] { index });
+            return ExecAsync<object>(new object[] { index });
         }
 
         public Task remove(params object[] parObjects)
         {
-            return Exec<object>(parObjects);
+            return ExecAsync<object>(parObjects);
         }
 
         public Task<bool> toggle(object obj, bool add)
         {
-            return Exec<bool>(new object[] { obj, add });
+            return ExecAsync<bool>(new object[] { obj, add });
         }
 
     }

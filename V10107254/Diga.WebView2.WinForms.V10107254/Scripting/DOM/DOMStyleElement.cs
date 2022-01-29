@@ -25,7 +25,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
        
 
-        public Task<CSSStyleSheet> sheet => GetTypedVar<CSSStyleSheet>();
+        public Task<CSSStyleSheet> sheet => GetTypedVarAsync<CSSStyleSheet>();
 
     }
 }

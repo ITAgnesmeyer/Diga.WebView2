@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Diga.Core.Threading;
 using Diga.WebView2.WinForms.Scripting;
 using Diga.WebView2.WinForms.Scripting.DOM;
 using Diga.WebView2.Wrapper.EventArguments;
@@ -32,6 +33,17 @@ namespace Diga.WebView2.WinForms
             this._WebViewControl.ExecuteScript(scrptToExecute);
         }
 
+        public string ExecuteScriptSync(string javaScript)
+        {
+            string result = UIDispatcher.UIThread.Invoke<string>(async () =>
+            {
+                string rs = await ExecuteScriptAsync(javaScript);
+                return rs;
+            });
+
+            return result;
+        }
+
         public void EvalScript(string javaScript)
         {
             if (!this.CheckIsCreatedOrEnded) return;
@@ -42,6 +54,16 @@ namespace Diga.WebView2.WinForms
             this._WebViewControl.ExecuteScript(scriptToExecute);
         }
 
+        public string EvalScriptSync(string javaScript)
+        {
+            string result = UIDispatcher.UIThread.Invoke<string>(async () =>
+            {
+                string rs = await EvalScriptAsync(javaScript);
+                return rs;
+            });
+
+            return result;
+        }
         /// <summary>
         /// Evaluate script async with Exception Check
         /// </summary>
@@ -83,6 +105,15 @@ namespace Diga.WebView2.WinForms
             return result;
         }
 
+        public string ExecuteScriptDirectSync(string javaScript)
+        {
+            string result = UIDispatcher.UIThread.Invoke<string>(async () =>
+            {
+                string rs = await ExecuteScriptDirectAsync(javaScript);
+                return rs;
+            });
+            return result;
+        }
         public void ExecuteScriptDirect(string javaScript)
         {
             CheckIsCreatedOrEndedWithThrow();
@@ -102,8 +133,8 @@ namespace Diga.WebView2.WinForms
             CheckIsCreatedOrEndedWithThrow();
             ScriptZeroTest(javaScript);
 
-            string scrptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"", "\\'")}}}\")";
-            string result = await this._WebViewControl.ExecuteScriptAsync(scrptToExecute);
+            string scriptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"", "\\'")}}}\")";
+            string result = await this._WebViewControl.ExecuteScriptAsync(scriptToExecute);
             ScriptErrorObject errorObj = ScriptSerializationHelper.GetScriptErrorObject(result);
             if (errorObj != null)
             {

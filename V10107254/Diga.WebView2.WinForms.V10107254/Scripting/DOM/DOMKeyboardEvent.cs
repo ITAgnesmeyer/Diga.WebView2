@@ -15,7 +15,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public async Task<bool> getModifierState(string modifierKey)
         {
-            return await Exec<bool>(new object[] { modifierKey });
+            return await ExecAsync<bool>(new object[] { modifierKey });
         }
 
         public Task<bool> isComposing => GetAsync<bool>();

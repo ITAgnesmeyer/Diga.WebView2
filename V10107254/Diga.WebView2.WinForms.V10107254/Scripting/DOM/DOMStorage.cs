@@ -9,16 +9,16 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             
         }
 
-        public Task<string> key(int index) => Exec<string>(new object[] { index });
+        public Task<string> key(int index) => ExecAsync<string>(new object[] { index });
 
         public Task<int> length => GetAsync<int>();
 
-        public Task<string> getItem(string index) => Exec<string>(new object[] { index });
+        public Task<string> getItem(string index) => ExecAsync<string>(new object[] { index });
 
-        public Task setItem(string key, string value) => Exec<object>(new object[] { key, value });
+        public Task setItem(string key, string value) => ExecAsync<object>(new object[] { key, value });
 
-        public Task removeItem(string key) => Exec<object>(new object[] { key });
+        public Task removeItem(string key) => ExecAsync<object>(new object[] { key });
 
-        public Task clear() => Exec<object>(new object[]{});
+        public Task clear() => ExecAsync<object>(new object[]{});
     }
 }

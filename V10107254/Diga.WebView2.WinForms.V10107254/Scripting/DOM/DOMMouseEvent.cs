@@ -18,7 +18,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task<bool> getModifierState(string modifierKey)
         {
-            return Exec<bool>(new object[] { modifierKey });
+            return ExecAsync<bool>(new object[] { modifierKey });
         }
 
         public Task<bool> metaKey => GetAsync<bool>();
@@ -31,7 +31,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         public Task<int> offsetY => GetAsync<int>();
         public Task<int> pageX => GetAsync<int>();
         public Task<int> pageY => GetAsync<int>();
-        public Task<DOMElement> relatedTarget => GetTypedVar<DOMElement>();
+        public Task<DOMElement> relatedTarget => GetTypedVarAsync<DOMElement>();
 
         public Task<int> screenX => GetAsync<int>();
         public Task<int> screenY => GetAsync<int>();

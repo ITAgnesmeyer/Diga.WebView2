@@ -47,6 +47,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.webView1 = new Diga.WebView2.WinForms.WebView();
+            this.bnScriptSync = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -54,6 +55,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.bnScriptSync);
             this.panel1.Controls.Add(this.lblMuted);
             this.panel1.Controls.Add(this.bnSrcTest);
             this.panel1.Controls.Add(this.bnSrc);
@@ -161,7 +163,7 @@
             // 
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.Font = new System.Drawing.Font("MS UI Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button5.Location = new System.Drawing.Point(927, 3);
+            this.button5.Location = new System.Drawing.Point(842, 3);
             this.button5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(38, 27);
@@ -197,12 +199,12 @@
             // bnScript
             // 
             this.bnScript.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bnScript.Location = new System.Drawing.Point(974, 3);
+            this.bnScript.Location = new System.Drawing.Point(889, 3);
             this.bnScript.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.bnScript.Name = "bnScript";
-            this.bnScript.Size = new System.Drawing.Size(59, 27);
+            this.bnScript.Size = new System.Drawing.Size(86, 27);
             this.bnScript.TabIndex = 5;
-            this.bnScript.Text = "Script";
+            this.bnScript.Text = "Async Script";
             this.bnScript.UseVisualStyleBackColor = true;
             this.bnScript.Click += new System.EventHandler(this.bnScript_Click);
             // 
@@ -210,7 +212,7 @@
             // 
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Font = new System.Drawing.Font("MS UI Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button4.Location = new System.Drawing.Point(882, 3);
+            this.button4.Location = new System.Drawing.Point(797, 3);
             this.button4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(38, 27);
@@ -248,7 +250,7 @@
             // button1
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(836, 3);
+            this.button1.Location = new System.Drawing.Point(751, 3);
             this.button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(38, 27);
@@ -268,10 +270,10 @@
                 "x.zip"});
             this.textBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.textBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBox1.Location = new System.Drawing.Point(88, 7);
+            this.textBox1.Location = new System.Drawing.Point(88, 5);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(740, 23);
+            this.textBox1.Size = new System.Drawing.Size(656, 23);
             this.textBox1.TabIndex = 0;
             // 
             // panel2
@@ -296,6 +298,7 @@
             this.webView1.EnableMonitoring = true;
             this.webView1.HtmlContent = null;
             this.webView1.IsGeneralAutoFillEnabled = true;
+            this.webView1.IsMuted = false;
             this.webView1.IsPasswordAutosaveEnabled = true;
             this.webView1.IsScriptEnabled = true;
             this.webView1.IsStatusBarEnabled = true;
@@ -340,6 +343,18 @@
             this.webView1.BeforeWebViewDestroy += new System.EventHandler(this.webView1_BeforeWebViewDestroy);
             this.webView1.IsDocumentPlayingAudioChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_IsDocumentPlayingAudioChanged);
             // 
+            // bnScriptSync
+            // 
+            this.bnScriptSync.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bnScriptSync.Location = new System.Drawing.Point(983, 3);
+            this.bnScriptSync.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.bnScriptSync.Name = "bnScriptSync";
+            this.bnScriptSync.Size = new System.Drawing.Size(50, 27);
+            this.bnScriptSync.TabIndex = 16;
+            this.bnScriptSync.Text = "Script";
+            this.bnScriptSync.UseVisualStyleBackColor = true;
+            this.bnScriptSync.Click += new System.EventHandler(this.bnScriptSync_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -381,6 +396,7 @@
         private System.Windows.Forms.Button bnSrc;
         private System.Windows.Forms.Button bnSrcTest;
         private System.Windows.Forms.Label lblMuted;
+        private System.Windows.Forms.Button bnScriptSync;
     }
 }
 

@@ -17,44 +17,44 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         }
         public Task log(string message)
         {
-            return Exec<object>(new object[]{message});
+            return ExecAsync<object>(new object[]{message});
         }
 
 
         public Task error(string message)
         {
-            return Exec<object>(new object[]{message});
+            return ExecAsync<object>(new object[]{message});
         }
 
         public Task clear()
         {
-            return Exec<object>(new object[]{});
+            return ExecAsync<object>(new object[]{});
         }
 
 
         public Task group(string label = null)
         {
-            return Exec<object>(new object[] { label });
+            return ExecAsync<object>(new object[] { label });
         }
 
         public Task info(string message)
         {
-            return this.Exec<object>(new object[]{message});
+            return this.ExecAsync<object>(new object[]{message});
         }
 
         public Task time()
         {
-            return this.Exec<object>(new object[]{});
+            return this.ExecAsync<object>(new object[]{});
         }
 
         public Task timeEnd()
         {
-            return this.Exec<object>(new object[]{});
+            return this.ExecAsync<object>(new object[]{});
         }
 
         public Task trace(string label = null)
         {
-            return this.Exec<object>(new object[]{label});
+            return this.ExecAsync<object>(new object[]{label});
 
             
         }

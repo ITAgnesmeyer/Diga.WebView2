@@ -600,5 +600,54 @@ namespace WebView2WrapperWinFormsTest
 
           
         }
+
+        private void bnScriptSync_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string script = "5+1";
+                string result = this.webView1.EvalScriptSync(script);
+                MessageBox.Show(result);
+            }
+            catch (ScriptException exception)
+            {
+                MessageBox.Show(exception.ErrorObject.message);
+            }
+
+            try
+            {
+                string script = "alert(\"hallo\"";
+                string result = this.webView1.EvalScriptSync(script);
+                MessageBox.Show(result);
+            }
+            catch (ScriptException exception)
+            {
+                MessageBox.Show(exception.ErrorObject.message);
+                
+            }
+
+            try
+            {
+                string script = "return 5+1;";
+                string result = this.webView1.ExecuteScriptSync(script);
+                MessageBox.Show(result);
+            }
+            catch (ScriptException exception)
+            {
+                MessageBox.Show(exception.ErrorObject.message);
+            }
+
+            try
+            {
+                string script = "alert(\"hallo\";";
+                string result = this.webView1.ExecuteScriptSync(script);
+                MessageBox.Show(result);
+            }
+            catch (ScriptException exception)
+            {
+                MessageBox.Show(exception.ErrorObject.message);
+                
+            }
+        }
     }
 }

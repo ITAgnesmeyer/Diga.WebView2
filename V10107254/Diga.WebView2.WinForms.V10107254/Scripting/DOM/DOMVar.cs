@@ -17,6 +17,10 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         private bool disposedValue;
         private const string _VarBase = "window.diga._HEAP_";
 
+        internal DOMVar(WebView control) : this(control, false)
+        {
+
+        }
         private DOMVar(WebView control, bool noCreate = false):base(control)
         {
             this._ObjectId =$"{_VarBase}{Guid.NewGuid().ToString().Replace("-","_")}" ;
@@ -38,7 +42,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         }
         public string Name => this._ObjectId;
 
-        internal async Task CreateVarAsync()
+        private async Task CreateVarAsync()
         {
             string scriptTest = "if(window.diga == undefined) window.diga = new Object();";
             _ = await ExecuteScriptAsync(scriptTest);
@@ -49,15 +53,15 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             string scriptTest = "if(window.diga == undefined) window.diga = new Object();";
            
-            InvokeScript(scriptTest);
+            ExecuteScript(scriptTest);
             string scriptValue = $"{this.Name}=new Object();";
-            InvokeScript(scriptValue);
+            ExecuteScript(scriptValue);
         }
 
         private void DeleteVar()
         {
             string scriptText = $"if({this.Name}) delete {this.Name};";
-            InvokeScript(scriptText);
+            ExecuteScript(scriptText);
 
         }
 

@@ -18,67 +18,67 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         }
         public  Task alert(string message)
         {
-             return base.Exec<object>(new object[] { message });
+             return base.ExecAsync<object>(new object[] { message });
         }
 
         public async Task<string> atob(string encoded)
         {
-            return await Exec<string>(new object[] { encoded });
+            return await ExecAsync<string>(new object[] { encoded });
         }
 
         public Task blur()
         {
-            return Exec<object>(new object[] { });
+            return ExecAsync<object>(new object[] { });
         }
 
         public async Task<string> btoa(string text)
         {
-            return await Exec<string>(new object[] { text });
+            return await ExecAsync<string>(new object[] { text });
         }
 
 
         public Task close()
         {
-            return Exec<object>(new object[] { });
+            return ExecAsync<object>(new object[] { });
         }
 
         public Task<bool> closed => GetAsync<bool>();
 
         public async Task<bool> confirm(string message)
         {
-            return await Exec<bool>(new object[] { message });
+            return await ExecAsync<bool>(new object[] { message });
         }
 
         public  Task<DOMConsole> console
         {
-            get => GetTypedVar<DOMConsole>();
+            get => GetTypedVarAsync<DOMConsole>();
         }
         
         public Task< DOMDocument> document
         {
-            get=> GetTypedVar<DOMDocument>();
+            get=> GetTypedVarAsync<DOMDocument>();
 
             
         }
         public Task focus()
         {
-            return  Exec<object>(new object[] { });
+            return  ExecAsync<object>(new object[] { });
         }
 
         public  Task< DOMElement> frameElement
         {
-            get => GetTypedVar<DOMElement>();
+            get => GetTypedVarAsync<DOMElement>();
         }
 
         public Task<DOMObjectCollection> frames
         {
-            get => GetTypedVar<DOMObjectCollection>();
+            get => GetTypedVarAsync<DOMObjectCollection>();
             
         }
 
         public Task<DOMHistory> history
         {
-            get => GetTypedVar<DOMHistory>();
+            get => GetTypedVarAsync<DOMHistory>();
             
         }
 
@@ -90,18 +90,18 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task<int> length => GetAsync<int>();
 
-        public Task<DOMStorage> localStorage => GetTypedVar<DOMStorage>();
+        public Task<DOMStorage> localStorage => GetTypedVarAsync<DOMStorage>();
 
         
 
         public Task moveBy(int x, int y)
         {
-            return Exec<object>(new object[] { x, y });
+            return ExecAsync<object>(new object[] { x, y });
         }
 
         public Task moveTo(int x, int y)
         {
-            return Exec<object>(new object[] { x, y });
+            return ExecAsync<object>(new object[] { x, y });
         }
 
         public Task<string> name
@@ -119,7 +119,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             return new DOMWindow(this._View2Control, var);
         }
 
-        public  Task<DOMWindow> opener => GetTypedVar<DOMWindow>();
+        public  Task<DOMWindow> opener => GetTypedVarAsync<DOMWindow>();
 
         public Task<int> outerHeight => GetAsync<int>();
 
@@ -129,28 +129,28 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task<int> pageYOffset => GetAsync<int>();
 
-        public Task<DOMWindow> parent => GetTypedVar<DOMWindow>();
+        public Task<DOMWindow> parent => GetTypedVarAsync<DOMWindow>();
 
         public Task print()
         {
-            return  Exec<object>(new object[] { });
+            return  ExecAsync<object>(new object[] { });
         }
 
         public async Task<string> prompt(string text, string defaultText = null)
         {
-            return await Exec<string>(new object[] { text, defaultText });
+            return await ExecAsync<string>(new object[] { text, defaultText });
         }
 
         public Task resizeBy(int x, int y)
         {
-            return Exec<object>(new object[] { x, y });
+            return ExecAsync<object>(new object[] { x, y });
         }
 
         public Task resizeTo(int x, int y)
         {
-            return Exec<object>(new object[] { x, y });
+            return ExecAsync<object>(new object[] { x, y });
         }
-        public Task<DOMScreen> screen=> GetTypedVar<DOMScreen>();
+        public Task<DOMScreen> screen=> GetTypedVarAsync<DOMScreen>();
 
         public Task<int> screenLeft => GetAsync<int>();
         public Task<int> screenTop => GetAsync<int>();
@@ -160,26 +160,26 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task scrollBy(int x, int y)
         {
-            return Exec<object>(new object[] { x, y });
+            return ExecAsync<object>(new object[] { x, y });
         }
         public Task scrollTo(int x, int y)
         {
-            return  Exec<object>(new object[] { x, y });
+            return  ExecAsync<object>(new object[] { x, y });
         }
 
         public Task<int> scrollX => GetAsync<int>();
         public Task<int> scrollY => GetAsync<int>();
 
-        public Task<DOMStorage> sessionStorage => GetTypedVar<DOMStorage>();
+        public Task<DOMStorage> sessionStorage => GetTypedVarAsync<DOMStorage>();
 
-        public Task<DOMWindow> self => GetTypedVar<DOMWindow>();
+        public Task<DOMWindow> self => GetTypedVarAsync<DOMWindow>();
 
         
         public Task stop()
         {
-           return Exec<object>(new object[] { });
+           return ExecAsync<object>(new object[] { });
         }
 
-        public Task<DOMWindow> top => GetTypedVar<DOMWindow>();
+        public Task<DOMWindow> top => GetTypedVarAsync<DOMWindow>();
     }
 }
