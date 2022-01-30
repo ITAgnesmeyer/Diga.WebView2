@@ -86,7 +86,7 @@ namespace Diga.WebView2.WinForms
             }
         }
 
-        public Task<string> PageSource => GetDocumentText();
+        public Task<string> PageSource => GetDocumentTextAsync();
 
         [Browsable(false)]
         public string DocumentTitle

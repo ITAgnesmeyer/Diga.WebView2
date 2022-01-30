@@ -469,21 +469,21 @@ namespace WebView2WrapperWinFormsTest
         }
 
         //Dom-Object example
-        private async void bnScriptTest_Click(object sender, EventArgs e)
+        private  void bnScriptTest_Click(object sender, EventArgs e)
         {
             //Get the script document
             DOMDocument doc = this.webView1.GetDOMDocument();
 
             //add a button element
-            DOMElement element = await  doc.createElement("button");
+            DOMElement element = doc.createElement("button");
             
             //set inner html of button 
             //StringTaskVar converts the string into Task<string>
-            element.innerHTML=(StringTaskVar)"Click Me";
+            element.innerHTML="Click Me";
             
             //set id of Button-Element
             //StringTaskVar converts GUID-String to Task<string>
-            element.id = (StringTaskVar)Guid.NewGuid().ToString();
+            element.id = Guid.NewGuid().ToString();
             
             //Get script window
             DOMWindow window = this.webView1.GetDOMWindow();
@@ -492,27 +492,37 @@ namespace WebView2WrapperWinFormsTest
             DOMEventListenerScript scriptText = new DOMEventListenerScript(element);
             
             //get the document body - Element
-            var docBody = await doc.body;
+             doc.body.appendChild(element);
+
             
             //append the Button
-            await docBody.appendChild(element);
+            //await docBody.appendChildAsync(element);
             
             //wire the click - Event to the button
-            await element.addEventListener("click", scriptText, true);
+            element.addEventListener("click", scriptText, true);
             
             //handle the event
-            element.Click += async (o,ev) =>
+            element.Click +=  (o,ev) =>
             {
-                    //set the attribute of the Button-Element
-                    await element.setAttribute("style", "background-color: coral;");
-                    
+                try
+                {
+                    element.setAttribute("style", "background-color: coral;");
+                    //ev.Event.relatedTarget.setAttribute("style", "background-color: coral;");
+
                     //read the values of MouseEvent-Object
-                    int button = await ev.Event.button;
-                    bool isAlt = await ev.Event.altKey;
-                    bool isShift = await ev.Event.shiftKey;
+                    int button = ev.Event.button;
+                    bool isAlt = ev.Event.altKey;
+                    bool isShift = ev.Event.shiftKey;
 
                     //Show the information in alert
-                    await window.alert($"set=>isShift={isShift}, isAlt={isAlt}, buttonNr={button}");
+                    window.alert($"set=>isShift={isShift}, isAlt={isAlt}, buttonNr={button}");
+
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Error:" + exception.Message);
+                }
+                    //set the attribute of the Button-Element
 
                
             };
@@ -522,7 +532,7 @@ namespace WebView2WrapperWinFormsTest
         }
         private async Task ShowMessageBoxAsync(string message, string caption = "Message")
         {
-            await this.webView1.GetDOMWindow().alert(message);
+            await this.webView1.GetDOMWindow().alertAsync(message);
 
         }
 

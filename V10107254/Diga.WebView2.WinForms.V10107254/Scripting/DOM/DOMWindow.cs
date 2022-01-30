@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+// ReSharper disable IdentifierTypo
 
 namespace Diga.WebView2.WinForms.Scripting.DOM
 {
@@ -16,170 +17,298 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             
         }
-        public  Task alert(string message)
+
+        public void alert(string message)
         {
-             return base.ExecAsync<object>(new object[] { message });
+            base.Exec<object>(new object[] { message });
+        }
+        public  Task alertAsync(string message)
+        {
+             return base.ExecAsync<object>(new object[] { message },nameof(alert));
+        }
+        public string atob(string encoded)
+        {
+            return Exec<string>(new object[] { encoded });
+        }
+        public async Task<string> atobAsync(string encoded)
+        {
+            return await ExecAsync<string>(new object[] { encoded },nameof(atob));
         }
 
-        public async Task<string> atob(string encoded)
+        public void blur()
         {
-            return await ExecAsync<string>(new object[] { encoded });
+            Exec<object>(new object[] { });
+        }
+        public Task blurAsync()
+        {
+            return ExecAsync<object>(new object[] { },nameof(blur));
         }
 
-        public Task blur()
+        public string btoa(string text)
         {
-            return ExecAsync<object>(new object[] { });
+            return Exec<string>(new object[] { text });
         }
 
-        public async Task<string> btoa(string text)
+        public async Task<string> btoaAsync(string text)
         {
-            return await ExecAsync<string>(new object[] { text });
+            return await ExecAsync<string>(new object[] { text },nameof(btoa));
+        }
+
+        public void close()
+        {
+            Exec<object>(new object[] { });
+        }
+
+        public Task closeAsync()
+        {
+            return ExecAsync<object>(new object[] { },nameof(close));
+        }
+
+        public bool closed => Get<bool>();
+        public Task<bool> closedAsync => GetAsync<bool>(nameof(closed));
+
+        public bool confirm(string message)
+        {
+            return Exec<bool>(new object[] { message });
+        }
+
+        public async Task<bool> confirmAsync(string message)
+        {
+            return await ExecAsync<bool>(new object[] { message },nameof(confirm));
+        }
+
+        public  DOMConsole console
+        {
+            get => GetTypedVar<DOMConsole>();
+        }
+
+        public  Task<DOMConsole> consoleAsync
+        {
+            get => GetTypedVarAsync<DOMConsole>(nameof(console));
+        }
+
+        public DOMDocument document
+        {
+            get=> GetTypedVar<DOMDocument>();
+        }
+
+        public Task< DOMDocument> documentAsync
+        {
+            get=> GetTypedVarAsync<DOMDocument>(nameof(document));
+        }
+        public void focus()
+        {
+            Exec<object>(new object[] { });
+        }
+
+        public Task focusAsync()
+        {
+            return  ExecAsync<object>(new object[] { },nameof(focus));
+        }
+
+        public  DOMElement frameElement
+        {
+            get => GetTypedVar<DOMElement>();
+        }
+
+        public  Task< DOMElement> frameElementAsync
+        {
+            get => GetTypedVarAsync<DOMElement>(nameof(frameElement));
+        }
+
+        public DOMObjectCollection frames
+        {
+            get => GetTypedVar<DOMObjectCollection>();
+            
+        }
+
+        public Task<DOMObjectCollection> framesAsync
+        {
+            get => GetTypedVarAsync<DOMObjectCollection>(nameof(frames));
+            
+        }
+
+        public DOMHistory history
+        {
+            get => GetTypedVar<DOMHistory>();
+            
+        }
+
+        public Task<DOMHistory> historyAsync
+        {
+            get => GetTypedVarAsync<DOMHistory>(nameof(history));
+            
         }
 
 
-        public Task close()
-        {
-            return ExecAsync<object>(new object[] { });
-        }
+        public int innerHeight => Get<int>();
+        public Task<int> innerHeightAsync => GetAsync<int>(nameof(innerHeight));
 
-        public Task<bool> closed => GetAsync<bool>();
+        public int innerWidth => Get<int>();
+        public Task<int> innerWidthAsync => GetAsync<int>(nameof(innerWidth));
 
-        public async Task<bool> confirm(string message)
-        {
-            return await ExecAsync<bool>(new object[] { message });
-        }
+        public int length => Get<int>();
+        public Task<int> lengthAsync => GetAsync<int>(nameof(length));
 
-        public  Task<DOMConsole> console
-        {
-            get => GetTypedVarAsync<DOMConsole>();
-        }
+
+        public DOMStorage localStorage => GetTypedVar<DOMStorage>();
+
+        public Task<DOMStorage> localStorageAsync => GetTypedVarAsync<DOMStorage>(nameof(localStorage));
+
         
-        public Task< DOMDocument> document
+        public void moveBy(int x, int y)
         {
-            get=> GetTypedVarAsync<DOMDocument>();
-
-            
-        }
-        public Task focus()
-        {
-            return  ExecAsync<object>(new object[] { });
+            Exec<object>(new object[] { x, y });
         }
 
-        public  Task< DOMElement> frameElement
+        public Task moveByAsync(int x, int y)
         {
-            get => GetTypedVarAsync<DOMElement>();
+            return ExecAsync<object>(new object[] { x, y },nameof(moveBy));
         }
 
-        public Task<DOMObjectCollection> frames
+        public void moveTo(int x, int y)
         {
-            get => GetTypedVarAsync<DOMObjectCollection>();
-            
+            Exec<object>(new object[] { x, y });
         }
 
-        public Task<DOMHistory> history
+        public Task moveToAsync(int x, int y)
         {
-            get => GetTypedVarAsync<DOMHistory>();
-            
+            return ExecAsync<object>(new object[] { x, y },nameof(moveTo));
         }
 
-
-
-        public Task<int> innerHeight => GetAsync<int>();
-
-        public Task<int> innerWidth => GetAsync<int>();
-
-        public Task<int> length => GetAsync<int>();
-
-        public Task<DOMStorage> localStorage => GetTypedVarAsync<DOMStorage>();
-
-        
-
-        public Task moveBy(int x, int y)
+        public string name
         {
-            return ExecAsync<object>(new object[] { x, y });
+            get => Get<string>();
+            set => Set(value);
         }
-
-        public Task moveTo(int x, int y)
+        public Task<string> nameAsync
         {
-            return ExecAsync<object>(new object[] { x, y });
-        }
-
-        public Task<string> name
-        {
-            get => GetAsync<string>();
+            get => GetAsync<string>(nameof(name));
             set => _ = SetAsync(value);
         }
 
+        public DOMWindow open(string url, string windowName = null, string specs = null, string replace = null)
+        {
+            DOMVar var = ExecGetVar( new object[] { url, windowName, specs, replace });
+
+            return new DOMWindow(this._View2Control, var);
+        }
         
 
-        public async Task< DOMWindow> open(string url, string windowName = null, string specs = null, string replace = null)
+        public async Task< DOMWindow> openAsync(string url, string windowName = null, string specs = null, string replace = null)
         {
-            DOMVar var = await ExecGetVarAsync( new object[] { url, windowName, specs, replace });
+            DOMVar var = await ExecGetVarAsync( new object[] { url, windowName, specs, replace },nameof(open));
 
             return new DOMWindow(this._View2Control, var);
         }
 
-        public  Task<DOMWindow> opener => GetTypedVarAsync<DOMWindow>();
+        public  DOMWindow opener => GetTypedVar<DOMWindow>();
+        public  Task<DOMWindow> openerAsync => GetTypedVarAsync<DOMWindow>(nameof(opener));
 
-        public Task<int> outerHeight => GetAsync<int>();
+        public int outerHeight => Get<int>();
+        public Task<int> outerHeightAsync => GetAsync<int>(nameof(outerHeight));
 
-        public Task<int> outerWidth => GetAsync<int>();
+        public int outerWidth => Get<int>();
+        public Task<int> outerWidthAsync => GetAsync<int>(nameof(outerWidth));
 
-        public Task<int> pageXOffset => GetAsync<int>();
+        public int pageXOffset => Get<int>();
+        public Task<int> pageXOffsetAsync => GetAsync<int>(nameof(pageXOffset));
 
-        public Task<int> pageYOffset => GetAsync<int>();
+        public int pageYOffset => Get<int>();
+        public Task<int> pageYOffsetAsync => GetAsync<int>(nameof(pageYOffset));
 
-        public Task<DOMWindow> parent => GetTypedVarAsync<DOMWindow>();
+        public DOMWindow parent => GetTypedVar<DOMWindow>();
+        public Task<DOMWindow> parentAsync => GetTypedVarAsync<DOMWindow>(nameof(parent));
 
-        public Task print()
+        public void print()
         {
-            return  ExecAsync<object>(new object[] { });
+            Exec<object>(new object[] { });
+        }
+        public Task printAsync()
+        {
+            return  ExecAsync<object>(new object[] { },nameof(print));
         }
 
-        public async Task<string> prompt(string text, string defaultText = null)
+        public string prompt(string text, string defaultText = null)
         {
-            return await ExecAsync<string>(new object[] { text, defaultText });
+            return Exec<string>(new object[] { text, defaultText });
+        }
+        public async Task<string> promptAsync(string text, string defaultText = null)
+        {
+            return await ExecAsync<string>(new object[] { text, defaultText },nameof(prompt));
         }
 
-        public Task resizeBy(int x, int y)
+        public void resizeBy(int x, int y)
         {
-            return ExecAsync<object>(new object[] { x, y });
+            Exec<object>(new object[] { x, y });
+        }
+        public Task resizeByAsync(int x, int y)
+        {
+            return ExecAsync<object>(new object[] { x, y },nameof(resizeBy));
         }
 
-        public Task resizeTo(int x, int y)
+        public void resizeTo(int x, int y)
         {
-            return ExecAsync<object>(new object[] { x, y });
+            Exec<object>(new object[] { x, y });
         }
-        public Task<DOMScreen> screen=> GetTypedVarAsync<DOMScreen>();
-
-        public Task<int> screenLeft => GetAsync<int>();
-        public Task<int> screenTop => GetAsync<int>();
-
-        public Task<int> screenX => GetAsync<int>();
-        public Task<int> screenY => GetAsync<int>();
-
-        public Task scrollBy(int x, int y)
+        public Task resizeToAsync(int x, int y)
         {
-            return ExecAsync<object>(new object[] { x, y });
+            return ExecAsync<object>(new object[] { x, y },nameof(resizeTo));
         }
-        public Task scrollTo(int x, int y)
+        public DOMScreen screen=> GetTypedVar<DOMScreen>();
+        public Task<DOMScreen> screenAsync=> GetTypedVarAsync<DOMScreen>(nameof(screen));
+
+        public int screenLeft => Get<int>();
+        public Task<int> screenLeftAsync => GetAsync<int>(nameof(screenLeft));
+        public int screenTop => Get<int>();
+        public Task<int> screenTopAsync => GetAsync<int>(nameof(screenTop));
+
+        public int screenX => Get<int>();
+        public Task<int> screenXAsync => GetAsync<int>(nameof(screenX));
+        public int screenY => Get<int>();
+        public Task<int> screenYAsync => GetAsync<int>(nameof(screenY));
+
+        public void scrollBy(int x, int y)
         {
-            return  ExecAsync<object>(new object[] { x, y });
+            Exec<object>(new object[] { x, y });
         }
-
-        public Task<int> scrollX => GetAsync<int>();
-        public Task<int> scrollY => GetAsync<int>();
-
-        public Task<DOMStorage> sessionStorage => GetTypedVarAsync<DOMStorage>();
-
-        public Task<DOMWindow> self => GetTypedVarAsync<DOMWindow>();
-
-        
-        public Task stop()
+        public Task scrollByAsync(int x, int y)
         {
-           return ExecAsync<object>(new object[] { });
+            return ExecAsync<object>(new object[] { x, y },nameof(scrollBy));
+        }
+        public void scrollTo(int x, int y)
+        {
+            Exec<object>(new object[] { x, y });
         }
 
-        public Task<DOMWindow> top => GetTypedVarAsync<DOMWindow>();
+        public Task scrollToAsync(int x, int y)
+        {
+            return  ExecAsync<object>(new object[] { x, y },nameof(scrollTo));
+        }
+
+        public int scrollX=> Get<int>();
+        public Task<int> scrollXAsync => GetAsync<int>(nameof(scrollX));
+        public int scrollY=> Get<int>();
+        public Task<int> scrollYAsync => GetAsync<int>(nameof(scrollY));
+
+        public DOMStorage sessionStorage => GetTypedVar<DOMStorage>();
+        public Task<DOMStorage> sessionStorageAsync => GetTypedVarAsync<DOMStorage>(nameof(sessionStorage ));
+
+        public DOMWindow self => GetTypedVar<DOMWindow>();
+
+        public Task<DOMWindow> selfAsync => GetTypedVarAsync<DOMWindow>(nameof(self));
+
+        public void stop()
+        {
+            Exec<object>(new object[] { });
+        }
+
+        public Task stopAsync()
+        {
+           return ExecAsync<object>(new object[] { },nameof(stop));
+        }
+
+        public DOMWindow top => GetTypedVar<DOMWindow>();
+        public Task<DOMWindow> topAsync => GetTypedVarAsync<DOMWindow>(nameof(top));
     }
 }

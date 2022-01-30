@@ -165,7 +165,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             return var;
         }
 
-        protected DOMVar ExecuteGetVar(object[] args, [CallerMemberName] string member = "")
+        protected DOMVar ExecGetVar(object[] args, [CallerMemberName] string member = "")
         {
             string argsValue = BuildArgs(args);
             DOMVar var = new DOMVar(this._View2Control);

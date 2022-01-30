@@ -9,35 +9,57 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             
         }
 
-        public Task<bool> bubbles => GetAsync<bool>();
+        public bool bubbles => Get<bool>();
+        public Task<bool> bubblesAsync=> GetAsync<bool>(nameof(bubbles));
 
-        public Task<bool> cancelBubble
+        public bool cancelBubble
         {
-            set => _ = SetAsync(value);
+            set => Set(value);
         }
 
-        public Task<bool> cancelable => GetAsync<bool>();
-
-        public Task<bool> composed => GetAsync<bool>();
-
-
-        public async Task<DOMEvent> createEvent(string eventName)
+        public Task<bool> cancelBubbleAsync
         {
-            DOMVar var = await ExecGetVarAsync(new object[] { eventName });
+            set => _ = SetAsync(value,nameof(cancelBubble));
+        }
+
+        public bool cancelable => Get<bool>();
+        public Task<bool> cancelableAsync => GetAsync<bool>(nameof(cancelable));
+
+        public bool composed => Get<bool>();
+        public Task<bool> composedAsync => GetAsync<bool>(nameof(composed));
+
+
+        public DOMEvent createEvent(string eventName)
+        {
+            DOMVar var = ExecGetVar(new object[] { eventName });
             return new DOMEvent(this._View2Control, var);
         }
 
-        public Task<string> composedPath() => ExecAsync<string>(new object[] { });
+        public async Task<DOMEvent> createEventAsync(string eventName)
+        {
+            DOMVar var = await ExecGetVarAsync(new object[] { eventName },nameof(createEvent));
+            return new DOMEvent(this._View2Control, var);
+        }
 
-        public Task<DOMObject> currentTarget => GetTypedVarAsync<DOMObject>();
 
-        public Task<bool> defaultPrevented => GetAsync<bool>();
+        public string composedPath() => Exec<string>(new object[] { });
+        public Task<string> composedPathAsync() => ExecAsync<string>(new object[] { },nameof(composedPath));
 
-        public Task<int> eventPhase => GetAsync<int>();
+        public DOMObject currentTarget => GetTypedVar<DOMObject>();
+        public Task<DOMObject> currentTargetAsync => GetTypedVarAsync<DOMObject>(nameof(currentTarget));
 
-        public Task<bool> isTrusted => GetAsync<bool>();
 
-        public Task preventDefault() => ExecAsync<object>(new object[]{});
+        public bool defaultPrevented => Get<bool>();
+        public Task<bool> defaultPreventedAsync => GetAsync<bool>(nameof(defaultPrevented));
+
+        public int eventPhase => Get<int>();
+        public Task<int> eventPhaseAsync => GetAsync<int>(nameof(eventPhase));
+
+        public bool isTrusted => Get<bool>();
+        public Task<bool> isTrustedAsync => GetAsync<bool>(nameof(isTrusted));
+
+        public void preventDefault() => Exec<object>(new object[]{});
+        public Task preventDefaultAsync() => ExecAsync<object>(new object[]{},nameof(preventDefault));
 
         public Task stopImmediatePropagation() => ExecAsync<object>(new object[] { });
 

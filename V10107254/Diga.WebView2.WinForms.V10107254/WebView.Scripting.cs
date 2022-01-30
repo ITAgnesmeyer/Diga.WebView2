@@ -186,15 +186,15 @@ namespace Diga.WebView2.WinForms
         }
 
 
-        private async Task<string> GetDocumentText()
+        private async Task<string> GetDocumentTextAsync()
         {
             CheckIsCreatedOrEndedWithThrow();
 
             DOMDocument doc = this.GetDOMDocument();
             try
             {
-                DOMElement domElement = await doc.documentElement;
-                string html = await domElement.outerHTML;
+                DOMElement domElement = await doc.documentElementAsync;
+                string html = await domElement.outerHTMLAsync;
                 if (html.StartsWith("\""))
                     html = html.Substring(1);
                 if (html.EndsWith("\""))
