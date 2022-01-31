@@ -27,14 +27,14 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public void appendChild(DOMElement element)
         {
-            Exec<object>(new object[] { element });
+            Exec(new object[] { element });
         }
         public Task appendChildAsync(DOMElement element)
         {
             return ExecAsync<object>(new object[] { element },nameof(appendChild));
         }
 
-        public void blur() => Exec<object>(new object[]{});
+        public void blur() => Exec(new object[]{});
         public Task blurAsync() => ExecAsync<object>(new object[] { },nameof(blur));
 
 
@@ -53,7 +53,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         }
 
-        public void click() => Exec<object>(new object[] { });
+        public void click() => Exec(new object[] { });
         public Task clickAsync() => ExecAsync<object>(new object[] { },nameof(click));
 
         public int clientHeight => Get<int>();
@@ -130,7 +130,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             get => GetAsync<string>(nameof(enterKeyHint));
             set => _ = SetAsync(value,nameof(enterKeyHint));
         }
-        public void exitFullscreen()=> Exec<object>(new object[] { });
+        public void exitFullscreen()=> Exec(new object[] { });
         public Task exitFullscreenAsync() => ExecAsync<object>(new object[] { },nameof(exitFullscreen));
 
         public DOMElement firstChild => GetTypedVar<DOMElement>();
@@ -145,7 +145,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             get => GetTypedVarAsync<DOMElement>(nameof(firstElementChild));
         }
-        public void focus()=> Exec<object>(new object[] { });
+        public void focus()=> Exec(new object[] { });
 
         public Task focusAsync() => ExecAsync<object>(new object[] { },nameof(focus));
 
@@ -215,7 +215,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         }
 
         public void insertAdjacentElement(string position, DOMElement element) =>
-            Exec<object>(new object[] { position, element });
+            Exec(new object[] { position, element });
         public Task insertAdjacentElementAsync(string position, DOMElement element)
         {
             return ExecAsync<object>(new object[] { position, element },nameof(insertAdjacentElement));
@@ -223,7 +223,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public void insertAdjacentHTML(string position, string html)
         {
-            Exec<object>(new object[] { position, html });
+            Exec(new object[] { position, html });
         }
 
         public Task insertAdjacentHTMLAsync(string position, string html)
@@ -233,7 +233,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public void insertAdjacentText(string position, string text)
         {
-            Exec<object>(new object[] { position, text });
+            Exec(new object[] { position, text });
         }
 
         public Task insertAdjacentTextAsync(string position, string text)
@@ -243,7 +243,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public void insertBefore(DOMElement newNode, DOMElement existingNode)
         {
-            Exec<object>(new object[] { newNode, existingNode });
+            Exec(new object[] { newNode, existingNode });
         }
 
         public Task insertBeforeAsync(DOMElement newNode, DOMElement existingNode)
@@ -334,7 +334,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             set => _ = SetAsync(value,nameof(nodeValue));
         }
 
-        public void normalize()=> Exec<object>(new object[] { });
+        public void normalize()=> Exec(new object[] { });
         public Task normalizeAsync() => ExecAsync<object>(new object[] { },nameof(normalize));
 
         public int offsetHeight => Get<int>();
@@ -430,33 +430,33 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             return new DOMElement(this._View2Control, var);
         }
 
-        public void remove() => Exec<object>(new object[] { });
+        public void remove() => Exec(new object[] { });
         public Task removeAsync() => ExecAsync<object>(new object[] { },nameof(remove));
 
-        public void removeAttribute(string name) => Exec<object>(new object[] { name });
+        public void removeAttribute(string name) => Exec(new object[] { name });
 
         public Task removeAttributeAsync(string name) => ExecAsync<object>(new object[] { name },nameof(removeAttribute));
 
 
-        public void removeAttributeNode(DOMAttribute attr) => Exec<object>(new object[] { attr });
+        public void removeAttributeNode(DOMAttribute attr) => Exec(new object[] { attr });
         public Task removeAttributeNodeAsync(DOMAttribute attr) => ExecAsync<object>(new object[] { attr },nameof(removeAttributeNode));
 
-        public void removeChild(DOMElement elem) => Exec<object>(new object[] { elem });
+        public void removeChild(DOMElement elem) => Exec(new object[] { elem });
         public Task removeChildAsync(DOMElement elem) => ExecAsync<object>(new object[] { elem },nameof(removeChild));
 
         public void replaceChild(DOMElement newNode, DOMElement oldNode) =>
-            Exec<object>(new object[] { newNode, oldNode });
+            Exec(new object[] { newNode, oldNode });
 
         public Task replaceChildAsync(DOMElement newNode, DOMElement oldNode) =>
             ExecAsync<object>(new object[] { newNode, oldNode },nameof(replaceChild));
 
-        public void requestFullscreen() => Exec<object>(new object[] { });
+        public void requestFullscreen() => Exec(new object[] { });
         public Task requestFullscreenAsync() => ExecAsync<object>(new object[] { },nameof(requestFullscreen));
 
         public int scrollHeight => Get<int>();
         public Task<int> scrollHeightAsync => GetAsync<int>(nameof(scrollHeight));
 
-        public void scrollIntoView() => Exec<object>(new object[] { });
+        public void scrollIntoView() => Exec(new object[] { });
         public Task scrollIntoViewAsync() => ExecAsync<object>(new object[] { },nameof(scrollIntoView));
         public int scrollLeft => Get<int>();
         public Task<int> scrollLeftAsync => GetAsync<int>(nameof(scrollLeft));
@@ -465,13 +465,13 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         public Task<int> scrollTopAsync => GetAsync<int>(nameof(scrollTop));
 
         public void setAttribute(string attributeName, string attributeValue) =>
-            Exec<object>(new object[] { attributeName, attributeValue });
+            Exec(new object[] { attributeName, attributeValue });
 
         public Task setAttributeAsync(string attributeName, string attributeValue) =>
             ExecAsync<object>(new object[] { attributeName, attributeValue },nameof(setAttribute));
 
 
-        public void setAttributeNode(DOMVar attr) => Exec<object>(new object[] { attr.Name });
+        public void setAttributeNode(DOMVar attr) => Exec(new object[] { attr.Name });
 
         public Task setAttributeNodeAsync(DOMVar attr) => ExecAsync<object>(new object[] { attr.Name },nameof(setAttributeNode));
 

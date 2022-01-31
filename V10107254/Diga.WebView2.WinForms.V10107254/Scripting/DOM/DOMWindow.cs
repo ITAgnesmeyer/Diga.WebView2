@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 // ReSharper disable IdentifierTypo
 
 namespace Diga.WebView2.WinForms.Scripting.DOM
@@ -20,11 +19,11 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public void alert(string message)
         {
-            base.Exec<object>(new object[] { message });
+            base.Exec(new object[] { message });
         }
         public  Task alertAsync(string message)
         {
-             return base.ExecAsync<object>(new object[] { message },nameof(alert));
+             return base.ExecAsync(new object[] { message },nameof(alert));
         }
         public string atob(string encoded)
         {
@@ -37,11 +36,11 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public void blur()
         {
-            Exec<object>(new object[] { });
+            Exec(new object[] { });
         }
         public Task blurAsync()
         {
-            return ExecAsync<object>(new object[] { },nameof(blur));
+            return ExecAsync(new object[] { },nameof(blur));
         }
 
         public string btoa(string text)
@@ -56,12 +55,12 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public void close()
         {
-            Exec<object>(new object[] { });
+            Exec(new object[] { });
         }
 
         public Task closeAsync()
         {
-            return ExecAsync<object>(new object[] { },nameof(close));
+            return ExecAsync(new object[] { },nameof(close));
         }
 
         public bool closed => Get<bool>();
@@ -77,68 +76,35 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             return await ExecAsync<bool>(new object[] { message },nameof(confirm));
         }
 
-        public  DOMConsole console
-        {
-            get => GetTypedVar<DOMConsole>();
-        }
+        public  DOMConsole console => GetTypedVar<DOMConsole>();
 
-        public  Task<DOMConsole> consoleAsync
-        {
-            get => GetTypedVarAsync<DOMConsole>(nameof(console));
-        }
+        public  Task<DOMConsole> consoleAsync => GetTypedVarAsync<DOMConsole>(nameof(console));
 
-        public DOMDocument document
-        {
-            get=> GetTypedVar<DOMDocument>();
-        }
+        public DOMDocument document => GetTypedVar<DOMDocument>();
 
-        public Task< DOMDocument> documentAsync
-        {
-            get=> GetTypedVarAsync<DOMDocument>(nameof(document));
-        }
+        public Task< DOMDocument> documentAsync => GetTypedVarAsync<DOMDocument>(nameof(document));
+
         public void focus()
         {
-            Exec<object>(new object[] { });
+            Exec(new object[] { });
         }
 
         public Task focusAsync()
         {
-            return  ExecAsync<object>(new object[] { },nameof(focus));
+            return  ExecAsync(new object[] { },nameof(focus));
         }
 
-        public  DOMElement frameElement
-        {
-            get => GetTypedVar<DOMElement>();
-        }
+        public  DOMElement frameElement => GetTypedVar<DOMElement>();
 
-        public  Task< DOMElement> frameElementAsync
-        {
-            get => GetTypedVarAsync<DOMElement>(nameof(frameElement));
-        }
+        public  Task< DOMElement> frameElementAsync => GetTypedVarAsync<DOMElement>(nameof(frameElement));
 
-        public DOMObjectCollection frames
-        {
-            get => GetTypedVar<DOMObjectCollection>();
-            
-        }
+        public DOMObjectCollection frames => GetTypedVar<DOMObjectCollection>();
 
-        public Task<DOMObjectCollection> framesAsync
-        {
-            get => GetTypedVarAsync<DOMObjectCollection>(nameof(frames));
-            
-        }
+        public Task<DOMObjectCollection> framesAsync => GetTypedVarAsync<DOMObjectCollection>(nameof(frames));
 
-        public DOMHistory history
-        {
-            get => GetTypedVar<DOMHistory>();
-            
-        }
+        public DOMHistory history => GetTypedVar<DOMHistory>();
 
-        public Task<DOMHistory> historyAsync
-        {
-            get => GetTypedVarAsync<DOMHistory>(nameof(history));
-            
-        }
+        public Task<DOMHistory> historyAsync => GetTypedVarAsync<DOMHistory>(nameof(history));
 
 
         public int innerHeight => Get<int>();
@@ -158,22 +124,22 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         
         public void moveBy(int x, int y)
         {
-            Exec<object>(new object[] { x, y });
+            Exec(new object[] { x, y });
         }
 
         public Task moveByAsync(int x, int y)
         {
-            return ExecAsync<object>(new object[] { x, y },nameof(moveBy));
+            return ExecAsync(new object[] { x, y },nameof(moveBy));
         }
 
         public void moveTo(int x, int y)
         {
-            Exec<object>(new object[] { x, y });
+            Exec(new object[] { x, y });
         }
 
         public Task moveToAsync(int x, int y)
         {
-            return ExecAsync<object>(new object[] { x, y },nameof(moveTo));
+            return ExecAsync(new object[] { x, y },nameof(moveTo));
         }
 
         public string name
@@ -222,11 +188,11 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public void print()
         {
-            Exec<object>(new object[] { });
+            Exec(new object[] { });
         }
         public Task printAsync()
         {
-            return  ExecAsync<object>(new object[] { },nameof(print));
+            return  ExecAsync(new object[] { },nameof(print));
         }
 
         public string prompt(string text, string defaultText = null)
@@ -240,20 +206,20 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public void resizeBy(int x, int y)
         {
-            Exec<object>(new object[] { x, y });
+            Exec(new object[] { x, y });
         }
         public Task resizeByAsync(int x, int y)
         {
-            return ExecAsync<object>(new object[] { x, y },nameof(resizeBy));
+            return ExecAsync(new object[] { x, y },nameof(resizeBy));
         }
 
         public void resizeTo(int x, int y)
         {
-            Exec<object>(new object[] { x, y });
+            Exec(new object[] { x, y });
         }
         public Task resizeToAsync(int x, int y)
         {
-            return ExecAsync<object>(new object[] { x, y },nameof(resizeTo));
+            return ExecAsync(new object[] { x, y },nameof(resizeTo));
         }
         public DOMScreen screen=> GetTypedVar<DOMScreen>();
         public Task<DOMScreen> screenAsync=> GetTypedVarAsync<DOMScreen>(nameof(screen));
@@ -270,20 +236,20 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public void scrollBy(int x, int y)
         {
-            Exec<object>(new object[] { x, y });
+            Exec(new object[] { x, y });
         }
         public Task scrollByAsync(int x, int y)
         {
-            return ExecAsync<object>(new object[] { x, y },nameof(scrollBy));
+            return ExecAsync(new object[] { x, y },nameof(scrollBy));
         }
         public void scrollTo(int x, int y)
         {
-            Exec<object>(new object[] { x, y });
+            Exec(new object[] { x, y });
         }
 
         public Task scrollToAsync(int x, int y)
         {
-            return  ExecAsync<object>(new object[] { x, y },nameof(scrollTo));
+            return  ExecAsync(new object[] { x, y },nameof(scrollTo));
         }
 
         public int scrollX=> Get<int>();
@@ -300,12 +266,12 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public void stop()
         {
-            Exec<object>(new object[] { });
+            Exec(new object[] { });
         }
 
         public Task stopAsync()
         {
-           return ExecAsync<object>(new object[] { },nameof(stop));
+           return ExecAsync(new object[] { },nameof(stop));
         }
 
         public DOMWindow top => GetTypedVar<DOMWindow>();

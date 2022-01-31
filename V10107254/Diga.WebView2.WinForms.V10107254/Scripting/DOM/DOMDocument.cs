@@ -19,14 +19,20 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public void addEventListener(string eventName, DOMScriptText scriptText, bool useCapture)
         {
-            EventHandlerList.TryAdd(this.InstanceName,this);
-            Exec<object>(new object[]{eventName,scriptText, useCapture});
+            if (EventHandlerList.TryAdd(this.InstanceName, this))
+            {
+                Exec(new object[]{eventName,scriptText, useCapture});
+            }
+            
         }
 
-        public Task addEventListenerAsync(string eventName, DOMScriptText scriptText , bool useCapture)
+        public async Task addEventListenerAsync(string eventName, DOMScriptText scriptText , bool useCapture)
         {
-            EventHandlerList.TryAdd(this.InstanceName,this);
-            return ExecAsync<object>(new object[]{eventName,scriptText, useCapture},nameof(addEventListener));
+            if (EventHandlerList.TryAdd(this.InstanceName, this))
+            {
+                await ExecAsync<object>(new object[]{eventName,scriptText, useCapture},nameof(addEventListener));
+            }
+            
         }
 
 
@@ -61,7 +67,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task<string> baseURIAsync => GetAsync<string>(nameof(baseURI));
 
-        public void close() => Exec<object>(new object[] { });
+        public void close() => Exec(new object[] { });
         public Task closeAsync() => ExecAsync<object>(new object[] { },nameof(close));
 
         public string cookie
@@ -275,10 +281,10 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         public DOMObjectCollection links => GetTypedVar<DOMObjectCollection>();
         public Task<DOMObjectCollection> linksAsync => GetTypedVarAsync<DOMObjectCollection>(nameof(links));
 
-        public void normalize() => Exec<object>(new object[] { });
+        public void normalize() => Exec(new object[] { });
         public Task normalizeAsync() => ExecAsync<object>(new object[] { },nameof(normalize));
 
-        public void open() => Exec<object>(new object[] { });
+        public void open() => Exec(new object[] { });
         public Task openAsync() => ExecAsync<object>(new object[] { },nameof(open));
 
         public DOMElement querySelector(string cssSelector)
@@ -348,10 +354,10 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         public string URL => Get<string>();       
         public Task<string> URLAsync => GetAsync<string>(nameof(URL));
 
-        public void write(params object[] parameters) => Exec<object>(parameters);
+        public void write(params object[] parameters) => Exec(parameters);
         public Task writeAsync(params object[] parameters) => ExecAsync<object>(parameters,nameof(write));
 
-        public void writeln(params object[] parameters) => Exec<object>(parameters);
+        public void writeln(params object[] parameters) => Exec(parameters);
         public Task writelnAsync(params object[] parameters) => ExecAsync<object>(parameters,nameof(writeln));
 
     }

@@ -489,46 +489,53 @@ namespace WebView2WrapperWinFormsTest
             DOMWindow window = this.webView1.GetDOMWindow();
             
             //help Class for calling Events
-            DOMEventListenerScript scriptText = new DOMEventListenerScript(element);
+            //DOMEventListenerScript scriptText = new DOMEventListenerScript(element);
             
             //get the document body - Element
-             doc.body.appendChild(element);
+            doc.body.appendChild(element);
 
-            
-            //append the Button
-            //await docBody.appendChildAsync(element);
-            
-            //wire the click - Event to the button
-            element.addEventListener("click", scriptText, true);
+        
             
             //handle the event
-            element.Click +=  (o,ev) =>
+            // Important never call synchron Properties and Functions in an async function
+            element.Click += async  (o,ev) =>
             {
                 try
                 {
-                    element.setAttribute("style", "background-color: coral;");
+                    await element.setAttributeAsync("style", "background-color: coral;");
                     //ev.Event.relatedTarget.setAttribute("style", "background-color: coral;");
 
                     //read the values of MouseEvent-Object
-                    int button = ev.Event.button;
-                    bool isAlt = ev.Event.altKey;
-                    bool isShift = ev.Event.shiftKey;
+                    int button = await ev.Event.buttonAsync;
+                    bool isAlt = await ev.Event.altKeyAsync;
+                    bool isShift = await ev.Event.shiftKeyAsync;
 
                     //Show the information in alert
-                    window.alert($"set=>isShift={isShift}, isAlt={isAlt}, buttonNr={button}");
+                    await window.alertAsync($"set=>isShift={isShift}, isAlt={isAlt}, buttonNr={button}");
 
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Error:" + exception.Message);
+                    //MessageBox.Show("Error:" + exception.Message);
+                    await ShowMessageBoxAsync("Error:" + exception.Message);
                 }
-                    //set the attribute of the Button-Element
 
-               
             };
-          
 
-           
+
+            element.MouseLeave += (o, args) =>
+            {
+                element.setAttribute("style","background-color: blue;color: white;");
+                
+            };
+
+            element.MouseEnter += (o, args) =>
+            {
+                element.setAttribute("style","background-color: white;color: black;");
+            };
+
+
+
         }
         private async Task ShowMessageBoxAsync(string message, string caption = "Message")
         {

@@ -58,7 +58,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         public bool isTrusted => Get<bool>();
         public Task<bool> isTrustedAsync => GetAsync<bool>(nameof(isTrusted));
 
-        public void preventDefault() => Exec<object>(new object[]{});
+        public void preventDefault() => Exec(new object[]{});
         public Task preventDefaultAsync() => ExecAsync<object>(new object[]{},nameof(preventDefault));
 
         public Task stopImmediatePropagation() => ExecAsync<object>(new object[] { });

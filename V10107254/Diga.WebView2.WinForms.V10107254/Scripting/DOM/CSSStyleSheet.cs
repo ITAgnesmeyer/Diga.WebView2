@@ -14,10 +14,10 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public Task<int> insertRule(string ruleString, int index = 0) => ExecAsync<int>(new object[] { ruleString, index });
 
-        public Task deleteRule(int index) => ExecAsync<object>(new object[] { index });
+        public Task deleteRule(int index) => ExecAsync(new object[] { index });
 
 
-        public Task replaceSync(string ruleString) => ExecAsync<object>(new object[] { ruleString });
+        public Task replaceSync(string ruleString) => ExecAsync(new object[] { ruleString });
 
 
     }

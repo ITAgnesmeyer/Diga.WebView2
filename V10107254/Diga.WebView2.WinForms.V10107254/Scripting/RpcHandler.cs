@@ -9,6 +9,7 @@ namespace Diga.WebView2.WinForms.Scripting
 {
     internal static class EventHandlerList
     {
+
         public static readonly ConcurrentDictionary<string,DOMObject> EventObject;
 
         static EventHandlerList()
@@ -16,9 +17,10 @@ namespace Diga.WebView2.WinForms.Scripting
             EventObject = new ConcurrentDictionary<string, DOMObject>();
         }
 
-        public static void TryAdd(string key, DOMObject obj)
+        public static bool TryAdd(string key, DOMObject obj)
         {
-            EventObject.TryAdd(key, obj);
+            if (EventObject.ContainsKey(key)) return false;
+            return EventObject.TryAdd(key, obj);
         }
 
         public static DOMObject FindObject(string key)

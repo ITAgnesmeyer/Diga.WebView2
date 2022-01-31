@@ -95,6 +95,12 @@ namespace Diga.WebView2.WinForms.Scripting
             return returnArgString;
         }
 
+        protected void Exec(object[] args, [CallerMemberName] string member = "")
+        {
+            string argsString = BuildArgs(args);
+            string funcValue = $"return {this.InstanceName}.{member}({argsString});";
+            ExecuteScript(funcValue);
+        }
         protected T Exec<T>(object[] args, [CallerMemberName] string member = "")
         {
             string argsString = BuildArgs(args);
@@ -112,6 +118,15 @@ namespace Diga.WebView2.WinForms.Scripting
             return (T)Convert.ChangeType(retVal , typeof(T));
 
         }
+
+        public async Task ExecAsync(object[] args, [CallerMemberName] string member = "")
+        {
+            string argsString = BuildArgs(args);
+            string funcValue = $"return {this.InstanceName}.{member}({argsString});";
+
+            await ExecuteScriptAsync(funcValue);
+
+        }
         
         protected async Task<T> GetAsync<T>([CallerMemberName] string member = "")
         {
@@ -125,7 +140,7 @@ namespace Diga.WebView2.WinForms.Scripting
         {
             string propVal = $"return {this.InstanceName}.{member};";
             object result = ExecuteScript(propVal);
-            return (T)result;
+            return (T)Convert.ChangeType(result, typeof(T));
         }
 
         protected async Task SetAsync<T>(Task<T> value, [CallerMemberName] string member = "")
@@ -139,7 +154,7 @@ namespace Diga.WebView2.WinForms.Scripting
         {
             string argsValue = BuildArgs(new object[] { value });
             string funcValue = $"{this.InstanceName}.{member}={argsValue};";
-            InvokeScript(funcValue);
+            ExecuteScript(funcValue);
         }
 
         protected async Task<string> ExecuteScriptAsync(string script)

@@ -33,16 +33,7 @@ namespace Diga.WebView2.WinForms
             this._WebViewControl.ExecuteScript(scrptToExecute);
         }
 
-        public string ExecuteScriptSync(string javaScript)
-        {
-            string result = UIDispatcher.UIThread.Invoke<string>(async () =>
-            {
-                string rs = await ExecuteScriptAsync(javaScript);
-                return rs;
-            });
-
-            return result;
-        }
+       
 
         public void EvalScript(string javaScript)
         {
@@ -56,11 +47,20 @@ namespace Diga.WebView2.WinForms
 
         public string EvalScriptSync(string javaScript)
         {
+            CheckIsCreatedOrEndedWithThrow();
+            ScriptZeroTest(javaScript);
+            CheckIsInUiThread();
+            string scriptToExecute = $"window.external.evalScript(\"{javaScript.Replace("\"", "\\'")}\")";
             string result = UIDispatcher.UIThread.Invoke<string>(async () =>
             {
-                string rs = await EvalScriptAsync(javaScript);
+                string rs = await this._WebViewControl.ExecuteScriptAsync(scriptToExecute);
                 return rs;
             });
+            ScriptErrorObject errObj = ScriptSerializationHelper.GetScriptErrorObject(result);
+            if (errObj != null)
+            {
+                throw new ScriptException(errObj);
+            }
 
             return result;
         }
@@ -107,9 +107,12 @@ namespace Diga.WebView2.WinForms
 
         public string ExecuteScriptDirectSync(string javaScript)
         {
+            CheckIsCreatedOrEndedWithThrow();
+            ScriptZeroTest(javaScript);
+            CheckIsInUiThread();
             string result = UIDispatcher.UIThread.Invoke<string>(async () =>
             {
-                string rs = await ExecuteScriptDirectAsync(javaScript);
+                string rs = await this._WebViewControl.ExecuteScriptAsync(javaScript);
                 return rs;
             });
             return result;
@@ -144,7 +147,25 @@ namespace Diga.WebView2.WinForms
             return result;
         }
 
+        public string ExecuteScriptSync(string javaScript)
+        {
+            CheckIsCreatedOrEndedWithThrow();
+            ScriptZeroTest(javaScript);
+            CheckIsInUiThread();
+            string scriptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"", "\\'")}}}\")";
+            string result = UIDispatcher.UIThread.Invoke<string>(async () =>
+            {
+                string rs = await this._WebViewControl.ExecuteScriptAsync(scriptToExecute);
+                return rs;
+            });
+            ScriptErrorObject errorObj = ScriptSerializationHelper.GetScriptErrorObject(result);
+            if (errorObj != null)
+            {
+                throw new ScriptException(errorObj);
+            }
 
+            return result;
+        }
         /// <summary>
         /// Invoke a script and returns a unique ID for the script 
         /// </summary>
