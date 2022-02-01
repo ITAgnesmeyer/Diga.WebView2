@@ -61,15 +61,20 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         public void preventDefault() => Exec(new object[]{});
         public Task preventDefaultAsync() => ExecAsync<object>(new object[]{},nameof(preventDefault));
 
-        public Task stopImmediatePropagation() => ExecAsync<object>(new object[] { });
+        public void stopImmediatePropagation() => Exec(new object[] { });
+        public Task stopImmediatePropagationAsync() => ExecAsync<object>(new object[] { },nameof(stopImmediatePropagation));
 
-        public Task stopPropagation() => ExecAsync<object>(new object[] { });
+        public void stopPropagation() => Exec(new object[] { });
+        public Task stopPropagationAsync() => ExecAsync<object>(new object[] { },nameof(stopPropagation));
 
-        public Task<DOMElement> target => GetTypedVarAsync<DOMElement>();
+        public DOMElement target => GetTypedVar<DOMElement>();
+        public Task<DOMElement> targetAsync => GetTypedVarAsync<DOMElement>(nameof(target));
 
-        public Task<string> timeStamp => GetAsync<string>();
+        public string timeStamp => Get<string>();
+        public Task<string> timeStampAsync => GetAsync<string>(nameof(timeStamp));
 
-        public Task<string> type => GetAsync<string>();
+        public string type => Get<string>();
+        public Task<string> typeAsync => GetAsync<string>(nameof(type));
 
     }
 }

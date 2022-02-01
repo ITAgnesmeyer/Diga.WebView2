@@ -9,46 +9,77 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         }
 
-        public Task<bool> async
+        public bool async
         {
-            get => GetAsync<bool>();
-            set => _ = SetAsync(value);
+            get => Get<bool>();
+            set => Set(value);
+        }
+
+        public Task<bool> asyncAsync
+        {
+            get => GetAsync<bool>(nameof(async));
+            set => _ = SetAsync(value,nameof(async));
         }
 
         public Task<string> charset
         {
-            get => GetAsync<string>();
-            set => _ = SetAsync(value);
+            get => GetAsync<string>(nameof(charset));
+            set => _ = SetAsync(value,nameof(charset));
         }
 
-        public Task<string> crossOrigin
+        public string crossOrigin
         {
-            get => GetAsync<string>();
-            set => _ = SetAsync(value);
+            get => Get<string>();
+            set => Set(value);
         }
 
-        public Task<bool> defer
+        public Task<string> crossOriginAsync
         {
-            get => GetAsync<bool>();
-            set => _ = SetAsync(value);
+            get => GetAsync<string>(nameof(crossOrigin));
+            set => _ = SetAsync(value,nameof(crossOrigin));
         }
 
-        public Task<string> src
+        public bool defer
         {
-            get => GetAsync<string>();
-            set => _ = SetAsync(value);
+            get => Get<bool>();
+            set => Set(value);
+        }
+        public Task<bool> deferAsync
+        {
+            get => GetAsync<bool>(nameof(defer));
+            set => _ = SetAsync(value,nameof(defer));
         }
 
-        public Task<string> text
+        public string src
         {
-            get => GetAsync<string>();
-            set => _ = SetAsync(value);
+            get => Get<string>();
+            set => Set(value);
+        }
+        public Task<string> srcAsync
+        {
+            get => GetAsync<string>(nameof(src));
+            set => _ = SetAsync(value,nameof(src));
+        }
+        public string text
+        {
+            get => Get<string>();
+            set => Set(value);
+        }
+        public Task<string> textAsync
+        {
+            get => GetAsync<string>(nameof(text));
+            set => _ = SetAsync(value,nameof(text));
         }
 
-        public Task<string> type
+        public string type
         {
-            get => GetAsync<string>();
-            set => _ = SetAsync(value);
+            get => Get<string>();
+            set => Set(value);
+        }
+        public Task<string> typeAsync
+        {
+            get => GetAsync<string>(nameof(type));
+            set => _ = SetAsync(value,nameof(type));
 
         }
     }

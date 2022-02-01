@@ -12,18 +12,33 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
            
         }
 
-        public async Task< DOMElement> item(int index)
+        public DOMElement item(int index)
         {
-            DOMVar var =await ExecGetVarAsync(new object[] { index });
+            DOMVar var =ExecGetVar(new object[] { index });
+            return new DOMElement(this._View2Control, var);
+
+        }
+        public async Task< DOMElement> itemAsync(int index)
+        {
+            DOMVar var =await ExecGetVarAsync(new object[] { index },nameof(item));
             return new DOMElement(this._View2Control, var);
         }
-        public Task<DOMElement> this[int index] => item(index);
 
-        public Task<int> length => GetAsync<int>();
+        public DOMElement this[string key] => namedItem(key);
+        public DOMElement this[int index] => item(index);
 
-        public async Task< DOMElement> namedItem(string name)
+        public int length => Get<int>();
+        public Task<int> lengthAsync => GetAsync<int>(nameof(length));
+
+        public DOMElement namedItem(string name)
         {
-            DOMVar var = await ExecGetVarAsync(new object[] { name });
+            DOMVar var = ExecGetVar(new object[] { name });
+            return new DOMElement(this._View2Control, var);
+        }
+
+        public async Task< DOMElement> namedItemAsync(string name)
+        {
+            DOMVar var = await ExecGetVarAsync(new object[] { name },nameof(namedItem));
 
             return new DOMElement(this._View2Control, var);
         }

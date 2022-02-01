@@ -11,21 +11,34 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
            
         }
 
-        public Task<int> length => GetAsync<int>();
+        public int length => Get<int>();
+        public Task<int> lengthAsync => GetAsync<int>(nameof(length));
 
-        public Task back()
+        public void back()
         {
-            return ExecAsync<object>(new object[]{});
+            Exec(new object[]{});
+        }
+        public Task backAsync()
+        {
+            return ExecAsync(new object[]{},nameof(back));
         }
 
-        public Task forward()
+        public void forward()
         {
-            return ExecAsync<object>(new object[]{});
+            Exec(new object[]{});
+        }
+        public Task forwardAsync()
+        {
+            return ExecAsync(new object[]{},nameof(forward));
         }
 
-        public Task go(int number)
+        public void go(int number)
         {
-            return ExecAsync<object>(new object[]{number});
+            Exec(new object[]{number});
+        }
+        public Task goAsync(int number)
+        {
+            return ExecAsync(new object[]{number},nameof(go));
         }
 
 
