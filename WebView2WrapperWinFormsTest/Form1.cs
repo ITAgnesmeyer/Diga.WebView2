@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Diga.Core.Threading;
 using Diga.WebView2.WinForms.Scripting;
 using Diga.WebView2.WinForms.Scripting.DOM;
 using Diga.WebView2.Wrapper;
@@ -325,19 +326,23 @@ namespace WebView2WrapperWinFormsTest
         private async void bnCapture_Click(object sender, EventArgs e)
         {
             Image img = await this.webView1.CapturePreviewAsImageAsync(ImageFormat.Png);
-            Form frm = new Form
+            await UIDispatcher.UIThread.InvokeAsync(() =>
             {
-                Width = img.Width,
-                Height = img.Height,
-                StartPosition = FormStartPosition.CenterParent
-            };
-            PictureBox pb = new PictureBox
-            {
-                Dock = DockStyle.Fill,
-                Image = img
-            };
-            frm.Controls.Add(pb);
-            frm.ShowDialog(this);
+                Form frm = new Form
+                {
+                    Width = img.Width,
+                    Height = img.Height,
+                    StartPosition = FormStartPosition.CenterParent
+                };
+                PictureBox pb = new PictureBox
+                {
+                    Dock = DockStyle.Fill,
+                    Image = img
+                };
+                frm.Controls.Add(pb);
+                frm.ShowDialog(this);
+
+            });
         }
 
         private void webView1_FrameNavigationCompleted(object sender, NavigationCompletedEventArgs e)
@@ -476,7 +481,7 @@ namespace WebView2WrapperWinFormsTest
 
             //add a button element
             DOMElement element = doc.createElement("button");
-            
+           
             //set inner html of button 
             //StringTaskVar converts the string into Task<string>
             element.innerHTML="Click Me";

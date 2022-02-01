@@ -8,12 +8,18 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             
         }
+        public int length => Get<int>();
+        public Task<int> lengthAsync => GetAsync<int>(nameof(length));
 
-        public Task<int> length => GetAsync<int>();
-
-        public async Task<CSSRule> item(int index)
+        public CSSRule item(int index)
         {
-            DOMVar var = await ExecGetVarAsync(new object[] { index });
+            DOMVar var = ExecGetVar(new object[] { index });
+            return new CSSRule(this._View2Control, var);
+        }
+
+        public async Task<CSSRule> itemAsync(int index)
+        {
+            DOMVar var = await ExecGetVarAsync(new object[] { index },nameof(item));
             return new CSSRule(this._View2Control, var);
         }
     }

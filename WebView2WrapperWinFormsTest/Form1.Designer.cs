@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.bnScriptSync = new System.Windows.Forms.Button();
             this.lblMuted = new System.Windows.Forms.Label();
             this.bnSrcTest = new System.Windows.Forms.Button();
             this.bnSrc = new System.Windows.Forms.Button();
@@ -47,7 +48,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.webView1 = new Diga.WebView2.WinForms.WebView();
-            this.bnScriptSync = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -78,6 +78,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1546, 37);
             this.panel1.TabIndex = 0;
+            // 
+            // bnScriptSync
+            // 
+            this.bnScriptSync.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bnScriptSync.Location = new System.Drawing.Point(983, 3);
+            this.bnScriptSync.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.bnScriptSync.Name = "bnScriptSync";
+            this.bnScriptSync.Size = new System.Drawing.Size(50, 27);
+            this.bnScriptSync.TabIndex = 16;
+            this.bnScriptSync.Text = "Script";
+            this.bnScriptSync.UseVisualStyleBackColor = true;
+            this.bnScriptSync.Click += new System.EventHandler(this.bnScriptSync_Click);
             // 
             // lblMuted
             // 
@@ -267,7 +279,8 @@
             "https://github.com/ITAgnesmeyer/DigaDeployServer/releases/download/v0.0.0.1/DPack" +
                 ".pack",
             "https://github.com/ITAgnesmeyer/DigaDeployServer/releases/download/v0.0.0.1/test_" +
-                "x.zip"});
+                "x.zip",
+            "https://www.youtube.com/watch?v=yE99DKTz09M"});
             this.textBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.textBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.textBox1.Location = new System.Drawing.Point(88, 5);
@@ -342,18 +355,6 @@
             this.webView1.WebViewCreated += new System.EventHandler(this.webView1_WebViewCreated);
             this.webView1.BeforeWebViewDestroy += new System.EventHandler(this.webView1_BeforeWebViewDestroy);
             this.webView1.IsDocumentPlayingAudioChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_IsDocumentPlayingAudioChanged);
-            // 
-            // bnScriptSync
-            // 
-            this.bnScriptSync.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bnScriptSync.Location = new System.Drawing.Point(983, 3);
-            this.bnScriptSync.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.bnScriptSync.Name = "bnScriptSync";
-            this.bnScriptSync.Size = new System.Drawing.Size(50, 27);
-            this.bnScriptSync.TabIndex = 16;
-            this.bnScriptSync.Text = "Script";
-            this.bnScriptSync.UseVisualStyleBackColor = true;
-            this.bnScriptSync.Click += new System.EventHandler(this.bnScriptSync_Click);
             // 
             // Form1
             // 

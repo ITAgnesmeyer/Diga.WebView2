@@ -15,46 +15,80 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
 
         }
-        public Task log(string message)
+
+        public void log(string message) => Exec(new object[] { message });
+        public Task logAsync(string message)
         {
-            return ExecAsync<object>(new object[]{message});
+            return ExecAsync(new object[]{message},nameof(log));
+        }
+
+        public  void error(string message)
+        {
+            Exec(new object[]{message});
+        }
+
+        public Task errorAsync(string message)
+        {
+            return ExecAsync(new object[]{message},nameof(error));
+        }
+
+        public void clear()
+        {
+            Exec(new object[]{});
+        }
+
+        public Task clearAsync()
+        {
+            return ExecAsync(new object[]{},nameof(clear));
+        }
+
+        public void group(string label = null)
+        {
+            Exec(new object[] { label });
         }
 
 
-        public Task error(string message)
+        public Task groupAsync(string label = null)
         {
-            return ExecAsync<object>(new object[]{message});
+            return ExecAsync(new object[] { label },nameof(group));
+        }
+        public void info(string message)
+        {
+            Exec(new object[]{message});
+        }
+        public Task infoAsync(string message)
+        {
+            return this.ExecAsync(new object[]{message},nameof(info));
+        }
+        public void time()
+        {
+            Exec(new object[]{});
+        }
+        public Task timeAsync()
+        {
+            return this.ExecAsync(new object[]{},nameof(time));
         }
 
-        public Task clear()
+        public void timeEnd()
         {
-            return ExecAsync<object>(new object[]{});
+            Exec(new object[]{});
         }
 
-
-        public Task group(string label = null)
+        public Task timeEndAsync()
         {
-            return ExecAsync<object>(new object[] { label });
+            return this.ExecAsync(new object[]{},nameof(timeEnd));
         }
 
-        public Task info(string message)
+        public void trace(string label = null)
         {
-            return this.ExecAsync<object>(new object[]{message});
+            Exec(new object[]{label});
+
+            
         }
 
-        public Task time()
+        public Task traceAsync(string label = null)
         {
-            return this.ExecAsync<object>(new object[]{});
-        }
-
-        public Task timeEnd()
-        {
-            return this.ExecAsync<object>(new object[]{});
-        }
-
-        public Task trace(string label = null)
-        {
-            return this.ExecAsync<object>(new object[]{label});
+            return this.ExecAsync(new object[]{label},nameof(trace));
 
             
         }

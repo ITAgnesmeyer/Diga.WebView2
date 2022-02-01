@@ -29,6 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Diga.Core.Threading" Version="1.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\V10107254\Diga.WebView2.Interop.V10107254\Diga.WebView2.Interop.V10107254.csproj" />
     <ProjectReference Include="..\V10107254\Diga.WebView2.WinForms.V10107254\Diga.WebView2.WinForms.V10107254.csproj" />
     <ProjectReference Include="..\V10107254\Diga.WebView2.Wrapper.V10107254\Diga.WebView2.Wrapper.V10107254.csproj" />

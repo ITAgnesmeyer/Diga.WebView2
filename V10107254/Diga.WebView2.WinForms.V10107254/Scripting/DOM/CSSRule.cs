@@ -8,9 +8,11 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             
         }
+        public string cssText => Get<string>();
+        public Task<string> cssTextAsync => GetAsync<string>(nameof(cssText));
 
-        public Task<string> cssText => GetAsync<string>();
-        public Task<CSSRule> parentRule => GetTypedVarAsync<CSSRule>();
+        public CSSRule parentRule => GetTypedVar<CSSRule>();
+        public Task<CSSRule> parentRuleAsync => GetTypedVarAsync<CSSRule>(nameof(parentRule));
 
         
     }
