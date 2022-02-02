@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Diga.Core.Threading;
 
 namespace Diga.WebView2.WinForms.Scripting.DOM
 {
@@ -111,7 +112,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         }
 
-        private T GetDomObjectFromDomVar<T>(DOMVar var) where T : DOMObject
+        internal T GetDomObjectFromDomVar<T>(DOMVar var) where T : DOMObject
         {
             T v = (T)CreateNew(this._View2Control, var, typeof(T));
             return v;
@@ -131,12 +132,20 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         }
         internal void RaiseEvent(RpcEventHandlerArgs e)
         {
-            OnDomEvent(e);
+            UIDispatcher.UIThread.Post<RpcEventHandlerArgs>(OnDomEvent,e);
+            
+            
+            
+
         }
 
         protected virtual void OnDomEvent(RpcEventHandlerArgs e)
         {
-            DomEvent?.Invoke(this,e);
+            using (DOMVar var = new DOMVar(this._View2Control, e.RpcObject.idFullName))
+            {
+                DomEvent?.Invoke(this,e);
+            }
+            
         }
 
         private DOMVar GetGetVar([CallerMemberName] string member = "")

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Diga.Core.Threading;
 
 namespace Diga.WebView2.WinForms.Scripting.DOM
 {
@@ -58,14 +59,50 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             ExecuteScript(scriptValue);
         }
 
+        public async Task<bool> VarExistAsync()
+        {
+            string scriptText = $"return {this.Name}!=undefined;";
+            object retVal = await ExecuteScriptAsync(scriptText);
+            return (bool)Convert.ChangeType(retVal, TypeCode.Boolean);
+        }
+        public bool VarExist()
+        {
+            string scriptText = $"return {this.Name}!=undefined;";
+            object retVal = ExecuteScript(scriptText);
+            return (bool)Convert.ChangeType(retVal, TypeCode.Boolean);
+        }
         private void DeleteVar()
         {
-            string scriptText = $"if({this.Name}) delete {this.Name};";
+            string scriptText = $"if({this.Name}!=undefined) delete {this.Name};";
             ExecuteScript(scriptText);
 
         }
 
- 
+        private async Task DeleteVarAsync()
+        {
+            string scriptText = $"if({this.Name}!=undefined) delete {this.Name};";
+            await ExecuteScriptAsync(scriptText);
+        }
+        public async Task<DOMVar> CopyAsync()
+        {
+            DOMVar var = await DOMVar.CreateAsync(this._View2Control);
+            bool exist = await this.VarExistAsync();
+            if(!exist)
+                throw new InvalidOperationException($"the var({this.Name}) does not exist");
+            string scriptText = $"{var.Name}={this.Name};";
+            await ExecuteScriptAsync(scriptText);
+            return var;
+        }
+        public DOMVar Copy()
+        {
+            DOMVar var = new DOMVar(this._View2Control);
+            if (!this.VarExist())
+                throw new InvalidOperationException($"the var({this.Name}) does not exist");
+
+            string scriptText = $"{var.Name}={this.Name};";
+            ExecuteScript(scriptText);
+            return var;
+        }
 
         protected override string InstanceName
         {
@@ -79,7 +116,8 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             {
                 if (disposing)
                 {
-                    DeleteVar();    
+                    if(UIDispatcher.UIThread.CheckAccess())
+                        DeleteVar();    
                 }
 
                 disposedValue = true;
@@ -92,5 +130,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+
+       
     }
 }

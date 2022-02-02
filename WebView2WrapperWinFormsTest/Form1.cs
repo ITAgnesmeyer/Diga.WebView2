@@ -507,8 +507,10 @@ namespace WebView2WrapperWinFormsTest
             {
                 try
                 {
-                    await element.setAttributeAsync("style", "background-color: coral;");
+                    //await element.setAttributeAsync("style", "background-color: coral;");
                     //ev.Event.relatedTarget.setAttribute("style", "background-color: coral;");
+                    DOMStyle style = await element.styleAsync;
+                    style.backgroundColorAsync = (StringTaskVar)"coral";
 
                     //read the values of MouseEvent-Object
                     int button = await ev.Event.buttonAsync;
@@ -530,13 +532,18 @@ namespace WebView2WrapperWinFormsTest
 
             element.MouseLeave += (o, args) =>
             {
-                element.setAttribute("style","background-color: blue;color: white;");
-                
+                //element.setAttribute("style","background-color: blue;color: white;");
+                element.style.backgroundColor = "blue";
+                element.style.color = "white";
+
+
             };
 
             element.MouseEnter += (o, args) =>
             {
-                element.setAttribute("style","background-color: white;color: black;");
+                //element.setAttribute("style","background-color: white;color: black;");
+                element.style.backgroundColor = "white";
+                element.style.color = "black";
             };
 
 

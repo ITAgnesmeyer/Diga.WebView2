@@ -474,6 +474,22 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         public void setAttributeNode(DOMVar attr) => Exec(new object[] { attr.Name });
 
         public Task setAttributeNodeAsync(DOMVar attr) => ExecAsync<object>(new object[] { attr.Name },nameof(setAttributeNode));
+        private DOMStyle _style;
+
+        public DOMStyle style
+        {
+            get
+            {
+                if (this._style == null)
+                {
+                   this._style = GetTypedVar<DOMStyle>();
+                }
+                
+                return this._style;
+            }
+        }
+        
+        public Task<DOMStyle> styleAsync => GetTypedVarAsync<DOMStyle>(nameof(style));
 
         public string title
         {
