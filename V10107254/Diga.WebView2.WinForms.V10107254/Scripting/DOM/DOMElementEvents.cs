@@ -1,8 +1,6 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using Diga.Core.Threading;
 
 namespace Diga.WebView2.WinForms.Scripting.DOM
 {
@@ -26,23 +24,21 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             return del.Method.IsDefined(typeof(AsyncStateMachineAttribute), false);
 
         }
+
+        private void AsyncCheck(Delegate del)
+        {
+            if (IsThisAsync(del))
+                throw new InvalidOperationException("You cannot assign a async function!");
+        }
         private event EventHandler<DOMMouseEventArgs> _Click;
-        private EventHandler<DOMMouseEventArgs> _ClickAsync;
         public event EventHandler<DOMMouseEventArgs> Click
         {
             add
             {
-
+                AsyncCheck(value);
                 this.addEventListener(MouseEvents.Click, new DOMEventListenerScript(this, MouseEvents.Click), false);
-                if (IsThisAsync(value))
-                {
-
-                    _ClickAsync = value;
-                }
-                else
-                {
-                    _Click += value;
-                }
+                _Click += value;
+               
 
             }
             remove => _Click -= value;
@@ -53,6 +49,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             add
             {
+                AsyncCheck(value);
                 this.addEventListener(MouseEvents.ContextMenu, new DOMEventListenerScript(this, MouseEvents.ContextMenu), false);
                 _ContextMenu += value;
             }
@@ -63,6 +60,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             add
             {
+                AsyncCheck(value);
                 this.addEventListener(MouseEvents.DblClick, new DOMEventListenerScript(this, MouseEvents.DblClick), false);
                 _DblClick += value;
             }
@@ -73,6 +71,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             add
             {
+                AsyncCheck(value);
                 this.addEventListener(MouseEvents.MouseDown, new DOMEventListenerScript(this, MouseEvents.MouseDown), false);
                 _MouseDown += value;
             }
@@ -83,6 +82,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             add
             {
+                AsyncCheck(value);
                 this.addEventListener(MouseEvents.MouseEnter, new DOMEventListenerScript(this, MouseEvents.MouseEnter), false);
                 _MouseEnter += value;
             }
@@ -94,6 +94,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             add
             {
+                AsyncCheck(value);
                 this.addEventListener(MouseEvents.MouseLeave, new DOMEventListenerScript(this, MouseEvents.MouseLeave), false);
                 _MouseLeave += value;
             }
@@ -104,6 +105,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             add
             {
+                AsyncCheck(value);
                 this.addEventListener(MouseEvents.MouseMove, new DOMEventListenerScript(this, MouseEvents.MouseMove), false);
                 _MouseMove += value;
             }
@@ -114,6 +116,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             add
             {
+                AsyncCheck(value);
                 this.addEventListener(MouseEvents.MouseOut, new DOMEventListenerScript(this, MouseEvents.MouseOut), false);
                 _MouseOut += value;
             }
@@ -125,6 +128,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             add
             {
+                AsyncCheck(value);
                 this.addEventListener(MouseEvents.MouseOver, new DOMEventListenerScript(this, MouseEvents.MouseOver), false);
                 _MouseOver += value;
             }
@@ -136,6 +140,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             add
             {
+                AsyncCheck(value);
                 this.addEventListener(MouseEvents.MouseUp, new DOMEventListenerScript(this, MouseEvents.MouseUp), false);
                 _MouseUp += value;
             }
@@ -148,6 +153,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             add
             {
+                AsyncCheck(value);
                 this.addEventListener(KeyboardEvents.KeyDown, new DOMEventListenerScript(this, KeyboardEvents.KeyDown), false);
                 _KeyDown += value;
             }
@@ -159,6 +165,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             add
             {
+                AsyncCheck(value);
                 this.addEventListener(KeyboardEvents.KeyPress, new DOMEventListenerScript(this, KeyboardEvents.KeyPress), false);
                 _KeyPress += value;
             }
@@ -169,6 +176,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
             add
             {
+                AsyncCheck(value);
                 this.addEventListener(KeyboardEvents.KeyUp, new DOMEventListenerScript(this, KeyboardEvents.KeyUp), false);
                 _KeyUp += value;
             }
@@ -221,17 +229,6 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
                                 OnClickEvent(eventArgs);
 
                             }
-
-                            {
-                                //var me = this.GetDomObjectFromVarName<DOMMouseEvent>(e.RpcObject.idFullName);
-                                me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj.Copy());
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnClickEventAsync(eventArgs);
-
-                            }
-
-
-
 
                         }
                         break;
@@ -454,12 +451,26 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             _KeyUp?.Invoke(this, e);
         }
 
-        protected virtual void OnClickEventAsync(DOMMouseEventArgs e)
+        //protected virtual void OnClickEventAsync(DOMMouseEventArgs e)
+        //{
+        //    if (_ClickAsync == null) return;
+
+        //    this._ClickAsync.Invoke(this, e);
+
+        //}
+
+        private bool disposedValue=false;
+        protected override void Dispose(bool disposing)
         {
-            if (_ClickAsync == null) return;
+            if (!this.disposedValue)
+            {
+                if (disposing)
+                {
+                    EventHandlerList.RemoveByObject(this);
+                }
 
-            this._ClickAsync.Invoke(this, e);
-
+            }
+            base.Dispose(disposing);
         }
     }
 

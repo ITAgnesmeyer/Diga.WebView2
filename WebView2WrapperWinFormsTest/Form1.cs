@@ -503,28 +503,31 @@ namespace WebView2WrapperWinFormsTest
             
             //handle the event
             // Important never call synchron Properties and Functions in an async function
-            element.Click += async  (o,ev) =>
+            element.Click +=   (o,ev) =>
             {
                 try
                 {
                     //await element.setAttributeAsync("style", "background-color: coral;");
                     //ev.Event.relatedTarget.setAttribute("style", "background-color: coral;");
-                    DOMStyle style = await element.styleAsync;
-                    style.backgroundColorAsync = (StringTaskVar)"coral";
+                    //DOMStyle style = await element.styleAsync;
+                    element.style.backgroundColor = "coral";
+
+                    //style.backgroundColorAsync = (StringTaskVar)"coral";
 
                     //read the values of MouseEvent-Object
-                    int button = await ev.Event.buttonAsync;
-                    bool isAlt = await ev.Event.altKeyAsync;
-                    bool isShift = await ev.Event.shiftKeyAsync;
+                    int button = ev.Event.button;
+                    bool isAlt = ev.Event.altKey;
+                    bool isShift = ev.Event.shiftKey;
 
                     //Show the information in alert
-                    await window.alertAsync($"set=>isShift={isShift}, isAlt={isAlt}, buttonNr={button}");
+                    window.alert($"set=>isShift={isShift}, isAlt={isAlt}, buttonNr={button}");
 
                 }
                 catch (Exception exception)
                 {
-                    //MessageBox.Show("Error:" + exception.Message);
-                    await ShowMessageBoxAsync("Error:" + exception.Message);
+                    MessageBox.Show("Error:" + exception.Message);
+                    //await ShowMessageBoxAsync("Error:" + exception.Message);
+
                 }
 
             };
