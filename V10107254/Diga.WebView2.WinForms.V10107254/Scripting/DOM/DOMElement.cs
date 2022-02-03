@@ -134,17 +134,10 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         public Task exitFullscreenAsync() => ExecAsync<object>(new object[] { },nameof(exitFullscreen));
 
         public DOMElement firstChild => GetTypedVar<DOMElement>();
-        public Task<DOMElement> firstChildAsync
-        {
-            get => GetTypedVarAsync<DOMElement>(nameof(firstChild));
-
-        }
+        public Task<DOMElement> firstChildAsync => GetTypedVarAsync<DOMElement>(nameof(firstChild));
 
         public DOMElement firstElementChild => GetTypedVar<DOMElement>();
-        public Task<DOMElement> firstElementChildAsync
-        {
-            get => GetTypedVarAsync<DOMElement>(nameof(firstElementChild));
-        }
+        public Task<DOMElement> firstElementChildAsync => GetTypedVarAsync<DOMElement>(nameof(firstElementChild));
         public void focus()=> Exec(new object[] { });
 
         public Task focusAsync() => ExecAsync<object>(new object[] { },nameof(focus));
@@ -279,43 +272,23 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         }
 
         public DOMElement lastChild => GetTypedVar<DOMElement>();
-        public Task<DOMElement> lastChildAsync
-        {
-            get => GetTypedVarAsync<DOMElement>(nameof(lastChild));
-
-        }
+        public Task<DOMElement> lastChildAsync => GetTypedVarAsync<DOMElement>(nameof(lastChild));
         public bool matches(string selectors) => Exec<bool>(new object[] { selectors });
         public Task<bool> matchesAsync(string selectors) => ExecAsync<bool>(new object[] { selectors },nameof(matches));
 
         public string namespaceURI => Get<string>();
         public Task<string> namespaceURIAsync => GetAsync<string>(nameof(namespaceURI));
 
-        public DOMElement nextSibling
-        {
-            get => GetTypedVar<DOMElement>();
-
-        }
-
-        
-        public Task<DOMElement> nextSiblingAsync
-        {
-            get => GetTypedVarAsync<DOMElement>(nameof(nextSibling));
-
-        }
+        public DOMElement nextSibling => GetTypedVar<DOMElement>();
 
 
-        public DOMElement nextElementSibling
-        {
-            get => GetTypedVar<DOMElement>();
-
-        }
+        public Task<DOMElement> nextSiblingAsync => GetTypedVarAsync<DOMElement>(nameof(nextSibling));
 
 
-        public Task<DOMElement> nextElementSiblingAsync
-        {
-            get => GetTypedVarAsync<DOMElement>(nameof(nextElementSibling));
+        public DOMElement nextElementSibling => GetTypedVar<DOMElement>();
 
-        }
+
+        public Task<DOMElement> nextElementSiblingAsync => GetTypedVarAsync<DOMElement>(nameof(nextElementSibling));
 
         public string nodeName => Get<string>();
         public Task<string> nodeNameAsync => GetAsync<string>(nameof(nodeName));
@@ -347,17 +320,9 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         public int offsetTop => Get<int>();
         public Task<int> offsetTopAsync => GetAsync<int>(nameof(offsetTop));
 
-        public DOMElement offsetParent
-        {
-            get => GetTypedVar<DOMElement>();
+        public DOMElement offsetParent => GetTypedVar<DOMElement>();
 
-        }
-
-        public Task<DOMElement> offsetParentAsync
-        {
-            get => GetTypedVarAsync<DOMElement>(nameof(offsetParent));
-
-        }
+        public Task<DOMElement> offsetParentAsync => GetTypedVarAsync<DOMElement>(nameof(offsetParent));
 
         public string outerHTML
         {
@@ -381,9 +346,17 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             set => _ = SetAsync(value,nameof(outerText));
         }
 
+        private DOMDocument _ownerDocument;
         public DOMDocument ownerDocument
         {
-            get => GetTypedVar<DOMDocument>();
+            get
+            {
+                if (this._ownerDocument == null)
+                {
+                    this._ownerDocument = GetTypedVar<DOMDocument>();
+                }
+                return this._ownerDocument;
+            }
         }
 
         public Task<DOMDocument> ownerDocumentAsync
@@ -391,27 +364,15 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             get => GetTypedVarAsync<DOMDocument>(nameof(ownerDocument));
         }
 
-        public DOMElement parentNode
-        {
-            get => GetTypedVar<DOMElement>();
-        }
+       
+        public DOMElement parentNode => GetTypedVar<DOMElement>();
 
-        public Task<DOMElement> parentNodeAsync
-        {
-            get => GetTypedVarAsync<DOMElement>(nameof(parentNode));
-        }
+        public Task<DOMElement> parentNodeAsync => GetTypedVarAsync<DOMElement>(nameof(parentNode));
 
 
-        public DOMElement parentElement
-        {
-            get => GetTypedVar<DOMElement>();
+        public DOMElement parentElement => GetTypedVar<DOMElement>();
 
-        }
-        public Task<DOMElement> parentElementAsync
-        {
-            get => GetTypedVarAsync<DOMElement>(nameof(parentElement));
-
-        }
+        public Task<DOMElement> parentElementAsync => GetTypedVarAsync<DOMElement>(nameof(parentElement));
         public DOMElement previousSibling => GetTypedVar<DOMElement>();
         public Task<DOMElement> previousSiblingAsync => GetTypedVarAsync<DOMElement>(nameof(parentElement));
 
@@ -474,8 +435,8 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         public void setAttributeNode(DOMVar attr) => Exec(new object[] { attr.Name });
 
         public Task setAttributeNodeAsync(DOMVar attr) => ExecAsync<object>(new object[] { attr.Name },nameof(setAttributeNode));
-        private DOMStyle _style;
 
+        private DOMStyle _style;
         public DOMStyle style
         {
             get
@@ -513,9 +474,22 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             set => _ = SetAsync(value,nameof(tabIndex));
         }
 
-      
+        private bool disposedValue=false;
+        protected override void Dispose(bool disposing)
+        {
+            if (!this.disposedValue)
+            {
+                if (disposing)
+                {
+                    this._ownerDocument?.Dispose();
+                    this._style?.Dispose();
 
-     
+                }
+
+                this.disposedValue = true;
+            }
+            base.Dispose(disposing);
+        }
     }
 
 

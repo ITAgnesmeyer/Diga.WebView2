@@ -110,6 +110,11 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             set => throw new NotImplementedException();
         }
 
+        public override string ToString()
+        {
+            return this.Name;
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -124,7 +129,11 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             }
         }
 
-       
+        public async Task DisposeAsync()
+        {
+            await DeleteVarAsync();
+            this.Dispose(false);
+        }
         public void Dispose()
         {
             Dispose(disposing: true);

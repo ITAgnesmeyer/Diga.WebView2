@@ -253,8 +253,20 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         public bool hasFocus() => Exec<bool>(new object[] { });
         public Task<bool> hasFocusAsync() => ExecAsync<bool>(new object[] { },nameof(hasFocus));
+        private DOMElement _head;
+        public DOMElement head
+        {
+            get
+            {
+                if (this._head == null)
+                {
+                    this._head = GetTypedVar<DOMElement>();
+                }
+                return this._head; 
 
-        public DOMElement head => GetTypedVar<DOMElement>();
+            }
+        }
+
         public Task<DOMElement> headAsync => GetTypedVarAsync<DOMElement>(nameof(head));
 
         public DOMObjectCollection images => GetTypedVar<DOMObjectCollection>();
@@ -360,5 +372,18 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         public void writeln(params object[] parameters) => Exec(parameters);
         public Task writelnAsync(params object[] parameters) => ExecAsync<object>(parameters,nameof(writeln));
 
+        private bool disposedValues=false;
+        protected override void Dispose(bool disposing)
+        {
+            if (!this.disposedValues)
+            {
+                if (disposing)
+                {
+                    _head?.Dispose();
+                }
+                this.disposedValues = true;
+            }
+            base.Dispose(disposing);
+        }
     }
 }

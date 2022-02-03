@@ -503,35 +503,8 @@ namespace WebView2WrapperWinFormsTest
             
             //handle the event
             // Important never call synchron Properties and Functions in an async function
-            element.Click +=   (o,ev) =>
-            {
-                try
-                {
-                    //await element.setAttributeAsync("style", "background-color: coral;");
-                    //ev.Event.relatedTarget.setAttribute("style", "background-color: coral;");
-                    //DOMStyle style = await element.styleAsync;
-                    element.style.backgroundColor = "coral";
-
-                    //style.backgroundColorAsync = (StringTaskVar)"coral";
-
-                    //read the values of MouseEvent-Object
-                    int button = ev.Event.button;
-                    bool isAlt = ev.Event.altKey;
-                    bool isShift = ev.Event.shiftKey;
-
-                    //Show the information in alert
-                    window.alert($"set=>isShift={isShift}, isAlt={isAlt}, buttonNr={button}");
-
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show("Error:" + exception.Message);
-                    //await ShowMessageBoxAsync("Error:" + exception.Message);
-
-                }
-
-            };
-
+            element.Click += OnDomElementClick1;
+            element.Click += OnDomElementClick;
 
             element.MouseLeave += (o, args) =>
             {
@@ -552,6 +525,50 @@ namespace WebView2WrapperWinFormsTest
 
 
         }
+
+        private void OnDomElementClick1(object sender, DOMMouseEventArgs e)
+        {
+            if (sender is DOMElement element)
+            {
+                try
+                {
+                    //await element.setAttributeAsync("style", "background-color: coral;");
+                    //ev.Event.relatedTarget.setAttribute("style", "background-color: coral;");
+                    //DOMStyle style = await element.styleAsync;
+                    element.style.backgroundColor = "coral";
+
+                    //style.backgroundColorAsync = (StringTaskVar)"coral";
+
+                    //read the values of MouseEvent-Object
+                    int button = e.Event.button;
+                    bool isAlt = e.Event.altKey;
+                    bool isShift = e.Event.shiftKey;
+
+                    //Show the information in alert
+                    this.webView1.GetDOMWindow().alert($"set=>isShift={isShift}, isAlt={isAlt}, buttonNr={button}");
+
+                    element.Click -= OnDomElementClick1;
+                    MessageBox.Show("Event1 entzogen");
+
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Error:" + exception.Message);
+                    //await ShowMessageBoxAsync("Error:" + exception.Message);
+
+                }
+            }
+        }
+
+        private  void OnDomElementClick(object sender, DOMMouseEventArgs e)
+        {
+            if (sender is DOMElement element)
+            {
+                element.Click -= OnDomElementClick;
+                MessageBox.Show("Event entzogen");
+            }
+        }
+
         private async Task ShowMessageBoxAsync(string message, string caption = "Message")
         {
             await this.webView1.GetDOMWindow().alertAsync(message);

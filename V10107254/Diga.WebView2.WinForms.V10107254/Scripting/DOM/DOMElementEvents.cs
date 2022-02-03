@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -6,17 +7,126 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 {
     public class DOMElementEvents : DOMObject
     {
+
+        private void AddEvent<T>(string eventName,ref EventHandler<T> listener, EventHandler<T> listenerToAdd) where T:EventArgs
+        {
+            AsyncCheck(listenerToAdd);
+            this.addEventListener(eventName, new DOMEventListenerScript(this, eventName), false);
+            listener += listenerToAdd;
+        }
+
+        private void RemoveEvent<T>(string eventName, ref EventHandler<T> listener, EventHandler<T> listenerToRemove) where T:EventArgs
+        {
+            listener -= listenerToRemove;
+            if (listener == null)
+            {
+                this.removeEventListener(eventName);
+            }
+        }
         private event EventHandler<DOMMouseEventArgs> _AuxClick;
 
         public event EventHandler<DOMMouseEventArgs> AuxClick
         {
-            add
-            {
-                this.addEventListener(MouseEvents.AuxClick, new DOMEventListenerScript(this, MouseEvents.AuxClick), false);
-                _AuxClick += value;
+            add => AddEvent(MouseEvents.AuxClick, ref _AuxClick, value);
+            remove => RemoveEvent(MouseEvents.AuxClick,ref _AuxClick, value);
+        }
 
-            }
-            remove => _AuxClick -= value;
+
+        private event EventHandler<DOMMouseEventArgs> _Click;
+        public event EventHandler<DOMMouseEventArgs> Click
+        {
+            add => AddEvent(MouseEvents.Click, ref _Click, value);
+            remove => RemoveEvent(MouseEvents.Click, ref _Click, value);
+        }
+
+        private event EventHandler<DOMMouseEventArgs> _ContextMenu;
+        public event EventHandler<DOMMouseEventArgs> ContextMenu
+        {
+            add => AddEvent(MouseEvents.ContextMenu, ref _ContextMenu, value);
+            remove => RemoveEvent(MouseEvents.ContextMenu, ref _ContextMenu, value);
+        }
+
+        private event EventHandler<DOMMouseEventArgs> _DblClick;
+        public event EventHandler<DOMMouseEventArgs> DblClick
+        {
+            add => AddEvent(MouseEvents.DblClick, ref _DblClick, value);
+            remove => RemoveEvent(MouseEvents.DblClick, ref _DblClick, value);
+        }
+
+        public event EventHandler<DOMMouseEventArgs> _MouseDown;
+        public event EventHandler<DOMMouseEventArgs> MouseDown
+        {
+            add => AddEvent(MouseEvents.MouseDown, ref _MouseDown, value);
+            remove => RemoveEvent(MouseEvents.MouseDown, ref _MouseDown, value);
+        }
+
+        private event EventHandler<DOMMouseEventArgs> _MouseEnter;
+        public event EventHandler<DOMMouseEventArgs> MouseEnter
+        {
+            add => AddEvent(MouseEvents.MouseEnter, ref _MouseEnter, value);
+            remove => RemoveEvent(MouseEvents.MouseEnter, ref _MouseEnter, value);
+        }
+
+        private event EventHandler<DOMMouseEventArgs> _MouseLeave;
+        public event EventHandler<DOMMouseEventArgs> MouseLeave
+        {
+            add => AddEvent(MouseEvents.MouseLeave,ref _MouseLeave, value);
+            remove => RemoveEvent(MouseEvents.MouseLeave,ref _MouseLeave, value);
+        }
+
+        private event EventHandler<DOMMouseEventArgs> _MouseMove;
+        public event EventHandler<DOMMouseEventArgs> MouseMove
+        {
+            add => AddEvent(MouseEvents.MouseMove, ref _MouseMove, value);
+            remove => RemoveEvent(MouseEvents.MouseMove, ref _MouseMove, value);
+        }
+
+        private event EventHandler<DOMMouseEventArgs> _MouseOut;
+        public event EventHandler<DOMMouseEventArgs> MouseOut
+        {
+            add => AddEvent(MouseEvents.MouseOut, ref _MouseOut , value);
+            remove => RemoveEvent(MouseEvents.MouseOut, ref _MouseOut , value);
+        }
+
+        private event EventHandler<DOMMouseEventArgs> _MouseOver;
+        public event EventHandler<DOMMouseEventArgs> MouseOver
+        {
+            add => AddEvent(MouseEvents.MouseOver,ref _MouseOver , value);
+            remove => RemoveEvent(MouseEvents.MouseOver,ref _MouseOver , value);
+        }
+
+        private event EventHandler<DOMMouseEventArgs> _MouseUp;
+        public event EventHandler<DOMMouseEventArgs> MouseUp
+        {
+            add => AddEvent(MouseEvents.MouseUp, ref _MouseUp, value);
+            remove => RemoveEvent(MouseEvents.MouseUp, ref _MouseUp, value);
+        }
+
+        //AuxClick
+        private event EventHandler<DOMKeyboardEventArgs> _KeyDown;
+        public event EventHandler<DOMKeyboardEventArgs> KeyDown
+        {
+            add => AddEvent(KeyboardEvents.KeyDown,ref _KeyDown ,value);
+            remove => RemoveEvent(KeyboardEvents.KeyDown,ref _KeyDown ,value);
+        }
+
+        private event EventHandler<DOMKeyboardEventArgs> _KeyPress;
+        public event EventHandler<DOMKeyboardEventArgs> KeyPress
+        {
+            add => AddEvent(KeyboardEvents.KeyPress, ref _KeyPress, value);
+            remove => RemoveEvent(KeyboardEvents.KeyPress, ref _KeyPress, value);
+        }
+
+        private event EventHandler<DOMKeyboardEventArgs> _KeyUp;
+        public event EventHandler<DOMKeyboardEventArgs> KeyUp
+        {
+            add => AddEvent( KeyboardEvents.KeyUp,ref _KeyUp , value);
+            remove => RemoveEvent( KeyboardEvents.KeyUp,ref _KeyUp , value);
+        }
+
+        public DOMElementEvents(WebView control, DOMVar domVar) : base(control, domVar)
+        {
+
         }
 
         private bool IsThisAsync(Delegate del)
@@ -30,173 +140,65 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             if (IsThisAsync(del))
                 throw new InvalidOperationException("You cannot assign a async function!");
         }
-        private event EventHandler<DOMMouseEventArgs> _Click;
-        public event EventHandler<DOMMouseEventArgs> Click
-        {
-            add
-            {
-                AsyncCheck(value);
-                this.addEventListener(MouseEvents.Click, new DOMEventListenerScript(this, MouseEvents.Click), false);
-                _Click += value;
-               
 
-            }
-            remove => _Click -= value;
-        }
+        private readonly Dictionary<string,DOMScriptVar> _ScriptVars = new Dictionary<string,DOMScriptVar>();
 
-        private event EventHandler<DOMMouseEventArgs> _ContextMenu;
-        public event EventHandler<DOMMouseEventArgs> ContextMenu
-        {
-            add
-            {
-                AsyncCheck(value);
-                this.addEventListener(MouseEvents.ContextMenu, new DOMEventListenerScript(this, MouseEvents.ContextMenu), false);
-                _ContextMenu += value;
-            }
-            remove => _ContextMenu += value;
-        }
-        private event EventHandler<DOMMouseEventArgs> _DblClick;
-        public event EventHandler<DOMMouseEventArgs> DblClick
-        {
-            add
-            {
-                AsyncCheck(value);
-                this.addEventListener(MouseEvents.DblClick, new DOMEventListenerScript(this, MouseEvents.DblClick), false);
-                _DblClick += value;
-            }
-            remove => _DblClick -= value;
-        }
-        public event EventHandler<DOMMouseEventArgs> _MouseDown;
-        public event EventHandler<DOMMouseEventArgs> MouseDown
-        {
-            add
-            {
-                AsyncCheck(value);
-                this.addEventListener(MouseEvents.MouseDown, new DOMEventListenerScript(this, MouseEvents.MouseDown), false);
-                _MouseDown += value;
-            }
-            remove => _MouseDown -= value;
-        }
-        private event EventHandler<DOMMouseEventArgs> _MouseEnter;
-        public event EventHandler<DOMMouseEventArgs> MouseEnter
-        {
-            add
-            {
-                AsyncCheck(value);
-                this.addEventListener(MouseEvents.MouseEnter, new DOMEventListenerScript(this, MouseEvents.MouseEnter), false);
-                _MouseEnter += value;
-            }
-            remove => _MouseEnter -= value;
-        }
-
-        private event EventHandler<DOMMouseEventArgs> _MouseLeave;
-        public event EventHandler<DOMMouseEventArgs> MouseLeave
-        {
-            add
-            {
-                AsyncCheck(value);
-                this.addEventListener(MouseEvents.MouseLeave, new DOMEventListenerScript(this, MouseEvents.MouseLeave), false);
-                _MouseLeave += value;
-            }
-            remove => _MouseLeave -= value;
-        }
-        private event EventHandler<DOMMouseEventArgs> _MouseMove;
-        public event EventHandler<DOMMouseEventArgs> MouseMove
-        {
-            add
-            {
-                AsyncCheck(value);
-                this.addEventListener(MouseEvents.MouseMove, new DOMEventListenerScript(this, MouseEvents.MouseMove), false);
-                _MouseMove += value;
-            }
-            remove => _MouseMove -= value;
-        }
-        private event EventHandler<DOMMouseEventArgs> _MouseOut;
-        public event EventHandler<DOMMouseEventArgs> MouseOut
-        {
-            add
-            {
-                AsyncCheck(value);
-                this.addEventListener(MouseEvents.MouseOut, new DOMEventListenerScript(this, MouseEvents.MouseOut), false);
-                _MouseOut += value;
-            }
-            remove => _MouseOut -= value;
-        }
-
-        private event EventHandler<DOMMouseEventArgs> _MouseOver;
-        public event EventHandler<DOMMouseEventArgs> MouseOver
-        {
-            add
-            {
-                AsyncCheck(value);
-                this.addEventListener(MouseEvents.MouseOver, new DOMEventListenerScript(this, MouseEvents.MouseOver), false);
-                _MouseOver += value;
-            }
-            remove => _MouseOver -= value;
-        }
-
-        private event EventHandler<DOMMouseEventArgs> _MouseUp;
-        public event EventHandler<DOMMouseEventArgs> MouseUp
-        {
-            add
-            {
-                AsyncCheck(value);
-                this.addEventListener(MouseEvents.MouseUp, new DOMEventListenerScript(this, MouseEvents.MouseUp), false);
-                _MouseUp += value;
-            }
-            remove => _MouseUp -= value;
-        }
-
-        //AuxClick
-        private event EventHandler<DOMKeyboardEventArgs> _KeyDown;
-        public event EventHandler<DOMKeyboardEventArgs> KeyDown
-        {
-            add
-            {
-                AsyncCheck(value);
-                this.addEventListener(KeyboardEvents.KeyDown, new DOMEventListenerScript(this, KeyboardEvents.KeyDown), false);
-                _KeyDown += value;
-            }
-            remove => _KeyDown -= value;
-        }
-
-        private event EventHandler<DOMKeyboardEventArgs> _KeyPress;
-        public event EventHandler<DOMKeyboardEventArgs> KeyPress
-        {
-            add
-            {
-                AsyncCheck(value);
-                this.addEventListener(KeyboardEvents.KeyPress, new DOMEventListenerScript(this, KeyboardEvents.KeyPress), false);
-                _KeyPress += value;
-            }
-            remove => _KeyPress -= value;
-        }
-        private event EventHandler<DOMKeyboardEventArgs> _KeyUp;
-        public event EventHandler<DOMKeyboardEventArgs> KeyUp
-        {
-            add
-            {
-                AsyncCheck(value);
-                this.addEventListener(KeyboardEvents.KeyUp, new DOMEventListenerScript(this, KeyboardEvents.KeyUp), false);
-                _KeyUp += value;
-            }
-            remove => _KeyUp -= value;
-        }
-
-        public DOMElementEvents(WebView control, DOMVar domVar) : base(control, domVar)
-        {
-
-        }
-
-        public void addEventListener(string eventName, DOMScriptText scriptText, bool useCapture)
+        public void addEventListener(string eventName, DOMEventListenerScript scriptText, bool useCapture)
         {
             EventHandlerList.TryAdd(this.InstanceName, this);
-            Exec(new object[] { eventName, scriptText, useCapture });
+            if (!this._ScriptVars.ContainsKey(eventName))
+            {
+                DOMScriptVar var = new DOMScriptVar(this._View2Control, scriptText);
+
+                Exec(new object[] { eventName, var, useCapture });
+
+                _ScriptVars.Add(eventName, var);
+                
+
+            }
+            
+            
+            
         }
         public async Task addEventListenerAsync(string eventName, DOMScriptText scriptText, bool useCapture)
         {
             EventHandlerList.TryAdd(this.InstanceName, this);
             await ExecAsync(new object[] { eventName, scriptText, useCapture }, nameof(addEventListener));
+        }
+
+
+        public void removeEventListener(string eventName, DOMVar var = null)
+        {
+            if (this._ScriptVars.ContainsKey(eventName))
+            {
+                DOMScriptVar varObj = this._ScriptVars[eventName];
+                Exec(new object[] { eventName, varObj });
+                varObj.Dispose();
+            }
+            else
+            {
+                if (var != null)
+                {
+                    Exec(new object[] { eventName, var });
+                }
+            }
+        }
+
+        public async Task removeEventListenerAsync(string eventName, DOMVar var = null)
+        {
+            if (this._ScriptVars.ContainsKey(eventName))
+            {
+                DOMScriptVar varObj = this._ScriptVars[eventName];
+                await ExecAsync(new object[] { eventName, varObj });
+                await varObj.DisposeAsync();
+            }
+            else
+            {
+                if (var != null)
+                {
+                    await ExecAsync(new object[] { eventName, var });
+                }
+            }
         }
         protected override void OnDomEvent(RpcEventHandlerArgs e)
         {
@@ -469,6 +471,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
                     EventHandlerList.RemoveByObject(this);
                 }
 
+                this.disposedValue = true;
             }
             base.Dispose(disposing);
         }

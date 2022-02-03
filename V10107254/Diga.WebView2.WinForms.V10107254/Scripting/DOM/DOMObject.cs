@@ -81,6 +81,10 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             if (t == typeof(DOMScript))
                 return new DOMScript(control, var);
             
+            if(t==typeof(DOMScriptVar))
+                return new DOMScriptVar(control, var);
+                
+
             if (t == typeof(DOMStyle))
                 return new DOMStyle(control, var);
 
