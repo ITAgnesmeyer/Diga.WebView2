@@ -7,15 +7,16 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 {
     public class DOMElementEvents : DOMObject
     {
-
-        private void AddEvent<T>(string eventName,ref EventHandler<T> listener, EventHandler<T> listenerToAdd) where T:EventArgs
+        private void AddEvent<T>(string eventName, ref EventHandler<T> listener, EventHandler<T> listenerToAdd)
+            where T : EventArgs
         {
             AsyncCheck(listenerToAdd);
             this.addEventListener(eventName, new DOMEventListenerScript(this, eventName), false);
             listener += listenerToAdd;
         }
 
-        private void RemoveEvent<T>(string eventName, ref EventHandler<T> listener, EventHandler<T> listenerToRemove) where T:EventArgs
+        private void RemoveEvent<T>(string eventName, ref EventHandler<T> listener, EventHandler<T> listenerToRemove)
+            where T : EventArgs
         {
             listener -= listenerToRemove;
             if (listener == null)
@@ -23,16 +24,18 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
                 this.removeEventListener(eventName);
             }
         }
+
         private event EventHandler<DOMMouseEventArgs> _AuxClick;
 
         public event EventHandler<DOMMouseEventArgs> AuxClick
         {
             add => AddEvent(MouseEvents.AuxClick, ref _AuxClick, value);
-            remove => RemoveEvent(MouseEvents.AuxClick,ref _AuxClick, value);
+            remove => RemoveEvent(MouseEvents.AuxClick, ref _AuxClick, value);
         }
 
 
         private event EventHandler<DOMMouseEventArgs> _Click;
+
         public event EventHandler<DOMMouseEventArgs> Click
         {
             add => AddEvent(MouseEvents.Click, ref _Click, value);
@@ -40,6 +43,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         }
 
         private event EventHandler<DOMMouseEventArgs> _ContextMenu;
+
         public event EventHandler<DOMMouseEventArgs> ContextMenu
         {
             add => AddEvent(MouseEvents.ContextMenu, ref _ContextMenu, value);
@@ -47,6 +51,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         }
 
         private event EventHandler<DOMMouseEventArgs> _DblClick;
+
         public event EventHandler<DOMMouseEventArgs> DblClick
         {
             add => AddEvent(MouseEvents.DblClick, ref _DblClick, value);
@@ -54,6 +59,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         }
 
         public event EventHandler<DOMMouseEventArgs> _MouseDown;
+
         public event EventHandler<DOMMouseEventArgs> MouseDown
         {
             add => AddEvent(MouseEvents.MouseDown, ref _MouseDown, value);
@@ -61,6 +67,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         }
 
         private event EventHandler<DOMMouseEventArgs> _MouseEnter;
+
         public event EventHandler<DOMMouseEventArgs> MouseEnter
         {
             add => AddEvent(MouseEvents.MouseEnter, ref _MouseEnter, value);
@@ -68,13 +75,15 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         }
 
         private event EventHandler<DOMMouseEventArgs> _MouseLeave;
+
         public event EventHandler<DOMMouseEventArgs> MouseLeave
         {
-            add => AddEvent(MouseEvents.MouseLeave,ref _MouseLeave, value);
-            remove => RemoveEvent(MouseEvents.MouseLeave,ref _MouseLeave, value);
+            add => AddEvent(MouseEvents.MouseLeave, ref _MouseLeave, value);
+            remove => RemoveEvent(MouseEvents.MouseLeave, ref _MouseLeave, value);
         }
 
         private event EventHandler<DOMMouseEventArgs> _MouseMove;
+
         public event EventHandler<DOMMouseEventArgs> MouseMove
         {
             add => AddEvent(MouseEvents.MouseMove, ref _MouseMove, value);
@@ -82,20 +91,23 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         }
 
         private event EventHandler<DOMMouseEventArgs> _MouseOut;
+
         public event EventHandler<DOMMouseEventArgs> MouseOut
         {
-            add => AddEvent(MouseEvents.MouseOut, ref _MouseOut , value);
-            remove => RemoveEvent(MouseEvents.MouseOut, ref _MouseOut , value);
+            add => AddEvent(MouseEvents.MouseOut, ref _MouseOut, value);
+            remove => RemoveEvent(MouseEvents.MouseOut, ref _MouseOut, value);
         }
 
         private event EventHandler<DOMMouseEventArgs> _MouseOver;
+
         public event EventHandler<DOMMouseEventArgs> MouseOver
         {
-            add => AddEvent(MouseEvents.MouseOver,ref _MouseOver , value);
-            remove => RemoveEvent(MouseEvents.MouseOver,ref _MouseOver , value);
+            add => AddEvent(MouseEvents.MouseOver, ref _MouseOver, value);
+            remove => RemoveEvent(MouseEvents.MouseOver, ref _MouseOver, value);
         }
 
         private event EventHandler<DOMMouseEventArgs> _MouseUp;
+
         public event EventHandler<DOMMouseEventArgs> MouseUp
         {
             add => AddEvent(MouseEvents.MouseUp, ref _MouseUp, value);
@@ -104,13 +116,15 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         //AuxClick
         private event EventHandler<DOMKeyboardEventArgs> _KeyDown;
+
         public event EventHandler<DOMKeyboardEventArgs> KeyDown
         {
-            add => AddEvent(KeyboardEvents.KeyDown,ref _KeyDown ,value);
-            remove => RemoveEvent(KeyboardEvents.KeyDown,ref _KeyDown ,value);
+            add => AddEvent(KeyboardEvents.KeyDown, ref _KeyDown, value);
+            remove => RemoveEvent(KeyboardEvents.KeyDown, ref _KeyDown, value);
         }
 
         private event EventHandler<DOMKeyboardEventArgs> _KeyPress;
+
         public event EventHandler<DOMKeyboardEventArgs> KeyPress
         {
             add => AddEvent(KeyboardEvents.KeyPress, ref _KeyPress, value);
@@ -118,21 +132,20 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         }
 
         private event EventHandler<DOMKeyboardEventArgs> _KeyUp;
+
         public event EventHandler<DOMKeyboardEventArgs> KeyUp
         {
-            add => AddEvent( KeyboardEvents.KeyUp,ref _KeyUp , value);
-            remove => RemoveEvent( KeyboardEvents.KeyUp,ref _KeyUp , value);
+            add => AddEvent(KeyboardEvents.KeyUp, ref _KeyUp, value);
+            remove => RemoveEvent(KeyboardEvents.KeyUp, ref _KeyUp, value);
         }
 
         public DOMElementEvents(WebView control, DOMVar domVar) : base(control, domVar)
         {
-
         }
 
         private bool IsThisAsync(Delegate del)
         {
             return del.Method.IsDefined(typeof(AsyncStateMachineAttribute), false);
-
         }
 
         private void AsyncCheck(Delegate del)
@@ -141,7 +154,7 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
                 throw new InvalidOperationException("You cannot assign a async function!");
         }
 
-        private readonly Dictionary<string,DOMScriptVar> _ScriptVars = new Dictionary<string,DOMScriptVar>();
+        private readonly Dictionary<string, DOMScriptVar> _ScriptVars = new Dictionary<string, DOMScriptVar>();
 
         public void addEventListener(string eventName, DOMEventListenerScript scriptText, bool useCapture)
         {
@@ -153,13 +166,9 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
                 Exec(new object[] { eventName, var, useCapture });
 
                 _ScriptVars.Add(eventName, var);
-                
-
             }
-            
-            
-            
         }
+
         public async Task addEventListenerAsync(string eventName, DOMScriptText scriptText, bool useCapture)
         {
             EventHandlerList.TryAdd(this.InstanceName, this);
@@ -200,176 +209,148 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
                 }
             }
         }
+
         protected override void OnDomEvent(RpcEventHandlerArgs e)
         {
             DOMVar eventObj = new DOMVar(this._View2Control, e.RpcObject.idFullName);
 
             using (DOMVar copyEventObj = eventObj.Copy())
             {
-
-
-
                 switch (e.EventName)
                 {
                     case MouseEvents.AuxClick:
+                    {
+                        var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
                         {
-
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
-                            {
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnAuxClickEvent(eventArgs);
-                            }
-
+                            var eventArgs = new DOMMouseEventArgs(me);
+                            OnAuxClickEvent(eventArgs);
                         }
+                    }
                         break;
                     case MouseEvents.Click:
+                    {
+                        var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
+
                         {
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
-
-                            {
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnClickEvent(eventArgs);
-
-                            }
-
+                            var eventArgs = new DOMMouseEventArgs(me);
+                            OnClickEvent(eventArgs);
                         }
+                    }
                         break;
                     case MouseEvents.ContextMenu:
+                    {
+                        var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
+
                         {
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
-
-                            {
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnContextMenuEvent(eventArgs);
-                            }
-
+                            var eventArgs = new DOMMouseEventArgs(me);
+                            OnContextMenuEvent(eventArgs);
                         }
+                    }
                         break;
                     case MouseEvents.DblClick:
+                    {
+                        var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
+
                         {
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
-
-                            {
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnDblClickEvent(eventArgs);
-
-                            }
-
+                            var eventArgs = new DOMMouseEventArgs(me);
+                            OnDblClickEvent(eventArgs);
                         }
+                    }
                         break;
                     case MouseEvents.MouseDown:
+                    {
+                        var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
                         {
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
-                            {
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnMouseDownEvent(eventArgs);
-                            }
-
+                            var eventArgs = new DOMMouseEventArgs(me);
+                            OnMouseDownEvent(eventArgs);
                         }
+                    }
                         break;
                     case MouseEvents.MouseEnter:
+                    {
+                        var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
                         {
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
-                            {
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnMouseEnterEvent(eventArgs);
-
-                            }
-
-
+                            var eventArgs = new DOMMouseEventArgs(me);
+                            OnMouseEnterEvent(eventArgs);
                         }
+                    }
                         break;
                     case MouseEvents.MouseLeave:
+                    {
+                        var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
                         {
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
-                            {
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnMouseLeaveEvent(eventArgs);
-
-                            }
-
+                            var eventArgs = new DOMMouseEventArgs(me);
+                            OnMouseLeaveEvent(eventArgs);
                         }
+                    }
                         break;
                     case MouseEvents.MouseMove:
+                    {
+                        var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
                         {
-
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
-                            {
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnMouseMoveEvent(eventArgs);
-
-                            }
-
+                            var eventArgs = new DOMMouseEventArgs(me);
+                            OnMouseMoveEvent(eventArgs);
                         }
+                    }
                         break;
                     case MouseEvents.MouseOut:
+                    {
+                        var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
                         {
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
-                            {
-                                var eventArgs = new DOMMouseEventArgs(me);
+                            var eventArgs = new DOMMouseEventArgs(me);
 
-                                OnMouseOutEvent(eventArgs);
-                            }
-
-
+                            OnMouseOutEvent(eventArgs);
                         }
+                    }
                         break;
                     case MouseEvents.MouseOver:
+                    {
+                        var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
                         {
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
-                            {
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnMouseOverEvent(eventArgs);
-
-                            }
-
+                            var eventArgs = new DOMMouseEventArgs(me);
+                            OnMouseOverEvent(eventArgs);
                         }
+                    }
                         break;
                     case MouseEvents.MouseUp:
+                    {
+                        var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
                         {
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
-                            {
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnMouseUpEvent(eventArgs);
-                            }
-
-
+                            var eventArgs = new DOMMouseEventArgs(me);
+                            OnMouseUpEvent(eventArgs);
                         }
+                    }
                         break;
                     case KeyboardEvents.KeyDown:
+                    {
+                        var ke = this.GetDomObjectFromDomVar<DOMKeyboardEvent>(copyEventObj);
                         {
-                            var ke = this.GetDomObjectFromDomVar<DOMKeyboardEvent>(copyEventObj);
-                            {
-                                var eventArgs = new DOMKeyboardEventArgs(ke);
-                                OnKeyDownEvent(eventArgs);
-
-                            }
-
+                            var eventArgs = new DOMKeyboardEventArgs(ke);
+                            OnKeyDownEvent(eventArgs);
                         }
+                    }
                         break;
                     case KeyboardEvents.KeyPress:
+                    {
+                        var ke = this.GetDomObjectFromDomVar<DOMKeyboardEvent>(copyEventObj);
                         {
-                            var ke = this.GetDomObjectFromDomVar<DOMKeyboardEvent>(copyEventObj);
-                            {
-                                var eventArgs = new DOMKeyboardEventArgs(ke);
-                                OnKeyPressEvent(eventArgs);
-                            }
-
+                            var eventArgs = new DOMKeyboardEventArgs(ke);
+                            OnKeyPressEvent(eventArgs);
                         }
+                    }
                         break;
                     case KeyboardEvents.KeyUp:
+                    {
+                        var ke = this.GetDomObjectFromDomVar<DOMKeyboardEvent>(copyEventObj);
                         {
-                            var ke = this.GetDomObjectFromDomVar<DOMKeyboardEvent>(copyEventObj);
-                            {
-                                var eventArgs = new DOMKeyboardEventArgs(ke);
-                                OnKeyUpEvent(eventArgs);
-
-                            }
-
+                            var eventArgs = new DOMKeyboardEventArgs(ke);
+                            OnKeyUpEvent(eventArgs);
                         }
+                    }
                         break;
                 }
             }
+
             base.OnDomEvent(e);
         }
 
@@ -380,7 +361,6 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         protected virtual void OnMouseOverEvent(DOMMouseEventArgs e)
         {
-
             _MouseOver?.Invoke(this, e);
         }
 
@@ -396,55 +376,46 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         protected virtual void OnContextMenuEvent(DOMMouseEventArgs e)
         {
-
             _ContextMenu?.Invoke(this, e);
         }
 
         protected virtual void OnDblClickEvent(DOMMouseEventArgs e)
         {
-
             _DblClick?.Invoke(this, e);
         }
 
         protected virtual void OnMouseDownEvent(DOMMouseEventArgs e)
         {
-
             _MouseDown?.Invoke(this, e);
         }
 
         protected virtual void OnMouseEnterEvent(DOMMouseEventArgs e)
         {
-
             _MouseEnter?.Invoke(this, e);
         }
 
         protected virtual void OnMouseLeaveEvent(DOMMouseEventArgs e)
         {
-
             _MouseLeave?.Invoke(this, e);
         }
 
         protected virtual void OnMouseMoveEvent(DOMMouseEventArgs e)
         {
-
             _MouseMove?.Invoke(this, e);
         }
 
         protected virtual void OnMouseUpEvent(DOMMouseEventArgs e)
         {
-
             _MouseUp?.Invoke(this, e);
         }
 
         protected virtual void OnKeyDownEvent(DOMKeyboardEventArgs e)
         {
-
             _KeyDown?.Invoke(this, e);
         }
 
         protected virtual void OnKeyPressEvent(DOMKeyboardEventArgs e)
         {
-
             _KeyPress?.Invoke(this, e);
         }
 
@@ -461,7 +432,8 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         //}
 
-        private bool disposedValue=false;
+        private bool disposedValue;
+
         protected override void Dispose(bool disposing)
         {
             if (!this.disposedValue)
@@ -473,11 +445,9 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
                 this.disposedValue = true;
             }
+
             base.Dispose(disposing);
         }
     }
-
-
-
 
 }
