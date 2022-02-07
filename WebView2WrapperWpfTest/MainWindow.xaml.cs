@@ -118,6 +118,7 @@ namespace WebView2WrapperWpfTest
                 {
                     this._BUTTON = null;
                     MessageBox.Show("Could not get Button");
+                    this.WebView3.GetDOMWindow().alertAsync("TEST");
                 }
                 else
                 {
