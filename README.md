@@ -23,8 +23,8 @@ It should also be possible to work completely without an HTTP server.
 ### packages are currently supported.
 microsoft.web.webview2
 
-- Version 1.0.992.28 is the current Version on Client - PC's
-- Version 1.0.1020.30 is the current Version on Client - PC's
+- Version 1.0.1054.31 is the current Version on Client - PC's
+- Version 1.0.1072.54 is the current Version on Client - PC's
 
 WebView2 [Release-Notes](https://docs.microsoft.com/de-de/microsoft-edge/webview2/releasenotes)
 
@@ -89,8 +89,29 @@ public async Task InvokeSendMessage(string msg)
 ## DOM Objects
 The Windows Forms project now supports DOM objects.
 You can retrieve the DOM - Window object and the DOM - Document object directly by using the GetDOMWidow() and GetDOMDocument() functions.
-It should be noted that calls are asynchronous.
+Events are only add sync functions!!
+```c#
+DOMElement button = this.WebView3.GetDOMDocument().getElementById("ga_button");
+button.Click += (o, ev) =>
+{
+   MessageBox.Show("Test from Button");
+};
+```
 
+
+The following code will throw an exception!!
+
+```c#
+DOMElement button = this.WebView3.GetDOMDocument().getElementById("ga_button");
+
+// you cannot add async Eventhandler!!!
+// this will Raise InvalidOperation!!
+button.Click += async (o, ev) =>
+{
+   await this.WebView3.GetDOMWindow().alertAsync("TEST");
+};
+
+```
 
 ###### This text was automatically translated with the [Microsoft translator](https://www.bing.com/translator "Microsoft translator").
 
