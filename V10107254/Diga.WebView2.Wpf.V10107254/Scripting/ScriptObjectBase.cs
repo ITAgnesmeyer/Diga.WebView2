@@ -95,7 +95,20 @@ namespace Diga.WebView2.Wpf.Scripting
             return returnArgString;
         }
 
-        protected async Task<T> Exec<T>(object[] args, [CallerMemberName] string member = "")
+        protected void Exec(object[] args, [CallerMemberName] string member = "")
+        {
+            string argsString = BuildArgs(args);
+            string funcValue = $"return {this.InstanceName}.{member}({argsString});";
+            ExecuteScript(funcValue);
+        }
+        protected T Exec<T>(object[] args, [CallerMemberName] string member = "")
+        {
+            string argsString = BuildArgs(args);
+            string funcValue = $"return {this.InstanceName}.{member}({argsString});";
+            object retVal = ExecuteScript(funcValue);
+            return (T)Convert.ChangeType(retVal, typeof(T));
+        }
+        protected async Task<T> ExecAsync<T>(object[] args, [CallerMemberName] string member = "")
         {
             string argsString = BuildArgs(args);
             string funcValue = $"return {this.InstanceName}.{member}({argsString});";
@@ -106,12 +119,15 @@ namespace Diga.WebView2.Wpf.Scripting
 
         }
 
-        //protected void Exec(object[] args, [CallerMemberName] string member = "")
-        //{
-        //    string argsString = BuildArgs(args);
-        //    string funcValue = $"{this.InstanceName}.{member}({argsString});";
-        //    InvokeScript(funcValue);
-        //}
+        public async Task ExecAsync(object[] args, [CallerMemberName] string member = "")
+        {
+            string argsString = BuildArgs(args);
+            string funcValue = $"return {this.InstanceName}.{member}({argsString});";
+
+            await ExecuteScriptAsync(funcValue);
+
+        }
+        
         protected async Task<T> GetAsync<T>([CallerMemberName] string member = "")
         {
             string propVal = $"return {this.InstanceName}.{member};";
@@ -119,12 +135,12 @@ namespace Diga.WebView2.Wpf.Scripting
             return (T)Convert.ChangeType(result, typeof(T));
         }
 
-        //protected T Get<T>([CallerMemberName] string member = "")
-        //{
-        //    string propVal = $"return {this.InstanceName}.{member};";
-        //    object result = ExecuteScript(propVal);
-        //    return (T)result;
-        //}
+        protected T Get<T>([CallerMemberName] string member = "")
+        {
+            string propVal = $"return {this.InstanceName}.{member};";
+            object result = ExecuteScript(propVal);
+            return (T)Convert.ChangeType(result, typeof(T));
+        }
 
         protected async Task SetAsync<T>(Task<T> value, [CallerMemberName] string member = "")
         {
@@ -133,33 +149,26 @@ namespace Diga.WebView2.Wpf.Scripting
             string funcValue = $"{this.InstanceName}.{member}={argsValue};";
             await ExecuteScriptAsync(funcValue);
         }
-        //protected void Set<T>(T  value, [CallerMemberName] string member = "")
-        //{
-        //    string argsValue = BuildArgs(new object[] { value });
-        //    string funcValue = $"{this.InstanceName}.{member}={argsValue};";
-        //    InvokeScript(funcValue);
-        //}
+        protected void Set<T>(T value, [CallerMemberName] string member = "")
+        {
+            string argsValue = BuildArgs(new object[] { value });
+            string funcValue = $"{this.InstanceName}.{member}={argsValue};";
+            ExecuteScript(funcValue);
+        }
 
         protected async Task<string> ExecuteScriptAsync(string script)
         {
             return await this._View2Control.ExecuteScriptAsync(script);
         }
-        //public static T AsyncCall<T>(Task<T> tsk)
-        //{
-        //    TaskAwaiter<T> awaiter = tsk.GetAwaiter();
-        //    while (!awaiter.IsCompleted)
-        //    {
-        //        Thread.Sleep(10);
-        //        Application.DoEvents();
-        //    }
-        //    return awaiter.GetResult();
-        //}
-        //protected string ExecuteScript(string script)
-        //{
-        //    string var = AsyncCall(ExecuteScriptAsync(script));
+       
 
-        //    return var;
-        //}
+
+        protected string ExecuteScript(string script)
+        {
+            string var = this._View2Control.ExecuteScriptSync(script);
+
+            return var;
+        }
 
         protected void InvokeScript(string script)
         {

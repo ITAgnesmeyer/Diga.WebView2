@@ -303,7 +303,7 @@
             // 
             this.webView1.AreBrowserAcceleratorKeysEnabled = true;
             this.webView1.BackColor = System.Drawing.Color.Black;
-            this.webView1.DefaultBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.webView1.DefaultBackgroundColor = System.Drawing.Color.AliceBlue;
             this.webView1.DefaultContextMenusEnabled = true;
             this.webView1.DefaultScriptDialogsEnabled = true;
             this.webView1.DevToolsEnabled = true;

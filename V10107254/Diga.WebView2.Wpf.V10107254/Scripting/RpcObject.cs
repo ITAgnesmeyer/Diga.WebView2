@@ -12,8 +12,8 @@ namespace Diga.WebView2.Wpf.Scripting
         public string action { get; set; }
         public string param { get; set; }
         public object item { get; set; }
-        public string idFullName => "window.diga._HEAP_" + this.id.Replace("-", "_");
-        public string idName=>"_HEAP_" + this.id.Replace("-", "_");
+        public string idFullName => "window.diga._HEAP_" + id.Replace("-", "_");
+        public string idName=>"_HEAP_" + id.Replace("-", "_");
         public object Clone()
         {
             RpcObject destination = (RpcObject)this.MemberwiseClone();

@@ -45,7 +45,9 @@ namespace Diga.WebView2.Wpf
         public event EventHandler BeforeWebViewDestroy;
 
         public event EventHandler<WebView2EventArgs> WindowCloseRequested;
-
+        public event EventHandler<WebView2EventArgs> IsMutedChanged;
+        public event EventHandler<WebView2EventArgs> IsDocumentPlayingAudioChanged;
+        public event EventHandler<WebView2EventArgs> IsDefaultDownloadDialogOpenChanged;
         private void OnWebWindowBeforeCreate(object sender, BeforeCreateEventArgs e)
         {
             WebWindowInitSettings(e);
@@ -118,7 +120,8 @@ namespace Diga.WebView2.Wpf
             WindowCloseRequested?.Invoke(this, e);
         }
 
-        protected virtual void OnScriptToExecuteOnDocumentCreatedCompleted(AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
+        protected virtual void OnScriptToExecuteOnDocumentCreatedCompleted(
+            AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
         {
             ScriptToExecuteOnDocumentCreatedCompleted?.Invoke(this, e);
         }
@@ -163,7 +166,7 @@ namespace Diga.WebView2.Wpf
             MoveFocusRequested?.Invoke(this, e);
         }
 
-        public string BrowserVersion => _WebViewControl.BrowserInfo;
+        public string BrowserVersion => this._WebViewControl.BrowserInfo;
 
         protected virtual void OnWebViewCreated()
         {
@@ -311,7 +314,9 @@ namespace Diga.WebView2.Wpf
         {
             OnWebMessageReceived(e);
         }
-        private void ScriptToExecuteOnDocumentCreatedCompletedIntern(object sender, AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
+
+        private void ScriptToExecuteOnDocumentCreatedCompletedIntern(object sender,
+            AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
         {
             OnScriptToExecuteOnDocumentCreatedCompleted(e);
         }
@@ -382,13 +387,14 @@ namespace Diga.WebView2.Wpf
 
         private void BeforeDisposeWebView()
         {
-            UnWireEvents(_WebViewControl);
+            UnWireEvents(this._WebViewControl);
         }
 
-        private bool _UnWireExecuted = false;
+        private bool _UnWireExecuted;
+
         private void UnWireEvents(WebView2Control control)
         {
-            if (_UnWireExecuted) return;
+            if (this._UnWireExecuted) return;
 
             if (control == null) return;
             control.Created -= OnWebWindowCreated;
@@ -424,6 +430,9 @@ namespace Diga.WebView2.Wpf
             control.DownloadStarting -= OnDownalodStartingIntern;
             control.FrameCreated -= OnFrameCreatedIntern;
             control.RasterizationScaleChanged -= OnRasterizationScaleChangedIntern;
+            control.IsMutedChanged -= OnIsMutedChangedIntern;
+            control.IsDocumentPlayingAudioChanged -= OnIsDocumentPlayingAudioChangedIntern;
+            control.IsDefaultDownloadDialogOpenChanged -= OnIsDefaultDownloadDialogOpenChangedIntern;
             _UnWireExecuted = true;
         }
 
@@ -463,7 +472,39 @@ namespace Diga.WebView2.Wpf
             control.DownloadStarting += OnDownalodStartingIntern;
             control.FrameCreated += OnFrameCreatedIntern;
             control.RasterizationScaleChanged += OnRasterizationScaleChangedIntern;
+            control.IsMutedChanged += OnIsMutedChangedIntern;
+            control.IsDocumentPlayingAudioChanged += OnIsDocumentPlayingAudioChangedIntern;
+            control.IsDefaultDownloadDialogOpenChanged += OnIsDefaultDownloadDialogOpenChangedIntern;
         }
 
+        private void OnIsDefaultDownloadDialogOpenChangedIntern(object sender, WebView2EventArgs e)
+        {
+            OnIsDefaultDownloadDialogOpenChanged(e);
+        }
+
+        private void OnIsDocumentPlayingAudioChangedIntern(object sender, WebView2EventArgs e)
+        {
+            OnIsDocumentPlayingAudioChanged(e);
+        }
+
+        private void OnIsMutedChangedIntern(object sender, WebView2EventArgs e)
+        {
+            OnIsMutedChanged(e);
+        }
+
+        protected virtual void OnIsMutedChanged(WebView2EventArgs e)
+        {
+            IsMutedChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnIsDocumentPlayingAudioChanged(WebView2EventArgs e)
+        {
+            IsDocumentPlayingAudioChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnIsDefaultDownloadDialogOpenChanged(WebView2EventArgs e)
+        {
+            IsDefaultDownloadDialogOpenChanged?.Invoke(this, e);
+        }
     }
 }

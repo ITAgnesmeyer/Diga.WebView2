@@ -24,6 +24,7 @@
 	</PropertyGroup>
 	<ItemGroup>
 	  <PackageReference Include="Diga.Core.Json" Version="1.0.2" />
+	  <PackageReference Include="Diga.Core.Threading" Version="1.0.3" />
 	  <PackageReference Include="System.Drawing.Common" Version="6.0.2-mauipre.1.22054.8" />
 	</ItemGroup>
 	<ItemGroup>
@@ -33,6 +34,11 @@
 	  <ProjectReference Include="..\Diga.WebView2.Wrapper.V10107254\Diga.WebView2.Wrapper.V10107254.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DependentUpon>Resources.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
 	  <Compile Update="WebView.Events.cs">
 	    <SubType>UserControl</SubType>
 	  </Compile>
@@ -48,6 +54,15 @@
 	  <Compile Update="WebView.Scripting.cs">
 	    <SubType>UserControl</SubType>
 	  </Compile>
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <SubType>Designer</SubType>
+	    <CustomToolNamespace>Diga.WebView2.Wpf.Properties</CustomToolNamespace>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
 	</ItemGroup>
 	
 </Project>

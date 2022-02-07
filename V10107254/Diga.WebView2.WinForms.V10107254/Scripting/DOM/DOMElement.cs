@@ -355,6 +355,11 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
                 {
                     this._ownerDocument = GetTypedVar<DOMDocument>();
                 }
+                else
+                {
+                    if(!this._ownerDocument.VarExist())
+                        this._ownerDocument = GetTypedVar<DOMDocument>();
+                }
                 return this._ownerDocument;
             }
         }

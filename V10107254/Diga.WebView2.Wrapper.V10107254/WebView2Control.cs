@@ -951,6 +951,12 @@ namespace Diga.WebView2.Wrapper
             get => this.WebView.IsMuted;
             set => this.WebView.IsMuted = value;
         }
+
+        public void SetVirtualHostNameToFolderMapping(string hostName, string folder,
+            COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND access)
+        {
+            this.WebView.SetVirtualHostNameToFolderMapping(hostName,folder, access);
+        }
         public async Task CapturePreviewAsync(Stream stream, ImageFormat imageFormat)
         {
             await this.WebView.CapturePreviewAsync(stream, imageFormat);

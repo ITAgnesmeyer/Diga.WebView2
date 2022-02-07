@@ -7,7 +7,7 @@ namespace Diga.WebView2.Wpf.Scripting
         public ScriptErrorObject ScriptError { get; }
         public WebViewExecuteScriptCompletedEventArgs(int errorCode, string resultObjectAsJson, string id) : base(errorCode, resultObjectAsJson, id)
         {
-            this.ScriptError = ScriptSerializationHelper.GetScriptErrorObject(this.ResultObjectAsJson);
+            ScriptError = ScriptSerializationHelper.GetScriptErrorObject(ResultObjectAsJson);
         }
     }
 }

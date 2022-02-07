@@ -11,7 +11,7 @@
 
         public override string ToString()
         {
-            string result = $"Name:{this.name},Message:{this.message},FileName:{this.fileName},Line:{this.lineNumber},Column:{this.columnNumber},ScriptStack:{this.stack}";
+            string result = $"Name:{name},Message:{message},FileName:{fileName},Line:{lineNumber},Column:{columnNumber},ScriptStack:{stack}";
             return result;
         }
 

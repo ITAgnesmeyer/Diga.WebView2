@@ -12,12 +12,19 @@ namespace Diga.WebView2.Wpf.Scripting.DOM
         {
             
         }
-        public Task<int> availHeight=>GetAsync<int>();
-        public Task<int> availWidth=>GetAsync<int>();
-        public Task<int> colorDepth=>GetAsync<int>();
-        public Task<int> height=>GetAsync<int>();
-        public Task<int> pixelDepth=>GetAsync<int>();
-        public Task<int> width=>GetAsync<int>();
+
+        public int availHeight => Get<int>();
+        public Task<int> availHeightAsync=>GetAsync<int>(nameof(availHeight));
+        public int availWidth => Get<int>();
+        public Task<int> availWidthAsync=>GetAsync<int>(nameof(availWidth));
+        public int colorDepth => Get<int>();
+        public Task<int> colorDepthAsync=>GetAsync<int>(nameof(colorDepth));
+        public int height => Get<int>();
+        public Task<int> heightAsync=>GetAsync<int>(nameof(height));
+        public int pixelDepth => Get<int>();
+        public Task<int> pixelDepthAsync=>GetAsync<int>(nameof(pixelDepth));
+        public int width => Get<int>();
+        public Task<int> widthAsync=>GetAsync<int>(nameof(width));
 
 
     }

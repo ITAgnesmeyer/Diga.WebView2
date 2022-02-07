@@ -2,6 +2,10 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
+using System.Resources;
+using System.Text;
+using Diga.WebView2.WinForms.Properties;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
 using MimeTypeExtension;
@@ -27,8 +31,83 @@ namespace Diga.WebView2.WinForms
                     //Debug.Print("Open response:" + this._Responses.Count);
                 }
             }
+
+            if (GetResource(e.Request.Uri, out var responseInfoRes))
+            {
+                var response = this.CreateResponse(responseInfoRes);
+                e.Response = response;
+                this._Responses.TryAdd(e.Request.Uri, responseInfoRes);
+            }
+
         }
 
+        private bool GetResource(string url, out ResponseInfo responseInfo)
+        {
+            string monUrl = "https://diga.assets:1/";
+
+            if (!url.StartsWith(monUrl))
+            {
+                responseInfo = null;
+                return false;
+            }
+
+            if (url.Length <= monUrl.Length)
+            {
+                responseInfo = null;
+                return false;
+            }
+            string resName = url.Substring(monUrl.Length);
+
+            if (string.IsNullOrEmpty(resName))
+            {
+                responseInfo = null;
+                return false;
+            }
+
+            try
+            {
+                string resString = Resources.ResourceManager.GetString(resName);
+                if (resString == null)
+                {
+                    responseInfo = new ResponseInfo("<h1>Server Error</h1><h5>file not found:" + url + "</h5>");
+                    responseInfo.Header.Add("content-type", "text/html; charset=utf-8");
+                    responseInfo.ContentType = "content-type: text/html; charset=utf-8";
+                    responseInfo.StatusCode = 404;
+                    responseInfo.StatusText = "Not Found";
+                    return false;
+                }
+
+                int index = resString.IndexOf("base64,",StringComparison.Ordinal);
+                string mime = resString.Substring(5, index - 5);
+            
+                string contentBase64 = resString.Substring(index + 7);
+
+                byte[] contentBase64Bytes = Convert.FromBase64String(contentBase64);
+            
+
+                responseInfo = new ResponseInfo(contentBase64Bytes);
+                responseInfo.Header.Add("content-type",mime);
+                responseInfo.ContentType = mime;
+                responseInfo.StatusCode = 200;
+                responseInfo.StatusText = "OK";
+                return true;
+            }
+            catch (Exception e)
+            {
+                string message = "Error:" + e.Message;
+                responseInfo = new ResponseInfo(message);
+                responseInfo.Header.Add("content-type", "text/html; charset=utf-8");
+                responseInfo.ContentType = "content-type; charset=utf-8";
+                responseInfo.StatusCode = 500;
+                responseInfo.StatusText = "Internal Server Error";
+                return true;
+            }
+            
+
+
+           
+
+        }
         private void CleanUpResponses(WebResourceResponseReceivedEventArgs e)
         {
             if (this._Responses.ContainsKey(e.Request.Uri))

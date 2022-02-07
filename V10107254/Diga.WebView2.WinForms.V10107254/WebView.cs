@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using Diga.Core.Threading;
+using Diga.WebView2.Interop;
 using Diga.WebView2.WinForms.Scripting;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
@@ -75,6 +76,7 @@ namespace Diga.WebView2.WinForms
                 NavigateToString(this._HtmlContent);
             if (this._ZoomFactor != 0)
                 this.ZoomFactor = this._ZoomFactor;
+            //this._WebViewControl.SetVirtualHostNameToFolderMapping("diga.resources","c:\\temp",COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND.COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND_ALLOW);
         }
 
         private void WebView_Resize(object sender, EventArgs e)

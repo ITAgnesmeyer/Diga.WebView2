@@ -2,7 +2,7 @@
 
 namespace Diga.WebView2.Wpf.Scripting.DOM
 {
-    public class DOMElement : DOMObject
+    public class DOMElement : DOMElementEvents
     {
 
       
@@ -11,296 +11,490 @@ namespace Diga.WebView2.Wpf.Scripting.DOM
 
         }
 
-        public  Task<string> accessKey
+        public string accessKey
         {
-            get => GetAsync<string>();
-            set => _ = SetAsync(value);
+            get => Get<string>();
+            set => Set(value);
+        }
+        public Task<string> accessKeyAsync
+        {
+            get => GetAsync<string>(nameof(accessKey));
+            set => _ = SetAsync(value,nameof(accessKey));
         }
 
-        public Task<string> accessKeyLabel => GetAsync<string>();
+        public string accessKeyLabel => Get<string>();
+        public Task<string> accessKeyLabelAsync => GetAsync<string>(nameof(accessKeyLabel));
+
         
-        public Task addEventListener(string eventName, DOMScriptText scriptText , bool useCapture)
+        public void appendChild(DOMElement element)
         {
-            EventHandlerList.TryAdd(this.InstanceName,this);
-            return Exec<object>(new object[]{eventName,scriptText, useCapture});
+            Exec(new object[] { element });
+        }
+        public Task appendChildAsync(DOMElement element)
+        {
+            return ExecAsync<object>(new object[] { element },nameof(appendChild));
         }
 
-        public Task appendChild(DOMElement element)
+        public void blur() => Exec(new object[]{});
+        public Task blurAsync() => ExecAsync<object>(new object[] { },nameof(blur));
+
+
+        public int childElementCount => Get<int>();
+        public Task<int> childElementCountAsync => GetAsync<int>(nameof(childElementCount));
+
+        public string className
         {
-            return Exec<object>(new object[]{element});
+            get => Get<string>();
+            set => Set(value);
+        }
+        public Task<string> classNameAsync
+        {
+            get => GetAsync<string>(nameof(className));
+            set => _ = SetAsync(value,nameof(className));
+
         }
 
-        public Task blur() => Exec<object>(new object[] { });
+        public void click() => Exec(new object[] { });
+        public Task clickAsync() => ExecAsync<object>(new object[] { },nameof(click));
 
-        public Task<int> childElementCount => GetAsync<int>();
+        public int clientHeight => Get<int>();
+        public Task<int> clientHeightAsync => GetAsync<int>(nameof(clientHeight));
+        public int clientLeft => Get<int>();
+        public Task<int> clientLeftAsync => GetAsync<int>(nameof(clientLeft));
+        public int clientTop => Get<int>();
+        public Task<int> clientTopAsync => GetAsync<int>(nameof(clientTop));
 
-        public Task<string> className
+        public int clientWidth  => Get<int>();
+        public Task<int> clientWidthAsync => GetAsync<int>(nameof(clientWidth));
+
+        public DOMElement cloneNode(bool deep)
         {
-            get=> GetAsync<string>();
-            set => _ = SetAsync(value);
-
+            DOMVar domVar = ExecGetVar(new object[] { deep });
+            return new DOMElement(this._View2Control, domVar);
         }
-
-        public Task click() => Exec<object>(new object[] { });
-
-        public Task<int> clientHeight => GetAsync<int>();
-        public Task<int> clientLeft => GetAsync<int>();
-
-        public Task<int> clientTop => GetAsync<int>();
-
-        public Task<int> clientWidth => GetAsync<int>();
-
-        public async Task<DOMElement> cloneNode(bool deep)
+        public async Task<DOMElement> cloneNodeAsync(bool deep)
         {
-            DOMVar domVar = await ExecGetVarAsync(new object[] { deep });
+            DOMVar domVar = await ExecGetVarAsync(new object[] { deep },nameof(cloneNode));
             return new DOMElement(this._View2Control, domVar);
         }
 
-        public async Task<DOMElement> closes(string selector)
+        public DOMElement closes(string selector)
         {
-            DOMVar domVar = await ExecGetVarAsync( new object[] {selector});
+            DOMVar domVar = ExecGetVar(new object[] { selector });
+            return new DOMElement(this._View2Control, domVar);
+        }
+        public async Task<DOMElement> closesAsync(string selector)
+        {
+            DOMVar domVar = await ExecGetVarAsync(new object[] { selector },nameof(closes));
             return new DOMElement(this._View2Control, domVar);
         }
 
-        public Task<bool> contains(DOMElement element)
+        public bool contains(DOMElement element)
         {
             return Exec<bool>(new object[] { element });
         }
-
-        public Task<string> contentEditable
+        public Task<bool> containsAsync(DOMElement element)
         {
-            get => GetAsync<string>();
+            return ExecAsync<bool>(new object[] { element },nameof(contains));
+        }
+
+        public string contentEditable
+        {
+            get => Get<string>();
+            set => Set(value);
+        }
+        public Task<string> contentEditableAsync
+        {
+            get => GetAsync<string>(nameof(contentEditable));
             set => _ = SetAsync(value);
         }
 
-        public Task<string> dir
+        public string dir
         {
-            get => GetAsync<string>();
-            set=> _ = SetAsync(value);
-        }
-
-        public Task<string> enterKeyHint
-        {
-            get => GetAsync<string>();
-            set => _ = SetAsync(value);
-        }
-        public Task exitFullscreen() => Exec<object>(new object[] { });
-
-        public Task< DOMElement> firstChild
-        {
-            get => GetTypedVar<DOMElement>();
+            get => Get<string>();
+            set => Set(value);
 
         }
-
-        public Task<DOMElement> firstElementChild
+        public Task<string> dirAsync
         {
-            get => GetTypedVar<DOMElement>();
+            get => GetAsync<string>(nameof(dir));
+            set => _ = SetAsync(value,nameof(dir));
         }
 
-        public Task focus() => Exec<object>(new object[] { });
-
-
-        public Task<bool> hasAttribute(string value) => Exec<bool>(new object[] { value });
-
-        public Task<bool> hasAttributes() => Exec<bool>(new object[] { });
-
-        public Task<bool> hasChildNodes() => Exec<bool>(new object[] { });
-
-
-        public Task<bool> hidden
+        public string enterKeyHint
         {
-            get => GetAsync<bool>();
-            set => _ = SetAsync(value);
+            get => Get<string>();
+            set => Set(value);
+        }
+        public Task<string> enterKeyHintAsync
+        {
+            get => GetAsync<string>(nameof(enterKeyHint));
+            set => _ = SetAsync(value,nameof(enterKeyHint));
+        }
+        public void exitFullscreen()=> Exec(new object[] { });
+        public Task exitFullscreenAsync() => ExecAsync<object>(new object[] { },nameof(exitFullscreen));
+
+        public DOMElement firstChild => GetTypedVar<DOMElement>();
+        public Task<DOMElement> firstChildAsync => GetTypedVarAsync<DOMElement>(nameof(firstChild));
+
+        public DOMElement firstElementChild => GetTypedVar<DOMElement>();
+        public Task<DOMElement> firstElementChildAsync => GetTypedVarAsync<DOMElement>(nameof(firstElementChild));
+        public void focus()=> Exec(new object[] { });
+
+        public Task focusAsync() => ExecAsync<object>(new object[] { },nameof(focus));
+
+        public bool hasAttribute(string value) => Exec<bool>(new object[] { value });
+        public Task<bool> hasAttributeAsync(string value) => ExecAsync<bool>(new object[] { value },nameof(hasAttribute));
+
+        public bool hasAttributes() => Exec<bool>(new object[] { });
+        public Task<bool> hasAttributesAsync() => ExecAsync<bool>(new object[] { },nameof(hasAttributes));
+
+        public bool hasChildNodes() => Exec<bool>(new object[] { });
+        public Task<bool> hasChildNodesAsync() => ExecAsync<bool>(new object[] { },nameof(hasChildNodes));
+
+        public bool hidden
+        {
+            get => Get<bool>();
+            set => Set(value);
+        }
+        public Task<bool> hiddenAsync
+        {
+            get => GetAsync<bool>(nameof(hidden));
+            set => _ = SetAsync(value,nameof(hidden));
         }
 
-        public Task<string> id
+        public string id
         {
-            get => GetAsync<string>();
-            set => _ = SetAsync(value);
+            get => Get<string>();
+            set => Set(value);
+
+        }
+        public Task<string> idAsync
+        {
+            get => GetAsync<string>(nameof(id));
+            set => _ = SetAsync(value,nameof(id));
         }
 
-        public Task<string> innerHTML
+        public string innerHTML
         {
-            get => GetAsync<string>();
-            set => _ = SetAsync(value);
+            get => Get<string>();
+            set => Set(value);
+        }
+        public Task<string> innerHTMLAsync
+        {
+            get => GetAsync<string>(nameof(innerHTML));
+            set => _ = SetAsync(value,nameof(innerHTML));
         }
 
-        public Task<bool> inert
+        public bool inert
         {
-            get => GetAsync<bool>();
-            set=> _ = SetAsync(value);
+            get => Get<bool>();
+            set => Set(value);
+        }
+        public Task<bool> inertAsync
+        {
+            get => GetAsync<bool>(nameof(inert));
+            set => _ = SetAsync(value,nameof(inert));
         }
 
-        public Task<string> innerText
+        public string innerText
         {
-            get => GetAsync<string>();
-            set => _ = SetAsync(value);
+            get => Get<string>();
+            set => Set(value);
+        }
+        public Task<string> innerTextAsync
+        {
+            get => GetAsync<string>(nameof(innerText));
+            set => _ = SetAsync(value,nameof(innerText));
         }
 
+        public void insertAdjacentElement(string position, DOMElement element) =>
+            Exec(new object[] { position, element });
+        public Task insertAdjacentElementAsync(string position, DOMElement element)
+        {
+            return ExecAsync<object>(new object[] { position, element },nameof(insertAdjacentElement));
+        }
+
+        public void insertAdjacentHTML(string position, string html)
+        {
+            Exec(new object[] { position, html });
+        }
+
+        public Task insertAdjacentHTMLAsync(string position, string html)
+        {
+            return ExecAsync<object>(new object[] { position, html },nameof(insertAdjacentHTML));
+        }
         
-        public Task insertAdjacentElement(string position, DOMElement element)
+        public void insertAdjacentText(string position, string text)
         {
-            return Exec<object>(new object[]{position,element});
+            Exec(new object[] { position, text });
         }
 
-        public Task insertAdjacentHTML(string position, string html)
+        public Task insertAdjacentTextAsync(string position, string text)
         {
-            return Exec<object>(new object[]{position,html});
+            return ExecAsync<object>(new object[] { position, text },nameof(insertAdjacentText));
         }
 
-        public Task insertAdjacentText(string position, string text)
+        public void insertBefore(DOMElement newNode, DOMElement existingNode)
         {
-            return Exec<object>(new object[]{position, text});
+            Exec(new object[] { newNode, existingNode });
         }
 
-        public Task insertBefore(DOMElement newNode, DOMElement existingNode)
+        public Task insertBeforeAsync(DOMElement newNode, DOMElement existingNode)
         {
-            return Exec<object>(new object[] { newNode, existingNode });
+            return ExecAsync<object>(new object[] { newNode, existingNode },nameof(insertBefore));
         }
 
-        public Task<bool> isContentEditable => GetAsync<bool>();
+        public bool isContentEditable => Get<bool>();
+        public Task<bool> isContentEditableAsync => GetAsync<bool>(nameof(isContentEditable));
 
-        public Task<bool> isDefaultNamespace(string nameSpace) => Exec<bool>(new object[] { nameSpace });
+        public bool isDefaultNamespace(string nameSpace) => Exec<bool>(new object[] { nameSpace });
+        public Task<bool> isDefaultNamespaceAsync(string nameSpace) => ExecAsync<bool>(new object[] { nameSpace },nameof(isDefaultNamespace));
 
-        public Task<bool> isEqualNode(DOMElement element) => Exec<bool>(new object[] { element });
+        public bool isEqualNode(DOMElement element) => Exec<bool>(new object[] { element });
 
-        public Task<bool> isSameNode(DOMElement element) => Exec<bool>(new object[] { element});
+        public Task<bool> isEqualNodeAsync(DOMElement element) => ExecAsync<bool>(new object[] { element },nameof(isEqualNode));
 
-        public Task<bool> isSupported(string feature, string version) => Exec<bool>(new object[] { feature, version });
+        public bool isSameNode(DOMElement element) => Exec<bool>(new object[] { element });
+        public Task<bool> isSameNodeAsync(DOMElement element) => ExecAsync<bool>(new object[] { element },nameof(isSameNode));
 
-        public Task<string> lang
+        public bool isSupported(string feature, string version) => Exec<bool>(new object[] { feature, version });
+        public Task<bool> isSupportedAsync(string feature, string version) => ExecAsync<bool>(new object[] { feature, version },nameof(isSupported));
+
+        public string lang
         {
-            get => GetAsync<string>();
-            set => _ = SetAsync(value);
+            get => Get<string>();
+            set => Set(value);
+        }
+        public Task<string> langAsync
+        {
+            get => GetAsync<string>(nameof(lang));
+            set => _ = SetAsync(value,nameof(lang));
         }
         
-        public Task< DOMElement> lastChild
-        {
-            get => GetTypedVar<DOMElement>();
+        public DOMElement lastChild => GetTypedVar<DOMElement>();
+        public Task<DOMElement> lastChildAsync => GetTypedVarAsync<DOMElement>(nameof(lastChild));
+        public bool matches(string selectors) => Exec<bool>(new object[] { selectors });
+        public Task<bool> matchesAsync(string selectors) => ExecAsync<bool>(new object[] { selectors },nameof(matches));
 
+        public string namespaceURI => Get<string>();
+        public Task<string> namespaceURIAsync => GetAsync<string>(nameof(namespaceURI));
+
+        public DOMElement nextSibling => GetTypedVar<DOMElement>();
+
+
+        public Task<DOMElement> nextSiblingAsync => GetTypedVarAsync<DOMElement>(nameof(nextSibling));
+
+
+        public DOMElement nextElementSibling => GetTypedVar<DOMElement>();
+
+
+        public Task<DOMElement> nextElementSiblingAsync => GetTypedVarAsync<DOMElement>(nameof(nextElementSibling));
+
+        public string nodeName => Get<string>();
+        public Task<string> nodeNameAsync => GetAsync<string>(nameof(nodeName));
+
+        public int nodeType => Get<int>();
+        public Task<int> nodeTypeAsync => GetAsync<int>(nameof(nodeType));
+
+        public string nodeValue
+        {
+            get => Get<string>();
+            set => Set(value);
+        }
+        public Task<string> nodeValueAsync
+        {
+            get => GetAsync<string>(nameof(nodeValue));
+            set => _ = SetAsync(value,nameof(nodeValue));
         }
 
-        public Task<bool> matches(string selectors) => Exec<bool>(new object[] { selectors });
+        public void normalize()=> Exec(new object[] { });
+        public Task normalizeAsync() => ExecAsync<object>(new object[] { },nameof(normalize));
 
+        public int offsetHeight => Get<int>();
+        public Task<int> offsetHeightAsync => GetAsync<int>(nameof(offsetHeight));
+        public int offsetWidth => Get<int>();
+        public Task<int> offsetWidthAsync => GetAsync<int>(nameof(offsetWidth));
 
-        public Task<string> namespaceURI => GetAsync<string>();
+        public int offsetLeft => Get<int>();
+        public Task<int> offsetLeftAsync => GetAsync<int>(nameof(offsetLeft));
+        public int offsetTop => Get<int>();
+        public Task<int> offsetTopAsync => GetAsync<int>(nameof(offsetTop));
 
-        public Task< DOMElement> nextSibling
+        public DOMElement offsetParent => GetTypedVar<DOMElement>();
+
+        public Task<DOMElement> offsetParentAsync => GetTypedVarAsync<DOMElement>(nameof(offsetParent));
+
+        public string outerHTML
         {
-            get => GetTypedVar<DOMElement>();
-
+            get => Get<string>();
+            set => Set(value);
+        }
+        public Task<string> outerHTMLAsync
+        {
+            get => GetAsync<string>(nameof(outerHTML));
+            set => _ = SetAsync(value,nameof(outerHTML));
         }
 
-        public Task<DOMElement> nextElementSibling
+        public string outerText
         {
-            get => GetTypedVar<DOMElement>();
-
+            get => Get<string>();
+            set => Set(value);
+        }
+        public Task<string> outerTextAsync
+        {
+            get => GetAsync<string>(nameof(outerText));
+            set => _ = SetAsync(value,nameof(outerText));
         }
 
-        public Task<string> nodeName => GetAsync<string>();
-
-        public Task<int> nodeType => GetAsync<int>();
-
-        public Task<string> nodeValue
+        private DOMDocument _ownerDocument;
+        public DOMDocument ownerDocument
         {
-            get => GetAsync<string>();
-            set => _ = SetAsync(value);
+            get
+            {
+                if (this._ownerDocument == null)
+        {
+                    this._ownerDocument = GetTypedVar<DOMDocument>();
+        }
+                else
+        {
+                    if(!this._ownerDocument.VarExist())
+                        this._ownerDocument = GetTypedVar<DOMDocument>();
+                }
+                return this._ownerDocument;
+            }
         }
 
-        public Task normalize() => Exec<object>(new object[] { });
-
-        public Task<int> offsetHeight => GetAsync<int>();
-        public Task<int> offsetWidth => GetAsync<int>();
-        public Task<int> offsetLeft => GetAsync<int>();
-        public Task<int> offsetTop => GetAsync<int>();
-
-        public Task<DOMElement > offsetParent
+        public Task<DOMDocument> ownerDocumentAsync
         {
-            get => GetTypedVar<DOMElement>();
-
+            get => GetTypedVarAsync<DOMDocument>(nameof(ownerDocument));
         }
 
-        public Task<string> outerHTML
-        {
-            get => GetAsync<string>();
-            set => _ = SetAsync(value);
-        }
+       
+        public DOMElement parentNode => GetTypedVar<DOMElement>();
 
-        public Task<string> outerText
-        {
-            get => GetAsync<string>();
-            set => _ = SetAsync(value);
-        }
+        public Task<DOMElement> parentNodeAsync => GetTypedVarAsync<DOMElement>(nameof(parentNode));
 
-        public Task<DOMDocument> ownerDocument
-        {
-            get=> GetTypedVar<DOMDocument>();
-        }
 
-        public Task<DOMElement> parentNode
-        {
-            get=> GetTypedVar<DOMElement>();
-        }
+        public DOMElement parentElement => GetTypedVar<DOMElement>();
 
-        public Task< DOMElement> parentElement
-        {
-            get => GetTypedVar<DOMElement>();
+        public Task<DOMElement> parentElementAsync => GetTypedVarAsync<DOMElement>(nameof(parentElement));
+        public DOMElement previousSibling => GetTypedVar<DOMElement>();
+        public Task<DOMElement> previousSiblingAsync => GetTypedVarAsync<DOMElement>(nameof(parentElement));
 
-        }
+        public DOMElement previousElementSibling => GetTypedVar<DOMElement>(nameof(previousElementSibling));
+        public Task<DOMElement> previousElementSiblingAsync => GetTypedVarAsync<DOMElement>(nameof(previousElementSibling));
 
-        public Task<DOMElement> previousSibling
+        public DOMElement querySelector(string cssSelector)
         {
-            get => GetTypedVar<DOMElement>();
-        }
-
-        public Task<DOMElement> previousElementSibling
-        {
-            get => GetTypedVar<DOMElement>();        }
-
-        public async Task<DOMElement> querySelector(string cssSelector)
-        {
-            DOMVar var = await ExecGetVarAsync( new object[] { cssSelector });
+            DOMVar var = ExecGetVar(new object[] { cssSelector });
             return new DOMElement(this._View2Control, var);
         }
 
-
-        public Task remove() => Exec<object>(new object[] { });
-
-        public Task removeAttribute(string name) => Exec<object>(new object[] { name });
-
-        public Task removeAttributeNode(DOMAttribute attr) => Exec<object>(new object[] { attr });
-
-        public Task removeChild(DOMElement elem) => Exec<object>(new object[] { elem});
-
-        public Task replaceChild(DOMElement newNode, DOMElement oldNode) =>
-            Exec<object>(new object[] { newNode, oldNode });
-
-        public Task requestFullscreen() => Exec<object>(new object[] { });
-
-        public Task<int> scrollHeight => GetAsync<int>();
-        public Task scrollIntoView() => Exec<object>(new object[] { });
-        public Task<int> scrollLeft => GetAsync<int>();
-
-        public Task<int> scrollTop => GetAsync<int>();
-
-        public Task setAttribute(string attributename, string attributevalue) =>
-            Exec<object>(new object[] { attributename, attributevalue });
-
-
-        public Task setAttributeNode(DOMVar attr) => Exec<object>(new object[] { attr.Name });
-
-        public Task<string> title
+        public async Task<DOMElement> querySelectorAsync(string cssSelector)
         {
-            get => GetAsync<string>();
-            set => _ = SetAsync(value);
+            DOMVar var = await ExecGetVarAsync(new object[] { cssSelector },nameof(querySelector));
+            return new DOMElement(this._View2Control, var);
+        }
+
+        public void remove() => Exec(new object[] { });
+        public Task removeAsync() => ExecAsync<object>(new object[] { },nameof(remove));
+
+        public void removeAttribute(string name) => Exec(new object[] { name });
+
+        public Task removeAttributeAsync(string name) => ExecAsync<object>(new object[] { name },nameof(removeAttribute));
+
+
+        public void removeAttributeNode(DOMAttribute attr) => Exec(new object[] { attr });
+        public Task removeAttributeNodeAsync(DOMAttribute attr) => ExecAsync<object>(new object[] { attr },nameof(removeAttributeNode));
+
+        public void removeChild(DOMElement elem) => Exec(new object[] { elem });
+        public Task removeChildAsync(DOMElement elem) => ExecAsync<object>(new object[] { elem },nameof(removeChild));
+
+        public void replaceChild(DOMElement newNode, DOMElement oldNode) =>
+            Exec(new object[] { newNode, oldNode });
+
+        public Task replaceChildAsync(DOMElement newNode, DOMElement oldNode) =>
+            ExecAsync<object>(new object[] { newNode, oldNode },nameof(replaceChild));
+
+        public void requestFullscreen() => Exec(new object[] { });
+        public Task requestFullscreenAsync() => ExecAsync<object>(new object[] { },nameof(requestFullscreen));
+
+        public int scrollHeight => Get<int>();
+        public Task<int> scrollHeightAsync => GetAsync<int>(nameof(scrollHeight));
+
+        public void scrollIntoView() => Exec(new object[] { });
+        public Task scrollIntoViewAsync() => ExecAsync<object>(new object[] { },nameof(scrollIntoView));
+        public int scrollLeft => Get<int>();
+        public Task<int> scrollLeftAsync => GetAsync<int>(nameof(scrollLeft));
+
+        public int scrollTop => Get<int>();
+        public Task<int> scrollTopAsync => GetAsync<int>(nameof(scrollTop));
+
+        public void setAttribute(string attributeName, string attributeValue) =>
+            Exec(new object[] { attributeName, attributeValue });
+
+        public Task setAttributeAsync(string attributeName, string attributeValue) =>
+            ExecAsync<object>(new object[] { attributeName, attributeValue },nameof(setAttribute));
+
+
+        public void setAttributeNode(DOMVar attr) => Exec(new object[] { attr.Name });
+
+        public Task setAttributeNodeAsync(DOMVar attr) => ExecAsync<object>(new object[] { attr.Name },nameof(setAttributeNode));
+
+        private DOMStyle _style;
+        public DOMStyle style
+        {
+            get
+            {
+                if (this._style == null)
+                {
+                   this._style = GetTypedVar<DOMStyle>();
+                }
+
+                return this._style;
+            }
+        }
+
+        public Task<DOMStyle> styleAsync => GetTypedVarAsync<DOMStyle>(nameof(style));
+
+        public string title
+        {
+            get => Get<string>();
+            set => Set(value);
+        }
+        public Task<string> titleAsync
+        {
+            get => GetAsync<string>(nameof(title));
+            set => _ = SetAsync(value,nameof(title));
+        }
+
+        public int tabIndex
+        {
+            get => Get<int>();
+            set => Set(value);
+        }
+        public Task<int> tabIndexAsync
+        {
+            get => GetAsync<int>(nameof(tabIndex));
+            set => _ = SetAsync(value,nameof(tabIndex));
         }
        
-        public Task<int> tabIndex 
+        private bool disposedValue=false;
+        protected override void Dispose(bool disposing)
         {
-            get => GetAsync<int>();
-            set => _ = SetAsync(value);
+            if (!this.disposedValue)
+        {
+                if (disposing)
+                {
+                    this._ownerDocument?.Dispose();
+                    this._style?.Dispose();
         }
 
+                this.disposedValue = true;
+            }
+            base.Dispose(disposing);
+        }
     }
 
 

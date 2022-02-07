@@ -7,14 +7,14 @@ namespace Diga.WebView2.Wpf.Scripting
         public ScriptErrorObject ErrorObject { get; }
         public ScriptException(ScriptErrorObject errObj) : base(errObj.message)
         {
-            this.ErrorObject = errObj;
+            ErrorObject = errObj;
 
         }
         public override string ToString()
         {
             string result = "";
-            if (this.ErrorObject != null)
-                result = this.ErrorObject.ToString();
+            if (ErrorObject != null)
+                result = ErrorObject.ToString();
             result += base.ToString();
 
             return result;

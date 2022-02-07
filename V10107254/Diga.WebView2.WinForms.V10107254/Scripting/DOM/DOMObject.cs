@@ -254,6 +254,17 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             return ExecuteScriptAsync($"document.writeln(\"{value}\");");
         }
 
+        public bool VarExist()
+        {
+            if (this._Var == null) return false;
+            return this._Var.VarExist();
+        }
+
+        public Task<bool> VarExistAsync()
+        {
+            if (this._Var == null) return Task.FromResult(false);
+            return this._Var.VarExistAsync();
+        }
         public string GetVarName()
         {
             return this.InstanceName;

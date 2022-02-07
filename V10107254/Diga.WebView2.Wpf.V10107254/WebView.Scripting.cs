@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Diga.Core.Threading;
 using Diga.WebView2.Wpf.Scripting;
 using Diga.WebView2.Wpf.Scripting.DOM;
 using Diga.WebView2.Wrapper.EventArguments;
@@ -9,7 +10,7 @@ namespace Diga.WebView2.Wpf
 {
     public partial class WebView
     {
-        private RpcHandler _RpcHandler;
+        private readonly RpcHandler _RpcHandler;
 
         private const string JAVASCRIPT_CANNOT_BE_NULL_OR_EMPTY = "javaScript cannot be NULL or empty";
 
@@ -41,6 +42,25 @@ namespace Diga.WebView2.Wpf
             this._WebViewControl.ExecuteScript(scriptToExecute);
         }
 
+        public string EvalScriptSync(string javaScript)
+        {
+            CheckIsCreatedOrEndedWithThrow();
+            ScriptZeroTest(javaScript);
+            CheckIsInUiThread();
+            string scriptToExecute = $"window.external.evalScript(\"{javaScript.Replace("\"", "\\'")}\")";
+            string result = UIDispatcher.UIThread.Invoke<string>(async () =>
+            {
+                string rs = await this._WebViewControl.ExecuteScriptAsync(scriptToExecute);
+                return rs;
+            });
+            ScriptErrorObject errObj = ScriptSerializationHelper.GetScriptErrorObject(result);
+            if (errObj != null)
+            {
+                throw new ScriptException(errObj);
+            }
+
+            return result;
+        }
          /// <summary>
         /// Evaluate script async with Exception Check
         /// </summary>
@@ -81,13 +101,25 @@ namespace Diga.WebView2.Wpf
             return result;
         }
 
+        public string ExecuteScriptDirectSync(string javaScript)
+        {
+            CheckIsCreatedOrEndedWithThrow();
+            ScriptZeroTest(javaScript);
+            CheckIsInUiThread();
+            string result = UIDispatcher.UIThread.Invoke<string>(async () =>
+            {
+                string rs = await this._WebViewControl.ExecuteScriptAsync(javaScript);
+                return rs;
+            });
+            return result;
+        }
         public void ExecuteScriptDirect(string javaScript)
         {
             CheckIsCreatedOrEndedWithThrow();
             ScriptZeroTest(javaScript);
             this._WebViewControl.ExecuteScript(javaScript);
-
         }
+
         /// <summary>
         /// Execute the Script with Exception - Check => window.external.executeScript
         /// </summary>
@@ -100,8 +132,8 @@ namespace Diga.WebView2.Wpf
             CheckIsCreatedOrEndedWithThrow();
             ScriptZeroTest(javaScript);
 
-            string scrptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"", "\\'")}}}\")";
-            string result = await this._WebViewControl.ExecuteScriptAsync(scrptToExecute);
+            string scriptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"", "\\'")}}}\")";
+            string result = await this._WebViewControl.ExecuteScriptAsync(scriptToExecute);
             ScriptErrorObject errorObj = ScriptSerializationHelper.GetScriptErrorObject(result);
             if (errorObj != null)
             {
@@ -110,7 +142,25 @@ namespace Diga.WebView2.Wpf
             return result;
         }
 
+        public string ExecuteScriptSync(string javaScript)
+        {
+            CheckIsCreatedOrEndedWithThrow();
+            ScriptZeroTest(javaScript);
+            CheckIsInUiThread();
+            string scriptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"", "\\'")}}}\")";
+            string result = UIDispatcher.UIThread.Invoke<string>(async () =>
+            {
+                string rs = await this._WebViewControl.ExecuteScriptAsync(scriptToExecute);
+                return rs;
+            });
+            ScriptErrorObject errorObj = ScriptSerializationHelper.GetScriptErrorObject(result);
+            if (errorObj != null)
+            {
+                throw new ScriptException(errorObj);
+            }
 
+            return result;
+        }
         /// <summary>
         /// Invoke a script and returns a unique ID for the script 
         /// </summary>
@@ -123,7 +173,8 @@ namespace Diga.WebView2.Wpf
 
             ScriptZeroTest(javaScript);
 
-            string result = this._WebViewControl.InvokeScript(javaScript, (id, errorCode, jsonResult) =>
+            string result = this._WebViewControl.InvokeScript(javaScript,
+                (id, errorCode, jsonResult) =>
             {
 
                 OnExecuteScriptCompleted(new ExecuteScriptCompletedEventArgs(errorCode, jsonResult, id));
@@ -154,15 +205,15 @@ namespace Diga.WebView2.Wpf
         }
 
 
-        private async Task<string> GetDocumentText()
+        private async Task<string> GetDocumentTextAsync()
         {
             CheckIsCreatedOrEndedWithThrow();
 
             DOMDocument doc = this.GetDOMDocument();
             try
             {
-                DOMElement domElement = await doc.documentElement;
-                string html = await domElement.outerHTML;
+                DOMElement domElement = await doc.documentElementAsync;
+                string html = await domElement.outerHTMLAsync;
                 if (html.StartsWith("\""))
                     html = html.Substring(1);
                 if (html.EndsWith("\""))

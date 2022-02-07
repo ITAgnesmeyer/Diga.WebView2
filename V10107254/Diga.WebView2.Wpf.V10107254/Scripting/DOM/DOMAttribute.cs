@@ -9,43 +9,72 @@ namespace Diga.WebView2.Wpf.Scripting.DOM
         {
             
         }
-
-        public async Task< DOMAttribute> getNamedItem(string itemName)
+        public DOMAttribute getNamedItem(string itemName)
         {
-            DOMVar var = await ExecGetVarAsync(new object[] { itemName });
+            DOMVar var = ExecGetVar(new object[] { itemName });
+            return new DOMAttribute(this._View2Control, var);
+        }
+        public async Task< DOMAttribute> getNamedItemAsync(string itemName)
+        {
+            DOMVar var = await ExecGetVarAsync(new object[] { itemName },nameof(getNamedItem));
+            return new DOMAttribute(this._View2Control, var);
+        }
+        public bool isId => Get<bool>();
+        public Task<bool> isIdAsync => GetAsync<bool>(nameof(isId));
+
+        public DOMAttribute  item(int index)
+        {
+            DOMVar var = ExecGetVar(new object[] { index });
             return new DOMAttribute(this._View2Control, var);
         }
 
-        public Task<bool> isId => GetAsync<bool>();
+        public async Task< DOMAttribute>  itemAsync(int index)
 
-        public async Task< DOMAttribute>  item(int index)
         {
-            DOMVar var = await ExecGetVarAsync(new object[] { index });
+            DOMVar var = await ExecGetVarAsync(new object[] { index },nameof(item));
             return new DOMAttribute(this._View2Control, var);
         }
 
-        public Task<int> length => GetAsync<int>();
+        public int length => Get<int>();
+        public Task<int> lengthAsync => GetAsync<int>(nameof(length));
 
-        public Task<string> name => GetAsync<string>();
+        public string name => Get<string>();
+        public Task<string> nameAsync => GetAsync<string>(nameof(name));
 
-        public async Task<DOMAttribute> removeNamedItem(string nodeName)
+        public DOMAttribute removeNamedItem(string nodeName)
         {
-            DOMVar var = await ExecGetVarAsync( new object[] { nodeName });
+            DOMVar var = ExecGetVar( new object[] { nodeName });
+            return new DOMAttribute(this._View2Control, var);
+        }
+        public async Task<DOMAttribute> removeNamedItemAsync(string nodeName)
+        {
+            DOMVar var = await ExecGetVarAsync( new object[] { nodeName },nameof(removeNamedItem));
+            return new DOMAttribute(this._View2Control, var);
+        }
+        public DOMAttribute setNamedItem(DOMAttribute attribute)
+        {
+            DOMVar var = ExecGetVar(new object[] { attribute });
             return new DOMAttribute(this._View2Control, var);
         }
 
-        public async Task<DOMAttribute> setNamedItem(DOMAttribute attribute)
+        public async Task<DOMAttribute> setNamedItemAsync(DOMAttribute attribute)
         {
-            DOMVar var = await ExecGetVarAsync(new object[] { attribute });
+            DOMVar var = await ExecGetVarAsync(new object[] { attribute },nameof(setNamedItem));
             return new DOMAttribute(this._View2Control, var);
         }
+        public bool specified => Get<bool>();
+        public Task<bool> specifiedAsync => GetAsync<bool>(nameof(specified));
 
-        public Task<bool> specified => GetAsync<bool>();
-
-        public Task<string> value
+        public string value
         {
-            get => GetAsync<string>();
-            set => _ = SetAsync(value);
+            get => Get<string>();
+            set => Set(value);
+        }
+
+        public Task<string> valueAsync
+        {
+            get => GetAsync<string>(nameof(value));
+            set => _ = SetAsync(value,nameof(this.value));
         }
 
 

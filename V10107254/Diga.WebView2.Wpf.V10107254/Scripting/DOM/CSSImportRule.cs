@@ -8,13 +8,19 @@ namespace Diga.WebView2.Wpf.Scripting.DOM
         {
             
         }
+        public string href => Get<string>();
+        public Task<string> hrefAsync => GetAsync<string>(nameof(href));
 
-        public Task<string> href => GetAsync<string>();
-
-        public Task<string> media
+        public string media
         {
-            get => GetAsync<string>();
-            set => _ = SetAsync(value);
+            get => Get<string>();
+            set => Set(value);
+        }
+
+        public Task<string> mediaAsync
+        {
+            get => GetAsync<string>(nameof(media));
+            set => _ = SetAsync(value,nameof(media));
         }
 
 

@@ -2,46 +2,6 @@
 
 namespace Diga.WebView2.Wpf.Scripting.DOM
 {
-    public class DOMMouseEvent : DOMUiEvent
-    {
-        public DOMMouseEvent(WebView control,DOMVar var):base(control,var)
-        {
-            
-        }
-
-        public Task<bool> altKey => GetAsync<bool>();
-        public Task<int> button => GetAsync<int>();
-        public Task<int> buttons => GetAsync<int>();
-        public Task<int> clientX => GetAsync<int>();
-        public Task<int> clientY => GetAsync<int>();
-        public Task<bool> ctrlKey => GetAsync<bool>();
-
-        public Task<bool> getModifierState(string modifierKey)
-        {
-            return Exec<bool>(new object[] { modifierKey });
-        }
-
-        public Task<bool> metaKey => GetAsync<bool>();
-
-        public Task<int> movementX => GetAsync<int>();
-
-        public Task<int> movementY => GetAsync<int>();
-
-        public Task<int> offsetX => GetAsync<int>();
-        public Task<int> offsetY => GetAsync<int>();
-        public Task<int> pageX => GetAsync<int>();
-        public Task<int> pageY => GetAsync<int>();
-        public Task<DOMElement> relatedTarget => GetTypedVar<DOMElement>();
-
-        public Task<int> screenX => GetAsync<int>();
-        public Task<int> screenY => GetAsync<int>();
-
-        public Task<bool> shiftKey => GetAsync<bool>();
-
-        public Task<int> which => GetAsync<int>();
-
-    }
-
     public class DOMEvent : DOMObject
     {
         public DOMEvent(WebView control,DOMVar var):base(control,var)
@@ -49,45 +9,72 @@ namespace Diga.WebView2.Wpf.Scripting.DOM
             
         }
 
-        public Task<bool> bubbles => GetAsync<bool>();
+        public bool bubbles => Get<bool>();
+        public Task<bool> bubblesAsync=> GetAsync<bool>(nameof(bubbles));
 
-        public Task<bool> cancelBubble
+        public bool cancelBubble
         {
-            set => _ = SetAsync(value);
+            set => Set(value);
         }
 
-        public Task<bool> cancelable => GetAsync<bool>();
-
-        public Task<bool> composed => GetAsync<bool>();
-
-
-        public async Task<DOMEvent> createEvent(string eventName)
+        public Task<bool> cancelBubbleAsync
         {
-            DOMVar var = await ExecGetVarAsync(new object[] { eventName });
+            set => _ = SetAsync(value,nameof(cancelBubble));
+        }
+
+        public bool cancelable => Get<bool>();
+        public Task<bool> cancelableAsync => GetAsync<bool>(nameof(cancelable));
+
+        public bool composed => Get<bool>();
+        public Task<bool> composedAsync => GetAsync<bool>(nameof(composed));
+
+
+        public DOMEvent createEvent(string eventName)
+    {
+            DOMVar var = ExecGetVar(new object[] { eventName });
             return new DOMEvent(this._View2Control, var);
         }
 
-        public Task<string> composedPath() => Exec<string>(new object[] { });
+        public async Task<DOMEvent> createEventAsync(string eventName)
+        {
+            DOMVar var = await ExecGetVarAsync(new object[] { eventName },nameof(createEvent));
+            return new DOMEvent(this._View2Control, var);
+        }
 
-        public Task<DOMObject> currentTarget => GetTypedVar<DOMObject>();
 
-        public Task<bool> defaultPrevented => GetAsync<bool>();
+        public string composedPath() => Exec<string>(new object[] { });
+        public Task<string> composedPathAsync() => ExecAsync<string>(new object[] { },nameof(composedPath));
 
-        public Task<int> eventPhase => GetAsync<int>();
+        public DOMObject currentTarget => GetTypedVar<DOMObject>();
+        public Task<DOMObject> currentTargetAsync => GetTypedVarAsync<DOMObject>(nameof(currentTarget));
 
-        public Task<bool> isTrusted => GetAsync<bool>();
 
-        public Task preventDefault() => Exec<object>(new object[]{});
+        public bool defaultPrevented => Get<bool>();
+        public Task<bool> defaultPreventedAsync => GetAsync<bool>(nameof(defaultPrevented));
 
-        public Task stopImmediatePropagation() => Exec<object>(new object[] { });
+        public int eventPhase => Get<int>();
+        public Task<int> eventPhaseAsync => GetAsync<int>(nameof(eventPhase));
 
-        public Task stopPropagation() => Exec<object>(new object[] { });
+        public bool isTrusted => Get<bool>();
+        public Task<bool> isTrustedAsync => GetAsync<bool>(nameof(isTrusted));
 
-        public Task<DOMElement> target => GetTypedVar<DOMElement>();
+        public void preventDefault() => Exec(new object[]{});
+        public Task preventDefaultAsync() => ExecAsync<object>(new object[]{},nameof(preventDefault));
 
-        public Task<string> timeStamp => GetAsync<string>();
+        public void stopImmediatePropagation() => Exec(new object[] { });
+        public Task stopImmediatePropagationAsync() => ExecAsync<object>(new object[] { },nameof(stopImmediatePropagation));
 
-        public Task<string> type => GetAsync<string>();
+        public void stopPropagation() => Exec(new object[] { });
+        public Task stopPropagationAsync() => ExecAsync<object>(new object[] { },nameof(stopPropagation));
+
+        public DOMElement target => GetTypedVar<DOMElement>();
+        public Task<DOMElement> targetAsync => GetTypedVarAsync<DOMElement>(nameof(target));
+
+        public string timeStamp => Get<string>();
+        public Task<string> timeStampAsync => GetAsync<string>(nameof(timeStamp));
+
+        public string type => Get<string>();
+        public Task<string> typeAsync => GetAsync<string>(nameof(type));
 
     }
 }

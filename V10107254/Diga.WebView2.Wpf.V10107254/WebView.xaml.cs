@@ -1,7 +1,9 @@
 using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using Diga.Core.Threading;
 using Diga.WebView2.Wpf.Scripting;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
@@ -139,7 +141,11 @@ namespace Diga.WebView2.Wpf
         {
             //this._WebViewControl?.CleanupControls();
         }
-
+        private void CheckIsInUiThread([CallerMemberName] string member = "")
+        {
+            if (!UIDispatcher.UIThread.CheckAccess())
+                throw new InvalidOperationException($"method ({member}) can only execute on UI-Thread");
+        }
         #endregion
     }
 }

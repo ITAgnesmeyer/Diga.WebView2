@@ -4,6 +4,7 @@ using System.IO;
 using System.Numerics;
 using System.Windows;
 using Diga.Core.Json;
+using Diga.WebView2.Wpf.Scripting.DOM;
 using Diga.WebView2.Wrapper.EventArguments;
 
 
@@ -106,9 +107,26 @@ namespace WebView2WrapperWpfTest
             }
         }
 
+        private DOMElement _BUTTON;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
+
+            if (this._BUTTON == null)
+            {
+                this._BUTTON = this.WebView3.GetDOMDocument().getElementById("ga_button");
+                if (!this._BUTTON.VarExist())
+                {
+                    this._BUTTON = null;
+                    MessageBox.Show("Could not get Button");
+                }
+                else
+                {
+                    this._BUTTON.Click += (o, ev) =>
+                    {
+                        MessageBox.Show("Test from Button");
+                    };
+                }
+            }
             var now = DateTime.Now;
             var zeroDate = DateTime.MinValue.AddHours(now.Hour).AddMinutes(now.Minute).AddSeconds(now.Second).AddMilliseconds(now.Millisecond);
             int uniqueId = (int)(zeroDate.Ticks / 10000) ;

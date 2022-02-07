@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Wpf.Scripting.DOM;
 
@@ -9,16 +10,18 @@ namespace Diga.WebView2.Wpf.Scripting
 {
     internal static class EventHandlerList
     {
-        public static readonly ConcurrentDictionary<string,DOMObject> EventObject;
+        private static readonly ConcurrentDictionary<string,DOMObject> EventObject;
 
         static EventHandlerList()
         {
+            LockObject = new object();
             EventObject = new ConcurrentDictionary<string, DOMObject>();
         }
 
-        public static void TryAdd(string key, DOMObject obj)
+        public static bool TryAdd(string key, DOMObject obj)
         {
-            EventObject.TryAdd(key, obj);
+            if (EventObject.ContainsKey(key)) return false;
+            return EventObject.TryAdd(key, obj);
         }
 
         public static DOMObject FindObject(string key)
@@ -37,9 +40,32 @@ namespace Diga.WebView2.Wpf.Scripting
         {
 
             DOMObject obj = FindObject(e.RpcObject.varname);
-            if (obj != null)
-                obj.RaiseEvent(e);
+            obj?.RaiseEvent(e);
 
+        }
+
+        private static readonly object LockObject;
+        internal static void RemoveByObject(DOMObject domObj)
+        {
+            var idList = new List<string>();
+            lock (LockObject)
+            {
+                var obj = EventObject.ToArray();
+                foreach (var item in obj)
+                {
+                    if (item.Value == domObj)
+                    {
+                        idList.Add(item.Key);
+                    }
+                    
+                }
+
+                foreach (string key in idList)
+                {
+                    EventObject.TryRemove(key, out _);
+
+                }
+            }
         }
     }
 

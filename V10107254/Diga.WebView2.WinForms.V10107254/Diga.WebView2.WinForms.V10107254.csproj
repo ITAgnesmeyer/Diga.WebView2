@@ -35,6 +35,20 @@
   <ItemGroup>
     <ProjectReference Include="..\Diga.WebView2.Wrapper.V10107254\Diga.WebView2.Wrapper.V10107254.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Diga.WebView2.WinForms.Properties</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
  
 
 </Project>

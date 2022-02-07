@@ -27,7 +27,7 @@ namespace WebView2WrapperWinFormsTest
 
         }
 
-        private  void OnRpcEvent(object sender, RpcEventHandlerArgs e)
+        private void OnRpcEvent(object sender, RpcEventHandlerArgs e)
         {
             //string eventName = e.EventName;
             //string id = e.ObjectId;
@@ -70,7 +70,7 @@ namespace WebView2WrapperWinFormsTest
             //            await win.alert("Move");
             //            await val.moveTo(200, 200);
             //            win.name = (TaskVar<string>)"halllo";
-                        
+
             //            await win.alert("Object Click:" + objId);
 
             //        }
@@ -283,6 +283,7 @@ namespace WebView2WrapperWinFormsTest
             this.webView1.NavigateToString(value);
             this.textBox1.AutoCompleteCustomSource.Add(this.webView1.MonitoringUrl);
             this.textBox1.AutoCompleteCustomSource.Add(this.webView1.MonitoringUrl + "mp3test/testmp3.html");
+            
 
 
         }
@@ -317,7 +318,7 @@ namespace WebView2WrapperWinFormsTest
             }
             catch (ScriptException ex)
             {
-                 await ShowMessageBoxAsync(ex.ErrorObject.message);
+                await ShowMessageBoxAsync(ex.ErrorObject.message);
             }
 
 
@@ -381,6 +382,10 @@ namespace WebView2WrapperWinFormsTest
         private void webView1_DOMContentLoaded(object sender, DOMContentLoadedEventArgs e)
         {
             Debug.Print(e.NavigationId.ToString());
+            //if(this._DIV != null)
+            //    UIDispatcher.UIThread.Post(this._DIV.Dispose);
+            DOMGC.CleanUp();
+            this._DIV = null;
 
         }
 
@@ -474,55 +479,63 @@ namespace WebView2WrapperWinFormsTest
         }
 
         //Dom-Object example
-        private  void bnScriptTest_Click(object sender, EventArgs e)
+        private DOMElement _DIV;
+        private void bnScriptTest_Click(object sender, EventArgs e)
         {
             //Get the script document
-            DOMDocument doc = this.webView1.GetDOMDocument();
 
-            //add a button element
-            DOMElement element = doc.createElement("button");
-           
-            //set inner html of button 
-            //StringTaskVar converts the string into Task<string>
-            element.innerHTML="Click Me";
-            
-            //set id of Button-Element
-            //StringTaskVar converts GUID-String to Task<string>
-            element.id = Guid.NewGuid().ToString();
-            
-            //Get script window
-            DOMWindow window = this.webView1.GetDOMWindow();
-            
-            //help Class for calling Events
-            //DOMEventListenerScript scriptText = new DOMEventListenerScript(element);
-            
-            //get the document body - Element
-            doc.body.appendChild(element);
 
-        
-            
-            //handle the event
-            // Important never call synchron Properties and Functions in an async function
-            element.Click += OnDomElementClick1;
-            element.Click += OnDomElementClick;
-
-            element.MouseLeave += (o, args) =>
+            if (this._DIV == null)
             {
-                //element.setAttribute("style","background-color: blue;color: white;");
-                element.style.backgroundColor = "blue";
-                element.style.color = "white";
+                DOMDocument doc = this.webView1.GetDOMDocument();
+                this._DIV = doc.createElement("div");
+                this._DIV.id = Guid.NewGuid().ToString();
+                doc.body.appendChild(this._DIV);
+                //add a button element
+                DOMElement element = doc.createElement("button");
+
+                //set inner html of button 
+                //StringTaskVar converts the string into Task<string>
+                element.innerHTML = "Click Me";
+
+                //set id of Button-Element
+                //StringTaskVar converts GUID-String to Task<string>
+                element.id = Guid.NewGuid().ToString();
+
+                //Get script window
+                DOMWindow window = this.webView1.GetDOMWindow();
+
+                //help Class for calling Events
+                //DOMEventListenerScript scriptText = new DOMEventListenerScript(element);
+
+                //get the document body - Element
+                this._DIV.appendChild(element);
 
 
-            };
 
-            element.MouseEnter += (o, args) =>
-            {
-                //element.setAttribute("style","background-color: white;color: black;");
-                element.style.backgroundColor = "white";
-                element.style.color = "black";
-            };
+                //handle the event
+                // Important never call synchron Properties and Functions in an async function
+                element.Click += OnDomElementClick1;
+                element.Click += OnDomElementClick;
+
+                element.MouseLeave += (o, args) =>
+                {
+                    element.style.backgroundColor = "blue";
+                    element.style.color = "white";
+
+                    //element.setAttribute("style","background-color: blue;color: white;");
 
 
+                };
+
+                element.MouseEnter += (o, args) =>
+                {
+                    //element.setAttribute("style","background-color: white;color: black;");
+                    element.style.backgroundColor = "white";
+                    element.style.color = "black";
+                };
+
+            }
 
         }
 
@@ -535,7 +548,10 @@ namespace WebView2WrapperWinFormsTest
                     //await element.setAttributeAsync("style", "background-color: coral;");
                     //ev.Event.relatedTarget.setAttribute("style", "background-color: coral;");
                     //DOMStyle style = await element.styleAsync;
+
                     element.style.backgroundColor = "coral";
+
+
 
                     //style.backgroundColorAsync = (StringTaskVar)"coral";
 
@@ -560,7 +576,7 @@ namespace WebView2WrapperWinFormsTest
             }
         }
 
-        private  void OnDomElementClick(object sender, DOMMouseEventArgs e)
+        private void OnDomElementClick(object sender, DOMMouseEventArgs e)
         {
             if (sender is DOMElement element)
             {
@@ -616,7 +632,7 @@ namespace WebView2WrapperWinFormsTest
             }
         }
 
-        private  void bnSrcTest_Click(object sender, EventArgs e)
+        private void bnSrcTest_Click(object sender, EventArgs e)
         {
             this.webView1.ShowPageSource();
         }
@@ -635,8 +651,8 @@ namespace WebView2WrapperWinFormsTest
 
         private void lblMuted_Click(object sender, EventArgs e)
         {
-            
-            this.webView1.IsMuted =  !this.webView1.IsMuted;
+
+            this.webView1.IsMuted = !this.webView1.IsMuted;
             if (this.webView1.IsMuted)
             {
                 this.lblMuted.BackColor = Color.Red;
@@ -645,9 +661,9 @@ namespace WebView2WrapperWinFormsTest
             {
                 this.lblMuted.BackColor = Color.Green;
             }
-                
 
-          
+
+
         }
 
         private void bnScriptSync_Click(object sender, EventArgs e)
@@ -672,7 +688,7 @@ namespace WebView2WrapperWinFormsTest
             catch (ScriptException exception)
             {
                 MessageBox.Show(exception.ErrorObject.message);
-                
+
             }
 
             try
@@ -695,7 +711,7 @@ namespace WebView2WrapperWinFormsTest
             catch (ScriptException exception)
             {
                 MessageBox.Show(exception.ErrorObject.message);
-                
+
             }
         }
     }

@@ -9,23 +9,33 @@ namespace Diga.WebView2.Wpf.Scripting.DOM
             
         }
 
-        public Task<string> medium
+        public string medium
         {
-            get => GetAsync<string>();
-            set => _ = SetAsync(value);
+            get => Get<string>();
+            set => Set(value);
+        }
+        public Task<string> mediumAsync
+        {
+            get => GetAsync<string>(nameof(medium));
+            set => _ = SetAsync(value,nameof(medium));
         }
 
-        public Task<bool> disabled
+        public bool disabled
         {
-            get => GetAsync<bool>();
-            set => _ = SetAsync(value);
+            get => Get<bool>();
+            set => Set(value);
+        }
+        public Task<bool> disabledAsync
+        {
+            get => GetAsync<bool>(nameof(disabled));
+            set => _ = SetAsync(value,nameof(disabled));
         }
 
       
 
        
-
-        public Task<CSSStyleSheet> sheet => GetTypedVar<CSSStyleSheet>();
+        public CSSStyleSheet sheet => GetTypedVar<CSSStyleSheet>();
+        public Task<CSSStyleSheet> sheetAsync => GetTypedVarAsync<CSSStyleSheet>(nameof(sheet));
 
     }
 }

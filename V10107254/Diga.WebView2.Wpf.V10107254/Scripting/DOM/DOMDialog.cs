@@ -9,22 +9,35 @@ namespace Diga.WebView2.Wpf.Scripting.DOM
             
         }
 
-        public Task<bool> open
+        public bool open
         {
-            get => GetAsync<bool>();
-            set => _ = SetAsync(value);
+            get => Get<bool>();
+            set => Set(value);
         }
 
-        public Task<string> returnValue
+        public Task<bool> openAsync
         {
-            get => GetAsync<string>();
-            set => _ = SetAsync(value);
+            get => GetAsync<bool>(nameof(open));
+            set => _ = SetAsync(value,nameof(open));
         }
 
-        public Task close() => Exec<object>(new object[] { });
+        public string returnValue
+        {
+            get => Get<string>();
+            set => Set(value);
+        }
+        public Task<string> returnValueAsync
+        {
+            get => GetAsync<string>(nameof(returnValue));
+            set => _ = SetAsync(value,nameof(returnValue));
+        }
 
-        public Task show() => Exec<object>(new object[] { });
-        public Task showModal() => Exec<object>(new object[] { });
+        public void close() => Exec(new object[] { });
+        public Task closeAsync() => ExecAsync<object>(new object[] { },nameof(close));
+        public void show() => Exec(new object[] { });
+        public Task showAsync() => ExecAsync<object>(new object[] { },nameof(show));
+        public void showModal() => Exec(new object[] { });
+        public Task showModalAsync() => ExecAsync<object>(new object[] { },nameof(showModal));
 
     }
 }

@@ -9,9 +9,11 @@ namespace Diga.WebView2.Wpf.Scripting.DOM
             
         }
 
-        public Task<int> detail => GetAsync<int>();
+        public int detail => Get<int>();
+        public Task<int> detailAsync => GetAsync<int>(nameof(detail));
 
-        public Task<DOMWindow> view => GetTypedVar<DOMWindow>();
+        public DOMWindow view => GetTypedVar<DOMWindow>();
+        public Task<DOMWindow> viewAsync => GetTypedVarAsync<DOMWindow>(nameof(view));
 
 
     }

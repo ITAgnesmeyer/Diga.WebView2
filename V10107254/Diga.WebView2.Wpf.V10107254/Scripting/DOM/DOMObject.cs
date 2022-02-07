@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Diga.Core.Threading;
 
 namespace Diga.WebView2.Wpf.Scripting.DOM
 {
@@ -57,6 +58,8 @@ namespace Diga.WebView2.Wpf.Scripting.DOM
                 return new DOMEvent(control, var);
             if (t == typeof(DOMMouseEvent))
                 return new DOMMouseEvent(control, var);
+            if (t == typeof(DOMKeyboardEvent))
+                return new DOMKeyboardEvent(control, var);
             if (t == typeof(DOMAttribute))
                 return new DOMAttribute(control, var);
             if (t == typeof(DOMConsole))
@@ -78,6 +81,10 @@ namespace Diga.WebView2.Wpf.Scripting.DOM
             if (t == typeof(DOMScript))
                 return new DOMScript(control, var);
             
+            if(t==typeof(DOMScriptVar))
+                return new DOMScriptVar(control, var);
+                
+
             if (t == typeof(DOMStyle))
                 return new DOMStyle(control, var);
 
@@ -109,28 +116,49 @@ namespace Diga.WebView2.Wpf.Scripting.DOM
 
         }
 
-        private T GetDomObjectFromDomVar<T>(DOMVar var) where T : DOMObject
+        internal T GetDomObjectFromDomVar<T>(DOMVar var) where T : DOMObject
         {
             T v = (T)CreateNew(this._View2Control, var, typeof(T));
             return v;
         }
-        protected async Task<T> GetTypedVar<T>([CallerMemberName] string member = "") where T:DOMObject
+        protected async Task<T> GetTypedVarAsync<T>([CallerMemberName] string member = "") where T:DOMObject
         {
             DOMVar domVar = await GetGetVarAsync(member);
             T v = (T)CreateNew(this._View2Control, domVar, typeof(T));
             return v;
         }
 
+        protected T GetTypedVar<T>([CallerMemberName] string member = "") where T : DOMObject
+        {
+            DOMVar domVar = GetGetVar(member);
+            T v = (T)CreateNew(this._View2Control, domVar, typeof(T));
+            return v;
+        }
         internal void RaiseEvent(RpcEventHandlerArgs e)
         {
-            OnDomEvent(e);
+            UIDispatcher.UIThread.Post<RpcEventHandlerArgs>(OnDomEvent,e);
+            
+            
+            
+
         }
 
-        protected void OnDomEvent(RpcEventHandlerArgs e)
+        protected virtual void OnDomEvent(RpcEventHandlerArgs e)
+        {
+            using (DOMVar var = new DOMVar(this._View2Control, e.RpcObject.idFullName))
         {
             DomEvent?.Invoke(this,e);
         }
 
+        }
+
+        private DOMVar GetGetVar([CallerMemberName] string member = "")
+        {
+            DOMVar var = new DOMVar(this._View2Control);
+            string scriptVal = $"{var.Name}={this.InstanceName}.{member};";
+            ExecuteScript(scriptVal);
+            return var;
+        }
         private async Task<DOMVar> GetGetVarAsync([CallerMemberName] string member = "")
         {
             DOMVar var = await DOMVar.CreateAsync(this._View2Control);
@@ -138,16 +166,7 @@ namespace Diga.WebView2.Wpf.Scripting.DOM
             await ExecuteScriptAsync(scriptVal);
             return var;
         }
-        //protected DOMVar ExecGetVar(object[] args, [CallerMemberName] string member = "")
-        //{
-        //    string argsValue = BuildArgs(args);
-
-        //    DOMVar var = new DOMVar(this._View2Control);
-
-        //    string scripVal = $"{var.Name}={this.InstanceName}.{member}({argsValue});";
-        //    InvokeScript(scripVal);
-        //    return var;
-        //}
+       
 
         protected async Task<DOMVar> ExecGetVarAsync(object[] args, [CallerMemberName] string member = "")
         {
@@ -159,12 +178,29 @@ namespace Diga.WebView2.Wpf.Scripting.DOM
             return var;
         }
 
-        protected Task DomSet(string id, string value, [CallerMemberName] string member = null)
+        protected DOMVar ExecGetVar(object[] args, [CallerMemberName] string member = "")
+        {
+            string argsValue = BuildArgs(args);
+            DOMVar var = new DOMVar(this._View2Control);
+            string scripVal = $"{var.Name}={this.InstanceName}.{member}({argsValue});";
+            ExecuteScript(scripVal);
+            return var;
+        }
+        protected Task DomSetAsync(string id, string value, [CallerMemberName] string member = null)
         {
             return ExecuteScriptAsync($"document.getElementById(\"{id}\").{member}={value};");
         }
 
-        protected async Task<string> DomGet(string id, [CallerMemberName] string member = null)
+        protected void DomSet(string id, string value, [CallerMemberName] string member = null)
+        {
+             ExecuteScript($"document.getElementById(\"{id}\").{member}={value};");
+        }
+
+        protected string DomGet(string id, [CallerMemberName] string member = null)
+        {
+            return ExecuteScript($"return document.getElementById(\"{id}\").{member};");
+        }
+        protected async Task<string> DomGetAsync(string id, [CallerMemberName] string member = null)
         {
             return await ExecuteScriptAsync($"return document.getElementById(\"{id}\").{member};");
         }
@@ -172,52 +208,63 @@ namespace Diga.WebView2.Wpf.Scripting.DOM
 
 
 
-        public async Task<string> EncodeUri(string url)
+        public async Task<string> EncodeUriAsync(string url)
         {
             return await ExecuteScriptAsync($"return encodeURI(\"{url}\");");
         }
 
-        public async Task<string> EncodeUriComponent(string url)
+        public async Task<string> EncodeUriComponentAsync(string url)
         {
             return await ExecuteScriptAsync($"return encodeURIComponent(\"{url}\");");
         }
 
 
-        public async Task<string> DecodeUri(string encodedUrl)
+        public async Task<string> DecodeUriAsync(string encodedUrl)
         {
             return await ExecuteScriptAsync($"return decodeURI(\"{encodedUrl}\");");
         }
 
-        public async Task<string> DecodeUriComponent(string encodedUrl)
+        public async Task<string> DecodeUriComponentAsync(string encodedUrl)
         {
             return await ExecuteScriptAsync($"return decodeURIComponent(\"{encodedUrl}\");");
         }
 
-        public async Task<string> Eval(string script)
+        public async Task<string> EvalAsync(string script)
         {
             return await ExecuteScriptAsync($"return eval(\"{script}\");");
         }
 
-        public Task DocumentOpen()
+        public Task DocumentOpenAsync()
         {
             return ExecuteScriptAsync("document.open();");
         }
 
-        public Task DocumentClose()
+        public Task DocumentCloseAsync()
         {
             return ExecuteScriptAsync("document.close();");
         }
 
-        public Task DocumentWrite(string value)
+        public Task DocumentWriteAsync(string value)
         {
             return ExecuteScriptAsync($"document.write(\"{value}\");");
         }
 
-        public Task DocumentWriteLn(string value)
+        public Task DocumentWriteLnAsync(string value)
         {
             return ExecuteScriptAsync($"document.writeln(\"{value}\");");
         }
 
+        public bool VarExist()
+        {
+            if (this._Var == null) return false;
+            return this._Var.VarExist();
+        }
+
+        public Task<bool> VarExistAsync()
+        {
+            if (this._Var == null) return Task.FromResult(false);
+            return this._Var.VarExistAsync();
+        }
         public string GetVarName()
         {
             return this.InstanceName;
@@ -230,13 +277,13 @@ namespace Diga.WebView2.Wpf.Scripting.DOM
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!this.disposedValue)
+            if (!disposedValue)
             {
                 if (disposing)
                 {
                    this._Var?.Dispose();
                 }
-                this.disposedValue = true;
+                disposedValue = true;
             }
         }
 
