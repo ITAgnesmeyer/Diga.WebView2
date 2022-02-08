@@ -115,7 +115,7 @@ button.Click += async (o, ev) =>
 Asynchronous and synchronous calls should never be mixed. 
 If possible, use the synchronous calls.
 
-# Correct example
+### Correct example
 ```c#
     DOMDocument doc = this.webView1.GetDOMDocument();
     this._DIV = doc.createElement("div");
@@ -150,7 +150,7 @@ Note that as soon as a new document is created, the old variables become invalid
 You can query the validity of the variable with VarExist().
 Use thie WebView-Event DOMContentLoaded to cleanup.
 
-# Check validity of the object
+### Check validity of the object
 ```c#
 //sync
 if(!this._DIV.VarExist())
