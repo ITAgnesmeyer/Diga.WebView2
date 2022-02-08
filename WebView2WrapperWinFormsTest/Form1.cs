@@ -385,6 +385,7 @@ namespace WebView2WrapperWinFormsTest
             //if(this._DIV != null)
             //    UIDispatcher.UIThread.Post(this._DIV.Dispose);
             DOMGC.CleanUp();
+            
             this._DIV = null;
 
         }
@@ -491,27 +492,21 @@ namespace WebView2WrapperWinFormsTest
                 this._DIV = doc.createElement("div");
                 this._DIV.id = Guid.NewGuid().ToString();
                 doc.body.appendChild(this._DIV);
+
                 //add a button element
                 DOMElement element = doc.createElement("button");
 
                 //set inner html of button 
-                //StringTaskVar converts the string into Task<string>
                 element.innerHTML = "Click Me";
 
                 //set id of Button-Element
-                //StringTaskVar converts GUID-String to Task<string>
                 element.id = Guid.NewGuid().ToString();
 
                 //Get script window
                 DOMWindow window = this.webView1.GetDOMWindow();
 
-                //help Class for calling Events
-                //DOMEventListenerScript scriptText = new DOMEventListenerScript(element);
-
                 //get the document body - Element
                 this._DIV.appendChild(element);
-
-
 
                 //handle the event
                 // Important never call synchron Properties and Functions in an async function
