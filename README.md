@@ -87,7 +87,7 @@ public async Task InvokeSendMessage(string msg)
 ```
 
 ## DOM Objects
-The Windows Forms project now supports DOM objects.
+The Windows Forms and WPF project now supports DOM objects.
 You can retrieve the DOM - Window object and the DOM - Document object directly by using the GetDOMWidow() and GetDOMDocument() functions.
 Events are only add sync functions!!
 ```c#
@@ -112,6 +112,54 @@ button.Click += async (o, ev) =>
 };
 
 ```
+Asynchronous and synchronous calls should never be mixed. 
+If possible, use the synchronous calls.
+
+# Correct example
+```c#
+    DOMDocument doc = this.webView1.GetDOMDocument();
+    this._DIV = doc.createElement("div");
+    this._DIV.id = Guid.NewGuid().ToString();
+    doc.body.appendChild(this._DIV);
+    //add a button element
+    DOMElement element = doc.createElement("button");
+    //set inner html of button 
+    element.innerHTML = "Click Me";
+    //set id of Button-Element
+    element.id = Guid.NewGuid().ToString();
+
+    //add Button to DIV
+    this._DIV.appendChild(element);
+
+    //Add EventHandler
+    // Important never call synchron Properties and Functions in an async function
+    element.Click += OnDomElementClick1;
+    element.Click += OnDomElementClick;
+    ...
+    private void OnDomElementClick1(object sender, DOMMouseEventArgs e)
+    {
+      ...
+    }
+    private void OnDomElementClick(object sender, DOMMouseEventArgs e)
+    {
+      ...
+    }
+    
+```
+Note that as soon as a new document is created, the old variables become invalid. 
+You can query the validity of the variable with VarExist().
+Use thie WebView-Event DOMContentLoaded to cleanup.
+
+# Check validity of the object
+```c#
+//sync
+if(!this._DIV.VarExist())
+   this._DIV = nothing;
+...
+// async
+bool varExist = await this._DIV.VarExistAsync();
+```
+
 
 ###### This text was automatically translated with the [Microsoft translator](https://www.bing.com/translator "Microsoft translator").
 
