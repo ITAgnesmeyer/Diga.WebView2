@@ -218,7 +218,7 @@ namespace Diga.WebView2.Wrapper
         }
 
         public List<string> CurrentContent { get; } = new List<string>();
-        private async void WebResourceResponseReceivedIntern(object sender, WebResourceResponseReceivedEventArgs e)
+        private void WebResourceResponseReceivedIntern(object sender, WebResourceResponseReceivedEventArgs e)
         {
             try
             {
@@ -274,26 +274,26 @@ namespace Diga.WebView2.Wrapper
 
                     if (mimeType.StartsWith( "text/html"))
                     {
-                        using (var stream = await e.Response.GetContentAsync())
-                        {
-                            if (stream != null)
-                            {
+                        //using (var stream = e.Response.GetContent())
+                        //{
+                        //    if (stream != null)
+                        //    {
 
 
-                                using (StreamReader sr = new StreamReader(stream, Encoding.UTF8))
-                                {
-                                    string content = await sr.ReadToEndAsync();
+                        //        using (StreamReader sr = new StreamReader(stream, Encoding.UTF8))
+                        //        {
+                        //            string content = sr.ReadToEnd();
 
 
-                                    this.CurrentContent.Add(content);
-                                    sr.Close();
-                                }
+                        //            this.CurrentContent.Add(content);
+                        //            sr.Close();
+                        //        }
 
-                                stream.Close();
+                        //        stream.Close();
 
-                            }
+                        //    }
 
-                        }
+                        //}
                     }
                 }
             }

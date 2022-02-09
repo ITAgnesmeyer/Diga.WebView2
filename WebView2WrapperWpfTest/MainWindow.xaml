@@ -19,6 +19,6 @@
         <a:WebView Grid.Row="0"  x:Name="WebView1"  Grid.Column="0"  Margin="10" WebViewCreated="WebView1_WebViewCreated" WebMessageReceived="WebView1_WebMessageReceived" DefaultBackgroundColor="#FFA4DAAC"  />
         <a:WebView Grid.Row="0" x:Name="WebView2" Grid.Column="1"   Margin="10" WebViewCreated="WebView2_WebViewCreated" WebMessageReceived="WebView2_WebMessageReceived" DefaultBackgroundColor="#FFEDA2A2" />
         <Button Grid.Row="1" Grid.Column="0" Click="Button_Click" >Test</Button>
-        <a:WebView x:Name="WebView3" Grid.Row="1" Grid.Column="1"  IsManipulationEnabled="True" HtmlContent="&lt;button id=&quot;ga_button&quot;&gt;test&lt;/buttons&gt;" DefaultBackgroundColor="White"   />
+        <a:WebView x:Name="WebView3" Grid.Row="1" Grid.Column="1"  IsManipulationEnabled="True" HtmlContent="&lt;button id=&quot;ga_button&quot;&gt;test&lt;/button&gt;" DefaultBackgroundColor="White"   />
     </Grid>
 </Window>

@@ -43,7 +43,12 @@ namespace Diga.WebView2.Wrapper
 
         public Stream GetContent()
         {
-            return GetContentAsync().Result;
+         
+            
+            Task<Stream> resultTask = GetContentAsync();
+            resultTask.Wait(20000);
+            return resultTask.Result;
+
         }
         public async Task<Stream> GetContentAsync()
         {

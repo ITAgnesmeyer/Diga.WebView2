@@ -5,8 +5,7 @@ using System.IO;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
 using MimeTypeExtension;
-using System.Resources;
-using Diga.WebView2.Wpf.Properties;
+
 namespace Diga.WebView2.Wpf
 {
 
@@ -63,7 +62,7 @@ namespace Diga.WebView2.Wpf
 
             try
             {
-                string resString ="" ;//System.Resources.ResourceManager
+                string resString = Properties.Resources.ResourceManager.GetString(resName);
                 if (resString == null)
                 {
                     responseInfo = new ResponseInfo("<h1>Server Error</h1><h5>file not found:" + url + "</h5>");
@@ -74,16 +73,16 @@ namespace Diga.WebView2.Wpf
                     return false;
                 }
 
-                int index = resString.IndexOf("base64,",StringComparison.Ordinal);
+                int index = resString.IndexOf("base64,", StringComparison.Ordinal);
                 string mime = resString.Substring(5, index - 5);
-            
+
                 string contentBase64 = resString.Substring(index + 7);
 
                 byte[] contentBase64Bytes = Convert.FromBase64String(contentBase64);
-            
+
 
                 responseInfo = new ResponseInfo(contentBase64Bytes);
-                responseInfo.Header.Add("content-type",mime);
+                responseInfo.Header.Add("content-type", mime);
                 responseInfo.ContentType = mime;
                 responseInfo.StatusCode = 200;
                 responseInfo.StatusText = "OK";
@@ -98,11 +97,11 @@ namespace Diga.WebView2.Wpf
                 responseInfo.StatusCode = 500;
                 responseInfo.StatusText = "Internal Server Error";
                 return true;
-        }
+            }
 
 
 
-           
+
 
         }
         private void CleanUpResponses(WebResourceResponseReceivedEventArgs e)
