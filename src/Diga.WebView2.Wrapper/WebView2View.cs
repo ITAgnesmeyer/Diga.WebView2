@@ -220,6 +220,7 @@ namespace Diga.WebView2.Wrapper
         public List<string> CurrentContent { get; } = new List<string>();
         private void WebResourceResponseReceivedIntern(object sender, WebResourceResponseReceivedEventArgs e)
         {
+            
             try
             {
 
@@ -530,6 +531,7 @@ namespace Diga.WebView2.Wrapper
         }
         public async Task<bool> PrintToPdfAsync(string file, WebView2PrintSettings printSettings)
         {
+            
             var source = new TaskCompletionSource<(int, int)>();
             var printToPdfDelegate = new PrintToPdfCompletedDelegate(source);
             base.PrintToPdf(file, printSettings, printToPdfDelegate);

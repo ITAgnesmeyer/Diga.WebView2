@@ -60,13 +60,12 @@ namespace Diga.WebView2.Wrapper.EventArguments
                 }
 
                 this._Args = null;
-                // TODO: Nicht verwaltete Ressourcen (nicht verwaltete Objekte) freigeben und Finalizer überschreiben
-                // TODO: Große Felder auf NULL setzen
+            
                 disposedValue = true;
             }
         }
 
-        // // TODO: Finalizer nur überschreiben, wenn "Dispose(bool disposing)" Code für die Freigabe nicht verwalteter Ressourcen enthält
+        
         ~WebMessageReceivedEventArgs()
         {
             // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
@@ -75,7 +74,7 @@ namespace Diga.WebView2.Wrapper.EventArguments
 
         public void Dispose()
         {
-            // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
+           
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }

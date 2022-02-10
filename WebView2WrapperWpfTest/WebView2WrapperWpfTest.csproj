@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\V10107254\Diga.WebView2.Wpf.V10107254\Diga.WebView2.Wpf.V10107254.csproj" />
+    <ProjectReference Include="..\src\Diga.WebView2.Wpf\Diga.WebView2.Wpf.csproj" />
   </ItemGroup>
 
   <ItemGroup>

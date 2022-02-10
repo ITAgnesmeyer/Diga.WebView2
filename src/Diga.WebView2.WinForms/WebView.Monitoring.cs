@@ -20,6 +20,7 @@ namespace Diga.WebView2.WinForms
 
         private void CheckMonitoring(WebResourceRequestedEventArgs e)
         {
+            
             if (this.EnableMonitoring)
             {
                 //Debug.Print("url request=>" + e.Request.Uri);

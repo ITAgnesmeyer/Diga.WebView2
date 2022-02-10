@@ -150,6 +150,7 @@ namespace Diga.WebView2.WinForms
 
         protected virtual void OnNewWindowRequested(NewWindowRequestedEventArgs e)
         {
+            
             NewWindowRequested?.Invoke(this, e);
         }
 

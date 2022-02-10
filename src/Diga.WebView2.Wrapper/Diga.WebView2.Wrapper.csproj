@@ -60,7 +60,7 @@
 	  <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\Diga.WebView2.Interop.V10107254\Diga.WebView2.Interop.V10107254.csproj" />
+	  <ProjectReference Include="..\Diga.WebView2.Interop\Diga.WebView2.Interop.csproj" />
 	</ItemGroup>
  <ItemGroup>
 	 <None Update="native\arm64\WebView2Loader.dll">
