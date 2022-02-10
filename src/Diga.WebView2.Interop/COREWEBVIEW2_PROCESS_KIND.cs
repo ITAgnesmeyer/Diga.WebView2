@@ -1,0 +1,19 @@
+﻿// Decompiled with JetBrains decompiler
+// Type: Diga.WebView2.Interop.COREWEBVIEW2_PROCESS_KIND
+// Assembly: Diga.WebView2.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+// MVID: B1615030-5202-42C2-A0A8-1F7B8FE362ED
+// Assembly location: O:\webview2\V10110844\Diga.WebView2.Interop.dll
+
+namespace Diga.WebView2.Interop
+{
+  public enum COREWEBVIEW2_PROCESS_KIND
+  {
+    COREWEBVIEW2_PROCESS_KIND_BROWSER,
+    COREWEBVIEW2_PROCESS_KIND_RENDERER,
+    COREWEBVIEW2_PROCESS_KIND_UTILITY,
+    COREWEBVIEW2_PROCESS_KIND_SANDBOX_HELPER,
+    COREWEBVIEW2_PROCESS_KIND_GPU,
+    COREWEBVIEW2_PROCESS_KIND_PPAPI_PLUGIN,
+    COREWEBVIEW2_PROCESS_KIND_PPAPI_BROKER,
+  }
+}
