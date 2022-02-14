@@ -173,23 +173,23 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             {
                 if (disposing)
                 {
+                    if (UIDispatcher.UIThread.CheckAccess())
+                    {
+                        if (VarExist())
+                            DeleteVar();
 
+                    }
 
                 }
-                if (UIDispatcher.UIThread.CheckAccess())
-                {
-                    if (VarExist())
-                        DeleteVar();
-
-                }
+               
                 disposedValue = true;
             }
         }
 
-        ~DOMVar()
-        {
-            Dispose(false);
-        }
+        //~DOMVar()
+        //{
+        //    Dispose(false);
+        //}
         public async Task DisposeAsync()
         {
             await DeleteVarAsync();
