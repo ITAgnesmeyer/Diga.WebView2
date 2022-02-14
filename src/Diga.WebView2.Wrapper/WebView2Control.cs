@@ -115,7 +115,7 @@ namespace Diga.WebView2.Wrapper
             };
 
             Native.CompareBrowserVersions(browserInfo, options.TargetCompatibleBrowserVersion, out int result);
-            if (result == (int)Native.BrowserVersionState.Older)
+            if (result == (int)BrowserVersionState.Older)
             {
                 throw new Exception("The installed Browser-Version is older than (" +
                                     options.TargetCompatibleBrowserVersion + ")");
@@ -473,7 +473,7 @@ namespace Diga.WebView2.Wrapper
         public void DockToParent()
         {
             if (this._ParentHandle.Handle == IntPtr.Zero) return;
-            Native.GetClientRect(this._ParentHandle.Handle, out var rect);
+            NativeUser32.GetClientRect(this._ParentHandle.Handle, out var rect);
             this.Controller.Bounds = rect;
         }
 

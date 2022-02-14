@@ -49,10 +49,6 @@
 
 	<ItemGroup>
 		<None Include="logo.png" Pack="true" PackagePath="\" />
-		<None Include="native\arm64\WebView2Loader.dll" Pack="true" PackagePath="\build\native\arm64" />
-		<None Include="native\x64\WebView2Loader.dll" Pack="true" PackagePath="\build\native\x64" />
-		<None Include="native\x86\WebView2Loader.dll" Pack="true" PackagePath="\build\native\x86" />
-		<None Include="native\LICENSE.txt" Pack="true" PackagePath="\build\native" />
 		<None Include="native\Diga.WebView2.Wrapper.targets" Pack="true" PackagePath="\build" />
 	</ItemGroup>
 	<ItemGroup>
@@ -62,21 +58,16 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Diga.WebView2.Interop\Diga.WebView2.Interop.csproj" />
 	</ItemGroup>
- <ItemGroup>
-	 <None Update="native\arm64\WebView2Loader.dll">
-		 <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	 </None>
-	
-	 <None Update="native\x64\WebView2Loader.dll">
-		 <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	 </None>
-	 <None Update="native\x86\WebView2Loader.dll">
-		 <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	 </None>
-	 <None Update="native\LICENSE.txt">
-		 <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	 </None>
-	
- </ItemGroup>
+	<ItemGroup>
+	  <None Update="native\arm64\Diga.WebView2.Native.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="native\x64\Diga.WebView2.Native.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="native\x86\Diga.WebView2.Native.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
 	
 </Project>

@@ -40,7 +40,7 @@ namespace Diga.WebView2.Wrapper.Handler
             settings.AreDefaultScriptDialogsEnabled = new CBOOL(true);
             settings.IsWebMessageEnabled = new CBOOL(true);
             tagRECT rect;
-            Native.GetClientRect(createdController.ParentWindow, out rect);
+            NativeUser32.GetClientRect(createdController.ParentWindow, out rect);
             controller.Bounds = rect;
             OnControllerCompleted(new ControllerCompletedArgs((ICoreWebView2Controller3) controller, webView));
         }

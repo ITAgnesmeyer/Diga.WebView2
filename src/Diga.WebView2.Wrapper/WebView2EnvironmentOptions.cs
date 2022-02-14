@@ -1,4 +1,5 @@
 ﻿using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.interop;
 using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper
@@ -7,7 +8,8 @@ namespace Diga.WebView2.Wrapper
     {
         public WebView2EnvironmentOptions()
         {
-            this.TargetCompatibleBrowserVersion = "98.0.1108.44";
+            Native.GetCurrentVersion(out string version);
+            this.TargetCompatibleBrowserVersion = version;
             this.AllowSingleSignOnUsingOSPrimaryAccount = new CBOOL(true);
         }
         public string AdditionalBrowserArguments { get; set; }
