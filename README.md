@@ -23,24 +23,21 @@ It should also be possible to work completely without an HTTP server.
 ### packages are currently supported.
 microsoft.web.webview2
 
-- Version 1.0.1054.31 is the current Version on Client - PC's
-- Version 1.0.1072.54 is the current Version on Client - PC's
+- Version 1.0.1108.44 is the current Version on Client - PC's
 
 WebView2 [Release-Notes](https://docs.microsoft.com/de-de/microsoft-edge/webview2/releasenotes)
 
-### Why is the microsoft.web.webview2 package not linked?
-The packages are not linked because this does not allow the mapping of Any CPU.
-The packages are always added only based on the setting of the projects.
-The API calls in this project are designed to draw the correct DLL depending on CPU usage.
-Therefore, the DLL's were included in the project.
-The NATIVEN-DLL's can then be found in the bin directory under native/x86 or native/x64.
+### Why is the microsoft.web.webview2 package not linked in Package?
+Native calls are made via a separate C++ DLL. 
+The package from Microsoft is then also linked here. 
+The native DLL links the WebView2LoaderStatic.lib. 
+Therefore, a link to the Microsoft.Web.WebView2 package is no longer necessary in the package.
+
 
 
 ### Package version:
 This means the version of the WebView2 packages.
-
-- V10105431 => [microsoft.web.webview2 1.0.1054.31](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1054.31)
-- V10107254 => [microsoft.web.webview2 1.0.1072.54](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1072.54)
+- V10107254 => [microsoft.web.webview2 1.0.1108.44](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1108.44)
 
 ### How were the interop sources created?
 The Microsoft microsoft.web.webview2 package contains webview2.tlb.
