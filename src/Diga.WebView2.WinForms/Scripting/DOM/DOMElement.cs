@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Diga.WebView2.WinForms.Scripting.DOM
 {
@@ -10,6 +11,10 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
 
         }
 
+        public virtual DOMElement GetCopy()
+        {
+            return base.GetCopy<DOMElement>();
+        }
         public string accessKey
         {
             get => Get<string>();
@@ -479,6 +484,55 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             set => _ = SetAsync(value,nameof(tabIndex));
         }
 
+        public T GetElementProperty<T>(string propertyName)
+        {
+            return Get<T>(propertyName);
+        }
+
+        public Task<T> GetElementPropertyAsync<T>(string propertyName)
+        {
+            return GetAsync<T>(propertyName);
+        }
+
+        public void SetPropertyValue<T>(string propertyName, T value)
+        {
+            Set<T>(value, propertyName);
+        }
+
+        public  Task SetPropertyValueAsync<T>(string propertyName, T value)
+        {
+            return SetAsync<T>((TaskVar<T>)value, propertyName);
+
+        }
+
+        public T ExecuteElementFunction<T>(string functionName, params object[] values)
+        {
+            Type type = typeof(T);
+            if (type.IsAssignableFrom(typeof(DOMObject)))
+            {
+                DOMVar var = ExecGetVar(values, functionName);
+                return (T)GetDomObjectFromDomVar(type, var);
+
+            }
+
+            return Exec<T>(values, functionName);
+
+        }
+
+        public async Task<T> ExecuteElementFunctionAsync<T>(string functionName, params object[] values)
+        {
+            Type type = typeof(T);
+            if (type.IsAssignableFrom(typeof(DOMObject)))
+            {
+                DOMVar var = await ExecGetVarAsync(values, functionName);
+                return (T)GetDomObjectFromDomVar(type, var);
+                
+            }
+            else
+            {
+                return await ExecAsync<T>(values, functionName);
+            }
+        }
         private bool disposedValue=false;
         protected override void Dispose(bool disposing)
         {

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using Diga.Core.Threading;
 using Diga.WebView2.WinForms.Scripting;
+using Diga.WebView2.WinForms.Scripting.DOM;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
 
@@ -50,6 +52,9 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<WebView2EventArgs> IsMutedChanged;
         public event EventHandler<WebView2EventArgs> IsDocumentPlayingAudioChanged;
         public event EventHandler<WebView2EventArgs> IsDefaultDownloadDialogOpenChanged;
+
+        public event EventHandler DocumentLoading;
+        public event EventHandler<DocumentReadyStateChangeEventArgs> DocumentReadyStateChange;
         private void OnWebWindowBeforeCreate(object sender, BeforeCreateEventArgs e)
         {
             WebWindowInitSettings(e);
@@ -150,7 +155,7 @@ namespace Diga.WebView2.WinForms
 
         protected virtual void OnNewWindowRequested(NewWindowRequestedEventArgs e)
         {
-            
+
             NewWindowRequested?.Invoke(this, e);
         }
 
@@ -209,9 +214,59 @@ namespace Diga.WebView2.WinForms
             }
         }
 
+        //private DOMDocument _Docuemnt;
+        //private DOMWindow _Window;
+        protected virtual void OnDocumentLoading()
+        {
+            //DOMWindow window = this.GetDOMWindow();
+            //if (this._Docuemnt != null)
+            //    this._Docuemnt.DomEvent -= OnDomEvent;
+            UIDispatcher.UIThread.Post(() =>
+            {
+                try
+                {
+                    //this._Window = this.GetDOMWindow().GetCopy();
+                    //this._Window.addEventListener("error", new DOMEventListenerScript(this._Window, "error"),false);
+                    //this._Window.addEventListener("beforeunload", new DOMEventListenerScript(this._Window,"beforeunload"),false);
+                    //this._Window.addEventListener("pagehide", new DOMEventListenerScript(this._Window,"pagehide"),false);
+                    //this._Docuemnt = this._Window.document;
+
+                    //this._Docuemnt.addEventListener("load", new DOMEventListenerScript(this._Docuemnt, "load"), false);
+                    //this._Docuemnt.DomEvent += OnDomEvent;
+                    //this._Window.DomEvent += OnDomEvent;
+                }
+                catch (Exception e)
+                {
+
+                    Debug.Print(e.ToString());
+                }
+               
+
+                DocumentLoading?.Invoke(this, EventArgs.Empty);
+
+            });
+        }
+
+        //private void OnDomEvent(object sender, RpcEventHandlerArgs e)
+        //{
+        //    switch (e.EventName)
+        //    {
+        //        case "readystatechange":
+        //            {
+        //                string state = this._Docuemnt.readyState;
+        //                OnDocumentReadyStateChange(new DocumentReadyStateChangeEventArgs(this._Docuemnt, state));
+        //            }
+        //            break;
+
+        //    }
+        //}
+
         protected virtual void OnDomContentLoaded(DOMContentLoadedEventArgs e)
         {
+
+
             DOMContentLoaded?.Invoke(this, e);
+            UIDispatcher.UIThread.InvokeAsync(OnDocumentLoading);
         }
 
         protected virtual void OnWebResourceResponseReceived(WebResourceResponseReceivedEventArgs e)
@@ -525,6 +580,11 @@ namespace Diga.WebView2.WinForms
         protected virtual void OnIsDefaultDownloadDialogOpenChanged(WebView2EventArgs e)
         {
             IsDefaultDownloadDialogOpenChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnDocumentReadyStateChange(DocumentReadyStateChangeEventArgs e)
+        {
+            DocumentReadyStateChange?.Invoke(this, e);
         }
     }
 }

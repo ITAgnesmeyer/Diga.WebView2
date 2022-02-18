@@ -355,6 +355,7 @@
             this.webView1.WebViewCreated += new System.EventHandler(this.webView1_WebViewCreated);
             this.webView1.BeforeWebViewDestroy += new System.EventHandler(this.webView1_BeforeWebViewDestroy);
             this.webView1.IsDocumentPlayingAudioChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_IsDocumentPlayingAudioChanged);
+            this.webView1.DocumentLoading += new System.EventHandler(this.webView1_DocumentLoading);
             // 
             // Form1
             // 

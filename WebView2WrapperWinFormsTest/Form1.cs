@@ -29,6 +29,7 @@ namespace WebView2WrapperWinFormsTest
 
         private void OnRpcEvent(object sender, RpcEventHandlerArgs e)
         {
+            Debug.Print("RPCEVENT");
             //string eventName = e.EventName;
             //string id = e.ObjectId;
 
@@ -384,7 +385,11 @@ namespace WebView2WrapperWinFormsTest
             Debug.Print(e.NavigationId.ToString());
             //if(this._DIV != null)
             //    UIDispatcher.UIThread.Post(this._DIV.Dispose);
-            DOMGC.CleanUp();
+            //UIDispatcher.UIThread.Post(() =>
+            //{
+            //    DOMGC.CleanUp();
+            //});
+            
             
             this._DIV = null;
 
@@ -708,6 +713,11 @@ namespace WebView2WrapperWinFormsTest
                 MessageBox.Show(exception.ErrorObject.message);
 
             }
+        }
+
+        private void webView1_DocumentLoading(object sender, EventArgs e)
+        {
+            MessageBox.Show("DOM-Loading");
         }
     }
 }
