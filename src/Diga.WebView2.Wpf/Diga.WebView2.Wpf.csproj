@@ -5,7 +5,7 @@
 	<RootNamespace>Diga.WebView2.Wpf</RootNamespace>
 	  <AssemblyName>Diga.WebView2.Wpf</AssemblyName>
 	  <UseWPF>true</UseWPF>
-	  <Version>16.0.1</Version>
+	  <Version>16.0.2</Version>
 	  <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
 	  <Product>Diga.WebView2.Wpf</Product>
 	  <Copyright>Copyright © 2022 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
