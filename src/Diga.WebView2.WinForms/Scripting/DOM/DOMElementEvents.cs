@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -21,7 +22,15 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             listener -= listenerToRemove;
             if (listener == null)
             {
-                this.removeEventListener(eventName);
+                try
+                {
+                    this.removeEventListener(eventName);
+                }
+                catch (Exception exception)
+                {
+                    Debug.Print("Exception:" + exception.Message);
+                }
+                
             }
         }
 

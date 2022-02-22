@@ -10,13 +10,13 @@ namespace Diga.WebView2.Wpf.Scripting.DOM
         }
 
         public bool altKey => Get<bool>();
-        public Task<bool> altKeyAsync => GetAsync<bool>(nameof(this.altKey));
+        public Task<bool> altKeyAsync => GetAsync<bool>(nameof(altKey));
 
         public int charCode => Get<int>();
-        public Task<int> charCodeAsync => GetAsync<int>(nameof(this.charCode));
+        public Task<int> charCodeAsync => GetAsync<int>(nameof(charCode));
 
         public bool ctrlKey => Get<bool>();
-        public Task<bool> ctrlKeyAsync => GetAsync<bool>(nameof(this.ctrlKey));
+        public Task<bool> ctrlKeyAsync => GetAsync<bool>(nameof(ctrlKey));
 
         public bool getModifierState(string modifierKey)
         {
@@ -29,21 +29,21 @@ namespace Diga.WebView2.Wpf.Scripting.DOM
         }
 
         public bool isComposing => Get<bool>();
-        public Task<bool> isComposingAsync => GetAsync<bool>(nameof(this.isComposing));
+        public Task<bool> isComposingAsync => GetAsync<bool>(nameof(isComposing));
         public string key => Get<string>();
-        public Task<string> keyAsync => GetAsync<string>(nameof(this.key));
+        public Task<string> keyAsync => GetAsync<string>(nameof(key));
         public int location => Get<int>();
-        public Task<int> locationAsync => GetAsync<int>(nameof(this.location));
+        public Task<int> locationAsync => GetAsync<int>(nameof(location));
 
         public bool metaKey => Get<bool>();
-        public Task<bool> metaKeyAsync => GetAsync<bool>(nameof(this.metaKey));
+        public Task<bool> metaKeyAsync => GetAsync<bool>(nameof(metaKey));
 
         public bool repeat => Get<bool>();
-        public Task<bool> repeatAsync => GetAsync<bool>(nameof(this.repeat));
+        public Task<bool> repeatAsync => GetAsync<bool>(nameof(repeat));
         public bool shiftKey => Get<bool>();
-        public Task<bool> shiftKeyAsync => GetAsync<bool>(nameof(this.shiftKey));
+        public Task<bool> shiftKeyAsync => GetAsync<bool>(nameof(shiftKey));
         public int which => Get<int>();
-        public Task<int> whichAsync => GetAsync<int>(nameof(this.which));
+        public Task<int> whichAsync => GetAsync<int>(nameof(which));
 
     }
 }

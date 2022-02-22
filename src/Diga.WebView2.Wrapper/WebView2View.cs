@@ -223,7 +223,7 @@ namespace Diga.WebView2.Wrapper
             
             try
             {
-
+                
                 //Thread.Sleep(100);
                 if (e.Request.Method == "GET")
                 {

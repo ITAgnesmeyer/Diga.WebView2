@@ -1,49 +1,37 @@
-﻿using System;
-using Diga.WebView2.Interop;
+﻿using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Implementation;
 
 namespace Diga.WebView2.Wrapper.EventArguments
 {
-    public class PermissionRequestedEventArgs : EventArgs, ICoreWebView2PermissionRequestedEventArgs
+    public class PermissionRequestedEventArgs : PermissionRequestedEventArgsInterface
     {
-        private ICoreWebView2PermissionRequestedEventArgs _Args;
+        
 
-        public PermissionRequestedEventArgs(ICoreWebView2PermissionRequestedEventArgs args)
+        public PermissionRequestedEventArgs(ICoreWebView2PermissionRequestedEventArgs args):base(args)
         {
-            this._Args = args;
+            
         }
 
-        private ICoreWebView2PermissionRequestedEventArgs Tointerface()
+       
+        public string Uri => base.uri;
+
+        public new PermissionState State
         {
-            return this._Args;
+            get => (PermissionState)base.State;
+
+            set => base.State = (COREWEBVIEW2_PERMISSION_STATE)value;
         }
 
-        public string Uri => this.Tointerface().uri;
+        public PermissionType PermissionType => (PermissionType)base.PermissionKind;
 
-        public PermissionState State
+
+        public new WebView2Deferral GetDeferral()
         {
-            get => (PermissionState)this.Tointerface().State;
-
-            set => this.Tointerface().State = (COREWEBVIEW2_PERMISSION_STATE)value;
+            return new WebView2Deferral(base.GetDeferral());
         }
 
-        public PermissionType PermissionType => (PermissionType)this.Tointerface().PermissionKind;
-        string ICoreWebView2PermissionRequestedEventArgs.uri => this._Args.uri;
-
-        COREWEBVIEW2_PERMISSION_KIND ICoreWebView2PermissionRequestedEventArgs.PermissionKind => this._Args.PermissionKind;
-
-        int ICoreWebView2PermissionRequestedEventArgs.IsUserInitiated => this._Args.IsUserInitiated;
-
-        COREWEBVIEW2_PERMISSION_STATE ICoreWebView2PermissionRequestedEventArgs.State
-        {
-            get => this._Args.State;
-            set => this._Args.State = value;
-        }
-
-        ICoreWebView2Deferral ICoreWebView2PermissionRequestedEventArgs.GetDeferral()
-        {
-            return this._Args.GetDeferral();
-        }
-
+        
+      
         
     }
 }

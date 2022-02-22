@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Diga.Core.Threading;
 using Diga.WebView2.WinForms.Scripting;
 using Diga.WebView2.WinForms.Scripting.DOM;
@@ -54,7 +55,8 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<WebView2EventArgs> IsDefaultDownloadDialogOpenChanged;
 
         public event EventHandler DocumentLoading;
-        public event EventHandler<DocumentReadyStateChangeEventArgs> DocumentReadyStateChange;
+        public event EventHandler DocumentUnload;
+
         private void OnWebWindowBeforeCreate(object sender, BeforeCreateEventArgs e)
         {
             WebWindowInitSettings(e);
@@ -69,10 +71,15 @@ namespace Diga.WebView2.WinForms
 
         protected virtual void OnWebResourceRequested(WebResourceRequestedEventArgs e)
         {
-            CheckMonitoring(e);
+            using (var def = e.GetDeferral())
+            {
 
 
-            WebResourceRequested?.Invoke(this, e);
+                CheckMonitoring(e);
+
+
+                WebResourceRequested?.Invoke(this, e);
+            }
         }
 
 
@@ -140,6 +147,7 @@ namespace Diga.WebView2.WinForms
 
         protected virtual void OnWebMessageReceived(WebMessageReceivedEventArgs e)
         {
+            
             WebMessageReceived?.Invoke(this, e);
         }
 
@@ -215,7 +223,7 @@ namespace Diga.WebView2.WinForms
         }
 
         //private DOMDocument _Docuemnt;
-        //private DOMWindow _Window;
+        private DOMWindow _Window;
         protected virtual void OnDocumentLoading()
         {
             //DOMWindow window = this.GetDOMWindow();
@@ -225,41 +233,35 @@ namespace Diga.WebView2.WinForms
             {
                 try
                 {
-                    //this._Window = this.GetDOMWindow().GetCopy();
-                    //this._Window.addEventListener("error", new DOMEventListenerScript(this._Window, "error"),false);
-                    //this._Window.addEventListener("beforeunload", new DOMEventListenerScript(this._Window,"beforeunload"),false);
-                    //this._Window.addEventListener("pagehide", new DOMEventListenerScript(this._Window,"pagehide"),false);
-                    //this._Docuemnt = this._Window.document;
-
-                    //this._Docuemnt.addEventListener("load", new DOMEventListenerScript(this._Docuemnt, "load"), false);
-                    //this._Docuemnt.DomEvent += OnDomEvent;
-                    //this._Window.DomEvent += OnDomEvent;
+                    this._Window = this.GetDOMWindow().GetCopy();
+                    this._Window.addEventListener("error", new DOMEventListenerScript(this._Window, "error"), true);
+                    this._Window.DomEvent += OnDomEvent;
+                    this.GetDOMConsole().log("Document_Loading");
                 }
                 catch (Exception e)
                 {
 
                     Debug.Print(e.ToString());
                 }
-               
+
 
                 DocumentLoading?.Invoke(this, EventArgs.Empty);
 
             });
         }
 
-        //private void OnDomEvent(object sender, RpcEventHandlerArgs e)
-        //{
-        //    switch (e.EventName)
-        //    {
-        //        case "readystatechange":
-        //            {
-        //                string state = this._Docuemnt.readyState;
-        //                OnDocumentReadyStateChange(new DocumentReadyStateChangeEventArgs(this._Docuemnt, state));
-        //            }
-        //            break;
+        private void OnDomEvent(object sender, RpcEventHandlerArgs e)
+        {
+            switch (e.EventName)
+            {
+                case "error":
+                    {
+                        Debug.Print("Error");
+                    }
+                    break;
 
-        //    }
-        //}
+            }
+        }
 
         protected virtual void OnDomContentLoaded(DOMContentLoadedEventArgs e)
         {
@@ -305,6 +307,11 @@ namespace Diga.WebView2.WinForms
         private void OnRpcEventIntern(object sender, RpcEventHandlerArgs e)
         {
             OnScriptEvent(e);
+        }
+
+        private void OnRpcDomUnloadEvent(object sender, EventArgs e)
+        {
+            OnDocumentUnload();
         }
 
 
@@ -582,9 +589,17 @@ namespace Diga.WebView2.WinForms
             IsDefaultDownloadDialogOpenChanged?.Invoke(this, e);
         }
 
-        protected virtual void OnDocumentReadyStateChange(DocumentReadyStateChangeEventArgs e)
+
+        protected virtual void OnDocumentUnload()
         {
-            DocumentReadyStateChange?.Invoke(this, e);
+            Task.Run(() =>
+            {
+
+                DocumentUnload?.Invoke(this, EventArgs.Empty);
+
+
+            });
+
         }
     }
 }

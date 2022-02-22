@@ -14,6 +14,10 @@ namespace Diga.WebView2.Wpf.Scripting.DOM
 
         }
 
+        public DOMDocument GetCopy()
+        {
+            return base.GetCopy<DOMDocument>();
+        }
         public DOMElement activeElement => GetTypedVar<DOMElement>();
         public Task< DOMElement> activeElementAsync => GetTypedVarAsync<DOMElement>(nameof(activeElement));
 

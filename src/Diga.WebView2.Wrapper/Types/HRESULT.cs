@@ -234,6 +234,8 @@ namespace Diga.WebView2.Wrapper.Types
         [Description("General access denied error")]
         public const int E_ACCESSDENIED = unchecked((int)0x80070005);
 
+        [Description("The group or resource is not in the correct state to perform the requested operation")]
+        public const int E_INVALID_STATE = unchecked((int)0x8007139f);
         ///<summary>
         ///The data necessary to complete this operation is not yet available.
         ///</summary>

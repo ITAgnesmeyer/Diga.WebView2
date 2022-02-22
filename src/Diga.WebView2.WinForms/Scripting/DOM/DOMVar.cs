@@ -22,8 +22,11 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
         {
 
         }
+
+
         private DOMVar(WebView control, bool noCreate = false) : base(control)
         {
+
             this._ObjectId = $"{_VarBase}{Guid.NewGuid().ToString().Replace("-", "_")}";
             if (noCreate)
             {
@@ -33,13 +36,14 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
             {
                 CreateVar();
             }
-            DOMGC.AddVar(this);
+            //DOMGC.AddVar(this);
         }
 
         internal DOMVar(WebView control, string objectId) : base(control)
         {
+
             this._ObjectId = objectId;
-            DOMGC.AddVar(this);
+            //DOMGC.AddVar(this);
         }
         public string Name => this._ObjectId;
 
@@ -123,13 +127,14 @@ namespace Diga.WebView2.WinForms.Scripting.DOM
                 {
                     if (UIDispatcher.UIThread.CheckAccess())
                     {
+
                         if (VarExist())
                             DeleteVar();
 
                     }
 
                 }
-               
+
                 disposedValue = true;
             }
         }

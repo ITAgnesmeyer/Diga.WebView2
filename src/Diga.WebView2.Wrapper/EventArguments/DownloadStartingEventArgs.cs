@@ -1,7 +1,4 @@
 ﻿using Diga.WebView2.Interop;
-using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
 using Diga.WebView2.Wrapper.Implementation;
 
 namespace Diga.WebView2.Wrapper.EventArguments
@@ -14,6 +11,11 @@ namespace Diga.WebView2.Wrapper.EventArguments
 
         }
 
-        new public WebView2DownloadOperation DownloadOperation => new WebView2DownloadOperation(base.DownloadOperation);
+        public new WebView2DownloadOperation DownloadOperation => new WebView2DownloadOperation(base.DownloadOperation);
+
+        public new WebView2Deferral GetDeferral()
+        {
+            return new WebView2Deferral(base.GetDeferral());
+        }
     }
 }

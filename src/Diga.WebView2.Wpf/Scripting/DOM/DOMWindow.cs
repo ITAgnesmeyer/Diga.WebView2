@@ -16,6 +16,28 @@ namespace Diga.WebView2.Wpf.Scripting.DOM
             
         }
 
+        public DOMWindow GetCopy()
+        {
+            return base.GetCopy<DOMWindow>();
+        }
+
+        public void addEventListener(string eventName, DOMScriptText scriptText, bool useCapture)
+        {
+            if (EventHandlerList.TryAdd(this.InstanceName, this))
+            {
+                Exec(new object[]{eventName,scriptText, useCapture});
+            }
+            
+        }
+
+        public async Task addEventListenerAsync(string eventName, DOMScriptText scriptText , bool useCapture)
+        {
+            if (EventHandlerList.TryAdd(this.InstanceName, this))
+            {
+                await ExecAsync<object>(new object[]{eventName,scriptText, useCapture},nameof(addEventListener));
+            }
+            
+        }
         public void alert(string message)
         {
             base.Exec(new object[] { message });

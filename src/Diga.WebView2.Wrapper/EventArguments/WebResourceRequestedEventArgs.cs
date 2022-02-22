@@ -48,6 +48,11 @@ namespace Diga.WebView2.Wrapper.EventArguments
             set => this._Args.Response = value;
         }
 
+        public WebView2Deferral GetDeferral()
+        {
+            return new WebView2Deferral(this._Args.GetDeferral());
+        }
+
         ICoreWebView2Deferral ICoreWebView2WebResourceRequestedEventArgs.GetDeferral()
         {
             return this._Args.GetDeferral();

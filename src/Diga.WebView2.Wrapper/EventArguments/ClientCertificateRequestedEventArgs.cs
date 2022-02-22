@@ -60,7 +60,7 @@ namespace Diga.WebView2.Wrapper.EventArguments
 
         public ICoreWebView2Deferral GetDeferral()
         {
-            return this._Iface.GetDeferral();
+            return  this._Iface.GetDeferral();
         }
     }
 }

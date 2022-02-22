@@ -85,6 +85,19 @@ namespace Diga.WebView2.Wpf.Scripting
             return rpc;
         }
 
+        public void UnloadDom()
+        {
+            try
+            {
+                RpcDomUnloadEvent?.Invoke(this, EventArgs.Empty);
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception);
+            }
+            
+           
+        }
        
         public bool ReleaseObject(object rpc)
         {
@@ -102,6 +115,7 @@ namespace Diga.WebView2.Wpf.Scripting
             return false;
         }
         public event EventHandler<RpcEventHandlerArgs> RpcEvent; 
+        public event EventHandler RpcDomUnloadEvent;
         public bool Handle(string id,  string eventName, object obj )
         {
             IRpcObject o = (IRpcObject)obj;

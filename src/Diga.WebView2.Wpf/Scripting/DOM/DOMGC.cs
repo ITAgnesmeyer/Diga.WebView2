@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Diga.Core.Threading;
 
-namespace Diga.WebView2.WinForms.Scripting.DOM
+namespace Diga.WebView2.Wpf.Scripting.DOM
 {
     public static class DOMGC
     {

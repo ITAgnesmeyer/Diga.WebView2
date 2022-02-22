@@ -30,54 +30,7 @@ namespace WebView2WrapperWinFormsTest
         private void OnRpcEvent(object sender, RpcEventHandlerArgs e)
         {
             Debug.Print("RPCEVENT");
-            //string eventName = e.EventName;
-            //string id = e.ObjectId;
-
-
-
-            //IRpcObject rpcCls = e.RpcObject;
-
-
-
-
-            //string objId = rpcCls.objId;
-            //switch (eventName)
-            //{
-            //    case "click":
-            //        {
-
-            //            await this.webView1.GetDOMConsole().log("Hallo from Prog");
-            //            DOMWindow win = this.webView1.GetDOMWindow();
-            //            string name = await win.name;
-            //            DOMWindow val = await win.open("", "test", "width=200,height=100");
-
-            //            string nn = await val.name;
-            //            val.name = (TaskVar<string>)"hallox";
-            //            var docuemnt = await val.document;
-            //            var bn = await docuemnt.createElement("button");
-            //            bn.innerHTML=(TaskVar<string>)"hallo";
-            //            bn.id = (TaskVar<string>)"ABC";
-            //            await bn.addEventListener("click", new DOMEventListenerScript(bn), false);
-            //            var vladoc = await val.document;
-            //            var body = await vladoc.body;
-            //            await body.appendChild(bn);
-            //            nn = "name=" + nn;
-            //            await win.alert("Warten");
-            //            await val.alert(nn);
-            //            DOMConsole console = await val.console;
-
-            //            await console.log("werte die ich kenne");
-            //            await val.moveBy(100, 100);
-            //            await win.alert("Move");
-            //            await val.moveTo(200, 200);
-            //            win.name = (TaskVar<string>)"halllo";
-
-            //            await win.alert("Object Click:" + objId);
-
-            //        }
-
-            //        break;
-            //}
+           
         }
 
 
@@ -197,7 +150,12 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_PermissionRequested(object sender, PermissionRequestedEventArgs e)
         {
-            //MessageBox.Show(this, "webView1_PermissionRequested");
+            using (var def = e.GetDeferral())
+            {
+                MessageBox.Show(this, "webView1_PermissionRequested");
+            }
+            
+            
         }
 
         private void webView1_WebMessageReceived(object sender, WebMessageReceivedEventArgs e)
@@ -718,6 +676,15 @@ namespace WebView2WrapperWinFormsTest
         private void webView1_DocumentLoading(object sender, EventArgs e)
         {
             MessageBox.Show("DOM-Loading");
+        }
+
+        private  void webView1_DocumentUnload(object sender, EventArgs e)
+        {
+            
+            this._DIV = null;
+            
+            
+            MessageBox.Show("Unload Document");
         }
     }
 }

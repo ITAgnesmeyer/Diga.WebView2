@@ -15,7 +15,7 @@ namespace Diga.WebView2.Wrapper.EventArguments
             {
                 string name = this._Args.Frame.name;
                 Debug.Print(name);
-                this._Frame = new Frame(this._Args.Frame);
+                this._Frame = new Frame((ICoreWebView2Frame2)this._Args.Frame);
 
             }
             catch (Exception ex)
