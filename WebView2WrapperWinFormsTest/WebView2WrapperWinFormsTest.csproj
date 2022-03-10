@@ -140,6 +140,10 @@
       <Project>{7949ce9f-2be8-45d0-a945-ff4b9c9cbdfa}</Project>
       <Name>Diga.WebView2.Interop</Name>
     </ProjectReference>
+    <ProjectReference Include="..\src\Diga.WebView2.Scripting\Diga.WebView2.Scripting.csproj">
+      <Project>{6655e48f-2f4a-405b-802c-3862ca1a046b}</Project>
+      <Name>Diga.WebView2.Scripting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\src\Diga.WebView2.WinForms\Diga.WebView2.WinForms.csproj">
       <Project>{39b379f6-99fd-4cf7-884f-5b35bedfd288}</Project>
       <Name>Diga.WebView2.WinForms</Name>

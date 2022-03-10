@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Handler
 {
@@ -12,7 +13,10 @@ namespace Diga.WebView2.Wrapper.Handler
         {
             try
             {
-                OnSourceChanged(new SourceChangedEventArgs(args.IsNewDocument == 0));
+                int isNew = args.IsNewDocument;
+                CBOOL b = isNew;
+                string url = webview.Source;
+                OnSourceChanged(new SourceChangedEventArgs(b));
             }
             catch (Exception ex)
             {

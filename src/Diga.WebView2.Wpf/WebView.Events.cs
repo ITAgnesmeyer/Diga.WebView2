@@ -2,15 +2,18 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Diga.Core.Threading;
-using Diga.WebView2.Wpf.Scripting;
-using Diga.WebView2.Wpf.Scripting.DOM;
+using Diga.WebView2.Interop;
+using Diga.WebView2.Scripting;
+using Diga.WebView2.Scripting.DOM;
+
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
 
 
 namespace Diga.WebView2.Wpf
 {
-    public partial class WebView
+
+    public partial class WebView : IWebViewControl
     {
         public event EventHandler<NavigationStartingEventArgs> NavigationStart;
         public event EventHandler<ContentLoadingEventArgs> ContentLoading;
@@ -54,7 +57,19 @@ namespace Diga.WebView2.Wpf
 
         public event EventHandler DocumentLoading;
         public event EventHandler DocumentUnload;
+        private event EventHandler<IExecuteScriptCompletedEventArgs> ExecuteScriptCompletedInterface;
+        event EventHandler<IExecuteScriptCompletedEventArgs> IWebViewControlEvents.ExecuteScriptCompleted
+        {
+            add
+            {
+                this.ExecuteScriptCompletedInterface += value;
+            }
 
+            remove
+            {
+                this.ExecuteScriptCompletedInterface -= value;
+            }
+        }
         private void OnWebWindowBeforeCreate(object sender, BeforeCreateEventArgs e)
         {
             WebWindowInitSettings(e);
@@ -72,11 +87,11 @@ namespace Diga.WebView2.Wpf
             {
 
 
-            CheckMonitoring(e);
+                CheckMonitoring(e);
 
 
-            WebResourceRequested?.Invoke(this, e);
-        }
+                WebResourceRequested?.Invoke(this, e);
+            }
         }
 
 
@@ -147,6 +162,15 @@ namespace Diga.WebView2.Wpf
         }
         protected virtual void OnExecuteScriptCompleted(ExecuteScriptCompletedEventArgs e)
         {
+            try
+            {
+                ExecuteScriptCompletedInterface?.Invoke(this, e);
+            }
+            catch (Exception exception)
+            {
+                Debug.Print("ExecuteScriptCompleted Error:" + exception);
+            }
+
             ExecuteScriptCompleted?.Invoke(this, e);
         }
         protected virtual void OnNewWindowRequested(NewWindowRequestedEventArgs e)

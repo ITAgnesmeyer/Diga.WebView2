@@ -6,8 +6,8 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Diga.Core.Threading;
-using Diga.WebView2.WinForms.Scripting;
-using Diga.WebView2.WinForms.Scripting.DOM;
+using Diga.WebView2.Scripting;
+using Diga.WebView2.Scripting.DOM;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
 
@@ -538,8 +538,8 @@ namespace WebView2WrapperWinFormsTest
         {
             if (sender is DOMElement element)
             {
-                element.Click -= OnDomElementClick;
-                MessageBox.Show("Event entzogen");
+                DOMLocation location = new DOMLocation(this.webView1);
+                location.href = "counter";
             }
         }
 
@@ -675,7 +675,7 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_DocumentLoading(object sender, EventArgs e)
         {
-            MessageBox.Show("DOM-Loading");
+            Debug.Print( "DOM-Loading");
         }
 
         private  void webView1_DocumentUnload(object sender, EventArgs e)
@@ -684,7 +684,7 @@ namespace WebView2WrapperWinFormsTest
             this._DIV = null;
             
             
-            MessageBox.Show("Unload Document");
+            Debug.Print( "Unload Document");
         }
     }
 }

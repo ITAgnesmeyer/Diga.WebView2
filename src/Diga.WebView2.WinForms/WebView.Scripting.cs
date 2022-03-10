@@ -2,8 +2,8 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Diga.Core.Threading;
-using Diga.WebView2.WinForms.Scripting;
-using Diga.WebView2.WinForms.Scripting.DOM;
+using Diga.WebView2.Scripting;
+using Diga.WebView2.Scripting.DOM;
 using Diga.WebView2.Wrapper.EventArguments;
 
 

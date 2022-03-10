@@ -20,7 +20,7 @@ namespace Diga.WebView2.WinForms
 
         private void CheckMonitoring(WebResourceRequestedEventArgs e)
         {
-            
+
             if (this.EnableMonitoring)
             {
                 //Debug.Print("url request=>" + e.Request.Uri);
@@ -78,16 +78,16 @@ namespace Diga.WebView2.WinForms
                     return false;
                 }
 
-                int index = resString.IndexOf("base64,",StringComparison.Ordinal);
+                int index = resString.IndexOf("base64,", StringComparison.Ordinal);
                 string mime = resString.Substring(5, index - 5);
-            
+
                 string contentBase64 = resString.Substring(index + 7);
 
                 byte[] contentBase64Bytes = Convert.FromBase64String(contentBase64);
-            
+
 
                 responseInfo = new ResponseInfo(contentBase64Bytes);
-                responseInfo.Header.Add("content-type",mime);
+                responseInfo.Header.Add("content-type", mime);
                 responseInfo.ContentType = mime;
                 responseInfo.StatusCode = 200;
                 responseInfo.StatusText = "OK";
@@ -103,22 +103,29 @@ namespace Diga.WebView2.WinForms
                 responseInfo.StatusText = "Internal Server Error";
                 return true;
             }
-            
 
 
-           
+
+
 
         }
         private void CleanUpResponses(WebResourceResponseReceivedEventArgs e)
         {
-            if (this._Responses.ContainsKey(e.Request.Uri))
+            try
             {
-                if (this._Responses.TryRemove(e.Request.Uri, out var resp))
+                if (this._Responses.ContainsKey(e.Request.Uri))
                 {
-                    resp.Dispose();
+                    if (this._Responses.TryRemove(e.Request.Uri, out var resp))
+                    {
+                        resp.Dispose();
+                    }
+
                 }
 
-                //Debug.Print("Open response:" + this._Responses.Count);
+            }
+            catch (Exception exception)
+            {
+                Debug.Print("CleanUpResponse Error:" + exception.Message);
             }
         }
 
@@ -130,9 +137,17 @@ namespace Diga.WebView2.WinForms
                 return false;
             }
 
+            Uri uri = new Uri(url);
+            
+
             //TestMimeTypes();
             string baseDirectory = this.MonitoringFolder;
-            string file = url.Replace(this.MonitoringUrl, "");
+            
+            string file = uri.AbsolutePath; //url.Replace(this.MonitoringUrl, "");
+            if (file == "/")
+                file = "";
+            if (file.StartsWith("/"))
+                file = file.Substring(1);
             if (string.IsNullOrEmpty(file))
                 file = "index.html";
             file = file.Replace("/", "\\");

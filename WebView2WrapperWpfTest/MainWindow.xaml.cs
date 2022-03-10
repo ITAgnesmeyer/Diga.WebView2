@@ -4,7 +4,8 @@ using System.IO;
 using System.Numerics;
 using System.Windows;
 using Diga.Core.Json;
-using Diga.WebView2.Wpf.Scripting.DOM;
+using Diga.WebView2.Scripting.DOM;
+
 using Diga.WebView2.Wrapper.EventArguments;
 
 
@@ -108,9 +109,9 @@ namespace WebView2WrapperWpfTest
         }
 
         private DOMElement _BUTTON;
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
 
+        private void ButtonAction()
+        {
             if (this._BUTTON == null)
             {
                 this._BUTTON = this.WebView3.GetDOMDocument().getElementById("ga_button");
@@ -124,6 +125,20 @@ namespace WebView2WrapperWpfTest
                 {
                     this._BUTTON.Click += (o, ev) =>
                     {
+                        DOMElement elem = this.WebView3.GetDOMDocument().createElement("canvas");
+                        this.WebView3.GetDOMDocument().body.appendChild(elem);
+
+                        DOMCanvasElement can = new DOMCanvasElement(elem);
+                        can.width = 200;
+                        can.height = 100;
+
+                        var ctx = can.GetContext2D();
+                        ctx.moveTo(0, 0);
+                        ctx.lineTo(200,100);
+                        ctx.stroke();
+
+
+
                         MessageBox.Show("Test from Button");
                     };
                 }
@@ -135,7 +150,11 @@ namespace WebView2WrapperWpfTest
             int nr = r.Next();
             
             this.WebView1.NavigateToString($"<h1>{uniqueId}</h1><h2>{nr}</h2>");
-
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //Diga.Core.Threading.UIDispatcher.UIThread.Post(ButtonAction);
+            ButtonAction();
             //this.WebView1.IsVisible = !this.WebView1.IsVisible;
 
             //this.WebView2.Visibility = this.WebView2.Visibility == Visibility.Hidden ? Visibility.Visible : Visibility.Hidden;

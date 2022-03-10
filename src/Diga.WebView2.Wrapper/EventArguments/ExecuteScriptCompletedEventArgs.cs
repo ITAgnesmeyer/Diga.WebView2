@@ -1,8 +1,11 @@
 ﻿using System;
+using Diga.WebView2.Interop;
 
 namespace Diga.WebView2.Wrapper.EventArguments
 {
-    public class ExecuteScriptCompletedEventArgs : EventArgs
+    
+
+    public class ExecuteScriptCompletedEventArgs : EventArgs, IExecuteScriptCompletedEventArgs
     {
         public ExecuteScriptCompletedEventArgs(int errorCode, string resultObjectAsJson, string id)
         {

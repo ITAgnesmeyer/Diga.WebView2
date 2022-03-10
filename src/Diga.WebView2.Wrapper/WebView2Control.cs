@@ -16,6 +16,7 @@ using Diga.WebView2.Wrapper.Types;
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
 {
+   
     public class WebView2Control : IDisposable
     {
         private static int RefCounter;

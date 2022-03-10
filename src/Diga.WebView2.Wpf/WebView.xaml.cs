@@ -4,7 +4,8 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using Diga.Core.Threading;
-using Diga.WebView2.Wpf.Scripting;
+using Diga.WebView2.Scripting;
+
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
 

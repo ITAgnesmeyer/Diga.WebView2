@@ -2,8 +2,9 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Diga.Core.Threading;
-using Diga.WebView2.Wpf.Scripting;
-using Diga.WebView2.Wpf.Scripting.DOM;
+using Diga.WebView2.Scripting;
+using Diga.WebView2.Scripting.DOM;
+
 using Diga.WebView2.Wrapper.EventArguments;
 
 namespace Diga.WebView2.Wpf
