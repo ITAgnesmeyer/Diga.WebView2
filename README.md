@@ -145,7 +145,6 @@ If possible, use the synchronous calls.
 ```
 Note that as soon as a new document is created, the old variables become invalid. 
 You can query the validity of the variable with VarExist().
-Use thie WebView-Event DOMContentLoaded to cleanup.
 
 ### Check validity of the object
 ```c#
