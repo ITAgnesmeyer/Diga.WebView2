@@ -10,6 +10,7 @@ There are NUGET-PACKAGES
 - Diga.WebView2.Wrapper => [NuGet](https://www.nuget.org/packages/Diga.WebView2.Wrapper/ "NuGet")
 - Diga.WebView2.WinForms => [NuGet](https://www.nuget.org/packages/Diga.WebView2.WinForms/ "NuGet")
 - Diga.WebView2.Wpf => [NuGet](https://www.nuget.org/packages/Diga.WebView2.Wpf/ "NuGet")
+- Diga.WebView2.Scripting => [NuGet](https://www.nuget.org/packages/Diga.WebView2.Scripting/ "NuGet")
 
 [WebView2 Runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)
 
@@ -37,7 +38,7 @@ Therefore, a link to the Microsoft.Web.WebView2 package is no longer necessary i
 
 ### Package version:
 This means the version of the WebView2 packages.
-- V10107254 => [microsoft.web.webview2 1.0.1108.44](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1108.44)
+- V10115038 => [microsoft.web.webview2 1.0.1150.38](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1150.38)
 
 ### How were the interop sources created?
 The Microsoft microsoft.web.webview2 package contains webview2.tlb.
@@ -155,6 +156,35 @@ if(!this._DIV.VarExist())
 // async
 bool varExist = await this._DIV.VarExistAsync();
 ```
+### Canvas
+```c#
+
+   //create Canvas
+   DOMElement elem = this.WebView3.GetDOMDocument().createElement("canvas");
+   this.WebView3.GetDOMDocument().body.appendChild(elem);
+
+   DOMCanvasElement can = new DOMCanvasElement(elem);
+   can.width = 200;
+   can.height = 100;
+   // Create Context
+   var ctx = can.GetContext2D();
+   //yellow rectangle
+   ctx.fillStyle = "yellow";
+   ctx.fillRect(0,0,255,255);
+   //transform
+   ctx.transform(1,(decimal)0.5, (decimal)-0.5,1,30,10);
+   //blue rectangle
+   ctx.fillStyle = "blue";
+   ctx.fillRect(0,0,250,100);
+   //reset Transform
+   ctx.resetTransform();
+   //draw line
+   ctx.moveTo(0, 0);
+   ctx.lineTo(200,100);
+   ctx.stroke();
+
+```
+
 
 
 ###### This text was automatically translated with the [Microsoft translator](https://www.bing.com/translator "Microsoft translator").
