@@ -144,6 +144,20 @@ namespace Diga.WebView2.Scripting
             return (T)Convert.ChangeType(result, typeof(T));
         }
 
+        protected T GetIndexed<T>(int index, [CallerMemberName] string member = "")
+        {
+            string propVal = $"return {this.InstanceName}.{member}[{index}];";
+            object result = ExecuteScript(propVal);
+            return (T)Convert.ChangeType(result, typeof(T));
+        }
+
+        public async Task<T> GetIndexedAsync<T>(int index, [CallerMemberName] string member = "")
+        {
+            string propVal = $"return {this.InstanceName}.{member}[{index}];";
+            object result = await ExecuteScriptAsync(propVal);
+            return (T)Convert.ChangeType(result, typeof(T));
+        }
+
         protected async Task SetAsync<T>(Task<T> value, [CallerMemberName] string member = "")
         {
             T val = await value;

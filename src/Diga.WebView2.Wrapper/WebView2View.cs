@@ -18,7 +18,7 @@ using MimeTypeExtension;
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
 {
-    public partial class WebView2View : WebView2View9Interface
+    public partial class WebView2View : WebView2View10Interface
     {
 
         public event EventHandler<NavigationStartingEventArgs> NavigationStarting;
@@ -49,8 +49,8 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<WebView2EventArgs> IsMutedChanged;
         public event EventHandler<WebView2EventArgs> IsDocumentPlayingAudioChanged;
         public event EventHandler<WebView2EventArgs> IsDefaultDownloadDialogOpenChanged;
-
-        public WebView2View(ICoreWebView2_9 webView) : base(webView)
+        public event EventHandler<BasicAuthenticationRequestedEventArgs> BasicAuthenticationRequested;
+        public WebView2View(ICoreWebView2_10 webView) : base(webView)
         {
 
             RegisterEvents();
@@ -166,7 +166,7 @@ namespace Diga.WebView2.Wrapper
             //add_ClientCertificateRequested
             ClientCertificateRequestedEventHandler certificateRequestedHandler =
                 new ClientCertificateRequestedEventHandler();
-            certificateRequestedHandler.CertificateRequested += OncertificateRequestedIntern;
+            certificateRequestedHandler.CertificateRequested += OnCertificateRequestedIntern;
             base.add_ClientCertificateRequested(certificateRequestedHandler, out this._CertificateRequestedToken);
 
             IsMutedChangedEventHandler isMudChangedEventHandler = new IsMutedChangedEventHandler();
@@ -185,6 +185,16 @@ namespace Diga.WebView2.Wrapper
                 IsDefaultDownloadDialogOpenChangedIntern;
 
             base.add_IsDefaultDownloadDialogOpenChanged(isDefaultDownloadDialogOpenEventHandler, out this._isDefaultDownloadDialogOpenEventToken);
+            BasicAuthenticationRequestedEventHandler basicAuthenticationRequestedEventHandler =  new BasicAuthenticationRequestedEventHandler();
+            basicAuthenticationRequestedEventHandler.BasicAuthenticationRequested +=
+                OnBasicAuthenticationRequestedIntern;
+            base.add_BasicAuthenticationRequested(basicAuthenticationRequestedEventHandler, out this._BasicAuthenticationRequestedEvent);
+
+        }
+
+        private void OnBasicAuthenticationRequestedIntern(object sender, BasicAuthenticationRequestedEventArgs e)
+        {
+            OnBasicAuthenticationRequested(e);
         }
 
         private void IsDefaultDownloadDialogOpenChangedIntern(object sender, WebView2EventArgs e)
@@ -202,7 +212,7 @@ namespace Diga.WebView2.Wrapper
             OnIsMutedChanged(e);
         }
 
-        private void OncertificateRequestedIntern(object sender, ClientCertificateRequestedEventArgs e)
+        private void OnCertificateRequestedIntern(object sender, ClientCertificateRequestedEventArgs e)
         {
             OnClientCertificateRequested(e);
         }
@@ -463,6 +473,7 @@ namespace Diga.WebView2.Wrapper
                 EventRegistrationTool.UnWireToken(this._IsMutedChangedToken, base.remove_IsMutedChanged);
                 EventRegistrationTool.UnWireToken(this._IsDocumentPlayingAudioChangedToken, base.remove_IsDocumentPlayingAudioChanged);
                 EventRegistrationTool.UnWireToken(this._isDefaultDownloadDialogOpenEventToken, base.remove_IsDefaultDownloadDialogOpenChanged);
+                EventRegistrationTool.UnWireToken(this._BasicAuthenticationRequestedEvent, remove_BasicAuthenticationRequested);
 
             }
             catch (Exception e)
@@ -496,6 +507,7 @@ namespace Diga.WebView2.Wrapper
         private EventRegistrationToken _IsMutedChangedToken;
         private EventRegistrationToken _IsDocumentPlayingAudioChangedToken;
         private EventRegistrationToken _isDefaultDownloadDialogOpenEventToken;
+        private EventRegistrationToken _BasicAuthenticationRequestedEvent;
         private void OnNavigationStartingIntern(object sender, NavigationStartingEventArgs e)
         {
             this.CurrentContent.Clear();
@@ -684,7 +696,7 @@ namespace Diga.WebView2.Wrapper
             NavigationStarting?.Invoke(this, e);
         }
         private bool _IsDisposed;
-
+        
 
 
         protected override void Dispose(bool dispose)
@@ -823,6 +835,11 @@ namespace Diga.WebView2.Wrapper
         protected virtual void OnIsDefaultDownloadDialogOpenChanged(WebView2EventArgs e)
         {
             IsDefaultDownloadDialogOpenChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnBasicAuthenticationRequested(BasicAuthenticationRequestedEventArgs e)
+        {
+            BasicAuthenticationRequested?.Invoke(this, e);
         }
     }
 

@@ -539,7 +539,15 @@ namespace WebView2WrapperWinFormsTest
             if (sender is DOMElement element)
             {
                 DOMLocation location = new DOMLocation(this.webView1);
-                location.href = "counter";
+                try
+                {
+                    location.href = "counter";
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.ToString());
+                }
+                
             }
         }
 

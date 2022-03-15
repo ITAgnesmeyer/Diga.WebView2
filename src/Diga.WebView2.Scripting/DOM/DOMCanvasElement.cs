@@ -10,15 +10,15 @@ namespace Diga.WebView2.Scripting.DOM
             
         }
 
-        public int actualBoundingBoxAscent => Get<int>();
-        public int actualBoundingBoxDescent => Get<int>();
+        public decimal actualBoundingBoxAscent => Get<decimal>();
+        public decimal actualBoundingBoxDescent => Get<decimal>();
 
-        public int actualBoundingBoxLeft => Get<int>();
+        public decimal actualBoundingBoxLeft => Get<decimal>();
 
-        public int actualBoundingBoxRight => Get<int>();
-        public int fontBoundingBoxAscent => Get<int>();
-        public int fontBoundingBoxDescent => Get<int>();
-        public int width => Get<int>();
+        public decimal actualBoundingBoxRight => Get<decimal>();
+        public decimal fontBoundingBoxAscent => Get<decimal>();
+        public decimal fontBoundingBoxDescent => Get<decimal>();
+        public decimal width => Get<decimal>();
 
     }
     
@@ -29,9 +29,9 @@ namespace Diga.WebView2.Scripting.DOM
             
         }
 
-        public int shadowBlur
+        public decimal shadowBlur
         {
-            get => Get<int>();
+            get => Get<decimal>();
             set => Set(value);
         }
 
@@ -41,16 +41,16 @@ namespace Diga.WebView2.Scripting.DOM
             set => Set(value);
         }
 
-        public int shadowOffsetX
+        public decimal shadowOffsetX
         {
-            get => Get<int>();
+            get => Get<decimal>();
             set => Set(value);
 
         }
 
-        public int shadowOffsetY
+        public decimal shadowOffsetY
         {
-            get => Get<int>();
+            get => Get<decimal>();
             set => Set(value);
 
         }
@@ -141,27 +141,27 @@ namespace Diga.WebView2.Scripting.DOM
             Exec(new object[]{});
         }
 
-        public void rotate(int angle)
+        public void rotate(decimal angle)
         {
             Exec(new object[]{angle});
         }
 
-        public void scale(int x, int y)
+        public void scale(decimal x, decimal y)
         {
             Exec(new object[]{x,y});
         }
 
-        public void setTransform(int a, int b, int c, int d, int e, int f)
+        public void setTransform(decimal  a, decimal b, decimal c, decimal d, decimal e, decimal f)
         {
             Exec(new object[]{a,b,c,d,e,f});
         }
 
-        public void transform(int a, int b, int c, int d, int e, int f)
+        public void transform(decimal a, decimal b, decimal c, decimal d, decimal e, decimal f)
         {
             Exec(new object[]{a,b,c,d,e,f});
         }
 
-        public void translate(int x, int y)
+        public void translate(decimal x, decimal y)
         {
             Exec(new object[]{x,y});
         }
@@ -174,12 +174,12 @@ namespace Diga.WebView2.Scripting.DOM
                 
         }
 
-        public void fillText(string text, int x, int y, int maxWidth)
+        public void fillText(string text, decimal x, decimal y, decimal maxWidth)
         {
             Exec(new object[]{text, x, y, maxWidth});
         }
 
-        public void fillText(string text, int x, int y)
+        public void fillText(string text, decimal x, decimal y)
         {
             Exec(new object[]{text, x, y});
         }
@@ -190,12 +190,12 @@ namespace Diga.WebView2.Scripting.DOM
             return new TextMetrics(this._View2Control, var);
         }
 
-        public void strokeText(string text, int x, int y, int maxWidth)
+        public void strokeText(string text, decimal x, decimal y, decimal maxWidth)
         {
             Exec(new object[]{text, x, y, maxWidth});
         }
 
-        public void strokeText(string text, int x, int y)
+        public void strokeText(string text, decimal x, decimal y)
         {
             Exec(new object[]{text, x, y});
         }
@@ -241,9 +241,9 @@ namespace Diga.WebView2.Scripting.DOM
             
         }
 
-        public int globalAlpha
+        public decimal globalAlpha
         {
-            get => Get<int>();
+            get => Get<decimal>();
             set => Set(value);
         }
 
@@ -274,18 +274,18 @@ namespace Diga.WebView2.Scripting.DOM
             
         }
 
-        public void drawImage(DOMElement image, int dx, int dy)
+        public void drawImage(DOMElement image, decimal dx, decimal dy)
         {
             Exec(new object[]{image, dx, dy});
         }
 
-        public void drawImage(DOMElement image, int dx, int dy, int dw, int dh)
+        public void drawImage(DOMElement image, decimal dx, decimal dy, decimal dw, decimal dh)
         {
             Exec(new object[] { image, dx, dy, dw, dh });
         }
 
 
-        public void drawImage(DOMElement image, int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh)
+        public void drawImage(DOMElement image, decimal sx, decimal sy, decimal sw, decimal sh, decimal dx, decimal dy, decimal dw, decimal dh)
         {
             Exec(new object[] { image, sx, sy, sw, sh,dx,dy,dw,dh});
         }
@@ -299,8 +299,8 @@ namespace Diga.WebView2.Scripting.DOM
         }
 
         public DOMObject data => GetTypedVar<DOMObject>();
-        public int height => Get<int>();
-        public int width => Get<int>();
+        public decimal height => Get<decimal>();
+        public decimal width => Get<decimal>();
     }
 
     public class CanvasFillStrokeStyles : CanvasFilters
@@ -322,12 +322,12 @@ namespace Diga.WebView2.Scripting.DOM
             set => Set(value);
         }
 
-        public string createConicGradient(int startAngle, int x, int y)
+        public string createConicGradient(int startAngle, decimal x, decimal y)
         {
             return Exec<string>(new object[] { startAngle, x, y });
         }
 
-        public string createLinearGradient(int x0, int y0, int x1, int y1)
+        public string createLinearGradient(decimal x0, decimal y0, decimal x1, decimal y1)
         {
             return Exec<string>(new object[] { x0, y0, x1, y1 });
         }
@@ -337,7 +337,7 @@ namespace Diga.WebView2.Scripting.DOM
             return Exec<string>(new object[] { image, repetition });
         }
 
-        public string createRadialGradient(int x0, int y0, int r0, int x1, int y1, int r1)
+        public string createRadialGradient(decimal x0, decimal y0, decimal r0, decimal x1, decimal y1, decimal r1)
         {
             return Exec<string>(new object[] { x0, y0, r0, x1, y1, r1 });
         }
@@ -364,7 +364,7 @@ namespace Diga.WebView2.Scripting.DOM
             
         }
 
-        public ImageData createImageData(int sw, int sh, string settings=null)
+        public ImageData createImageData(decimal sw, decimal sh, string settings=null)
         {
             DOMVar var = ExecGetVar( new object[]{sw,sh,settings});
             return new ImageData(this._View2Control, var);
@@ -376,18 +376,18 @@ namespace Diga.WebView2.Scripting.DOM
             return new ImageData(this._View2Control, var);
         }
 
-        public ImageData getImageData(int sx, int sy, int sw, int sh, string settings = null)
+        public ImageData getImageData(decimal sx, decimal sy, decimal sw, decimal sh, string settings = null)
         {
             DOMVar var = ExecGetVar(new object[] { sx, sy, sw, sh, settings });
             return new ImageData(this._View2Control, var);
         }
 
-        public void putImageData(ImageData imagedata, int dx, int dy)
+        public void putImageData(ImageData imagedata, decimal dx, decimal dy)
         {
             Exec(new object[]{imagedata, dx, dy});
         }
 
-        public void putImageData(ImageData imageData, int dx, int dy, int dirtyX, int dirtyY, int dirtyWidth,
+        public void putImageData(ImageData imageData, decimal dx, decimal dy, decimal dirtyX, decimal dirtyY, decimal dirtyWidth,
             int dirtyHeight)
         {
             Exec(new object[] { imageData, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight });
@@ -401,17 +401,17 @@ namespace Diga.WebView2.Scripting.DOM
             
         }
 
-        public void clearRect(int x, int y, int w, int h)
+        public void clearRect(decimal x, decimal y, decimal w, decimal h)
         {
             Exec(new object[]{x,y, w,h });
         }
 
-        public void fillRect(int x, int y, int w, int h)
+        public void fillRect(decimal x, decimal y, decimal w, decimal h)
         {
             Exec(new object[]{x,y, w,h });
         }
 
-        public void strokeRect(int x, int y, int w, int h)
+        public void strokeRect(decimal x, decimal y, decimal w, decimal h)
         {
             Exec(new object[]{x,y,w,h});
         }
@@ -449,9 +449,9 @@ namespace Diga.WebView2.Scripting.DOM
             set => Set(value);
         }
 
-        public int lineDashOffset
+        public decimal lineDashOffset
         {
-            get => Get<int>();
+            get => Get<decimal>();
             set => Set(value);
         }
 
@@ -461,15 +461,15 @@ namespace Diga.WebView2.Scripting.DOM
             set => Set(value);
         }
 
-        public int lineWidth
+        public decimal lineWidth
         {
-            get => Get<int>();
+            get => Get<decimal>();
             set => Set(value);
         }
 
-        public int miterLimit
+        public decimal miterLimit
         {
-            get => Get<int>();
+            get => Get<decimal>();
             set => Set(value);
         }
 
@@ -497,12 +497,12 @@ namespace Diga.WebView2.Scripting.DOM
             Exec(new object[]{fillRule});
         }
 
-        public bool isPointInPath(int x, int y, string fillRule = null)
+        public bool isPointInPath(decimal x, decimal y, string fillRule = null)
         {
             return Exec<bool>(new object[] { x, y, fillRule });
         }
 
-        public bool isPointInStroke(int x, int y)
+        public bool isPointInStroke(decimal x, decimal y)
         {
             return Exec<bool>(new object[] { x, y });
         }
@@ -520,17 +520,17 @@ namespace Diga.WebView2.Scripting.DOM
                 
         }
 
-        public void arc(int x, int y, int radius, int startAngle, int endAngle, bool counterclockwise=false)
+        public void arc(decimal x, decimal y, decimal radius, decimal startAngle, decimal endAngle, bool counterclockwise=false)
         {
             Exec(new object[]{x,y,radius, startAngle, endAngle, counterclockwise});
         }
 
-        public void arcTo(int x1, int y1, int x2, int y2, int radius)
+        public void arcTo(decimal x1, decimal y1, decimal x2, decimal y2, decimal radius)
         {
             Exec(new object[]{x1, y1, x2, y2, radius});
         }
 
-        public void bezierCurveTo(int cp1x, int cp1y, int cp2x, int cp2y, int x, int y)
+        public void bezierCurveTo(decimal cp1x, decimal cp1y, decimal cp2x, decimal cp2y, decimal x, decimal y)
         {
             Exec(new object[]{cp1x, cp1y, cp2x, cp2y, x, y});
         }
@@ -540,27 +540,27 @@ namespace Diga.WebView2.Scripting.DOM
             Exec(new object[]{});
         }
 
-        public void ellipse(int x, int y, int radiusX, int radiusY, int rotation, int startAngle, int endAngle,
+        public void ellipse(decimal x, decimal y, decimal radiusX, decimal radiusY, decimal rotation, decimal startAngle, decimal endAngle,
             bool counterclockwise = false)
         {
             Exec(new object[]{x,y,radiusX, radiusY, rotation, startAngle, endAngle,counterclockwise});
         }
 
-        public void lineTo(int x, int y)
+        public void lineTo(decimal x, decimal y)
         {
             Exec(new object[]{x,y});
         }
-        public void moveTo(int x, int y)
+        public void moveTo(decimal x, decimal y)
         {
             Exec(new object[]{x,y});
         }
 
-        public void quadraticCurveTo(int cpx, int cpy, int x, int y)
+        public void quadraticCurveTo(decimal cpx, decimal cpy, decimal x, decimal y)
         {
             Exec(new object[]{cpx, cpy, x, y});
         }
 
-        public void rect(int x, int y, int w, int h)
+        public void rect(decimal x, decimal y, decimal w, decimal h)
         {
             Exec(new object[]{x,y,w,h});
         }
@@ -600,15 +600,15 @@ namespace Diga.WebView2.Scripting.DOM
         {
 
         }
-        public int height
+        public decimal height
         {
-            get => base.Get<int>();
+            get => base.Get<decimal>();
             set => base.Set(value);
         }
 
-        public int width
+        public decimal width
         {
-            get => base.Get<int>();
+            get => base.Get<decimal>();
             set => base.Set(value);
         }
 

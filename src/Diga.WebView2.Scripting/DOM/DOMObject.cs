@@ -112,6 +112,21 @@ namespace Diga.WebView2.Scripting.DOM
             if (t == typeof(DOMLocation))
                 return new DOMLocation(control, var);
 
+            if(t == typeof(DOMCanvasElement))
+                return new DOMCanvasElement(control, var);
+
+            if(t == typeof(TextMetrics))
+                return new TextMetrics(control, var);
+            if(t == typeof(CanvasRenderingContext2DSettings))
+                return new CanvasRenderingContext2DSettings(control, var);
+
+            if(t== typeof(CanvasUserInterface))
+                return new CanvasUserInterface(control, var);
+
+            if(t== typeof(ImageData))
+                return new ImageData(control, var);
+            if(t== typeof(MediaStream))
+                return new MediaStream(control, var);
 
             if (t == typeof(DOMTokenList))
                 return new DOMTokenList(control, var);
@@ -160,6 +175,13 @@ namespace Diga.WebView2.Scripting.DOM
             T v = (T)CreateNew(this._View2Control, domVar, typeof(T));
             return v;
         }
+
+        protected T GetTypedVarIndexed<T>(int index, [CallerMemberName] string member = "")
+        {
+            DOMVar domVar = GetGetIndexedVar(index, member);
+            T v = (T)CreateNew(this._View2Control, domVar, typeof(T));
+            return v;
+        }
         internal void RaiseEvent(RpcEventHandlerArgs e)
         {
             UIDispatcher.UIThread.Post<RpcEventHandlerArgs>(OnDomEvent, e);
@@ -178,6 +200,13 @@ namespace Diga.WebView2.Scripting.DOM
 
         }
 
+        private DOMVar GetGetIndexedVar(int index, [CallerMemberName] string memeber = "")
+        {
+            DOMVar var = new DOMVar(this._View2Control);
+            string script = $"{var.Name}={this.InstanceName}.{memeber}[{index}]";
+            ExecuteScript(script);
+            return var;
+        }
         private DOMVar GetGetVar([CallerMemberName] string member = "")
         {
             DOMVar var = new DOMVar(this._View2Control);

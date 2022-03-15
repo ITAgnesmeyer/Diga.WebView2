@@ -133,11 +133,17 @@ namespace WebView2WrapperWpfTest
                         can.height = 100;
 
                         var ctx = can.GetContext2D();
+                        
+
+                        ctx.fillStyle = "yellow";
+                        ctx.fillRect(0,0,255,255);
+                        ctx.transform(1,(decimal)0.5, (decimal)-0.5,1,30,10);
+                        ctx.fillStyle = "blue";
+                        ctx.fillRect(0,0,250,100);
+                        ctx.resetTransform();
                         ctx.moveTo(0, 0);
                         ctx.lineTo(200,100);
                         ctx.stroke();
-
-
 
                         MessageBox.Show("Test from Button");
                     };
