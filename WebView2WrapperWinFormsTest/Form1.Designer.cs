@@ -74,18 +74,16 @@
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1546, 37);
+            this.panel1.Size = new System.Drawing.Size(1325, 32);
             this.panel1.TabIndex = 0;
             // 
             // bnScriptSync
             // 
             this.bnScriptSync.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bnScriptSync.Location = new System.Drawing.Point(983, 3);
-            this.bnScriptSync.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.bnScriptSync.Location = new System.Drawing.Point(843, 3);
             this.bnScriptSync.Name = "bnScriptSync";
-            this.bnScriptSync.Size = new System.Drawing.Size(50, 27);
+            this.bnScriptSync.Size = new System.Drawing.Size(43, 23);
             this.bnScriptSync.TabIndex = 16;
             this.bnScriptSync.Text = "Script";
             this.bnScriptSync.UseVisualStyleBackColor = true;
@@ -95,19 +93,18 @@
             // 
             this.lblMuted.AutoSize = true;
             this.lblMuted.BackColor = System.Drawing.SystemColors.Info;
-            this.lblMuted.Location = new System.Drawing.Point(1501, 12);
+            this.lblMuted.Location = new System.Drawing.Point(1287, 10);
             this.lblMuted.Name = "lblMuted";
-            this.lblMuted.Size = new System.Drawing.Size(41, 15);
+            this.lblMuted.Size = new System.Drawing.Size(38, 13);
             this.lblMuted.TabIndex = 15;
             this.lblMuted.Text = "Sound";
             this.lblMuted.Click += new System.EventHandler(this.lblMuted_Click);
             // 
             // bnSrcTest
             // 
-            this.bnSrcTest.Location = new System.Drawing.Point(1437, 8);
-            this.bnSrcTest.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.bnSrcTest.Location = new System.Drawing.Point(1232, 7);
             this.bnSrcTest.Name = "bnSrcTest";
-            this.bnSrcTest.Size = new System.Drawing.Size(54, 23);
+            this.bnSrcTest.Size = new System.Drawing.Size(46, 20);
             this.bnSrcTest.TabIndex = 14;
             this.bnSrcTest.Text = "SRC";
             this.bnSrcTest.UseVisualStyleBackColor = true;
@@ -116,10 +113,9 @@
             // bnSrc
             // 
             this.bnSrc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bnSrc.Location = new System.Drawing.Point(1191, 3);
-            this.bnSrc.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.bnSrc.Location = new System.Drawing.Point(1021, 3);
             this.bnSrc.Name = "bnSrc";
-            this.bnSrc.Size = new System.Drawing.Size(40, 28);
+            this.bnSrc.Size = new System.Drawing.Size(34, 24);
             this.bnSrc.TabIndex = 13;
             this.bnSrc.Text = "SRC";
             this.bnSrc.UseVisualStyleBackColor = true;
@@ -128,10 +124,9 @@
             // button6
             // 
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Location = new System.Drawing.Point(1141, 3);
-            this.button6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.button6.Location = new System.Drawing.Point(978, 3);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(43, 27);
+            this.button6.Size = new System.Drawing.Size(37, 23);
             this.button6.TabIndex = 12;
             this.button6.Text = "MP3";
             this.button6.UseVisualStyleBackColor = true;
@@ -139,10 +134,9 @@
             // 
             // bnScriptTest
             // 
-            this.bnScriptTest.Location = new System.Drawing.Point(1384, 8);
-            this.bnScriptTest.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.bnScriptTest.Location = new System.Drawing.Point(1186, 7);
             this.bnScriptTest.Name = "bnScriptTest";
-            this.bnScriptTest.Size = new System.Drawing.Size(47, 23);
+            this.bnScriptTest.Size = new System.Drawing.Size(40, 20);
             this.bnScriptTest.TabIndex = 11;
             this.bnScriptTest.Text = "ST";
             this.bnScriptTest.UseVisualStyleBackColor = true;
@@ -151,22 +145,20 @@
             // lblZoomFactor
             // 
             this.lblZoomFactor.AutoSize = true;
-            this.lblZoomFactor.Location = new System.Drawing.Point(1353, 10);
-            this.lblZoomFactor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblZoomFactor.Location = new System.Drawing.Point(1160, 9);
             this.lblZoomFactor.Name = "lblZoomFactor";
-            this.lblZoomFactor.Size = new System.Drawing.Size(25, 15);
+            this.lblZoomFactor.Size = new System.Drawing.Size(25, 13);
             this.lblZoomFactor.TabIndex = 10;
             this.lblZoomFactor.Text = "100";
             // 
             // trackBar1
             // 
             this.trackBar1.AutoSize = false;
-            this.trackBar1.Location = new System.Drawing.Point(1232, 5);
-            this.trackBar1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.trackBar1.Location = new System.Drawing.Point(1056, 4);
             this.trackBar1.Maximum = 500;
             this.trackBar1.Minimum = 1;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(113, 23);
+            this.trackBar1.Size = new System.Drawing.Size(97, 20);
             this.trackBar1.TabIndex = 9;
             this.trackBar1.Value = 100;
             this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
@@ -174,11 +166,10 @@
             // button5
             // 
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("MS UI Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button5.Location = new System.Drawing.Point(842, 3);
-            this.button5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.button5.Font = new System.Drawing.Font("MS UI Gothic", 8.25F);
+            this.button5.Location = new System.Drawing.Point(722, 3);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(38, 27);
+            this.button5.Size = new System.Drawing.Size(33, 23);
             this.button5.TabIndex = 8;
             this.button5.Text = "☰";
             this.button5.UseVisualStyleBackColor = true;
@@ -187,10 +178,9 @@
             // bnPostMessage
             // 
             this.bnPostMessage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bnPostMessage.Location = new System.Drawing.Point(1096, 3);
-            this.bnPostMessage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.bnPostMessage.Location = new System.Drawing.Point(939, 3);
             this.bnPostMessage.Name = "bnPostMessage";
-            this.bnPostMessage.Size = new System.Drawing.Size(38, 27);
+            this.bnPostMessage.Size = new System.Drawing.Size(33, 23);
             this.bnPostMessage.TabIndex = 7;
             this.bnPostMessage.Text = "PDF";
             this.bnPostMessage.UseVisualStyleBackColor = true;
@@ -199,10 +189,9 @@
             // bnCapture
             // 
             this.bnCapture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bnCapture.Location = new System.Drawing.Point(1041, 3);
-            this.bnCapture.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.bnCapture.Location = new System.Drawing.Point(892, 3);
             this.bnCapture.Name = "bnCapture";
-            this.bnCapture.Size = new System.Drawing.Size(46, 27);
+            this.bnCapture.Size = new System.Drawing.Size(39, 23);
             this.bnCapture.TabIndex = 6;
             this.bnCapture.Text = "Capture";
             this.bnCapture.UseVisualStyleBackColor = true;
@@ -211,10 +200,9 @@
             // bnScript
             // 
             this.bnScript.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bnScript.Location = new System.Drawing.Point(889, 3);
-            this.bnScript.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.bnScript.Location = new System.Drawing.Point(762, 3);
             this.bnScript.Name = "bnScript";
-            this.bnScript.Size = new System.Drawing.Size(86, 27);
+            this.bnScript.Size = new System.Drawing.Size(74, 23);
             this.bnScript.TabIndex = 5;
             this.bnScript.Text = "Async Script";
             this.bnScript.UseVisualStyleBackColor = true;
@@ -223,11 +211,10 @@
             // button4
             // 
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("MS UI Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button4.Location = new System.Drawing.Point(797, 3);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.button4.Font = new System.Drawing.Font("MS UI Gothic", 8.25F);
+            this.button4.Location = new System.Drawing.Point(683, 3);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(38, 27);
+            this.button4.Size = new System.Drawing.Size(33, 23);
             this.button4.TabIndex = 4;
             this.button4.Text = "☰";
             this.button4.UseVisualStyleBackColor = true;
@@ -236,11 +223,10 @@
             // button3
             // 
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Segoe UI Symbol", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button3.Location = new System.Drawing.Point(43, 3);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.button3.Font = new System.Drawing.Font("Segoe UI Symbol", 9.75F);
+            this.button3.Location = new System.Drawing.Point(37, 3);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(37, 28);
+            this.button3.Size = new System.Drawing.Size(32, 24);
             this.button3.TabIndex = 3;
             this.button3.Text = "▶";
             this.button3.UseVisualStyleBackColor = true;
@@ -249,11 +235,10 @@
             // button2
             // 
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Segoe UI Symbol", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button2.Location = new System.Drawing.Point(4, 3);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.button2.Font = new System.Drawing.Font("Segoe UI Symbol", 9.75F);
+            this.button2.Location = new System.Drawing.Point(3, 3);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(37, 28);
+            this.button2.Size = new System.Drawing.Size(32, 24);
             this.button2.TabIndex = 2;
             this.button2.Text = "◀";
             this.button2.UseVisualStyleBackColor = true;
@@ -262,10 +247,9 @@
             // button1
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(751, 3);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.button1.Location = new System.Drawing.Point(644, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(38, 27);
+            this.button1.Size = new System.Drawing.Size(33, 23);
             this.button1.TabIndex = 1;
             this.button1.Text = "GO";
             this.button1.UseVisualStyleBackColor = true;
@@ -283,20 +267,18 @@
             "https://www.youtube.com/watch?v=yE99DKTz09M"});
             this.textBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.textBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBox1.Location = new System.Drawing.Point(88, 5);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.textBox1.Location = new System.Drawing.Point(75, 4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(656, 23);
+            this.textBox1.Size = new System.Drawing.Size(563, 20);
             this.textBox1.TabIndex = 0;
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.webView1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 37);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.panel2.Location = new System.Drawing.Point(0, 32);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1546, 482);
+            this.panel2.Size = new System.Drawing.Size(1325, 418);
             this.panel2.TabIndex = 1;
             // 
             // webView1
@@ -304,7 +286,7 @@
             this.webView1.AreBrowserAcceleratorKeysEnabled = true;
             this.webView1.BackColor = System.Drawing.Color.Black;
             this.webView1.DefaultBackgroundColor = System.Drawing.Color.AliceBlue;
-            this.webView1.DefaultContextMenusEnabled = true;
+            this.webView1.DefaultContextMenusEnabled = false;
             this.webView1.DefaultScriptDialogsEnabled = true;
             this.webView1.DevToolsEnabled = true;
             this.webView1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -318,12 +300,12 @@
             this.webView1.IsWebMessageEnabled = true;
             this.webView1.IsZoomControlEnabled = true;
             this.webView1.Location = new System.Drawing.Point(0, 0);
-            this.webView1.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.webView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.webView1.MonitoringFolder = ".\\wwwroot";
             this.webView1.MonitoringUrl = "https://5b834d57-0891-4730-b6ba-c793b4e76468/";
             this.webView1.Name = "webView1";
             this.webView1.RemoteObjectsAllowed = true;
-            this.webView1.Size = new System.Drawing.Size(1546, 482);
+            this.webView1.Size = new System.Drawing.Size(1325, 418);
             this.webView1.TabIndex = 0;
             this.webView1.Url = "https://www.itagnesmeyer.de";
             this.webView1.ZoomFactor = 1D;
@@ -360,12 +342,11 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1546, 519);
+            this.ClientSize = new System.Drawing.Size(1325, 450);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);

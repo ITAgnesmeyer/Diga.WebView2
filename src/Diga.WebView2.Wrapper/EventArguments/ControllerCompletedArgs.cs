@@ -4,13 +4,15 @@ namespace Diga.WebView2.Wrapper.EventArguments
 {
     public class ControllerCompletedArgs : System.EventArgs
     {
-        public ControllerCompletedArgs(ICoreWebView2Controller3 controller, ICoreWebView2 webView)
+        public ControllerCompletedArgs(ICoreWebView2Controller controller, ICoreWebView2 webView)
         {
-            this.Controller = controller;
+            ICoreWebView2Controller4 controller4 = controller as ICoreWebView2Controller4;
+
+            this.Controller = controller4;
             this.WebView = webView;
         }
 
-        public ICoreWebView2Controller3 Controller{get;}
+        public ICoreWebView2Controller4 Controller{get;}
  
         public ICoreWebView2 WebView{get;}
     }

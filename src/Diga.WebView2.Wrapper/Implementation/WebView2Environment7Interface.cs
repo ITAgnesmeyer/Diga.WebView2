@@ -24,7 +24,10 @@ namespace Diga.WebView2.Wrapper.Implementation
 
         public WebView2Environment7Interface(ICoreWebView2Environment7 environment):base(environment)
         {
-                
+            if (environment == null)
+                throw new ArgumentNullException(nameof(environment));
+
+            Environment = environment;
         }
 
         public string UserDataFolder => this.Environment.UserDataFolder;

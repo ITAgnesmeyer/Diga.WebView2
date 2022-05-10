@@ -1,12 +1,18 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Numerics;
 using System.Windows;
+using System.Windows.Controls;
 using Diga.Core.Json;
+using Diga.WebView2.Interop;
 using Diga.WebView2.Scripting.DOM;
-
+using Diga.WebView2.Wpf;
+using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
+using Diga.WebView2.Wrapper.Handler;
+using Diga.WebView2.Wrapper.Types;
 
 
 namespace WebView2WrapperWpfTest
@@ -32,6 +38,9 @@ namespace WebView2WrapperWpfTest
             this.WebView1.AddRemoteObject("testObject", this._TestObject);
 
             var value = File.ReadAllText("index.html");
+            //WebView2ContextMenuItem item = this.WebView1.CreateContextMenuItem("hallo",
+            //    COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND.COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND_COMMAND);
+            
             this.WebView1.NavigateToString(value);
             //this.textBox1.AutoCompleteCustomSource.Add(this.WebView1.MonitoringUrl);
 
@@ -164,6 +173,37 @@ namespace WebView2WrapperWpfTest
             //this.WebView1.IsVisible = !this.WebView1.IsVisible;
 
             //this.WebView2.Visibility = this.WebView2.Visibility == Visibility.Hidden ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        private void Test_MenuClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Test Context Menu Click");
+        }
+
+        private void WebView2_OnMouseButtonDown(object sender, WebViewButtonDownEventArgs e)
+        {
+            
+                
+        }
+
+       
+        private void WebView1_OnContextMenuRequested(object sender, ContextMenuRequestedEventArgs e)
+        {
+            ICoreWebView2Deferral def = e.GetDeferral();
+           
+            var cm = new ContextMenu();
+            MenuItem item = new MenuItem
+            {
+                Header = "Hallo"
+            };
+            cm.Items.Add(item);
+            cm.PlacementTarget = this.WebView2;
+            cm.IsOpen = true;
+            
+            
+            e.Handled = 1;
+            def.Complete();
+
         }
     }
 }

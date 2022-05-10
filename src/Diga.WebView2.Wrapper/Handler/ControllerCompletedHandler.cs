@@ -1,6 +1,7 @@
 ﻿using System;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
+using Diga.WebView2.Wrapper.Implementation;
 using Diga.WebView2.Wrapper.interop;
 using Diga.WebView2.Wrapper.Types;
 
@@ -42,7 +43,7 @@ namespace Diga.WebView2.Wrapper.Handler
             tagRECT rect;
             NativeUser32.GetClientRect(createdController.ParentWindow, out rect);
             controller.Bounds = rect;
-            OnControllerCompleted(new ControllerCompletedArgs((ICoreWebView2Controller3) controller, webView));
+            OnControllerCompleted(new ControllerCompletedArgs(controller, webView));
         }
         protected virtual void OnControllerCompleted(ControllerCompletedArgs e)
         {

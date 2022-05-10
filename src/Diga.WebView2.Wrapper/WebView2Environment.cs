@@ -14,7 +14,7 @@ namespace Diga.WebView2.Wrapper
 {
 
 
-    public partial class WebView2Environment : WebView2Environment7Interface
+    public partial class WebView2Environment : WebView2Environment9Interface
     {
         public event EventHandler<WebView2EventArgs> NewBrowserVersionAvailable;
         public event EventHandler<BrowserProcessExitedEventArgs> BrowserProcessExited;
@@ -22,7 +22,7 @@ namespace Diga.WebView2.Wrapper
         private EventRegistrationToken _BrowserProcessExitedToken;
 
 
-        public WebView2Environment(ICoreWebView2Environment7 environment) : base(environment)
+        public WebView2Environment(ICoreWebView2Environment9 environment) : base(environment)
         {
             if (environment == null)
                 throw new ArgumentNullException(nameof(environment));
@@ -42,6 +42,12 @@ namespace Diga.WebView2.Wrapper
         {
             return new WebView2PointerInfo(base.CreateCoreWebView2PointerInfo());
         }
+
+       public WebView2ContextMenuItem CreateContextMenuItem(string label,
+           COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND kind)
+       {
+           return new WebView2ContextMenuItem( base.CreateContextMenuItem(label, null, kind));
+       }
 
         private void RegisterEvents()
         {
@@ -113,5 +119,7 @@ namespace Diga.WebView2.Wrapper
         {
             return new WebView2PrintSettings(base.CreatePrintSettings());
         }
+
+
     }
 }

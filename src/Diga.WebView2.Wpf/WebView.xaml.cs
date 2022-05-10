@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using Diga.Core.Threading;
 using Diga.WebView2.Scripting;
 
@@ -137,7 +138,22 @@ namespace Diga.WebView2.Wpf
                 this._WebViewControl.DockToParent();
             }
         }
+        private void ViewHwnd_MousButtonDown(object sender, WebViewButtonDownEventArgs e)
+        {
+            //if (this.ContextMenu != null)
+            //{
 
+            //    Size sz = new Size(100, 100);
+            //    this.ContextMenu.PlacementTarget = (UIElement)this.Parent;
+            //    this.ContextMenu.IsOpen = true;
+
+            //    //this.ContextMenu.VerticalOffset = e.Location.Y;
+            //    //this.ContextMenu.HorizontalOffset = e.Location.Y;
+
+
+            //}
+            OnMouseButtonDown(e);
+        }
         private void ViewHwnd_Destroy(object sender, EventArgs e)
         {
             //this._WebViewControl?.CleanupControls();
@@ -148,5 +164,7 @@ namespace Diga.WebView2.Wpf
                 throw new InvalidOperationException($"method ({member}) can only execute on UI-Thread");
         }
         #endregion
+
+      
     }
 }

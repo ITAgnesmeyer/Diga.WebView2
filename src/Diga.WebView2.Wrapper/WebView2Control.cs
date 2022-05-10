@@ -61,6 +61,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<WebView2EventArgs> IsDocumentPlayingAudioChanged;
         public event EventHandler<WebView2EventArgs> IsDefaultDownloadDialogOpenChanged;
         public event EventHandler<BasicAuthenticationRequestedEventArgs> BasicAuthenticationRequested;
+        public event EventHandler<ContextMenuRequestedEventArgs> ContextMenuRequested;
         private WebView2Settings _Settings;
         private string _BrowserInfo;
         private object HostHelper;
@@ -179,7 +180,7 @@ namespace Diga.WebView2.Wrapper
             this.Controller.RasterizationScaleChanged += OnRasterizationScaleChangedIntern;
             this.Controller.ZoomFactorChanged += OnZoomFactorChangedIntern;
 
-            this.WebView = new WebView2View((ICoreWebView2_10)e.WebView);
+            this.WebView = new WebView2View((ICoreWebView2_12)e.WebView);
             this.WebView.ClientCertificateRequested += OnClientCertificateRequestedIntern;
             this.WebView.ContainsFullScreenElementChanged += OnContainsFullScreenElementChangedIntern;
             this.WebView.ContentLoading += OnContentLoadingIntern;
@@ -207,6 +208,7 @@ namespace Diga.WebView2.Wrapper
             this.WebView.IsDocumentPlayingAudioChanged += OnIsDocumentPlayingAudioChangedÍntern;
             this.WebView.IsDefaultDownloadDialogOpenChanged += OnIsDefaultDownloadDialogOpenChangedIntern;
             this.WebView.BasicAuthenticationRequested += OnBasicAuthenticationRequestedIntern;
+            this.WebView.ContextMenuRequested += OnContextMenuRequestedIntern;
             this._Settings = new WebView2Settings(this.WebView.Settings);
             object  wwInterface = e.WebView;
 
@@ -339,8 +341,14 @@ namespace Diga.WebView2.Wrapper
                 this.WebView.IsDocumentPlayingAudioChanged -= OnIsDocumentPlayingAudioChangedÍntern;
                 this.WebView.IsDefaultDownloadDialogOpenChanged -= OnIsDefaultDownloadDialogOpenChangedIntern;
                 this.WebView.BasicAuthenticationRequested -= OnBasicAuthenticationRequestedIntern;
+                this.WebView.ContextMenuRequested -= OnContextMenuRequestedIntern;
 
             }
+        }
+
+        private void OnContextMenuRequestedIntern(object sender, ContextMenuRequestedEventArgs e)
+        {
+            OnContextMenuRequested(e);
         }
 
         private void OnWebResourceResponseReceivedIntern(object sender, WebResourceResponseReceivedEventArgs e)
@@ -1068,6 +1076,11 @@ namespace Diga.WebView2.Wrapper
             return this.WebView.PrintToPdfAsync(file, printSettings);
         }
 
+        public WebView2ContextMenuItem CreateContextMenuItem(string lable,
+            COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND kind)
+        {
+            return Environment.CreateContextMenuItem(lable, kind);
+        }
         protected virtual void OnIsMutedChanged(WebView2EventArgs e)
         {
             IsMutedChanged?.Invoke(this, e);
@@ -1086,6 +1099,11 @@ namespace Diga.WebView2.Wrapper
         protected virtual void OnBasicAuthenticationRequested(BasicAuthenticationRequestedEventArgs e)
         {
             BasicAuthenticationRequested?.Invoke(this, e);
+        }
+
+        protected virtual void OnContextMenuRequested(ContextMenuRequestedEventArgs e)
+        {
+            ContextMenuRequested?.Invoke(this, e);
         }
     }
 

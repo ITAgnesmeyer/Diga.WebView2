@@ -93,10 +93,34 @@ namespace Diga.WebView2.WinForms
             CreateWebViewControl(this.Handle);
         }
 
+        private int HiWord(int number)
+        {
+            if ((number & 0x80000000) == 0x80000000)
+                return (number >> 16);
+            return (number >> 16) & 0xffff;
+        }
+
+        private int LoWord(int number)
+        {
+            return number & 0xffff;
+        }
         protected override void WndProc(ref Message m)
         {
             switch (m.Msg)
             {
+                case 0x210:
+                    if (m.WParam.ToInt32() == 0x204)
+                    {
+                        int lParam = m.LParam.ToInt32();
+
+                        int y = HiWord(lParam);
+                        int x = LoWord(lParam);
+                        OnMousButtonDown(new WebViewButtonDownEventArgs(new Point(x,y)));
+                    }
+
+                    
+                    break;
+
                 case 0x0002:
                     OnBeforeWebViewDestroy();
                     break;

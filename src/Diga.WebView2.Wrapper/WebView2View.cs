@@ -18,7 +18,7 @@ using MimeTypeExtension;
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
 {
-    public partial class WebView2View : WebView2View10Interface
+    public partial class WebView2View : WebView2View12Interface
     {
 
         public event EventHandler<NavigationStartingEventArgs> NavigationStarting;
@@ -50,7 +50,8 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<WebView2EventArgs> IsDocumentPlayingAudioChanged;
         public event EventHandler<WebView2EventArgs> IsDefaultDownloadDialogOpenChanged;
         public event EventHandler<BasicAuthenticationRequestedEventArgs> BasicAuthenticationRequested;
-        public WebView2View(ICoreWebView2_10 webView) : base(webView)
+        public event EventHandler<ContextMenuRequestedEventArgs> ContextMenuRequested;
+        public WebView2View(ICoreWebView2_12 webView) : base(webView)
         {
 
             RegisterEvents();
@@ -189,7 +190,14 @@ namespace Diga.WebView2.Wrapper
             basicAuthenticationRequestedEventHandler.BasicAuthenticationRequested +=
                 OnBasicAuthenticationRequestedIntern;
             base.add_BasicAuthenticationRequested(basicAuthenticationRequestedEventHandler, out this._BasicAuthenticationRequestedEvent);
+            ContextMenuRequestedEventHandler contextMenuHandler = new ContextMenuRequestedEventHandler();
+            contextMenuHandler.ContextMenuRequested += OnContextMenuRequestedIntern;
+            base.add_ContextMenuRequested(contextMenuHandler , out this._ContextMenuRequested );
+        }
 
+        private void OnContextMenuRequestedIntern(object sender, ContextMenuRequestedEventArgs e)
+        {
+            OnContextMenuRequested(e);
         }
 
         private void OnBasicAuthenticationRequestedIntern(object sender, BasicAuthenticationRequestedEventArgs e)
@@ -474,6 +482,7 @@ namespace Diga.WebView2.Wrapper
                 EventRegistrationTool.UnWireToken(this._IsDocumentPlayingAudioChangedToken, base.remove_IsDocumentPlayingAudioChanged);
                 EventRegistrationTool.UnWireToken(this._isDefaultDownloadDialogOpenEventToken, base.remove_IsDefaultDownloadDialogOpenChanged);
                 EventRegistrationTool.UnWireToken(this._BasicAuthenticationRequestedEvent, remove_BasicAuthenticationRequested);
+                EventRegistrationTool.UnWireToken(this._ContextMenuRequested , base.remove_ContextMenuRequested );
 
             }
             catch (Exception e)
@@ -508,6 +517,7 @@ namespace Diga.WebView2.Wrapper
         private EventRegistrationToken _IsDocumentPlayingAudioChangedToken;
         private EventRegistrationToken _isDefaultDownloadDialogOpenEventToken;
         private EventRegistrationToken _BasicAuthenticationRequestedEvent;
+        private EventRegistrationToken _ContextMenuRequested;
         private void OnNavigationStartingIntern(object sender, NavigationStartingEventArgs e)
         {
             this.CurrentContent.Clear();
@@ -840,6 +850,11 @@ namespace Diga.WebView2.Wrapper
         protected virtual void OnBasicAuthenticationRequested(BasicAuthenticationRequestedEventArgs e)
         {
             BasicAuthenticationRequested?.Invoke(this, e);
+        }
+
+        protected virtual void OnContextMenuRequested(ContextMenuRequestedEventArgs e)
+        {
+            ContextMenuRequested?.Invoke(this, e);
         }
     }
 

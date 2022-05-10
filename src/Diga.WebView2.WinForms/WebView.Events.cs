@@ -70,7 +70,7 @@ namespace Diga.WebView2.WinForms
                 this.ExecuteScriptCompletedInterface -= value;
             }
         }
-
+        public event EventHandler<WebViewButtonDownEventArgs> MousButtonDown;
         private void OnWebWindowBeforeCreate(object sender, BeforeCreateEventArgs e)
         {
             WebWindowInitSettings(e);
@@ -624,6 +624,11 @@ namespace Diga.WebView2.WinForms
 
             });
 
+        }
+
+        protected virtual void OnMousButtonDown(WebViewButtonDownEventArgs e)
+        {
+            MousButtonDown?.Invoke(this, e);
         }
     }
 }

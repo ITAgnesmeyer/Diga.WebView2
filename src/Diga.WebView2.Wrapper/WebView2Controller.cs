@@ -10,7 +10,7 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper
 {
-    public class WebView2Controller : WebView2Controller3Interface
+    public class WebView2Controller : WebView2Controller4Interface
     {
         private EventRegistrationToken _ZoomFactorChangedToken;
         private EventRegistrationToken _GotFocusToken;
@@ -25,7 +25,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<MoveFocusRequestedEventArgs> MoveFocusRequested;
         public event EventHandler<WebView2EventArgs> RasterizationScaleChanged;
 
-        public WebView2Controller(ICoreWebView2Controller3 controller) : base(controller)
+        public WebView2Controller(ICoreWebView2Controller4 controller) : base(controller)
         {
             if(controller == null)
                 throw new ArgumentNullException(nameof(controller));
@@ -133,7 +133,7 @@ namespace Diga.WebView2.Wrapper
 
 
 
-        public WebView2View WebView => new WebView2View((ICoreWebView2_10)base.CoreWebView2);
+        public WebView2View WebView => new WebView2View((ICoreWebView2_12)base.CoreWebView2);
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {

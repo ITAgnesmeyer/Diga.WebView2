@@ -7,6 +7,11 @@
         xmlns:a="clr-namespace:Diga.WebView2.Wpf;assembly=Diga.WebView2.Wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="655" Width="1042">
+    <Window.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="TEST" Click="Test_MenuClick"></MenuItem>
+        </ContextMenu>
+    </Window.ContextMenu>
     <Grid Margin="10" Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -16,8 +21,8 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="100"></RowDefinition>
         </Grid.RowDefinitions>
-        <a:WebView Grid.Row="0"  x:Name="WebView1"  Grid.Column="0"  Margin="10" WebViewCreated="WebView1_WebViewCreated" WebMessageReceived="WebView1_WebMessageReceived" DefaultBackgroundColor="#FFA4DAAC"  />
-        <a:WebView Grid.Row="0" x:Name="WebView2" Grid.Column="1"   Margin="10" WebViewCreated="WebView2_WebViewCreated" WebMessageReceived="WebView2_WebMessageReceived" DefaultBackgroundColor="#FFEDA2A2" />
+        <a:WebView Grid.Row="0"  x:Name="WebView1"  Grid.Column="0"  Margin="10" WebViewCreated="WebView1_WebViewCreated" WebMessageReceived="WebView1_WebMessageReceived" DefaultBackgroundColor="#FFA4DAAC" ContextMenuRequested="WebView1_OnContextMenuRequested" DefaultContextMenusEnabled="True" />
+        <a:WebView Grid.Row="0" x:Name="WebView2" Grid.Column="1"   Margin="10" WebViewCreated="WebView2_WebViewCreated" WebMessageReceived="WebView2_WebMessageReceived" DefaultBackgroundColor="#FFEDA2A2" MouseButtonDown="WebView2_OnMouseButtonDown"/>
         <Button Grid.Row="1" Grid.Column="0" Click="Button_Click" >Test</Button>
         <a:WebView x:Name="WebView3" Grid.Row="1" Grid.Column="1"  IsManipulationEnabled="True" HtmlContent="&lt;button id=&quot;ga_button&quot;&gt;test&lt;/button&gt;" DefaultBackgroundColor="White"   />
     </Grid>

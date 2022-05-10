@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper;
 
 namespace Diga.WebView2.Wpf
@@ -136,6 +137,10 @@ namespace Diga.WebView2.Wpf
             return response;
         }
 
+        public WebView2ContextMenuItem CreateContextMenuItem(string label, COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND kind)
+        {
+            return this._WebViewControl.CreateContextMenuItem(label, kind);
+        }
         public void ShowPageSource()
         {
             string uri = this.Source;
