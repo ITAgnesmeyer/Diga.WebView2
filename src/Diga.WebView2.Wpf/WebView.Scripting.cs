@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.ExceptionServices;
+using System.Security;
 using System.Threading.Tasks;
 using Diga.Core.Threading;
 using Diga.WebView2.Scripting;
@@ -42,7 +44,10 @@ namespace Diga.WebView2.Wpf
             string scriptToExecute = $"window.external.evalScript(\"{javaScript.Replace("\"", "\\'")}\")";
             this._WebViewControl.ExecuteScript(scriptToExecute);
         }
-
+        [SecurityCritical]
+#pragma warning disable SYSLIB0032
+        [ HandleProcessCorruptedStateExceptions]
+#pragma warning restore SYSLIB0032
         public string EvalScriptSync(string javaScript)
         {
             CheckIsCreatedOrEndedWithThrow();
@@ -142,25 +147,45 @@ namespace Diga.WebView2.Wpf
             }
             return result;
         }
-
+        [SecurityCritical]
+#pragma warning disable SYSLIB0032
+        [HandleProcessCorruptedStateExceptions ]
+#pragma warning restore SYSLIB0032
         public string ExecuteScriptSync(string javaScript)
         {
             CheckIsCreatedOrEndedWithThrow();
             ScriptZeroTest(javaScript);
             CheckIsInUiThread();
             string scriptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"", "\\'")}}}\")";
-            string result = UIDispatcher.UIThread.Invoke<string>(async () =>
+            try
             {
-                string rs = await this._WebViewControl.ExecuteScriptAsync(scriptToExecute);
-                return rs;
-            });
-            ScriptErrorObject errorObj = ScriptSerializationHelper.GetScriptErrorObject(result);
-            if (errorObj != null)
-            {
-                throw new ScriptException(errorObj);
-            }
+                string result = UIDispatcher.UIThread.Invoke<string>(async () =>
+                {
+                    string rs = await this._WebViewControl.ExecuteScriptAsync(scriptToExecute);
+                    return rs;
+                });
+                ScriptErrorObject errorObj = ScriptSerializationHelper.GetScriptErrorObject(result);
+                if (errorObj != null)
+                {
+                    throw new ScriptException(errorObj);
+                }
 
-            return result;
+                return result;
+            }
+            catch (Exception e)
+            {
+                ScriptErrorObject errorObject = new ScriptErrorObject
+                {
+                    message = e.Message,
+                    fileName = "WebView.Scripting.cs",
+                    stack = e.StackTrace,
+                    name = "Internal Error",
+                    columnNumber = "0",
+                    lineNumber = "0"
+                };
+                return errorObject.ToString();
+            }
+          
         }
         /// <summary>
         /// Invoke a script and returns a unique ID for the script 

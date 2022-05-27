@@ -7,6 +7,7 @@ using Diga.WebView2.Scripting;
 using Diga.WebView2.Scripting.DOM;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
+using Diga.WebView2.Wrapper.Handler;
 
 
 namespace Diga.WebView2.WinForms
@@ -71,6 +72,7 @@ namespace Diga.WebView2.WinForms
             }
         }
         public event EventHandler<WebViewButtonDownEventArgs> MousButtonDown;
+        public event EventHandler<ContextMenuRequestedEventArgs> ContextMenuRequested;
         private void OnWebWindowBeforeCreate(object sender, BeforeCreateEventArgs e)
         {
             WebWindowInitSettings(e);
@@ -539,6 +541,7 @@ namespace Diga.WebView2.WinForms
             control.IsMutedChanged -= OnIsMutedChangedIntern;
             control.IsDocumentPlayingAudioChanged -= OnIsDocumentPlayingAudioChangedIntern;
             control.IsDefaultDownloadDialogOpenChanged -= OnIsDefaultDownloadDialogOpenChangedIntern;
+            control.ContextMenuRequested += OnContextMenuRequestedIntern;
             _UnWireExecuted = true;
         }
 
@@ -581,6 +584,12 @@ namespace Diga.WebView2.WinForms
             control.IsMutedChanged += OnIsMutedChangedIntern;
             control.IsDocumentPlayingAudioChanged += OnIsDocumentPlayingAudioChangedIntern;
             control.IsDefaultDownloadDialogOpenChanged += OnIsDefaultDownloadDialogOpenChangedIntern;
+            control.ContextMenuRequested += OnContextMenuRequestedIntern;
+        }
+
+        private void OnContextMenuRequestedIntern(object sender, ContextMenuRequestedEventArgs e)
+        {
+            OnContextMenuRequested(e);
         }
 
         private void OnIsDefaultDownloadDialogOpenChangedIntern(object sender, WebView2EventArgs e)
@@ -629,6 +638,11 @@ namespace Diga.WebView2.WinForms
         protected virtual void OnMousButtonDown(WebViewButtonDownEventArgs e)
         {
             MousButtonDown?.Invoke(this, e);
+        }
+
+        protected virtual void OnContextMenuRequested(ContextMenuRequestedEventArgs e)
+        {
+            ContextMenuRequested?.Invoke(this, e);
         }
     }
 }

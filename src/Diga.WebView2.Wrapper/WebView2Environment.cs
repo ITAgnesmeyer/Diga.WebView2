@@ -43,10 +43,12 @@ namespace Diga.WebView2.Wrapper
             return new WebView2PointerInfo(base.CreateCoreWebView2PointerInfo());
         }
 
-       public WebView2ContextMenuItem CreateContextMenuItem(string label,
+       public WebView2ContextMenuItem CreateContextMenuItem(string label,Stream iconStream,
            COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND kind)
        {
-           return new WebView2ContextMenuItem( base.CreateContextMenuItem(label, null, kind));
+           
+           
+           return new WebView2ContextMenuItem(base.CreateContextMenuItem(label, iconStream == null ? (IStream) null : (IStream) new ManagedIStream(ref iconStream), kind));
        }
 
         private void RegisterEvents()

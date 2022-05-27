@@ -137,9 +137,9 @@ namespace Diga.WebView2.Wpf
             return response;
         }
 
-        public WebView2ContextMenuItem CreateContextMenuItem(string label, COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND kind)
+        public WebView2ContextMenuItem CreateContextMenuItem(string label,Stream iconStream, COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND kind)
         {
-            return this._WebViewControl.CreateContextMenuItem(label, kind);
+            return this._WebViewControl.CreateContextMenuItem(label,iconStream, kind);
         }
         public void ShowPageSource()
         {

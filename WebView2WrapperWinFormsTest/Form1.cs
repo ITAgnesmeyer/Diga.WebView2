@@ -3,13 +3,17 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Diga.Core.Threading;
+using Diga.WebView2.Interop;
 using Diga.WebView2.Scripting;
 using Diga.WebView2.Scripting.DOM;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
+using Diga.WebView2.Wrapper.Handler;
+using Diga.WebView2.Wrapper.Implementation;
 
 namespace WebView2WrapperWinFormsTest
 {
@@ -30,7 +34,7 @@ namespace WebView2WrapperWinFormsTest
         private void OnRpcEvent(object sender, RpcEventHandlerArgs e)
         {
             Debug.Print("RPCEVENT");
-           
+
         }
 
 
@@ -154,8 +158,8 @@ namespace WebView2WrapperWinFormsTest
             {
                 MessageBox.Show(this, "webView1_PermissionRequested");
             }
-            
-            
+
+
         }
 
         private void webView1_WebMessageReceived(object sender, WebMessageReceivedEventArgs e)
@@ -242,7 +246,7 @@ namespace WebView2WrapperWinFormsTest
             this.webView1.NavigateToString(value);
             this.textBox1.AutoCompleteCustomSource.Add(this.webView1.MonitoringUrl);
             this.textBox1.AutoCompleteCustomSource.Add(this.webView1.MonitoringUrl + "mp3test/testmp3.html");
-            
+
 
 
         }
@@ -347,8 +351,8 @@ namespace WebView2WrapperWinFormsTest
             //{
             //    DOMGC.CleanUp();
             //});
-            
-            
+
+
             this._DIV = null;
 
         }
@@ -547,7 +551,7 @@ namespace WebView2WrapperWinFormsTest
                 {
                     MessageBox.Show(exception.ToString());
                 }
-                
+
             }
         }
 
@@ -683,16 +687,67 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_DocumentLoading(object sender, EventArgs e)
         {
-            Debug.Print( "DOM-Loading");
+            Debug.Print("DOM-Loading");
         }
 
-        private  void webView1_DocumentUnload(object sender, EventArgs e)
+        private void webView1_DocumentUnload(object sender, EventArgs e)
         {
-            
+
             this._DIV = null;
-            
-            
-            Debug.Print( "Unload Document");
+
+
+            Debug.Print("Unload Document");
+        }
+
+        private Stream S = new MemoryStream(new byte[] { 0 });
+        private WebView2ContextMenuItem _Item;
+        private WebView2ContextMenuItem  _Sub1;
+        private ContextMenuItemCollection _MenuItems;
+        private void webView1_ContextMenuRequested(object sender, Diga.WebView2.Wrapper.Handler.ContextMenuRequestedEventArgs e)
+        {
+            using (var c = e.GetDeferral())
+            {
+                if (e.ContextMenuTarget.Kind ==
+                    COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND.COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND_PAGE)
+                {
+                   
+                    uint count = e.MenuItems.Count;
+                   
+                    if (this._Sub1 == null)
+                    {
+                        this._Item = this.webView1.CreateContextMenuItem("test", null,
+                            COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND.COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND_COMMAND);
+                        this._Item.CustomItemSelected += (oo, ee) =>
+                        {
+                            Diga.Core.Threading.UIDispatcher.UIThread.Post(() =>
+                            {
+                                this.webView1.GetDOMWindow().alert("Hallo");
+                            });
+                        };
+                        this._Sub1 = this.webView1.CreateContextMenuItem("sub1", null,
+                            COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND.COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND_SUBMENU);
+                        this._Sub1.Children.InsertValueAtIndex(0,this._Item.ToInterface());
+                        e.MenuItems.InsertValueAtIndex(count,this._Sub1);
+                    }
+                    else
+                    {
+                        
+                        e.MenuItems.RemoveValueAtIndex(0);
+                        e.MenuItems.RemoveValueAtIndex(0);
+                        
+                        count--;
+                        count--;
+                        bool ok = false;
+                        e.MenuItems.InsertValueAtIndex(count,this._Sub1);
+                      
+                    }
+                }
+                //Diga.Core.Threading.UIDispatcher.UIThread.Invoke(() =>
+                //{
+                //    e.MenuItems.InsertValueAtIndex(count,item);
+                //});
+                //Diga.Core.Threading.UIDispatcher.UIThread.Wait(1000);
+            }
         }
     }
 }

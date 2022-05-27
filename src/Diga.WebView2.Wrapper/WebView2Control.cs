@@ -1076,10 +1076,10 @@ namespace Diga.WebView2.Wrapper
             return this.WebView.PrintToPdfAsync(file, printSettings);
         }
 
-        public WebView2ContextMenuItem CreateContextMenuItem(string lable,
+        public WebView2ContextMenuItem CreateContextMenuItem(string lable,Stream iconStream,
             COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND kind)
         {
-            return Environment.CreateContextMenuItem(lable, kind);
+            return Environment.CreateContextMenuItem(lable,iconStream, kind);
         }
         protected virtual void OnIsMutedChanged(WebView2EventArgs e)
         {
@@ -1103,7 +1103,11 @@ namespace Diga.WebView2.Wrapper
 
         protected virtual void OnContextMenuRequested(ContextMenuRequestedEventArgs e)
         {
-            ContextMenuRequested?.Invoke(this, e);
+            EventHandler<ContextMenuRequestedEventArgs> handler = this.ContextMenuRequested;
+
+            if (handler!= null)
+                handler(this, e);
+            //ContextMenuRequested?.Invoke(this, e);
         }
     }
 

@@ -39,7 +39,7 @@ namespace Diga.WebView2.Wrapper.Implementation
         }
 
         [return: MarshalAs(UnmanagedType.Interface)]
-        public ICoreWebView2ContextMenuItem CreateContextMenuItem([In, MarshalAs(UnmanagedType.LPWStr)] string Label, [In, MarshalAs(UnmanagedType.Interface)] IStream iconStream, [In] COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND Kind)
+        public ICoreWebView2ContextMenuItem CreateContextMenuItem([In, MarshalAs(UnmanagedType.LPWStr)] string Label, [MarshalAs(UnmanagedType.Interface), In] IStream iconStream, [In] COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND Kind)
         {
             return this.Environment.CreateContextMenuItem(Label, iconStream, Kind);
         }

@@ -190,9 +190,14 @@ namespace Diga.WebView2.Wrapper
             basicAuthenticationRequestedEventHandler.BasicAuthenticationRequested +=
                 OnBasicAuthenticationRequestedIntern;
             base.add_BasicAuthenticationRequested(basicAuthenticationRequestedEventHandler, out this._BasicAuthenticationRequestedEvent);
-            ContextMenuRequestedEventHandler contextMenuHandler = new ContextMenuRequestedEventHandler();
-            contextMenuHandler.ContextMenuRequested += OnContextMenuRequestedIntern;
+            ContextMenuRequestedEventHandler contextMenuHandler = new ContextMenuRequestedEventHandler( new ContextMenuRequestedEventHandler.ContextMenuRequestDelegate(OnContextMenuRequestedIntern2));
+            //contextMenuHandler.ContextMenuRequested += OnContextMenuRequestedIntern;
             base.add_ContextMenuRequested(contextMenuHandler , out this._ContextMenuRequested );
+        }
+
+        private void OnContextMenuRequestedIntern2(ContextMenuRequestedEventArgs args)
+        {
+            OnContextMenuRequested(args);
         }
 
         private void OnContextMenuRequestedIntern(object sender, ContextMenuRequestedEventArgs e)
@@ -854,7 +859,10 @@ namespace Diga.WebView2.Wrapper
 
         protected virtual void OnContextMenuRequested(ContextMenuRequestedEventArgs e)
         {
-            ContextMenuRequested?.Invoke(this, e);
+            EventHandler<ContextMenuRequestedEventArgs> handler = this.ContextMenuRequested;
+            if(handler == null) return;
+            handler(this, e);
+            //ContextMenuRequested?.Invoke(this, e);
         }
     }
 

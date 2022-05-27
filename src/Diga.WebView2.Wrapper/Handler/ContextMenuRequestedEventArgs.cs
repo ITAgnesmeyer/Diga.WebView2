@@ -1,47 +1,30 @@
-﻿using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using Diga.WebView2.Interop;
+﻿using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Implementation;
 
 namespace Diga.WebView2.Wrapper.Handler
 {
-    public class ContextMenuRequestedEventArgs :EventArgs , ICoreWebView2ContextMenuRequestedEventArgs
+    public class ContextMenuRequestedEventArgs :ContextMenuRequestedEventArgsInterface
     {
-        private ICoreWebView2ContextMenuRequestedEventArgs _Args;
+        //private object _obj;
 
-        private ICoreWebView2ContextMenuRequestedEventArgs Args
+        public ContextMenuRequestedEventArgs(ICoreWebView2ContextMenuRequestedEventArgs args):base(args)
         {
-            get
-            {
-                if (this._Args == null)
-                {
-                    Debug.Print(nameof(ContextMenuRequestedEventArgs) + "." + nameof(this._Args) + " is null");
-                    throw new InvalidOperationException(nameof(ContextMenuRequestedEventArgs) + "." + nameof(this._Args) + " is null");
-
-                }
-                return this._Args;
-            }
+            //this._obj = args;
         }
 
-        public ContextMenuRequestedEventArgs(ICoreWebView2ContextMenuRequestedEventArgs args)
+        public ContextMenuRequestedEventArgs(object obj):this((ICoreWebView2ContextMenuRequestedEventArgs)obj)
         {
-            if(args == null) throw new ArgumentNullException(nameof(args));
-            this._Args = args;
+            
         }
 
-        public ICoreWebView2ContextMenuItemCollection MenuItems => this.Args.MenuItems;
+        public new ContextMenuItemCollection MenuItems => new ContextMenuItemCollection(base.MenuItems);
+        public new ContextMenuTarget ContextMenuTarget => new ContextMenuTarget(base.ContextMenuTarget);
 
-        public ICoreWebView2ContextMenuTarget ContextMenuTarget => this.Args.ContextMenuTarget;
-
-        public tagPOINT Location => this.Args.Location;
-
-        public int SelectedCommandId { get => this.Args.SelectedCommandId; set => this.Args.SelectedCommandId = value; }
-        public int Handled { get => this.Args.Handled; set => this.Args.Handled = value; }
-
-        [return: MarshalAs(UnmanagedType.Interface)]
-        public ICoreWebView2Deferral GetDeferral()
+        public new WebView2Deferral GetDeferral()
         {
-            return this.Args.GetDeferral();
+            return new WebView2Deferral(base.GetDeferral());
         }
+
+      
     }
 }

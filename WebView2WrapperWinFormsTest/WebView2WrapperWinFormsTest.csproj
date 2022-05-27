@@ -32,7 +32,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>embedded</DebugType>
     <Optimize>false</Optimize>
@@ -58,14 +58,14 @@
     <AssemblyOriginatorKeyFile>WinFormsTestSign.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Diga.Core.Api.Win32, Version=2.0.4.0, Culture=neutral, PublicKeyToken=195159b462588500, processorArchitecture=MSIL">
-      <HintPath>..\packages\Diga.Core.Api.Win32.2.0.4\lib\net472\Diga.Core.Api.Win32.dll</HintPath>
+    <Reference Include="Diga.Core.Api.Win32, Version=2.0.6.0, Culture=neutral, PublicKeyToken=195159b462588500, processorArchitecture=MSIL">
+      <HintPath>..\packages\Diga.Core.Api.Win32.2.0.6\lib\net472\Diga.Core.Api.Win32.dll</HintPath>
     </Reference>
     <Reference Include="Diga.Core.Json, Version=1.0.1.1, Culture=neutral, PublicKeyToken=1429a0b3e96dc0ad, processorArchitecture=MSIL">
       <HintPath>..\packages\Diga.Core.Json.1.0.2\lib\net472\Diga.Core.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Diga.Core.Threading, Version=1.0.5.0, Culture=neutral, PublicKeyToken=f71992c25f8beb19, processorArchitecture=MSIL">
-      <HintPath>..\packages\Diga.Core.Threading.1.0.5\lib\net472\Diga.Core.Threading.dll</HintPath>
+    <Reference Include="Diga.Core.Threading, Version=1.0.6.0, Culture=neutral, PublicKeyToken=f71992c25f8beb19, processorArchitecture=MSIL">
+      <HintPath>..\packages\Diga.Core.Threading.1.0.6\lib\net472\Diga.Core.Threading.dll</HintPath>
     </Reference>
     <Reference Include="MimeTypeExtension, Version=1.0.28.1, Culture=neutral, PublicKeyToken=5bccdf24b37e4bab, processorArchitecture=MSIL">
       <HintPath>..\packages\MimeTypeExtension.1.0.28\lib\netstandard2.0\MimeTypeExtension.dll</HintPath>

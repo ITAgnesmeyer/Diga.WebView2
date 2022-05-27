@@ -519,7 +519,7 @@ namespace Diga.WebView2.Wpf
             control.IsMutedChanged -= OnIsMutedChangedIntern;
             control.IsDocumentPlayingAudioChanged -= OnIsDocumentPlayingAudioChangedIntern;
             control.IsDefaultDownloadDialogOpenChanged -= OnIsDefaultDownloadDialogOpenChangedIntern;
-            control.ContextMenuRequested += OnContextMenuRequestedIntern;
+            control.ContextMenuRequested -= OnContextMenuRequestedIntern;
             _UnWireExecuted = true;
         }
 
@@ -565,9 +565,15 @@ namespace Diga.WebView2.Wpf
             control.ContextMenuRequested += OnContextMenuRequestedIntern;
         }
 
-        private void OnContextMenuRequestedIntern(object sender, ContextMenuRequestedEventArgs e)
+        private  void OnContextMenuRequestedIntern(object sender, ContextMenuRequestedEventArgs e)
         {
-            Diga.Core.Threading.UIDispatcher.UIThread.Invoke(() => { });
+            //using (var c = e.GetDeferral())
+            //{
+            
+                OnContextMenuRequested(e); 
+            //}
+            
+            
         }
 
         private void OnIsDefaultDownloadDialogOpenChangedIntern(object sender, WebView2EventArgs e)
@@ -620,7 +626,10 @@ namespace Diga.WebView2.Wpf
 
         protected virtual void OnContextMenuRequested(ContextMenuRequestedEventArgs e)
         {
-            ContextMenuRequested?.Invoke(this, e);
+            EventHandler<ContextMenuRequestedEventArgs> handler = this.ContextMenuRequested;
+            if (handler != null)
+                handler(this, e);
+            //ContextMenuRequested?.Invoke(this, e);
         }
     }
 }

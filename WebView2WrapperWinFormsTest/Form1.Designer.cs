@@ -286,7 +286,7 @@
             this.webView1.AreBrowserAcceleratorKeysEnabled = true;
             this.webView1.BackColor = System.Drawing.Color.Black;
             this.webView1.DefaultBackgroundColor = System.Drawing.Color.AliceBlue;
-            this.webView1.DefaultContextMenusEnabled = false;
+            this.webView1.DefaultContextMenusEnabled = true;
             this.webView1.DefaultScriptDialogsEnabled = true;
             this.webView1.DevToolsEnabled = true;
             this.webView1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -339,6 +339,7 @@
             this.webView1.IsDocumentPlayingAudioChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_IsDocumentPlayingAudioChanged);
             this.webView1.DocumentLoading += new System.EventHandler(this.webView1_DocumentLoading);
             this.webView1.DocumentUnload += new System.EventHandler(this.webView1_DocumentUnload);
+            this.webView1.ContextMenuRequested += new System.EventHandler<Diga.WebView2.Wrapper.Handler.ContextMenuRequestedEventArgs>(this.webView1_ContextMenuRequested);
             // 
             // Form1
             // 

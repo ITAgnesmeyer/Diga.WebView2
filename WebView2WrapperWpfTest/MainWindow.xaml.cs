@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Numerics;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Diga.Core.Json;
@@ -40,7 +42,7 @@ namespace WebView2WrapperWpfTest
             var value = File.ReadAllText("index.html");
             //WebView2ContextMenuItem item = this.WebView1.CreateContextMenuItem("hallo",
             //    COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND.COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND_COMMAND);
-            
+
             this.WebView1.NavigateToString(value);
             //this.textBox1.AutoCompleteCustomSource.Add(this.WebView1.MonitoringUrl);
 
@@ -142,16 +144,16 @@ namespace WebView2WrapperWpfTest
                         can.height = 100;
 
                         var ctx = can.GetContext2D();
-                        
+
 
                         ctx.fillStyle = "yellow";
-                        ctx.fillRect(0,0,255,255);
-                        ctx.transform(1,(decimal)0.5, (decimal)-0.5,1,30,10);
+                        ctx.fillRect(0, 0, 255, 255);
+                        ctx.transform(1, (decimal)0.5, (decimal)-0.5, 1, 30, 10);
                         ctx.fillStyle = "blue";
-                        ctx.fillRect(0,0,250,100);
+                        ctx.fillRect(0, 0, 250, 100);
                         ctx.resetTransform();
                         ctx.moveTo(0, 0);
-                        ctx.lineTo(200,100);
+                        ctx.lineTo(200, 100);
                         ctx.stroke();
 
                         MessageBox.Show("Test from Button");
@@ -160,10 +162,10 @@ namespace WebView2WrapperWpfTest
             }
             var now = DateTime.Now;
             var zeroDate = DateTime.MinValue.AddHours(now.Hour).AddMinutes(now.Minute).AddSeconds(now.Second).AddMilliseconds(now.Millisecond);
-            int uniqueId = (int)(zeroDate.Ticks / 10000) ;
+            int uniqueId = (int)(zeroDate.Ticks / 10000);
             Random r = new Random(uniqueId);
             int nr = r.Next();
-            
+
             this.WebView1.NavigateToString($"<h1>{uniqueId}</h1><h2>{nr}</h2>");
         }
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -182,27 +184,72 @@ namespace WebView2WrapperWpfTest
 
         private void WebView2_OnMouseButtonDown(object sender, WebViewButtonDownEventArgs e)
         {
-            
-                
+
+
         }
 
-       
-        private void WebView1_OnContextMenuRequested(object sender, ContextMenuRequestedEventArgs e)
+        private WebView2ContextMenuItem _Item;
+        private ContextMenuRequestedEventArgs _lastArgs;
+        private  void WebView1_OnContextMenuRequested(object sender, ContextMenuRequestedEventArgs e)
         {
-            ICoreWebView2Deferral def = e.GetDeferral();
-           
-            var cm = new ContextMenu();
-            MenuItem item = new MenuItem
+            this._lastArgs = e;
+
+
+            if (e.ContextMenuTarget.Kind ==
+                COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND.COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND_PAGE)
             {
-                Header = "Hallo"
-            };
-            cm.Items.Add(item);
-            cm.PlacementTarget = this.WebView2;
-            cm.IsOpen = true;
+                var collection = e.MenuItems;
+                uint anz = collection.Count;
+                this._Item = collection.GetValueAtIndex(anz - 1);
+
+                //this._Item.Selected += (o, ee) =>
+                //{
+                //    using (var def = e.GetDeferral())
+                //    {
+                //        Debug.Print(ee.Kind.ToString());
+                //    }
+                //};
+                
+                ((ICoreWebView2ContextMenuItemCollection)e.MenuItems).InsertValueAtIndex(1,this._Item.ToInterface());
+                Debug.Print(this._Item.Name);
+
+            }
+
+            //await Diga.Core.Threading.UIDispatcher.UIThread.InvokeAsync(() =>
+            //{
+            //    if (e.ContextMenuTarget.Kind == COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND
+            //            .COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND_PAGE)
+            //    {
+            //        var collection = e.MenuItems;
+            //        var item = collection.GetValueAtIndex(0);
+            //        Debug.Print(item.name);
+                  
+            //        if (this._Item == null)
+            //        {
             
-            
-            e.Handled = 1;
-            def.Complete();
+                    
+            //            this._Item = this.WebView2.CreateContextMenuItem("test",null,
+            //                COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND.COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND_SUBMENU);
+            //            var subItem = this.WebView2.CreateContextMenuItem("subItem",null,
+            //                COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND.COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND_CHECK_BOX);
+                    
+            //            var subColl = this._Item.Children;
+
+            //            subColl.InsertValueAtIndex(0, subItem);
+                    
+            //        }
+
+                    
+
+            //        uint count = collection.Count;
+            //        collection.InsertValueAtIndex(count, this._Item);
+
+            //        count = collection.Count;
+            //    }
+
+            //});
+               
+
 
         }
     }

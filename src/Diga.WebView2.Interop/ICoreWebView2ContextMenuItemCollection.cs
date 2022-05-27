@@ -25,6 +25,6 @@ namespace Diga.WebView2.Interop
     void RemoveValueAtIndex([In] uint index);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-    void InsertValueAtIndex([In] uint index, [MarshalAs(UnmanagedType.Interface), In] ICoreWebView2ContextMenuItem value);
+    void InsertValueAtIndex([In] uint index, [In] ICoreWebView2ContextMenuItem value);
   }
 }
