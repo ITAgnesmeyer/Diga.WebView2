@@ -567,7 +567,7 @@ namespace Diga.WebView2.Wpf
 
         private void OnContextMenuRequestedIntern(object sender, ContextMenuRequestedEventArgs e)
         {
-            OnContextMenuRequested(e);
+            Diga.Core.Threading.UIDispatcher.UIThread.Invoke(() => { });
         }
 
         private void OnIsDefaultDownloadDialogOpenChangedIntern(object sender, WebView2EventArgs e)
