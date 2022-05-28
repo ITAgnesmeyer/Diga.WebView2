@@ -9,11 +9,11 @@ namespace Diga.WebView2.Wrapper.Implementation
 {
     public class WebView2SettingsInterface : ICoreWebView2Settings, IDisposable
     {
-        private ICoreWebView2Settings _Settings;
+        private object _Settings;
         /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
         ///             pattern for any type that is not sealed.
         ///             https://docs.microsoft.com/dotnet/api/system.idisposable#idisposable-and-the-inheritance-hierarchy
-        private SafeHandle handle = (SafeHandle) new SafeFileHandle(IntPtr.Zero, true);
+        private SafeHandle handle = (SafeHandle)new SafeFileHandle(IntPtr.Zero, true);
         private ICoreWebView2Settings Settings
         {
             get
@@ -24,7 +24,7 @@ namespace Diga.WebView2.Wrapper.Implementation
                     throw new InvalidOperationException(nameof(WebView2SettingsInterface) + "." + nameof(Settings) + " is null");
 
                 }
-                return _Settings;
+                return (ICoreWebView2Settings)_Settings;
             }
             set
             {

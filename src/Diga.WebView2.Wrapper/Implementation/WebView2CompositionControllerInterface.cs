@@ -9,7 +9,7 @@ namespace Diga.WebView2.Wrapper.Implementation
 {
     public class WebView2CompositionControllerInterface : ICoreWebView2CompositionController, IDisposable
     {
-        private ICoreWebView2CompositionController _Controller;
+        private object _Controller;
         private ICoreWebView2CompositionController Controller
         {
             get
@@ -20,7 +20,7 @@ namespace Diga.WebView2.Wrapper.Implementation
 
                     throw new InvalidOperationException(nameof(WebView2CompositionControllerInterface) + "=>" + nameof(Controller) + " is null");
                 }
-                return _Controller;
+                return (ICoreWebView2CompositionController)_Controller;
             }
             set
             {
@@ -36,7 +36,7 @@ namespace Diga.WebView2.Wrapper.Implementation
         {
             if (controller == null)
                 throw new ArgumentNullException(nameof(controller));
-            Controller = controller;
+            this.Controller = controller;
 
         }
 

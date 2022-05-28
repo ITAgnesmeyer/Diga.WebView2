@@ -12,7 +12,7 @@ namespace Diga.WebView2.Wrapper.Handler
 
         public new WebView2ContextMenuItem GetValueAtIndex(uint index) => new WebView2ContextMenuItem( base.GetValueAtIndex(index));
 
-        public new void InsertValueAtIndex(uint index, WebView2ContextMenuItem item)
+        public void InsertValueAtIndex(uint index, WebView2ContextMenuItem item)
         {
             ICoreWebView2ContextMenuItem i = item.ToInterface();
             base.InsertValueAtIndex(index,i);

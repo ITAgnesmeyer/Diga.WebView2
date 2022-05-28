@@ -8,7 +8,7 @@ namespace Diga.WebView2.Wrapper.Implementation
 {
     public class WebView2ControllerInterface : ICoreWebView2Controller, IDisposable
     {
-        private ICoreWebView2Controller _Controller;
+        private object _Controller;
         private bool _IsDesposed;
 
         /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
@@ -20,84 +20,84 @@ namespace Diga.WebView2.Wrapper.Implementation
             if (controller == null)
                 throw new ArgumentNullException(nameof(controller));
 
-            Controller = controller;
+            this.Controller = controller;
         }
-        public int IsVisible { get => Controller.IsVisible; set => Controller.IsVisible = value; }
-        public tagRECT Bounds { get => Controller.Bounds; set => Controller.Bounds = value; }
-        public double ZoomFactor { get => Controller.ZoomFactor; set => Controller.ZoomFactor = value; }
+        public int IsVisible { get => this.Controller.IsVisible; set => this.Controller.IsVisible = value; }
+        public tagRECT Bounds { get => this.Controller.Bounds; set => this.Controller.Bounds = value; }
+        public double ZoomFactor { get => this.Controller.ZoomFactor; set => this.Controller.ZoomFactor = value; }
 
         public void add_ZoomFactorChanged([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2ZoomFactorChangedEventHandler eventHandler, out EventRegistrationToken token)
         {
-            Controller.add_ZoomFactorChanged(eventHandler, out token);
+            this.Controller.add_ZoomFactorChanged(eventHandler, out token);
         }
 
         public void remove_ZoomFactorChanged([In] EventRegistrationToken token)
         {
-            Controller.remove_ZoomFactorChanged(token);
+            this.Controller.remove_ZoomFactorChanged(token);
         }
 
         public void SetBoundsAndZoomFactor([In] tagRECT Bounds, [In] double ZoomFactor)
         {
-            Controller.SetBoundsAndZoomFactor(Bounds, ZoomFactor);
+            this.Controller.SetBoundsAndZoomFactor(Bounds, ZoomFactor);
         }
 
         public void MoveFocus([In] COREWEBVIEW2_MOVE_FOCUS_REASON reason)
         {
-            Controller.MoveFocus(reason);
+            this.Controller.MoveFocus(reason);
         }
 
         public void add_MoveFocusRequested([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2MoveFocusRequestedEventHandler eventHandler, out EventRegistrationToken token)
         {
-            Controller.add_MoveFocusRequested(eventHandler, out token);
+            this.Controller.add_MoveFocusRequested(eventHandler, out token);
         }
 
         public void remove_MoveFocusRequested([In] EventRegistrationToken token)
         {
-            Controller.remove_MoveFocusRequested(token);
+            this.Controller.remove_MoveFocusRequested(token);
         }
 
         public void add_GotFocus([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2FocusChangedEventHandler eventHandler, out EventRegistrationToken token)
         {
-            Controller.add_GotFocus(eventHandler, out token);
+            this.Controller.add_GotFocus(eventHandler, out token);
         }
 
         public void remove_GotFocus([In] EventRegistrationToken token)
         {
-            Controller.remove_GotFocus(token);
+            this.Controller.remove_GotFocus(token);
         }
 
         public void add_LostFocus([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2FocusChangedEventHandler eventHandler, out EventRegistrationToken token)
         {
-            Controller.add_LostFocus(eventHandler, out token);
+            this.Controller.add_LostFocus(eventHandler, out token);
         }
 
         public void remove_LostFocus([In] EventRegistrationToken token)
         {
-            Controller.remove_LostFocus(token);
+            this.Controller.remove_LostFocus(token);
         }
 
         public void add_AcceleratorKeyPressed([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2AcceleratorKeyPressedEventHandler eventHandler, out EventRegistrationToken token)
         {
-            Controller.add_AcceleratorKeyPressed(eventHandler, out token);
+            this.Controller.add_AcceleratorKeyPressed(eventHandler, out token);
         }
 
         public void remove_AcceleratorKeyPressed([In] EventRegistrationToken token)
         {
-            Controller.remove_AcceleratorKeyPressed(token);
+            this.Controller.remove_AcceleratorKeyPressed(token);
         }
 
-        public IntPtr ParentWindow { get => Controller.ParentWindow; set => Controller.ParentWindow = value; }
+        public IntPtr ParentWindow { get => this.Controller.ParentWindow; set => this.Controller.ParentWindow = value; }
 
         public void NotifyParentWindowPositionChanged()
         {
-            Controller.NotifyParentWindowPositionChanged();
+            this.Controller.NotifyParentWindowPositionChanged();
         }
 
         public void Close()
         {
             try
             {
-                Controller.Close();
+                this.Controller.Close();
             }
             catch (Exception ex)
             {
@@ -108,36 +108,36 @@ namespace Diga.WebView2.Wrapper.Implementation
 
         }
 
-        public ICoreWebView2 CoreWebView2 => Controller.CoreWebView2;
+        public ICoreWebView2 CoreWebView2 => this.Controller.CoreWebView2;
 
         private ICoreWebView2Controller Controller
         {
             get
             {
-                if (_Controller == null)
+                if (this._Controller == null)
                 {
                     Debug.Print(nameof(WebView2ControllerInterface) + "Controller is null");
 
                     throw new InvalidOperationException("Controller is null!");
                 }
 
-                return _Controller;
+                return (ICoreWebView2Controller)this._Controller;
             }
-            set => _Controller = value;
+            set => this._Controller = value;
         }
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!_IsDesposed)
+            if (!this._IsDesposed)
             {
                 if (disposing)
                 {
                     this.handle.Dispose();
-                    Controller = null;
+                    this.Controller = null;
                 }
 
 
-                _IsDesposed = true;
+                this._IsDesposed = true;
             }
         }
 

@@ -20,8 +20,8 @@ namespace Diga.WebView2.Wrapper.Handler
         {
             try
             {
-                object arg = args;
-                OnContextMenuRequested(new ContextMenuRequestedEventArgs(arg));
+                
+                OnContextMenuRequested(new ContextMenuRequestedEventArgs(args));
             }
             catch (Exception ex)
             {

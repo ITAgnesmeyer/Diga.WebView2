@@ -8,7 +8,7 @@ namespace Diga.WebView2.Wrapper.Implementation
 {
     public class WebView2Environment2Interface : WebView2EnvironmentInterface, ICoreWebView2Environment2
     {
-        private ICoreWebView2Environment2 _Environment;
+        private object _Environment;
         private ICoreWebView2Environment2 Environment
         {
             get
@@ -19,7 +19,7 @@ namespace Diga.WebView2.Wrapper.Implementation
                     throw new InvalidOperationException(nameof(WebView2Environment2Interface) + "." + nameof(Environment) + " is null");
 
                 }
-                return _Environment;
+                return (ICoreWebView2Environment2)_Environment;
             }
             set { _Environment = value; }
         }

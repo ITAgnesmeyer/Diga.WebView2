@@ -9,35 +9,22 @@ namespace Diga.WebView2.Wrapper.Implementation
 {
     public class WebView2DeferralInterface : ICoreWebView2Deferral,IDisposable
     {
-        private ICoreWebView2Deferral _Deferral;
-        //private object _obj;
+        //private ICoreWebView2Deferral _Deferral;
+        private readonly ComObjctHolder<ICoreWebView2Deferral> _Native;
         private bool disposedValue;
         /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
         ///             pattern for any type that is not sealed.
         ///             https://docs.microsoft.com/dotnet/api/system.idisposable#idisposable-and-the-inheritance-hierarchy
         private SafeHandle handle = (SafeHandle) new SafeFileHandle(IntPtr.Zero, true);
 
-        private ICoreWebView2Deferral Deferral
-        {
-            get
-            {
-                if (this._Deferral == null)
-                {
-                    Debug.Print(nameof(WebView2DeferralInterface) + "." + nameof(this.Deferral) + " is null");
-                    throw new InvalidOperationException(nameof(WebView2DeferralInterface) + "." + nameof(this.Deferral) + " is null");
+        private ICoreWebView2Deferral Deferral => this._Native.Interface;
 
-                }
-                return this._Deferral;
-            }
-            set => this._Deferral = value;
-        }
-
+        //set => this._Deferral = value;
         public WebView2DeferralInterface(ICoreWebView2Deferral deferral)
         {
-            
+            this._Native = new ComObjctHolder<ICoreWebView2Deferral>(deferral);
+            //this._Native = deferral?? throw new ArgumentNullException(nameof(deferral));
 
-            this._Deferral = deferral ?? throw new ArgumentNullException(nameof(deferral));
-            //this._Deferral = (ICoreWebView2Deferral)obj ?? throw new ArgumentNullException(nameof(deferral));
         }
 
         public void Complete()
@@ -71,7 +58,7 @@ namespace Diga.WebView2.Wrapper.Implementation
                     
                     this.Complete();
                     this.handle.Dispose();
-                    this._Deferral = null;
+                    //this._Deferral = null;
                 }
 
                

@@ -7,7 +7,7 @@ namespace Diga.WebView2.Wrapper.Implementation
 {
     public class BasicAuthenticationRequestedEventArgsInterface : ICoreWebView2BasicAuthenticationRequestedEventArgs, IDisposable
     {
-        private ICoreWebView2BasicAuthenticationRequestedEventArgs _Args;
+        private object _Args;
         private bool disposedValue;
 
         private ICoreWebView2BasicAuthenticationRequestedEventArgs Args
@@ -20,7 +20,7 @@ namespace Diga.WebView2.Wrapper.Implementation
 
                     throw new InvalidOperationException(nameof(BasicAuthenticationRequestedEventArgsInterface) + "=>" + nameof(this.Args) + " is null");
                 }
-                return this._Args;
+                return (ICoreWebView2BasicAuthenticationRequestedEventArgs)this._Args;
             }
             set { this._Args = value; }
         }

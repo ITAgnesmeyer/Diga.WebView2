@@ -194,7 +194,7 @@ namespace WebView2WrapperWpfTest
         {
             this._lastArgs = e;
 
-
+            
             if (e.ContextMenuTarget.Kind ==
                 COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND.COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND_PAGE)
             {

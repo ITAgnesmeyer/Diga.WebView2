@@ -184,8 +184,11 @@ namespace Diga.WebView2.Scripting
         {
             if (ScriptCounter > 0)
             {
-               string var = Diga.Core.Threading.UIDispatcher.UIThread.Invoke(ExecuteScriptAsync(script));
-               return var;
+                ScriptCounter++;
+                Debug.Print("ScriptCounter:" + ScriptCounter);
+                string var = Diga.Core.Threading.UIDispatcher.UIThread.Invoke(ExecuteScriptAsync(script));
+                ScriptCounter--;
+                return var;
             }
             else
             {
@@ -195,7 +198,7 @@ namespace Diga.WebView2.Scripting
                 ScriptCounter--;
                 return var;
             }
-            
+
 
 
         }

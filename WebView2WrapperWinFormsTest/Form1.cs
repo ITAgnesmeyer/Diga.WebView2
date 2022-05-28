@@ -699,10 +699,9 @@ namespace WebView2WrapperWinFormsTest
             Debug.Print("Unload Document");
         }
 
-        private Stream S = new MemoryStream(new byte[] { 0 });
+        
         private WebView2ContextMenuItem _Item;
-        private WebView2ContextMenuItem  _Sub1;
-        private ContextMenuItemCollection _MenuItems;
+        private WebView2ContextMenuItem _Sub1;
         private void webView1_ContextMenuRequested(object sender, Diga.WebView2.Wrapper.Handler.ContextMenuRequestedEventArgs e)
         {
             using (var c = e.GetDeferral())
@@ -710,44 +709,44 @@ namespace WebView2WrapperWinFormsTest
                 if (e.ContextMenuTarget.Kind ==
                     COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND.COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND_PAGE)
                 {
-                   
+
                     uint count = e.MenuItems.Count;
-                   
+
                     if (this._Sub1 == null)
                     {
                         this._Item = this.webView1.CreateContextMenuItem("test", null,
                             COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND.COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND_COMMAND);
                         this._Item.CustomItemSelected += (oo, ee) =>
                         {
+                           
+
                             Diga.Core.Threading.UIDispatcher.UIThread.Post(() =>
                             {
                                 this.webView1.GetDOMWindow().alert("Hallo");
                             });
+
+                            
                         };
                         this._Sub1 = this.webView1.CreateContextMenuItem("sub1", null,
                             COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND.COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND_SUBMENU);
-                        this._Sub1.Children.InsertValueAtIndex(0,this._Item.ToInterface());
-                        e.MenuItems.InsertValueAtIndex(count,this._Sub1);
+                        this._Sub1.Children.InsertValueAtIndex(0, this._Item);
+                        e.MenuItems.InsertValueAtIndex(count, this._Sub1);
                     }
                     else
                     {
-                        
+
                         e.MenuItems.RemoveValueAtIndex(0);
                         e.MenuItems.RemoveValueAtIndex(0);
-                        
+
                         count--;
                         count--;
                         bool ok = false;
-                        e.MenuItems.InsertValueAtIndex(count,this._Sub1);
-                      
+                        e.MenuItems.InsertValueAtIndex(count, this._Sub1);
+
                     }
                 }
-                //Diga.Core.Threading.UIDispatcher.UIThread.Invoke(() =>
-                //{
-                //    e.MenuItems.InsertValueAtIndex(count,item);
-                //});
-                //Diga.Core.Threading.UIDispatcher.UIThread.Wait(1000);
             }
+            
         }
     }
 }

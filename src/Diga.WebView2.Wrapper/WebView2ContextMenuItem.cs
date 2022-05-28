@@ -1,21 +1,102 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
-using System.Security;
 using Diga.WebView2.Interop;
-using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.Handler;
-using Diga.WebView2.Wrapper.Implementation;
 using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper
 {
+    //public class WebView2ContextMenuItem : WebView2ContextMenuItemInterface
+    //{
+    //    private ComObjctHolder<ICoreWebView2ContextMenuItem> _Holder;
+    //    public event EventHandler<WebView2ContextMenuItem> CustomItemSelected;
+    //    private EventRegistrationToken _CustomItemSelectedToken;
+
+    //    public ICoreWebView2ContextMenuItem ToInterface()
+    //    {
+    //        return this._Holder.Interface;
+    //    }
+    //    public WebView2ContextMenuItem(ICoreWebView2ContextMenuItem native)
+    //    {
+    //        this._Holder = new ComObjctHolder<ICoreWebView2ContextMenuItem>(native);
+    //        WireEvents();
+    //    }
+
+    //    private void WireEvents()
+    //    {
+    //        try
+    //        {
+    //            WebView2CustomItemSelectEventHanlder hanlder = new WebView2CustomItemSelectEventHanlder();
+    //            hanlder.Selected += OnCustomItemSelectIntern;
+    //            base.add_CustomItemSelected(hanlder, out this._CustomItemSelectedToken);
+    //        }
+    //        catch (InvalidCastException ex)
+    //        {
+    //            if (ex.HResult == -2147467262)
+    //                throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
+    //            throw;
+    //        }
+    //        catch (COMException ex)
+    //        {
+    //            if (ex.HResult == -2147019873)
+    //                throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
+    //            throw;
+    //        }
+    //    }
+    //    private void UnWireEvents()
+    //    {
+    //        EventRegistrationTool.UnWireToken(this._CustomItemSelectedToken,
+    //            base.remove_CustomItemSelected);
+    //    }
+    //    private void OnCustomItemSelectIntern(object sender, WebView2ContextMenuItem e)
+    //    {
+    //        OnCustomItemSelected(e);
+    //    }
+    //    protected virtual void OnCustomItemSelected(WebView2ContextMenuItem e)
+    //    {
+    //        CustomItemSelected?.Invoke(this, e);
+    //    }
+
+    //    protected override ICoreWebView2ContextMenuItem ContextMenuItem => _Holder.Interface;
+
+    //    public new Stream Icon
+    //    {
+    //        get
+    //        {
+    //            try
+    //            {
+    //                return base.Icon == null ? null : (Stream)new COMStreamWrapper(base.Icon);
+    //            }
+    //            catch (InvalidCastException ex)
+    //            {
+    //                if (ex.HResult == -2147467262)
+    //                    throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
+    //                throw;
+    //            }
+    //            catch (COMException ex)
+    //            {
+    //                if (ex.HResult == -2147019873)
+    //                    throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
+    //                throw;
+    //            }
+    //        }
+    //    }
+
+    //    protected override void Dispose(bool disposing)
+    //    {
+    //        if (disposing)
+    //        {
+    //            UnWireEvents();
+    //        }
+
+    //        base.Dispose(disposing);
+    //    }
+    //}
     public class WebView2ContextMenuItem:IDisposable
     {
-        internal ICoreWebView2ContextMenuItem _ContextMenuItemIntrface;
-        internal object _Native;
+        private ComObjctHolder<ICoreWebView2ContextMenuItem> _NativeObject;
+       
         public event EventHandler<WebView2ContextMenuItem> CustomItemSelected;
         private EventRegistrationToken _CustomItemSelectedToken;
         
@@ -25,29 +106,11 @@ namespace Diga.WebView2.Wrapper
         {
             return this.ContextMenuItemIntrface;
         }
-        internal ICoreWebView2ContextMenuItem ContextMenuItemIntrface
-        {
-            get
-            {
-                if (this._ContextMenuItemIntrface == null)
-                {
-                    try
-                    {
-                        this._ContextMenuItemIntrface = (ICoreWebView2ContextMenuItem)this._Native;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new InvalidCastException($"{nameof(WebView2ContextMenuItem)}/{nameof(ContextMenuItemIntrface)} cannot convert {nameof(this._Native)} to {nameof(ICoreWebView2ContextMenuItem)}", ex);
-                    }
-                }
-                return this._ContextMenuItemIntrface;
-            }
-
-        }
+        internal ICoreWebView2ContextMenuItem ContextMenuItemIntrface => this._NativeObject.Interface;
 
         internal WebView2ContextMenuItem(object nativeObject)
         {
-            this._Native = nativeObject;
+            this._NativeObject = new ComObjctHolder<ICoreWebView2ContextMenuItem>(nativeObject);
             WireEvents();
         }
 
@@ -73,13 +136,13 @@ namespace Diga.WebView2.Wrapper
             catch (InvalidCastException ex)
             {
                 if (ex.HResult == -2147467262)
-                    throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", (Exception)ex);
+                    throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
                 throw;
             }
             catch (COMException ex)
             {
                 if (ex.HResult == -2147019873)
-                    throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", (Exception)ex);
+                    throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
                 throw;
             }
         }
@@ -100,13 +163,13 @@ namespace Diga.WebView2.Wrapper
                 catch (InvalidCastException ex)
                 {
                     if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
                     throw;
                 }
                 catch (COMException ex)
                 {
                     if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
                     throw;
                 }
             }
@@ -124,13 +187,13 @@ namespace Diga.WebView2.Wrapper
                 catch (InvalidCastException ex)
                 {
                     if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
                     throw;
                 }
                 catch (COMException ex)
                 {
                     if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
                     throw;
                 }
             }
@@ -153,13 +216,13 @@ namespace Diga.WebView2.Wrapper
                 catch (InvalidCastException ex)
                 {
                     if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
                     throw;
                 }
                 catch (COMException ex)
                 {
                     if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
                     throw;
                 }
             }
@@ -176,13 +239,13 @@ namespace Diga.WebView2.Wrapper
                 catch (InvalidCastException ex)
                 {
                     if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
                     throw;
                 }
                 catch (COMException ex)
                 {
                     if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
                     throw;
                 }
             }
@@ -195,18 +258,18 @@ namespace Diga.WebView2.Wrapper
             {
                 try
                 {
-                    return this.ContextMenuItemIntrface.Icon == null ? (Stream)null : (Stream)new COMStreamWrapper(this.ContextMenuItemIntrface.Icon);
+                    return this.ContextMenuItemIntrface.Icon == null ? null : (Stream)new COMStreamWrapper(this.ContextMenuItemIntrface.Icon);
                 }
                 catch (InvalidCastException ex)
                 {
                     if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
                     throw;
                 }
                 catch (COMException ex)
                 {
                     if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
                     throw;
                 }
             }
@@ -224,13 +287,13 @@ namespace Diga.WebView2.Wrapper
                 catch (InvalidCastException ex)
                 {
                     if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
                     throw;
                 }
                 catch (COMException ex)
                 {
                     if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
                     throw;
                 }
             }
@@ -248,13 +311,13 @@ namespace Diga.WebView2.Wrapper
                 catch (InvalidCastException ex)
                 {
                     if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
                     throw;
                 }
                 catch (COMException ex)
                 {
                     if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
                     throw;
                 }
             }
@@ -267,13 +330,13 @@ namespace Diga.WebView2.Wrapper
                 catch (InvalidCastException ex)
                 {
                     if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
                     throw;
                 }
                 catch (COMException ex)
                 {
                     if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
                     throw;
                 }
             }
@@ -291,13 +354,13 @@ namespace Diga.WebView2.Wrapper
                 catch (InvalidCastException ex)
                 {
                     if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
                     throw;
                 }
                 catch (COMException ex)
                 {
                     if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
                     throw;
                 }
             }
@@ -310,13 +373,13 @@ namespace Diga.WebView2.Wrapper
                 catch (InvalidCastException ex)
                 {
                     if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
                     throw;
                 }
                 catch (COMException ex)
                 {
                     if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
                     throw;
                 }
             }
@@ -334,13 +397,13 @@ namespace Diga.WebView2.Wrapper
                 catch (InvalidCastException ex)
                 {
                     if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
                     throw;
                 }
                 catch (COMException ex)
                 {
                     if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", (Exception)ex);
+                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
                     throw;
                 }
             }

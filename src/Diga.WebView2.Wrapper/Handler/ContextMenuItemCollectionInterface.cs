@@ -2,13 +2,14 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Handler
 {
     public class ContextMenuItemCollectionInterface : ICoreWebView2ContextMenuItemCollection,IDisposable
     {
-        private ICoreWebView2ContextMenuItemCollection _Args;
+        private ComObjctHolder<ICoreWebView2ContextMenuItemCollection> _Args;
         private bool disposedValue;
         /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
         ///             pattern for any type that is not sealed.
@@ -24,14 +25,14 @@ namespace Diga.WebView2.Wrapper.Handler
                     throw new InvalidOperationException(nameof(ContextMenuItemCollectionInterface) + "." + nameof(this._Args) + " is null");
 
                 }
-                return this._Args;
+                return this._Args.Interface;
             }
         }
 
         public ContextMenuItemCollectionInterface(ICoreWebView2ContextMenuItemCollection args)
         {
             if(args == null) throw new ArgumentNullException(nameof(args));
-            this._Args = args;
+            this._Args = new ComObjctHolder<ICoreWebView2ContextMenuItemCollection>( args);
         }
         public uint Count => this.Args.Count;
 
@@ -51,11 +52,7 @@ namespace Diga.WebView2.Wrapper.Handler
             this.Args.InsertValueAtIndex(index,value);
         }
 
-        //public  void InsertValueAtIndex(uint index, WebView2ContextMenuItem value)
-        //{
-        //    this.Args.InsertValueAtIndex(index, value.ToInterface());
-        //}
-
+        
         protected virtual void Dispose(bool disposing)
         {
             if (!this.disposedValue)

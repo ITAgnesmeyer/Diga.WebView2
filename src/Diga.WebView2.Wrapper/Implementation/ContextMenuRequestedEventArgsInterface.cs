@@ -3,18 +3,19 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.Handler;
+using Diga.WebView2.Wrapper.Types;
 using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
     public class ContextMenuRequestedEventArgsInterface : EventArgs, ICoreWebView2ContextMenuRequestedEventArgs, IDisposable
     {
-        private ICoreWebView2ContextMenuRequestedEventArgs _Args;
+        private ComObjctHolder<ICoreWebView2ContextMenuRequestedEventArgs> _Args;
         private bool disposedValue;
-        /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
-        ///             pattern for any type that is not sealed.
-        ///             https://docs.microsoft.com/dotnet/api/system.idisposable#idisposable-and-the-inheritance-hierarchy
-        private SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
+        ///// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
+        /////             pattern for any type that is not sealed.
+        /////             https://docs.microsoft.com/dotnet/api/system.idisposable#idisposable-and-the-inheritance-hierarchy
+        //private SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
         private ICoreWebView2ContextMenuRequestedEventArgs Args
         {
             get
@@ -25,14 +26,14 @@ namespace Diga.WebView2.Wrapper.Implementation
                     throw new InvalidOperationException(nameof(ContextMenuRequestedEventArgs) + "." + nameof(_Args) + " is null");
 
                 }
-                return _Args;
+                return _Args.Interface;
             }
         }
 
-        public ContextMenuRequestedEventArgsInterface(ICoreWebView2ContextMenuRequestedEventArgs args)
+        public ContextMenuRequestedEventArgsInterface(object args)
         {
             if (args == null) throw new ArgumentNullException(nameof(args));
-            _Args = args;
+            _Args =new ComObjctHolder<ICoreWebView2ContextMenuRequestedEventArgs>( args);
         }
 
         public ICoreWebView2ContextMenuItemCollection MenuItems => Args.MenuItems;
@@ -56,8 +57,8 @@ namespace Diga.WebView2.Wrapper.Implementation
             {
                 if (disposing)
                 {
-                    handle.Dispose();
-                    _Args = null;
+                    //handle.Dispose();
+                    //_Args = null;
                 }
 
 

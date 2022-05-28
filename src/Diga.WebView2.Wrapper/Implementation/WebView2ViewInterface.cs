@@ -11,7 +11,7 @@ namespace Diga.WebView2.Wrapper.Implementation
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     public class WebView2ViewInterface : ICoreWebView2, IDisposable
     {
-        private ICoreWebView2 _WebView;
+        private object _WebView;
         /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
         ///             pattern for any type that is not sealed.
         ///             https://docs.microsoft.com/dotnet/api/system.idisposable#idisposable-and-the-inheritance-hierarchy
@@ -26,7 +26,7 @@ namespace Diga.WebView2.Wrapper.Implementation
                     throw new InvalidOperationException(nameof(WebView2ViewInterface) + "." + nameof(WebView) + " is null");
 
                 }
-                return _WebView;
+                return (ICoreWebView2)_WebView;
             }
             set
             {
@@ -254,7 +254,7 @@ namespace Diga.WebView2.Wrapper.Implementation
             WebView.remove_DocumentTitleChanged(token);
         }
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string DocumentTitle => _WebView.DocumentTitle;
+        public string DocumentTitle => WebView.DocumentTitle;
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void AddHostObjectToScript([In, MarshalAs(UnmanagedType.LPWStr)] string name, [In] ref object @object)
         {
@@ -281,7 +281,7 @@ namespace Diga.WebView2.Wrapper.Implementation
             WebView.remove_ContainsFullScreenElementChanged(token);
         }
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public int ContainsFullScreenElement => _WebView.ContainsFullScreenElement;
+        public int ContainsFullScreenElement => WebView.ContainsFullScreenElement;
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void add_WebResourceRequested([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2WebResourceRequestedEventHandler eventHandler, out EventRegistrationToken token)
         {
