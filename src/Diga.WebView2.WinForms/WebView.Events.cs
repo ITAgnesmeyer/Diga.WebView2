@@ -259,7 +259,7 @@ namespace Diga.WebView2.WinForms
             {
                 try
                 {
-                    this._Window = this.GetDOMWindow().GetCopy();
+                    this._Window = this.GetDOMWindow();//.GetCopy();
                     this._Window.addEventListener("error", new DOMEventListenerScript(this._Window, "error"), true);
                     this._Window.DomEvent += OnDomEvent;
                     this.GetDOMConsole().log("Document_Loading");

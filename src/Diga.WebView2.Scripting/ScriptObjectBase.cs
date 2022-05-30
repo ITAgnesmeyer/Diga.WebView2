@@ -182,22 +182,32 @@ namespace Diga.WebView2.Scripting
         private static int ScriptCounter;
         protected string ExecuteScript(string script)
         {
-            if (ScriptCounter > 0)
+            try
             {
-                ScriptCounter++;
-                Debug.Print("ScriptCounter:" + ScriptCounter);
-                string var = Diga.Core.Threading.UIDispatcher.UIThread.Invoke(ExecuteScriptAsync(script));
-                ScriptCounter--;
-                return var;
+                if (ScriptCounter > 0)
+                {
+                    ScriptCounter++;
+                    Debug.Print("ScriptCounter:" + ScriptCounter);
+                    string var = Diga.Core.Threading.UIDispatcher.UIThread.Invoke(ExecuteScriptAsync(script));
+                    ScriptCounter--;
+                    return var;
+                }
+                else
+                {
+                    ScriptCounter++;
+                    Debug.Print("ScriptCounter:" + ScriptCounter);
+                    string var = this._View2Control.ExecuteScriptSync(script);
+                    ScriptCounter--;
+                    return var;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ScriptCounter++;
-                Debug.Print("ScriptCounter:" + ScriptCounter);
-                string var = this._View2Control.ExecuteScriptSync(script);
+                Debug.Print(nameof(ScriptObjectBase) + "/" + nameof(ExecuteScript) + ex.ToString());
                 ScriptCounter--;
-                return var;
+                throw;
             }
+            
 
 
 
