@@ -45,6 +45,9 @@
 	  <NoWarn>1701;1702;SYSLIB0001</NoWarn>
 	  <WarningLevel>5</WarningLevel>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Compile Remove="COMStreamWrapper.cs" />
+	</ItemGroup>
 
 
 	<ItemGroup>

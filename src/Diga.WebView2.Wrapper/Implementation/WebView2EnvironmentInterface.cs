@@ -8,7 +8,7 @@ using Microsoft.Win32.SafeHandles;
 namespace Diga.WebView2.Wrapper.Implementation
 {
 
-    public class WebView2EnvironmentInterface : ICoreWebView2Environment, IDisposable
+    public class WebView2EnvironmentInterface : IDisposable ,ICoreWebView2Environment
     {
         private object _Environment;
         private bool _IsDisposed;

@@ -7,7 +7,7 @@ using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class ContextMenuTargetInterface : ICoreWebView2ContextMenuTarget, IDisposable
+    public class ContextMenuTargetInterface :IDisposable//, ICoreWebView2ContextMenuTarget
     {
         private ComObjctHolder<ICoreWebView2ContextMenuTarget> _Args;
         

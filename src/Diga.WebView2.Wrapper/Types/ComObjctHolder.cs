@@ -4,7 +4,7 @@ namespace Diga.WebView2.Wrapper.Types
 {
     internal class ComObjctHolder<T>
     {
-        private object _NativeObject;
+        private readonly object _NativeObject;
         private T _Interface;
 
         public T Interface
@@ -13,7 +13,7 @@ namespace Diga.WebView2.Wrapper.Types
             {
                 if (_Interface == null)
                 {
-                    _Interface = (T)_NativeObject;
+                    _Interface = (T)this._NativeObject;
                 }
                 return _Interface;
             }

@@ -7,92 +7,7 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper
 {
-    //public class WebView2ContextMenuItem : WebView2ContextMenuItemInterface
-    //{
-    //    private ComObjctHolder<ICoreWebView2ContextMenuItem> _Holder;
-    //    public event EventHandler<WebView2ContextMenuItem> CustomItemSelected;
-    //    private EventRegistrationToken _CustomItemSelectedToken;
-
-    //    public ICoreWebView2ContextMenuItem ToInterface()
-    //    {
-    //        return this._Holder.Interface;
-    //    }
-    //    public WebView2ContextMenuItem(ICoreWebView2ContextMenuItem native)
-    //    {
-    //        this._Holder = new ComObjctHolder<ICoreWebView2ContextMenuItem>(native);
-    //        WireEvents();
-    //    }
-
-    //    private void WireEvents()
-    //    {
-    //        try
-    //        {
-    //            WebView2CustomItemSelectEventHanlder hanlder = new WebView2CustomItemSelectEventHanlder();
-    //            hanlder.Selected += OnCustomItemSelectIntern;
-    //            base.add_CustomItemSelected(hanlder, out this._CustomItemSelectedToken);
-    //        }
-    //        catch (InvalidCastException ex)
-    //        {
-    //            if (ex.HResult == -2147467262)
-    //                throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
-    //            throw;
-    //        }
-    //        catch (COMException ex)
-    //        {
-    //            if (ex.HResult == -2147019873)
-    //                throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
-    //            throw;
-    //        }
-    //    }
-    //    private void UnWireEvents()
-    //    {
-    //        EventRegistrationTool.UnWireToken(this._CustomItemSelectedToken,
-    //            base.remove_CustomItemSelected);
-    //    }
-    //    private void OnCustomItemSelectIntern(object sender, WebView2ContextMenuItem e)
-    //    {
-    //        OnCustomItemSelected(e);
-    //    }
-    //    protected virtual void OnCustomItemSelected(WebView2ContextMenuItem e)
-    //    {
-    //        CustomItemSelected?.Invoke(this, e);
-    //    }
-
-    //    protected override ICoreWebView2ContextMenuItem ContextMenuItem => _Holder.Interface;
-
-    //    public new Stream Icon
-    //    {
-    //        get
-    //        {
-    //            try
-    //            {
-    //                return base.Icon == null ? null : (Stream)new COMStreamWrapper(base.Icon);
-    //            }
-    //            catch (InvalidCastException ex)
-    //            {
-    //                if (ex.HResult == -2147467262)
-    //                    throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
-    //                throw;
-    //            }
-    //            catch (COMException ex)
-    //            {
-    //                if (ex.HResult == -2147019873)
-    //                    throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
-    //                throw;
-    //            }
-    //        }
-    //    }
-
-    //    protected override void Dispose(bool disposing)
-    //    {
-    //        if (disposing)
-    //        {
-    //            UnWireEvents();
-    //        }
-
-    //        base.Dispose(disposing);
-    //    }
-    //}
+    
     public class WebView2ContextMenuItem:IDisposable
     {
         private ComObjctHolder<ICoreWebView2ContextMenuItem> _NativeObject;
@@ -135,14 +50,15 @@ namespace Diga.WebView2.Wrapper
             }
             catch (InvalidCastException ex)
             {
-                if (ex.HResult == -2147467262)
-                    throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
+                if (ex.HResult == HRESULT.E_NOINTERFACE)
+                    throw new InvalidOperationException($"{nameof(AddCustomItemSelectedEvent)} accessed outside UI-Thread");
                 throw;
             }
             catch (COMException ex)
             {
-                if (ex.HResult == -2147019873)
-                    throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
+                if (ex.HResult == HRESULT.E_INVALID_STATE)
+                    throw new InvalidOperationException("WebView2 already disposed");
+
                 throw;
             }
         }
@@ -162,14 +78,15 @@ namespace Diga.WebView2.Wrapper
                 }
                 catch (InvalidCastException ex)
                 {
-                    if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
+                    if (ex.HResult == HRESULT.E_NOINTERFACE)
+                        throw new InvalidOperationException($"{nameof(Name)} accessed outside UI-Thread");
                     throw;
                 }
                 catch (COMException ex)
                 {
-                    if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
+                    if (ex.HResult == HRESULT.E_INVALID_STATE)
+                        throw new InvalidOperationException("WebView2 already disposed");
+
                     throw;
                 }
             }
@@ -186,14 +103,15 @@ namespace Diga.WebView2.Wrapper
                 }
                 catch (InvalidCastException ex)
                 {
-                    if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
+                    if (ex.HResult == HRESULT.E_NOINTERFACE)
+                        throw new InvalidOperationException($"{nameof(Label)} accessed outside UI-Thread");
                     throw;
                 }
                 catch (COMException ex)
                 {
-                    if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
+                    if (ex.HResult == HRESULT.E_INVALID_STATE)
+                        throw new InvalidOperationException("WebView2 already disposed");
+
                     throw;
                 }
             }
@@ -215,14 +133,15 @@ namespace Diga.WebView2.Wrapper
                 }
                 catch (InvalidCastException ex)
                 {
-                    if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
+                    if (ex.HResult == HRESULT.E_NOINTERFACE)
+                        throw new InvalidOperationException($"{nameof(CommandId)} accessed outside UI-Thread");
                     throw;
                 }
                 catch (COMException ex)
                 {
-                    if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
+                    if (ex.HResult == HRESULT.E_INVALID_STATE)
+                        throw new InvalidOperationException("WebView2 already disposed");
+
                     throw;
                 }
             }
@@ -238,14 +157,15 @@ namespace Diga.WebView2.Wrapper
                 }
                 catch (InvalidCastException ex)
                 {
-                    if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
+                    if (ex.HResult == HRESULT.E_NOINTERFACE)
+                        throw new InvalidOperationException($"{nameof(ShortcutKeyDescription)} accessed outside UI-Thread");
                     throw;
                 }
                 catch (COMException ex)
                 {
-                    if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
+                    if (ex.HResult == HRESULT.E_INVALID_STATE)
+                        throw new InvalidOperationException("WebView2 already disposed");
+
                     throw;
                 }
             }
@@ -258,18 +178,19 @@ namespace Diga.WebView2.Wrapper
             {
                 try
                 {
-                    return this.ContextMenuItemIntrface.Icon == null ? null : (Stream)new COMStreamWrapper(this.ContextMenuItemIntrface.Icon);
+                    return this.ContextMenuItemIntrface.Icon == null ? null : (Stream)new ComStream(this.ContextMenuItemIntrface.Icon);
                 }
                 catch (InvalidCastException ex)
                 {
-                    if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
+                    if (ex.HResult == HRESULT.E_NOINTERFACE)
+                        throw new InvalidOperationException($"{nameof(Icon)} accessed outside UI-Thread");
                     throw;
                 }
                 catch (COMException ex)
                 {
-                    if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
+                    if (ex.HResult == HRESULT.E_INVALID_STATE)
+                        throw new InvalidOperationException("WebView2 already disposed");
+
                     throw;
                 }
             }
@@ -286,14 +207,15 @@ namespace Diga.WebView2.Wrapper
                 }
                 catch (InvalidCastException ex)
                 {
-                    if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
+                    if (ex.HResult == HRESULT.E_NOINTERFACE)
+                        throw new InvalidOperationException($"{nameof(Kind)} accessed outside UI-Thread");
                     throw;
                 }
                 catch (COMException ex)
                 {
-                    if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
+                    if (ex.HResult == HRESULT.E_INVALID_STATE)
+                        throw new InvalidOperationException("WebView2 already disposed");
+
                     throw;
                 }
             }
@@ -310,14 +232,15 @@ namespace Diga.WebView2.Wrapper
                 }
                 catch (InvalidCastException ex)
                 {
-                    if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
+                    if (ex.HResult == HRESULT.E_NOINTERFACE)
+                        throw new InvalidOperationException($"{nameof(IsEnabled)} accessed outside UI-Thread");
                     throw;
                 }
                 catch (COMException ex)
                 {
-                    if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
+                    if (ex.HResult == HRESULT.E_INVALID_STATE)
+                        throw new InvalidOperationException("WebView2 already disposed");
+
                     throw;
                 }
             }
@@ -329,14 +252,15 @@ namespace Diga.WebView2.Wrapper
                 }
                 catch (InvalidCastException ex)
                 {
-                    if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
+                    if (ex.HResult == HRESULT.E_NOINTERFACE)
+                        throw new InvalidOperationException($"{nameof(IsEnabled)} accessed outside UI-Thread");
                     throw;
                 }
                 catch (COMException ex)
                 {
-                    if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
+                    if (ex.HResult == HRESULT.E_INVALID_STATE)
+                        throw new InvalidOperationException("WebView2 already disposed");
+
                     throw;
                 }
             }
@@ -353,14 +277,15 @@ namespace Diga.WebView2.Wrapper
                 }
                 catch (InvalidCastException ex)
                 {
-                    if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
+                    if (ex.HResult == HRESULT.E_NOINTERFACE)
+                        throw new InvalidOperationException($"{nameof(IsChecked)} accessed outside UI-Thread");
                     throw;
                 }
                 catch (COMException ex)
                 {
-                    if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
+                    if (ex.HResult == HRESULT.E_INVALID_STATE)
+                        throw new InvalidOperationException("WebView2 already disposed");
+
                     throw;
                 }
             }
@@ -372,14 +297,15 @@ namespace Diga.WebView2.Wrapper
                 }
                 catch (InvalidCastException ex)
                 {
-                    if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
+                    if (ex.HResult == HRESULT.E_NOINTERFACE)
+                        throw new InvalidOperationException($"{nameof(IsChecked)} accessed outside UI-Thread");
                     throw;
                 }
                 catch (COMException ex)
                 {
-                    if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
+                    if (ex.HResult == HRESULT.E_INVALID_STATE)
+                        throw new InvalidOperationException("WebView2 already disposed");
+
                     throw;
                 }
             }
@@ -396,76 +322,20 @@ namespace Diga.WebView2.Wrapper
                 }
                 catch (InvalidCastException ex)
                 {
-                    if (ex.HResult == -2147467262)
-                        throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", ex);
+                    if (ex.HResult == HRESULT.E_NOINTERFACE)
+                        throw new InvalidOperationException($"{nameof(Children)} accessed outside UI-Thread");
                     throw;
                 }
                 catch (COMException ex)
                 {
-                    if (ex.HResult == -2147019873)
-                        throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
+                    if (ex.HResult == HRESULT.E_INVALID_STATE)
+                        throw new InvalidOperationException("WebView2 already disposed");
+
                     throw;
                 }
             }
         }
 
-     
-        //public event EventHandler<object> CustomItemSelected
-        //{
-        //    add
-        //    {
-        //        if (this.customItemSelected == null)
-        //        {
-        //            try
-        //            {
-        //                //this._nativeICoreWebView2ContextMenuItem.add_CustomItemSelected((ICoreWebView2CustomItemSelectedEventHandler) new CoreWebView2CustomItemSelectedEventHandler(new CoreWebView2CustomItemSelectedEventHandler.CallbackType(this.OnCustomItemSelected)), out this._customItemSelectedToken);
-        //            }
-        //            catch (InvalidCastException ex)
-        //            {
-        //                if (ex.HResult == -2147467262)
-        //                    throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", (Exception)ex);
-        //                throw;
-        //            }
-        //            catch (COMException ex)
-        //            {
-        //                if (ex.HResult == -2147019873)
-        //                    throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", (Exception)ex);
-        //                throw;
-        //            }
-        //        }
-        //        this.customItemSelected += value;
-        //    }
-        //    remove
-        //    {
-        //        this.customItemSelected -= value;
-        //        if (this.customItemSelected != null)
-        //            return;
-        //        try
-        //        {
-        //            this.ContextMenuItemIntrface.remove_CustomItemSelected(this._CustomItemSelectedToken);
-        //        }
-        //        catch (InvalidCastException ex)
-        //        {
-        //            if (ex.HResult == -2147467262)
-        //                throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.", (Exception)ex);
-        //            throw;
-        //        }
-        //        catch (COMException ex)
-        //        {
-        //            if (ex.HResult == -2147019873)
-        //                throw new InvalidOperationException("CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", (Exception)ex);
-        //            throw;
-        //        }
-        //    }
-        //}
-
-        //internal void OnCustomItemSelected(object args)
-        //{
-        //    EventHandler<object> customItemSelected = this.customItemSelected;
-        //    if (customItemSelected == null)
-        //        return;
-        //    customItemSelected((object)this, args);
-        //}
         protected virtual void OnCustomItemSelected(WebView2ContextMenuItem e)
         {
             CustomItemSelected?.Invoke(this, e);
@@ -492,66 +362,5 @@ namespace Diga.WebView2.Wrapper
         }
     }
 
-    //public class WebView2ContextMenuItemOlld : WebView2ContextMenuItemInterface
-    //{
-    //    //private object _obj;
-    //    private EventRegistrationToken _CustomItemSelectEventToken;
-    //    public event EventHandler<WebView2ContextMenuItemOlld> CustomItemSelected;
-    //    private bool _EvententsWired;
-    //    public WebView2ContextMenuItemOlld(ICoreWebView2ContextMenuItem menuItem) : base(menuItem)
-    //    {
-    //        _EvententsWired = false;
-    //        //this._obj = menuItem;
-    //        WireEvents();
-    //    }
-
-    //    //public WebView2ContextMenuItem(object menuItem) : this((ICoreWebView2ContextMenuItem)menuItem)
-    //    //{
-    //    //    //this._obj = menuItem;
-    //    //    //base.Children
-
-    //    //}
-
-    //    private void WireEvents()
-    //    {
-    //        //if (this._obj == null) return;
-    //        if (this._EvententsWired == true) return;
-    //        var selectHanlder = new WebView2CustomItemSelectEventHanlder();
-    //        //selectHanlder.Selected += OnItmeSelectedIntenr;
-    //        base.add_CustomItemSelected(selectHanlder, out this._CustomItemSelectEventToken);
-    //        this._EvententsWired = true;
-    //    }
-
-    //    private void OnItmeSelectedIntenr(object sender, WebView2ContextMenuItemOlld e)
-    //    {
-    //        OnSelected(e);
-    //    }
-    //    [SecurityCritical]
-    //    [HandleProcessCorruptedStateExceptions]
-    //    private void UnWireEvents()
-    //    {
-    //        if (!this._EvententsWired) return;
-
-    //        EventRegistrationTool.UnWireToken(this._CustomItemSelectEventToken, base.remove_CustomItemSelected);
-
-
-    //    }
-
-    //    //protected override void Dispose(bool disposing)
-    //    //{
-    //    //    if (disposing)
-    //    //    {
-    //    //        UnWireEvents();
-
-    //    //    }
-    //    //    base.Dispose(disposing);
-    //    //}
-
-    //    public new ContextMenuItemCollection Children => new ContextMenuItemCollection(base.Children);
-
-    //    protected virtual void OnSelected(WebView2ContextMenuItemOlld e)
-    //    {
-    //        //Selected?.Invoke(this, e);
-    //    }
-    //}
+ 
 }

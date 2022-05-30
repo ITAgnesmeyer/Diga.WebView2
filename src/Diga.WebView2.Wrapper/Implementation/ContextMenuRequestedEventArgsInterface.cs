@@ -8,7 +8,7 @@ using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class ContextMenuRequestedEventArgsInterface : EventArgs, ICoreWebView2ContextMenuRequestedEventArgs, IDisposable
+    public class ContextMenuRequestedEventArgsInterface : EventArgs, IDisposable//,ICoreWebView2ContextMenuRequestedEventArgs
     {
         private ComObjctHolder<ICoreWebView2ContextMenuRequestedEventArgs> _Args;
         private bool disposedValue;

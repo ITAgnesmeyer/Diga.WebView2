@@ -15,7 +15,9 @@ namespace Diga.WebView2.Wrapper.Handler
             this._CallBack= callback;
         }
         [SecurityCritical]
+#pragma warning disable SYSLIB0032
         [HandleProcessCorruptedStateExceptions]
+#pragma warning restore SYSLIB0032
         public void Invoke(ICoreWebView2 sender, ICoreWebView2ContextMenuRequestedEventArgs args)
         {
             try

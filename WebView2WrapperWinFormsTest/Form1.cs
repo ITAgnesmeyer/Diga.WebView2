@@ -742,7 +742,7 @@ namespace WebView2WrapperWinFormsTest
                         count--;
                         bool ok = false;
                         e.MenuItems.InsertValueAtIndex(count, this._Sub1);
-
+                        e.Handled = true;
                     }
                 }
             }

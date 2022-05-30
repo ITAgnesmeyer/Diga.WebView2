@@ -10,7 +10,9 @@ namespace Diga.WebView2.Wrapper
     {
         public event EventHandler<WebView2ContextMenuItem> Selected; 
         [SecurityCritical]
+#pragma warning disable SYSLIB0032
         [ HandleProcessCorruptedStateExceptions]
+#pragma warning restore SYSLIB0032
         public void Invoke(ICoreWebView2ContextMenuItem sender, object args)
         {
             try

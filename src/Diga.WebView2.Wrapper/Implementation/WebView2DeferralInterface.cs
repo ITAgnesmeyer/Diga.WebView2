@@ -7,7 +7,7 @@ using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2DeferralInterface : ICoreWebView2Deferral,IDisposable
+    public class WebView2DeferralInterface : IDisposable//,ICoreWebView2Deferral
     {
         //private ICoreWebView2Deferral _Deferral;
         private readonly ComObjctHolder<ICoreWebView2Deferral> _Native;
