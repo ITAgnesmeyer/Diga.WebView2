@@ -740,9 +740,9 @@ namespace WebView2WrapperWinFormsTest
 
                         count--;
                         count--;
-                        bool ok = false;
+                        //bool ok = false;
                         e.MenuItems.InsertValueAtIndex(count, this._Sub1);
-                        e.Handled = true;
+                        //e.Handled = true;
                     }
                 }
             }
