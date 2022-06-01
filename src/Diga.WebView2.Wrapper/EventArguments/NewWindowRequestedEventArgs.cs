@@ -18,7 +18,7 @@ namespace Diga.WebView2.Wrapper.EventArguments
         {
             get
             {
-                return new WebView2View((ICoreWebView2_12)base.NewWindow);
+                return new WebView2View((ICoreWebView2_13)base.NewWindow);
             }
             set
             {

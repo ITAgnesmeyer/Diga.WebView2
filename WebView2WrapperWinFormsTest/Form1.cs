@@ -290,7 +290,7 @@ namespace WebView2WrapperWinFormsTest
         private async void bnCapture_Click(object sender, EventArgs e)
         {
             Image img = await this.webView1.CapturePreviewAsImageAsync(ImageFormat.Png);
-            await UIDispatcher.UIThread.InvokeAsync(() =>
+            await this.webView1.UIDispatcher.InvokeAsync(() =>
             {
                 Form frm = new Form
                 {
@@ -720,7 +720,7 @@ namespace WebView2WrapperWinFormsTest
                         {
                            
 
-                            Diga.Core.Threading.UIDispatcher.UIThread.Post(() =>
+                            this.webView1.UIDispatcher.Post(() =>
                             {
                                 this.webView1.GetDOMWindow().alert("Hallo");
                             });

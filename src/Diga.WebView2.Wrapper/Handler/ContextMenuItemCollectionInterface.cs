@@ -9,7 +9,7 @@ namespace Diga.WebView2.Wrapper.Handler
 {
     public class ContextMenuItemCollectionInterface : ICoreWebView2ContextMenuItemCollection,IDisposable
     {
-        private ComObjctHolder<ICoreWebView2ContextMenuItemCollection> _Args;
+        private ComObjectHolder<ICoreWebView2ContextMenuItemCollection> _Args;
         private bool disposedValue;
         /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
         ///             pattern for any type that is not sealed.
@@ -32,7 +32,7 @@ namespace Diga.WebView2.Wrapper.Handler
         public ContextMenuItemCollectionInterface(ICoreWebView2ContextMenuItemCollection args)
         {
             if(args == null) throw new ArgumentNullException(nameof(args));
-            this._Args = new ComObjctHolder<ICoreWebView2ContextMenuItemCollection>( args);
+            this._Args = new ComObjectHolder<ICoreWebView2ContextMenuItemCollection>( args);
         }
         public uint Count => this.Args.Count;
 

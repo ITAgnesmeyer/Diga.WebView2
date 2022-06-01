@@ -10,7 +10,7 @@ namespace Diga.WebView2.Wrapper.Implementation
 {
     public class ContextMenuRequestedEventArgsInterface : EventArgs, IDisposable//,ICoreWebView2ContextMenuRequestedEventArgs
     {
-        private ComObjctHolder<ICoreWebView2ContextMenuRequestedEventArgs> _Args;
+        private ComObjectHolder<ICoreWebView2ContextMenuRequestedEventArgs> _Args;
         private bool disposedValue;
         ///// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
         /////             pattern for any type that is not sealed.
@@ -33,7 +33,7 @@ namespace Diga.WebView2.Wrapper.Implementation
         public ContextMenuRequestedEventArgsInterface(object args)
         {
             if (args == null) throw new ArgumentNullException(nameof(args));
-            _Args =new ComObjctHolder<ICoreWebView2ContextMenuRequestedEventArgs>( args);
+            _Args =new ComObjectHolder<ICoreWebView2ContextMenuRequestedEventArgs>( args);
         }
 
         public ICoreWebView2ContextMenuItemCollection MenuItems => Args.MenuItems;

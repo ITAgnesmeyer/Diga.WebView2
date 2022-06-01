@@ -9,7 +9,7 @@ namespace Diga.WebView2.Wrapper.Implementation
 {
     public class ContextMenuTargetInterface :IDisposable//, ICoreWebView2ContextMenuTarget
     {
-        private ComObjctHolder<ICoreWebView2ContextMenuTarget> _Args;
+        private ComObjectHolder<ICoreWebView2ContextMenuTarget> _Args;
         
         private bool disposedValue;
         /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
@@ -35,7 +35,7 @@ namespace Diga.WebView2.Wrapper.Implementation
             if (args == null) throw new ArgumentNullException(nameof(args));
 
 
-            _Args = new ComObjctHolder<ICoreWebView2ContextMenuTarget>(args);
+            _Args = new ComObjectHolder<ICoreWebView2ContextMenuTarget>(args);
         }
 
         public COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND Kind => Args.Kind;

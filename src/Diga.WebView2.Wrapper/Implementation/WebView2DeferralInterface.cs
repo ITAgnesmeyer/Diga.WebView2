@@ -10,7 +10,7 @@ namespace Diga.WebView2.Wrapper.Implementation
     public class WebView2DeferralInterface : IDisposable//,ICoreWebView2Deferral
     {
         //private ICoreWebView2Deferral _Deferral;
-        private readonly ComObjctHolder<ICoreWebView2Deferral> _Native;
+        private readonly ComObjectHolder<ICoreWebView2Deferral> _Native;
         private bool disposedValue;
         /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
         ///             pattern for any type that is not sealed.
@@ -22,7 +22,7 @@ namespace Diga.WebView2.Wrapper.Implementation
         //set => this._Deferral = value;
         public WebView2DeferralInterface(ICoreWebView2Deferral deferral)
         {
-            this._Native = new ComObjctHolder<ICoreWebView2Deferral>(deferral);
+            this._Native = new ComObjectHolder<ICoreWebView2Deferral>(deferral);
             //this._Native = deferral?? throw new ArgumentNullException(nameof(deferral));
 
         }

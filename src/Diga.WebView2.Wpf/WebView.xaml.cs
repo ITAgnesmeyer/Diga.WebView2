@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using Diga.Core.Threading;
 using Diga.WebView2.Scripting;
 
@@ -160,11 +159,11 @@ namespace Diga.WebView2.Wpf
         }
         private void CheckIsInUiThread([CallerMemberName] string member = "")
         {
-            if (!UIDispatcher.UIThread.CheckAccess())
+            if (!this.UIDispatcher.CheckAccess())
                 throw new InvalidOperationException($"method ({member}) can only execute on UI-Thread");
         }
         #endregion
-
+        public UIDispatcher UIDispatcher => UIDispatcher.UIThread;
       
     }
 }

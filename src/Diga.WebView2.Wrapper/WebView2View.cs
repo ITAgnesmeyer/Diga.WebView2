@@ -18,7 +18,7 @@ using MimeTypeExtension;
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
 {
-    public partial class WebView2View : WebView2View12Interface
+    public partial class WebView2View : WebView2View13Interface
     {
 
         public event EventHandler<NavigationStartingEventArgs> NavigationStarting;
@@ -51,7 +51,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<WebView2EventArgs> IsDefaultDownloadDialogOpenChanged;
         public event EventHandler<BasicAuthenticationRequestedEventArgs> BasicAuthenticationRequested;
         public event EventHandler<ContextMenuRequestedEventArgs> ContextMenuRequested;
-        public WebView2View(ICoreWebView2_12 webView) : base(webView)
+        public WebView2View(ICoreWebView2_13 webView) : base(webView)
         {
 
             RegisterEvents();

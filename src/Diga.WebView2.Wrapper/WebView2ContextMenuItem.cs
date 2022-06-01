@@ -10,7 +10,7 @@ namespace Diga.WebView2.Wrapper
     
     public class WebView2ContextMenuItem:IDisposable
     {
-        private ComObjctHolder<ICoreWebView2ContextMenuItem> _NativeObject;
+        private ComObjectHolder<ICoreWebView2ContextMenuItem> _NativeObject;
        
         public event EventHandler<WebView2ContextMenuItem> CustomItemSelected;
         private EventRegistrationToken _CustomItemSelectedToken;
@@ -25,7 +25,7 @@ namespace Diga.WebView2.Wrapper
 
         internal WebView2ContextMenuItem(object nativeObject)
         {
-            this._NativeObject = new ComObjctHolder<ICoreWebView2ContextMenuItem>(nativeObject);
+            this._NativeObject = new ComObjectHolder<ICoreWebView2ContextMenuItem>(nativeObject);
             WireEvents();
         }
 

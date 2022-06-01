@@ -160,9 +160,11 @@ namespace Diga.WebView2.WinForms
 
         private void CheckIsInUiThread([CallerMemberName] string member = "")
         {
-            if (!UIDispatcher.UIThread.CheckAccess())
+            if (!this.UIDispatcher.CheckAccess())
                 throw new InvalidOperationException($"method ({member}) can only execute on UI-Thread");
         }
         #endregion
+
+        public UIDispatcher UIDispatcher => UIDispatcher.UIThread;
     }
 }
