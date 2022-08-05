@@ -2,7 +2,9 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Threading.Tasks;
+using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper;
+using Diga.WebView2.Wrapper.Types;
 
 
 namespace Diga.WebView2.WinForms
@@ -308,6 +310,10 @@ namespace Diga.WebView2.WinForms
                 return null;
             }
         }
+
+
+        public ComObjectHolder<ICoreWebView2Profile2> Profile => this._WebViewControl.Profile;
+
 
         #endregion
     }

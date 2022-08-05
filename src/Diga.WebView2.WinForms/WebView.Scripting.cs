@@ -28,8 +28,8 @@ namespace Diga.WebView2.WinForms
                 return;
 
             ScriptZeroTest(javaScript);
-
-            string scrptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"", "\\'")}}}\")";
+            string cleanInnerText = Diga.WebView2.Scripting.Tools.JavaScriptEncoder.Encode(javaScript);
+            string scrptToExecute = $"window.external.executeScript(\"{{{cleanInnerText}}}\")";
             this._WebViewControl.ExecuteScript(scrptToExecute);
         }
 
@@ -41,7 +41,8 @@ namespace Diga.WebView2.WinForms
 
             ScriptZeroTest(javaScript);
 
-            string scriptToExecute = $"window.external.evalScript(\"{javaScript.Replace("\"", "\\'")}\")";
+            string cleanInnerText = Diga.WebView2.Scripting.Tools.JavaScriptEncoder.Encode(javaScript);
+            string scriptToExecute = $"window.external.evalScript(\"{cleanInnerText}\")";
             this._WebViewControl.ExecuteScript(scriptToExecute);
         }
 
@@ -50,7 +51,8 @@ namespace Diga.WebView2.WinForms
             CheckIsCreatedOrEndedWithThrow();
             ScriptZeroTest(javaScript);
             CheckIsInUiThread();
-            string scriptToExecute = $"window.external.evalScript(\"{javaScript.Replace("\"", "\\'")}\")";
+            string cleanInnerText = Diga.WebView2.Scripting.Tools.JavaScriptEncoder.Encode(javaScript);
+            string scriptToExecute = $"window.external.evalScript(\"{cleanInnerText}\")";
             string result = UIDispatcher.UIThread.Invoke<string>(async () =>
             {
                 string rs = await this._WebViewControl.ExecuteScriptAsync(scriptToExecute);
@@ -78,8 +80,8 @@ namespace Diga.WebView2.WinForms
         {
             CheckIsCreatedOrEndedWithThrow();
             ScriptZeroTest(javaScript);
-
-            string scriptToExecute = $"window.external.evalScript(\"{javaScript.Replace("\"", "\\'")}\")";
+            string cleanInnerText = Diga.WebView2.Scripting.Tools.JavaScriptEncoder.Encode(javaScript);
+            string scriptToExecute = $"window.external.evalScript(\"{cleanInnerText}\")";
             string result = await this._WebViewControl.ExecuteScriptAsync(scriptToExecute);
             ScriptErrorObject errObj = ScriptSerializationHelper.GetScriptErrorObject(result);
             if (errObj != null)
@@ -135,8 +137,8 @@ namespace Diga.WebView2.WinForms
         {
             CheckIsCreatedOrEndedWithThrow();
             ScriptZeroTest(javaScript);
-
-            string scriptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"", "\\'")}}}\")";
+            string cleanInnerText = Diga.WebView2.Scripting.Tools.JavaScriptEncoder.Encode(javaScript);
+            string scriptToExecute = $"window.external.executeScript(\"{{{cleanInnerText}}}\")";
             string result = await this._WebViewControl.ExecuteScriptAsync(scriptToExecute);
             ScriptErrorObject errorObj = ScriptSerializationHelper.GetScriptErrorObject(result);
             if (errorObj != null)
@@ -152,7 +154,9 @@ namespace Diga.WebView2.WinForms
             CheckIsCreatedOrEndedWithThrow();
             ScriptZeroTest(javaScript);
             CheckIsInUiThread();
-            string scriptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"", "\\'")}}}\")";
+           
+            string cleanInnerText = Diga.WebView2.Scripting.Tools.JavaScriptEncoder.Encode(javaScript);
+            string scriptToExecute = $"window.external.executeScript(\"{{{cleanInnerText}}}\")";
             string result = UIDispatcher.UIThread.Invoke<string>(async () =>
             {
                 string rs = await this._WebViewControl.ExecuteScriptAsync(scriptToExecute);

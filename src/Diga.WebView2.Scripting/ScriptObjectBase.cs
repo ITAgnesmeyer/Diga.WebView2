@@ -48,7 +48,13 @@ namespace Diga.WebView2.Scripting
                 if (arg is string)
                 {
                     string val = (string)arg;
-                    val = val.Replace("\"", "\\\"");
+                    //val = val.Replace("\\", "/");
+                    //val = Tools.JavaScriptEncoder.Encode(val);
+                    //val = val.Replace("\\", "\\\\");
+                    //val = val.Replace("\r", "\\r");
+                    //val = val.Replace("\n", "\\n");
+                    //val = val.Replace("\"", "\\\"");
+                    val = Tools.JavaScriptEncoder.Encode(val);
                     returnArgString += $"\"{val}\"";
                 }
                 else if (arg is bool)

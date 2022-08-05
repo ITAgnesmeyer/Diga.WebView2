@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0-windows;net6.0-windows;netcoreapp3.1;net4.7.2;</TargetFrameworks>
+    <TargetFrameworks>net5.0-windows;net6.0-windows;netcoreapp3.1;net4.7.2;net7.0-windows</TargetFrameworks>
 	<RootNamespace>Diga.WebView2.Wpf</RootNamespace>
 	  <AssemblyName>Diga.WebView2.Wpf</AssemblyName>
 	  <UseWPF>true</UseWPF>
