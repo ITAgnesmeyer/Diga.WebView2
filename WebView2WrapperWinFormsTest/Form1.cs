@@ -723,7 +723,7 @@ namespace WebView2WrapperWinFormsTest
                             this.webView1.UIDispatcher.Post(() =>
                             {
                                 var profile = this.webView1.Profile;
-                                string message = "Profile";
+                                string message = $"Profile:{Environment.NewLine}";
                                 message += $"Download Folder:{profile.Interface.DefaultDownloadFolderPath}{Environment.NewLine}"  ;
                                 message += $"Is Private Mode:{profile.Interface.IsInPrivateModeEnabled}{Environment.NewLine}";
                                 message += $"Preferred color scheme:{profile.Interface.PreferredColorScheme}{Environment.NewLine}";

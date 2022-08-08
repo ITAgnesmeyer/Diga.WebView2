@@ -6,11 +6,11 @@ using Diga.WebView2.Wrapper.Types;
 namespace Diga.WebView2.Wrapper
 {
 
-    public class WebView2Settings : WebView2Settings6Interface
+    public class WebView2Settings : WebView2Settings7Interface
     {
 
 
-        public WebView2Settings(ICoreWebView2Settings6 settings) : base(settings)
+        public WebView2Settings(ICoreWebView2Settings7 settings) : base(settings)
         {
 
         }
