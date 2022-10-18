@@ -24,7 +24,7 @@ It should also be possible to work completely without an HTTP server.
 ### packages are currently supported.
 microsoft.web.webview2
 
-- Version 1.0.1108.44 is the current Version on Client - PC's
+- Version 1.0.1370.28  is the current Version on Client - PC's
 
 WebView2 [Release-Notes](https://docs.microsoft.com/de-de/microsoft-edge/webview2/releasenotes)
 
