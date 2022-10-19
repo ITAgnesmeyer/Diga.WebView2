@@ -545,7 +545,8 @@ namespace WebView2WrapperWinFormsTest
                 DOMLocation location = new DOMLocation(this.webView1);
                 try
                 {
-                    location.href = "counter";
+
+                    location.href = "/counter";
                 }
                 catch (Exception exception)
                 {
@@ -594,7 +595,8 @@ namespace WebView2WrapperWinFormsTest
 
         private void bnSrc_Click(object sender, EventArgs e)
         {
-            if (this.webView1.Content.Count <= 0) return;
+            if (this.webView1.Content.Count <= 0) 
+                return;
 
             using (frmSrc src = new frmSrc(this.webView1.Content))
             {

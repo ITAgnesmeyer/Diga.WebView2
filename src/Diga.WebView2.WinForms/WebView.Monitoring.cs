@@ -129,6 +129,14 @@ namespace Diga.WebView2.WinForms
             }
         }
 
+        private bool MonitoringFileExist(string file)
+        {
+            if (file.StartsWith("/"))
+                file = file.Substring(1);
+            file = file.Replace("/", "\\");
+            string fullName = Path.Combine(this.MonitoringFolder, file);
+            return File.Exists(fullName);
+        }
         private bool GetFileStream(string url, out ResponseInfo responseInfo)
         {
             if (!url.StartsWith(this.MonitoringUrl))
@@ -143,7 +151,8 @@ namespace Diga.WebView2.WinForms
             //TestMimeTypes();
             string baseDirectory = this.MonitoringFolder;
             
-            string file = uri.AbsolutePath; //url.Replace(this.MonitoringUrl, "");
+            string file = MonitoringFileExist(uri.AbsolutePath) ? uri.AbsolutePath : "";
+            
             if (file == "/")
                 file = "";
             if (file.StartsWith("/"))

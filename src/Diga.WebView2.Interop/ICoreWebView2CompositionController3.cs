@@ -47,7 +47,7 @@ namespace Diga.WebView2.Interop
     new void remove_CursorChanged([In] EventRegistrationToken token);
 
     [DispId(1610743808)]
-    new object AutomationProvider { [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)] [return: MarshalAs(UnmanagedType.IUnknown)] get; }
+    object AutomationProvider { [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)] [return: MarshalAs(UnmanagedType.IUnknown)] get; }
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     uint DragEnter([MarshalAs(UnmanagedType.Interface), In] IDataObject dataObject, [In] uint keyState, [In] tagPOINT point);

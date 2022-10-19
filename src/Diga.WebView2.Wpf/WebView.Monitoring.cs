@@ -116,6 +116,15 @@ namespace Diga.WebView2.Wpf
                 //Debug.Print("Open response:" + this._Responses.Count);
             }
         }
+
+        private bool MonitoringFileExist(string file)
+        {
+            if (file.StartsWith("/"))
+                file = file.Substring(1);
+            file = file.Replace("/", "\\");
+            string fullName = Path.Combine(this.MonitoringFolder, file);
+            return File.Exists(fullName);
+        }
         private bool GetFileStream(string url, out ResponseInfo responseInfo)
         {
             if (!url.StartsWith(this.MonitoringUrl))
@@ -123,9 +132,19 @@ namespace Diga.WebView2.Wpf
                 responseInfo = null;
                 return false;
             }
+
+            Uri uri = new Uri(url);
+
+
             //TestMimeTypes();
             string baseDirectory = this.MonitoringFolder;
-            string file = url.Replace(this.MonitoringUrl, "");
+
+            string file = MonitoringFileExist(uri.AbsolutePath) ? uri.AbsolutePath : "";
+
+            if (file == "/")
+                file = "";
+            if (file.StartsWith("/"))
+                file = file.Substring(1);
             if (string.IsNullOrEmpty(file))
                 file = "index.html";
             file = file.Replace("/", "\\");
@@ -149,7 +168,7 @@ namespace Diga.WebView2.Wpf
             {
                 byte[] bytes = File.ReadAllBytes(file);
                 responseInfo = new ResponseInfo(bytes);
-                string utf8Extension = WebView.GetUtf8IfNeeded(contentType);
+                string utf8Extension = GetUtf8IfNeeded(contentType);
 
                 responseInfo.Header.Add("content-type", contentType + utf8Extension);
 
@@ -169,7 +188,6 @@ namespace Diga.WebView2.Wpf
                 responseInfo.StatusText = "Internal Server Error";
                 return true;
             }
-
 
         }
 
