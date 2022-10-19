@@ -180,7 +180,7 @@ namespace Diga.WebView2.Wrapper
             this.Controller.RasterizationScaleChanged += OnRasterizationScaleChangedIntern;
             this.Controller.ZoomFactorChanged += OnZoomFactorChangedIntern;
 
-            this.WebView = new WebView2View((ICoreWebView2_14)e.WebView);
+            this.WebView = new WebView2View((ICoreWebView2_15)e.WebView);
             this.WebView.ClientCertificateRequested += OnClientCertificateRequestedIntern;
             this.WebView.ContainsFullScreenElementChanged += OnContainsFullScreenElementChangedIntern;
             this.WebView.ContentLoading += OnContentLoadingIntern;

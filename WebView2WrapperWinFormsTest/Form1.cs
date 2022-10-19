@@ -720,7 +720,7 @@ namespace WebView2WrapperWinFormsTest
                             COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND.COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND_COMMAND);
                         this._Item.CustomItemSelected += (oo, ee) =>
                         {
-                           
+
 
                             this.webView1.UIDispatcher.Post(() =>
                             {
@@ -733,7 +733,7 @@ namespace WebView2WrapperWinFormsTest
                                 this.webView1.GetDOMWindow().alert(message);
                             });
 
-                            
+
                         };
                         this._Sub1 = this.webView1.CreateContextMenuItem("sub1", null,
                             COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND.COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND_SUBMENU);
