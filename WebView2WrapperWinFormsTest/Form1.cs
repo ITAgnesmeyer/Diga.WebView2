@@ -335,7 +335,7 @@ namespace WebView2WrapperWinFormsTest
 
             WebView2PrintSettings settings = this.webView1.CreatePrintSettings();
 
-            settings.Orientation = COREWEBVIEW2_PRINT_ORIENTATION.COREWEBVIEW2_PRINT_ORIENTATION_LANDSCAPE;
+            settings.Orientation = COREWEBVIEW2_PRINT_ORIENTATION.COREWEBVIEW2_PRINT_ORIENTATION_PORTRAIT;
            
 
             bool ok = await this.webView1.PrintToPdfAsync("C:\\temp\\test.pdf", settings);
