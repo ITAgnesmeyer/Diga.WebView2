@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper;
+using Diga.WebView2.Wrapper.Types;
 
 
 namespace Diga.WebView2.WinForms
@@ -110,8 +111,13 @@ namespace Diga.WebView2.WinForms
         public WebView2PrintSettings CreatePrintSettings()
         {
             return this._WebViewControl.CreatePrintSettings();
+
         }
 
+        public void PrintToPdf(string file, ICoreWebView2PrintSettings printerSettings)
+        {
+            this._WebViewControl.PrintPdf(file, printerSettings);
+        }
         public async Task<bool> PrintToPdfAsync(string file, WebView2PrintSettings printSettings)
         {
             CheckIsCreatedOrEndedWithThrow();

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Diga.Core.Threading;
 using Diga.WebView2.Scripting;
 using Diga.WebView2.Scripting.DOM;
-
 using Diga.WebView2.Wrapper.EventArguments;
+
 
 namespace Diga.WebView2.Wpf
 {
@@ -31,8 +31,8 @@ namespace Diga.WebView2.Wpf
                 return;
 
             ScriptZeroTest(javaScript);
-
-            string scrptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"", "\\'")}}}\")";
+            string cleanInnerText = Diga.WebView2.Scripting.Tools.JavaScriptEncoder.Encode(javaScript);
+            string scrptToExecute = $"window.external.executeScript(\"{{{cleanInnerText}}}\")";
             this._WebViewControl.ExecuteScript(scrptToExecute);
         }
         public void EvalScript(string javaScript)
@@ -41,7 +41,8 @@ namespace Diga.WebView2.Wpf
 
             ScriptZeroTest(javaScript);
 
-            string scriptToExecute = $"window.external.evalScript(\"{javaScript.Replace("\"", "\\'")}\")";
+            string cleanInnerText = Diga.WebView2.Scripting.Tools.JavaScriptEncoder.Encode(javaScript);
+            string scriptToExecute = $"window.external.evalScript(\"{cleanInnerText}\")";
             this._WebViewControl.ExecuteScript(scriptToExecute);
         }
         [SecurityCritical]
@@ -53,7 +54,8 @@ namespace Diga.WebView2.Wpf
             CheckIsCreatedOrEndedWithThrow();
             ScriptZeroTest(javaScript);
             CheckIsInUiThread();
-            string scriptToExecute = $"window.external.evalScript(\"{javaScript.Replace("\"", "\\'")}\")";
+            string cleanInnerText = Diga.WebView2.Scripting.Tools.JavaScriptEncoder.Encode(javaScript);
+            string scriptToExecute = $"window.external.evalScript(\"{cleanInnerText}\")";
             string result = UIDispatcher.UIThread.Invoke<string>(async () =>
             {
                 string rs = await this._WebViewControl.ExecuteScriptAsync(scriptToExecute);
@@ -81,8 +83,8 @@ namespace Diga.WebView2.Wpf
          {
              CheckIsCreatedOrEndedWithThrow();
             ScriptZeroTest(javaScript);
-
-            string scriptToExecute = $"window.external.evalScript(\"{javaScript.Replace("\"", "\\'")}\")";
+            string cleanInnerText = Diga.WebView2.Scripting.Tools.JavaScriptEncoder.Encode(javaScript);
+            string scriptToExecute = $"window.external.evalScript(\"{cleanInnerText}\")";
             string result = await this._WebViewControl.ExecuteScriptAsync(scriptToExecute);
             ScriptErrorObject errObj = ScriptSerializationHelper.GetScriptErrorObject(result);
             if (errObj != null)
@@ -137,8 +139,8 @@ namespace Diga.WebView2.Wpf
         {
             CheckIsCreatedOrEndedWithThrow();
             ScriptZeroTest(javaScript);
-
-            string scriptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"", "\\'")}}}\")";
+            string cleanInnerText = Diga.WebView2.Scripting.Tools.JavaScriptEncoder.Encode(javaScript);
+            string scriptToExecute = $"window.external.executeScript(\"{{{cleanInnerText}}}\")";
             string result = await this._WebViewControl.ExecuteScriptAsync(scriptToExecute);
             ScriptErrorObject errorObj = ScriptSerializationHelper.GetScriptErrorObject(result);
             if (errorObj != null)
@@ -156,9 +158,9 @@ namespace Diga.WebView2.Wpf
             CheckIsCreatedOrEndedWithThrow();
             ScriptZeroTest(javaScript);
             CheckIsInUiThread();
-            string scriptToExecute = $"window.external.executeScript(\"{{{javaScript.Replace("\"", "\\'")}}}\")";
-            try
-            {
+           
+            string cleanInnerText = Diga.WebView2.Scripting.Tools.JavaScriptEncoder.Encode(javaScript);
+            string scriptToExecute = $"window.external.executeScript(\"{{{cleanInnerText}}}\")";
                 string result = UIDispatcher.UIThread.Invoke<string>(async () =>
                 {
                     string rs = await this._WebViewControl.ExecuteScriptAsync(scriptToExecute);
@@ -172,21 +174,6 @@ namespace Diga.WebView2.Wpf
 
                 return result;
             }
-            catch (Exception e)
-            {
-                ScriptErrorObject errorObject = new ScriptErrorObject
-                {
-                    message = e.Message,
-                    fileName = "WebView.Scripting.cs",
-                    stack = e.StackTrace,
-                    name = "Internal Error",
-                    columnNumber = "0",
-                    lineNumber = "0"
-                };
-                return errorObject.ToString();
-            }
-          
-        }
         /// <summary>
         /// Invoke a script and returns a unique ID for the script 
         /// </summary>

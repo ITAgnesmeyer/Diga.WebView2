@@ -14,6 +14,8 @@ using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
 using Diga.WebView2.Wrapper.Implementation;
+using Diga.WebView2.Wrapper.Types;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace WebView2WrapperWinFormsTest
 {
@@ -330,15 +332,20 @@ namespace WebView2WrapperWinFormsTest
 
         private async void bnPostMessage_Click(object sender, EventArgs e)
         {
+
             WebView2PrintSettings settings = this.webView1.CreatePrintSettings();
+
+            settings.Orientation = COREWEBVIEW2_PRINT_ORIENTATION.COREWEBVIEW2_PRINT_ORIENTATION_LANDSCAPE;
+           
+
             bool ok = await this.webView1.PrintToPdfAsync("C:\\temp\\test.pdf", settings);
             if (ok)
             {
-                await ShowMessageBoxAsync("Content exported to PDF=C:\\temp\test.pdf");
+                await this.webView1.GetDOMWindow().alertAsync("Content exported to PDF=C:\\temp\test.pdf");
             }
             else
             {
-                await ShowMessageBoxAsync("could not export content to PDF!");
+                await this.webView1.GetDOMWindow().alertAsync("could not export content to PDF!");
             }
         }
 

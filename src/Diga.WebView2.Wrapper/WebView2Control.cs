@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Delegates;
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
 using Diga.WebView2.Wrapper.interop;
@@ -62,6 +63,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<WebView2EventArgs> IsDefaultDownloadDialogOpenChanged;
         public event EventHandler<BasicAuthenticationRequestedEventArgs> BasicAuthenticationRequested;
         public event EventHandler<ContextMenuRequestedEventArgs> ContextMenuRequested;
+        public event EventHandler<PrintToPdfCompleteEventArgs> PrintToPdfCompleted; 
         private WebView2Settings _Settings;
         private string _BrowserInfo;
         private object HostHelper;
@@ -209,6 +211,7 @@ namespace Diga.WebView2.Wrapper
             this.WebView.IsDefaultDownloadDialogOpenChanged += OnIsDefaultDownloadDialogOpenChangedIntern;
             this.WebView.BasicAuthenticationRequested += OnBasicAuthenticationRequestedIntern;
             this.WebView.ContextMenuRequested += OnContextMenuRequestedIntern;
+            this.WebView.PrintToPdfCompleted += OnPrintToPdfCompletedIntern;
             this._Settings = new WebView2Settings(this.WebView.Settings);
             object  wwInterface = e.WebView;
 
@@ -342,8 +345,14 @@ namespace Diga.WebView2.Wrapper
                 this.WebView.IsDefaultDownloadDialogOpenChanged -= OnIsDefaultDownloadDialogOpenChangedIntern;
                 this.WebView.BasicAuthenticationRequested -= OnBasicAuthenticationRequestedIntern;
                 this.WebView.ContextMenuRequested -= OnContextMenuRequestedIntern;
+                this.WebView.PrintToPdfCompleted -= OnPrintToPdfCompletedIntern;
 
             }
+        }
+
+        private void OnPrintToPdfCompletedIntern(object sender, PrintToPdfCompleteEventArgs e)
+        {
+            OnPrintToPdfCompleted(e);
         }
 
         private void OnContextMenuRequestedIntern(object sender, ContextMenuRequestedEventArgs e)
@@ -1071,6 +1080,10 @@ namespace Diga.WebView2.Wrapper
             return this.Environment?.CreatePrintSettings();
         }
 
+        public void PrintPdf(string file, ICoreWebView2PrintSettings printerSettings)
+        {
+            this.WebView.PrintToPdf(file, printerSettings);
+        }
         public Task<bool> PrintPdfAsync(string file, WebView2PrintSettings printSettings)
         {
             return this.WebView.PrintToPdfAsync(file, printSettings);
@@ -1118,6 +1131,11 @@ namespace Diga.WebView2.Wrapper
                     return null;
                 return this.WebView.Profile;
             }
+        }
+
+        protected virtual void OnPrintToPdfCompleted(PrintToPdfCompleteEventArgs e)
+        {
+            PrintToPdfCompleted?.Invoke(this, e);
         }
     }
 

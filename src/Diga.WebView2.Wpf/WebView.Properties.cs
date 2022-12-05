@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.Types;
 
@@ -310,6 +311,10 @@ namespace Diga.WebView2.Wpf
                 return null;
             }
         }
+
+
+        public ComObjectHolder<ICoreWebView2Profile2> Profile => this._WebViewControl.Profile;
+
 
         #endregion
     }

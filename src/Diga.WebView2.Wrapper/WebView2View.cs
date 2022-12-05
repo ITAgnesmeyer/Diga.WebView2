@@ -51,6 +51,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<WebView2EventArgs> IsDefaultDownloadDialogOpenChanged;
         public event EventHandler<BasicAuthenticationRequestedEventArgs> BasicAuthenticationRequested;
         public event EventHandler<ContextMenuRequestedEventArgs> ContextMenuRequested;
+        public event EventHandler<PrintToPdfCompleteEventArgs> PrintToPdfCompleted; 
         public WebView2View(ICoreWebView2_15 webView) : base(webView)
         {
 
@@ -556,12 +557,27 @@ namespace Diga.WebView2.Wrapper
             handler.ScriptCompleted += OnExecuteScriptCompletedIntern;
             base.ExecuteScript(javaScript, handler);
         }
+
+        public void PrintToPdf(string file, ICoreWebView2PrintSettings printerSettings)
+        {
+            PrintToPdfCompletedDelegate handler = new PrintToPdfCompletedDelegate();
+            handler.PrintToPdfCompleted += OnPrintToPdfCompleteIntern;
+            base.PrintToPdf(file, printerSettings, handler);
+            
+        }
+
+        private void OnPrintToPdfCompleteIntern(object sender, PrintToPdfCompleteEventArgs e)
+        {
+            OnPrintToPdfCompleted(e);
+        }
+
         public async Task<bool> PrintToPdfAsync(string file, WebView2PrintSettings printSettings)
         {
             
             var source = new TaskCompletionSource<(int, int)>();
-            var printToPdfDelegate = new PrintToPdfCompletedDelegate(source);
-            base.PrintToPdf(file, printSettings, printToPdfDelegate);
+            var printToPdfDelegate = new PrintToPdfCompletedDelegateTask(source);
+         
+            base.PrintToPdf(file, printSettings?.NativeSettings?.Interface, printToPdfDelegate);
             (int errorCode, int isSuccess) result = await source.Task;
             HRESULT hr = result.errorCode;
             if (hr != HRESULT.S_OK)
@@ -866,6 +882,11 @@ namespace Diga.WebView2.Wrapper
         }
 
         public new WebView2Profile Profile => new WebView2Profile((ICoreWebView2Profile2)base.Profile);
+
+        protected virtual void OnPrintToPdfCompleted(PrintToPdfCompleteEventArgs e)
+        {
+            PrintToPdfCompleted?.Invoke(this, e);
+        }
     }
 
 

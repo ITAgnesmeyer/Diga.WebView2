@@ -2,14 +2,40 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Delegates
 {
-    public class PrintToPdfCompletedDelegate:ICoreWebView2PrintToPdfCompletedHandler
+    public class PrintToPdfCompleteEventArgs : EventArgs
+    {
+        public bool IsSuccessfunl { get;  }
+        public int ErrorCode { get; }
+
+        public PrintToPdfCompleteEventArgs(bool isSuccessfunl, int errorCode)
+        {
+            this.IsSuccessfunl = isSuccessfunl;
+            this.ErrorCode = errorCode;
+        }
+    }
+    public class PrintToPdfCompletedDelegate : ICoreWebView2PrintToPdfCompletedHandler
+    {
+        public event EventHandler<PrintToPdfCompleteEventArgs> PrintToPdfCompleted; 
+
+        public void Invoke(int errorCode, int isSuccessful)
+        {
+            OnPrintToPdfCompleted(new PrintToPdfCompleteEventArgs(new CBOOL(isSuccessful), errorCode));
+        }
+
+        protected virtual void OnPrintToPdfCompleted(PrintToPdfCompleteEventArgs e)
+        {
+            PrintToPdfCompleted?.Invoke(this, e);
+        }
+    }
+    public class PrintToPdfCompletedDelegateTask:ICoreWebView2PrintToPdfCompletedHandler
     {
         private readonly TaskCompletionSource<(int, int)> _Source;
 
-        public PrintToPdfCompletedDelegate(TaskCompletionSource<(int,int)> source)
+        public PrintToPdfCompletedDelegateTask(TaskCompletionSource<(int,int)> source)
         {
             this._Source = source;
         }
@@ -21,7 +47,7 @@ namespace Diga.WebView2.Wrapper.Delegates
             }
             catch (Exception ex)
             {
-                Debug.Print(nameof(PrintToPdfCompletedDelegate) + " Exception:" + ex.ToString());
+                Debug.Print(nameof(PrintToPdfCompletedDelegateTask) + " Exception:" + ex.ToString());
 
             }
 

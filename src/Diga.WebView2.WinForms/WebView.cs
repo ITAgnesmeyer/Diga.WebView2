@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using Diga.Core.Threading;
-using Diga.WebView2.Interop;
 using Diga.WebView2.Scripting;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
@@ -115,7 +114,7 @@ namespace Diga.WebView2.WinForms
 
                         int y = HiWord(lParam);
                         int x = LoWord(lParam);
-                        OnMousButtonDown(new WebViewButtonDownEventArgs(new Point(x,y)));
+                        OnMouseButtonDown(new WebViewButtonDownEventArgs(new Point(x,y)));
                     }
 
                     

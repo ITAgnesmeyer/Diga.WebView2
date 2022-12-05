@@ -172,7 +172,7 @@ namespace Diga.WebView2.Wpf
             }
             catch (Exception exception)
             {
-                Debug.Print("ExecuteScriptCompleted Error:" + exception);
+                Debug.Print("ExecuteScriptCompleted Exception:"+exception.ToString());
             }
 
             ExecuteScriptCompleted?.Invoke(this, e);
@@ -245,14 +245,10 @@ namespace Diga.WebView2.Wpf
             {
                 try
                 {
-                    if (this._Window == null)
-                    {
                         this._Window = this.GetDOMWindow();//.GetCopy();
                         this._Window.addEventListener("error", new DOMEventListenerScript(this._Window, "error"), true);
                         this._Window.DomEvent += OnDomEvent;
                         this.GetDOMConsole().log("Document_Loading");
-
-                    }
                 }
                 catch (Exception e)
                 {
@@ -571,13 +567,7 @@ namespace Diga.WebView2.Wpf
 
         private  void OnContextMenuRequestedIntern(object sender, ContextMenuRequestedEventArgs e)
         {
-            //using (var c = e.GetDeferral())
-            //{
-            
                 OnContextMenuRequested(e); 
-            //}
-            
-            
         }
 
         private void OnIsDefaultDownloadDialogOpenChangedIntern(object sender, WebView2EventArgs e)

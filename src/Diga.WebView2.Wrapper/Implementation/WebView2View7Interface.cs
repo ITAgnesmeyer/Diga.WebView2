@@ -36,7 +36,17 @@ namespace Diga.WebView2.Wrapper.Implementation
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void PrintToPdf([In, MarshalAs(UnmanagedType.LPWStr)] string ResultFilePath, [In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2PrintSettings printSettings, [In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2PrintToPdfCompletedHandler handler)
         {
-            this.WebView.PrintToPdf(ResultFilePath, printSettings, handler);
+            try
+            {
+
+                this.WebView.PrintToPdf(ResultFilePath, printSettings, handler);
+            }
+            catch (Exception e)
+            {
+               var ex =  Marshal.GetExceptionForHR(e.HResult);
+               Debug.Print(ex.Message);
+            }
+            
         }
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)

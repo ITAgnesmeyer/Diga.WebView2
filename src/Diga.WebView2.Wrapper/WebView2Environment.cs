@@ -119,7 +119,8 @@ namespace Diga.WebView2.Wrapper
 
         new public WebView2PrintSettings CreatePrintSettings()
         {
-            return new WebView2PrintSettings(base.CreatePrintSettings());
+            ICoreWebView2PrintSettings settings = base.CreatePrintSettings();
+            return new WebView2PrintSettings(settings);
         }
 
 

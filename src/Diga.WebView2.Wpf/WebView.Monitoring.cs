@@ -106,6 +106,8 @@ namespace Diga.WebView2.Wpf
         }
         private void CleanUpResponses(WebResourceResponseReceivedEventArgs e)
         {
+            try
+            {
             if (this._Responses.ContainsKey(e.Request.Uri))
             {
                 if (this._Responses.TryRemove(e.Request.Uri, out var resp))
@@ -113,7 +115,12 @@ namespace Diga.WebView2.Wpf
                     resp.Dispose();
                 }
 
-                //Debug.Print("Open response:" + this._Responses.Count);
+                }
+
+            }
+            catch (Exception exception)
+            {
+                Debug.Print("CleanUpResponse Error:" + exception.Message);
             }
         }
 

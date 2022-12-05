@@ -12,7 +12,7 @@ namespace Diga.WebView2.Interop
   [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
   [Guid("FF85C98A-1BA7-4A6B-90C8-2B752C89E9E2")]
   [ComImport]
-  public interface ICoreWebView2EnvironmentOptions2
+  public interface ICoreWebView2EnvironmentOptions2: ICoreWebView2EnvironmentOptions
   {
     [DispId(1610678272)]
     int ExclusiveUserDataFolderAccess { [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)] get; [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)] [param: In] set; }

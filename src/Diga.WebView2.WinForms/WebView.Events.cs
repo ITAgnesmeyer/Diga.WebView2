@@ -71,7 +71,8 @@ namespace Diga.WebView2.WinForms
                 this.ExecuteScriptCompletedInterface -= value;
             }
         }
-        public event EventHandler<WebViewButtonDownEventArgs> MousButtonDown;
+
+        public event EventHandler<WebViewButtonDownEventArgs> MouseButtonDown; 
         public event EventHandler<ContextMenuRequestedEventArgs> ContextMenuRequested;
         private void OnWebWindowBeforeCreate(object sender, BeforeCreateEventArgs e)
         {
@@ -541,7 +542,7 @@ namespace Diga.WebView2.WinForms
             control.IsMutedChanged -= OnIsMutedChangedIntern;
             control.IsDocumentPlayingAudioChanged -= OnIsDocumentPlayingAudioChangedIntern;
             control.IsDefaultDownloadDialogOpenChanged -= OnIsDefaultDownloadDialogOpenChangedIntern;
-            control.ContextMenuRequested += OnContextMenuRequestedIntern;
+            control.ContextMenuRequested -= OnContextMenuRequestedIntern;
             _UnWireExecuted = true;
         }
 
@@ -635,9 +636,9 @@ namespace Diga.WebView2.WinForms
 
         }
 
-        protected virtual void OnMousButtonDown(WebViewButtonDownEventArgs e)
+        protected virtual void OnMouseButtonDown(WebViewButtonDownEventArgs e)
         {
-            MousButtonDown?.Invoke(this, e);
+            MouseButtonDown?.Invoke(this, e);
         }
 
         protected virtual void OnContextMenuRequested(ContextMenuRequestedEventArgs e)
