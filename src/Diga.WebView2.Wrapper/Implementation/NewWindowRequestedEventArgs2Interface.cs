@@ -1,43 +1,43 @@
 ﻿using Diga.WebView2.Interop;
 using System;
 using System.Diagnostics;
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class NewWindowRequestedEventArgs2Interface : NewWindowRequestedEventArgsInterface, ICoreWebView2NewWindowRequestedEventArgs2
+    public class NewWindowRequestedEventArgs2Interface : NewWindowRequestedEventArgsInterface
     {
-        private ICoreWebView2NewWindowRequestedEventArgs2 _Args;
+        private ComObjectHolder< ICoreWebView2NewWindowRequestedEventArgs2> _Args;
         private ICoreWebView2NewWindowRequestedEventArgs2 Args
         {
             get
             {
-                if (_Args == null)
+                if (this._Args == null)
                 {
-                    Debug.Print(nameof(NewWindowRequestedEventArgsInterface) + "=>" + nameof(Args) + " is null");
+                    Debug.Print(nameof(NewWindowRequestedEventArgsInterface) + "=>" + nameof(this.Args) + " is null");
 
-                    throw new InvalidOperationException(nameof(NewWindowRequestedEventArgsInterface) + "=>" + nameof(Args) + " is null");
+                    throw new InvalidOperationException(nameof(NewWindowRequestedEventArgsInterface) + "=>" + nameof(this.Args) + " is null");
                 }
-                return _Args;
+                return this._Args.Interface;
             }
-            set { _Args = value; }
+            set => this._Args = new ComObjectHolder<ICoreWebView2NewWindowRequestedEventArgs2>(value);
         }
         public NewWindowRequestedEventArgs2Interface(ICoreWebView2NewWindowRequestedEventArgs2 args) : base(args)
         {
-            if (args == null)
-                throw new ArgumentNullException(nameof(args));
-            _Args = args;
+            this.Args = args ?? throw new ArgumentNullException(nameof(args));
         }
-        public string name => Args.name;
+        public string name => this.Args.name;
 
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {
-            if (_IsDisposed) return;
+            if (this._IsDisposed) return;
             if (disposing)
             {
-                _Args = null;
+                this._Args = null;
             }
-            _IsDisposed = true;
+
+            this._IsDisposed = true;
             base.Dispose(disposing);
         }
     }

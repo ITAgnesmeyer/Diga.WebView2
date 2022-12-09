@@ -591,10 +591,10 @@ namespace WebView2WrapperWinFormsTest
             DialogResult result = ofd.ShowDialog(this);
             if (result == DialogResult.OK)
             {
-                string file = ofd.FileName;
-                Uri uri = new Uri(file);
+                //string file = ofd.FileName;
+                //Uri uri = new Uri(file);
 
-                this.webView1.Navigate(uri.AbsolutePath);
+                this.webView1.Navigate(ofd.FileName);
             }
 
 

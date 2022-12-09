@@ -2,13 +2,14 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class PermissionRequestedEventArgsInterface : EventArgs, ICoreWebView2PermissionRequestedEventArgs
+    public class PermissionRequestedEventArgsInterface : EventArgs
     {
-        private ICoreWebView2PermissionRequestedEventArgs _Args;
+        private ComObjectHolder<ICoreWebView2PermissionRequestedEventArgs> _Args;
         private bool disposedValue;
 
         /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
@@ -25,11 +26,11 @@ namespace Diga.WebView2.Wrapper.Implementation
                     throw new InvalidOperationException(nameof(PermissionRequestedEventArgsInterface) + " Args is null");
                 }
 
-                return this._Args;
+                return this._Args.Interface;
             }
             set
             {
-                this._Args = value;
+                this._Args = new ComObjectHolder<ICoreWebView2PermissionRequestedEventArgs>(value);
             }
         }
         public PermissionRequestedEventArgsInterface(ICoreWebView2PermissionRequestedEventArgs args)

@@ -2,13 +2,14 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2ControllerInterface : ICoreWebView2Controller, IDisposable
+    public class WebView2ControllerInterface :  IDisposable
     {
-        private object _Controller;
+        private ComObjectHolder<ICoreWebView2Controller> _Controller;
         private bool _IsDesposed;
 
         /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
@@ -17,10 +18,7 @@ namespace Diga.WebView2.Wrapper.Implementation
         private SafeHandle handle = (SafeHandle) new SafeFileHandle(IntPtr.Zero, true);
         public WebView2ControllerInterface(ICoreWebView2Controller controller)
         {
-            if (controller == null)
-                throw new ArgumentNullException(nameof(controller));
-
-            this.Controller = controller;
+            this.Controller = controller ?? throw new ArgumentNullException(nameof(controller));
         }
         public int IsVisible { get => this.Controller.IsVisible; set => this.Controller.IsVisible = value; }
         public tagRECT Bounds { get => this.Controller.Bounds; set => this.Controller.Bounds = value; }
@@ -121,9 +119,9 @@ namespace Diga.WebView2.Wrapper.Implementation
                     throw new InvalidOperationException("Controller is null!");
                 }
 
-                return (ICoreWebView2Controller)this._Controller;
+                return this._Controller.Interface;
             }
-            set => this._Controller = value;
+            set => this._Controller = new ComObjectHolder<ICoreWebView2Controller>(value);
         }
 
         protected virtual void Dispose(bool disposing)

@@ -2,12 +2,13 @@
 using System;
 using System.Diagnostics;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2CompositionController2Interface : WebView2CompositionControllerInterface, ICoreWebView2CompositionController2
+    public class WebView2CompositionController2Interface : WebView2CompositionControllerInterface
     {
-        private ICoreWebView2CompositionController2 _Controller;
+        private ComObjectHolder<  ICoreWebView2CompositionController2> _Controller;
         private ICoreWebView2CompositionController2 Controller
         {
             get
@@ -18,20 +19,18 @@ namespace Diga.WebView2.Wrapper.Implementation
 
                     throw new InvalidOperationException(nameof(WebView2CompositionController2Interface) + "=>" + nameof(Controller) + " is null");
                 }
-                return _Controller;
+                return _Controller.Interface;
             }
             set
             {
-                _Controller = value;
+                this._Controller = new ComObjectHolder<ICoreWebView2CompositionController2>( value);
             }
         }
         public WebView2CompositionController2Interface(ICoreWebView2CompositionController2 controller) : base(controller)
         {
-            if (controller == null)
-                throw new ArgumentNullException(nameof(controller));
-            Controller = controller;
+            Controller = controller ?? throw new ArgumentNullException(nameof(controller));
         }
-        public object UIAProvider => Controller.UIAProvider;
+        public object UIAProvider => this.Controller.UIAProvider;
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {

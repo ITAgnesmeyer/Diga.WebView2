@@ -2,64 +2,63 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Diga.WebView2.Wrapper.Types;
 using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class NewWindowRequestedEventArgsInterface : ICoreWebView2NewWindowRequestedEventArgs, IDisposable
+    public class NewWindowRequestedEventArgsInterface :  IDisposable
     {
-        private ICoreWebView2NewWindowRequestedEventArgs _Args;
+        private ComObjectHolder<ICoreWebView2NewWindowRequestedEventArgs> _Args;
         private bool _IsDisposed;
         /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
         ///             pattern for any type that is not sealed.
         ///             https://docs.microsoft.com/dotnet/api/system.idisposable#idisposable-and-the-inheritance-hierarchy
-        private SafeHandle handle = (SafeHandle) new SafeFileHandle(IntPtr.Zero, true);
+        private readonly SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
         private ICoreWebView2NewWindowRequestedEventArgs Args
         {
             get
             {
-                if (_Args == null)
+                if (this._Args == null)
                 {
-                    Debug.Print(nameof(NewWindowRequestedEventArgsInterface) + "=>" + nameof(Args) + " is null");
+                    Debug.Print(nameof(NewWindowRequestedEventArgsInterface) + "=>" + nameof(this.Args) + " is null");
 
-                    throw new InvalidOperationException(nameof(NewWindowRequestedEventArgsInterface) + "=>" + nameof(Args) + " is null");
+                    throw new InvalidOperationException(nameof(NewWindowRequestedEventArgsInterface) + "=>" + nameof(this.Args) + " is null");
                 }
-                return _Args;
+                return this._Args.Interface;
             }
-            set { _Args = value; }
+            set { this._Args = new ComObjectHolder<ICoreWebView2NewWindowRequestedEventArgs>(value); }
         }
         public NewWindowRequestedEventArgsInterface(ICoreWebView2NewWindowRequestedEventArgs args)
         {
-            if (args == null)
-                throw new ArgumentNullException(nameof(args));
-            _Args = args;
+            this.Args = args ?? throw new ArgumentNullException(nameof(args));
         }
-        public string uri => Args.uri;
+        public string uri => this.Args.uri;
 
-        public ICoreWebView2 NewWindow { get => Args.NewWindow; set => Args.NewWindow = value; }
-        public int Handled { get => Args.Handled; set => Args.Handled = value; }
+        public ICoreWebView2 NewWindow { get => this.Args.NewWindow; set => this.Args.NewWindow = value; }
+        public int Handled { get => this.Args.Handled; set => this.Args.Handled = value; }
 
-        public int IsUserInitiated => Args.IsUserInitiated;
+        public int IsUserInitiated => this.Args.IsUserInitiated;
 
         [return: MarshalAs(UnmanagedType.Interface)]
         public ICoreWebView2Deferral GetDeferral()
         {
-            return Args.GetDeferral();
+            return this.Args.GetDeferral();
         }
 
-        public ICoreWebView2WindowFeatures WindowFeatures => _Args.WindowFeatures;
+        public ICoreWebView2WindowFeatures WindowFeatures => this.Args.WindowFeatures;
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!_IsDisposed)
+            if (!this._IsDisposed)
             {
                 if (disposing)
                 {
                     this.handle.Dispose();
-                    _Args = null;
+                    this._Args = null;
                 }
 
-                _IsDisposed = true;
+                this._IsDisposed = true;
             }
         }
 

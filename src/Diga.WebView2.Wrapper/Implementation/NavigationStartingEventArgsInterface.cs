@@ -1,26 +1,43 @@
 ﻿using System;
+using System.Diagnostics;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class NavigationStartingEventArgsInterface : EventArgs, ICoreWebView2NavigationStartingEventArgs
+    public class NavigationStartingEventArgsInterface : EventArgs
     {
-        private ICoreWebView2NavigationStartingEventArgs _args;
+        private ComObjectHolder< ICoreWebView2NavigationStartingEventArgs> _args;
         public NavigationStartingEventArgsInterface(ICoreWebView2NavigationStartingEventArgs args)
         {
-            this._args = args;
+            this.Args = args;
         }
 
-        public string uri => this._args.uri;
+        private ICoreWebView2NavigationStartingEventArgs Args
+        {
+            get
+            {
+                if (this._args == null)
+                {
+                    Debug.Print(nameof(NavigationStartingEventArgsInterface) + "=>" + nameof(this.Args) + " is null");
 
-        public int IsUserInitiated => this._args.IsUserInitiated;
+                    throw new InvalidOperationException(nameof(NavigationStartingEventArgsInterface) + "=>" + nameof(this.Args) + " is null");
+                }
 
-        public int IsRedirected => this._args.IsRedirected;
+                return this._args.Interface;
+            }
+            set => this._args = new ComObjectHolder<ICoreWebView2NavigationStartingEventArgs>(value);
+        }
+        public string uri => this.Args.uri;
 
-        public ICoreWebView2HttpRequestHeaders RequestHeaders => this._args.RequestHeaders;
+        public int IsUserInitiated => this.Args.IsUserInitiated;
 
-        public int Cancel { get => this._args.Cancel; set => this._args.Cancel = value; }
+        public int IsRedirected => this.Args.IsRedirected;
 
-        public ulong NavigationId => this._args.NavigationId;
+        public ICoreWebView2HttpRequestHeaders RequestHeaders => this.Args.RequestHeaders;
+
+        public int Cancel { get => this.Args.Cancel; set => this.Args.Cancel = value; }
+
+        public ulong NavigationId => this.Args.NavigationId;
     }
 }

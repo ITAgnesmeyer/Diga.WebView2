@@ -3,13 +3,14 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
+using Diga.WebView2.Wrapper.Types;
 using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2FrameInterface : ICoreWebView2Frame, IDisposable
+    public class WebView2FrameInterface : IDisposable
     {
-        private ICoreWebView2Frame _Args;
+        private ComObjectHolder<ICoreWebView2Frame> _Args;
         private bool disposedValue;
 
         /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
@@ -21,17 +22,17 @@ namespace Diga.WebView2.Wrapper.Implementation
         {
             get
             {
-                if (_Args == null)
+                if (this._Args == null)
                 {
                     Debug.Print(nameof(WebView2FrameInterface) + " Args is null");
                     throw new InvalidOperationException(nameof(WebView2FrameInterface) + " Args is null");
                 }
 
-                return _Args;
+                return this._Args.Interface;
             }
             set
             {
-                _Args = value;
+                this._Args = new ComObjectHolder<ICoreWebView2Frame>( value);
             }
         }
 
@@ -39,59 +40,58 @@ namespace Diga.WebView2.Wrapper.Implementation
         {
             if (args == null)
                 throw new ArgumentNullException(nameof(args));
-            _Args = args;
+            this.Args = args;
 
         }
-        public string name => Args.name;
+        public string name => this.Args.name;
 
         public void add_NameChanged([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2FrameNameChangedEventHandler eventHandler, out EventRegistrationToken token)
         {
-            Args.add_NameChanged(eventHandler, out token);
+            this.Args.add_NameChanged(eventHandler, out token);
         }
 
         public void remove_NameChanged([In] EventRegistrationToken token)
         {
-            Args.remove_NameChanged(token);
+            this.Args.remove_NameChanged(token);
         }
 
         public void AddHostObjectToScriptWithOrigins([In, MarshalAs(UnmanagedType.LPWStr)] string name, ref object @object, [In] uint originsCount, [In, MarshalAs(UnmanagedType.LPWStr)] ref string origins)
         {
-            Args.AddHostObjectToScriptWithOrigins(name, ref @object, originsCount, ref origins);
+            this.Args.AddHostObjectToScriptWithOrigins(name, ref @object, originsCount, ref origins);
         }
 
         public void RemoveHostObjectFromScript([In, MarshalAs(UnmanagedType.LPWStr)] string name)
         {
-            Args.RemoveHostObjectFromScript(name);
+            this.Args.RemoveHostObjectFromScript(name);
         }
 
         public void add_Destroyed([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2FrameDestroyedEventHandler eventHandler, out EventRegistrationToken token)
         {
-            Args.add_Destroyed(eventHandler, out token);
+            this.Args.add_Destroyed(eventHandler, out token);
         }
 
         public void remove_Destroyed([In] EventRegistrationToken token)
         {
-            Args.remove_Destroyed(token);
+            this.Args.remove_Destroyed(token);
         }
 
         public int IsDestroyed()
         {
-            return Args.IsDestroyed();
+            return this.Args.IsDestroyed();
         }
 
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!this.disposedValue)
             {
                 if (disposing)
                 {
-
-                    handle.Dispose();
-                    _Args = null;
+                    this.handle.Dispose();
+                    this._Args = null;
                 }
 
-                disposedValue = true;
+                this.disposedValue = true;
             }
         }
 
@@ -102,5 +102,7 @@ namespace Diga.WebView2.Wrapper.Implementation
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+
+        
     }
 }

@@ -2,13 +2,13 @@
 using System.Diagnostics;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.EventArguments;
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class ProcessFailedEventArgs2Interface : ProcessFailedEventArgsInterface,
-        ICoreWebView2ProcessFailedEventArgs2
+    public class ProcessFailedEventArgs2Interface : ProcessFailedEventArgsInterface
     {
-        private ICoreWebView2ProcessFailedEventArgs2 _Args;
+        private ComObjectHolder< ICoreWebView2ProcessFailedEventArgs2> _Args;
 
         private ICoreWebView2ProcessFailedEventArgs2 Args
         {
@@ -20,11 +20,11 @@ namespace Diga.WebView2.Wrapper.Implementation
                     throw new InvalidOperationException(nameof(ProcessFailedEventArgs2Interface) + " Args is null");
                 }
 
-                return this._Args;
+                return this._Args.Interface;
             }
             set
             {
-                this._Args = value;
+                this._Args = new ComObjectHolder<ICoreWebView2ProcessFailedEventArgs2>(value);
             }
         }
         public ProcessFailedEventArgs2Interface(ICoreWebView2ProcessFailedEventArgs2 args):base(args)

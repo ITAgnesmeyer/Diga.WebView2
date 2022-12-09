@@ -2,27 +2,28 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2Frame3Interface : WebView2Frame2Interface, ICoreWebView2Frame3
+    public class WebView2Frame3Interface : WebView2Frame2Interface
     {
-        private ICoreWebView2Frame3 _Args;
+        private ComObjectHolder<ICoreWebView2Frame3> _Args;
         private ICoreWebView2Frame3 Args
         {
             get
             {
-                if (_Args == null)
+                if (this._Args == null)
                 {
                     Debug.Print(nameof(WebView2Frame3Interface) + " Args is null");
                     throw new InvalidOperationException(nameof(WebView2Frame3Interface) + " Args is null");
                 }
 
-                return _Args;
+                return this._Args.Interface;
             }
             set
             {
-                _Args = value;
+                this._Args = new ComObjectHolder<ICoreWebView2Frame3>(value);
             }
         }
 
@@ -30,17 +31,18 @@ namespace Diga.WebView2.Wrapper.Implementation
         {
             if (args == null)
                 throw new ArgumentNullException(nameof(args));
-            Args = args;
+            this.Args = args;
         }
+        public ICoreWebView2Frame3 GetInterface() => this.Args;
 
         public void add_PermissionRequested([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2FramePermissionRequestedEventHandler handler, out EventRegistrationToken token)
         {
-            Args.add_PermissionRequested(handler, out token);
+            this.Args.add_PermissionRequested(handler, out token);
         }
 
         public void remove_PermissionRequested([In] EventRegistrationToken token)
         {
-            Args.remove_PermissionRequested(token);
+            this.Args.remove_PermissionRequested(token);
         }
     }
 }

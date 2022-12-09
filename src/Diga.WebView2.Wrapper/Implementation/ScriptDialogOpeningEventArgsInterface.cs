@@ -2,13 +2,14 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class ScriptDialogOpeningEventArgsInterface : ICoreWebView2ScriptDialogOpeningEventArgs, IDisposable
+    public class ScriptDialogOpeningEventArgsInterface : IDisposable
     {
-        private ICoreWebView2ScriptDialogOpeningEventArgs _Args;
+        private ComObjectHolder<ICoreWebView2ScriptDialogOpeningEventArgs> _Args;
         private bool _IsDisposed;
         /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
         ///             pattern for any type that is not sealed.
@@ -24,16 +25,16 @@ namespace Diga.WebView2.Wrapper.Implementation
 
                     throw new InvalidOperationException(nameof(ScriptDialogOpeningEventArgsInterface) + "=>" + nameof(this.Args) + " is null");
                 }
-                return this._Args;
+                return this._Args.Interface;
             }
-            set { this._Args = value; }
+            set { this._Args = new ComObjectHolder<ICoreWebView2ScriptDialogOpeningEventArgs>( value); }
         }
 
         public ScriptDialogOpeningEventArgsInterface(ICoreWebView2ScriptDialogOpeningEventArgs args)
         {
             if(args == null)
                 throw new ArgumentNullException(nameof(args));
-            this._Args= args;
+            this.Args= args;
         }
         public string uri => this.Args.uri;
 

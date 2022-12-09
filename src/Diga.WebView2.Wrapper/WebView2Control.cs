@@ -563,7 +563,7 @@ namespace Diga.WebView2.Wrapper
         public void SendPointInput(COREWEBVIEW2_POINTER_EVENT_KIND kind, WebView2PointerInfo pointInfo)
         {
             if (this.CompositionController == null) return;
-            this.CompositionController.SendPointerInput(kind, pointInfo);
+            this.CompositionController.SendPointerInput(kind, pointInfo.GetInterface());
         }
         public IntPtr CursorHandle
         {

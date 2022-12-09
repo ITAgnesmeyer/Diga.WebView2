@@ -2,12 +2,13 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2Frame2Interface : WebView2FrameInterface, ICoreWebView2Frame2
+    public class WebView2Frame2Interface : WebView2FrameInterface
     {
-        private object _Args;
+        private ComObjectHolder<ICoreWebView2Frame2> _Args;
         private ICoreWebView2Frame2 Args
         {
             get
@@ -18,11 +19,11 @@ namespace Diga.WebView2.Wrapper.Implementation
                     throw new InvalidOperationException(nameof(WebView2Frame2Interface) + " Args is null");
                 }
 
-                return (ICoreWebView2Frame2)this._Args;
+                return this._Args.Interface;
             }
             set
             {
-                this._Args = value;
+                this._Args = new ComObjectHolder<ICoreWebView2Frame2>(value);
             }
         }
 
@@ -30,7 +31,7 @@ namespace Diga.WebView2.Wrapper.Implementation
         {
             if (args == null)
                 throw new ArgumentNullException(nameof(args));
-            this._Args = args;
+            this.Args = args;
         }
         public void add_NavigationStarting([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2FrameNavigationStartingEventHandler eventHandler, out EventRegistrationToken token)
         {

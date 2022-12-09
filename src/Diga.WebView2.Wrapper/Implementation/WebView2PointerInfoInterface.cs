@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Data.Common;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2PointerInfoInterface : ICoreWebView2PointerInfo, IDisposable
+    public class WebView2PointerInfoInterface :  IDisposable
     {
-        private object _PointerInfo;
+        private ComObjectHolder<ICoreWebView2PointerInfo> _PointerInfo;
         /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
         ///             pattern for any type that is not sealed.
         ///             https://docs.microsoft.com/dotnet/api/system.idisposable#idisposable-and-the-inheritance-hierarchy
@@ -24,11 +26,11 @@ namespace Diga.WebView2.Wrapper.Implementation
                     Debug.Print($"{nameof(WebView2PointerInfoInterface)} is null!");
                     throw new InvalidOperationException($"{nameof(WebView2PointerInfoInterface)} is null!");
                 }
-                return (ICoreWebView2PointerInfo)this._PointerInfo;
+                return this._PointerInfo.Interface;
             }
             set
             {
-                this._PointerInfo = value;
+                this._PointerInfo =new ComObjectHolder<ICoreWebView2PointerInfo>(  value);
             }
         }
         public WebView2PointerInfoInterface(ICoreWebView2PointerInfo pointerInfo)
@@ -84,6 +86,12 @@ namespace Diga.WebView2.Wrapper.Implementation
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+
+        public ICoreWebView2PointerInfo GetInterface()
+        {
+            return PointerInfo;
+        }
+       
     }
 
 }
