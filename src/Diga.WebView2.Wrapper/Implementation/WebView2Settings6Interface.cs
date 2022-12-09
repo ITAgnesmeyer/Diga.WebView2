@@ -1,48 +1,43 @@
 ﻿using Diga.WebView2.Interop;
 using System;
 using System.Diagnostics;
+using Diga.WebView2.Wrapper.Types;
 
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2Settings6Interface : WebView2Settings5Interface, ICoreWebView2Settings6
+    public class WebView2Settings6Interface : WebView2Settings5Interface
     {
-        private ICoreWebView2Settings6 _Settings;
+        private ComObjectHolder< ICoreWebView2Settings6> _Settings;
         private ICoreWebView2Settings6 Settings
         {
             get
             {
-                if (_Settings == null)
+                if (this._Settings == null)
                 {
-                    Debug.Print(nameof(WebView2Settings5Interface) + "." + nameof(Settings) + " is null");
-                    throw new InvalidOperationException(nameof(WebView2Settings5Interface) + "." + nameof(Settings) + " is null");
+                    Debug.Print(nameof(WebView2Settings6Interface) + "." + nameof(this.Settings) + " is null");
+                    throw new InvalidOperationException(nameof(WebView2Settings6Interface) + "." + nameof(this.Settings) + " is null");
 
                 }
-                return _Settings;
+                return this._Settings.Interface;
             }
-            set
-            {
-                _Settings = value;
-            }
+            set => this._Settings = new ComObjectHolder<ICoreWebView2Settings6>(value);
         }
 
         public WebView2Settings6Interface(ICoreWebView2Settings6 settings) : base(settings)
         {
-            if (settings == null)
-                throw new ArgumentNullException(nameof(settings));
-
-            _Settings = settings;
+            this.Settings = settings ?? throw new ArgumentNullException(nameof(settings));
         }
 
-        public int IsSwipeNavigationEnabled { get => Settings.IsSwipeNavigationEnabled; set => Settings.IsSwipeNavigationEnabled = value; }
+        public int IsSwipeNavigationEnabled { get => this.Settings.IsSwipeNavigationEnabled; set => this.Settings.IsSwipeNavigationEnabled = value; }
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {
-            if (_IsDisposed) return;
+            if (this._IsDisposed) return;
             if (disposing)
             {
-                _Settings = null;
-                _IsDisposed = true;
+                this._Settings = null;
+                this._IsDisposed = true;
             }
 
 

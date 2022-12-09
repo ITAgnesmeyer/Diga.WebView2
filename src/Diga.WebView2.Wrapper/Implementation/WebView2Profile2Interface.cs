@@ -2,12 +2,13 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2Profile2Interface : WebView2ProfileInterface, ICoreWebView2Profile2
+    public class WebView2Profile2Interface : WebView2ProfileInterface
     {
-        private ICoreWebView2Profile2 _Profile;
+        private ComObjectHolder< ICoreWebView2Profile2> _Profile;
         private ICoreWebView2Profile2 Profile
         {
             get
@@ -18,12 +19,17 @@ namespace Diga.WebView2.Wrapper.Implementation
                     throw new InvalidOperationException(nameof(WebView2Settings3Interface) + "." + nameof(this.Profile) + " is null");
 
                 }
-                return this._Profile;
+                return this._Profile.Interface;
             }
             set
             {
-                this._Profile = value;
+                this._Profile = new ComObjectHolder<ICoreWebView2Profile2>(value);
             }
+        }
+
+        public ICoreWebView2Profile2 GetInterface()
+        {
+            return this.Profile;
         }
         public WebView2Profile2Interface(ICoreWebView2Profile2 profile):base(profile)
         {

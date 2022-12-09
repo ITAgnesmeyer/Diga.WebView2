@@ -9,7 +9,7 @@ namespace Diga.WebView2.Wrapper.Implementation
 {
     public class WebView2PrintSettingsInterface: IDisposable
     {
-        private object _PrintSettings;
+        private ComObjectHolder<ICoreWebView2PrintSettings> _PrintSettings;
         private bool _IsDesposed;
         /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
         ///             pattern for any type that is not sealed.
@@ -26,17 +26,18 @@ namespace Diga.WebView2.Wrapper.Implementation
                     throw new InvalidOperationException(nameof(WebView2SettingsInterface) + "." + nameof(PrinterSettings) + " is null");
 
                 }
-                return (ICoreWebView2PrintSettings)_PrintSettings;
+                return _PrintSettings.Interface;
             }
+            set => this._PrintSettings = new ComObjectHolder<ICoreWebView2PrintSettings>(value);
         }
 
         public WebView2PrintSettingsInterface(ICoreWebView2PrintSettings printSettings)
         {
-            this._PrintSettings = printSettings;
+            this.PrinterSettings = printSettings;
             //CloneInterface(printSettings);
         }
 
-        public ComObjectHolder<ICoreWebView2PrintSettings> NativeSettings => new ComObjectHolder<ICoreWebView2PrintSettings>(this._PrintSettings);
+        public ComObjectHolder<ICoreWebView2PrintSettings> NativeSettings => this._PrintSettings;
         //private void CloneInterface(ICoreWebView2PrintSettings printSettings)
         //{
         //    this.FooterUri = printSettings.FooterUri;

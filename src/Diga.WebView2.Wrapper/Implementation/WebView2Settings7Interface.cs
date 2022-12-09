@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2Settings7Interface : WebView2Settings6Interface, ICoreWebView2Settings7
+    public class WebView2Settings7Interface : WebView2Settings6Interface
     {
-        private ICoreWebView2Settings7 _Settings;
+        private ComObjectHolder< ICoreWebView2Settings7> _Settings;
         private ICoreWebView2Settings7 Settings
         {
             get
@@ -17,20 +18,14 @@ namespace Diga.WebView2.Wrapper.Implementation
                     throw new InvalidOperationException(nameof(WebView2Settings5Interface) + "." + nameof(this.Settings) + " is null");
 
                 }
-                return this._Settings;
+                return this._Settings.Interface;
             }
-            set
-            {
-                this._Settings = value;
-            }
+            set => this._Settings = new ComObjectHolder<ICoreWebView2Settings7>(value);
         }
 
         public WebView2Settings7Interface(ICoreWebView2Settings7 settings) : base(settings)
         {
-            if (settings == null)
-                throw new ArgumentNullException(nameof(settings));
-
-            this._Settings = settings;
+            this.Settings = settings ?? throw new ArgumentNullException(nameof(settings));
         }
 
         private bool _IsDisposed;

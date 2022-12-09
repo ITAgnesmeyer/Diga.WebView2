@@ -1,48 +1,43 @@
 ﻿using Diga.WebView2.Interop;
 using System;
 using System.Diagnostics;
+using Diga.WebView2.Wrapper.Types;
 
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2Settings4Interface : WebView2Settings3Interface, ICoreWebView2Settings4
+    public class WebView2Settings4Interface : WebView2Settings3Interface
     {
-        private ICoreWebView2Settings4 _Settings;
+        private ComObjectHolder< ICoreWebView2Settings4> _Settings;
         private ICoreWebView2Settings4 Settings
         {
             get
             {
-                if (_Settings == null)
+                if (this._Settings == null)
                 {
-                    Debug.Print(nameof(WebView2Settings4Interface) + "." + nameof(Settings) + " is null");
-                    throw new InvalidOperationException(nameof(WebView2Settings4Interface) + "." + nameof(Settings) + " is null");
+                    Debug.Print(nameof(WebView2Settings4Interface) + "." + nameof(this.Settings) + " is null");
+                    throw new InvalidOperationException(nameof(WebView2Settings4Interface) + "." + nameof(this.Settings) + " is null");
 
                 }
-                return _Settings;
+                return this._Settings.Interface;
             }
-            set
-            {
-                _Settings = value;
-            }
+            set => this._Settings = new ComObjectHolder<ICoreWebView2Settings4>(value);
         }
         public WebView2Settings4Interface(ICoreWebView2Settings4 settings) : base(settings)
         {
-            if (settings == null)
-                throw new ArgumentNullException(nameof(settings));
-
-            _Settings = settings;
+            this.Settings = settings ?? throw new ArgumentNullException(nameof(settings));
         }
 
-        public int IsPasswordAutosaveEnabled { get => Settings.IsPasswordAutosaveEnabled; set => Settings.IsPasswordAutosaveEnabled = value; }
-        public int IsGeneralAutofillEnabled { get => Settings.IsGeneralAutofillEnabled; set => Settings.IsGeneralAutofillEnabled = value; }
+        public int IsPasswordAutosaveEnabled { get => this.Settings.IsPasswordAutosaveEnabled; set => this.Settings.IsPasswordAutosaveEnabled = value; }
+        public int IsGeneralAutofillEnabled { get => this.Settings.IsGeneralAutofillEnabled; set => this.Settings.IsGeneralAutofillEnabled = value; }
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {
-            if (_IsDisposed) return;
+            if (this._IsDisposed) return;
             if (disposing)
             {
-                _Settings = null;
-                _IsDisposed = true;
+                this._Settings = null;
+                this._IsDisposed = true;
             }
 
 

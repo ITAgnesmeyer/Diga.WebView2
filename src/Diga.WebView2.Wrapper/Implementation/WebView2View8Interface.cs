@@ -2,12 +2,13 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2View8Interface : WebView2View7Interface, ICoreWebView2_8
+    public class WebView2View8Interface : WebView2View7Interface
     {
-        private ICoreWebView2_8 _WebView;
+        private ComObjectHolder<ICoreWebView2_8> _WebView;
         private ICoreWebView2_8 WebView
         {
             get
@@ -18,18 +19,13 @@ namespace Diga.WebView2.Wrapper.Implementation
                     throw new InvalidOperationException(nameof(WebView2View8Interface) + "." + nameof(this.WebView) + " is null");
 
                 }
-                return this._WebView;
+                return this._WebView.Interface;
             }
-            set
-            {
-                this._WebView = value;
-            }
-
-
+            set => this._WebView = new ComObjectHolder<ICoreWebView2_8>(value);
         }
         public WebView2View8Interface(ICoreWebView2_8 webView) : base(webView)
         {
-            this._WebView = webView ?? throw new ArgumentNullException(nameof(webView));
+            this.WebView = webView ?? throw new ArgumentNullException(nameof(webView));
         }
 
         public void add_IsMutedChanged([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2IsMutedChangedEventHandler eventHandler, out EventRegistrationToken token)

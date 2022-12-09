@@ -2,12 +2,13 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2View11Interface : WebView2View10Interface, ICoreWebView2_11
+    public class WebView2View11Interface : WebView2View10Interface
     {
-        private ICoreWebView2_11 _WebView;
+        private ComObjectHolder< ICoreWebView2_11> _WebView;
         private ICoreWebView2_11 WebView
         {
             get
@@ -18,19 +19,14 @@ namespace Diga.WebView2.Wrapper.Implementation
                     throw new InvalidOperationException(nameof(WebView2View11Interface) + "." + nameof(this.WebView) + " is null");
 
                 }
-                return this._WebView;
+                return this._WebView.Interface;
             }
-            set
-            {
-                this._WebView = value;
-            }
-
-
+            set => this._WebView = new ComObjectHolder<ICoreWebView2_11>(value);
         }
 
         public WebView2View11Interface(ICoreWebView2_11 webView) : base(webView)
         {
-            this._WebView = webView ?? throw new ArgumentNullException(nameof(webView));
+            this.WebView = webView ?? throw new ArgumentNullException(nameof(webView));
         }
 
         public void CallDevToolsProtocolMethodForSession([In, MarshalAs(UnmanagedType.LPWStr)] string sessionId, [In, MarshalAs(UnmanagedType.LPWStr)] string methodName, [In, MarshalAs(UnmanagedType.LPWStr)] string parametersAsJson, [In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2CallDevToolsProtocolMethodCompletedHandler handler)

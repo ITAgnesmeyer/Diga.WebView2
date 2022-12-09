@@ -23,7 +23,7 @@ namespace Diga.WebView2.Wrapper.EventArguments
             set
             {
                 
-                base.NewWindow = value;
+                base.NewWindow = value.GetInterface();
             }
         }
 

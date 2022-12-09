@@ -212,7 +212,8 @@ namespace Diga.WebView2.Wrapper
             this.WebView.BasicAuthenticationRequested += OnBasicAuthenticationRequestedIntern;
             this.WebView.ContextMenuRequested += OnContextMenuRequestedIntern;
             this.WebView.PrintToPdfCompleted += OnPrintToPdfCompletedIntern;
-            this._Settings = new WebView2Settings(this.WebView.Settings);
+            //this._Settings = new WebView2Settings(this.WebView.Settings);
+            this._Settings = this.WebView.Settings;
             object  wwInterface = e.WebView;
 
             if (wwInterface is ICoreWebView2Staging stating)
@@ -1123,7 +1124,7 @@ namespace Diga.WebView2.Wrapper
             //ContextMenuRequested?.Invoke(this, e);
         }
 
-        public ComObjectHolder<ICoreWebView2Profile2> Profile
+        public WebView2Profile Profile
         {
             get
             {

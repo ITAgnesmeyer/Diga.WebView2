@@ -3,13 +3,14 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public class WebView2View7Interface : WebView2View6Interface, ICoreWebView2_7
+    public class WebView2View7Interface : WebView2View6Interface
     {
-        private ICoreWebView2_7 _WebView;
+        private ComObjectHolder< ICoreWebView2_7> _WebView;
         private ICoreWebView2_7 WebView
         {
             get
@@ -20,18 +21,18 @@ namespace Diga.WebView2.Wrapper.Implementation
                     throw new InvalidOperationException(nameof(WebView2View7Interface) + "." + nameof(this.WebView) + " is null");
 
                 }
-                return this._WebView;
+                return this._WebView.Interface;
             }
             set
             {
-                this._WebView = value;
+                this._WebView = new ComObjectHolder<ICoreWebView2_7>(value);
             }
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public WebView2View7Interface(ICoreWebView2_7 webView) : base(webView)
         {
-            this._WebView = webView ?? throw new ArgumentNullException(nameof(webView));
+            this.WebView = webView ?? throw new ArgumentNullException(nameof(webView));
         }
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void PrintToPdf([In, MarshalAs(UnmanagedType.LPWStr)] string ResultFilePath, [In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2PrintSettings printSettings, [In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2PrintToPdfCompletedHandler handler)

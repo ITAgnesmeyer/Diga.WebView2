@@ -2,19 +2,20 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2ProfileInterface : ICoreWebView2Profile, IDisposable
+    public class WebView2ProfileInterface :  IDisposable
     {
-        private ICoreWebView2Profile _Args;
+        private ComObjectHolder< ICoreWebView2Profile> _Args;
         private bool disposedValue;
 
         /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
         ///             pattern for any type that is not sealed.
         ///             https://docs.microsoft.com/dotnet/api/system.idisposable#idisposable-and-the-inheritance-hierarchy
-        private SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
+        private readonly SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 
         private ICoreWebView2Profile Args
         {
@@ -26,12 +27,9 @@ namespace Diga.WebView2.Wrapper.Implementation
                     throw new InvalidOperationException(nameof(WebView2ProfileInterface) + " Args is null");
                 }
 
-                return this._Args;
+                return this._Args.Interface;
             }
-            set
-            {
-                this._Args = value;
-            }
+            set => this._Args = new ComObjectHolder<ICoreWebView2Profile>(value);
         }
 
         public WebView2ProfileInterface(ICoreWebView2Profile profile)

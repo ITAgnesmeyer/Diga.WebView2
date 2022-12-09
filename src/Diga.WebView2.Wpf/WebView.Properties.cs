@@ -313,7 +313,7 @@ namespace Diga.WebView2.Wpf
         }
 
 
-        public ComObjectHolder<ICoreWebView2Profile2> Profile => this._WebViewControl.Profile;
+        public WebView2Profile Profile => this._WebViewControl.Profile;
 
 
         #endregion

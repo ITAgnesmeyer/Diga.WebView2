@@ -1,48 +1,47 @@
 ﻿using Diga.WebView2.Interop;
 using System;
 using System.Diagnostics;
+using Diga.WebView2.Wrapper.Types;
 
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2Settings2Interface : WebView2SettingsInterface, ICoreWebView2Settings2
+    public class WebView2Settings2Interface : WebView2SettingsInterface
     {
-        private ICoreWebView2Settings2 _Settings;
+        private ComObjectHolder< ICoreWebView2Settings2> _Settings;
 
         private ICoreWebView2Settings2 Settings
         {
             get
             {
-                if (_Settings == null)
+                if (this._Settings == null)
                 {
-                    Debug.Print(nameof(WebView2Settings2Interface) + "." + nameof(Settings) + " is null");
-                    throw new InvalidOperationException(nameof(WebView2Settings2Interface) + "." + nameof(Settings) + " is null");
+                    Debug.Print(nameof(WebView2Settings2Interface) + "." + nameof(this.Settings) + " is null");
+                    throw new InvalidOperationException(nameof(WebView2Settings2Interface) + "." + nameof(this.Settings) + " is null");
 
                 }
-                return _Settings;
+                return this._Settings.Interface;
             }
             set
             {
-                _Settings = value;
+                this._Settings = new ComObjectHolder<ICoreWebView2Settings2>(value);
             }
         }
 
         public WebView2Settings2Interface(ICoreWebView2Settings2 settings) : base(settings)
         {
-            if (settings == null)
-                throw new ArgumentNullException(nameof(settings));
-            _Settings = settings;
+            this.Settings = settings ?? throw new ArgumentNullException(nameof(settings));
         }
 
-        public string UserAgent { get => Settings.UserAgent; set => Settings.UserAgent = value; }
+        public string UserAgent { get => this.Settings.UserAgent; set => this.Settings.UserAgent = value; }
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {
-            if (_IsDisposed) return;
+            if (this._IsDisposed) return;
             if (disposing)
             {
-                _Settings = null;
-                _IsDisposed = true;
+                this._Settings = null;
+                this._IsDisposed = true;
             }
 
 

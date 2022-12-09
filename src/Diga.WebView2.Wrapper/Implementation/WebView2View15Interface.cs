@@ -2,12 +2,13 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2View15Interface : WebView2View14Interface, ICoreWebView2_15
+    public class WebView2View15Interface : WebView2View14Interface
     {
-        private ICoreWebView2_15 _WebView;
+        private ComObjectHolder< ICoreWebView2_15> _WebView;
         private ICoreWebView2_15 WebView
         {
             get
@@ -18,18 +19,18 @@ namespace Diga.WebView2.Wrapper.Implementation
                     throw new InvalidOperationException(nameof(WebView2View15Interface) + "." + nameof(this.WebView) + " is null");
 
                 }
-                return this._WebView;
+                return this._WebView.Interface;
             }
-            set
-            {
-                this._WebView = value;
-            }
+            set => this._WebView = new ComObjectHolder<ICoreWebView2_15>(value);
+        }
 
-
+        public ICoreWebView2_15 GetInterface()
+        {
+            return this.WebView;
         }
         public WebView2View15Interface(ICoreWebView2_15 webView) : base(webView)
         {
-            this._WebView = webView ?? throw new ArgumentNullException(nameof(webView));
+            this.WebView = webView ?? throw new ArgumentNullException(nameof(webView));
         }
 
         public void add_FaviconChanged([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2FaviconChangedEventHandler eventHandler, out EventRegistrationToken token)
@@ -42,7 +43,7 @@ namespace Diga.WebView2.Wrapper.Implementation
             this.WebView.remove_FaviconChanged(token);
         }
 
-        public string FaviconUri => this._WebView.FaviconUri;
+        public string FaviconUri => this.WebView.FaviconUri;
 
         public void GetFavicon([In] COREWEBVIEW2_FAVICON_IMAGE_FORMAT format, [In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2GetFaviconCompletedHandler completedHandler)
         {

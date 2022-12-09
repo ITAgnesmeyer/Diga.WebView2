@@ -1,35 +1,33 @@
-﻿using Diga.WebView2.Interop;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 using Microsoft.Win32.SafeHandles;
 
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2SettingsInterface : ICoreWebView2Settings, IDisposable
+    public class WebView2SettingsInterface :  IDisposable
     {
-        private object _Settings;
+        private ComObjectHolder<ICoreWebView2Settings> _Settings;
         /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
         ///             pattern for any type that is not sealed.
         ///             https://docs.microsoft.com/dotnet/api/system.idisposable#idisposable-and-the-inheritance-hierarchy
-        private SafeHandle handle = (SafeHandle)new SafeFileHandle(IntPtr.Zero, true);
+        private readonly SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
         private ICoreWebView2Settings Settings
         {
             get
             {
-                if (_Settings == null)
+                if (this._Settings == null)
                 {
-                    Debug.Print(nameof(WebView2SettingsInterface) + "." + nameof(Settings) + " is null");
-                    throw new InvalidOperationException(nameof(WebView2SettingsInterface) + "." + nameof(Settings) + " is null");
+                    Debug.Print(nameof(WebView2SettingsInterface) + "." + nameof(this.Settings) + " is null");
+                    throw new InvalidOperationException(nameof(WebView2SettingsInterface) + "." + nameof(this.Settings) + " is null");
 
                 }
-                return (ICoreWebView2Settings)_Settings;
+                return this._Settings.Interface;
             }
-            set
-            {
-                _Settings = value;
-            }
+            set => this._Settings = new ComObjectHolder<ICoreWebView2Settings>(value);
         }
 
 
@@ -38,28 +36,28 @@ namespace Diga.WebView2.Wrapper.Implementation
         {
             if (settings == null)
                 throw new ArgumentNullException(nameof(settings));
-            _Settings = settings;
+            this.Settings = settings;
         }
 
-        public int IsScriptEnabled { get => Settings.IsScriptEnabled; set => Settings.IsScriptEnabled = value; }
-        public int IsWebMessageEnabled { get => Settings.IsWebMessageEnabled; set => Settings.IsWebMessageEnabled = value; }
-        public int AreDefaultScriptDialogsEnabled { get => Settings.AreDefaultScriptDialogsEnabled; set => Settings.AreDefaultScriptDialogsEnabled = value; }
-        public int IsStatusBarEnabled { get => Settings.IsStatusBarEnabled; set => Settings.IsStatusBarEnabled = value; }
-        public int AreDevToolsEnabled { get => Settings.AreDevToolsEnabled; set => Settings.AreDevToolsEnabled = value; }
-        public int AreDefaultContextMenusEnabled { get => Settings.AreDefaultContextMenusEnabled; set => Settings.AreDefaultContextMenusEnabled = value; }
-        public int AreHostObjectsAllowed { get => Settings.AreHostObjectsAllowed; set => Settings.AreHostObjectsAllowed = value; }
-        public int IsZoomControlEnabled { get => Settings.IsZoomControlEnabled; set => Settings.IsZoomControlEnabled = value; }
-        public int IsBuiltInErrorPageEnabled { get => Settings.IsBuiltInErrorPageEnabled; set => Settings.IsBuiltInErrorPageEnabled = value; }
+        public int IsScriptEnabled { get => this.Settings.IsScriptEnabled; set => this.Settings.IsScriptEnabled = value; }
+        public int IsWebMessageEnabled { get => this.Settings.IsWebMessageEnabled; set => this.Settings.IsWebMessageEnabled = value; }
+        public int AreDefaultScriptDialogsEnabled { get => this.Settings.AreDefaultScriptDialogsEnabled; set => this.Settings.AreDefaultScriptDialogsEnabled = value; }
+        public int IsStatusBarEnabled { get => this.Settings.IsStatusBarEnabled; set => this.Settings.IsStatusBarEnabled = value; }
+        public int AreDevToolsEnabled { get => this.Settings.AreDevToolsEnabled; set => this.Settings.AreDevToolsEnabled = value; }
+        public int AreDefaultContextMenusEnabled { get => this.Settings.AreDefaultContextMenusEnabled; set => this.Settings.AreDefaultContextMenusEnabled = value; }
+        public int AreHostObjectsAllowed { get => this.Settings.AreHostObjectsAllowed; set => this.Settings.AreHostObjectsAllowed = value; }
+        public int IsZoomControlEnabled { get => this.Settings.IsZoomControlEnabled; set => this.Settings.IsZoomControlEnabled = value; }
+        public int IsBuiltInErrorPageEnabled { get => this.Settings.IsBuiltInErrorPageEnabled; set => this.Settings.IsBuiltInErrorPageEnabled = value; }
 
         private bool _IsDisposed;
         protected virtual void Dispose(bool disposing)
         {
-            if (_IsDisposed) return;
+            if (this._IsDisposed) return;
             if (disposing)
             {
                 this.handle.Dispose();
-                _Settings = null;
-                _IsDisposed = true;
+                this._Settings = null;
+                this._IsDisposed = true;
             }
         }
 

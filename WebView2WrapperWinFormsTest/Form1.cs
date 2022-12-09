@@ -733,10 +733,10 @@ namespace WebView2WrapperWinFormsTest
                             {
                                 var profile = this.webView1.Profile;
                                 string message = $"Profile:{Environment.NewLine}";
-                                message += $"Download Folder:{profile.Interface.DefaultDownloadFolderPath}{Environment.NewLine}"  ;
-                                message += $"Is Private Mode:{profile.Interface.IsInPrivateModeEnabled}{Environment.NewLine}";
-                                message += $"Preferred color scheme:{profile.Interface.PreferredColorScheme}{Environment.NewLine}";
-                                message += $"Profile Name:{profile.Interface.ProfileName}{Environment.NewLine}";
+                                message += $"Download Folder:{profile.DefaultDownloadFolderPath}{Environment.NewLine}"  ;
+                                message += $"Is Private Mode:{profile.IsInPrivateModeEnabled}{Environment.NewLine}";
+                                message += $"Preferred color scheme:{profile.PreferredColorScheme}{Environment.NewLine}";
+                                message += $"Profile Name:{profile.ProfileName}{Environment.NewLine}";
                                 this.webView1.GetDOMWindow().alert(message);
                             });
 

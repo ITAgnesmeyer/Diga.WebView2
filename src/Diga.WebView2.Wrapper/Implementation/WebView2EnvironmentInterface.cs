@@ -3,19 +3,20 @@ using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
+using Diga.WebView2.Wrapper.Types;
 using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
 
-    public class WebView2EnvironmentInterface : IDisposable ,ICoreWebView2Environment
+    public class WebView2EnvironmentInterface : IDisposable 
     {
-        private object _Environment;
+        private ComObjectHolder<ICoreWebView2Environment> _Environment;
         private bool _IsDisposed;
         /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended
         ///             pattern for any type that is not sealed.
         ///             https://docs.microsoft.com/dotnet/api/system.idisposable#idisposable-and-the-inheritance-hierarchy
-        private SafeHandle handle = (SafeHandle) new SafeFileHandle(IntPtr.Zero, true);
+        private readonly SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
         private ICoreWebView2Environment Environment
         {
             get
@@ -26,18 +27,13 @@ namespace Diga.WebView2.Wrapper.Implementation
                     throw new InvalidOperationException(nameof(WebView2EnvironmentInterface) + "." + nameof(this.Environment) + " is null");
 
                 }
-                return (ICoreWebView2Environment)this._Environment;
+                return this._Environment.Interface;
             }
-            set
-            {
-                this._Environment = value;
-            }
+            set => this._Environment = new ComObjectHolder<ICoreWebView2Environment>(value);
         }
         public WebView2EnvironmentInterface(ICoreWebView2Environment environment)
         {
-            if (environment == null)
-                throw new ArgumentNullException(nameof(environment));
-            this.Environment = environment;
+            this.Environment = environment ?? throw new ArgumentNullException(nameof(environment));
         }
         public void CreateCoreWebView2Controller(IntPtr ParentWindow, [MarshalAs(UnmanagedType.Interface)] ICoreWebView2CreateCoreWebView2ControllerCompletedHandler handler)
         {
