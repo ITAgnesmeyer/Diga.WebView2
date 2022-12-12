@@ -23,10 +23,7 @@ namespace Diga.WebView2.Wrapper.Implementation
                 }
                 return this._Controller.Interface;
             }
-            set
-            {
-                this._Controller = new ComObjectHolder<ICoreWebView2CompositionController>( value);
-            }
+            set => this._Controller = new ComObjectHolder<ICoreWebView2CompositionController>( value);
         }
 
         /// Wraps in SafeHandle so resources can be released if consumer forgets to call Dispose. Recommended

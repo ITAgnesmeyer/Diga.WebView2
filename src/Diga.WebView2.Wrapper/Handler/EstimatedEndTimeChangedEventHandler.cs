@@ -1,10 +1,11 @@
 ﻿using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.EventArguments;
 using System;
 using System.Runtime.InteropServices;
 
-namespace Diga.WebView2.Wrapper.EventArguments
+namespace Diga.WebView2.Wrapper.Handler
 {
-    public class EstimatedEndTimeChangedEventHandler:ICoreWebView2EstimatedEndTimeChangedEventHandler
+    public class EstimatedEndTimeChangedEventHandler : ICoreWebView2EstimatedEndTimeChangedEventHandler
     {
         public event EventHandler<WebView2EventArgs> EstimatedEndTimeChanged;
         public void Invoke([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2DownloadOperation sender, [In, MarshalAs(UnmanagedType.IUnknown)] object args)

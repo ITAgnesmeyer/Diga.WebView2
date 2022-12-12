@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using Diga.WebView2.Wrapper.Implementation;
+using Diga.WebView2.Wrapper.Handler;
 
 namespace Diga.WebView2.Wrapper.EventArguments
 {

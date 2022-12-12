@@ -7,37 +7,35 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper
 {
-    public class CookieManager : ICoreWebView2CookieManager
+    public class CookieManager //: ICoreWebView2CookieManager
     {
-        private ICoreWebView2CookieManager _Interface;
-        
+        private ComObjectHolder<ICoreWebView2CookieManager> _Interface;
+
+        private ICoreWebView2CookieManager Interface
+        {
+            get
+            {
+                return this._Interface.Interface;
+            }
+            set => this._Interface = new ComObjectHolder<ICoreWebView2CookieManager>(value);
+        }
+
         public CookieManager(ICoreWebView2CookieManager iface)
         {
-            this._Interface = iface;
+            this.Interface = iface;
         }
 
         public ICoreWebView2CookieManager ToInterface()
         {
-            return this;
+            return this.Interface;
         }
 
         public Cookie CreateCookie(string name, string value, string Domain, string Path) =>
-            new Cookie(this.ToInterface().CreateCookie(name, value, Domain, Path));
-        ICoreWebView2Cookie ICoreWebView2CookieManager.CreateCookie(string name, string value, string Domain, string Path)
-        {
-            return this._Interface.CreateCookie(name, value, Domain, Path);
-        }
+            new Cookie(this.Interface.CreateCookie(name, value, Domain, Path));
+       
 
-        public Cookie CopyCookie(Cookie cookieParent) => new Cookie(this.ToInterface().CopyCookie(cookieParent));
-        ICoreWebView2Cookie ICoreWebView2CookieManager.CopyCookie(ICoreWebView2Cookie cookieParam)
-        {
-            return this._Interface.CopyCookie(cookieParam);
-        }
+        public Cookie CopyCookie(Cookie cookieParent) => new Cookie(this.Interface.CopyCookie(cookieParent.ToInterface()));
 
-        void ICoreWebView2CookieManager.GetCookies(string uri, ICoreWebView2GetCookiesCompletedHandler handler)
-        {
-            this._Interface.GetCookies(uri, handler);
-        }
 
         
         public async Task<CookieList> GetCookies(string uri)
@@ -55,35 +53,14 @@ namespace Diga.WebView2.Wrapper
         }
 
        
-        public void AddOrUpdateCookie(Cookie cookie) => this.ToInterface().AddOrUpdateCookie(cookie);
-        void ICoreWebView2CookieManager.AddOrUpdateCookie(ICoreWebView2Cookie cookie)
-        {
-            this._Interface.AddOrUpdateCookie(cookie);
-        }
+        public void AddOrUpdateCookie(Cookie cookie) => this.Interface.AddOrUpdateCookie(cookie.ToInterface());
 
-        public void DeleteCookie(Cookie cookie) => this.ToInterface().DeleteCookie(cookie);
-        void ICoreWebView2CookieManager.DeleteCookie(ICoreWebView2Cookie cookie)
-        {
-            this._Interface.DeleteCookie(cookie);
-        }
+        public void DeleteCookie(Cookie cookie) => this.Interface.DeleteCookie(cookie.ToInterface());
 
-        public void DeleteCookies(string name, string uri) => this.ToInterface().DeleteCookies(name, uri);
-        void ICoreWebView2CookieManager.DeleteCookies(string name, string uri)
-        {
-            this._Interface.DeleteCookies(name, uri);
-        }
-
+        public void DeleteCookies(string name, string uri) => this.Interface.DeleteCookies(name, uri);
         public void DeleteCookiesWithDomainAndPath(string name, string domain, string path) =>
-            this.ToInterface().DeleteCookiesWithDomainAndPath(name, domain, path);
-        void ICoreWebView2CookieManager.DeleteCookiesWithDomainAndPath(string name, string Domain, string Path)
-        {
-            this._Interface.DeleteCookiesWithDomainAndPath(name, Domain, Path);
-        }
+            this.Interface.DeleteCookiesWithDomainAndPath(name, domain, path);
 
-        public void DeleteAllCookies() => this.ToInterface().DeleteAllCookies();
-        void ICoreWebView2CookieManager.DeleteAllCookies()
-        {
-            this._Interface.DeleteAllCookies();
-        }
+        public void DeleteAllCookies() => this.Interface.DeleteAllCookies();
     }
 }

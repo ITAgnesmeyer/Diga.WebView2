@@ -20,62 +20,60 @@ namespace Diga.WebView2.Wrapper.Implementation
         {
             get
             {
-                //if (_Args == null)
-                //{
-                //    Debug.Print(nameof(ContextMenuTargetInterface) + "." + nameof(_Args) + " is null");
-                //    throw new InvalidOperationException(nameof(ContextMenuTargetInterface) + "." + nameof(_Args) + " is null");
+                if (_Args == null)
+                {
+                    Debug.Print(nameof(ContextMenuTargetInterface) + "." + nameof(_Args) + " is null");
+                    throw new InvalidOperationException(nameof(ContextMenuTargetInterface) + "." + nameof(_Args) + " is null");
 
-                //}
-                return  _Args.Interface;
+                }
+                return this._Args.Interface;
             }
+            set => this._Args = new ComObjectHolder<ICoreWebView2ContextMenuTarget>(value);
         }
 
         public ContextMenuTargetInterface(ICoreWebView2ContextMenuTarget args)
         {
-            if (args == null) throw new ArgumentNullException(nameof(args));
-
-
-            _Args = new ComObjectHolder<ICoreWebView2ContextMenuTarget>(args);
+            this.Args = args ?? throw new ArgumentNullException(nameof(args));
         }
 
-        public COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND Kind => Args.Kind;
+        public COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND Kind => this.Args.Kind;
 
-        public int IsEditable => Args.IsEditable;
+        public int IsEditable => this.Args.IsEditable;
 
-        public int IsRequestedForMainFrame => Args.IsRequestedForMainFrame;
+        public int IsRequestedForMainFrame => this.Args.IsRequestedForMainFrame;
 
-        public string PageUri => Args.PageUri;
+        public string PageUri => this.Args.PageUri;
 
-        public string FrameUri => Args.FrameUri;
+        public string FrameUri => this.Args.FrameUri;
 
-        public int HasLinkUri => Args.HasLinkUri;
+        public int HasLinkUri => this.Args.HasLinkUri;
 
-        public string LinkUri => Args.LinkUri;
+        public string LinkUri => this.Args.LinkUri;
 
-        public int HasLinkText => Args.HasLinkText;
+        public int HasLinkText => this.Args.HasLinkText;
 
-        public string LinkText => Args.LinkText;
+        public string LinkText => this.Args.LinkText;
 
-        public int HasSourceUri => Args.HasSourceUri;
+        public int HasSourceUri => this.Args.HasSourceUri;
 
-        public string SourceUri => Args.SourceUri;
+        public string SourceUri => this.Args.SourceUri;
 
-        public int HasSelection => Args.HasSelection;
+        public int HasSelection => this.Args.HasSelection;
 
-        public string SelectionText => Args.SelectionText;
+        public string SelectionText => this.Args.SelectionText;
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!this.disposedValue)
             {
                 if (disposing)
                 {
-                    handle.Dispose();
-                    _Args = null;
+                    this.handle.Dispose();
+                    this._Args = null;
                 }
 
 
-                disposedValue = true;
+                this.disposedValue = true;
             }
         }
 

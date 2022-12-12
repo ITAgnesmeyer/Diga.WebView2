@@ -2,12 +2,13 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2Environment10Interface : WebView2Environment9Interface, ICoreWebView2Environment10
+    public class WebView2Environment10Interface : WebView2Environment9Interface //, ICoreWebView2Environment10
     {
-        private ICoreWebView2Environment10 _Environment;
+        private ComObjectHolder< ICoreWebView2Environment10> _Environment;
         private ICoreWebView2Environment10 Environment
         {
             get
@@ -18,9 +19,9 @@ namespace Diga.WebView2.Wrapper.Implementation
                     throw new InvalidOperationException(nameof(WebView2Environment10Interface) + "." + nameof(this.Environment) + " is null");
 
                 }
-                return this._Environment;
+                return this._Environment.Interface;
             }
-            set { this._Environment = value; }
+            set { this._Environment = new ComObjectHolder<ICoreWebView2Environment10>(value); }
         }
 
         public WebView2Environment10Interface(ICoreWebView2Environment10 environment):base(environment)

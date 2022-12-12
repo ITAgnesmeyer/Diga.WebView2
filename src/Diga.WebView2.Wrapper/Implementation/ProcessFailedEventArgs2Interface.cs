@@ -22,10 +22,7 @@ namespace Diga.WebView2.Wrapper.Implementation
 
                 return this._Args.Interface;
             }
-            set
-            {
-                this._Args = new ComObjectHolder<ICoreWebView2ProcessFailedEventArgs2>(value);
-            }
+            set => this._Args = new ComObjectHolder<ICoreWebView2ProcessFailedEventArgs2>(value);
         }
         public ProcessFailedEventArgs2Interface(ICoreWebView2ProcessFailedEventArgs2 args):base(args)
         {

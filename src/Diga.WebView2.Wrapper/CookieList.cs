@@ -1,34 +1,39 @@
 ﻿using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper
 {
-    public class CookieList : ICoreWebView2CookieList
+    public class CookieList //: ICoreWebView2CookieList
     {
        
-        private ICoreWebView2CookieList _Interface;
+        private ComObjectHolder< ICoreWebView2CookieList> _Interface;
 
+        public ICoreWebView2CookieList Interface
+        {
+            get
+            {
+                return this._Interface.Interface;
+            }
+            set => this._Interface = new ComObjectHolder<ICoreWebView2CookieList>(value);
+        }
         public CookieList(ICoreWebView2CookieList iface)
         {
-            this._Interface = iface;
+            this.Interface = iface;
         }
 
         private ICoreWebView2CookieList ToInterface()
         {
-            return this;
+            return this.Interface;
         }
 
-        public uint Count => this.ToInterface().Count;
+        public uint Count => this.Interface.Count;
 
         public Cookie GetValueAtIndex(uint index)
         {
-            var ifae = this.ToInterface().GetValueAtIndex(index);
+            var ifae = this.Interface.GetValueAtIndex(index);
             return new Cookie(ifae);
         }
-        uint ICoreWebView2CookieList.Count => this._Interface.Count;
+        
 
-        ICoreWebView2Cookie ICoreWebView2CookieList.GetValueAtIndex(uint index)
-        {
-            return this._Interface.GetValueAtIndex(index);
-        }
     }
 }

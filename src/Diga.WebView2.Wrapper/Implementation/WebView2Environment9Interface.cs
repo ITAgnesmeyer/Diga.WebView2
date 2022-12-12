@@ -3,12 +3,13 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2Environment9Interface : WebView2Environment8Interface, ICoreWebView2Environment9
+    public class WebView2Environment9Interface : WebView2Environment8Interface
     {
-        private ICoreWebView2Environment9 _Environment;
+        private ComObjectHolder<ICoreWebView2Environment9> _Environment;
         private ICoreWebView2Environment9 Environment
         {
             get
@@ -19,17 +20,14 @@ namespace Diga.WebView2.Wrapper.Implementation
                     throw new InvalidOperationException(nameof(WebView2Environment9Interface) + "." + nameof(this.Environment) + " is null");
 
                 }
-                return this._Environment;
+                return this._Environment.Interface;
             }
-            set { this._Environment = value; }
+            set { this._Environment = new ComObjectHolder<ICoreWebView2Environment9>(value); }
         }
 
         public WebView2Environment9Interface(ICoreWebView2Environment9 environment):base(environment)
         {
-            if (environment == null)
-                throw new ArgumentNullException(nameof(environment));
-
-            this.Environment = environment;  
+            this.Environment = environment ?? throw new ArgumentNullException(nameof(environment));  
         }
 
         [return: MarshalAs(UnmanagedType.IUnknown)]

@@ -2,12 +2,13 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class BasicAuthenticationRequestedEventArgsInterface : ICoreWebView2BasicAuthenticationRequestedEventArgs, IDisposable
+    public class BasicAuthenticationRequestedEventArgsInterface : IDisposable
     {
-        private object _Args;
+        private ComObjectHolder<ICoreWebView2BasicAuthenticationRequestedEventArgs> _Args;
         private bool disposedValue;
 
         private ICoreWebView2BasicAuthenticationRequestedEventArgs Args
@@ -20,14 +21,14 @@ namespace Diga.WebView2.Wrapper.Implementation
 
                     throw new InvalidOperationException(nameof(BasicAuthenticationRequestedEventArgsInterface) + "=>" + nameof(this.Args) + " is null");
                 }
-                return (ICoreWebView2BasicAuthenticationRequestedEventArgs)this._Args;
+                return this._Args.Interface;
             }
-            set { this._Args = value; }
+            set { this._Args = new ComObjectHolder<ICoreWebView2BasicAuthenticationRequestedEventArgs>(value); }
         }
 
         public BasicAuthenticationRequestedEventArgsInterface(ICoreWebView2BasicAuthenticationRequestedEventArgs args)
         {
-            _Args = args ?? throw new ArgumentNullException(nameof(args));
+            this.Args = args ?? throw new ArgumentNullException(nameof(args));
         }
         public string uri => this.Args.uri;
 
