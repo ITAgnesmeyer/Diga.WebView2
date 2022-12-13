@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>net4.7.2;netcoreapp3.1;net6.0-windows;net7.0-windows</TargetFrameworks>
+    <TargetFrameworks>net4.7.2;net6.0-windows;net7.0-windows</TargetFrameworks>
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>Diga.WebView2.WinForms</RootNamespace>
-    <Version>20.0.1</Version>
+    <Version>20.1.0</Version>
     <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
     <Product>Diga.WebView2.WinForms</Product>
     <Copyright>Copyright © 2022 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>

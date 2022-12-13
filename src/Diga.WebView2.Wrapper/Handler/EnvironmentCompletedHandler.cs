@@ -5,8 +5,7 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Handler
 {
-    public class
-       EnvironmentCompletedHandler :
+    public class EnvironmentCompletedHandler :
           ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler
     {
         public ICoreWebView2 WebView { get; private set; }

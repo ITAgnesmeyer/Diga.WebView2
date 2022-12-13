@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net4.7.2;netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
+    <TargetFrameworks>net4.7.2;net6.0;net7.0</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
@@ -9,7 +9,7 @@
     <AssemblyOriginatorKeyFile>ScriptingCore.snk</AssemblyOriginatorKeyFile>
     <RootNamespace>Diga.WebView2.Scripting</RootNamespace>
     <PackageId>Diga.WebView2.Scripting</PackageId>
-    <Version>1.20.1</Version>
+    <Version>1.20.2</Version>
     <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
     <Company>Dipl.-Ing.(FH) Guido Agnesmeyer</Company>
     <Copyright>Copyright © 2022 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
@@ -18,8 +18,8 @@
     <PackageIcon>logo.png</PackageIcon>
     <RepositoryUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>1.19.1</AssemblyVersion>
-    <FileVersion>1.19.1</FileVersion>
+    <AssemblyVersion>1.20.2</AssemblyVersion>
+    <FileVersion>1.20.2</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <Description>DOM Extension</Description>
