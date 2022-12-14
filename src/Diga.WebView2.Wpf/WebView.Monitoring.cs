@@ -108,12 +108,12 @@ namespace Diga.WebView2.Wpf
         {
             try
             {
-            if (this._Responses.ContainsKey(e.Request.Uri))
-            {
-                if (this._Responses.TryRemove(e.Request.Uri, out var resp))
+                if (this._Responses.ContainsKey(e.Request.Uri))
                 {
-                    resp.Dispose();
-                }
+                    if (this._Responses.TryRemove(e.Request.Uri, out var resp))
+                    {
+                        resp.Dispose();
+                    }
 
                 }
 
