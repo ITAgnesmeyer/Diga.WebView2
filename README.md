@@ -24,7 +24,7 @@ It should also be possible to work completely without an HTTP server.
 ### packages are currently supported.
 microsoft.web.webview2
 
-- Version 1.0.1370.28  is the current Version on Client - PC's
+- Version 108.0.1462.46  is the current Version on Client - PC's
 
 WebView2 [Release-Notes](https://docs.microsoft.com/de-de/microsoft-edge/webview2/releasenotes)
 
@@ -38,7 +38,7 @@ Therefore, a link to the Microsoft.Web.WebView2 package is no longer necessary i
 
 ### Package version:
 This means the version of the WebView2 packages.
-- V10115038 => [microsoft.web.webview2 1.0.1150.38](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1150.38)
+- V10146237 => [microsoft.web.webview2 1.0.1462.37](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1462.37)
 
 ### How were the interop sources created?
 The Microsoft microsoft.web.webview2 package contains webview2.tlb.
