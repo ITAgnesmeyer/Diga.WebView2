@@ -53,6 +53,10 @@ namespace Diga.WebView2.Wrapper.EventArguments
                     return "Unexpected error";
                 case ErrorStatus.Unknown:
                     return "Unknown error";
+                case ErrorStatus.ValidAuthenticationCredentialsRequired:
+                    return "Valid Authentication Credentials Required";
+                case ErrorStatus.ValidProxyAuthenticationRequired:
+                    return "Valid Proxy Authentication Required";
             }
 
             return "";

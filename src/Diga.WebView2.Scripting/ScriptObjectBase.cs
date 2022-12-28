@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
 using Diga.WebView2.Interop;
 
@@ -213,7 +212,7 @@ namespace Diga.WebView2.Scripting
                 ScriptCounter--;
                 throw;
             }
-            
+
 
 
 

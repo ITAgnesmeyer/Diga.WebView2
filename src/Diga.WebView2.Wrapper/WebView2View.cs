@@ -685,10 +685,19 @@ namespace Diga.WebView2.Wrapper
             {
                 throw Marshal.GetExceptionForHR(hr);
             }
+            
+        }
 
+        public async Task GetFavIconAsync(Stream stream, ImageFormat imageFormat)
+        {
+            var source = new TaskCompletionSource<GetFaviconCompleteResult>();
+            GetFaviconCompletedHandler hanlder = new GetFaviconCompletedHandler(source);
 
-
-
+            base.GetFavicon((COREWEBVIEW2_FAVICON_IMAGE_FORMAT)imageFormat,hanlder );
+            GetFaviconCompleteResult result = await source.Task;
+            ComStream comStream = new ComStream(result.Stream);
+            byte[] bytes = await comStream.GetAllBytesAsync();
+            await stream.WriteAsync(bytes, 0, bytes.Length);
 
         }
 

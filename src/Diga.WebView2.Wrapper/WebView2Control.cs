@@ -988,6 +988,11 @@ namespace Diga.WebView2.Wrapper
         {
             await this.WebView.CapturePreviewAsync(stream, imageFormat);
         }
+
+        public async Task GetFavIconAsync(Stream stream, ImageFormat imageFormat)
+        {
+            await this.WebView.GetFavIconAsync(stream, imageFormat);
+        }
         protected virtual void OnScriptToExecuteOnDocumentCreatedCompleted(AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
         {
             ScriptToExecuteOnDocumentCreatedCompleted?.Invoke(this, e);

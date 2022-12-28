@@ -24,6 +24,15 @@ namespace Diga.WebView2.WinForms
             }
         }
 
+        public async Task<Image> GetFavIconAsImageAsync(ImageFormat imageFormat)
+        {
+            using (var stream = new MemoryStream())
+            {
+                await this._WebViewControl.GetFavIconAsync(stream, imageFormat);
+                var retImage = Image.FromStream(stream);
+                return retImage;
+            }
+        }
         public void Navigate(string url)
         {
             this._Url = url;

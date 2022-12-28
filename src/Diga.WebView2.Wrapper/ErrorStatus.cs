@@ -18,6 +18,8 @@
         HostNameNotResolved,
         OperationCanceled,
         RedirectFailed,
-        UnexpectedError
+        UnexpectedError,
+        ValidAuthenticationCredentialsRequired,
+        ValidProxyAuthenticationRequired
     }
 }

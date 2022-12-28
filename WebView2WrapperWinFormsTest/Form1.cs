@@ -77,8 +77,10 @@ namespace WebView2WrapperWinFormsTest
 
         }
 
-        private void webView1_NavigationCompleted(object sender, NavigationCompletedEventArgs e)
+        private async void webView1_NavigationCompleted(object sender, NavigationCompletedEventArgs e)
         {
+            Image img = await this.webView1.GetFavIconAsImageAsync(ImageFormat.Png);
+            this.Icon = ImageToIcon(img);
             this.textBox1.Text = this.webView1.Source;
             if (e.IsSuccess == true)
             {
@@ -289,8 +291,18 @@ namespace WebView2WrapperWinFormsTest
 
         }
 
+        private Icon ImageToIcon(Image img)
+        {
+            Bitmap b = (Bitmap)img;
+            IntPtr pIcon = b.GetHicon();
+            Icon i = Icon.FromHandle(pIcon);
+            return i;
+        }
         private async void bnCapture_Click(object sender, EventArgs e)
         {
+            Image imgIcon = await this.webView1.GetFavIconAsImageAsync(ImageFormat.Png);
+            this.Icon = ImageToIcon(imgIcon);
+
             Image img = await this.webView1.CapturePreviewAsImageAsync(ImageFormat.Png);
             await this.webView1.UIDispatcher.InvokeAsync(() =>
             {
@@ -729,7 +741,7 @@ namespace WebView2WrapperWinFormsTest
                         {
 
 
-                            this.webView1.UIDispatcher.Post(() =>
+                            ScriptContext.Run( () =>
                             {
                                 var profile = this.webView1.Profile;
                                 string message = $"Profile:{Environment.NewLine}";
