@@ -3,18 +3,14 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Diga.Core.Threading;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Scripting;
 using Diga.WebView2.Scripting.DOM;
+using Diga.WebView2.WinForms;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
-using Diga.WebView2.Wrapper.Handler;
-using Diga.WebView2.Wrapper.Implementation;
-using Diga.WebView2.Wrapper.Types;
 using Rectangle = System.Drawing.Rectangle;
 
 namespace WebView2WrapperWinFormsTest
@@ -24,12 +20,23 @@ namespace WebView2WrapperWinFormsTest
     public partial class Form1 : Form
     {
         private TestObject _TestObject;
-
+        private Form _SecondForm;
         public Form1()
         {
             this._TestObject = new TestObject();
 
             InitializeComponent();
+            this._SecondForm = new Form();
+            WebView wv = new WebView();
+            wv.Dock = DockStyle.Fill;
+            this._SecondForm.Controls.Add(wv);
+            this._SecondForm.Show(this);
+            this._SecondForm.Closing += (o, e) =>
+            {
+                e.Cancel = true;
+                this._SecondForm.Visible = false;
+            };
+
 
         }
 
@@ -348,7 +355,7 @@ namespace WebView2WrapperWinFormsTest
             WebView2PrintSettings settings = this.webView1.CreatePrintSettings();
 
             settings.Orientation = COREWEBVIEW2_PRINT_ORIENTATION.COREWEBVIEW2_PRINT_ORIENTATION_PORTRAIT;
-           
+
 
             bool ok = await this.webView1.PrintToPdfAsync("C:\\temp\\test.pdf", settings);
             if (ok)
@@ -614,7 +621,7 @@ namespace WebView2WrapperWinFormsTest
 
         private void bnSrc_Click(object sender, EventArgs e)
         {
-            if (this.webView1.Content.Count <= 0) 
+            if (this.webView1.Content.Count <= 0)
                 return;
 
             using (frmSrc src = new frmSrc(this.webView1.Content))
@@ -720,7 +727,7 @@ namespace WebView2WrapperWinFormsTest
             Debug.Print("Unload Document");
         }
 
-        
+
         private WebView2ContextMenuItem _Item;
         private WebView2ContextMenuItem _Sub1;
         private void webView1_ContextMenuRequested(object sender, Diga.WebView2.Wrapper.Handler.ContextMenuRequestedEventArgs e)
@@ -741,11 +748,11 @@ namespace WebView2WrapperWinFormsTest
                         {
 
 
-                            ScriptContext.Run( () =>
+                            ScriptContext.Run(() =>
                             {
                                 var profile = this.webView1.Profile;
                                 string message = $"Profile:{Environment.NewLine}";
-                                message += $"Download Folder:{profile.DefaultDownloadFolderPath}{Environment.NewLine}"  ;
+                                message += $"Download Folder:{profile.DefaultDownloadFolderPath}{Environment.NewLine}";
                                 message += $"Is Private Mode:{profile.IsInPrivateModeEnabled}{Environment.NewLine}";
                                 message += $"Preferred color scheme:{profile.PreferredColorScheme}{Environment.NewLine}";
                                 message += $"Profile Name:{profile.ProfileName}{Environment.NewLine}";
@@ -773,7 +780,25 @@ namespace WebView2WrapperWinFormsTest
                     }
                 }
             }
-            
+
+        }
+
+        private void webView1_NewWindowRequested(object sender, NewWindowRequestedEventArgs e)
+        {
+            using (var def = e.GetDeferral())
+            {
+                this._SecondForm.Visible = true;
+
+                if (this._SecondForm.Controls[0] is WebView wv)
+                {
+                    this._SecondForm.Visible = true;
+
+                    e.NewWindow = wv.WebView2;
+
+                }
+
+
+            }
         }
     }
 }

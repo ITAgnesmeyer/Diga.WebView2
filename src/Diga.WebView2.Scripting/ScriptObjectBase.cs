@@ -189,22 +189,22 @@ namespace Diga.WebView2.Scripting
         {
             try
             {
-                if (ScriptCounter > 0)
-                {
+                //if (ScriptCounter > 0)
+                //{
                     ScriptCounter++;
                     Debug.Print("ScriptCounter:" + ScriptCounter);
                     string var = Diga.Core.Threading.UIDispatcher.UIThread.Invoke(ExecuteScriptAsync(script));
                     ScriptCounter--;
                     return var;
-                }
-                else
-                {
-                    ScriptCounter++;
-                    Debug.Print("ScriptCounter:" + ScriptCounter);
-                    string var = this._View2Control.ExecuteScriptSync(script);
-                    ScriptCounter--;
-                    return var;
-                }
+                //}
+                //else
+                //{
+                //    ScriptCounter++;
+                //    Debug.Print("ScriptCounter:" + ScriptCounter);
+                //    string var = this._View2Control.ExecuteScriptSync(script);
+                //    ScriptCounter--;
+                //    return var;
+                //}
             }
             catch (Exception ex)
             {

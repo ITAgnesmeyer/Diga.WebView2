@@ -71,7 +71,7 @@ namespace Diga.WebView2.Wrapper
         private const string PLEASE_SET_A_VALUE_ABOVE_0 = "Plase Set a value above 0";
         private readonly Dictionary<string, object> _RemoteObjects = new Dictionary<string, object>();
 
-        private WebView2Environment Environment { get; set; }
+        public WebView2Environment Environment { get; private set; }
         public WebView2Control(IntPtr parentHandle) : this(parentHandle, string.Empty, string.Empty, string.Empty)
         {
 
@@ -488,10 +488,10 @@ namespace Diga.WebView2.Wrapper
             OnNavigateStart(e);
         }
 
-        private WebView2View WebView
+        public WebView2View WebView
         {
             get;
-            set;
+            private set;
         }
 
         private WebView2Controller Controller { get; set; }

@@ -314,6 +314,8 @@ namespace Diga.WebView2.WinForms
 
         public WebView2Profile Profile => this._WebViewControl.Profile;
 
+        public WebView2Environment Environment => this._WebViewControl.Environment;
+        public WebView2View WebView2 => this._WebViewControl.WebView;
 
         #endregion
     }

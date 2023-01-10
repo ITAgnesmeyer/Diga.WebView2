@@ -7,7 +7,7 @@ using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2PrintSettingsInterface: IDisposable
+    public class WebView2PrintSettingsInterface:  IDisposable
     {
         private ComObjectHolder<ICoreWebView2PrintSettings> _PrintSettings;
         private bool _IsDesposed;
@@ -22,8 +22,8 @@ namespace Diga.WebView2.Wrapper.Implementation
             {
                 if (_PrintSettings == null)
                 {
-                    Debug.Print(nameof(WebView2SettingsInterface) + "." + nameof(PrinterSettings) + " is null");
-                    throw new InvalidOperationException(nameof(WebView2SettingsInterface) + "." + nameof(PrinterSettings) + " is null");
+                    Debug.Print(nameof(WebView2PrintSettingsInterface) + "." + nameof(PrinterSettings) + " is null");
+                    throw new InvalidOperationException(nameof(WebView2PrintSettingsInterface) + "." + nameof(PrinterSettings) + " is null");
 
                 }
                 return _PrintSettings.Interface;

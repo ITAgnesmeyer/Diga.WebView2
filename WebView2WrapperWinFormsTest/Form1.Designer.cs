@@ -322,6 +322,7 @@
             this.webView1.ZoomFactorChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_ZoomFactorChanged);
             this.webView1.DocumentTitleChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_DocumentTitleChanged);
             this.webView1.ContainsFullScreenElementChanged += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.WebView2EventArgs>(this.webView1_ContainsFullScreenElementChanged);
+            this.webView1.NewWindowRequested += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.NewWindowRequestedEventArgs>(this.webView1_NewWindowRequested);
             this.webView1.PermissionRequested += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.PermissionRequestedEventArgs>(this.webView1_PermissionRequested);
             this.webView1.FrameNavigationCompleted += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.NavigationCompletedEventArgs>(this.webView1_FrameNavigationCompleted);
             this.webView1.FrameNavigationStarting += new System.EventHandler<Diga.WebView2.Wrapper.EventArguments.NavigationStartingEventArgs>(this.webView1_FrameNavigationStarting);
