@@ -6,8 +6,8 @@
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>WrapperSign.snk</AssemblyOriginatorKeyFile>
-    <Version>20.1.0</Version>
-	 <Copyright>Copyright © 2022 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
+    <Version>20.1.1</Version>
+	 <Copyright>Copyright © 2023 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
     <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	 <PackageProjectUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</PackageProjectUrl>

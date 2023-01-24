@@ -9,17 +9,17 @@
     <AssemblyOriginatorKeyFile>ScriptingCore.snk</AssemblyOriginatorKeyFile>
     <RootNamespace>Diga.WebView2.Scripting</RootNamespace>
     <PackageId>Diga.WebView2.Scripting</PackageId>
-    <Version>1.20.2</Version>
+    <Version>1.20.3</Version>
     <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
     <Company>Dipl.-Ing.(FH) Guido Agnesmeyer</Company>
-    <Copyright>Copyright © 2022 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
+    <Copyright>Copyright © 2023 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
     <AssemblyName>Diga.WebView2.Scripting</AssemblyName>
     <PackageProjectUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</PackageProjectUrl>
     <PackageIcon>logo.png</PackageIcon>
     <RepositoryUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>1.20.2</AssemblyVersion>
-    <FileVersion>1.20.2</FileVersion>
+    <AssemblyVersion>1.20.3</AssemblyVersion>
+    <FileVersion>1.20.3</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <Description>DOM Extension</Description>
