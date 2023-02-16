@@ -44,7 +44,7 @@ namespace Diga.WebView2.WinForms
 
         private bool GetResource(string url, out ResponseInfo responseInfo)
         {
-            string monUrl = "https://diga.assets:1/";
+            string monUrl = "diga://";
 
             if (!url.StartsWith(monUrl))
             {

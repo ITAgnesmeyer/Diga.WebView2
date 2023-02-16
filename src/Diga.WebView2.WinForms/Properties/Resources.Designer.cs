@@ -79,7 +79,7 @@ namespace Diga.WebView2.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die data:text/html;charset=utf-8;base64,PGh0bWw+DQo8aGVhZD4NCiAgICA8bWV0YSBjaGFyc2V0PSJ1dGYtOCI+DQo8L2hlYWQ+DQo8Ym9keT4NCiAgICA8YnV0dG9uIG9uY2xpY2s9ImFsZXJ0KCdoYWxsbycpOyI+dGVzdDwvYnV0dG9uPg0KPC9ib2R5Pg0KPC9odG1sPg== ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die data:text/html;charset=utf-8;base64,PGh0bWw+DQo8aGVhZD4NCiAgICA8bWV0YSBjaGFyc2V0PSJ1dGYtOCI+DQoJPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJjc3MvZGlnYS5jc3MiPg0KPC9oZWFkPg0KPGJvZHkgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6cmdiKDI1NSwyNTUsMjU1KSI+DQogICAgPGJ1dHRvbiBjbGFzcz0iYnQtZGlnYS1tYWluIiBvbmNsaWNrPSJhbGVydCgnaGFsbG8nKTsiPnRlc3Q8L2J1dHRvbj4NCjwvYm9keT4NCjwvaHRtbD4= ähnelt.
         /// </summary>
         public static string resources_test_html {
             get {

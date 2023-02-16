@@ -116,9 +116,14 @@ namespace Diga.WebView2.Wrapper
             var options = new WebView2EnvironmentOptions
             {
 
-                AdditionalBrowserArguments = this.AdditionalBrowserArguments
+                AdditionalBrowserArguments = this.AdditionalBrowserArguments,
+                
             };
+            WebView2CustomSchemeRegistration reg = new WebView2CustomSchemeRegistration("diga");
+            reg.AllowedOrgins.Add("*");
+            reg.TreatAsSecure = (CBOOL)true;
 
+            options.CustomSchemeRegistrations.Add(reg);
             Native.CompareBrowserVersions(browserInfo, options.TargetCompatibleBrowserVersion, out int result);
             if (result == (int)BrowserVersionState.Older)
             {
