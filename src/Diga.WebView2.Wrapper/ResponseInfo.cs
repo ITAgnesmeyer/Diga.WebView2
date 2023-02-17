@@ -6,7 +6,7 @@ using System.Text;
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
 {
-    public class ResponseInfo:IDisposable
+    public class ResponseInfo : IDisposable
     {
         private bool disposedValue;
 
@@ -57,7 +57,7 @@ namespace Diga.WebView2.Wrapper
             //{
             //    headerString += "\r\n";
             //}
-            
+
             headerStringBuilder.Append("\r\n");
             //string h = headerStringBuilder.ToString();
             return headerStringBuilder.ToString();
@@ -75,8 +75,8 @@ namespace Diga.WebView2.Wrapper
                         this.Stream = null;
                     }
                 }
-               
-               
+
+
                 disposedValue = true;
             }
         }

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
-using System.Resources;
-using System.Text;
 using Diga.WebView2.WinForms.Properties;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
@@ -15,35 +11,66 @@ namespace Diga.WebView2.WinForms
 {
     public partial class WebView
     {
-        private readonly ConcurrentDictionary<string, ResponseInfo>
-            _Responses = new ConcurrentDictionary<string, ResponseInfo>();
+        //private readonly ConcurrentDictionary<string, ResponseInfo>
+        //    _Responses = new ConcurrentDictionary<string, ResponseInfo>();
 
         private void CheckMonitoring(WebResourceRequestedEventArgs e)
         {
 
-            if (this.EnableMonitoring)
+            string uri = e.Request.Uri;
+            bool isMonitroingUrl = IsMonitoringUrl(uri);
+            bool isResourceUrl = IsResorceUrl(uri);
+            if (isMonitroingUrl || isResourceUrl)
             {
-                //Debug.Print("url request=>" + e.Request.Uri);
-                if (GetFileStream(e.Request.Uri, out var responseInfo))
+                RequestInfo requestInfo = new RequestInfo(e.Request);
+
+                if (isMonitroingUrl)
                 {
-                    var response = this.CreateResponse(responseInfo);
-                    e.Response = response;
-                    this._Responses.TryAdd(e.Request.Uri, responseInfo);
-                    //Debug.Print("Open response:" + this._Responses.Count);
+                    if (GetMonitoringFile(requestInfo, out var responseInfo))
+                    {
+                        var response = this.CreateResponse(responseInfo);
+                        e.Response = response;
+                        return;
+                    }
+                }
+
+
+                if (isResourceUrl)
+                {
+                    if (GetResource(requestInfo, out var responseInfoRes))
+                    {
+                        var response = this.CreateResponse(responseInfoRes);
+                        e.Response = response;
+                        
+                        //return;
+                    }
                 }
             }
+        }
 
-            if (GetResource(e.Request.Uri, out var responseInfoRes))
-            {
-                var response = this.CreateResponse(responseInfoRes);
-                e.Response = response;
-                this._Responses.TryAdd(e.Request.Uri, responseInfoRes);
-            }
+        private bool IsResorceUrl(string url)
+        {
+            if (string.IsNullOrEmpty(url))
+                return false;
+            if (url.StartsWith("diga://"))
+                return true;
+            return false;
 
         }
 
-        private bool GetResource(string url, out ResponseInfo responseInfo)
+        private bool IsMonitoringUrl(string url)
         {
+            if (!this.EnableMonitoring)
+                return false;
+            if (string.IsNullOrEmpty(url))
+                return false;
+            if (url.StartsWith(this.MonitoringUrl))
+                return true;
+            return false;
+        }
+        private bool GetResource(RequestInfo requestInfo, out ResponseInfo responseInfo)
+        {
+            string url = requestInfo.Uri;
             string monUrl = "diga://";
 
             if (!url.StartsWith(monUrl))
@@ -104,30 +131,26 @@ namespace Diga.WebView2.WinForms
                 return true;
             }
 
-
-
-
-
         }
-        private void CleanUpResponses(WebResourceResponseReceivedEventArgs e)
-        {
-            try
-            {
-                if (this._Responses.ContainsKey(e.Request.Uri))
-                {
-                    if (this._Responses.TryRemove(e.Request.Uri, out var resp))
-                    {
-                        resp.Dispose();
-                    }
+        //private void CleanUpResponses(WebResourceResponseReceivedEventArgs e)
+        //{
+        //    //try
+        //    //{
+        //    //    if (this._Responses.ContainsKey(e.Request.Uri))
+        //    //    {
+        //    //        if (this._Responses.TryRemove(e.Request.Uri, out var resp))
+        //    //        {
+        //    //            resp.Dispose();
+        //    //        }
 
-                }
+        //    //    }
 
-            }
-            catch (Exception exception)
-            {
-                Debug.Print("CleanUpResponse Error:" + exception.Message);
-            }
-        }
+        //    //}
+        //    //catch (Exception exception)
+        //    //{
+        //    //    Debug.Print("CleanUpResponse Error:" + exception.Message);
+        //    //}
+        //}
 
         private bool MonitoringFileExist(string file)
         {
@@ -137,8 +160,9 @@ namespace Diga.WebView2.WinForms
             string fullName = Path.Combine(this.MonitoringFolder, file);
             return File.Exists(fullName);
         }
-        private bool GetFileStream(string url, out ResponseInfo responseInfo)
+        private bool GetMonitoringFile(RequestInfo requestInfo, out ResponseInfo responseInfo)
         {
+            string url = requestInfo.Uri;
             if (!url.StartsWith(this.MonitoringUrl))
             {
                 responseInfo = null;
@@ -146,13 +170,13 @@ namespace Diga.WebView2.WinForms
             }
 
             Uri uri = new Uri(url);
-            
+
 
             //TestMimeTypes();
             string baseDirectory = this.MonitoringFolder;
-            
+
             string file = MonitoringFileExist(uri.AbsolutePath) ? uri.AbsolutePath : "";
-            
+
             if (file == "/")
                 file = "";
             if (file.StartsWith("/"))

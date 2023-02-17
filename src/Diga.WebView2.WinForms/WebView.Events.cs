@@ -301,7 +301,7 @@ namespace Diga.WebView2.WinForms
         protected virtual void OnWebResourceResponseReceived(WebResourceResponseReceivedEventArgs e)
         {
             WebResourceResponseReceived?.Invoke(this, e);
-            CleanUpResponses(e);
+            //CleanUpResponses(e);
         }
 
 
