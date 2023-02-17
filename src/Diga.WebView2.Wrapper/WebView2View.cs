@@ -11,9 +11,7 @@ using System.Threading.Tasks;
 using Diga.WebView2.Wrapper.Delegates;
 using Diga.WebView2.Wrapper.Types;
 using System.Security;
-using System.Text;
 using Diga.WebView2.Wrapper.Implementation;
-using MimeTypeExtension;
 
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
@@ -245,88 +243,96 @@ namespace Diga.WebView2.Wrapper
         private void WebResourceResponseReceivedIntern(object sender, WebResourceResponseReceivedEventArgs e)
         {
             
-            try
-            {
+            //try
+            //{
                 
-                //Thread.Sleep(100);
-                if (e.Request.Method == "GET")
-                {
-                    string mimeType = string.Empty;
+            //    //Thread.Sleep(100);
+            //    if (e.Request.Method == "GET")
+            //    {
+            //        string mimeType = string.Empty;
                    
                    
                        
-                        try
-                        {
+            //            try
+            //            {
 
-                            if (e.Response.Headers.Contains("Content-Type"))
-                            {
-                                var header= e.Response.Headers.GetHeaders("Content-Type");
-                                if (header.HasCurrent)
-                                {
-                                    mimeType = header.Current.Value;
-                                }     
+            //                if (e.Response.Headers.Contains("Content-Type"))
+            //                {
+            //                    var header= e.Response.Headers.GetHeaders("Content-Type");
+            //                    if (header.HasCurrent)
+            //                    {
+            //                        mimeType = header.Current.Value;
+            //                    }     
 
-                            }
-                            else
-                            {
-                                Uri uri = new Uri(e.Request.Uri);
-                                string path = uri.GetComponents(UriComponents.Path, UriFormat.Unescaped);
-                                if (!string.IsNullOrEmpty(path) && path.Length < 260)
-                                {
-                                    mimeType = uri.MimeTypeOrDefault();
-                                }
-                                else
-                                {
-                                    if (e.Request.Uri.StartsWith("data:text/html"))
-                                    {
-                                        mimeType = "text/html";
-                                    }
-                                }
+            //                }
+            //                else
+            //                {
+            //                    Uri uri = new Uri(e.Request.Uri);
+            //                    string path = uri.GetComponents(UriComponents.Path, UriFormat.Unescaped);
+            //                    if (!string.IsNullOrEmpty(path) && path.Length < 260)
+            //                    {
+            //                        try
+            //                        {
+            //                            mimeType = uri.MimeTypeOrDefault();
+            //                        }
+            //                        catch
+            //                        {
+            //                            mimeType = "application/octet-stream";
+            //                        }
+                                    
+            //                    }
+            //                    else
+            //                    {
+            //                        if (e.Request.Uri.StartsWith("data:text/html"))
+            //                        {
+            //                            mimeType = "text/html";
+            //                        }
+            //                    }
                                 
-                            }
+            //                }
 
                             
-                        }
-                        catch (Exception exception)
-                        {
-                            Console.WriteLine(exception);
+            //            }
+            //            catch (Exception exception)
+            //            {
+            //                Console.WriteLine(exception);
                             
-                        }
+            //            }
                         
 
                    
 
 
-                    if (mimeType.StartsWith( "text/html"))
-                    {
-                        //using (var stream = e.Response.GetContent())
-                        //{
-                        //    if (stream != null)
-                        //    {
+            //        if (mimeType.StartsWith( "text/html"))
+            //        {
+            //            //using (var stream = e.Response.GetContent())
+            //            //{
+            //            //    if (stream != null)
+            //            //    {
 
 
-                        //        using (StreamReader sr = new StreamReader(stream, Encoding.UTF8))
-                        //        {
-                        //            string content = sr.ReadToEnd();
+            //            //        using (StreamReader sr = new StreamReader(stream, Encoding.UTF8))
+            //            //        {
+            //            //            string content = sr.ReadToEnd();
 
 
-                        //            this.CurrentContent.Add(content);
-                        //            sr.Close();
-                        //        }
+            //            //            this.CurrentContent.Add(content);
+            //            //            sr.Close();
+            //            //        }
 
-                        //        stream.Close();
+            //            //        stream.Close();
 
-                        //    }
+            //            //    }
 
-                        //}
-                    }
-                }
-            }
-            catch (Exception exception)
-            {
-                Debug.WriteLine(exception);
+            //            //}
+            //        }
+            //    }
+            //}
+            //catch (Exception exception)
+            //{
+            //    Debug.WriteLine(exception);
 
-            }
+            //}
 
 
             OnWebResourceResponseReceived(e);

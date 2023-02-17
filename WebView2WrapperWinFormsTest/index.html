@@ -14,7 +14,7 @@
   if(document.diga._heap == undefined) document.diga._heap = new Object();
 
 	document.diga._heap.abc = document.getElementById("FirstButton");
-	alert(document.diga._heap.abc.id);
+	//alert(document.diga._heap.abc.id);
 	document.getElementById("myButton").addEventListener("click", async () => { await window.external.raiseRpcEvent("click", this); });
 	//window.external.raiseRpcEvent = async function(action, obj) { try { const rpcHandler = window.chrome.webview.hostObjects.RpcHandler;const rpcObj = await rpcHandler.GetNewRpc();rpcObj.objId = obj.id;rpcObj.action = action;rpcObj.param = "empty";let r = await rpcHandler.Handle(await rpcObj.id, await rpcObj.action, rpcObj); } catch (e) { alert(e); } }
 	async function TestEventSync(objId) {
