@@ -69,6 +69,7 @@ namespace Diga.WebView2.Wrapper
         private object HostHelper;
         private const string HostHelperName = "{60A417CA-F1AB-4307-801B-F96003F8938B} Host Object Helper";
         private const string PLEASE_SET_A_VALUE_ABOVE_0 = "Plase Set a value above 0";
+        private const string DIGA_SCHEMA = "diga";
         private readonly Dictionary<string, object> _RemoteObjects = new Dictionary<string, object>();
 
         public WebView2Environment Environment { get; private set; }
@@ -119,7 +120,7 @@ namespace Diga.WebView2.Wrapper
                 AdditionalBrowserArguments = this.AdditionalBrowserArguments,
                 
             };
-            WebView2CustomSchemeRegistration reg = new WebView2CustomSchemeRegistration("diga");
+            WebView2CustomSchemeRegistration reg = new WebView2CustomSchemeRegistration(DIGA_SCHEMA);
             reg.AllowedOrgins.Add("*");
             reg.TreatAsSecure = (CBOOL)true;
 
