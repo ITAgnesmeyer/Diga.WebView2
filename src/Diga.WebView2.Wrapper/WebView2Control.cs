@@ -1,4 +1,5 @@
-﻿using System;
+﻿//#define NATIVETEST
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -10,6 +11,7 @@ using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.Delegates;
 using Diga.WebView2.Wrapper.EventArguments;
 using Diga.WebView2.Wrapper.Handler;
+using Diga.WebView2.Wrapper.Implementation;
 using Diga.WebView2.Wrapper.interop;
 using Diga.WebView2.Wrapper.Types;
 
@@ -17,7 +19,7 @@ using Diga.WebView2.Wrapper.Types;
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
 {
-   
+
     public class WebView2Control : IDisposable
     {
         private static int RefCounter;
@@ -63,7 +65,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<WebView2EventArgs> IsDefaultDownloadDialogOpenChanged;
         public event EventHandler<BasicAuthenticationRequestedEventArgs> BasicAuthenticationRequested;
         public event EventHandler<ContextMenuRequestedEventArgs> ContextMenuRequested;
-        public event EventHandler<PrintToPdfCompleteEventArgs> PrintToPdfCompleted; 
+        public event EventHandler<PrintToPdfCompleteEventArgs> PrintToPdfCompleted;
         private WebView2Settings _Settings;
         private string _BrowserInfo;
         private object HostHelper;
@@ -113,6 +115,11 @@ namespace Diga.WebView2.Wrapper
             Native.GetAvailableCoreWebView2BrowserVersionString(this.BrowserExecutableFolder, out string browserInfo);
             this._BrowserInfo = browserInfo;
 
+
+#if NATIVETEST
+            Native.CreateCoreWebView2EvenironmentX(handler);
+#else
+
             //Native.CreateCoreWebView2EnvironmentWithDetails(this.BrowserExecutableFolder, this.UserDataFolder, this.AdditionalBrowserArguments, handler);
             var options = new WebView2EnvironmentOptions
             {
@@ -134,7 +141,7 @@ namespace Diga.WebView2.Wrapper
 
             Native.CreateCoreWebView2EnvironmentWithOptions(this.BrowserExecutableFolder, this.UserDataFolder, options,
                 handler);
-
+#endif
         }
 
         private void OnCompositionControllerCompletedIntern(object sender, CompositionControllerCompletedEventArgs e)
@@ -220,8 +227,10 @@ namespace Diga.WebView2.Wrapper
             this.WebView.PrintToPdfCompleted += OnPrintToPdfCompletedIntern;
             //this._Settings = new WebView2Settings(this.WebView.Settings);
             this._Settings = this.WebView.Settings;
-            object  wwInterface = e.WebView;
-
+            object wwInterface = e.WebView;
+            //Stay on top until the interface is not supportert
+            //Reason: ICoreWebView2PrivatePartial Implementeaion is extream slow
+            //looking forward to sharing Buffer?
             if (wwInterface is ICoreWebView2Staging stating)
             {
                 StagingHostHelper statingHostHelper = new StagingHostHelper();
@@ -230,9 +239,22 @@ namespace Diga.WebView2.Wrapper
             }
             else
             {
-                this.WebView.AddRemoteObject(HostHelperName, ref this.HostHelper);    
+                //this interface is extreme slow
+                //handling data my cause 
+                if (wwInterface is ICoreWebView2PrivatePartial partial)
+                {
+                    WebView2PrivateHostObjectHelperRaw partialHostHelper = new WebView2PrivateHostObjectHelperRaw();
+
+                    partial.AddHostObjectHelper(partialHostHelper);
+                }
+
+                else
+                {
+                    this.WebView.AddRemoteObject(HostHelperName, ref this.HostHelper);
+                }
+
             }
-            
+
 
             OnCreated();
         }
@@ -593,7 +615,7 @@ namespace Diga.WebView2.Wrapper
 
         public void NavigateToUri(Uri uri)
         {
-            if(uri == null)
+            if (uri == null)
                 throw new ArgumentNullException("uri");
 
             string url = uri.IsAbsoluteUri ? uri.AbsoluteUri : uri.AbsolutePath;
@@ -606,7 +628,7 @@ namespace Diga.WebView2.Wrapper
             this.WebView?.NavigateWithWebResourceRequest(request);
         }
 
-        public WebResourceRequest CreateNewRequest(string url,string method, Stream requestBodyStream, string headerData)
+        public WebResourceRequest CreateNewRequest(string url, string method, Stream requestBodyStream, string headerData)
         {
             WebResourceRequest request = GetWebResourceRequest(url, method, requestBodyStream, headerData);
             return request;
@@ -617,7 +639,7 @@ namespace Diga.WebView2.Wrapper
         public WebResourceRequest GetWebResourceRequest(string url, string method, Stream postDataStream,
             string headers)
         {
-            
+
             if (this.Environment == null)
             {
                 throw new InvalidOperationException("Environment not created");
@@ -988,7 +1010,7 @@ namespace Diga.WebView2.Wrapper
         public void SetVirtualHostNameToFolderMapping(string hostName, string folder,
             COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND access)
         {
-            this.WebView.SetVirtualHostNameToFolderMapping(hostName,folder, access);
+            this.WebView.SetVirtualHostNameToFolderMapping(hostName, folder, access);
         }
         public async Task CapturePreviewAsync(Stream stream, ImageFormat imageFormat)
         {
@@ -1024,9 +1046,9 @@ namespace Diga.WebView2.Wrapper
             DOMContentLoaded?.Invoke(this, e);
         }
 
-        protected virtual  void OnWebResourceResponseReceived(WebResourceResponseReceivedEventArgs e)
+        protected virtual void OnWebResourceResponseReceived(WebResourceResponseReceivedEventArgs e)
         {
-           
+
 
             WebResourceResponseReceived?.Invoke(this, e);
         }
@@ -1101,10 +1123,10 @@ namespace Diga.WebView2.Wrapper
             return this.WebView.PrintToPdfAsync(file, printSettings);
         }
 
-        public WebView2ContextMenuItem CreateContextMenuItem(string lable,Stream iconStream,
+        public WebView2ContextMenuItem CreateContextMenuItem(string lable, Stream iconStream,
             COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND kind)
         {
-            return Environment.CreateContextMenuItem(lable,iconStream, kind);
+            return Environment.CreateContextMenuItem(lable, iconStream, kind);
         }
         protected virtual void OnIsMutedChanged(WebView2EventArgs e)
         {
@@ -1130,7 +1152,7 @@ namespace Diga.WebView2.Wrapper
         {
             EventHandler<ContextMenuRequestedEventArgs> handler = this.ContextMenuRequested;
 
-            if (handler!= null)
+            if (handler != null)
                 handler(this, e);
             //ContextMenuRequested?.Invoke(this, e);
         }

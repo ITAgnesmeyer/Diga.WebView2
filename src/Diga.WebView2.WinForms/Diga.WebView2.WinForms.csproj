@@ -38,6 +38,7 @@
     <None Include="logo.png" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Diga.WebView2.Monitoring\Diga.WebView2.Monitoring.csproj" />
     <ProjectReference Include="..\Diga.WebView2.Scripting\Diga.WebView2.Scripting.csproj" />
     <ProjectReference Include="..\Diga.WebView2.Wrapper\Diga.WebView2.Wrapper.csproj" />
   </ItemGroup>

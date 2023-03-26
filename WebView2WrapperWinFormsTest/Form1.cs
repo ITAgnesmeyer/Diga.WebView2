@@ -800,5 +800,52 @@ namespace WebView2WrapperWinFormsTest
 
             }
         }
+
+        private void buildFormToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DOMDocument doc = this.webView1.GetDOMDocument();
+            DOMElement form = doc.createElement("form");
+            form.id = "mainFrom";
+            //form.setAttribute("method","GET");
+            form.setAttribute("action", "https://5b834d57-0891-4730-b6ba-c793b4e76468/");
+            //form.setAttribute("encrypt","multipart/form-data");
+
+            DOMElement userfile = doc.createElement("input");
+            userfile.setAttribute("type", "file");
+            userfile.setAttribute("name", "userfile");
+            userfile.id = "userFile";
+            form.appendChild(userfile);
+            DOMElement br = doc.createElement("br");
+            form.appendChild(br);
+            DOMElement upload_btn = doc.createElement("input");
+            upload_btn.setAttribute("type", "submit");
+            upload_btn.setAttribute("name", "upload_btn");
+            upload_btn.setAttribute("value", "upload");
+            form.appendChild(upload_btn);
+            DOMEventListenerScript scr = new DOMEventListenerScript(userfile, "change");
+            userfile.addEventListener("change",scr,false);
+            doc.body.appendChild(form);
+            userfile.DomEvent += (o, ev) =>
+            {
+ 
+
+                string objId = ev.RpcObject.objId;
+                string value = userfile.GetProperty<string>("value");
+                string fullPath = userfile.GetProperty<string>("files[0].name");
+                MessageBox.Show($"Event:{ev.EventName}\nObjId:{objId}\nElement_EventID:{ev.ObjectId}\nElement:{userfile.id}\nValue:{value}");
+               
+                DOMElement x = doc.createElement("h1");
+                x.innerText = value;
+                doc.body.appendChild(x);
+            };
+            
+        }
+
+
+        private void lblMenu_Click(object sender, EventArgs e)
+        {
+            contextMenuMore.Show(lblMenu,0,lblMenu.Height);
+
+        }
     }
 }

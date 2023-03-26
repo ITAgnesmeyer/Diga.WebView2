@@ -29,6 +29,9 @@ namespace Diga.WebView2.Wrapper.interop
         public static extern int CreateEnvironment(
             [In] ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler environmentCreatedHandler);
 
+        [DllImport(EXTERNAL_DLL,EntryPoint = "CreateEnvironment", CallingConvention = CallingConvention.StdCall, SetLastError = true)]
+        public static extern int CreateEnvironmentX(IntPtr envecreateHandler);
+
         [DllImport(EXTERNAL_DLL, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern int CreateEnvironmentWithOptions(
             [In, MarshalAs(UnmanagedType.LPWStr)] string browserExecutableFolder,

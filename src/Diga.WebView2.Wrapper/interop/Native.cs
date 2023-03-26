@@ -63,6 +63,24 @@ namespace Diga.WebView2.Wrapper.interop
 
         }
 
+        public static int CreateCoreWebView2EvenironmentX(ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler environmentCreatedHandler)
+        {
+            object o = environmentCreatedHandler;
+            GCHandle h = GCHandle.Alloc(o);
+            IntPtr p = h.AddrOfPinnedObject();
+
+            switch (OsArchitecture)
+            {
+                case Architecture.X64:
+                    return Native64.CreateEnvironmentX(p);
+                case Architecture.X86:
+                    return Native32.CreateEnvironmentX(p);
+                case Architecture.Arm64:
+                    return NativeArm64.CreateEnvironment(environmentCreatedHandler);
+                default:
+                    throw new PlatformNotSupportedException();
+            }
+        }
 
 
         public static int CreateCoreWebView2Environment(

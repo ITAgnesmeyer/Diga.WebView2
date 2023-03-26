@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using Diga.Core.Threading;
+using Diga.WebView2.Monitoring;
 using Diga.WebView2.Scripting;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
@@ -21,6 +22,7 @@ namespace Diga.WebView2.WinForms
             this._RpcHandler = new RpcHandler();
             this._RpcHandler.RpcEvent += OnRpcEventIntern;
             this._RpcHandler.RpcDomUnloadEvent += OnRpcDomUnloadEvent;
+            _MonitoringActionList = new MonitoringActionList();
             InitializeComponent();
         }
 

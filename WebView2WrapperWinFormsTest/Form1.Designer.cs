@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblMenu = new System.Windows.Forms.Label();
             this.bnScriptSync = new System.Windows.Forms.Button();
             this.lblMuted = new System.Windows.Forms.Label();
             this.bnSrcTest = new System.Windows.Forms.Button();
@@ -48,13 +50,17 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.webView1 = new Diga.WebView2.WinForms.WebView();
+            this.contextMenuMore = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.buildFormToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.panel2.SuspendLayout();
+            this.contextMenuMore.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblMenu);
             this.panel1.Controls.Add(this.bnScriptSync);
             this.panel1.Controls.Add(this.lblMuted);
             this.panel1.Controls.Add(this.bnSrcTest);
@@ -78,10 +84,20 @@
             this.panel1.Size = new System.Drawing.Size(1325, 32);
             this.panel1.TabIndex = 0;
             // 
+            // lblMenu
+            // 
+            this.lblMenu.AutoSize = true;
+            this.lblMenu.Location = new System.Drawing.Point(1156, 12);
+            this.lblMenu.Name = "lblMenu";
+            this.lblMenu.Size = new System.Drawing.Size(31, 13);
+            this.lblMenu.TabIndex = 17;
+            this.lblMenu.Text = "More";
+            this.lblMenu.Click += new System.EventHandler(this.lblMenu_Click);
+            // 
             // bnScriptSync
             // 
             this.bnScriptSync.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bnScriptSync.Location = new System.Drawing.Point(843, 3);
+            this.bnScriptSync.Location = new System.Drawing.Point(819, 3);
             this.bnScriptSync.Name = "bnScriptSync";
             this.bnScriptSync.Size = new System.Drawing.Size(43, 23);
             this.bnScriptSync.TabIndex = 16;
@@ -102,9 +118,9 @@
             // 
             // bnSrcTest
             // 
-            this.bnSrcTest.Location = new System.Drawing.Point(1232, 7);
+            this.bnSrcTest.Location = new System.Drawing.Point(1237, 7);
             this.bnSrcTest.Name = "bnSrcTest";
-            this.bnSrcTest.Size = new System.Drawing.Size(46, 20);
+            this.bnSrcTest.Size = new System.Drawing.Size(41, 20);
             this.bnSrcTest.TabIndex = 14;
             this.bnSrcTest.Text = "SRC";
             this.bnSrcTest.UseVisualStyleBackColor = true;
@@ -113,7 +129,7 @@
             // bnSrc
             // 
             this.bnSrc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bnSrc.Location = new System.Drawing.Point(1021, 3);
+            this.bnSrc.Location = new System.Drawing.Point(995, 3);
             this.bnSrc.Name = "bnSrc";
             this.bnSrc.Size = new System.Drawing.Size(34, 24);
             this.bnSrc.TabIndex = 13;
@@ -124,7 +140,7 @@
             // button6
             // 
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Location = new System.Drawing.Point(978, 3);
+            this.button6.Location = new System.Drawing.Point(952, 3);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(37, 23);
             this.button6.TabIndex = 12;
@@ -134,9 +150,9 @@
             // 
             // bnScriptTest
             // 
-            this.bnScriptTest.Location = new System.Drawing.Point(1186, 7);
+            this.bnScriptTest.Location = new System.Drawing.Point(1201, 7);
             this.bnScriptTest.Name = "bnScriptTest";
-            this.bnScriptTest.Size = new System.Drawing.Size(40, 20);
+            this.bnScriptTest.Size = new System.Drawing.Size(30, 20);
             this.bnScriptTest.TabIndex = 11;
             this.bnScriptTest.Text = "ST";
             this.bnScriptTest.UseVisualStyleBackColor = true;
@@ -145,7 +161,7 @@
             // lblZoomFactor
             // 
             this.lblZoomFactor.AutoSize = true;
-            this.lblZoomFactor.Location = new System.Drawing.Point(1160, 9);
+            this.lblZoomFactor.Location = new System.Drawing.Point(1124, 10);
             this.lblZoomFactor.Name = "lblZoomFactor";
             this.lblZoomFactor.Size = new System.Drawing.Size(25, 13);
             this.lblZoomFactor.TabIndex = 10;
@@ -154,11 +170,11 @@
             // trackBar1
             // 
             this.trackBar1.AutoSize = false;
-            this.trackBar1.Location = new System.Drawing.Point(1056, 4);
+            this.trackBar1.Location = new System.Drawing.Point(1035, 6);
             this.trackBar1.Maximum = 500;
             this.trackBar1.Minimum = 1;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(97, 20);
+            this.trackBar1.Size = new System.Drawing.Size(83, 20);
             this.trackBar1.TabIndex = 9;
             this.trackBar1.Value = 100;
             this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
@@ -178,7 +194,7 @@
             // bnPostMessage
             // 
             this.bnPostMessage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bnPostMessage.Location = new System.Drawing.Point(939, 3);
+            this.bnPostMessage.Location = new System.Drawing.Point(913, 3);
             this.bnPostMessage.Name = "bnPostMessage";
             this.bnPostMessage.Size = new System.Drawing.Size(33, 23);
             this.bnPostMessage.TabIndex = 7;
@@ -189,7 +205,7 @@
             // bnCapture
             // 
             this.bnCapture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bnCapture.Location = new System.Drawing.Point(892, 3);
+            this.bnCapture.Location = new System.Drawing.Point(868, 3);
             this.bnCapture.Name = "bnCapture";
             this.bnCapture.Size = new System.Drawing.Size(39, 23);
             this.bnCapture.TabIndex = 6;
@@ -202,7 +218,7 @@
             this.bnScript.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bnScript.Location = new System.Drawing.Point(762, 3);
             this.bnScript.Name = "bnScript";
-            this.bnScript.Size = new System.Drawing.Size(74, 23);
+            this.bnScript.Size = new System.Drawing.Size(51, 23);
             this.bnScript.TabIndex = 5;
             this.bnScript.Text = "Async Script";
             this.bnScript.UseVisualStyleBackColor = true;
@@ -285,11 +301,15 @@
             // 
             this.webView1.AreBrowserAcceleratorKeysEnabled = true;
             this.webView1.BackColor = System.Drawing.Color.Black;
+            this.webView1.CgiExeFile = "C:\\php\\php-cgi.exe";
+            this.webView1.CgiMoitoringFolder = "C:\\TEMP";
+            this.webView1.CgiMoitoringUrl = "https://localhost:1/";
             this.webView1.DefaultBackgroundColor = System.Drawing.Color.AliceBlue;
             this.webView1.DefaultContextMenusEnabled = true;
             this.webView1.DefaultScriptDialogsEnabled = true;
             this.webView1.DevToolsEnabled = true;
             this.webView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webView1.EnableCgi = true;
             this.webView1.EnableMonitoring = true;
             this.webView1.HtmlContent = null;
             this.webView1.IsGeneralAutoFillEnabled = true;
@@ -342,6 +362,20 @@
             this.webView1.DocumentUnload += new System.EventHandler(this.webView1_DocumentUnload);
             this.webView1.ContextMenuRequested += new System.EventHandler<Diga.WebView2.Wrapper.Handler.ContextMenuRequestedEventArgs>(this.webView1_ContextMenuRequested);
             // 
+            // contextMenuMore
+            // 
+            this.contextMenuMore.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buildFormToolStripMenuItem});
+            this.contextMenuMore.Name = "contextMenuMore";
+            this.contextMenuMore.Size = new System.Drawing.Size(133, 26);
+            // 
+            // buildFormToolStripMenuItem
+            // 
+            this.buildFormToolStripMenuItem.Name = "buildFormToolStripMenuItem";
+            this.buildFormToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.buildFormToolStripMenuItem.Text = "Build Form";
+            this.buildFormToolStripMenuItem.Click += new System.EventHandler(this.buildFormToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -357,6 +391,7 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.panel2.ResumeLayout(false);
+            this.contextMenuMore.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -383,6 +418,9 @@
         private System.Windows.Forms.Button bnSrcTest;
         private System.Windows.Forms.Label lblMuted;
         private System.Windows.Forms.Button bnScriptSync;
+        private System.Windows.Forms.Label lblMenu;
+        private System.Windows.Forms.ContextMenuStrip contextMenuMore;
+        private System.Windows.Forms.ToolStripMenuItem buildFormToolStripMenuItem;
     }
 }
 
