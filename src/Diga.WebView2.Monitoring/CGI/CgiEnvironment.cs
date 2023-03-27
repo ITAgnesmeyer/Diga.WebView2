@@ -73,7 +73,7 @@ namespace Diga.WebView2.Monitoring.CGI
             SetVar(info, this.QueryString, "QUERY_STRING");
             SetVar(info, this.ContentLength, "CONTENT_LENGTH");
             SetVar(info, this.ContentType, "CONTENT_TYPE");
-            SetVar(info, this.RequestedMethod, "REQUESTED_METHOD");
+            SetVar(info, this.RequestedMethod, "REQUEST_METHOD");
             SetVar(info, this.RequestUri, "REQUEST_URI");
             SetVar(info, this.UserAgent, "USER_AGENT");
             SetVar(info, this.ServerAddr, "SERVER_ADDR");

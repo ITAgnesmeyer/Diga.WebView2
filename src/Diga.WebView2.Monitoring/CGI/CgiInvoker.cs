@@ -56,6 +56,11 @@ namespace Diga.WebView2.Monitoring.CGI
             environment.ContentLength = body.Length.ToString();
             environment.RequestedMethod = mehtod.ToString();
             environment.QueryString = GetQueryString(uri);
+            if (!string.IsNullOrEmpty(environment.QueryString))
+            {
+                string args = environment.QueryString.Replace("&", " ");
+                //p.StartInfo.Arguments += " " + args;
+            }
             FileInfo info = new FileInfo(scriptPath);
             string scriptFilePath = info.FullName;
             string scriptFileName = info.Name;

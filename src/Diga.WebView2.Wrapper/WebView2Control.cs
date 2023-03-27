@@ -228,7 +228,7 @@ namespace Diga.WebView2.Wrapper
             //this._Settings = new WebView2Settings(this.WebView.Settings);
             this._Settings = this.WebView.Settings;
             object wwInterface = e.WebView;
-            //Stay on top until the interface is not supportert
+            //Stay on top until the interface is not supportet
             //Reason: ICoreWebView2PrivatePartial Implementeaion is extream slow
             //looking forward to sharing Buffer?
             if (wwInterface is ICoreWebView2Staging stating)
