@@ -131,7 +131,7 @@ namespace Diga.WebView2.Wrapper.Implementation
                 if (disposing)
                 {
                     this.handle.Dispose();
-                    this.Controller = null;
+                    this._Controller = null;
                 }
 
 

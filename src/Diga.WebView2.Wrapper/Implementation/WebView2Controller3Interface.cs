@@ -51,7 +51,7 @@ namespace Diga.WebView2.Wrapper.Implementation
             if (this._IsDisposed) return;
             if (disposing)
             {
-                this.Controller = null;
+                this._Controller = null;
                 this._IsDisposed = true;
             }
             base.Dispose(disposing);

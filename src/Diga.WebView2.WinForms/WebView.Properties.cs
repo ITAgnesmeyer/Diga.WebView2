@@ -120,6 +120,21 @@ namespace Diga.WebView2.WinForms
             }
         }
 
+        private string[] _CgiFileExtensions;
+       
+        public string[] CgiFileExtensions
+        {
+            get
+            {
+                return this._CgiFileExtensions;
+            }
+            set
+            {
+                this._CgiFileExtensions = value;
+                this._MonitoringActionList.CgiMointoring.SetCgiExtionsions(value);
+
+            }
+        }
         private string _CgiExeFile;
         [Editor(typeof(ExeSelectFileNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
         public string CgiExeFile

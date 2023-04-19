@@ -26,6 +26,7 @@ namespace Diga.WebView2.WinForms
             InitializeComponent();
         }
 
+        
 
         #region Internal functions
 

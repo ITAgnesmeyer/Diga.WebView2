@@ -1,9 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0</TargetFrameworks>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>MonitoringSign.snk</AssemblyOriginatorKeyFile>
+    <Version>1.20.3</Version>
+    <RootNamespace>Diga.WebView2.Monitoring</RootNamespace>
+    <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
+    <Company>Dipl.-Ing.(FH) Guido Agnesmeyer</Company>
+    <Copyright>Copyright © 2023 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
+    <PackageId>Diga.WebView2.Monitoring</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</PackageProjectUrl>
+    <PackageIcon>logo.png</PackageIcon>
+    <RepositoryUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</RepositoryUrl>
+    <AssemblyName>Diga.WebView2.Monitoring</AssemblyName>
+    <RepositoryType>git</RepositoryType>
+    <AssemblyVersion>1.20.3</AssemblyVersion>
+    <FileVersion>1.20.3</FileVersion>
+    <Description>Monitoring Extension</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,6 +44,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>WebResoruces.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="logo.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>

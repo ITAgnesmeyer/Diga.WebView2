@@ -1171,6 +1171,19 @@ namespace Diga.WebView2.Wrapper
         {
             PrintToPdfCompleted?.Invoke(this, e);
         }
+
+        public void Stop()
+        {
+            try
+            {
+                this.WebView.Stop();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Stop cannot be called:" + e.Message);
+            }
+            
+        }
     }
 
 

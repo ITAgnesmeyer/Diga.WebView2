@@ -26,7 +26,10 @@ namespace Diga.WebView2.WinForms
                 {
                     components.Dispose();
                 }
-               
+
+                //this._WebViewControl.Stop();
+                //this._WebViewControl?.WebView.Stop();
+                //this._WebViewControl?.Dispose(disposing);
             }
 
             base.Dispose(disposing);

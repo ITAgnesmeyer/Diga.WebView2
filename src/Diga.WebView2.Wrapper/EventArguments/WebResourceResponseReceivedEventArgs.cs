@@ -21,7 +21,16 @@ namespace Diga.WebView2.Wrapper.EventArguments
         public WebResourceRequest Request => new WebResourceRequest(this.Tointerface().Request);
 
         public WebResourceResponseView Response => new WebResourceResponseView(this.Tointerface().Response);
-        ICoreWebView2WebResourceRequest ICoreWebView2WebResourceResponseReceivedEventArgs.Request => this._Args.Request;
+
+        ICoreWebView2WebResourceRequest ICoreWebView2WebResourceResponseReceivedEventArgs.Request
+        {
+            get
+            {
+                if (this._Args == null)
+                    return null;
+                return this._Args.Request;
+            }
+        } 
 
         ICoreWebView2WebResourceResponseView ICoreWebView2WebResourceResponseReceivedEventArgs.Response => this._Args.Response;
 
@@ -44,6 +53,7 @@ namespace Diga.WebView2.Wrapper.EventArguments
         // // TODO: Finalizer nur überschreiben, wenn "Dispose(bool disposing)" Code für die Freigabe nicht verwalteter Ressourcen enthält
         ~WebResourceResponseReceivedEventArgs()
         {
+            
             // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
             Dispose(disposing: false);
         }

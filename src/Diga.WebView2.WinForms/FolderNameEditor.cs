@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Drawing.Design;
 using System.Windows.Forms;
+using System.Windows.Forms.Design;
 
 namespace Diga.WebView2.WinForms
 {
@@ -49,6 +52,21 @@ namespace Diga.WebView2.WinForms
         }
 
 
+    }
+
+    public sealed class StringArrayItem
+    {
+        private string _Value;
+        public StringArrayItem()
+        {
+            this._Value = string.Empty;
+        }
+
+        public string Value
+        {
+            get => _Value;
+            set => _Value = value;
+        }
     }
     public sealed class FolderNameEditor : UITypeEditor
     {

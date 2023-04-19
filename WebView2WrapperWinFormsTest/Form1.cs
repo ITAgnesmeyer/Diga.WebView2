@@ -264,7 +264,7 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_ScriptToExecuteOnDocumentCreatedCompleted(object sender, AddScriptToExecuteOnDocumentCreatedCompletedEventArgs e)
         {
-            Debug.Print(e.Id);
+            Debug.Print("ScriptToExecuteOnDocumentCreatedCompleted:" + e.Id);
         }
 
         private async void bnScript_Click(object sender, EventArgs e)
@@ -823,28 +823,28 @@ namespace WebView2WrapperWinFormsTest
             upload_btn.setAttribute("value", "upload");
             form.appendChild(upload_btn);
             DOMEventListenerScript scr = new DOMEventListenerScript(userfile, "change");
-            userfile.addEventListener("change",scr,false);
+            userfile.addEventListener("change", scr, false);
             doc.body.appendChild(form);
             userfile.DomEvent += (o, ev) =>
             {
- 
+
 
                 string objId = ev.RpcObject.objId;
                 string value = userfile.GetProperty<string>("value");
                 string fullPath = userfile.GetProperty<string>("files[0].name");
                 MessageBox.Show($"Event:{ev.EventName}\nObjId:{objId}\nElement_EventID:{ev.ObjectId}\nElement:{userfile.id}\nValue:{value}");
-               
+
                 DOMElement x = doc.createElement("h1");
                 x.innerText = value;
                 doc.body.appendChild(x);
             };
-            
+
         }
 
 
         private void lblMenu_Click(object sender, EventArgs e)
         {
-            contextMenuMore.Show(lblMenu,0,lblMenu.Height);
+            contextMenuMore.Show(lblMenu, 0, lblMenu.Height);
 
         }
     }

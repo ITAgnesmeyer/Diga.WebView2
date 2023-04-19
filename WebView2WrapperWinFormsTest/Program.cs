@@ -1,6 +1,7 @@
 ﻿using Diga.WebView2.Wrapper.Types;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices.ComTypes;
@@ -25,22 +26,53 @@ static class Program
         [STAThread]
         static void Main()
         {
+            WriteLog("Application Start");
             Application.ThreadException +=OnTreadException;
-            
+            Application.ApplicationExit += OnApplicationExit;
+            Application.ThreadExit += OnThreadExit;
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             AppDomain currentDomain = AppDomain.CurrentDomain;
             currentDomain.UnhandledException+=OnUnHandledException;
             currentDomain.FirstChanceException+=OnFirsChanceException;
+            currentDomain.ProcessExit += OnProcessExit;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+        }
+
+        private static void OnProcessExit(object sender, EventArgs e)
+        {
+            WriteLog("Process Exit");
+
+
+            DateTime n = DateTime.Now;
+            DateTime x = DateTime.Now;
+            TimeSpan diff = x - n;
+            while (diff.Seconds < 5)
+            {
+                Application.DoEvents();
+                x = DateTime.Now;
+                diff = x - n;
+            }
+
+
+        }
+
+        private static void OnThreadExit(object sender, EventArgs e)
+        {
+            WriteLog("Thread Exit");
+        }
+
+        private static void OnApplicationExit(object sender, EventArgs e)
+        {
+            WriteLog("Application Exit");
         }
 
         private static void OnFirsChanceException(object sender, FirstChanceExceptionEventArgs e)
         {
             if(e.Exception != null)
             {
-                Debug.Print("OnFirsChanceException:" + e.Exception.ToString());
+                WriteLog("OnFirsChanceException:" + e.Exception);
             }
         }
 
@@ -49,7 +81,7 @@ static class Program
             Exception ex = e.Exception;
             if(ex != null)
             {
-                Debug.Print("OnTreadException:" + ex.ToString());
+                WriteLog("OnTreadException:" + ex);
             }
            
         }
@@ -60,7 +92,21 @@ static class Program
 
             if (ex != null)
             {
-                Debug.Print("OnUnHandledException:" + ex.ToString());
+                WriteLog("OnUnHandledException:" + ex);
+            }
+        }
+
+        private static void WriteLog(string message)
+        {
+            try
+            {
+                Debug.Print(message);
+                message = Environment.NewLine + DateTime.Now.ToString("O") + "=>" +  message;
+                File.AppendAllText("unexpected.log", message);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("WriteLog Exception:" + e);
             }
         }
     }

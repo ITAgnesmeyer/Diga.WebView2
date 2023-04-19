@@ -5,37 +5,6 @@ using Diga.WebView2.Wrapper;
 
 namespace Diga.WebView2.Monitoring.CGI
 {
-    public class CgiStatus
-    {
-        private string _statusString;
-        public int Status { get; private set; }
-        public string StatusMessage { get; private set; }
-        public CgiStatus(string statusString)
-        {
-            this._statusString = statusString;
-            SetValues();
-        }
-
-        private void SetValues()
-        {
-            if (this._statusString != null)
-            {
-                int firstIndex = this._statusString.IndexOf(" ", StringComparison.Ordinal);
-                if (firstIndex > 0)
-                {
-                    string st = this._statusString.Substring(0, firstIndex);
-                    string stv = this._statusString.Substring(firstIndex);
-                    if (int.TryParse(st, out int s))
-                    {
-                        this.Status = s;
-                        this.StatusMessage = stv.Trim();
-                    }
-                }
-            }
-                
-
-        }
-    }
     public class CgiMoitoring : FileMonitoring
     {
         public string CgiExecutable { get; set; }
@@ -57,6 +26,10 @@ namespace Diga.WebView2.Monitoring.CGI
             this.CgiExecutable = file;
         }
 
+        public void SetCgiExtionsions(string[] extionsions)
+        {
+            this.CgiExtionsions = extionsions;
+        }
         private CgiMethod GetMethod(string value)
         {
             switch (value)
@@ -102,6 +75,11 @@ namespace Diga.WebView2.Monitoring.CGI
                 return false;
             }
 
+            if (!CheckCgiExtension(requestInfo))
+            {
+                return base.Run(requestInfo, out responseInfo);
+            }
+
             string conentType = GetContentTypeFromHeader(requestInfo);
 
             CgiEnvironment env = new CgiEnvironment(requestInfo.Headers)
@@ -110,9 +88,11 @@ namespace Diga.WebView2.Monitoring.CGI
                 RequestedMethod = requestInfo.Method,
                 
             };
-            CgiInvoker invoker = new CgiInvoker();
-            invoker.CgiExe = exeInfo.FullName;
-            invoker.ScriptBasePath = this.MonitoringFolder;
+            CgiInvoker invoker = new CgiInvoker
+            {
+                CgiExe = exeInfo.FullName,
+                ScriptBasePath = this.MonitoringFolder
+            };
             string content = requestInfo.Content;
             string query = requestInfo.Uri;
             if (conentType == "application/x-www-form-urlencoded")
@@ -159,6 +139,43 @@ namespace Diga.WebView2.Monitoring.CGI
             }
 
             return base.Run(requestInfo, out responseInfo);
+        }
+
+        private bool CheckCgiExtension(RequestInfo requestInfo)
+        {
+            string url = requestInfo.Uri;
+            if (url == null)
+                return false;
+            if (url.EndsWith("/")) 
+                url = url.Substring(0, url.Length - 1);
+            Uri ur = new Uri(url);
+            string lPath = ur.LocalPath;
+            if(lPath.StartsWith("/"))
+                lPath = lPath.Substring(1);
+            lPath = lPath.Replace("/", "\\");
+            if (string.IsNullOrEmpty(lPath))
+                return false;
+            FileInfo fi = new FileInfo(lPath);
+            string ext = fi.Extension;
+            if (string.IsNullOrEmpty(ext))
+                return false;
+            if(ext.StartsWith("."))
+                ext = ext.Substring(1);
+            ext = ext.ToLower();
+            foreach (string cgiExtionsion in this.CgiExtionsions)
+            {
+                if (!string.IsNullOrEmpty(cgiExtionsion))
+                {
+
+                    if (cgiExtionsion.ToLower().Trim().Equals(ext))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+
         }
     }
 }
