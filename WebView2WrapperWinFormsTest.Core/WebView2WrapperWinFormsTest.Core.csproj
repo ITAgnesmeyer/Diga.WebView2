@@ -14,22 +14,29 @@
   <PropertyGroup>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
   </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="frmSrc.resx" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Include="..\WebView2WrapperWinFormsTest\Form1.cs" Link="Form1.cs" />
     <Compile Include="..\WebView2WrapperWinFormsTest\Form1.Designer.cs" Link="Form1.Designer.cs" />
     <Compile Include="..\WebView2WrapperWinFormsTest\frmSrc.cs" Link="frmSrc.cs" />
     <Compile Include="..\WebView2WrapperWinFormsTest\frmSrc.Designer.cs" Link="frmSrc.Designer.cs" />
+    <Compile Include="..\WebView2WrapperWinFormsTest\MultipleControls.cs" Link="MultipleControls.cs" />
+    <Compile Include="..\WebView2WrapperWinFormsTest\MultipleControls.Designer.cs" Link="MultipleControls.Designer.cs" />
     <Compile Include="..\WebView2WrapperWinFormsTest\Program.cs" Link="Program.cs" />
     <Compile Include="..\WebView2WrapperWinFormsTest\TestObject.cs" Link="TestObject.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="..\WebView2WrapperWinFormsTest\Form1.resx" Link="Form1.resx" />
+    <EmbeddedResource Include="..\WebView2WrapperWinFormsTest\frmSrc.resx" Link="frmSrc.resx" />
+    <EmbeddedResource Include="..\WebView2WrapperWinFormsTest\MultipleControls.resx" Link="MultipleControls.resx" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Diga.Core.Threading" Version="1.0.6" />
+    <PackageReference Include="Diga.Core.Threading" Version="1.0.10" />
   </ItemGroup>
 
   <ItemGroup>

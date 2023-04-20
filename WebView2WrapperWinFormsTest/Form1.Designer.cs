@@ -52,6 +52,7 @@
             this.webView1 = new Diga.WebView2.WinForms.WebView();
             this.contextMenuMore = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buildFormToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.multipleControlsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)this.trackBar1).BeginInit();
             this.panel2.SuspendLayout();
@@ -378,16 +379,23 @@
             // 
             // contextMenuMore
             // 
-            this.contextMenuMore.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.buildFormToolStripMenuItem });
+            this.contextMenuMore.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.buildFormToolStripMenuItem, this.multipleControlsToolStripMenuItem });
             this.contextMenuMore.Name = "contextMenuMore";
-            this.contextMenuMore.Size = new System.Drawing.Size(133, 26);
+            this.contextMenuMore.Size = new System.Drawing.Size(181, 70);
             // 
             // buildFormToolStripMenuItem
             // 
             this.buildFormToolStripMenuItem.Name = "buildFormToolStripMenuItem";
-            this.buildFormToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.buildFormToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.buildFormToolStripMenuItem.Text = "Build Form";
             this.buildFormToolStripMenuItem.Click += this.buildFormToolStripMenuItem_Click;
+            // 
+            // multipleControlsToolStripMenuItem
+            // 
+            this.multipleControlsToolStripMenuItem.Name = "multipleControlsToolStripMenuItem";
+            this.multipleControlsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.multipleControlsToolStripMenuItem.Text = "MultipleControls";
+            this.multipleControlsToolStripMenuItem.Click += this.multipleControlsToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -434,6 +442,7 @@
         private System.Windows.Forms.Label lblMenu;
         private System.Windows.Forms.ContextMenuStrip contextMenuMore;
         private System.Windows.Forms.ToolStripMenuItem buildFormToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem multipleControlsToolStripMenuItem;
     }
 }
 

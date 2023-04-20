@@ -15,7 +15,7 @@ namespace Diga.WebView2.WinForms
     public partial class WebView : UserControl
     {
         private WebView2Control _WebViewControl;
-
+        private static int ControlCounter = 0;
 
         public WebView()
         {
@@ -36,6 +36,7 @@ namespace Diga.WebView2.WinForms
             {
                 this._WebViewControl = new WebView2Control(parent);
                 WireEvents(this._WebViewControl);
+                ControlCounter++;
             }
             catch (Exception ex)
             {
@@ -135,10 +136,12 @@ namespace Diga.WebView2.WinForms
         {
             if (this._WebViewControl != null)
             {
+                
                 OnBeforeWebViewDestroy();
                 this._WebViewControl.IsVisible = false;
                 this._WebViewControl.ParentWindow =
                     new System.Runtime.InteropServices.HandleRef(this._WebViewControl, IntPtr.Zero);
+              
             }
 
             base.DestroyHandle();

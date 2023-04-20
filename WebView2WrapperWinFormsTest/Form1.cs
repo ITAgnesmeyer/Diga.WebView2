@@ -847,5 +847,14 @@ namespace WebView2WrapperWinFormsTest
             contextMenuMore.Show(lblMenu, 0, lblMenu.Height);
 
         }
+
+        private void multipleControlsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (MultipleControls multipeControls = new MultipleControls())
+            {
+                multipeControls.ShowDialog(this);
+            }
+
+        }
     }
 }

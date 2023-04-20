@@ -238,6 +238,11 @@ namespace Diga.WebView2.WinForms
             try
             {
                 BeforeWebViewDestroy?.Invoke(this, EventArgs.Empty);
+                ControlCounter--;
+                if (ControlCounter <= 0)
+                {
+                    Diga.Core.Threading.UIDispatcher.FilnalDisposed = true;
+                }
             }
             catch (Exception ex)
             {

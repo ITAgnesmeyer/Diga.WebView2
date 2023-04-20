@@ -49,7 +49,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<WebView2EventArgs> IsDefaultDownloadDialogOpenChanged;
         public event EventHandler<BasicAuthenticationRequestedEventArgs> BasicAuthenticationRequested;
         public event EventHandler<ContextMenuRequestedEventArgs> ContextMenuRequested;
-        public event EventHandler<PrintToPdfCompleteEventArgs> PrintToPdfCompleted; 
+        public event EventHandler<PrintToPdfCompleteEventArgs> PrintToPdfCompleted;
         public WebView2View(ICoreWebView2_15 webView) : base(webView)
         {
 
@@ -185,13 +185,13 @@ namespace Diga.WebView2.Wrapper
                 IsDefaultDownloadDialogOpenChangedIntern;
 
             base.add_IsDefaultDownloadDialogOpenChanged(isDefaultDownloadDialogOpenEventHandler, out this._isDefaultDownloadDialogOpenEventToken);
-            BasicAuthenticationRequestedEventHandler basicAuthenticationRequestedEventHandler =  new BasicAuthenticationRequestedEventHandler();
+            BasicAuthenticationRequestedEventHandler basicAuthenticationRequestedEventHandler = new BasicAuthenticationRequestedEventHandler();
             basicAuthenticationRequestedEventHandler.BasicAuthenticationRequested +=
                 OnBasicAuthenticationRequestedIntern;
             base.add_BasicAuthenticationRequested(basicAuthenticationRequestedEventHandler, out this._BasicAuthenticationRequestedEvent);
-            ContextMenuRequestedEventHandler contextMenuHandler = new ContextMenuRequestedEventHandler( new ContextMenuRequestedEventHandler.ContextMenuRequestDelegate(OnContextMenuRequestedIntern2));
+            ContextMenuRequestedEventHandler contextMenuHandler = new ContextMenuRequestedEventHandler(new ContextMenuRequestedEventHandler.ContextMenuRequestDelegate(OnContextMenuRequestedIntern2));
             //contextMenuHandler.ContextMenuRequested += OnContextMenuRequestedIntern;
-            base.add_ContextMenuRequested(contextMenuHandler , out this._ContextMenuRequested );
+            base.add_ContextMenuRequested(contextMenuHandler, out this._ContextMenuRequested);
         }
 
         private void OnContextMenuRequestedIntern2(ContextMenuRequestedEventArgs args)
@@ -242,99 +242,6 @@ namespace Diga.WebView2.Wrapper
         public List<string> CurrentContent { get; } = new List<string>();
         private void WebResourceResponseReceivedIntern(object sender, WebResourceResponseReceivedEventArgs e)
         {
-            
-            //try
-            //{
-                
-            //    //Thread.Sleep(100);
-            //    if (e.Request.Method == "GET")
-            //    {
-            //        string mimeType = string.Empty;
-                   
-                   
-                       
-            //            try
-            //            {
-
-            //                if (e.Response.Headers.Contains("Content-Type"))
-            //                {
-            //                    var header= e.Response.Headers.GetHeaders("Content-Type");
-            //                    if (header.HasCurrent)
-            //                    {
-            //                        mimeType = header.Current.Value;
-            //                    }     
-
-            //                }
-            //                else
-            //                {
-            //                    Uri uri = new Uri(e.Request.Uri);
-            //                    string path = uri.GetComponents(UriComponents.Path, UriFormat.Unescaped);
-            //                    if (!string.IsNullOrEmpty(path) && path.Length < 260)
-            //                    {
-            //                        try
-            //                        {
-            //                            mimeType = uri.MimeTypeOrDefault();
-            //                        }
-            //                        catch
-            //                        {
-            //                            mimeType = "application/octet-stream";
-            //                        }
-                                    
-            //                    }
-            //                    else
-            //                    {
-            //                        if (e.Request.Uri.StartsWith("data:text/html"))
-            //                        {
-            //                            mimeType = "text/html";
-            //                        }
-            //                    }
-                                
-            //                }
-
-                            
-            //            }
-            //            catch (Exception exception)
-            //            {
-            //                Console.WriteLine(exception);
-                            
-            //            }
-                        
-
-                   
-
-
-            //        if (mimeType.StartsWith( "text/html"))
-            //        {
-            //            //using (var stream = e.Response.GetContent())
-            //            //{
-            //            //    if (stream != null)
-            //            //    {
-
-
-            //            //        using (StreamReader sr = new StreamReader(stream, Encoding.UTF8))
-            //            //        {
-            //            //            string content = sr.ReadToEnd();
-
-
-            //            //            this.CurrentContent.Add(content);
-            //            //            sr.Close();
-            //            //        }
-
-            //            //        stream.Close();
-
-            //            //    }
-
-            //            //}
-            //        }
-            //    }
-            //}
-            //catch (Exception exception)
-            //{
-            //    Debug.WriteLine(exception);
-
-            //}
-
-
             OnWebResourceResponseReceived(e);
         }
 
@@ -494,7 +401,7 @@ namespace Diga.WebView2.Wrapper
                 EventRegistrationTool.UnWireToken(this._IsDocumentPlayingAudioChangedToken, base.remove_IsDocumentPlayingAudioChanged);
                 EventRegistrationTool.UnWireToken(this._isDefaultDownloadDialogOpenEventToken, base.remove_IsDefaultDownloadDialogOpenChanged);
                 EventRegistrationTool.UnWireToken(this._BasicAuthenticationRequestedEvent, remove_BasicAuthenticationRequested);
-                EventRegistrationTool.UnWireToken(this._ContextMenuRequested , base.remove_ContextMenuRequested );
+                EventRegistrationTool.UnWireToken(this._ContextMenuRequested, base.remove_ContextMenuRequested);
 
             }
             catch (Exception e)
@@ -537,7 +444,7 @@ namespace Diga.WebView2.Wrapper
         }
 
 
-        new public WebView2Settings Settings => new WebView2Settings((ICoreWebView2Settings7)base.Settings);
+        public new WebView2Settings Settings => new WebView2Settings((ICoreWebView2Settings7)base.Settings);
 
 
         public void AddScriptToExecuteOnDocumentCreated(string javaScript)
@@ -569,7 +476,7 @@ namespace Diga.WebView2.Wrapper
             PrintToPdfCompletedDelegate handler = new PrintToPdfCompletedDelegate();
             handler.PrintToPdfCompleted += OnPrintToPdfCompleteIntern;
             base.PrintToPdf(file, printerSettings, handler);
-            
+
         }
 
         private void OnPrintToPdfCompleteIntern(object sender, PrintToPdfCompleteEventArgs e)
@@ -579,10 +486,10 @@ namespace Diga.WebView2.Wrapper
 
         public async Task<bool> PrintToPdfAsync(string file, WebView2PrintSettings printSettings)
         {
-            
+
             var source = new TaskCompletionSource<(int, int)>();
             var printToPdfDelegate = new PrintToPdfCompletedDelegateTask(source);
-         
+
             base.PrintToPdf(file, printSettings?.NativeSettings?.Interface, printToPdfDelegate);
             (int errorCode, int isSuccess) result = await source.Task;
             HRESULT hr = result.errorCode;
@@ -632,7 +539,26 @@ namespace Diga.WebView2.Wrapper
         {
             var source = new TaskCompletionSource<ScriptResultType>();
             var executeScriptDelegate = new ExecuteScriptCompletedDelegate(source);
-            base.ExecuteScript(javaScript, executeScriptDelegate);
+            try
+            {
+
+                base.ExecuteScript(javaScript, executeScriptDelegate);
+            }
+            catch (InvalidCastException ex)
+            {
+                if (ex.HResult == -2147467262)
+                    throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.",
+                        ex);
+                throw;
+            }
+            catch (COMException ex)
+            {
+                if (ex.HResult == -2147019873)
+                    throw new InvalidOperationException(
+                        "CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
+                throw;
+            }
+
             return source.Task;
         }
         public async Task<string> ExecuteScriptAsync(string javaScript)
@@ -641,7 +567,26 @@ namespace Diga.WebView2.Wrapper
             //    throw new InvalidOperationException("Script control not Created!");
             var source = new TaskCompletionSource<ScriptResultType>();
             var executeScriptDelegate = new ExecuteScriptCompletedDelegate(source);
-            base.ExecuteScript(javaScript, executeScriptDelegate);
+            try
+            {
+                base.ExecuteScript(javaScript, executeScriptDelegate);
+
+            }
+            catch (InvalidCastException ex)
+            {
+                if (ex.HResult == -2147467262)
+                    throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.",
+                        ex);
+                throw;
+            }
+            catch (COMException ex)
+            {
+                if (ex.HResult == -2147019873)
+                    throw new InvalidOperationException(
+                        "CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
+                throw;
+            }
+
 
             ScriptResultType result = await source.Task;
             HRESULT resultCode = result.ErrorCode;
@@ -653,7 +598,25 @@ namespace Diga.WebView2.Wrapper
         public string InvokeScript(string javaScript, Action<string, int, string> actionToInvoke)
         {
             ExecuteScriptCompletedHandler handler = new ExecuteScriptCompletedHandler { ActionToInvoke = actionToInvoke };
-            base.ExecuteScript(javaScript, handler);
+            try
+            {
+                base.ExecuteScript(javaScript, handler);
+            }
+            catch (InvalidCastException ex)
+            {
+                if (ex.HResult == -2147467262)
+                    throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.",
+                        ex);
+                throw;
+            }
+            catch (COMException ex)
+            {
+                if (ex.HResult == -2147019873)
+                    throw new InvalidOperationException(
+                        "CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
+                throw;
+            }
+
             return handler.Id;
         }
 
@@ -666,11 +629,11 @@ namespace Diga.WebView2.Wrapper
             OnExecuteScriptCompleted(e);
         }
 
-        new public bool CanGoBack => new CBOOL(base.CanGoBack);
+        public new bool CanGoBack => new CBOOL(base.CanGoBack);
 
-        new public bool CanGoForward => new CBOOL(base.CanGoForward);
+        public new bool CanGoForward => new CBOOL(base.CanGoForward);
 
-        new public bool IsMuted
+        public new bool IsMuted
         {
             get => (CBOOL)base.IsMuted;
             set => base.IsMuted = (CBOOL)value;
@@ -691,7 +654,7 @@ namespace Diga.WebView2.Wrapper
             {
                 throw Marshal.GetExceptionForHR(hr);
             }
-            
+
         }
 
         public async Task GetFavIconAsync(Stream stream, ImageFormat imageFormat)
@@ -699,7 +662,7 @@ namespace Diga.WebView2.Wrapper
             var source = new TaskCompletionSource<GetFaviconCompleteResult>();
             GetFaviconCompletedHandler hanlder = new GetFaviconCompletedHandler(source);
 
-            base.GetFavicon((COREWEBVIEW2_FAVICON_IMAGE_FORMAT)imageFormat,hanlder );
+            base.GetFavicon((COREWEBVIEW2_FAVICON_IMAGE_FORMAT)imageFormat, hanlder);
             GetFaviconCompleteResult result = await source.Task;
             ComStream comStream = new ComStream(result.Stream);
             byte[] bytes = await comStream.GetAllBytesAsync();
@@ -722,9 +685,9 @@ namespace Diga.WebView2.Wrapper
 
 
 
-        new public bool ContainsFullScreenElement => new CBOOL(base.ContainsFullScreenElement);
+        public new bool ContainsFullScreenElement => new CBOOL(base.ContainsFullScreenElement);
 
-        new public CookieManager CookieManager => new CookieManager(base.CookieManager);
+        public new CookieManager CookieManager => new CookieManager(base.CookieManager);
 
         public void AddWebResourceRequestedFilter(string uri, ResourceContext context)
         {
@@ -742,7 +705,7 @@ namespace Diga.WebView2.Wrapper
             NavigationStarting?.Invoke(this, e);
         }
         private bool _IsDisposed;
-        
+
 
 
         protected override void Dispose(bool dispose)
@@ -891,7 +854,7 @@ namespace Diga.WebView2.Wrapper
         protected virtual void OnContextMenuRequested(ContextMenuRequestedEventArgs e)
         {
             EventHandler<ContextMenuRequestedEventArgs> handler = this.ContextMenuRequested;
-            if(handler == null) return;
+            if (handler == null) return;
             handler(this, e);
             //ContextMenuRequested?.Invoke(this, e);
         }

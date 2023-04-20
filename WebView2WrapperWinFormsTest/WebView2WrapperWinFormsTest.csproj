@@ -64,8 +64,8 @@
     <Reference Include="Diga.Core.Json, Version=1.0.1.1, Culture=neutral, PublicKeyToken=1429a0b3e96dc0ad, processorArchitecture=MSIL">
       <HintPath>..\packages\Diga.Core.Json.1.0.2\lib\net472\Diga.Core.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Diga.Core.Threading, Version=1.0.6.0, Culture=neutral, PublicKeyToken=f71992c25f8beb19, processorArchitecture=MSIL">
-      <HintPath>..\packages\Diga.Core.Threading.1.0.6\lib\net472\Diga.Core.Threading.dll</HintPath>
+    <Reference Include="Diga.Core.Threading, Version=1.0.10.0, Culture=neutral, PublicKeyToken=f71992c25f8beb19, processorArchitecture=MSIL">
+      <HintPath>..\packages\Diga.Core.Threading.1.0.10\lib\net472\Diga.Core.Threading.dll</HintPath>
     </Reference>
     <Reference Include="MimeTypeExtension, Version=1.0.29.1, Culture=neutral, PublicKeyToken=5bccdf24b37e4bab, processorArchitecture=MSIL">
       <HintPath>..\packages\MimeTypeExtension.1.0.29\lib\netstandard2.0\MimeTypeExtension.dll</HintPath>
@@ -96,12 +96,24 @@
     <Compile Include="frmSrc.Designer.cs">
       <DependentUpon>frmSrc.cs</DependentUpon>
     </Compile>
+    <Compile Include="MultipleControls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MultipleControls.Designer.cs">
+      <DependentUpon>MultipleControls.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestObject.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSrc.resx">
+      <DependentUpon>frmSrc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MultipleControls.resx">
+      <DependentUpon>MultipleControls.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

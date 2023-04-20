@@ -37,7 +37,16 @@ static class Program
             currentDomain.ProcessExit += OnProcessExit;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            try
+            {
+                Application.Run(new Form1());
+            }
+            catch (Exception e)
+            {
+                WriteLog( "Application.Run Exception:" + e.ToString());
+                
+            }
+            
         }
 
         private static void OnProcessExit(object sender, EventArgs e)
