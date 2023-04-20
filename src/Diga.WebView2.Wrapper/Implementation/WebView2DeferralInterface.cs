@@ -233,7 +233,7 @@ namespace Diga.WebView2.Wrapper.Implementation
     }
     internal class WebView2PrivateHostObjectHelperRaw : ICoreWebView2PrivateHostObjectHelper, ICoreWebView2PrivateHostObjectHelper2
     {
-        private Dictionary<string,MethodInfo> MehtodInfos = new Dictionary<string,MethodInfo>();
+        private Dictionary<string, MethodInfo> MehtodInfos = new Dictionary<string, MethodInfo>();
         private Dictionary<string, MethodInfo> AsyncMehtods = new Dictionary<string, MethodInfo>();
         private MethodInfo GetMethodInfo(Type type, string methodName, int parameterCount = -1)
         {
@@ -243,23 +243,23 @@ namespace Diga.WebView2.Wrapper.Implementation
             }
 
             MethodInfo methodInfo = type.GetMethod(methodName);
-            
-            if( methodInfo == null )
+
+            if (methodInfo == null)
                 return null;
-                    if (parameterCount == -1  || methodInfo.GetParameters().Length == parameterCount)
-                    {
-                        return methodInfo;
-                    }
-            
+            if (parameterCount == -1 || methodInfo.GetParameters().Length == parameterCount)
+            {
+                return methodInfo;
+            }
+
             return null;
         }
         private string GetMethodKey(Type type, string methodName, int parmCount)
         {
             return type.Name + "_" + methodName + "_" + parmCount;
         }
-        public int IsAsyncMethod([In, MarshalAs(UnmanagedType.Struct)] ref object @object, [In, MarshalAs(UnmanagedType.LPWStr)] string methodName, [In] int parameterCount)
+        public int IsAsyncMethod([In] ref object @object, [In, MarshalAs(UnmanagedType.LPWStr)] string methodName, [In] int parameterCount)
         {
-            if(string.IsNullOrEmpty(methodName))
+            if (string.IsNullOrEmpty(methodName))
                 return 0;
 
             MethodInfo methodInfo = this.GetMethodInfo(@object.GetType(), methodName, parameterCount);
@@ -275,7 +275,7 @@ namespace Diga.WebView2.Wrapper.Implementation
             }
         }
 
-        public void SetAsyncMethodContinuation([In, MarshalAs(UnmanagedType.Struct)] ref object @object, [In, MarshalAs(UnmanagedType.LPWStr)] string methodName, [In] int parameterCount, [In, MarshalAs(UnmanagedType.Struct)] ref object methodResult, [In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2PrivateHostObjectAsyncMethodContinuation continuation)
+        public void SetAsyncMethodContinuation([In] ref object @object, [In, MarshalAs(UnmanagedType.LPWStr)] string methodName, [In] int parameterCount, [In] ref object methodResult, [In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2PrivateHostObjectAsyncMethodContinuation continuation)
         {
             if (this.GetMethodInfo(@object.GetType(), methodName, parameterCount) == null)
                 throw new COMException((string)null, -2147352571);
@@ -293,12 +293,12 @@ namespace Diga.WebView2.Wrapper.Implementation
                 {
                     num = Marshal.GetHRForException(ex);
                 }
-                
+
                 ICoreWebView2PrivateHostObjectAsyncMethodContinuation methodContinuation = continuation;
                 int errorCode = num;
                 object obj2 = obj1;
                 ref object local = ref obj2;
-                
+
                 methodContinuation.Invoke(errorCode, ref local);
             };
 
@@ -312,7 +312,7 @@ namespace Diga.WebView2.Wrapper.Implementation
             }
         }
 
-        public int IsMethodMember([In, MarshalAs(UnmanagedType.Struct)] ref object @object, [In, MarshalAs(UnmanagedType.LPWStr)] string memberName)
+        public int IsMethodMember([In] ref object @object, [In, MarshalAs(UnmanagedType.LPWStr)] string memberName)
         {
             int reuslt = 0;
 

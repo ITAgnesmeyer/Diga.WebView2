@@ -14,7 +14,7 @@ namespace Diga.WebView2.Wrapper
 {
 
 
-    public partial class WebView2Environment : WebView2Environment10Interface
+    public partial class WebView2Environment : WebView2Environment12Interface
     {
         public event EventHandler<WebView2EventArgs> NewBrowserVersionAvailable;
         public event EventHandler<BrowserProcessExitedEventArgs> BrowserProcessExited;
@@ -22,7 +22,7 @@ namespace Diga.WebView2.Wrapper
         private EventRegistrationToken _BrowserProcessExitedToken;
 
 
-        public WebView2Environment(ICoreWebView2Environment10 environment) : base(environment)
+        public WebView2Environment(ICoreWebView2Environment12 environment) : base(environment)
         {
             if (environment == null)
                 throw new ArgumentNullException(nameof(environment));

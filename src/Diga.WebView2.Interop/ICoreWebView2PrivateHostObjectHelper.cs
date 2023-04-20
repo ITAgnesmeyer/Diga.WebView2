@@ -16,6 +16,6 @@ namespace Diga.WebView2.Interop
     public interface ICoreWebView2PrivateHostObjectHelper
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int IsMethodMember([MarshalAs(UnmanagedType.Struct), In] ref object @object, [MarshalAs(UnmanagedType.LPWStr), In] string memberName);
+        int IsMethodMember([ In] ref object @object, [MarshalAs(UnmanagedType.LPWStr), In] string memberName);
     }
 }

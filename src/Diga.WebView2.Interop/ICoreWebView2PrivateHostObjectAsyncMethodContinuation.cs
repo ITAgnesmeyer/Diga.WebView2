@@ -15,6 +15,6 @@ namespace Diga.WebView2.Interop
     public interface ICoreWebView2PrivateHostObjectAsyncMethodContinuation
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Invoke([MarshalAs(UnmanagedType.Error), In] int errorCode, [MarshalAs(UnmanagedType.Struct), In] ref object result);
+        void Invoke([MarshalAs(UnmanagedType.Error), In] int errorCode, [In] ref object result);
     }
 }

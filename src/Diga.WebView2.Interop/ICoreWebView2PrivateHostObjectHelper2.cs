@@ -15,14 +15,14 @@ namespace Diga.WebView2.Interop
     public interface ICoreWebView2PrivateHostObjectHelper2
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int IsAsyncMethod([MarshalAs(UnmanagedType.Struct), In] ref object @object, [MarshalAs(UnmanagedType.LPWStr), In] string methodName, [In] int parameterCount);
+        int IsAsyncMethod([In] ref object @object, [MarshalAs(UnmanagedType.LPWStr), In] string methodName, [In] int parameterCount);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void SetAsyncMethodContinuation(
-          [MarshalAs(UnmanagedType.Struct), In] ref object @object,
+          [In] ref object @object,
           [MarshalAs(UnmanagedType.LPWStr), In] string methodName,
           [In] int parameterCount,
-          [MarshalAs(UnmanagedType.Struct), In] ref object methodResult,
+          [In] ref object methodResult,
           [MarshalAs(UnmanagedType.Interface), In] ICoreWebView2PrivateHostObjectAsyncMethodContinuation continuation);
     }
 }
