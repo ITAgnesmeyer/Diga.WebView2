@@ -63,14 +63,29 @@ namespace Diga.WebView2.Scripting.DOM
         public async Task<bool> VarExistAsync()
         {
             string scriptText = $"return {this.Name}!=undefined;";
-            object retVal = await ExecuteScriptAsync(scriptText);
-            return (bool)Convert.ChangeType(retVal, TypeCode.Boolean);
+            try
+            {
+                object retVal = await ExecuteScriptAsync(scriptText);
+                return (bool)Convert.ChangeType(retVal, TypeCode.Boolean);
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         public bool VarExist()
         {
             string scriptText = $"if(window.diga == undefined) return false;return {this.Name}!=undefined;";
-            object retVal = ExecuteScript(scriptText);
-            return (bool)Convert.ChangeType(retVal, TypeCode.Boolean);
+            try
+            {
+                object retVal = ExecuteScript(scriptText);
+                return (bool)Convert.ChangeType(retVal, TypeCode.Boolean);
+            }
+            catch (Exception )
+            {
+                return false;
+            }
         }
         private void DeleteVar()
         {

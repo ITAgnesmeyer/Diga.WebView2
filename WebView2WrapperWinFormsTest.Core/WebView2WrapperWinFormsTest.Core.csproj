@@ -26,6 +26,8 @@
     <Compile Include="..\WebView2WrapperWinFormsTest\MultipleControls.cs" Link="MultipleControls.cs" />
     <Compile Include="..\WebView2WrapperWinFormsTest\MultipleControls.Designer.cs" Link="MultipleControls.Designer.cs" />
     <Compile Include="..\WebView2WrapperWinFormsTest\Program.cs" Link="Program.cs" />
+    <Compile Include="..\WebView2WrapperWinFormsTest\SelectForm.cs" Link="SelectForm.cs" />
+    <Compile Include="..\WebView2WrapperWinFormsTest\SelectForm.Designer.cs" Link="SelectForm.Designer.cs" />
     <Compile Include="..\WebView2WrapperWinFormsTest\TestObject.cs" Link="TestObject.cs" />
   </ItemGroup>
 
@@ -33,6 +35,7 @@
     <EmbeddedResource Include="..\WebView2WrapperWinFormsTest\Form1.resx" Link="Form1.resx" />
     <EmbeddedResource Include="..\WebView2WrapperWinFormsTest\frmSrc.resx" Link="frmSrc.resx" />
     <EmbeddedResource Include="..\WebView2WrapperWinFormsTest\MultipleControls.resx" Link="MultipleControls.resx" />
+    <EmbeddedResource Include="..\WebView2WrapperWinFormsTest\SelectForm.resx" Link="SelectForm.resx" />
   </ItemGroup>
 
   <ItemGroup>

@@ -34,6 +34,16 @@ namespace Diga.WebView2.WinForms
         {
             try
             {
+                if (UIDispatcher.FilnalDisposed)
+                {
+                    UIDispatcher.FilnalDisposed = false;
+                    
+                    #if !NETCOREAPP3_1_OR_GREATER
+                    AppDomain.CurrentDomain.ProcessExit -= BeforeProcessExitCatch;
+                    #endif
+                }
+                    
+
                 this._WebViewControl = new WebView2Control(parent);
                 WireEvents(this._WebViewControl);
                 ControlCounter++;

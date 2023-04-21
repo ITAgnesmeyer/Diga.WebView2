@@ -37,15 +37,15 @@ static class Program
             currentDomain.ProcessExit += OnProcessExit;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            try
-            {
-                Application.Run(new Form1());
-            }
-            catch (Exception e)
-            {
-                WriteLog( "Application.Run Exception:" + e.ToString());
+            //try
+            //{
+                Application.Run(new SelectForm());
+            //}
+            //catch (Exception e)
+            //{
+            //    WriteLog( "Application.Run Exception:" + e.ToString());
                 
-            }
+            //}
             
         }
 
@@ -54,15 +54,15 @@ static class Program
             WriteLog("Process Exit");
 
 
-            DateTime n = DateTime.Now;
-            DateTime x = DateTime.Now;
-            TimeSpan diff = x - n;
-            while (diff.Seconds < 5)
-            {
-                Application.DoEvents();
-                x = DateTime.Now;
-                diff = x - n;
-            }
+            //DateTime n = DateTime.Now;
+            //DateTime x = DateTime.Now;
+            //TimeSpan diff = x - n;
+            //while (diff.Seconds < 5)
+            //{
+            //    Application.DoEvents();
+            //    x = DateTime.Now;
+            //    diff = x - n;
+            //}
 
 
         }

@@ -233,6 +233,19 @@ namespace Diga.WebView2.WinForms
             FrameNavigationCompleted?.Invoke(this, e);
         }
 
+        private static void BeforeProcessExitCatch(object sender, EventArgs e)
+        {
+            Debug.Print("BeforeProcessExitCatch");
+            DateTime n = DateTime.Now;
+            DateTime x = DateTime.Now;
+            TimeSpan diff = x - n;
+            while (diff.Seconds < 5)
+            {
+                UIDispatcher.UIThread.DoEvents();
+                x = DateTime.Now;
+                diff = x - n;
+            }
+        }
         protected virtual void OnBeforeWebViewDestroy()
         {
             try
@@ -241,7 +254,11 @@ namespace Diga.WebView2.WinForms
                 ControlCounter--;
                 if (ControlCounter <= 0)
                 {
-                    Diga.Core.Threading.UIDispatcher.FilnalDisposed = true;
+                    //UIDispatcher.Wait(5000);
+                    #if !NETCOREAPP3_1_OR_GREATER
+                    AppDomain.CurrentDomain.ProcessExit += BeforeProcessExitCatch;
+                    #endif
+                    UIDispatcher.FilnalDisposed = true;
                 }
             }
             catch (Exception ex)
