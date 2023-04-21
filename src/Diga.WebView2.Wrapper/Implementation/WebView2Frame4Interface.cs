@@ -6,10 +6,10 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2Frame3Interface : WebView2Frame2Interface
+    public class WebView2Frame4Interface : WebView2Frame3Interface //, ICoreWebView2Frame4
     {
-        private ComObjectHolder<ICoreWebView2Frame3> _Args;
-        private ICoreWebView2Frame3 Args
+        private ComObjectHolder<ICoreWebView2Frame4> _Args;
+        private ICoreWebView2Frame4 Args
         {
             get
             {
@@ -23,27 +23,22 @@ namespace Diga.WebView2.Wrapper.Implementation
             }
             set
             {
-                this._Args = new ComObjectHolder<ICoreWebView2Frame3>(value);
+                this._Args = new ComObjectHolder<ICoreWebView2Frame4>(value);
             }
         }
 
-        public WebView2Frame3Interface(ICoreWebView2Frame3 args) : base(args)
+        public WebView2Frame4Interface(ICoreWebView2Frame4 args) : base(args)
         {
             if (args == null)
                 throw new ArgumentNullException(nameof(args));
             this.Args = args;
         }
-        public ICoreWebView2Frame3 GetInterface() => this.Args;
 
-        public void add_PermissionRequested([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2FramePermissionRequestedEventHandler handler, out EventRegistrationToken token)
+        public void PostSharedBufferToScript([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2SharedBuffer sharedBuffer, [In] COREWEBVIEW2_SHARED_BUFFER_ACCESS access, [In, MarshalAs(UnmanagedType.LPWStr)] string additionalDataAsJson)
         {
-            this.Args.add_PermissionRequested(handler, out token);
+            this.Args.PostSharedBufferToScript(sharedBuffer, access, additionalDataAsJson);
         }
 
-        public void remove_PermissionRequested([In] EventRegistrationToken token)
-        {
-            this.Args.remove_PermissionRequested(token);
-        }
         private bool disposedValue;
         protected override void Dispose(bool disposing)
         {

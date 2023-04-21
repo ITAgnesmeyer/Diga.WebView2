@@ -444,7 +444,7 @@ namespace Diga.WebView2.Wrapper
         }
 
 
-        public new WebView2Settings Settings => new WebView2Settings((ICoreWebView2Settings7)base.Settings);
+        public new WebView2Settings Settings => new WebView2Settings((ICoreWebView2Settings8)base.Settings);
 
 
         public void AddScriptToExecuteOnDocumentCreated(string javaScript)

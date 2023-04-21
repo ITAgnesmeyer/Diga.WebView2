@@ -97,5 +97,21 @@ namespace Diga.WebView2.Wrapper.Implementation
         {
             this.Args.remove_WebMessageReceived(token);
         }
+
+        private bool disposedValue;
+        protected override void Dispose(bool disposing)
+        {
+            if (!this.disposedValue)
+            {
+                if (disposing)
+                {
+                    
+                    this._Args = null;
+                }
+
+                this.disposedValue = true;
+            }
+            base.Dispose(disposing);
+        }
     }
 }
