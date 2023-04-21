@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0</TargetFrameworks>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>MonitoringSign.snk</AssemblyOriginatorKeyFile>
-    <Version>1.20.3</Version>
+    <Version>1.20.3-prerelease</Version>
     <RootNamespace>Diga.WebView2.Monitoring</RootNamespace>
     <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
     <Company>Dipl.-Ing.(FH) Guido Agnesmeyer</Company>
