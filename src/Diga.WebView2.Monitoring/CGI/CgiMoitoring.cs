@@ -118,7 +118,15 @@ namespace Diga.WebView2.Monitoring.CGI
                 {
                     if (resposeHeader.Key != "Status")
                     {
-                        responseInfo.Header.Add(resposeHeader.Key, resposeHeader.Value);
+                        if (responseInfo.Header.ContainsKey(resposeHeader.Key))
+                        {
+                            responseInfo.Header[resposeHeader.Key] = resposeHeader.Value;
+                        }
+                        else
+                        {
+                            responseInfo.Header.Add(resposeHeader.Key, resposeHeader.Value);    
+                        }
+                        
                         if (resposeHeader.Key == "Content-type")
                         {
                             responseInfo.ContentType = resposeHeader.Value;

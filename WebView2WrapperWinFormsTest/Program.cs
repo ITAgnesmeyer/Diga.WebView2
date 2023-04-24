@@ -39,7 +39,7 @@ static class Program
             Application.SetCompatibleTextRenderingDefault(false);
             //try
             //{
-                Application.Run(new SelectForm());
+                Application.Run(new Form1());
             //}
             //catch (Exception e)
             //{
