@@ -10,15 +10,15 @@ using System.Windows.Forms;
 
 namespace WebView2WrapperWinFormsTest
 {
-//#if CORE
-//// Class will be auto Dual
-//#else
-//    #pragma warning disable 618
+    //#if CORE
+    //// Class will be auto Dual
+    //#else
+    //    #pragma warning disable 618
     ////[ClassInterface(ClassInterfaceType.AutoDual)]
-//    #pragma warning restore 618
-//#endif
-//HostObjectHelper will be added automatically:
-static class Program
+    //    #pragma warning restore 618
+    //#endif
+    //HostObjectHelper will be added automatically:
+    static class Program
     {
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
@@ -27,26 +27,26 @@ static class Program
         static void Main()
         {
             WriteLog("Application Start");
-            Application.ThreadException +=OnTreadException;
+            Application.ThreadException += OnTreadException;
             Application.ApplicationExit += OnApplicationExit;
             Application.ThreadExit += OnThreadExit;
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             AppDomain currentDomain = AppDomain.CurrentDomain;
-            currentDomain.UnhandledException+=OnUnHandledException;
-            currentDomain.FirstChanceException+=OnFirsChanceException;
+            currentDomain.UnhandledException += OnUnHandledException;
+            currentDomain.FirstChanceException += OnFirsChanceException;
             currentDomain.ProcessExit += OnProcessExit;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //try
             //{
-                Application.Run(new Form1());
+            Application.Run(new Form1());
             //}
             //catch (Exception e)
             //{
             //    WriteLog( "Application.Run Exception:" + e.ToString());
-                
+
             //}
-            
+
         }
 
         private static void OnProcessExit(object sender, EventArgs e)
@@ -79,7 +79,7 @@ static class Program
 
         private static void OnFirsChanceException(object sender, FirstChanceExceptionEventArgs e)
         {
-            if(e.Exception != null)
+            if (e.Exception != null)
             {
                 WriteLog("OnFirsChanceException:" + e.Exception);
             }
@@ -88,11 +88,11 @@ static class Program
         private static void OnTreadException(object sender, ThreadExceptionEventArgs e)
         {
             Exception ex = e.Exception;
-            if(ex != null)
+            if (ex != null)
             {
                 WriteLog("OnTreadException:" + ex);
             }
-           
+
         }
 
         private static void OnUnHandledException(object sender, UnhandledExceptionEventArgs e)
@@ -104,18 +104,23 @@ static class Program
                 WriteLog("OnUnHandledException:" + ex);
             }
         }
-
+        private static readonly object SyncLog = new object();
         private static void WriteLog(string message)
         {
-            try
+            lock (SyncLog)
             {
-                Debug.Print(message);
-                message = Environment.NewLine + DateTime.Now.ToString("O") + "=>" +  message;
-                File.AppendAllText("unexpected.log", message);
-            }
-            catch (Exception e)
-            {
-                Debug.Print("WriteLog Exception:" + e);
+
+
+                try
+                {
+                    Debug.Print(message);
+                    message = Environment.NewLine + DateTime.Now.ToString("O") + "=>" + message;
+                    File.AppendAllText("unexpected.log", message);
+                }
+                catch (Exception e)
+                {
+                    Debug.Print("WriteLog Exception:" + e);
+                }
             }
         }
     }

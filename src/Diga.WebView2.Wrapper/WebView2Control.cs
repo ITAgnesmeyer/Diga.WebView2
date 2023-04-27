@@ -88,6 +88,8 @@ namespace Diga.WebView2.Wrapper
             CreateWebView();
             RefCounter += 1;
         }
+        
+        
 
         public List<string> Content
         {
@@ -103,6 +105,7 @@ namespace Diga.WebView2.Wrapper
         public string BrowserExecutableFolder { get; }
         public string UserDataFolder { get; }
         public string AdditionalBrowserArguments { get; }
+        public List<SchemeRegistration> SchemeRegistrations { get; } = new List<SchemeRegistration>();
         private void CreateWebView()
         {
             this.HostHelper = new HostObjectHelper();
@@ -132,6 +135,22 @@ namespace Diga.WebView2.Wrapper
             reg.TreatAsSecure = (CBOOL)true;
 
             options.CustomSchemeRegistrations.Add(reg);
+
+            foreach (SchemeRegistration schemeRegistration in this.SchemeRegistrations)
+            {
+                if (schemeRegistration.SchemeName != DIGA_SCHEMA)
+                {
+                    WebView2CustomSchemeRegistration csr = schemeRegistration.GetAsWebView2CustomSchemeRegistration();
+                    if (!string.IsNullOrEmpty(csr.SchemeName))
+                    {
+                        options.CustomSchemeRegistrations.Add(csr);
+                    }
+
+                }
+                
+
+
+            }
             Native.CompareBrowserVersions(browserInfo, options.TargetCompatibleBrowserVersion, out int result);
             if (result == (int)BrowserVersionState.Older)
             {

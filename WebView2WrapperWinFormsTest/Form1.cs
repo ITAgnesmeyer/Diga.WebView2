@@ -827,16 +827,23 @@ namespace WebView2WrapperWinFormsTest
             doc.body.appendChild(form);
             userfile.DomEvent += (o, ev) =>
             {
+                try
+                {
+                    string objId = ev.RpcObject.objId;
+                    string value = userfile.GetProperty<string>("value");
+                    string fullPath = userfile.GetProperty<string>("files[0].name");
+                    MessageBox.Show($"Event:{ev.EventName}\nObjId:{objId}\nElement_EventID:{ev.ObjectId}\nElement:{userfile.id}\nValue:{value}");
 
+                    DOMElement x = doc.createElement("h1");
+                    x.innerText = value;
+                    doc.body.appendChild(x);
 
-                string objId = ev.RpcObject.objId;
-                string value = userfile.GetProperty<string>("value");
-                string fullPath = userfile.GetProperty<string>("files[0].name");
-                MessageBox.Show($"Event:{ev.EventName}\nObjId:{objId}\nElement_EventID:{ev.ObjectId}\nElement:{userfile.id}\nValue:{value}");
-
-                DOMElement x = doc.createElement("h1");
-                x.innerText = value;
-                doc.body.appendChild(x);
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(this, "Error:" + exception.Message, "Error", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
             };
 
         }
