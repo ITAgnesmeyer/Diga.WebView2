@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Diga.Core.Threading;
@@ -193,10 +194,18 @@ namespace Diga.WebView2.Scripting.DOM
 
         protected virtual void OnDomEvent(RpcEventHandlerArgs e)
         {
-            using (DOMVar var = new DOMVar(this._View2Control, e.RpcObject.idFullName))
+            try
             {
-                DomEvent?.Invoke(this, e);
+                using (DOMVar var = new DOMVar(this._View2Control, e.RpcObject.idFullName))
+                {
+                    DomEvent?.Invoke(this, e);
+                }
             }
+            catch (Exception exception)
+            {
+                Debug.Print("DOMObject OnDomEvent Error:" + exception.Message);
+            }
+         
 
         }
 
@@ -209,10 +218,19 @@ namespace Diga.WebView2.Scripting.DOM
         }
         private DOMVar GetGetVar([CallerMemberName] string member = "")
         {
-            DOMVar var = new DOMVar(this._View2Control);
-            string scriptVal = $"{var.Name}={this.InstanceName}.{member};";
-            ExecuteScript(scriptVal);
-            return var;
+            try
+            {
+                DOMVar var = new DOMVar(this._View2Control);
+                string scriptVal = $"{var.Name}={this.InstanceName}.{member};";
+                ExecuteScript(scriptVal);
+                return var;
+
+            }
+            catch (Exception e)
+            {
+                Debug.Print("DOMOjbect.GetGetVar error:" + e.Message);
+                return null;
+            }
         }
         private async Task<DOMVar> GetGetVarAsync([CallerMemberName] string member = "")
         {

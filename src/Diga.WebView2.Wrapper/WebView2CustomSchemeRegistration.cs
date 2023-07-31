@@ -10,7 +10,7 @@ namespace Diga.WebView2.Wrapper
     {
         public string SchemeName { get; set; }
         public bool TreatAsSecure { get; set; }
-        public List<string> AllowedOrignis { get; set; } = new List<string>();
+        public string[] AllowedOrignis { get; set; } = { };
 
 
         internal WebView2CustomSchemeRegistration GetAsWebView2CustomSchemeRegistration()

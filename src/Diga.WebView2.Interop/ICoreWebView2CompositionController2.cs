@@ -30,8 +30,8 @@ namespace Diga.WebView2.Interop
       [In] COREWEBVIEW2_POINTER_EVENT_KIND eventKind,
       [MarshalAs(UnmanagedType.Interface), In] ICoreWebView2PointerInfo pointerInfo);
 
-    [ComAliasName("Diga.WebView2.Interop.wireHICON")]
     [DispId(1610678276)]
+    [ComAliasName("Diga.WebView2.Interop.wireHICON")]
     new IntPtr Cursor { [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)] [return: ComAliasName("Diga.WebView2.Interop.wireHICON")] get; }
 
     [DispId(1610678277)]
@@ -46,6 +46,6 @@ namespace Diga.WebView2.Interop
     new void remove_CursorChanged([In] EventRegistrationToken token);
 
     [DispId(1610743808)]
-    object UIAProvider { [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)] [return: MarshalAs(UnmanagedType.IUnknown)] get; }
+    object AutomationProvider { [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)] [return: MarshalAs(UnmanagedType.IUnknown)] get; }
   }
 }

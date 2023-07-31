@@ -107,21 +107,21 @@ namespace WebView2WrapperWinFormsTest
         private static readonly object SyncLog = new object();
         private static void WriteLog(string message)
         {
-            lock (SyncLog)
-            {
+            //lock (SyncLog)
+            //{
 
 
-                try
-                {
-                    Debug.Print(message);
-                    message = Environment.NewLine + DateTime.Now.ToString("O") + "=>" + message;
-                    File.AppendAllText("unexpected.log", message);
-                }
-                catch (Exception e)
-                {
-                    Debug.Print("WriteLog Exception:" + e);
-                }
-            }
+            //    try
+            //    {
+            //        Debug.Print(message);
+            //        message = Environment.NewLine + DateTime.Now.ToString("O") + "=>" + message;
+            //        File.AppendAllText("unexpected.log", message);
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Debug.Print("WriteLog Exception:" + e);
+            //    }
+            //}
         }
     }
 }

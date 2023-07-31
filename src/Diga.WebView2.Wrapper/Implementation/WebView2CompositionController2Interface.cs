@@ -30,7 +30,7 @@ namespace Diga.WebView2.Wrapper.Implementation
         {
             Controller = controller ?? throw new ArgumentNullException(nameof(controller));
         }
-        public object UIAProvider => this.Controller.UIAProvider;
+        public object UIAProvider => this.Controller.AutomationProvider;
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {

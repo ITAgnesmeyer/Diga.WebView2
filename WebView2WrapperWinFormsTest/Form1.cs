@@ -508,8 +508,16 @@ namespace WebView2WrapperWinFormsTest
 
                 element.MouseLeave += (o, args) =>
                 {
-                    element.style.backgroundColor = "blue";
-                    element.style.color = "white";
+                    try
+                    {
+                        element.style.backgroundColor = "blue";
+                        element.style.color = "white";
+                    }
+                    catch (Exception exception)
+                    {
+                        Debug.Print("bnScriptTest_Click element.MouseLeave error:" + exception.Message);
+                    }
+                   
 
                     //element.setAttribute("style","background-color: blue;color: white;");
 
@@ -518,9 +526,17 @@ namespace WebView2WrapperWinFormsTest
 
                 element.MouseEnter += (o, args) =>
                 {
+                    try
+                    {
+                        element.style.backgroundColor = "white";
+                        element.style.color = "black";
+
+                    }
+                    catch (Exception exception)
+                    {
+                        Debug.Print("bnScriptTest_Click element.MouseEnter error:" + exception.Message);
+                    }
                     //element.setAttribute("style","background-color: white;color: black;");
-                    element.style.backgroundColor = "white";
-                    element.style.color = "black";
                 };
 
             }

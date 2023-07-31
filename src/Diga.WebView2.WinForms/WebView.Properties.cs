@@ -31,7 +31,7 @@ namespace Diga.WebView2.WinForms
 
         private Color _DefaultBackgroundColor = Color.Empty;
 
-        private List<SchemeRegistration> _SchemeRegistrations;
+        private SchemeRegistration[] _SchemeRegistrations;
 
         #region Public Properties
         private string _MonitoringFolder;
@@ -427,11 +427,11 @@ namespace Diga.WebView2.WinForms
         public WebView2Environment Environment => this._WebViewControl.Environment;
         public WebView2View WebView2 => this._WebViewControl.WebView;
 
-        //public List<SchemeRegistration> SchemeRegistrations
-        //{
-        //    get => this._SchemeRegistrations;
-        //    set => this._SchemeRegistrations = value;
-        //}
+        public SchemeRegistration[] SchemeRegistrations
+        {
+            get => this._SchemeRegistrations;
+            set => this._SchemeRegistrations = value;
+        }
         #endregion
     }
 }

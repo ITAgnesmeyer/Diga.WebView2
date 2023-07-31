@@ -88,6 +88,7 @@ namespace Diga.WebView2.Scripting
         {
             try
             {
+                
                 RpcDomUnloadEvent?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception exception)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Diga.Core.Threading;
 using Diga.WebView2.Interop;
@@ -47,16 +48,16 @@ namespace Diga.WebView2.Scripting.DOM
         private async Task CreateVarAsync()
         {
             string scriptTest = "if(window.diga == undefined) window.diga = new Object();";
-            _ = await ExecuteScriptAsync(scriptTest);
-            string scriptValue = $"{this.Name}=new Object();";
+            //_ = await ExecuteScriptAsync(scriptTest);
+            string scriptValue = $"{scriptTest}{this.Name}=new Object();";
             _ = await ExecuteScriptAsync(scriptValue);
         }
         private void CreateVar()
         {
             string scriptTest = "if(window.diga == undefined) window.diga = new Object();";
 
-            ExecuteScript(scriptTest);
-            string scriptValue = $"{this.Name}=new Object();";
+            //ExecuteScript(scriptTest);
+            string scriptValue = $"{scriptTest}{this.Name}=new Object();";
             ExecuteScript(scriptValue);
         }
 
@@ -82,22 +83,38 @@ namespace Diga.WebView2.Scripting.DOM
                 object retVal = ExecuteScript(scriptText);
                 return (bool)Convert.ChangeType(retVal, TypeCode.Boolean);
             }
-            catch (Exception )
+            catch (Exception)
             {
                 return false;
             }
         }
         private void DeleteVar()
         {
-            string scriptText = $"if({this.Name}!=undefined) delete {this.Name};";
-            ExecuteScript(scriptText);
+            try
+            {
+
+                string scriptText = $"if({this.Name}!=undefined) delete {this.Name};";
+                ExecuteScript(scriptText);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("DOMVar.DeleteVar Error:" + e.Message);
+            }
 
         }
 
         private async Task DeleteVarAsync()
         {
-            string scriptText = $"if({this.Name}!=undefined) delete {this.Name};";
-            await ExecuteScriptAsync(scriptText);
+            try
+            {
+                string scriptText = $"if({this.Name}!=undefined) delete {this.Name};";
+                await ExecuteScriptAsync(scriptText);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("DOMVar.DeleteVarAsync Error:" + e.Message);
+            }
+
         }
         public async Task<DOMVar> CopyAsync()
         {
