@@ -1,4 +1,5 @@
-﻿using Diga.WebView2.Monitoring;
+﻿using System;
+using Diga.WebView2.Monitoring;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
 
@@ -18,11 +19,20 @@ namespace Diga.WebView2.WinForms
             {
                 var action = this._MonitoringActionList.GetFirstActiveWithUrl(uri);
                 RequestInfo requestInfo = new RequestInfo(e.Request);
-                if (action.Run(requestInfo, out var responseInfo))
+                try
                 {
-                    var respose = this.CreateResponse(responseInfo);
-                    e.Response = respose;
+                    if (action.Run(requestInfo, out var responseInfo))
+                    {
+                        var respose = this.CreateResponse(responseInfo);
+                        e.Response = respose;
                     
+                    }
+
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                    throw;
                 }
             }
         }

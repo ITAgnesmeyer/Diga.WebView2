@@ -11,7 +11,7 @@ namespace Diga.WebView2.Monitoring.CGI
         public string[] CgiExtionsions { get; set; }
         public CgiMoitoring()
         {
-            
+
         }
         public CgiMoitoring(string monitoringUrl, string monitoringFolder, bool isEnabled, string[] fielExtensions) : base(monitoringUrl, monitoringFolder, isEnabled)
         {
@@ -51,7 +51,7 @@ namespace Diga.WebView2.Monitoring.CGI
                 return "text/html";
             }
 
-            foreach (KeyValuePair<string,string> header in requestInfo.Headers)
+            foreach (KeyValuePair<string, string> header in requestInfo.Headers)
             {
                 if (header.Key == "Content-Type")
                 {
@@ -86,7 +86,7 @@ namespace Diga.WebView2.Monitoring.CGI
             {
                 ContentType = conentType,
                 RequestedMethod = requestInfo.Method,
-                
+
             };
             CgiInvoker invoker = new CgiInvoker
             {
@@ -106,46 +106,60 @@ namespace Diga.WebView2.Monitoring.CGI
                 }
             }
 
-            CgiResponse respose = invoker.Send(GetMethod(requestInfo.Method), conentType, query, env,
-                content);
-
-            if (respose != null)
+            try
             {
-                responseInfo = new ResponseInfo(respose.Body);
-                responseInfo.ContentType = env.ContentType;
-                string status = "200 OK";
-                foreach (KeyValuePair<string, string> resposeHeader in respose.Headers)
+
+
+                CgiResponse respose = invoker.Send(GetMethod(requestInfo.Method), conentType, query, env,
+                    content);
+
+                if (respose != null)
                 {
-                    if (resposeHeader.Key != "Status")
+                    responseInfo = new ResponseInfo(respose.Body);
+                    responseInfo.ContentType = env.ContentType;
+                    string status = "200 OK";
+                    foreach (KeyValuePair<string, string> resposeHeader in respose.Headers)
                     {
-                        if (responseInfo.Header.ContainsKey(resposeHeader.Key))
+                        if (resposeHeader.Key != "Status")
                         {
-                            responseInfo.Header[resposeHeader.Key] = resposeHeader.Value;
+                            if (responseInfo.Header.ContainsKey(resposeHeader.Key))
+                            {
+                                responseInfo.Header[resposeHeader.Key] = resposeHeader.Value;
+                            }
+                            else
+                            {
+                                responseInfo.Header.Add(resposeHeader.Key, resposeHeader.Value);
+                            }
+
+                            if (resposeHeader.Key == "Content-type")
+                            {
+                                responseInfo.ContentType = resposeHeader.Value;
+                            }
                         }
                         else
                         {
-                            responseInfo.Header.Add(resposeHeader.Key, resposeHeader.Value);    
-                        }
-                        
-                        if (resposeHeader.Key == "Content-type")
-                        {
-                            responseInfo.ContentType = resposeHeader.Value;
+                            status = resposeHeader.Value;
                         }
                     }
-                    else
-                    {
-                        status = resposeHeader.Value;
-                    }
+
+                    CgiStatus st = new CgiStatus(status);
+
+                    responseInfo.StatusCode = st.Status;
+                    responseInfo.StatusText = st.StatusMessage;
+                    return true;
+
                 }
-
-                CgiStatus st = new CgiStatus(status);
-
-                responseInfo.StatusCode = st.Status;
-                responseInfo.StatusText = st.StatusMessage;
-                return true;
-
             }
-
+            catch (Exception e)
+            {
+                string message = "Error:" + e.Message;
+                responseInfo = new ResponseInfo(message);
+                responseInfo.Header.Add("content-type", "text/html; charset=utf-8");
+                responseInfo.ContentType = "content-type; charset=utf-8";
+                responseInfo.StatusCode = 500;
+                responseInfo.StatusText = "Internal Server Error";
+                return true;
+            }
             return base.Run(requestInfo, out responseInfo);
         }
 
@@ -154,11 +168,11 @@ namespace Diga.WebView2.Monitoring.CGI
             string url = requestInfo.Uri;
             if (url == null)
                 return false;
-            if (url.EndsWith("/")) 
+            if (url.EndsWith("/"))
                 url = url.Substring(0, url.Length - 1);
             Uri ur = new Uri(url);
             string lPath = ur.LocalPath;
-            if(lPath.StartsWith("/"))
+            if (lPath.StartsWith("/"))
                 lPath = lPath.Substring(1);
             lPath = lPath.Replace("/", "\\");
             if (string.IsNullOrEmpty(lPath))
@@ -167,7 +181,7 @@ namespace Diga.WebView2.Monitoring.CGI
             string ext = fi.Extension;
             if (string.IsNullOrEmpty(ext))
                 return false;
-            if(ext.StartsWith("."))
+            if (ext.StartsWith("."))
                 ext = ext.Substring(1);
             ext = ext.ToLower();
             foreach (string cgiExtionsion in this.CgiExtionsions)

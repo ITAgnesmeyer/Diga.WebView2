@@ -6,16 +6,16 @@ using System.Text;
 
 namespace Diga.WebView2.Wrapper.Types
 {
-    internal unsafe static class ObjectRefHandler
-    {
-        public static IntPtr AddressOf(object o)
-        {
-            if(o == null) return IntPtr.Zero;
-            TypedReference reference = __makeref(o);
-            TypedReference* pRef = &reference;
-            return (IntPtr)pRef;
-        }
-    }
+    //internal static unsafe class ObjectRefHandler
+    //{
+    //    public static IntPtr AddressOf(object o)
+    //    {
+    //        if(o == null) return IntPtr.Zero;
+    //        TypedReference reference = __makeref(o);
+    //        TypedReference* pRef = &reference;
+    //        return (IntPtr)pRef;
+    //    }
+    //}
 
   
     internal static class ObjectHandleExtensions

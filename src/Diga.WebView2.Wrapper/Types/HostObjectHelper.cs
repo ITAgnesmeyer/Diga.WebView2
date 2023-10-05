@@ -7,7 +7,7 @@ using Diga.WebView2.Interop;
 
 namespace Diga.WebView2.Wrapper.Types
 {
-    internal class RpcTypeInfo
+    internal struct RpcTypeInfo
     {
         public string Name { get; }
         public string FuncName { get; }
@@ -35,14 +35,17 @@ namespace Diga.WebView2.Wrapper.Types
         private const int DISP_E_TYPEMISMATCH = -2147352571;
         private const int WIN_BOOL_TRUE = 1;
         private const int WIN_BOOL_FALSE = 0;
-        private Dictionary<string,RpcTypeInfo> TypeInfos = new Dictionary<string,RpcTypeInfo>();
-
+        private Dictionary<string,RpcTypeInfo> ContainTypeInfos = new Dictionary<string,RpcTypeInfo>();
+        private Dictionary<string, RpcTypeInfo> NotContainTypeInfos = new Dictionary<string,RpcTypeInfo>();
         public int IsMethodMember(ref object rawObject, string memberName)
         {
             Type type = rawObject.GetType();
-            RpcTypeInfo info = new RpcTypeInfo(type.AssemblyQualifiedName, memberName);
-            if (TypeInfos.ContainsKey(info.GetKey()))
+            RpcTypeInfo info = new RpcTypeInfo(type.FullName, memberName);
+            string key = info.GetKey();
+            if (this.ContainTypeInfos.ContainsKey(key))
                 return WIN_BOOL_TRUE;
+            if(this.NotContainTypeInfos.ContainsKey(key))
+                return WIN_BOOL_FALSE;
             if (!type.IsClass || type.IsCOMObject)
                 throw new COMException((string)null, DISP_E_TYPEMISMATCH);
             if (type.GetMember(memberName).Length == 0)
@@ -51,8 +54,12 @@ namespace Diga.WebView2.Wrapper.Types
             {
                 if (memberInfo.MemberType == MemberTypes.Method)
                 {
-                    TypeInfos.Add(info.GetKey(),info);
+                    this.ContainTypeInfos.Add(key,info);
                     return WIN_BOOL_TRUE;
+                }
+                else
+                {
+                    this.NotContainTypeInfos.Add(key, info);
                 }
             }
             return WIN_BOOL_FALSE;
