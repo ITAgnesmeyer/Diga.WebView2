@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using Diga.Core.Threading;
+using Diga.WebView2.Monitoring;
 using Diga.WebView2.Scripting;
 
 using Diga.WebView2.Wrapper;
@@ -18,49 +19,38 @@ namespace Diga.WebView2.Wpf
     public partial class WebView : UserControl
     {
         private WebView2Control _WebViewControl;
-
+        private static int ControlCounter = 0;
 
         public WebView()
         {
             this._RpcHandler = new RpcHandler();
             this._RpcHandler.RpcEvent += OnRpcEventIntern;
+            this._RpcHandler.RpcDomUnloadEvent += OnRpcDomUnloadEvent;
+            _MonitoringActionList = new MonitoringActionList();
             InitializeComponent();
         }
 
 
-        #region Internal Functions
 
-        private bool CheckIsCreatedOrEnded
-        {
-            get
-            {
-                if (!this.IsCreated) return false;
-                if (this.IsBrowserEnded) return false;
-                return true;
-            }
-        }
-
-        private void CheckIsCreatedOrEndedWithThrow()
-        {
-            if (!this.CheckIsCreatedOrEnded)
-                throw new InvalidOperationException("Browser not Created or Crashed");
-        }
-
-
-        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (this.IsCreated)
-            {
-                this._WebViewControl.DockToParent();
-            }
-        }
+        #region Internal functions
 
         private void CreateWebViewControl(IntPtr parent)
         {
             try
             {
+                if (UIDispatcher.FilnalDisposed)
+                {
+                    UIDispatcher.FilnalDisposed = false;
+                    
+                    #if !NETCOREAPP3_1_OR_GREATER
+                    AppDomain.CurrentDomain.ProcessExit -= BeforeProcessExitCatch;
+                    #endif
+                }
+                    
+
                 this._WebViewControl = new WebView2Control(parent);
                 WireEvents(this._WebViewControl);
+                ControlCounter++;
             }
             catch (Exception ex)
             {
@@ -105,7 +95,14 @@ namespace Diga.WebView2.Wpf
             if (this._ZoomFactor != 0)
                 this.ZoomFactor = this._ZoomFactor;
         }
-
+        
+        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (this.CheckIsCreatedOrEnded)
+            {
+                this._WebViewControl.DockToParent();
+            }
+        }
         private void ViewHwnd_Loaded(object sender, RoutedEventArgs e)
         {
             var h = this.ViewHwnd.Handle;
@@ -153,6 +150,24 @@ namespace Diga.WebView2.Wpf
             //}
             OnMouseButtonDown(e);
         }
+
+  
+        private bool CheckIsCreatedOrEnded
+        {
+            get
+            {
+                if (!this.IsCreated) return false;
+                if (this.IsBrowserEnded) return false;
+                return true;
+            }
+        }
+        
+        private void CheckIsCreatedOrEndedWithThrow()
+        {
+            if (!this.CheckIsCreatedOrEnded)
+                throw new InvalidOperationException("Browser not Created or Crashed");
+        }
+        
         private void ViewHwnd_Destroy(object sender, EventArgs e)
         {
             //this._WebViewControl?.CleanupControls();

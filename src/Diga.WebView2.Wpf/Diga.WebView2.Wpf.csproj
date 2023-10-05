@@ -5,7 +5,7 @@
 	<RootNamespace>Diga.WebView2.Wpf</RootNamespace>
 	  <AssemblyName>Diga.WebView2.Wpf</AssemblyName>
 	  <UseWPF>true</UseWPF>
-	  <Version>20.1.1</Version>
+	  <Version>20.1.2</Version>
 	  <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
 	  <Product>Diga.WebView2.Wpf</Product>
 	  <Copyright>Copyright © 2023 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
@@ -38,6 +38,7 @@
 		<None Include="logo.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
 	<ItemGroup>
+	  <ProjectReference Include="..\Diga.WebView2.Monitoring\Diga.WebView2.Monitoring.csproj" />
 	  <ProjectReference Include="..\Diga.WebView2.Scripting\Diga.WebView2.Scripting.csproj" />
 	  <ProjectReference Include="..\Diga.WebView2.Wrapper\Diga.WebView2.Wrapper.csproj" />
 	</ItemGroup>

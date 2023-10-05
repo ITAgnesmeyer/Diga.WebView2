@@ -32,13 +32,125 @@ namespace Diga.WebView2.Wpf
 
         private Color _DefaultBackgroundColor = Colors.White;
 
+        private SchemeRegistration[] _SchemeRegistrations;
 
         #region Public Properties
+        private string _MonitoringFolder;
+        //[Editor(typeof(FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        public string MonitoringFolder
+        {
+            get
+            {
+                return _MonitoringFolder;
+            }
+            set
+            {
+                _MonitoringFolder = value;
+                this._MonitoringActionList.FileMonitoring.SetMonitoringFolder(_MonitoringFolder);
+            }
+        }
+        private string _MonitoringUrl;
+        public string MonitoringUrl
+        {
+            get
+            {
+                return _MonitoringUrl;
+            }
+            set
+            {
+                _MonitoringUrl = value;
 
-        public string MonitoringFolder { get; set; }
-        public string MonitoringUrl { get; set; }
-        public bool EnableMonitoring { get; set; }
+                this._MonitoringActionList.FileMonitoring.SetMonitoringUrl(_MonitoringUrl);
+            }
+        }
 
+        private bool _EnableMonitoring;
+        public bool EnableMonitoring
+        {
+            get
+            {
+                return this._EnableMonitoring; 
+
+            }
+            set
+            {
+                this._EnableMonitoring = value; 
+                this._MonitoringActionList.FileMonitoring.SetIsEnabled(value);
+            }
+        }
+
+        private bool _EnableCgi;
+        public bool EnableCgi
+        {
+            get
+            {
+                return this._EnableCgi;
+            }
+            set
+            {
+                this._EnableCgi = value;
+                this._MonitoringActionList.CgiMointoring.SetIsEnabled(value);
+            }
+        }
+
+        private string _CgiMonitoringUrl;
+        public string CgiMoitoringUrl
+        {
+            get
+            {
+                return this._CgiMonitoringUrl;
+            }
+            set
+            {
+                this._CgiMonitoringUrl = value;
+                this._MonitoringActionList.CgiMointoring.SetMonitoringUrl(value);
+            }
+        }
+
+        private string _CgiMoitoringFolder;
+        //[Editor(typeof(FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        public string CgiMoitoringFolder
+        {
+            get
+            {
+                return _CgiMoitoringFolder;
+            }
+            set
+            {
+                this._CgiMoitoringFolder = value;
+                this._MonitoringActionList.CgiMointoring.SetMonitoringFolder(value);
+            }
+        }
+
+        private string[] _CgiFileExtensions;
+       
+        public string[] CgiFileExtensions
+        {
+            get
+            {
+                return this._CgiFileExtensions;
+            }
+            set
+            {
+                this._CgiFileExtensions = value;
+                this._MonitoringActionList.CgiMointoring.SetCgiExtionsions(value);
+
+            }
+        }
+        private string _CgiExeFile;
+        //[Editor(typeof(ExeSelectFileNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        public string CgiExeFile
+        {
+            get
+            {
+                return this._CgiExeFile;
+            }
+            set
+            {
+                this._CgiExeFile = value;
+                this._MonitoringActionList.CgiMointoring.SetCgiExeFile(value);
+            }
+        }
         public string Url
         {
             get => this._Url;
@@ -315,7 +427,14 @@ namespace Diga.WebView2.Wpf
 
         public WebView2Profile Profile => this._WebViewControl.Profile;
 
+        public WebView2Environment Environment => this._WebViewControl.Environment;
+        public WebView2View WebView2 => this._WebViewControl.WebView;
 
+        public SchemeRegistration[] SchemeRegistrations
+        {
+            get => this._SchemeRegistrations;
+            set => this._SchemeRegistrations = value;
+        }
         #endregion
     }
 }

@@ -2,8 +2,10 @@
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper;
+using Image = System.Drawing.Image;
 
 namespace Diga.WebView2.Wpf
 {
@@ -21,6 +23,15 @@ namespace Diga.WebView2.Wpf
             }
         }
 
+        public async Task<Image> GetFavIconAsImageAsync(ImageFormat imageFormat)
+        {
+            using (var stream = new MemoryStream())
+            {
+                await this._WebViewControl.GetFavIconAsync(stream, imageFormat);
+                var retImage = Image.FromStream(stream);
+                return retImage;
+            }
+        }
         public void Navigate(string url)
         {
             this._Url = url;
@@ -32,7 +43,7 @@ namespace Diga.WebView2.Wpf
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(e.Message, @"Navigation Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(e.Message, @"Navigation Error!", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 }
             }
         }
@@ -48,7 +59,7 @@ namespace Diga.WebView2.Wpf
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(e.Message, @"Navigation Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(e.Message, @"Navigation Error!", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 }
             }
         }
@@ -109,6 +120,10 @@ namespace Diga.WebView2.Wpf
             return this._WebViewControl.CreatePrintSettings();
         }
 
+        public void PrintToPdf(string file, ICoreWebView2PrintSettings printerSettings)
+        {
+            this._WebViewControl.PrintPdf(file, printerSettings);
+        }
         public async Task<bool> PrintToPdfAsync(string file, WebView2PrintSettings printSettings)
         {
             CheckIsCreatedOrEndedWithThrow();
