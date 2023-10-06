@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 
@@ -37,8 +38,15 @@ namespace Diga.WebView2.Wrapper
 
         public string HeaderToString()
         {
+            try
+            {
+                Header.Add("Cache-Control", "max-age=31536000, immutable");
 
-            Header.Add("Cache-Control", "max-age=31536000, immutable");
+            }
+            catch (Exception e)
+            {
+                Debug.Print(e.StackTrace);                
+            }
             StringBuilder headerStringBuilder = new StringBuilder($"HTTP/2 {StatusCode} {StatusText}\r\n");
 
             //string headerString = "";

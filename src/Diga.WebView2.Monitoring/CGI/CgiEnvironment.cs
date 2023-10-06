@@ -35,6 +35,8 @@ namespace Diga.WebView2.Monitoring.CGI
         public string HttpAcceptEncoding { get; set; }
         public string HttpAcceptCharset { get; set; }
         public string HttpAcceptLanguage { get; set; }
+        //HTTP_USER_AGENT
+        public string HttpUserAgent { get; set; }
         public string Referer { get; set; }
         public string TempDir { get; set; }
         public string Temp { get; set; }
@@ -136,6 +138,14 @@ namespace Diga.WebView2.Monitoring.CGI
                 }
             }
 
+            if (string.IsNullOrEmpty(this.HttpUserAgent))
+            {
+                if (this.RequestHeaders.TryGetValue("User-Agent", out var userAgent))
+                {
+                    this.HttpUserAgent = userAgent;
+                }
+            }
+
             SetVar(info, this.HttpAcceptLanguage, "HTTP_ACCEPT_LANGUAGE");
             if (string.IsNullOrEmpty(this.Referer))
             {
@@ -150,6 +160,8 @@ namespace Diga.WebView2.Monitoring.CGI
             SetVar(info, this.ServerSoftware, "SERVER_SOFTWARE");
             SetVar(info, this.TempDir, "TEMPDIR");
             SetVar(info, this.Temp, "TEMP");
+            SetVar(info,this.HttpUserAgent, "HTTP_USER_AGENT");
+
         }
     }
 }
