@@ -21,6 +21,7 @@ namespace Diga.WebView2.Monitoring.CGI
         public string RemoteUser { get; set; }
         public string RequestUri { get; set; }
         public string RequestedMethod { get; set; }
+        public string RequestScheme { get; set; }
         public string RedirectStatus { get; set; }
         public string ScriptName { get; set; }
         public string ScriptFileName { get; set; }
@@ -37,6 +38,7 @@ namespace Diga.WebView2.Monitoring.CGI
         public string HttpAcceptLanguage { get; set; }
         //HTTP_USER_AGENT
         public string HttpUserAgent { get; set; }
+        public string HttpHost { get; set; }
         public string Referer { get; set; }
         public string TempDir { get; set; }
         public string Temp { get; set; }
@@ -45,7 +47,7 @@ namespace Diga.WebView2.Monitoring.CGI
         {
             this.RequestHeaders = new Dictionary<string, string>();
             this.GatewayInterface = "CGI/1.1";
-            this.ServerProtocol = "HTTP/1.0";
+            this.ServerProtocol = "HTTP/1.1";
             this.RedirectStatus = "200";
         }
 
@@ -77,6 +79,7 @@ namespace Diga.WebView2.Monitoring.CGI
             SetVar(info, this.ContentType, "CONTENT_TYPE");
             SetVar(info, this.RequestedMethod, "REQUEST_METHOD");
             SetVar(info, this.RequestUri, "REQUEST_URI");
+            SetVar(info, this.RequestScheme, "REQUEST_SCHEME");
             SetVar(info, this.UserAgent, "USER_AGENT");
             SetVar(info, this.ServerAddr, "SERVER_ADDR");
             SetVar(info, this.ServerPort, "SERVER_PORT");
@@ -94,6 +97,7 @@ namespace Diga.WebView2.Monitoring.CGI
             SetVar(info, this.ContentType, "CONTENT_TYPE");
             SetVar(info, this.PathInfo, "PATH_INFO");
             SetVar(info, this.PathTranslated, "PATH_TRANSLATED");
+            SetVar(info, this.HttpHost, "HTTP_HOST");
             if (string.IsNullOrEmpty(this.HttpCookie))
             {
                 if (this.RequestHeaders.TryGetValue("Cookie", out var coocie))
@@ -160,6 +164,7 @@ namespace Diga.WebView2.Monitoring.CGI
             SetVar(info, this.ServerSoftware, "SERVER_SOFTWARE");
             SetVar(info, this.TempDir, "TEMPDIR");
             SetVar(info, this.Temp, "TEMP");
+            SetVar(info, this.TempDir, "TMP");
             SetVar(info,this.HttpUserAgent, "HTTP_USER_AGENT");
 
         }

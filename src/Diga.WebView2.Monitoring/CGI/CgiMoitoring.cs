@@ -180,6 +180,23 @@ namespace Diga.WebView2.Monitoring.CGI
             FileInfo fi = new FileInfo(lPath);
             string ext = fi.Extension;
             if (string.IsNullOrEmpty(ext))
+            {
+                if (!string.IsNullOrEmpty(fi.DirectoryName))
+                {
+                    if (fi.DirectoryName.Contains("."))
+                    {
+                        int lIndex = fi.DirectoryName.LastIndexOf(".",StringComparison.InvariantCulture );
+                        int index = fi.DirectoryName.Length - lIndex;
+                        if (index > 0 && index < 6)
+                        {
+                            ext = fi.DirectoryName.Substring(lIndex);
+
+                        }
+                    }
+                }
+            }
+            
+            if (string.IsNullOrEmpty(ext))
                 return false;
             if (ext.StartsWith("."))
                 ext = ext.Substring(1);

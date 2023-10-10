@@ -315,10 +315,10 @@
             // 
             this.webView1.AreBrowserAcceleratorKeysEnabled = true;
             this.webView1.BackColor = System.Drawing.Color.Black;
-            this.webView1.CgiExeFile = "C:\\php\\php-cgi.exe";
+            this.webView1.CgiExeFile = "C:\\xampp\\php\\php-cgi.exe";
             this.webView1.CgiFileExtensions = (new string[] { "php" });
-            this.webView1.CgiMoitoringFolder = "C:\\TEMP";
-            this.webView1.CgiMoitoringUrl = "https://localhost:1/";
+            this.webView1.CgiMoitoringFolder = "C:\\xampp\\htdocs";
+            this.webView1.CgiMoitoringUrl = "https://localhost:8885/";
             this.webView1.DefaultBackgroundColor = System.Drawing.Color.AliceBlue;
             this.webView1.DefaultContextMenusEnabled = true;
             this.webView1.DefaultScriptDialogsEnabled = true;

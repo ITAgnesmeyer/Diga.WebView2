@@ -44,18 +44,21 @@ namespace Diga.WebView2.Monitoring.CGI
             scriptPath = Path.Combine(ScriptBasePath, scriptPath);
             ManualResetEvent mrs = new ManualResetEvent(false);
             p.Exited += (o, e) => { mrs.Set(); };
-            p.StartInfo.Arguments = scriptPath;
+            //p.StartInfo.Arguments = scriptPath;
             p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.RedirectStandardInput = true;
             p.StartInfo.WorkingDirectory = this.ScriptBasePath;
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.CreateNoWindow = true;
             environment.DocumentRoot = this.ScriptBasePath.Replace("\\", "/");
-            if (!environment.DocumentRoot.EndsWith("/")) environment.DocumentRoot += "/";
-            environment.PathInfo = "/";
+            //if (environment.DocumentRoot.EndsWith("/")) environment.DocumentRoot += "/";
+            //environment.PathInfo = "/";
             environment.ContentLength = body.Length.ToString();
             environment.RequestedMethod = mehtod.ToString();
             environment.QueryString = GetQueryString(uri);
+            if(!string.IsNullOrEmpty(environment.QueryString))
+                p.StartInfo.Arguments = environment.QueryString;
+
             if (!string.IsNullOrEmpty(environment.QueryString))
             {
                 string args = environment.QueryString.Replace("&", " ");
@@ -66,15 +69,29 @@ namespace Diga.WebView2.Monitoring.CGI
             string scriptFileName = info.Name;
             string scriptFolderPath = info.DirectoryName;
             string tempPath = Path.GetTempPath();
-            environment.ScriptName = scriptFileName;
-            environment.ScriptFileName = scriptFilePath;
+            if(tempPath.EndsWith("\\")) tempPath = tempPath.Substring(0,tempPath.Length - 1);
+
+            environment.TempDir = tempPath.Replace("\\", "/");
+            environment.ScriptName = uri.LocalPath;
+            environment.ScriptFileName = scriptFilePath.Replace("\\", "/");
+            environment.ServerName = uri.Host;
+            environment.HttpHost = uri.Host;
             environment.ServerAddr = GetHostAddress(uri.Host);
             environment.ServerPort = uri.Port.ToString();
             environment.RemoteAddr = GetHostAddress(uri.Host);
             environment.RemotePort = uri.Port.ToString();
-            environment.RequestUri = uri.AbsoluteUri;
+            environment.RequestUri = uri.PathAndQuery;
+            environment.RequestScheme = uri.Scheme;
+            //environment.PathTranslated = uri.LocalPath;
             environment.ContentType = contentType;
             environment.Set(p.StartInfo);
+            var varsa = p.StartInfo.EnvironmentVariables;
+            Debug.Print("Environment Vor exec");
+            Debug.Print("--------------------");
+            foreach (string key in varsa.Keys)
+            {
+                Debug.Print($"{key}:{varsa[key]}");
+            }
             p.EnableRaisingEvents = true;
 
     //throw new Exception("NET8.0 cannot run Process.Start()");
@@ -95,7 +112,14 @@ namespace Diga.WebView2.Monitoring.CGI
             StreamReader sr = p.StandardOutput;
             this.RepsponseContent = sr.ReadToEnd();
             sr.Close();
-            mrs.WaitOne(10000);
+            mrs.WaitOne(120000);
+            var vars = p.StartInfo.EnvironmentVariables;
+            Debug.Print("Environment Nach exec");
+            Debug.Print("--------------------");
+            foreach (string key in vars.Keys)
+            {
+                Debug.Print($"{key}:{vars[key]}");
+            }
             return new CgiResponse(this.RepsponseContent);
         }
     }

@@ -40,7 +40,16 @@ namespace Diga.WebView2.Wrapper
         {
             try
             {
-                Header.Add("Cache-Control", "max-age=31536000, immutable");
+                if (!Header.ContainsKey("Cache-Control"))
+                {
+                    Header.Add("Cache-Control", "max-age=31536000, immutable");
+                }
+                else
+                {
+                    Header["Cache-Control"] = "max-age=31536000, immutable";
+                }
+                    
+
 
             }
             catch (Exception e)

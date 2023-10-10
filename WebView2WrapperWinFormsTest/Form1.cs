@@ -28,6 +28,12 @@ namespace WebView2WrapperWinFormsTest
             InitializeComponent();
             this._SecondForm = new Form();
             WebView wv = new WebView();
+            wv.EnableCgi = this.webView1.EnableCgi;
+            wv.CgiExeFile = this.webView1.CgiExeFile;
+            wv.CgiFileExtensions = this.webView1.CgiFileExtensions;
+            wv.CgiMoitoringFolder = this.webView1.CgiMoitoringFolder;
+            wv.CgiMoitoringUrl = this.webView1.CgiMoitoringUrl;
+
             wv.Dock = DockStyle.Fill;
             this._SecondForm.Controls.Add(wv);
             this._SecondForm.Show(this);

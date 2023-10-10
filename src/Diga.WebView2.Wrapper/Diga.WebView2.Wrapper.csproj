@@ -6,7 +6,7 @@
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>WrapperSign.snk</AssemblyOriginatorKeyFile>
-    <Version>20.1.4</Version>
+    <Version>20.1.5</Version>
 	 <Copyright>Copyright © 2023 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
     <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
