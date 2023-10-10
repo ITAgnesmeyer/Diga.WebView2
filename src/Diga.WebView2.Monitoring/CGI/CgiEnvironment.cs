@@ -45,7 +45,7 @@ namespace Diga.WebView2.Monitoring.CGI
         {
             this.RequestHeaders = new Dictionary<string, string>();
             this.GatewayInterface = "CGI/1.1";
-            this.ServerProtocol = "HTTP/1.1";
+            this.ServerProtocol = "HTTP/1.0";
             this.RedirectStatus = "200";
         }
 
