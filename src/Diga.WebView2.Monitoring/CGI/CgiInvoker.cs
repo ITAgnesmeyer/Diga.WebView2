@@ -4,6 +4,7 @@ using System.Net;
 using System.Threading;
 using System;
 using System.Linq;
+using System.Text;
 
 namespace Diga.WebView2.Monitoring.CGI
 {
@@ -50,6 +51,8 @@ namespace Diga.WebView2.Monitoring.CGI
             p.StartInfo.WorkingDirectory = this.ScriptBasePath;
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.StandardOutputEncoding = Encoding.UTF8;
+            
             environment.DocumentRoot = this.ScriptBasePath.Replace("\\", "/");
             //if (environment.DocumentRoot.EndsWith("/")) environment.DocumentRoot += "/";
             //environment.PathInfo = "/";
@@ -85,13 +88,13 @@ namespace Diga.WebView2.Monitoring.CGI
             //environment.PathTranslated = uri.LocalPath;
             environment.ContentType = contentType;
             environment.Set(p.StartInfo);
-            var varsa = p.StartInfo.EnvironmentVariables;
-            Debug.Print("Environment Vor exec");
-            Debug.Print("--------------------");
-            foreach (string key in varsa.Keys)
-            {
-                Debug.Print($"{key}:{varsa[key]}");
-            }
+            //var varsa = p.StartInfo.EnvironmentVariables;
+            //Debug.Print("Environment Vor exec");
+            //Debug.Print("--------------------");
+            //foreach (string key in varsa.Keys)
+            //{
+            //    Debug.Print($"{key}:{varsa[key]}");
+            //}
             p.EnableRaisingEvents = true;
 
     //throw new Exception("NET8.0 cannot run Process.Start()");
@@ -109,17 +112,17 @@ namespace Diga.WebView2.Monitoring.CGI
             StreamWriter sw = p.StandardInput;
             sw.Write(body);
             sw.Flush();
-            StreamReader sr = p.StandardOutput;
+            TextReader sr = p.StandardOutput;
             this.RepsponseContent = sr.ReadToEnd();
             sr.Close();
             mrs.WaitOne(120000);
-            var vars = p.StartInfo.EnvironmentVariables;
-            Debug.Print("Environment Nach exec");
-            Debug.Print("--------------------");
-            foreach (string key in vars.Keys)
-            {
-                Debug.Print($"{key}:{vars[key]}");
-            }
+            //var vars = p.StartInfo.EnvironmentVariables;
+            //Debug.Print("Environment Nach exec");
+            //Debug.Print("--------------------");
+            //foreach (string key in vars.Keys)
+            //{
+            //    Debug.Print($"{key}:{vars[key]}");
+            //}
             return new CgiResponse(this.RepsponseContent);
         }
     }

@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>MonitoringSign.snk</AssemblyOriginatorKeyFile>
-    <Version>1.20.5</Version>
+    <Version>1.20.6</Version>
     <RootNamespace>Diga.WebView2.Monitoring</RootNamespace>
     <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
     <Company>Dipl.-Ing.(FH) Guido Agnesmeyer</Company>
@@ -17,8 +17,8 @@
     <RepositoryUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</RepositoryUrl>
     <AssemblyName>Diga.WebView2.Monitoring</AssemblyName>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>1.20.3</AssemblyVersion>
-    <FileVersion>1.20.3</FileVersion>
+    <AssemblyVersion>1.20.6</AssemblyVersion>
+    <FileVersion>1.20.6</FileVersion>
     <Description>Monitoring Extension</Description>
   </PropertyGroup>
 

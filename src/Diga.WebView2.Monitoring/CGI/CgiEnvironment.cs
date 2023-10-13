@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Diga.WebView2.Monitoring.CGI
@@ -6,6 +7,11 @@ namespace Diga.WebView2.Monitoring.CGI
     public class CgiEnvironment
     {
         public Dictionary<string, string> RequestHeaders { get; }
+        public string Path { get; set; }
+        public string PathExt { get; set; }
+        public string WinDir { get; set; }
+        public string SystemRoot { get; set; }
+        public string ComSpec { get; set; }
         public string AuthType { get; set; }
         public string ContentLength { get; set; }
         public string ContentType { get; set; }
@@ -39,6 +45,18 @@ namespace Diga.WebView2.Monitoring.CGI
         //HTTP_USER_AGENT
         public string HttpUserAgent { get; set; }
         public string HttpHost { get; set; }
+        //HTTP_UPGRADE_INSECURE_REQUESTS
+        public string HttpUpgradeInsecureRequests { get; set; }
+        //HTTP_SEC_FETCH_DEST
+        //HTTP_SEC_FETCH_MODE
+        //HTTP_SEC_FETCH_SITE
+        //HTTP_SEC_FETCH_USER
+        public string HttpSecFetchDest { get; set; }
+        public string HttpSecFetchMode { get; set; }
+        public string HttpSecFetchSite { get; set; }
+        public string HttpSecFetchUser { get; set; }
+
+        public string HttpConnection { get; set; }
         public string Referer { get; set; }
         public string TempDir { get; set; }
         public string Temp { get; set; }
@@ -61,7 +79,7 @@ namespace Diga.WebView2.Monitoring.CGI
 
         private void SetVar(ProcessStartInfo info, string value, string name)
         {
-            if (string.IsNullOrEmpty(value)) return;
+            if (value == null) return;
             info.EnvironmentVariables[name] = value;
         }
 
@@ -131,6 +149,10 @@ namespace Diga.WebView2.Monitoring.CGI
                 {
                     this.HttpAcceptEncoding = acceptEncoding;
                 }
+                else
+                {
+                    this.HttpAcceptEncoding = "gzip, deflate, br";
+                }
             }
 
             SetVar(info, this.HttpAcceptEncoding, "HTTP_ACCEPT_ENCODING");
@@ -140,8 +162,12 @@ namespace Diga.WebView2.Monitoring.CGI
                 {
                     this.HttpAcceptLanguage = acceptLanguage;
                 }
+                else
+                {
+                    this.HttpAcceptLanguage = "de,en-US;q=0.7,en;q=0.3";
+                }
             }
-
+            SetVar(info, this.HttpAcceptLanguage, "HTTP_ACCEPT_LANGUAGE");
             if (string.IsNullOrEmpty(this.HttpUserAgent))
             {
                 if (this.RequestHeaders.TryGetValue("User-Agent", out var userAgent))
@@ -149,8 +175,8 @@ namespace Diga.WebView2.Monitoring.CGI
                     this.HttpUserAgent = userAgent;
                 }
             }
-
-            SetVar(info, this.HttpAcceptLanguage, "HTTP_ACCEPT_LANGUAGE");
+            SetVar(info,this.HttpUserAgent, "HTTP_USER_AGENT");
+            
             if (string.IsNullOrEmpty(this.Referer))
             {
                 if (this.RequestHeaders.TryGetValue("Referer", out var referer))
@@ -159,13 +185,125 @@ namespace Diga.WebView2.Monitoring.CGI
                 }
             }
 
+            if (string.IsNullOrEmpty(this.HttpUpgradeInsecureRequests))
+            {
+                if (this.RequestHeaders.TryGetValue("Upgrade-Insecure-Requests", out var insecRequests))
+                {
+                    this.HttpUpgradeInsecureRequests = insecRequests;
+                }
+
+            }
+
+            SetVar(info, this.HttpUpgradeInsecureRequests, "HTTP_UPGRADE_INSECURE_REQUESTS");
+
+            if (string.IsNullOrEmpty(this.HttpSecFetchDest))
+            {
+                if (this.RequestHeaders.TryGetValue("Sec-Fetch-Dest", out var secFetchDest))
+                {
+                    this.HttpSecFetchDest = secFetchDest;
+                }
+                else
+                {
+                    this.HttpSecFetchDest = "document";
+
+                }
+            }
+
+            SetVar(info, this.HttpSecFetchDest, "HTTP_SEC_FETCH_DEST");
+
+
+            if (string.IsNullOrEmpty(this.HttpSecFetchMode))
+            {
+                if (this.RequestHeaders.TryGetValue("Sec-Fetch-Mode", out var secFetchMode))
+                {
+                    this.HttpSecFetchMode = secFetchMode;
+                }
+                else
+                {
+                    this.HttpSecFetchMode = "navigate";
+                }
+            }
+
+            SetVar(info, this.HttpSecFetchMode, "HTTP_SEC_FETCH_MODE");
+
+
+            if (string.IsNullOrEmpty(this.HttpSecFetchSite))
+            {
+                if (this.RequestHeaders.TryGetValue("Sec-Fetch-Site", out var secFetchSite))
+                {
+                    this.HttpSecFetchSite = secFetchSite;
+                }
+                else
+                {
+                    this.HttpSecFetchDest = "none";
+                }
+            }
+
+            SetVar(info, this.HttpSecFetchSite, "HTTP_SEC_FETCH_SITE");
+
+            if (string.IsNullOrEmpty(this.HttpSecFetchUser))
+            {
+                if (this.RequestHeaders.TryGetValue("Sec-Fetch-User", out var secFetchuser))
+                {
+                    this.HttpSecFetchUser = secFetchuser;
+                }
+                else
+                {
+                    this.HttpSecFetchUser = "?1";
+                }
+            }
+
+            SetVar(info, this.HttpSecFetchUser, "HTTP_SEC_FETCH_USER");
+
+            if (string.IsNullOrEmpty(this.HttpConnection))
+            {
+                this.HttpConnection = "keep-alive";
+            }
+
+            SetVar(info, this.HttpConnection, "HTTP_CONNECTION");
+
+            if (string.IsNullOrEmpty(this.Path))
+            {
+                this.Path = Environment.GetEnvironmentVariable("PATH");
+            }
+
+            SetVar(info, this.Path, "PATH");
+
+            if (string.IsNullOrEmpty(this.SystemRoot))
+            {
+                this.SystemRoot = Environment.GetEnvironmentVariable("SystemRoot");
+            }
+            SetVar(info, this.SystemRoot, "SystemRoot");
+
+
+            if (string.IsNullOrEmpty(this.ComSpec))
+            {
+                this.ComSpec = Environment.GetEnvironmentVariable("ComSpec");
+            }
+            SetVar(info, this.ComSpec,"COMSPEC");
+
+            if (string.IsNullOrEmpty(this.PathExt))
+            {
+                this.PathExt = Environment.GetEnvironmentVariable("PATHEXT");
+            }
+
+            SetVar(info, this.PathExt, "PATHEXT");
+
+
+            if (string.IsNullOrEmpty(this.WinDir))
+            {
+                this.WinDir = Environment.GetEnvironmentVariable("windir");
+            }
+
+            SetVar(info, this.WinDir, "WINDIR");
+
             SetVar(info, this.Referer, "REFERER");
             SetVar(info, this.RemoteUser, "REMOTE_USER");
             SetVar(info, this.ServerSoftware, "SERVER_SOFTWARE");
             SetVar(info, this.TempDir, "TEMPDIR");
             SetVar(info, this.Temp, "TEMP");
             SetVar(info, this.TempDir, "TMP");
-            SetVar(info,this.HttpUserAgent, "HTTP_USER_AGENT");
+            
 
         }
     }
