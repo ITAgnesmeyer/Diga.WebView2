@@ -98,14 +98,14 @@ namespace Diga.WebView2.Monitoring.CGI
             p.EnableRaisingEvents = true;
 
     //throw new Exception("NET8.0 cannot run Process.Start()");
-            string fwDesk = System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription;
-            if (fwDesk != null)
-            {
-                if (fwDesk.StartsWith(".NET 8.0.0"))
-                {
-                    throw new Exception("NET8.0 currently cannot run Process.Start()");
-                }
-            }
+            //string fwDesk = System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription;
+            //if (fwDesk != null)
+            //{
+            //    if (fwDesk.StartsWith(".NET 8.0.0"))
+            //    {
+            //        throw new Exception("NET8.0 currently cannot run Process.Start()");
+            //    }
+            //}
 
             p.Start();
 
