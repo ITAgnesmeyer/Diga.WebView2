@@ -28,20 +28,33 @@ namespace WebView2WrapperWinFormsTest
             InitializeComponent();
             this._SecondForm = new Form();
             WebView wv = new WebView();
+            wv.SchemeRegistrations = this.webView1.SchemeRegistrations;
+
+            wv.MonitoringFolder = this.webView1.MonitoringFolder;
+            wv.MonitoringUrl = this.webView1.MonitoringUrl;
+            wv.EnableMonitoring = this.webView1.EnableMonitoring;
             wv.EnableCgi = this.webView1.EnableCgi;
             wv.CgiExeFile = this.webView1.CgiExeFile;
             wv.CgiFileExtensions = this.webView1.CgiFileExtensions;
             wv.CgiMoitoringFolder = this.webView1.CgiMoitoringFolder;
             wv.CgiMoitoringUrl = this.webView1.CgiMoitoringUrl;
-
+            wv.NavigationStart += (o, nse) =>
+            {
+                Debug.Print("second windows NavigationStart:" + nse.uri);
+            };
+            wv.WebResourceRequested += (o, wr) =>
+            {
+                Debug.Print("WEbResource requested:" + wr.Request.Uri);
+            };
             wv.Dock = DockStyle.Fill;
             this._SecondForm.Controls.Add(wv);
             this._SecondForm.Show(this);
-            this._SecondForm.Closing += (o, e) =>
+            this._SecondForm.Closing += (o, ec) =>
             {
-                e.Cancel = true;
+                ec.Cancel = true;
                 this._SecondForm.Visible = false;
             };
+
 
 
         }
@@ -263,7 +276,6 @@ namespace WebView2WrapperWinFormsTest
             this.webView1.NavigateToString(value);
             this.textBox1.AutoCompleteCustomSource.Add(this.webView1.MonitoringUrl);
             this.textBox1.AutoCompleteCustomSource.Add(this.webView1.MonitoringUrl + "mp3test/testmp3.html");
-
 
 
         }
@@ -523,7 +535,7 @@ namespace WebView2WrapperWinFormsTest
                     {
                         Debug.Print("bnScriptTest_Click element.MouseLeave error:" + exception.Message);
                     }
-                   
+
 
                     //element.setAttribute("style","background-color: blue;color: white;");
 
@@ -814,9 +826,24 @@ namespace WebView2WrapperWinFormsTest
                 if (this._SecondForm.Controls[0] is WebView wv)
                 {
                     this._SecondForm.Visible = true;
+                    //wv.Navigate(e.uri);
+                    //e.NewWindow = wv.WebView2;
+                    if (e.WindowFeatures != null)
+                    {
+                        if (e.WindowFeatures.HasSize == 1)
+                        {
+                            this._SecondForm.Width = (int)e.WindowFeatures.Width;
+                            this._SecondForm.Height = (int)e.WindowFeatures.Height;
+                        }
 
-                    e.NewWindow = wv.WebView2;
-
+                        if (e.WindowFeatures.HasPosition==1)
+                        {
+                            this._SecondForm.Left = (int)e.WindowFeatures.left;
+                            this._SecondForm.Top = (int)e.WindowFeatures.top;
+                        }
+                    }
+                    wv.Navigate(e.uri);
+                    e.Handled = 1;
                 }
 
 
