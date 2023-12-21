@@ -6,6 +6,8 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
+
+
     public class WebView2Profile2Interface : WebView2ProfileInterface
     {
         private ComObjectHolder< ICoreWebView2Profile2> _Profile;

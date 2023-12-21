@@ -3,9 +3,13 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.Types;
+using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
+
+
+
     public class BasicAuthenticationRequestedEventArgsInterface : IDisposable
     {
         private ComObjectHolder<ICoreWebView2BasicAuthenticationRequestedEventArgs> _Args;

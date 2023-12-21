@@ -5,7 +5,7 @@
 		<SignAssembly>true</SignAssembly>
 		<DelaySign>false</DelaySign>
 		<AssemblyOriginatorKeyFile>IneropSign.snk</AssemblyOriginatorKeyFile>
-		<Version>20.1.4</Version>
+		<Version>20.1.5</Version>
 		<Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
 		<Company>Dipl.-Ing.(FH) Guido Agnesmeyer</Company>
 		<Copyright>Copyright © 2023 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>

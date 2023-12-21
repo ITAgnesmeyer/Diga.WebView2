@@ -11,7 +11,7 @@ using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper
 {
-    public class Frame : WebView2Frame3Interface
+    public class Frame : WebView2Frame5Interface
 
     {
        
@@ -25,7 +25,7 @@ namespace Diga.WebView2.Wrapper
         ///             pattern for any type that is not sealed.
         ///             https://docs.microsoft.com/dotnet/api/system.idisposable#idisposable-and-the-inheritance-hierarchy
         private SafeHandle handle = (SafeHandle) new SafeFileHandle(IntPtr.Zero, true);
-        public Frame(ICoreWebView2Frame3 frame):base(frame)
+        public Frame(ICoreWebView2Frame5 frame):base(frame)
         {
             
             WireEvents();

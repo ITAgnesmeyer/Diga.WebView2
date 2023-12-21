@@ -859,7 +859,7 @@ namespace Diga.WebView2.Wrapper
             //ContextMenuRequested?.Invoke(this, e);
         }
 
-        public new WebView2Profile Profile => new WebView2Profile((ICoreWebView2Profile2)base.Profile);
+        public new WebView2Profile Profile => new WebView2Profile((ICoreWebView2Profile8)base.Profile);
 
         protected virtual void OnPrintToPdfCompleted(PrintToPdfCompleteEventArgs e)
         {

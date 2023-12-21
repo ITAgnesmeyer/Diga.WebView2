@@ -6,6 +6,8 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
+
+
     public class WebView2Frame4Interface : WebView2Frame3Interface //, ICoreWebView2Frame4
     {
         private ComObjectHolder<ICoreWebView2Frame4> _Args;

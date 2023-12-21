@@ -24,7 +24,7 @@ namespace Diga.WebView2.Wrapper
             this.ExclusiveUserDataFolderAccess = new CBOOL(true);
             this.IsCustomCrashReportingEnabled = new CBOOL(false);
             this.EnableTrackingPrevention = (CBOOL)true;
-            this.AreBrowserExtensionsEnabled = (CBOOL)false;
+            this.AreBrowserExtensionsEnabled = (CBOOL)true;
             this.CustomSchemeRegistrations = new List<WebView2CustomSchemeRegistration>();
         }
         public string AdditionalBrowserArguments { get; set; }

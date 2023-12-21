@@ -5,6 +5,8 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
+
+
     public class NewWindowRequestedEventArgs2Interface : NewWindowRequestedEventArgsInterface
     {
         private ComObjectHolder< ICoreWebView2NewWindowRequestedEventArgs2> _Args;

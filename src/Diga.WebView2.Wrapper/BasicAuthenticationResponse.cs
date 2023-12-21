@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Implementation;
 
 namespace Diga.WebView2.Wrapper
 {
+
     public class BasicAuthenticationResponse : ICoreWebView2BasicAuthenticationResponse, IDisposable
     {
         private ICoreWebView2BasicAuthenticationResponse _Response;

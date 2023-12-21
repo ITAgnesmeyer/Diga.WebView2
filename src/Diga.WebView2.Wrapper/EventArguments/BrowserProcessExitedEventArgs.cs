@@ -2,6 +2,7 @@
 
 namespace Diga.WebView2.Wrapper.EventArguments
 {
+
     public class BrowserProcessExitedEventArgs : ICoreWebView2BrowserProcessExitedEventArgs
     {
         private ICoreWebView2BrowserProcessExitedEventArgs _Iface;
