@@ -29,12 +29,12 @@ namespace Diga.WebView2.Wrapper.Handler
             handler.ControllerCompleted += OnControllerCompletedIntern;
             handler.ControllerCompletedError += OnControllerCompletedErrorIntern;
             handler.BeforeControllerCreate += OnBeforeControllerCreateIntern;
-            OnBeforeEnvironmentCompleted(new EnvironmentCompletedHandlerArgs((ICoreWebView2Environment12)createdEnvironment));
+            OnBeforeEnvironmentCompleted(new EnvironmentCompletedHandlerArgs((ICoreWebView2Environment13)createdEnvironment));
             createdEnvironment.CreateCoreWebView2Controller(hWnd, handler);
             var handler2 = new CompositionControllerCompletedHandler();
             handler2.Completed += OnCompositionControllerCompletedIntern;
             ((ICoreWebView2Environment4)createdEnvironment).CreateCoreWebView2CompositionController(hWnd, handler2);
-            OnAfterEnvironmentCompleted(new EnvironmentCompletedHandlerArgs((ICoreWebView2Environment12)createdEnvironment));
+            OnAfterEnvironmentCompleted(new EnvironmentCompletedHandlerArgs((ICoreWebView2Environment13)createdEnvironment));
             result = HRESULT.S_OK;
         }
 

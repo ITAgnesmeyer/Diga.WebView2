@@ -1,13 +1,15 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: Diga.WebView2.Interop.COREWEBVIEW2_MOUSE_EVENT_KIND
 // Assembly: Diga.WebView2.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 1E8B0323-528E-4C9C-8FF8-A486637C87E1
-// Assembly location: O:\webview2\V1096133\Diga.WebView2.Interop.dll
+// MVID: E890F85C-2747-4676-BEB3-566B145AA00D
+// Assembly location: F:\temp\microsoft.web.webview2.1.0.2210.55\Diga.WebView2.Interop.dll
 
 namespace Diga.WebView2.Interop
 {
   public enum COREWEBVIEW2_MOUSE_EVENT_KIND
   {
+    COREWEBVIEW2_MOUSE_EVENT_KIND_NON_CLIENT_RIGHT_BUTTON_DOWN = 164, // 0x000000A4
+    COREWEBVIEW2_MOUSE_EVENT_KIND_NON_CLIENT_RIGHT_BUTTON_UP = 165, // 0x000000A5
     COREWEBVIEW2_MOUSE_EVENT_KIND_MOVE = 512, // 0x00000200
     COREWEBVIEW2_MOUSE_EVENT_KIND_LEFT_BUTTON_DOWN = 513, // 0x00000201
     COREWEBVIEW2_MOUSE_EVENT_KIND_LEFT_BUTTON_UP = 514, // 0x00000202

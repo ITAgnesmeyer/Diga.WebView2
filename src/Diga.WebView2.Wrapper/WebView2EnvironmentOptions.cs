@@ -3,21 +3,28 @@ using Diga.WebView2.Wrapper.interop;
 using Diga.WebView2.Wrapper.Types;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using IntPtr = System.IntPtr;
+
 
 namespace Diga.WebView2.Wrapper
 {
-    public class WebView2EnvironmentOptions : ICoreWebView2EnvironmentOptions4
+    public class WebView2EnvironmentOptions : 
+        ICoreWebView2EnvironmentOptions, 
+        ICoreWebView2EnvironmentOptions2, 
+        ICoreWebView2EnvironmentOptions3, 
+        ICoreWebView2EnvironmentOptions4,
+        ICoreWebView2EnvironmentOptions5,
+        ICoreWebView2EnvironmentOptions6
     {
         public WebView2EnvironmentOptions()
         {
             Native.GetCurrentVersion(out string version);
             this.TargetCompatibleBrowserVersion = version;
             this.AllowSingleSignOnUsingOSPrimaryAccount = new CBOOL(true);
-            this.ExclusiveUserDataFolderAccess = new CBOOL(false);
+            this.ExclusiveUserDataFolderAccess = new CBOOL(true);
             this.IsCustomCrashReportingEnabled = new CBOOL(false);
+            this.EnableTrackingPrevention = (CBOOL)true;
+            this.AreBrowserExtensionsEnabled = (CBOOL)false;
             this.CustomSchemeRegistrations = new List<WebView2CustomSchemeRegistration>();
         }
         public string AdditionalBrowserArguments { get; set; }
@@ -53,5 +60,8 @@ namespace Diga.WebView2.Wrapper
         {
             throw new NotImplementedException();
         }
+
+        public int EnableTrackingPrevention { get; set; }
+        public int AreBrowserExtensionsEnabled { get; set; }
     }
 }

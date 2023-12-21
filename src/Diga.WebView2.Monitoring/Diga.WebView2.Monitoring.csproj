@@ -23,7 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MimeTypeExtension" Version="1.0.29" />
+    <PackageReference Include="MimeTypeExtension" Version="1.0.30" />
   </ItemGroup>
 
   <ItemGroup>

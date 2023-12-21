@@ -67,8 +67,8 @@
     <Reference Include="Diga.Core.Threading, Version=1.0.11.0, Culture=neutral, PublicKeyToken=f71992c25f8beb19, processorArchitecture=MSIL">
       <HintPath>..\packages\Diga.Core.Threading.1.0.11\lib\netstandard2.0\Diga.Core.Threading.dll</HintPath>
     </Reference>
-    <Reference Include="MimeTypeExtension, Version=1.0.29.1, Culture=neutral, PublicKeyToken=5bccdf24b37e4bab, processorArchitecture=MSIL">
-      <HintPath>..\packages\MimeTypeExtension.1.0.29\lib\netstandard2.0\MimeTypeExtension.dll</HintPath>
+    <Reference Include="MimeTypeExtension, Version=1.0.30.1, Culture=neutral, PublicKeyToken=5bccdf24b37e4bab, processorArchitecture=MSIL">
+      <HintPath>..\packages\MimeTypeExtension.1.0.30\lib\netstandard2.0\MimeTypeExtension.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
