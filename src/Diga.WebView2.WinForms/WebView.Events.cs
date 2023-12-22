@@ -7,7 +7,6 @@ using Diga.WebView2.Scripting;
 using Diga.WebView2.Scripting.DOM;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
-using Diga.WebView2.Wrapper.Handler;
 
 
 namespace Diga.WebView2.WinForms

@@ -12,15 +12,14 @@ namespace Diga.WebView2.Wrapper.EventArguments
 
 
 
-
-    public class ClientCertificateRequestedEventArgs : ClientCertificateRequestedEventArgsInterface
+    public class DOMContentLoadedEventArgs : DOMContentLoadedEventArgsInterface
     {
-       
+        
 
-        public ClientCertificateRequestedEventArgs(ICoreWebView2ClientCertificateRequestedEventArgs iface ): base(iface) 
+        public DOMContentLoadedEventArgs(ICoreWebView2DOMContentLoadedEventArgs args):base(args)
         {
-
         }
+
        
     }
 }

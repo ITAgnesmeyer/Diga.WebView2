@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Runtime.ExceptionServices;
 using System.Security;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.EventArguments;
 
 namespace Diga.WebView2.Wrapper.Handler
 {

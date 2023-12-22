@@ -13,7 +13,6 @@ using Diga.WebView2.Scripting.DOM;
 using Diga.WebView2.Wpf;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
-using Diga.WebView2.Wrapper.Handler;
 using Diga.WebView2.Wrapper.Types;
 
 

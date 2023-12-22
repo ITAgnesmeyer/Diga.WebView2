@@ -5,7 +5,7 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class PermissionRequestedEventArgs2Interface : PermissionRequestedEventArgsInterface, ICoreWebView2PermissionRequestedEventArgs2
+    public class PermissionRequestedEventArgs2Interface : PermissionRequestedEventArgsInterface//, ICoreWebView2PermissionRequestedEventArgs2
     {
         private ComObjectHolder<ICoreWebView2PermissionRequestedEventArgs2> _Args;
         private ICoreWebView2PermissionRequestedEventArgs2 Args

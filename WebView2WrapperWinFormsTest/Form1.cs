@@ -764,7 +764,28 @@ namespace WebView2WrapperWinFormsTest
 
         private WebView2ContextMenuItem _Item;
         private WebView2ContextMenuItem _Sub1;
+
+/* Nicht gemergte Änderung aus Projekt "WebView2WrapperWinFormsTest.Core (net7.0-windows)"
+Vor:
         private void webView1_ContextMenuRequested(object sender, Diga.WebView2.Wrapper.Handler.ContextMenuRequestedEventArgs e)
+Nach:
+        private void webView1_ContextMenuRequested(object sender, Diga.WebView2.Wrapper.EventArguments.ContextMenuRequestedEventArgs e)
+*/
+
+/* Nicht gemergte Änderung aus Projekt "WebView2WrapperWinFormsTest.Core (net8.0-windows)"
+Vor:
+        private void webView1_ContextMenuRequested(object sender, Diga.WebView2.Wrapper.Handler.ContextMenuRequestedEventArgs e)
+Nach:
+        private void webView1_ContextMenuRequested(object sender, Diga.WebView2.Wrapper.EventArguments.ContextMenuRequestedEventArgs e)
+*/
+
+/* Nicht gemergte Änderung aus Projekt "WebView2WrapperWinFormsTest.Core (net6.0-windows)"
+Vor:
+        private void webView1_ContextMenuRequested(object sender, Diga.WebView2.Wrapper.Handler.ContextMenuRequestedEventArgs e)
+Nach:
+        private void webView1_ContextMenuRequested(object sender, Diga.WebView2.Wrapper.EventArguments.ContextMenuRequestedEventArgs e)
+*/
+        private void webView1_ContextMenuRequested(object sender, ContextMenuRequestedEventArgs e)
         {
             using (var c = e.GetDeferral())
             {

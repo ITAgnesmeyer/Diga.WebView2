@@ -2,13 +2,13 @@
 using Diga.WebView2.Wrapper.Implementation;
 using Diga.WebView2.Wrapper.Types;
 
-namespace Diga.WebView2.Wrapper.Handler
+namespace Diga.WebView2.Wrapper.EventArguments
 {
-    public class ContextMenuRequestedEventArgs :ContextMenuRequestedEventArgsInterface
+    public class ContextMenuRequestedEventArgs : ContextMenuRequestedEventArgsInterface
     {
         //private object _obj;
 
-        public ContextMenuRequestedEventArgs(ICoreWebView2ContextMenuRequestedEventArgs args):base(args)
+        public ContextMenuRequestedEventArgs(ICoreWebView2ContextMenuRequestedEventArgs args) : base(args)
         {
             //this._obj = args;
         }
@@ -32,6 +32,6 @@ namespace Diga.WebView2.Wrapper.Handler
             return new WebView2Deferral(base.GetDeferral());
         }
 
-      
+
     }
 }

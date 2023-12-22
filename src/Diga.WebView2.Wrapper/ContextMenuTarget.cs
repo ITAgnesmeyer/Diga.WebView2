@@ -2,13 +2,13 @@
 using Diga.WebView2.Wrapper.Implementation;
 using Diga.WebView2.Wrapper.Types;
 
-namespace Diga.WebView2.Wrapper.Handler
+namespace Diga.WebView2.Wrapper
 {
     public class ContextMenuTarget : ContextMenuTargetInterface
     {
-        public ContextMenuTarget(ICoreWebView2ContextMenuTarget args):base(args)
+        public ContextMenuTarget(ICoreWebView2ContextMenuTarget args) : base(args)
         {
-            
+
         }
 
         public new bool IsEditable => (CBOOL)base.IsEditable;
@@ -16,7 +16,7 @@ namespace Diga.WebView2.Wrapper.Handler
         public new bool IsRequestedForMainFrame => (CBOOL)base.IsRequestedForMainFrame;
         public new bool HasLinkUri => (CBOOL)base.HasLinkUri;
 
-        public new bool HasLinkText => (CBOOL)base.HasLinkText; 
+        public new bool HasLinkText => (CBOOL)base.HasLinkText;
 
         public new bool HasSourceUri => (CBOOL)base.HasSourceUri;
 
