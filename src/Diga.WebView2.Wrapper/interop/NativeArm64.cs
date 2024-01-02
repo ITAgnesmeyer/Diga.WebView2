@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
 
 namespace Diga.WebView2.Wrapper.interop

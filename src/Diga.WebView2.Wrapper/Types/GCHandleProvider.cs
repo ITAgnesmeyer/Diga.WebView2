@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace Diga.WebView2.Wrapper.Types
 {
@@ -17,7 +14,7 @@ namespace Diga.WebView2.Wrapper.Types
     //    }
     //}
 
-  
+
     internal static class ObjectHandleExtensions
     {
         public static IntPtr ToIntPtr(this object target)

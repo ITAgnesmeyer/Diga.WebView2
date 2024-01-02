@@ -133,7 +133,7 @@ namespace Diga.WebView2.Wrapper
 
 
 
-        public WebView2View WebView => new WebView2View((ICoreWebView2_17)base.CoreWebView2);
+        public WebView2View WebView => new WebView2View((ICoreWebView2_20)base.CoreWebView2);
         private bool _IsDisposed;
         protected override void Dispose(bool disposing)
         {

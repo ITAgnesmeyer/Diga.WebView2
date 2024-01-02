@@ -5,7 +5,7 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class WebView2Settings8Interface : WebView2Settings7Interface, ICoreWebView2Settings8
+    public class WebView2Settings8Interface : WebView2Settings7Interface //, ICoreWebView2Settings8
     {
         private ComObjectHolder< ICoreWebView2Settings8> _Settings;
 

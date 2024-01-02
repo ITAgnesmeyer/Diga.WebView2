@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
-using Diga.WebView2.Wrapper.Types;
-using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.EventArguments
 {

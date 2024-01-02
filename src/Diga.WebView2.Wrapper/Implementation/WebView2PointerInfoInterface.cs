@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.Common;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;

@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.ExceptionServices;
 using System.Security;
-using System.Text;
 using Diga.WebView2.Interop;
 
 namespace Diga.WebView2.Wrapper
 {
-    
+
 
     internal static class EventRegistrationTool
     {

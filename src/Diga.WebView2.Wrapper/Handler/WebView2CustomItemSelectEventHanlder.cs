@@ -4,20 +4,20 @@ using System.Runtime.ExceptionServices;
 using System.Security;
 using Diga.WebView2.Interop;
 
-namespace Diga.WebView2.Wrapper
+namespace Diga.WebView2.Wrapper.Handler
 {
     public sealed class WebView2CustomItemSelectEventHanlder : ICoreWebView2CustomItemSelectedEventHandler
     {
-        public event EventHandler<WebView2ContextMenuItem> Selected; 
+        public event EventHandler<WebView2ContextMenuItem> Selected;
         [SecurityCritical]
 #pragma warning disable SYSLIB0032
-        [ HandleProcessCorruptedStateExceptions]
+        [HandleProcessCorruptedStateExceptions]
 #pragma warning restore SYSLIB0032
         public void Invoke(ICoreWebView2ContextMenuItem sender, object args)
         {
             try
             {
-               
+
                 OnSelected(new WebView2ContextMenuItem(sender));
             }
             catch (Exception e)
