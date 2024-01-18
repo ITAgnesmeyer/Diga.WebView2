@@ -4,6 +4,8 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Security;
 using System.Threading.Tasks;
+using Diga.WebView2.Interop;
+using Diga.WebView2.Wrapper.Implementation;
 using Microsoft.Win32.SafeHandles;
 using STATSTG = System.Runtime.InteropServices.ComTypes.STATSTG;
 // ReSharper disable UnusedMember.Global
@@ -13,7 +15,6 @@ using STATSTG = System.Runtime.InteropServices.ComTypes.STATSTG;
 namespace Diga.WebView2.Wrapper
 {
 
-    
 
     internal static class StreamSeek
     {

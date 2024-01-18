@@ -73,6 +73,7 @@ namespace Diga.WebView2.WinForms
 
         public event EventHandler<WebViewButtonDownEventArgs> MouseButtonDown; 
         public event EventHandler<ContextMenuRequestedEventArgs> ContextMenuRequested;
+        public event EventHandler<CursorChangedEventArgs> CompoisitionControllerCursorChanged;
         private void OnWebWindowBeforeCreate(object sender, BeforeCreateEventArgs e)
         {
             WebWindowInitSettings(e);
@@ -564,8 +565,11 @@ namespace Diga.WebView2.WinForms
             control.IsDocumentPlayingAudioChanged -= OnIsDocumentPlayingAudioChangedIntern;
             control.IsDefaultDownloadDialogOpenChanged -= OnIsDefaultDownloadDialogOpenChangedIntern;
             control.ContextMenuRequested -= OnContextMenuRequestedIntern;
+            control.CompoisitionControllerCursorChanged -= OnCompoisitionControllerCursorChangedInternal;
             _UnWireExecuted = true;
         }
+
+        
 
         private void WireEvents(WebView2Control control)
         {
@@ -607,8 +611,13 @@ namespace Diga.WebView2.WinForms
             control.IsDocumentPlayingAudioChanged += OnIsDocumentPlayingAudioChangedIntern;
             control.IsDefaultDownloadDialogOpenChanged += OnIsDefaultDownloadDialogOpenChangedIntern;
             control.ContextMenuRequested += OnContextMenuRequestedIntern;
+            control.CompoisitionControllerCursorChanged += OnCompoisitionControllerCursorChangedInternal;
         }
 
+        private void OnCompoisitionControllerCursorChangedInternal(object sender, CursorChangedEventArgs e)
+        {
+            OnCompoisitionControllerCursorChanged(sender, e);
+        }
         private void OnContextMenuRequestedIntern(object sender, ContextMenuRequestedEventArgs e)
         {
             OnContextMenuRequested(e);
@@ -666,5 +675,10 @@ namespace Diga.WebView2.WinForms
         {
             ContextMenuRequested?.Invoke(this, e);
         }
+        protected virtual void OnCompoisitionControllerCursorChanged(object sender, CursorChangedEventArgs e)
+        {
+            CompoisitionControllerCursorChanged?.Invoke(this, e);
+        }
+
     }
 }

@@ -9,12 +9,12 @@ using Diga.WebView2.Wrapper.Implementation;
 
 namespace Diga.WebView2.Wrapper
 {
-    public partial class WebView2CompositionController : WebView2CompositionController2Interface
+    public partial class WebView2CompositionController : WebView2CompositionController3Interface
     {
         public event EventHandler<CursorChangedEventArgs> CursorChanged;
 
 
-        public WebView2CompositionController(ICoreWebView2CompositionController2 controller) : base(controller)
+        public WebView2CompositionController(ICoreWebView2CompositionController3 controller) : base(controller)
         {
             if (controller == null)
                 throw new ArgumentNullException(nameof(controller));

@@ -426,6 +426,8 @@ namespace Diga.WebView2.WinForms
 
         public WebView2Environment Environment => this._WebViewControl.Environment;
         public WebView2View WebView2 => this._WebViewControl.WebView;
+        
+        public WebView2CompositionController CompositionController => this._WebViewControl.CompositionController;
 
         public SchemeRegistration[] SchemeRegistrations
         {

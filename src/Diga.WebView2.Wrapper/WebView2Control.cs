@@ -542,7 +542,7 @@ namespace Diga.WebView2.Wrapper
         }
 
         private WebView2Controller Controller { get; set; }
-        private WebView2CompositionController CompositionController { get; set; }
+        public WebView2CompositionController CompositionController { get; private set; }
         public CookieManager GetCookieManager => this.WebView.CookieManager;
         public void DockToParent()
         {

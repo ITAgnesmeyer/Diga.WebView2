@@ -1,11 +1,15 @@
 ﻿
 using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
+
+
     public class WebView2CompositionController2Interface : WebView2CompositionControllerInterface
     {
         private ComObjectHolder<  ICoreWebView2CompositionController2> _Controller;
@@ -44,7 +48,6 @@ namespace Diga.WebView2.Wrapper.Implementation
             base.Dispose(disposing);
         }
 
-
-
+        public object AutomationProvider => Controller.AutomationProvider;
     }
 }
