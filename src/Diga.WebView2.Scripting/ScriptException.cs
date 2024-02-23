@@ -7,6 +7,7 @@ namespace Diga.WebView2.Scripting
         public ScriptErrorObject ErrorObject { get; }
         public ScriptException(ScriptErrorObject errObj) : base(errObj.message)
         {
+            
             this.ErrorObject = errObj;
 
         }

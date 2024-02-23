@@ -214,7 +214,7 @@ namespace Diga.WebView2.Wrapper
             this.Controller.RasterizationScaleChanged += OnRasterizationScaleChangedIntern;
             this.Controller.ZoomFactorChanged += OnZoomFactorChangedIntern;
 
-            this.WebView = new WebView2View((ICoreWebView2_20)e.WebView);
+            this.WebView = new WebView2View((ICoreWebView2_21)e.WebView);
             this.WebView.ClientCertificateRequested += OnClientCertificateRequestedIntern;
             this.WebView.ContainsFullScreenElementChanged += OnContainsFullScreenElementChangedIntern;
             this.WebView.ContentLoading += OnContentLoadingIntern;
@@ -970,6 +970,10 @@ namespace Diga.WebView2.Wrapper
             return await this.WebView.ExecuteScriptAsync(javaScript);
         }
 
+        public async Task<WebView2ExecuteScriptResult> ExecuteScriptWithResultAsync(string javaScript)
+        {
+            return await this.WebView.ExecuteScriptWithResultAsync(javaScript);
+        }
         public string InvokeScript(string javaScript, Action<string, int, string> actionToInvoke)
         {
             return this.WebView.InvokeScript(javaScript, actionToInvoke);

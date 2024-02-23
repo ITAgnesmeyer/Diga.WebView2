@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
+
+
     public class WebView2View20Interface : WebView2View19Interface//, ICoreWebView2_20
     {
         private ComObjectHolder<ICoreWebView2_20> _Iface;

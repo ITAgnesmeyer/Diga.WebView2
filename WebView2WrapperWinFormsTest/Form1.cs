@@ -10,6 +10,7 @@ using Diga.WebView2.Scripting;
 using Diga.WebView2.Scripting.DOM;
 using Diga.WebView2.WinForms;
 using Diga.WebView2.Wrapper;
+using Diga.WebView2.Wrapper.Delegates;
 using Diga.WebView2.Wrapper.EventArguments;
 using Rectangle = System.Drawing.Rectangle;
 
@@ -312,7 +313,35 @@ namespace WebView2WrapperWinFormsTest
             {
                 await ShowMessageBoxAsync(ex.ErrorObject.message);
             }
+            try
+            {
+                string script = "alter(\"hallo\"";
+                var result = await this.webView1.ExecuteScriptWithResultAsync(script);
+                result.TryGetResultAsString(out string strRes, out int value);
+                if (result.Succeeded == 1)
+                {
+                    await ShowMessageBoxAsync(result.ResultAsJson);
 
+                    
+                    await ShowMessageBoxAsync($"Result:{strRes} => {value}");
+                }
+                else
+                {
+
+                    throw result.Exception;
+                }
+            
+            }
+            catch (WebView2ScriptException ex)
+            {
+                await ShowMessageBoxAsync(ex.ToString());
+            }
+            catch (Exception ex)
+            {
+
+                await ShowMessageBoxAsync(ex.Message);
+            }
+            
 
         }
 
@@ -686,18 +715,6 @@ namespace WebView2WrapperWinFormsTest
         private void lblMuted_Click(object sender, EventArgs e)
         {
 
-            this.webView1.IsMuted = !this.webView1.IsMuted;
-            if (this.webView1.IsMuted)
-            {
-                this.lblMuted.BackColor = Color.Red;
-            }
-            else
-            {
-                this.lblMuted.BackColor = Color.Green;
-            }
-
-
-
         }
 
         private void bnScriptSync_Click(object sender, EventArgs e)
@@ -943,5 +960,7 @@ namespace WebView2WrapperWinFormsTest
             this.Cursor = cursor;
             Debug.Print("webView1_CompoisitionControllerCursorChanged");
         }
+
+        
     }
 }

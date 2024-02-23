@@ -8,6 +8,8 @@ using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
+
+
     public class WebView2SharedBufferInteface : IDisposable
     {
         private ComObjectHolder<ICoreWebView2SharedBuffer> _Iface;

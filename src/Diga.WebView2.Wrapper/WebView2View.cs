@@ -16,7 +16,7 @@ using Diga.WebView2.Wrapper.Implementation;
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
 {
-    public partial class WebView2View : WebView2View20Interface
+    public partial class WebView2View : WebView2View21Interface
     {
 
         public event EventHandler<NavigationStartingEventArgs> NavigationStarting;
@@ -50,7 +50,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<BasicAuthenticationRequestedEventArgs> BasicAuthenticationRequested;
         public event EventHandler<ContextMenuRequestedEventArgs> ContextMenuRequested;
         public event EventHandler<PrintToPdfCompleteEventArgs> PrintToPdfCompleted;
-        public WebView2View(ICoreWebView2_20 webView) : base(webView)
+        public WebView2View(ICoreWebView2_21 webView) : base(webView)
         {
 
             RegisterEvents();
@@ -560,6 +560,33 @@ namespace Diga.WebView2.Wrapper
             }
 
             return source.Task;
+        }
+        public async Task<WebView2ExecuteScriptResult> ExecuteScriptWithResultAsync(string javaScript)
+        {
+            var source = new TaskCompletionSource<WebView2ExecuteScriptResult>();
+            var executeScriptDelegate = new ExecuteScriptWithResultCompletedDelegate(source);
+            try
+            {
+                base.ExecuteScriptWithResult(javaScript, executeScriptDelegate);
+            }
+            catch (InvalidCastException ex)
+            {
+                if (ex.HResult == -2147467262)
+                    throw new InvalidOperationException("CoreWebView2 members can only be accessed from the UI thread.",
+                        ex);
+                throw;
+
+            }
+            catch(COMException ex)
+            {
+                if (ex.HResult == -2147019873)
+                    throw new InvalidOperationException(
+                        "CoreWebView2 members cannot be accessed after the WebView2 control is disposed.", ex);
+                throw;
+            }
+
+            WebView2ExecuteScriptResult result = await source.Task;
+            return result;
         }
         public async Task<string> ExecuteScriptAsync(string javaScript)
         {

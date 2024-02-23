@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Diga.Core.Threading;
 using Diga.WebView2.Scripting;
 using Diga.WebView2.Scripting.DOM;
+using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
 
 
@@ -169,6 +170,11 @@ namespace Diga.WebView2.WinForms
             }
 
             return result;
+        }
+
+        public Task<WebView2ExecuteScriptResult> ExecuteScriptWithResultAsync(string javaScript)
+        {
+            return this._WebViewControl.ExecuteScriptWithResultAsync(javaScript);
         }
         /// <summary>
         /// Invoke a script and returns a unique ID for the script 
