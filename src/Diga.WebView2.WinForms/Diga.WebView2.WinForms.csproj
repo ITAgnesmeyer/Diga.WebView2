@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>net4.7.2;net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net4.7.2;net8.0-windows</TargetFrameworks>
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>Diga.WebView2.WinForms</RootNamespace>
     <Version>20.1.3</Version>
