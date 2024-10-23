@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Diga.Core.Api.Win32" Version="2.0.25-prerelease" />
     <PackageReference Include="Diga.Core.Json" Version="1.0.2" />
     <PackageReference Include="Diga.Core.Threading" Version="1.0.11" />
     <PackageReference Include="MimeTypeExtension" Version="1.0.30" />
