@@ -7,7 +7,7 @@ using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-
+  
 
     public class AcceleratorKeyPressedEventArgsInterface : IDisposable
     {

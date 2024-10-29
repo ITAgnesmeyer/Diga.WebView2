@@ -11,7 +11,7 @@ namespace Diga.WebView2.Wrapper.Handler
         public event EventHandler<CompositionControllerCompletedEventArgs> Completed; 
         public void Invoke(int errorCode, ICoreWebView2CompositionController webView)
         {
-            OnCompleted(new CompositionControllerCompletedEventArgs(errorCode, new WebView2CompositionController((ICoreWebView2CompositionController3)webView)));
+            OnCompleted(new CompositionControllerCompletedEventArgs(errorCode, new WebView2CompositionController((ICoreWebView2CompositionController4)webView)));
         }
 
         protected virtual void OnCompleted(CompositionControllerCompletedEventArgs e)

@@ -19,7 +19,7 @@ namespace Diga.WebView2.Wrapper.Handler
         {
             try
             {
-                OnWebMessageReceived(new WebMessageReceivedEventArgs(args));
+                OnWebMessageReceived(new WebMessageReceivedEventArgs((ICoreWebView2WebMessageReceivedEventArgs2)args));
             }
             catch (Exception ex)
             {

@@ -9,10 +9,10 @@ namespace Diga.WebView2.Wrapper.EventArguments
 
 
 
-    public class WebMessageReceivedEventArgs : WebMessageReceivedEventArgsIntefrace  //EventArgs, ICoreWebView2WebMessageReceivedEventArgs,IDisposable
+    public class WebMessageReceivedEventArgs : WebMessageReceivedEventArgs2Intefrace  //EventArgs, ICoreWebView2WebMessageReceivedEventArgs,IDisposable
     {
         
-        public WebMessageReceivedEventArgs(ICoreWebView2WebMessageReceivedEventArgs args):base(args)
+        public WebMessageReceivedEventArgs(ICoreWebView2WebMessageReceivedEventArgs2 args):base(args)
         {
             
         }

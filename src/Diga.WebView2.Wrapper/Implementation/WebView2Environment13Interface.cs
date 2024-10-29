@@ -6,6 +6,7 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
+
     public class WebView2Environment13Interface : WebView2Environment12Interface, ICoreWebView2Environment13
     {
         private ComObjectHolder<ICoreWebView2Environment13> _Iface;

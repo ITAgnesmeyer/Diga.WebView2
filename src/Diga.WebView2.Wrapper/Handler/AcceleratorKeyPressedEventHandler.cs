@@ -17,7 +17,7 @@ namespace Diga.WebView2.Wrapper.Handler
         {
             try
             {
-                OnAcceleratorKeyPressed(new AcceleratorKeyPressedEventArgs(args));
+                OnAcceleratorKeyPressed(new AcceleratorKeyPressedEventArgs((ICoreWebView2AcceleratorKeyPressedEventArgs2)args));
             }
             catch (Exception ex)
             {

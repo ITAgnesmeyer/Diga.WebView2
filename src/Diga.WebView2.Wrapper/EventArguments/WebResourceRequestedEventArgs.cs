@@ -10,7 +10,7 @@ namespace Diga.WebView2.Wrapper.EventArguments
 
 
 
-    public class WebResourceRequestedEventArgs : WebResourceRequestedEventArgsInterface//EventArgs, ICoreWebView2WebResourceRequestedEventArgs, IDisposable
+    public class WebResourceRequestedEventArgs : WebResourceRequestedEventArgs2Interface//EventArgs, ICoreWebView2WebResourceRequestedEventArgs, IDisposable
     {
         //private ICoreWebView2WebResourceRequestedEventArgs _Args;
         //private bool disposedValue;
@@ -18,7 +18,7 @@ namespace Diga.WebView2.Wrapper.EventArguments
         /////             pattern for any type that is not sealed.
         /////             https://docs.microsoft.com/dotnet/api/system.idisposable#idisposable-and-the-inheritance-hierarchy
         //private SafeHandle handle = (SafeHandle)new SafeFileHandle(IntPtr.Zero, true);
-        public WebResourceRequestedEventArgs(ICoreWebView2WebResourceRequestedEventArgs args):base(args)
+        public WebResourceRequestedEventArgs(ICoreWebView2WebResourceRequestedEventArgs2 args):base(args)
         {
             //this._Args = args;
         }

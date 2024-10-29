@@ -4,10 +4,10 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.EventArguments
 {
-    public class AcceleratorKeyPressedEventArgs: AcceleratorKeyPressedEventArgsInterface
+    public class AcceleratorKeyPressedEventArgs: AcceleratorKeyPressedEventArgs2Interface
     {
         private int _Handled;
-        public AcceleratorKeyPressedEventArgs(ICoreWebView2AcceleratorKeyPressedEventArgs args):base(args)
+        public AcceleratorKeyPressedEventArgs(ICoreWebView2AcceleratorKeyPressedEventArgs2 args):base(args)
         {
             
         }
@@ -28,6 +28,12 @@ namespace Diga.WebView2.Wrapper.EventArguments
             }
         }
 
+
+        public new bool IsBrowserAcceleratorKeyEnabled
+        {
+            get => new CBOOL(base.IsBrowserAcceleratorKeyEnabled);
+            set => base.IsBrowserAcceleratorKeyEnabled = new CBOOL(value);
+        }
     }
     //public class AcceleratorKeyPressedEventArgs_o : ICoreWebView2AcceleratorKeyPressedEventArgs
     //{

@@ -14,7 +14,7 @@ namespace Diga.WebView2.Wrapper
 {
 
 
-    public partial class WebView2Environment : WebView2Environment13Interface
+    public partial class WebView2Environment : WebView2Environment14Interface
     {
         public event EventHandler<WebView2EventArgs> NewBrowserVersionAvailable;
         public event EventHandler<BrowserProcessExitedEventArgs> BrowserProcessExited;
@@ -22,7 +22,7 @@ namespace Diga.WebView2.Wrapper
         private EventRegistrationToken _BrowserProcessExitedToken;
 
 
-        public WebView2Environment(ICoreWebView2Environment13 environment) : base(environment)
+        public WebView2Environment(ICoreWebView2Environment14 environment) : base(environment)
         {
             if (environment == null)
                 throw new ArgumentNullException(nameof(environment));
@@ -128,5 +128,15 @@ namespace Diga.WebView2.Wrapper
             return new WebView2SharedBuffer(base.CreateSharedBuffer(bufferSize));
         }
 
+        public new FileSystemHandle CreateWebFileSystemFileHandle(string path, COREWEBVIEW2_FILE_SYSTEM_HANDLE_PERMISSION permission)
+        {
+            return new FileSystemHandle(base.CreateWebFileSystemFileHandle(path, permission));
+        }
+
+
+        public new FileSystemHandle CreateWebFileSystemDirectoryHandle(string path, COREWEBVIEW2_FILE_SYSTEM_HANDLE_PERMISSION permission)
+        {
+            return new FileSystemHandle(base.CreateWebFileSystemDirectoryHandle(path, permission));
+        }
     }
 }

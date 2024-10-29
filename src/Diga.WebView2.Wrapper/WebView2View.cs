@@ -16,7 +16,7 @@ using Diga.WebView2.Wrapper.Implementation;
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
 {
-    public partial class WebView2View : WebView2View21Interface
+    public partial class WebView2View : WebView2View26Interface
     {
 
         public event EventHandler<NavigationStartingEventArgs> NavigationStarting;
@@ -50,7 +50,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<BasicAuthenticationRequestedEventArgs> BasicAuthenticationRequested;
         public event EventHandler<ContextMenuRequestedEventArgs> ContextMenuRequested;
         public event EventHandler<PrintToPdfCompleteEventArgs> PrintToPdfCompleted;
-        public WebView2View(ICoreWebView2_21 webView) : base(webView)
+        public WebView2View(ICoreWebView2_26 webView) : base(webView)
         {
 
             RegisterEvents();
@@ -192,6 +192,8 @@ namespace Diga.WebView2.Wrapper
             ContextMenuRequestedEventHandler contextMenuHandler = new ContextMenuRequestedEventHandler(new ContextMenuRequestedEventHandler.ContextMenuRequestDelegate(OnContextMenuRequestedIntern2));
             //contextMenuHandler.ContextMenuRequested += OnContextMenuRequestedIntern;
             base.add_ContextMenuRequested(contextMenuHandler, out this._ContextMenuRequested);
+
+            
         }
 
         private void OnContextMenuRequestedIntern2(ContextMenuRequestedEventArgs args)
@@ -444,7 +446,7 @@ namespace Diga.WebView2.Wrapper
         }
 
 
-        public new WebView2Settings Settings => new WebView2Settings((ICoreWebView2Settings8)base.Settings);
+        public new WebView2Settings Settings => new WebView2Settings((ICoreWebView2Settings9)base.Settings);
 
 
         public void AddScriptToExecuteOnDocumentCreated(string javaScript)

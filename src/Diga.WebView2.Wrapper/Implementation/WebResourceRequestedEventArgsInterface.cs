@@ -20,6 +20,43 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
+    public class WebResourceRequestedEventArgs2Interface: WebResourceRequestedEventArgsInterface//, ICoreWebView2WebResourceRequestedEventArgs2
+    {
+        private ComObjectHolder<ICoreWebView2WebResourceRequestedEventArgs2> _Iface;
+
+        private ICoreWebView2WebResourceRequestedEventArgs2 Iface
+        {
+            get
+            {
+                if (_Iface == null)
+                {
+                    Debug.Print(nameof(WebResourceRequestedEventArgs2Interface) + "=>" + nameof(Iface) + " is null");
+
+                    throw new InvalidOperationException(nameof(WebResourceRequestedEventArgs2Interface) + "=>" + nameof(Iface) + " is null");
+                }
+
+                return _Iface.Interface;
+            }
+            set => _Iface = new ComObjectHolder<ICoreWebView2WebResourceRequestedEventArgs2>(value);
+        }
+        public WebResourceRequestedEventArgs2Interface(ICoreWebView2WebResourceRequestedEventArgs2 iface) : base(iface)
+        {
+            Iface = iface ?? throw new ArgumentNullException(nameof(iface));
+        }
+        private bool _IsDisposed;
+        protected override void Dispose(bool disposing)
+        {
+            if (_IsDisposed) return;
+            if (disposing)
+            {
+                _Iface = null;
+                _IsDisposed = true;
+            }
+            base.Dispose(disposing);
+        }
+
+        public COREWEBVIEW2_WEB_RESOURCE_REQUEST_SOURCE_KINDS RequestedSourceKind => Iface.RequestedSourceKind;
+    }
     public class WebResourceRequestedEventArgsInterface : EventArgs, IDisposable//, ICoreWebView2WebResourceRequestedEventArgs
     {
         private ComObjectHolder<ICoreWebView2WebResourceRequestedEventArgs> _Iface;

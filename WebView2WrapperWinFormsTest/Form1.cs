@@ -141,6 +141,7 @@ namespace WebView2WrapperWinFormsTest
                     this.LastBound = this.Bounds;
                     this.panel1.Visible = false;
                     var rect = Screen.GetBounds(this);
+                   
                     this.FormBorderStyle = FormBorderStyle.None;
                     this.Bounds = rect;
                     e.Handled = true;

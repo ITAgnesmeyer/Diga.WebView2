@@ -4,7 +4,7 @@ namespace Diga.WebView2.Wrapper.EventArguments
 {
     public class EnvironmentCompletedHandlerArgs : System.EventArgs
     {
-        public EnvironmentCompletedHandlerArgs(ICoreWebView2Environment13  environment)
+        public EnvironmentCompletedHandlerArgs(ICoreWebView2Environment14  environment)
         {
             this.Environment = new WebView2Environment(environment);
         }

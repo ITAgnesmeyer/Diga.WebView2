@@ -13,7 +13,7 @@ namespace Diga.WebView2.Wrapper.Handler
             try
             {
                  OnCursorChanged(new CursorChangedEventArgs(
-                new WebView2CompositionController((ICoreWebView2CompositionController3) sender), args));
+                new WebView2CompositionController((ICoreWebView2CompositionController4) sender), args));
             }
             catch (Exception ex)
             {

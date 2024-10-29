@@ -5,11 +5,11 @@ namespace Diga.WebView2.Wrapper.EventArguments
 {
 
 
-    public class NewWindowRequestedEventArgs : NewWindowRequestedEventArgs2Interface
+    public class NewWindowRequestedEventArgs : NewWindowRequestedEventArgs3Interface
     {
         
 
-        public NewWindowRequestedEventArgs(ICoreWebView2NewWindowRequestedEventArgs2 args):base(args)
+        public NewWindowRequestedEventArgs(ICoreWebView2NewWindowRequestedEventArgs3 args):base(args)
         {
            
         }
@@ -18,7 +18,7 @@ namespace Diga.WebView2.Wrapper.EventArguments
         {
             get
             {
-                return new WebView2View((ICoreWebView2_21)base.NewWindow);
+                return new WebView2View((ICoreWebView2_26)base.NewWindow);
             }
             set
             {
@@ -26,7 +26,7 @@ namespace Diga.WebView2.Wrapper.EventArguments
                 base.NewWindow = value.GetInterface();
             }
         }
-
+        
         public new WebView2Deferral GetDeferral()
         {
             return new WebView2Deferral(base.GetDeferral());

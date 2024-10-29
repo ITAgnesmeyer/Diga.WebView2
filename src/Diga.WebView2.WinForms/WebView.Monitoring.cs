@@ -14,6 +14,7 @@ namespace Diga.WebView2.WinForms
 
         private void CheckMonitoring(WebResourceRequestedEventArgs e)
         {
+            
             string uri = e.Request.Uri;
             if (this._MonitoringActionList.IsAnyActiveWithUrl(uri))
             {

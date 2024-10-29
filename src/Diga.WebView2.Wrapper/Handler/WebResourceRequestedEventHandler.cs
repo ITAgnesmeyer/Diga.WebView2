@@ -18,7 +18,7 @@ namespace Diga.WebView2.Wrapper.Handler
         {
             try
             {
-                OnWebResourceRequested(new WebResourceRequestedEventArgs(args));
+                OnWebResourceRequested(new WebResourceRequestedEventArgs((ICoreWebView2WebResourceRequestedEventArgs2)args));
             }
             catch (Exception ex)
             {

@@ -14,7 +14,9 @@ namespace Diga.WebView2.Wrapper
         ICoreWebView2EnvironmentOptions3, 
         ICoreWebView2EnvironmentOptions4,
         ICoreWebView2EnvironmentOptions5,
-        ICoreWebView2EnvironmentOptions6
+        ICoreWebView2EnvironmentOptions6,
+        ICoreWebView2EnvironmentOptions7,
+        ICoreWebView2EnvironmentOptions8
     {
         public WebView2EnvironmentOptions()
         {
@@ -26,6 +28,10 @@ namespace Diga.WebView2.Wrapper
             this.EnableTrackingPrevention = (CBOOL)true;
             this.AreBrowserExtensionsEnabled = (CBOOL)true;
             this.CustomSchemeRegistrations = new List<WebView2CustomSchemeRegistration>();
+            this.ChannelSearchKind = COREWEBVIEW2_CHANNEL_SEARCH_KIND.COREWEBVIEW2_CHANNEL_SEARCH_KIND_MOST_STABLE;
+            this.ReleaseChannels = COREWEBVIEW2_RELEASE_CHANNELS.COREWEBVIEW2_RELEASE_CHANNELS_STABLE;
+
+
         }
         public string AdditionalBrowserArguments { get; set; }
         public string Language { get; set; }
@@ -63,5 +69,8 @@ namespace Diga.WebView2.Wrapper
 
         public int EnableTrackingPrevention { get; set; }
         public int AreBrowserExtensionsEnabled { get; set; }
+        public COREWEBVIEW2_CHANNEL_SEARCH_KIND ChannelSearchKind { get; set; }
+        public COREWEBVIEW2_RELEASE_CHANNELS ReleaseChannels { get; set; }
+        public COREWEBVIEW2_SCROLLBAR_STYLE ScrollBarStyle { get; set; }
     }
 }
