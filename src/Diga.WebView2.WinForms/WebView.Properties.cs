@@ -35,6 +35,7 @@ namespace Diga.WebView2.WinForms
 
         #region Public Properties
         private string _MonitoringFolder;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [Editor(typeof(FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
         public string MonitoringFolder
         {
@@ -49,6 +50,7 @@ namespace Diga.WebView2.WinForms
             }
         }
         private string _MonitoringUrl;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string MonitoringUrl
         {
             get
@@ -64,6 +66,7 @@ namespace Diga.WebView2.WinForms
         }
 
         private bool _EnableMonitoring;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool EnableMonitoring
         {
             get
@@ -79,6 +82,7 @@ namespace Diga.WebView2.WinForms
         }
 
         private bool _EnableCgi;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool EnableCgi
         {
             get
@@ -93,6 +97,7 @@ namespace Diga.WebView2.WinForms
         }
 
         private string _CgiMonitoringUrl;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string CgiMoitoringUrl
         {
             get
@@ -107,6 +112,7 @@ namespace Diga.WebView2.WinForms
         }
 
         private string _CgiMoitoringFolder;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [Editor(typeof(FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
         public string CgiMoitoringFolder
         {
@@ -122,7 +128,7 @@ namespace Diga.WebView2.WinForms
         }
 
         private string[] _CgiFileExtensions;
-       
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string[] CgiFileExtensions
         {
             get
@@ -138,6 +144,7 @@ namespace Diga.WebView2.WinForms
         }
         private string _CgiExeFile;
         [Editor(typeof(ExeSelectFileNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string CgiExeFile
         {
             get
@@ -150,6 +157,7 @@ namespace Diga.WebView2.WinForms
                 this._MonitoringActionList.CgiMointoring.SetCgiExeFile(value);
             }
         }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string Url
         {
             get => this._Url;
@@ -176,7 +184,7 @@ namespace Diga.WebView2.WinForms
             }
         }
 
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color DefaultBackgroundColor
         {
             get
@@ -205,13 +213,13 @@ namespace Diga.WebView2.WinForms
         {
             get => this._WebViewControl.DocumentTitle;
         }
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string HtmlContent
         {
             get => this._HtmlContent;
             set => NavigateToString(value);
         }
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool IsZoomControlEnabled
         {
             get => this._IsZoomControlEnabled;
@@ -225,7 +233,7 @@ namespace Diga.WebView2.WinForms
             }
         }
 
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool IsPasswordAutosaveEnabled
         {
             get => this._IsPasswordAutosaveEnabled;
@@ -238,7 +246,7 @@ namespace Diga.WebView2.WinForms
                 }
             }
         }
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool IsGeneralAutoFillEnabled
         {
             get => this._IsGeneralAutoFillEnabled;
@@ -254,7 +262,7 @@ namespace Diga.WebView2.WinForms
         }
 
         private bool _IsMuted;
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool IsMuted
         {
             get => this._IsMuted;
@@ -267,6 +275,7 @@ namespace Diga.WebView2.WinForms
                 }
             }
         }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool AreBrowserAcceleratorKeysEnabled
         {
             get => this._AreBrowserAcceleratorKeysEnabled;
@@ -277,7 +286,7 @@ namespace Diga.WebView2.WinForms
                     this._WebViewControl.Settings.AreBrowserAcceleratorKeysEnabled = value;
             }
         }
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool IsWebMessageEnabled
         {
             get => this._IsWebMessageEnabled;
@@ -290,7 +299,7 @@ namespace Diga.WebView2.WinForms
                 }
             }
         }
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool IsStatusBarEnabled
         {
             get => this._IsStatusBarEnabled;
@@ -303,7 +312,7 @@ namespace Diga.WebView2.WinForms
                 }
             }
         }
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool IsScriptEnabled
         {
             get => this._IsScriptEnabled;
@@ -316,7 +325,7 @@ namespace Diga.WebView2.WinForms
                 }
             }
         }
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool RemoteObjectsAllowed
         {
             get => this._RemoteObjectsAllowed;
@@ -331,10 +340,14 @@ namespace Diga.WebView2.WinForms
             }
         }
 
-        [Browsable(false)] public bool IsCreated { get; private set; }
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool IsCreated { get; private set; }
 
-        [Browsable(false)] public bool IsBrowserEnded { get; private set; }
-
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool IsBrowserEnded { get; private set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool DevToolsEnabled
         {
             get => this._DevToolsEnabled;
@@ -347,7 +360,7 @@ namespace Diga.WebView2.WinForms
                 }
             }
         }
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool DefaultScriptDialogsEnabled
         {
             get => this._DefaultScriptDialogsEnabled;
@@ -360,7 +373,7 @@ namespace Diga.WebView2.WinForms
                 }
             }
         }
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool DefaultContextMenusEnabled
         {
             get => this._DefaultContextMenusEnabled;
@@ -374,7 +387,7 @@ namespace Diga.WebView2.WinForms
             }
         }
 
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public double ZoomFactor
         {
             get
@@ -428,7 +441,7 @@ namespace Diga.WebView2.WinForms
         public WebView2View WebView2 => this._WebViewControl.WebView;
         
         public WebView2CompositionController CompositionController => this._WebViewControl.CompositionController;
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public SchemeRegistration[] SchemeRegistrations
         {
             get => this._SchemeRegistrations;

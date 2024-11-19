@@ -114,17 +114,20 @@ namespace Diga.WebView2.WinForms
             /// <summary>
             ///  Gets the directory path of the folder the user picked.
             /// </summary>
+            [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
             public string DirectoryPath { get; private set; } = string.Empty;
 
             /// <summary>
             ///  Gets/sets the start location of the root node.
             /// </summary>
+            [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
             public Environment.SpecialFolder StartLocation { get; set; } = Environment.SpecialFolder.Desktop;
 
             /// <summary>
             ///  Gets or sets a description to show above the folders. Here you can provide instructions for
             ///  selecting a folder.
             /// </summary>
+            [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
             public string Description
             {
                 get => this._descriptionText;
