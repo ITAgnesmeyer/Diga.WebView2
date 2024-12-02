@@ -1,5 +1,6 @@
 ﻿namespace Diga.WebView2.Scripting.DOM
 {
+
     public static class MouseEvents
     {
         public const string AuxClick = "auxclick";

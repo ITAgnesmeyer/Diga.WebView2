@@ -5,9 +5,9 @@ namespace Diga.WebView2.Scripting.DOM
 {
     public class DOMMouseEvent : DOMUiEvent
     {
-        public DOMMouseEvent(IWebViewControl control,DOMVar var):base(control,var)
+        public DOMMouseEvent(IWebViewControl control, DOMVar var) : base(control, var)
         {
-            
+
         }
 
         public bool altKey => Get<bool>();
@@ -34,7 +34,7 @@ namespace Diga.WebView2.Scripting.DOM
         }
         public Task<bool> getModifierStateAsync(string modifierKey)
         {
-            return ExecAsync<bool>(new object[] { modifierKey },nameof(getModifierState));
+            return ExecAsync<bool>(new object[] { modifierKey }, nameof(getModifierState));
         }
 
         public bool metaKey => Get<bool>();

@@ -75,8 +75,19 @@ namespace Diga.WebView2.Scripting.DOM
                 return new DOMEvent(control, var);
             if (t == typeof(DOMMouseEvent))
                 return new DOMMouseEvent(control, var);
+            if (t == typeof(DOMFocusEvent))
+                return new DOMFocusEvent(control, var);
             if (t == typeof(DOMKeyboardEvent))
                 return new DOMKeyboardEvent(control, var);
+            if(t == typeof(DOMInputEvent))
+                return new DOMInputEvent(control, var);
+            if(t == typeof(DOMTouchEvent))
+                return new DOMTouchEvent(control, var);
+            if(t == typeof(DOMTouchList))
+                return new DOMTouchList(control, var);
+            if (t == typeof(DOMTouch))
+                return new DOMTouch(control, var);
+
             if (t == typeof(DOMAttribute))
                 return new DOMAttribute(control, var);
             if (t == typeof(DOMConsole))
@@ -378,7 +389,14 @@ namespace Diga.WebView2.Scripting.DOM
             }
         }
 
+        public string GetTypeName()
+        {
+            string script = $"return Object.prototype.toString.call({this.InstanceName})";
+            string result = ExecuteScript(script);
+            result = result.Replace("\"[object ", "").Replace("]\"","");
+            return result;
 
+        }
         public void Dispose()
         {
             Dispose(disposing: true);

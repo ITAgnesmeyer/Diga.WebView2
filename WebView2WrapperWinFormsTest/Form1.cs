@@ -769,7 +769,90 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_DocumentLoading(object sender, EventArgs e)
         {
+            
+
             Debug.Print("DOM-Loading");
+            ScriptContext.Run(() => {
+                string url = this.webView1.GetDOMDocument().URL;
+                url = url.Replace("\"", "");
+                if (url == "diga://resources/test.html")
+                {
+                    //var link = this.webView1.GetDOMDocument().createElement("link");
+                    //link.setAttribute("rel", "stylesheet");
+                    //link.setAttribute("href", "diga://resources/css/diga.css");
+                    //this.webView1.GetDOMDocument().head.appendChild(link);
+                    //var bd = this.webView1.GetDOMDocument().body;
+                    //var fc = bd.firstElementChild;
+                    this.webView1.GetDOMDocument().body.firstElementChild.remove();
+
+
+                    var brelem = this.webView1.GetDOMDocument().createElement("br");
+                    var infoText = this.webView1.GetDOMDocument().createElement("input");
+                    infoText.id = "infoText";
+                    infoText.className = "input-diga-norm";
+                    infoText.setAttribute("type", "text");
+                    infoText.style.width = "50%";
+                    DOMElement text = this.webView1.GetDOMDocument().createElement("input");
+                    text.id = "txt1";
+                    text.className = "input-diga-norm";
+                    text.setAttribute("type", "text");
+                    text.FocusIn += (o, args) =>
+                    {
+                        args.Event.cancelBubble = true;
+                        infoText.SetProperty("value", "FocusIn");
+                        //this.webView1.GetDOMWindow().alert("FocusIn");
+                    };
+
+                    text.FocusOut += (o, args) =>
+                    {
+                        var el = args.Event.relatedTarget;
+                        var typeName = el.GetTypeName();
+                        try
+                        {
+                            if (el != null)
+                            {
+
+                                if (typeName != "Null")
+                                {
+                                    infoText.SetProperty("value", $"blur from {text.GetTypeName()}{text.id} new focus on {typeName}.{el.id}");
+                                }
+
+                            }
+
+                        }
+                        catch (Exception ex)
+                        {
+                            this.webView1.GetDOMWindow().alert(ex.Message);
+                        }
+
+                    };
+                    
+                    text.Input += (o, args) =>
+                    {
+                        DOMResultString st = args.Event.dataTransfer;
+                        infoText.SetProperty("value", st);
+                        //this.webView1.GetDOMWindow().alert("Input");
+                    };
+
+                    DOMElement elem = this.webView1.GetDOMDocument().createElement("button");
+                    elem.id = "btn1";
+                    elem.innerText = "Click Me";
+                    elem.className = "bt-diga-main";
+                    elem.Click += (o, args) =>
+                    {
+                        this.webView1.GetDOMWindow().alert("Button Clicked");
+                    };
+
+                    this.webView1.GetDOMDocument().body.appendChild(brelem);
+                    this.webView1.GetDOMDocument().body.appendChild(text);
+                    this.webView1.GetDOMDocument().body.appendChild(elem);
+                    this.webView1.GetDOMDocument().body.appendChild(brelem);
+                    this.webView1.GetDOMDocument().body.appendChild(infoText);
+
+                }
+
+
+            });
         }
 
         private void webView1_DocumentUnload(object sender, EventArgs e)
@@ -785,26 +868,6 @@ namespace WebView2WrapperWinFormsTest
         private WebView2ContextMenuItem _Item;
         private WebView2ContextMenuItem _Sub1;
 
-        /* Nicht gemergte Änderung aus Projekt "WebView2WrapperWinFormsTest.Core (net7.0-windows)"
-        Vor:
-                private void webView1_ContextMenuRequested(object sender, Diga.WebView2.Wrapper.Handler.ContextMenuRequestedEventArgs e)
-        Nach:
-                private void webView1_ContextMenuRequested(object sender, Diga.WebView2.Wrapper.EventArguments.ContextMenuRequestedEventArgs e)
-        */
-
-        /* Nicht gemergte Änderung aus Projekt "WebView2WrapperWinFormsTest.Core (net8.0-windows)"
-        Vor:
-                private void webView1_ContextMenuRequested(object sender, Diga.WebView2.Wrapper.Handler.ContextMenuRequestedEventArgs e)
-        Nach:
-                private void webView1_ContextMenuRequested(object sender, Diga.WebView2.Wrapper.EventArguments.ContextMenuRequestedEventArgs e)
-        */
-
-        /* Nicht gemergte Änderung aus Projekt "WebView2WrapperWinFormsTest.Core (net6.0-windows)"
-        Vor:
-                private void webView1_ContextMenuRequested(object sender, Diga.WebView2.Wrapper.Handler.ContextMenuRequestedEventArgs e)
-        Nach:
-                private void webView1_ContextMenuRequested(object sender, Diga.WebView2.Wrapper.EventArguments.ContextMenuRequestedEventArgs e)
-        */
         private void webView1_ContextMenuRequested(object sender, ContextMenuRequestedEventArgs e)
         {
             using (var c = e.GetDeferral())

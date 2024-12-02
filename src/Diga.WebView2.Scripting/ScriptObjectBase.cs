@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Diga.WebView2.Interop;
+using Diga.WebView2.Scripting.DOM;
 
 namespace Diga.WebView2.Scripting
 {
@@ -84,7 +85,12 @@ namespace Diga.WebView2.Scripting
                     returnArgString += $"{val.ToString("N", new CultureInfo("en-EN"))}";
 
                 }
-
+                else if(arg is DOMResultString)
+                {
+                    string val = (DOMResultString)arg;
+                    val = Tools.JavaScriptEncoder.Encode(val);
+                    returnArgString += $"\"{val}\"";
+                }
                 else
                 {
                     string val = "null";
