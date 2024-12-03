@@ -12,6 +12,7 @@ using Diga.WebView2.WinForms;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.Delegates;
 using Diga.WebView2.Wrapper.EventArguments;
+using MimeTypeExtension;
 using Rectangle = System.Drawing.Rectangle;
 
 namespace WebView2WrapperWinFormsTest
@@ -278,6 +279,10 @@ namespace WebView2WrapperWinFormsTest
             this.webView1.NavigateToString(value);
             this.textBox1.AutoCompleteCustomSource.Add(this.webView1.MonitoringUrl);
             this.textBox1.AutoCompleteCustomSource.Add(this.webView1.MonitoringUrl + "mp3test/testmp3.html");
+            this.textBox1.AutoCompleteCustomSource.Add("diga://resources/test.html?hello");
+            this.textBox1.AutoCompleteCustomSource.Add("diga://resources/control.html?hello");
+            this.textBox1.AutoCompleteCustomSource.Add("diga://resources/test.html");
+            this.textBox1.AutoCompleteCustomSource.Add("diga://resources/control.html");
 
 
         }
@@ -773,18 +778,21 @@ namespace WebView2WrapperWinFormsTest
 
             Debug.Print("DOM-Loading");
             ScriptContext.Run(() => {
-                string url = this.webView1.GetDOMDocument().URL;
-                url = url.Replace("\"", "");
-                if (url == "diga://resources/test.html")
+                DOMResultString url = this.webView1.GetDOMDocument().URL;
+                Uri uri = new Uri(url);
+                string urlNoQury = uri.GetLeftPart(UriPartial.Path);
+                string query = uri.Query.Replace("?","");
+                if (urlNoQury == "diga://resources/control.html" && query == "hello")
                 {
+                    Debug.Print("Doc LOAD");
+
                     //var link = this.webView1.GetDOMDocument().createElement("link");
                     //link.setAttribute("rel", "stylesheet");
                     //link.setAttribute("href", "diga://resources/css/diga.css");
                     //this.webView1.GetDOMDocument().head.appendChild(link);
                     //var bd = this.webView1.GetDOMDocument().body;
                     //var fc = bd.firstElementChild;
-                    this.webView1.GetDOMDocument().body.firstElementChild.remove();
-
+                    var mainView = this.webView1.GetDOMDocument().getElementById("MainView");
 
                     var brelem = this.webView1.GetDOMDocument().createElement("br");
                     var infoText = this.webView1.GetDOMDocument().createElement("input");
@@ -792,6 +800,14 @@ namespace WebView2WrapperWinFormsTest
                     infoText.className = "input-diga-norm";
                     infoText.setAttribute("type", "text");
                     infoText.style.width = "50%";
+                    mainView.MouseMove += (o, me) =>
+                    {
+                        var x = me.Event.clientX;
+                        var y = me.Event.clientY;
+                        infoText.SetProperty("value", $"X:{x},Y:{y}");
+                        
+                    };
+
                     DOMElement text = this.webView1.GetDOMDocument().createElement("input");
                     text.id = "txt1";
                     text.className = "input-diga-norm";
@@ -829,7 +845,7 @@ namespace WebView2WrapperWinFormsTest
                     
                     text.Input += (o, args) =>
                     {
-                        DOMResultString st = args.Event.dataTransfer;
+                        DOMResultString st = args.Event.data;
                         infoText.SetProperty("value", st);
                         //this.webView1.GetDOMWindow().alert("Input");
                     };
@@ -837,22 +853,56 @@ namespace WebView2WrapperWinFormsTest
                     DOMElement elem = this.webView1.GetDOMDocument().createElement("button");
                     elem.id = "btn1";
                     elem.innerText = "Click Me";
-                    elem.className = "bt-diga-main";
+                    elem.className = "bt-diga-main bt-diga-norm";
                     elem.Click += (o, args) =>
                     {
-                        this.webView1.GetDOMWindow().alert("Button Clicked");
+                        DOMResultString oldVal =this.webView1.GetDOMWindow().sessionStorage.getItem("btvalue");
+                        if (oldVal != null)
+                        {
+                            if(oldVal == "null")
+                                oldVal = "0";
+                        }
+
+                        int val = int.Parse(oldVal);
+                        text.SetProperty("value", $"Button Clicked:{val}");
+                        val++;
+                        this.webView1.GetDOMWindow().sessionStorage.setItem("btvalue", val.ToString());
                     };
 
-                    this.webView1.GetDOMDocument().body.appendChild(brelem);
-                    this.webView1.GetDOMDocument().body.appendChild(text);
-                    this.webView1.GetDOMDocument().body.appendChild(elem);
-                    this.webView1.GetDOMDocument().body.appendChild(brelem);
-                    this.webView1.GetDOMDocument().body.appendChild(infoText);
-
+                    mainView.appendChild(brelem);
+                    mainView.appendChild(text);
+                    mainView.appendChild(elem);
+                    mainView.appendChild(brelem);
+                    mainView.appendChild(infoText);
+                    EventHandler action = null;
+                    action = (o, args) =>
+                    {
+                        Debug.Print("DISPOSE Doc");
+                        brelem?.Dispose();
+                        text?.Dispose();
+                        elem?.Dispose();
+                        infoText?.Dispose();
+                        mainView?.Dispose();
+                        brelem = null;
+                        text = null;
+                        elem = null;
+                        infoText = null;
+                        mainView = null;
+                        Debug.Print("DISPOSE Doc END");
+                        webView1.DocumentUnload -= action;    
+                    };
+                    
+                    this.webView1.DocumentUnload += action;
+                    Debug.Print("Doc LOAD END");
                 }
 
 
             });
+        }
+
+        private void WebView1_DocumentUnload(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void webView1_DocumentUnload(object sender, EventArgs e)

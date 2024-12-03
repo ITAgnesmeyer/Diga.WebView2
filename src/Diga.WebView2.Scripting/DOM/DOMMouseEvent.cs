@@ -19,9 +19,9 @@ namespace Diga.WebView2.Scripting.DOM
         public int buttons => Get<int>();
         public Task<int> buttonsAsync => GetAsync<int>(nameof(this.buttons));
 
-        public int clientX => Get<int>();
+        public double clientX => Get<double>();
         public Task<int> clientXAsync => GetAsync<int>(nameof(this.clientX));
-        public int clientY => Get<int>();
+        public double clientY => Get<double>();
 
         public Task<int> clientYAsync => GetAsync<int>(nameof(this.clientY));
 

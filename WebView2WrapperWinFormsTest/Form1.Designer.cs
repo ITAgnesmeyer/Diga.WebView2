@@ -372,6 +372,7 @@
             webView1.DocumentLoading += webView1_DocumentLoading;
             webView1.DocumentUnload += webView1_DocumentUnload;
             webView1.ContextMenuRequested += webView1_ContextMenuRequested;
+            webView1.CompoisitionControllerCursorChanged += webView1_CompoisitionControllerCursorChanged;
             // 
             // contextMenuMore
             // 

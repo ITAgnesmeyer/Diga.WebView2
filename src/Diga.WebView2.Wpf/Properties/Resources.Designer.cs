@@ -59,32 +59,5 @@ namespace Diga.WebView2.Wpf.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die data:text/css;charset=utf8;base64,LyogQ29weXJpZ2h0IChjKSAyMDEyIFRoZSBDaHJvbWl1bSBBdXRob3JzLiBBbGwgcmlnaHRzIHJlc2VydmVkLg0KICogVXNlIG9mIHRoaXMgc291cmNlIGNvZGUgaXMgZ292ZXJuZWQgYnkgYSBCU0Qtc3R5bGUgbGljZW5zZSB0aGF0IGNhbiBiZQ0KICogZm91bmQgaW4gdGhlIExJQ0VOU0UgZmlsZS4gKi8NCg0KLyogQSBidXR0ZXIgYmFyIGlzIGFuIG5vbi1tb2RhbCBub3RpZmljYXRpb24sIHVzdWFsbHkgeWVsbG93LCB0aGF0IGFwcGVhcnMgYXQNCiAqIHRoZSB0b3Agb2YgdGhlIHNjcmVlbi4gR2VuZXJhbGx5LCB0aGV5IHNob3VsZCBjb250YWluIGEgc2luZ2xlIGxpbmUgb2YgdGV4dCwNCiAqIGFuZCBvbmUgb3IgdHdvIGxpbm [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        public static string resources_css_button_bar_css {
-            get {
-                return ResourceManager.GetString("resources/css/button_bar.css", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die data:text/css;charset=utf-8;base64,OnJvb3R7DQogICAgIC0tZGlnYS1idG4tYWN0aXZlLWJnOiByZ2IoMCwgMTIwLCAyMTIpOw0KICAgICAtLWRpZ2EtYnRuLWFjdGl2ZS1ib3JkZXItY29sb3I6IHJnYigwLCAwLCAwKTsNCiAgICAgLS1kaWdhLWJ0bi1hY3RpdmUtaG9vdmVyLWNvbG9yOiByZ2IoMCwgMTA3LCAxODkpOw0KICAgICAtLWRpZ2EtYnRuLWFjdGl2ZS10ZXh0LWNvbG9yOiByZ2IoMjU1LDI1NSwyNTUpOw0KICAgICAtLWRpZ2EtYnRuLWFjdGl2ZS1hY3RpdmUtY29sb3I6IHJnYigwLCA5NiwgMTcwKTsNCiAgICAgLS1kaWdhLWJ0bi1ub3JtLWJnOiByZ2IoMjM5LCAyMzksIDIzOSk7DQogICAgIC0tZGlnYS1idG4tbm9ybS1ob292ZXItY29sb3I6cmdiKDIyO [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        public static string resources_css_diga_css {
-            get {
-                return ResourceManager.GetString("resources/css/diga.css", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die data:text/html;charset=utf-8;base64,PGh0bWw+DQo8aGVhZD4NCiAgICA8bWV0YSBjaGFyc2V0PSJ1dGYtOCI+DQo8L2hlYWQ+DQo8Ym9keT4NCiAgICA8YnV0dG9uIG9uY2xpY2s9ImFsZXJ0KCdoYWxsbycpOyI+dGVzdDwvYnV0dG9uPg0KPC9ib2R5Pg0KPC9odG1sPg== ähnelt.
-        /// </summary>
-        public static string resources_test_html {
-            get {
-                return ResourceManager.GetString("resources/test.html", resourceCulture);
-            }
-        }
     }
 }

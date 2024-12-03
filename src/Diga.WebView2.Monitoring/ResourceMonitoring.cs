@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Mime;
 using Diga.WebView2.Wrapper;
 
 namespace Diga.WebView2.Monitoring
@@ -25,7 +26,8 @@ namespace Diga.WebView2.Monitoring
                 responseInfo = null;
                 return false;
             }
-            string resName = url.Substring(monUrl.Length);
+            Uri uri = new Uri(url);
+            string resName = uri.Authority + uri.AbsolutePath;
 
             if (string.IsNullOrEmpty(resName))
             {
@@ -35,6 +37,8 @@ namespace Diga.WebView2.Monitoring
 
             try
             {
+                
+
                 string resString = WebResoruces.ResourceManager.GetString(resName);
                 if (resString == null)
                 {
@@ -55,7 +59,10 @@ namespace Diga.WebView2.Monitoring
 
 
                 responseInfo = new ResponseInfo(contentBase64Bytes);
-                responseInfo.Header.Add("content-type", mime);
+                string utf8Extension = GetUtf8IfNeeded(mime);
+                responseInfo.Header.Add("content-type", mime + utf8Extension);
+                //responseInfo.Header.Add("origin", "diga://"+ uri.Host);
+                //responseInfo.Header.Add("Set-Cookie", "sessionId=38afes7a8");
                 responseInfo.ContentType = mime;
                 responseInfo.StatusCode = 200;
                 responseInfo.StatusText = "OK";

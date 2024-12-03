@@ -133,6 +133,7 @@ namespace Diga.WebView2.Wrapper
             WebView2CustomSchemeRegistration reg = new WebView2CustomSchemeRegistration(DIGA_SCHEMA);
             reg.AllowedOrgins.Add("*");
             reg.TreatAsSecure = (CBOOL)true;
+            reg.HasAuthorityComponent = (CBOOL)true;
 
             options.CustomSchemeRegistrations.Add(reg);
 

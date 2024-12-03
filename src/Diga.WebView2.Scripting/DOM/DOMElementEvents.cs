@@ -285,7 +285,8 @@ namespace Diga.WebView2.Scripting.DOM
         protected override void OnDomEvent(RpcEventHandlerArgs e)
         {
             DOMVar eventObj = new DOMVar(this._View2Control, e.RpcObject.idFullName);
-
+            try
+            {
 
             using (DOMVar copyEventObj = eventObj.Copy())
             {
@@ -508,6 +509,15 @@ namespace Diga.WebView2.Scripting.DOM
             }
 
             base.OnDomEvent(e);
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+            }
+
+
         }
 
         private void OnTouchCancel(DOMTouchEventArgs eventArgs)

@@ -61,6 +61,33 @@ namespace Diga.WebView2.Monitoring {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die data:text/html;charset=utf-8;base64,PGh0bWw+DQo8aGVhZD4NCiAgICA8bWV0YSBjaGFyc2V0PSJ1dGYtOCI+DQoJPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJjc3MvZGlnYS5jc3MiPg0KPC9oZWFkPg0KPGJvZHkgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6cmdiKDI1NSwyNTUsMjU1KSI+DQogICAgPGRpdiBpZD0iTWFpblZpZXciPg0KCTwvZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg== ähnelt.
+        /// </summary>
+        internal static string resources_com_control_html {
+            get {
+                return ResourceManager.GetString("resources.com/control.html", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die data:text/css;charset=utf-8;base64,OnJvb3R7DQogICAgIC0tZGlnYS1idG4tYWN0aXZlLWJnOiByZ2IoMCwgMTIwLCAyMTIpOw0KICAgICAtLWRpZ2EtYnRuLWFjdGl2ZS1ib3JkZXItY29sb3I6IHJnYigwLCAwLCAwKTsNCiAgICAgLS1kaWdhLWJ0bi1hY3RpdmUtaG9vdmVyLWNvbG9yOiByZ2IoMCwgMTA3LCAxODkpOw0KICAgICAtLWRpZ2EtYnRuLWFjdGl2ZS10ZXh0LWNvbG9yOiByZ2IoMjU1LDI1NSwyNTUpOw0KICAgICAtLWRpZ2EtYnRuLWFjdGl2ZS1hY3RpdmUtY29sb3I6IHJnYigwLCA5NiwgMTcwKTsNCiAgICAgLS1kaWdhLWJ0bi1ub3JtLWJnOiByZ2IoMjM5LCAyMzksIDIzOSk7DQogICAgIC0tZGlnYS1idG4tbm9ybS1ob292ZXItY29sb3I6cmdiKDIyO [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        /// </summary>
+        internal static string resources_com_css_diga_css {
+            get {
+                return ResourceManager.GetString("resources.com/css/diga.css", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die data:text/html;charset=utf-8;base64,PGh0bWw+DQo8aGVhZD4NCiAgICA8bWV0YSBjaGFyc2V0PSJ1dGYtOCI+DQoJPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJjc3MvZGlnYS5jc3MiPg0KPC9oZWFkPg0KPGJvZHkgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6cmdiKDI1NSwyNTUsMjU1KSI+DQogICAgPGRpdiBpZD0iTWFpblZpZXciPg0KCTwvZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg== ähnelt.
+        /// </summary>
+        internal static string resources_control_html {
+            get {
+                return ResourceManager.GetString("resources/control.html", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die data:text/css;charset=utf8;base64,LyogQ29weXJpZ2h0IChjKSAyMDEyIFRoZSBDaHJvbWl1bSBBdXRob3JzLiBBbGwgcmlnaHRzIHJlc2VydmVkLg0KICogVXNlIG9mIHRoaXMgc291cmNlIGNvZGUgaXMgZ292ZXJuZWQgYnkgYSBCU0Qtc3R5bGUgbGljZW5zZSB0aGF0IGNhbiBiZQ0KICogZm91bmQgaW4gdGhlIExJQ0VOU0UgZmlsZS4gKi8NCg0KLyogQSBidXR0ZXIgYmFyIGlzIGFuIG5vbi1tb2RhbCBub3RpZmljYXRpb24sIHVzdWFsbHkgeWVsbG93LCB0aGF0IGFwcGVhcnMgYXQNCiAqIHRoZSB0b3Agb2YgdGhlIHNjcmVlbi4gR2VuZXJhbGx5LCB0aGV5IHNob3VsZCBjb250YWluIGEgc2luZ2xlIGxpbmUgb2YgdGV4dCwNCiAqIGFuZCBvbmUgb3IgdHdvIGxpbm [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
         internal static string resources_css_button_bar_css {
