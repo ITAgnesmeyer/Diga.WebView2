@@ -29,6 +29,7 @@
     <Compile Include="..\WebView2WrapperWinFormsTest\SelectForm.cs" Link="SelectForm.cs" />
     <Compile Include="..\WebView2WrapperWinFormsTest\SelectForm.Designer.cs" Link="SelectForm.Designer.cs" />
     <Compile Include="..\WebView2WrapperWinFormsTest\TestObject.cs" Link="TestObject.cs" />
+    <Compile Include="..\WebView2WrapperWinFormsTest\TestVirtualSite.cs" Link="TestVirtualSite.cs" />
   </ItemGroup>
 
   <ItemGroup>

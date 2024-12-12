@@ -133,6 +133,7 @@ namespace Diga.WebView2.Wrapper
             WebView2CustomSchemeRegistration reg = new WebView2CustomSchemeRegistration(DIGA_SCHEMA);
             reg.AllowedOrgins.Add("*");
             reg.TreatAsSecure = (CBOOL)true;
+            //important for sessionStorage/localStorage
             reg.HasAuthorityComponent = (CBOOL)true;
 
             options.CustomSchemeRegistrations.Add(reg);
@@ -1195,7 +1196,15 @@ namespace Diga.WebView2.Wrapper
         {
             PrintToPdfCompleted?.Invoke(this, e);
         }
+        public WebView2SharedBuffer CreateSharedBuffer(ulong size)
+        {
+            return this.Environment.CreateSharedBuffer(size);
+        }
 
+        public void PostSharedBufferToScript(WebView2SharedBuffer sharedBuffer, COREWEBVIEW2_SHARED_BUFFER_ACCESS access, string additionalDataAsJson)
+        {
+            this.WebView.PostSharedBufferToScript(sharedBuffer.ToInterface(), access, additionalDataAsJson);
+        }
         public void Stop()
         {
             try

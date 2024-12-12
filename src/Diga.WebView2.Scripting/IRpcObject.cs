@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using Diga.WebView2.Interop;
 namespace Diga.WebView2.Scripting
 {
-    
+
 
 
     [Guid("492AB1FF-FF27-4A23-93A8-540A4B9DAC37")]

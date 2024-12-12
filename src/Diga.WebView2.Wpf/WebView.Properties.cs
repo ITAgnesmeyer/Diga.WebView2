@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Media;
-using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.Types;
 

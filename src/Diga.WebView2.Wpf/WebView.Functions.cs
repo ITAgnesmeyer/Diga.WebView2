@@ -2,7 +2,6 @@
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper;
 using Image = System.Drawing.Image;

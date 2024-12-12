@@ -2,10 +2,13 @@
 using System;
 using System.Diagnostics;
 using Diga.WebView2.Wrapper.Types;
+using Microsoft.Win32.SafeHandles;
+using System.Runtime.InteropServices;
 
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper.Implementation
 {
+    
     public class WebView2Settings2Interface : WebView2SettingsInterface
     {
         private ComObjectHolder< ICoreWebView2Settings2> _Settings;

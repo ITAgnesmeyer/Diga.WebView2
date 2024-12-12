@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Diga.WebView2.Interop;
 
 namespace Diga.WebView2.Scripting.DOM

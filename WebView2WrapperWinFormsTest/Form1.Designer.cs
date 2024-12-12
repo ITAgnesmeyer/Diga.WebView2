@@ -355,6 +355,8 @@
             webView1.AcceleratorKeyPressed += webView1_AcceleratorKeyPressed;
             webView1.WebViewGotFocus += webView1_WebViewGotFocus;
             webView1.WebViewLostFocus += webView1_WebViewLostFocus;
+            webView1.MoveFocusRequested += webView1_MoveFocusRequested;
+            webView1.ContainsFullScreenElementChanged += webView1_ContainsFullScreenElementChanged;
             webView1.NewWindowRequested += webView1_NewWindowRequested;
             webView1.FrameNavigationCompleted += webView1_FrameNavigationCompleted;
             webView1.FrameNavigationStarting += webView1_FrameNavigationStarting;

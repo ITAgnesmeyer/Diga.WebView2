@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Scripting.DOM;
-
 namespace Diga.WebView2.Scripting
 {
     public abstract class ScriptObjectBase

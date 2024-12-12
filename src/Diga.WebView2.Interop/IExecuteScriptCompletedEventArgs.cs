@@ -7,6 +7,8 @@ namespace Diga.WebView2.Interop
     public interface IWebViewControlEvents
     {
         event EventHandler<IExecuteScriptCompletedEventArgs> ExecuteScriptCompleted;
+        event EventHandler DocumentLoading;
+        event EventHandler DocumentUnload;
     }
 
     public interface IWebViewControlScript

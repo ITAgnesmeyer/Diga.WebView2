@@ -74,6 +74,7 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<WebViewButtonDownEventArgs> MouseButtonDown; 
         public event EventHandler<ContextMenuRequestedEventArgs> ContextMenuRequested;
         public event EventHandler<CursorChangedEventArgs> CompoisitionControllerCursorChanged;
+        public event EventHandler<BasicAuthenticationRequestedEventArgs> BasicAuthenticationRequested;
         private void OnWebWindowBeforeCreate(object sender, BeforeCreateEventArgs e)
         {
             WebWindowInitSettings(e);
@@ -566,6 +567,7 @@ namespace Diga.WebView2.WinForms
             control.IsDefaultDownloadDialogOpenChanged -= OnIsDefaultDownloadDialogOpenChangedIntern;
             control.ContextMenuRequested -= OnContextMenuRequestedIntern;
             control.CompoisitionControllerCursorChanged -= OnCompoisitionControllerCursorChangedInternal;
+            control.BasicAuthenticationRequested -= OnBasicAuthenticationRequestedIntern;
             _UnWireExecuted = true;
         }
 
@@ -612,9 +614,20 @@ namespace Diga.WebView2.WinForms
             control.IsDefaultDownloadDialogOpenChanged += OnIsDefaultDownloadDialogOpenChangedIntern;
             control.ContextMenuRequested += OnContextMenuRequestedIntern;
             control.CompoisitionControllerCursorChanged += OnCompoisitionControllerCursorChangedInternal;
+            control.BasicAuthenticationRequested += OnBasicAuthenticationRequestedIntern;
         }
 
-        private void OnCompoisitionControllerCursorChangedInternal(object sender, CursorChangedEventArgs e)
+        private void OnBasicAuthenticationRequestedIntern(object sender, BasicAuthenticationRequestedEventArgs e)
+        {
+            OnBasicAuthenticationRequested(sender, e);
+        }
+
+        private void OnBasicAuthenticationRequested(object sender, BasicAuthenticationRequestedEventArgs e)
+        {
+            BasicAuthenticationRequested?.Invoke(sender,e);
+        }
+
+        protected virtual void OnCompoisitionControllerCursorChangedInternal(object sender, CursorChangedEventArgs e)
         {
             OnCompoisitionControllerCursorChanged(sender, e);
         }

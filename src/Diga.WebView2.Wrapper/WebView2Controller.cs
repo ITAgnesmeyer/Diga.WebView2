@@ -67,6 +67,7 @@ namespace Diga.WebView2.Wrapper
                 new RasterizationScaleChangedEventHandler();
             rasterizationScaleChangedEventHandler.RasteriazationScaleChanged += OnRasterizationScaleChangedIntern;
             this.add_RasterizationScaleChanged(rasterizationScaleChangedEventHandler, out this._RasterizationScaleChangedToken);
+           
         }
 
         private void OnRasterizationScaleChangedIntern(object sender, WebView2EventArgs e)

@@ -1,19 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Drawing;
-using System.Globalization;
 using System.IO;
-using System.Numerics;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using Diga.Core.Json;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Scripting.DOM;
 using Diga.WebView2.Wpf;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
-using Diga.WebView2.Wrapper.Types;
 
 
 namespace WebView2WrapperWpfTest

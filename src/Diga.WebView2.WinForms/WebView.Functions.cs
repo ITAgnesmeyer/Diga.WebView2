@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper;
-using Diga.WebView2.Wrapper.Types;
 
 
 namespace Diga.WebView2.WinForms
@@ -165,6 +164,22 @@ namespace Diga.WebView2.WinForms
 
 
             Navigate($"view-source:{uri}");
+        }
+
+        public WebView2SharedBuffer CreateSharedBuffer(ulong size)
+        {
+            if (this.CheckIsCreatedOrEnded)
+            {
+                return this._WebViewControl.CreateSharedBuffer(size);
+            }
+            return null;
+        }
+        public void PostSharedBufferToScript(WebView2SharedBuffer sharedBuffer, COREWEBVIEW2_SHARED_BUFFER_ACCESS access, string additionalDataAsJson)
+        {
+            if (this.CheckIsCreatedOrEnded)
+            {
+                this._WebViewControl.PostSharedBufferToScript(sharedBuffer, access, additionalDataAsJson);
+            }
         }
 
         #endregion

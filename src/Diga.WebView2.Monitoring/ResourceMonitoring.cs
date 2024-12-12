@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.Mime;
 using Diga.WebView2.Wrapper;
 
 namespace Diga.WebView2.Monitoring

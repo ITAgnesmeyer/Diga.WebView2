@@ -156,5 +156,20 @@ namespace Diga.WebView2.Wrapper.interop
             }
         }
 
+        public static int GetIUnknownPointerFromObject(ref object comObject, out IntPtr pUnknown)
+        {
+            switch(OsArchitecture)
+            {
+                case Architecture.X64:
+                    return Native64.GetIUnknownPointerFromObject(ref comObject, out pUnknown);
+                case Architecture.X86:
+                    return Native32.GetIUnknownPointerFromObject(ref comObject, out pUnknown);
+                case Architecture.Arm64:
+                    return NativeArm64.GetIUnknownPointerFromObject(ref comObject, out pUnknown);
+                default:
+                    throw new PlatformNotSupportedException();
+            }
+        }
+
     }
 }

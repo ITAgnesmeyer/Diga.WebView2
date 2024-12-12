@@ -1,7 +1,4 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
-
-namespace Diga.WebView2.Scripting.DOM
+﻿namespace Diga.WebView2.Scripting.DOM
 {
     public static class FocusEvents
     {

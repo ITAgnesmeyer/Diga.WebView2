@@ -1,6 +1,4 @@
-﻿using Diga.WebView2.Interop;
-
-namespace Diga.WebView2.Scripting
+﻿namespace Diga.WebView2.Scripting
 {
     //public class WebViewExecuteScriptCompletedEventArgs : IExecuteScriptCompletedEventArgs
     //{

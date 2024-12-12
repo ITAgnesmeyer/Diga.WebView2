@@ -1,10 +1,5 @@
-﻿using Diga.WebView2.Wrapper.Types;
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
+﻿using System;
 using System.Runtime.ExceptionServices;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using System.Windows.Forms;
 

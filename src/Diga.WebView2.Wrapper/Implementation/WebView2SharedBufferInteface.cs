@@ -77,5 +77,7 @@ namespace Diga.WebView2.Wrapper.Implementation
         {
             Iface.Close();
         }
+
+        public ICoreWebView2SharedBuffer ToInterface() => this.Iface;
     }
 }

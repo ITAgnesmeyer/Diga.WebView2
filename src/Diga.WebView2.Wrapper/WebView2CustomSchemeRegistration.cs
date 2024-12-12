@@ -10,6 +10,7 @@ namespace Diga.WebView2.Wrapper
     {
         public string SchemeName { get; set; }
         public bool TreatAsSecure { get; set; }
+        public bool HasAuthorityComponent {  get; set; }
         public string[] AllowedOrignis { get; set; } = { };
 
 
@@ -18,6 +19,7 @@ namespace Diga.WebView2.Wrapper
             var newValue = new WebView2CustomSchemeRegistration(this.SchemeName);
             newValue.AllowedOrgins.AddRange(this.AllowedOrignis);
             newValue.TreatAsSecure = (CBOOL)this.TreatAsSecure;
+            newValue.HasAuthorityComponent = (CBOOL)this.HasAuthorityComponent;
             return newValue;
         }
     }

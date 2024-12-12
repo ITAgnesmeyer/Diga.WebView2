@@ -513,7 +513,7 @@ namespace Diga.WebView2.Scripting.DOM
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                throw new DOMElementEventsException("Error in OnDomEvent", ex);
 
             }
 

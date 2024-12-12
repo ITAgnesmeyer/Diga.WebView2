@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using Diga.WebView2.Interop;
 
 namespace Diga.WebView2.Wrapper.interop
@@ -38,6 +39,10 @@ namespace Diga.WebView2.Wrapper.interop
 
         [DllImport(EXTERNAL_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern int GetCurrentVersion([MarshalAs(UnmanagedType.LPWStr)] out string versionInfo);
+
+        [DllImport(EXTERNAL_DLL, CallingConvention = CallingConvention.StdCall)]
+        public static extern int GetIUnknownPointerFromObject(ref object comObject, out IntPtr pUnknown);
+
 
     }
    
