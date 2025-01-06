@@ -1,55 +1,59 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Diga.WebView2.Scripting.DOM
 {
     public static class DOMGC
     {
-        public static List<DOMVar> _DomVars;
+        
+        public static ConcurrentDictionary<Guid,DOMVar> _DomVars;
+        public static ConcurrentDictionary<Guid,DOMVar> _DeleteVarQuery;
 
         static DOMGC()
         {
             SyncLock = new object();
-            _DomVars = new List<DOMVar>();
+            _DomVars = new ConcurrentDictionary<Guid,DOMVar>();
+            _DeleteVarQuery = new ConcurrentDictionary<Guid, DOMVar>();
         }
 
         private static object SyncLock;
         public static void AddVar(DOMVar item)
         {
-            lock (SyncLock)
+            _DomVars.TryAdd(item.ObjectGuid, item);
+
+        }
+        public static void RemoveVar(DOMVar item, bool noDirectRemove = false)
+        {
+
+            if (_DomVars.TryRemove(item.ObjectGuid, out DOMVar itemToRemove))
             {
-                _DomVars.Add(item);
+                if (noDirectRemove)
+                {
+                    _DeleteVarQuery.TryAdd(item.ObjectGuid, itemToRemove);
+                }
+              
             }
         }
 
+            
+
         public static void CleanUp()
         {
-            //UIDispatcher.UIThread.Post(() =>
-            //{
 
-
-                lock (SyncLock)
+            var keys = _DeleteVarQuery.Keys.ToArray<Guid>();
+            foreach (var key in keys)
+            {
+                if (_DeleteVarQuery.TryRemove(key, out DOMVar itemToRemove))
                 {
-                    List<DOMVar> deleted = new List<DOMVar>();
-                    foreach (DOMVar domVar in _DomVars)
-                    {
-                        if(!domVar.VarExist())
-                            deleted.Add(domVar);
-                        
-                    }
-
-                    while (deleted.Count > 0)
-                    {
-                        var dw = deleted[0];
-                        _DomVars.Remove(dw);
-                        deleted.RemoveAt(0);
-                        dw.Dispose();
-                        dw = null;
-                    }
-
-                    deleted = null;
+                    itemToRemove.Dispose();
                 }
-            //});
+            }
 
+
+            
         }
 
     }

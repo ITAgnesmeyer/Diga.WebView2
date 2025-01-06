@@ -197,11 +197,15 @@ namespace Diga.WebView2.WinForms
             return result;
         }
 
-
+        private DOMDocument _DomDocument;
         public DOMDocument GetDOMDocument()
         {
             CheckIsCreatedOrEndedWithThrow();
-            return new DOMDocument(this);
+            if (this._DomDocument == null)
+            {
+                this._DomDocument = new DOMDocument(this);
+            }
+            return _DomDocument;
         }
 
         public DOMConsole GetDOMConsole()
@@ -209,11 +213,13 @@ namespace Diga.WebView2.WinForms
             CheckIsCreatedOrEndedWithThrow();
             return new DOMConsole(this);
         }
-
+        private DOMWindow _DomWindow;
         public DOMWindow GetDOMWindow()
         {
             CheckIsCreatedOrEndedWithThrow();
-            return new DOMWindow(this);
+            if(_DomWindow == null)
+                _DomWindow = new DOMWindow(this);
+            return _DomWindow;
         }
 
 

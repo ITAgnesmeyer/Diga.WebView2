@@ -26,7 +26,7 @@ namespace Diga.WebView2.WinForms
                     {
                         var respose = this.CreateResponse(responseInfo);
                         e.Response = respose;
-                    
+                        _InfoCollection.Enqueue(responseInfo);
                     }
 
                 }

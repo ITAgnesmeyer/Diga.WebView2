@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.CompilerServices;
@@ -16,7 +17,7 @@ namespace Diga.WebView2.WinForms
     {
         private WebView2Control _WebViewControl;
         private static int ControlCounter = 0;
-
+        private ConcurrentQueue<ResponseInfo> _InfoCollection = new ConcurrentQueue<ResponseInfo>();
         public WebView()
         {
             this._RpcHandler = new RpcHandler();

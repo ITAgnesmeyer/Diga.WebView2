@@ -15,9 +15,16 @@ namespace Diga.WebView2.Scripting
         internal ScriptObjectBase(IWebViewControl control)
         {
             this._View2Control = control;
+            WireEvents();
+        }
+        protected void WireEvents()
+        {
             this._View2Control.ExecuteScriptCompleted += OnScriptComplete;
         }
-
+        protected void UnWireEvents()
+        {
+            this._View2Control.ExecuteScriptCompleted -= OnScriptComplete;
+        }
         //private ConcurrentDictionary<string,ExecuteScriptCompletedEventArgs> _CurrentScriptID=new ConcurrentDictionary<string, ExecuteScriptCompletedEventArgs>();
         private void OnScriptComplete(object sender, IExecuteScriptCompletedEventArgs e)
         {

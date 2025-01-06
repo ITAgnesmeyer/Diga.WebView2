@@ -384,6 +384,7 @@ namespace Diga.WebView2.Scripting.DOM
                 if (disposing)
                 {
                     this._Var?.Dispose();
+                    this.UnWireEvents();
                 }
                 this.disposedValue = true;
             }

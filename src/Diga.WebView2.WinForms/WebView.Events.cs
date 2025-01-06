@@ -123,6 +123,26 @@ namespace Diga.WebView2.WinForms
 
         protected virtual void OnNavigationCompleted(NavigationCompletedEventArgs e)
         {
+            try
+            {
+                if (_InfoCollection.Count > 1)
+                {
+                    while (_InfoCollection.TryDequeue(out var info))
+                    {
+                        info.Dispose();
+                        if(_InfoCollection.Count <= 1)
+                            break;
+                        else
+                            Debug.Print("More to delete!");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Print("OnWebResourceResponseReceived ResponseInfo.Dispoase error:" + ex.Message);
+
+            }
+            
             NavigationCompleted?.Invoke(this, e);
         }
 
@@ -283,8 +303,14 @@ namespace Diga.WebView2.WinForms
             {
                 try
                 {
+                    if (_Window != null)
+                    {
+                        _Window.DomEvent -= OnDomEvent;
+                        _Window.Dispose();
+
+                    }
                     this._Window = this.GetDOMWindow();//.GetCopy();
-                    this._Window.addEventListener("error", new DOMEventListenerScript(this._Window, "error"), true);
+                    //this._Window.addEventListener("error", new DOMEventListenerScript(this._Window, "error"), true);
                     this._Window.DomEvent += OnDomEvent;
                     this.GetDOMConsole().log("Document_Loading");
                 }

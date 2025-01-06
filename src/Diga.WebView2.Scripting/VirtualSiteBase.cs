@@ -30,19 +30,27 @@ namespace Diga.WebView2.Scripting
 
 
         }
-
+        private DOMDocument _Document;
         protected DOMDocument GetDOMDocument()
         {
-            return new DOMDocument(this._WebViewControl);
+            if (_Document == null)
+                _Document = new DOMDocument(this._WebViewControl);
+
+            return _Document;
         }
+        private DOMWindow _Window;
         protected DOMWindow GetDOMWindow()
         {
-            return new DOMWindow(this._WebViewControl);
+            if(_Window == null)
+                _Window = new DOMWindow(this._WebViewControl);
+            return _Window;
         }
-
+        private DOMConsole _Console;
         protected DOMConsole GetDOMConsole()
         {
-            return new DOMConsole(this._WebViewControl);
+            if(_Console == null)
+                _Console= new DOMConsole(this._WebViewControl);
+            return _Console;
         }
 
 
@@ -62,7 +70,9 @@ namespace Diga.WebView2.Scripting
             {
                 element.Dispose();
             }
-
+            _Console?.Dispose();
+            _Document?.Dispose();
+            _Window?.Dispose();
 
 
 

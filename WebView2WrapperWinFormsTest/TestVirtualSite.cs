@@ -72,7 +72,9 @@ namespace WebView2WrapperWinFormsTest
             elem.className = "bt-diga-main bt-diga-norm";
             elem.Click += (o, args) =>
             {
-                DOMResultString oldVal = this.GetDOMWindow().sessionStorage.getItem("btvalue");
+                var stroage = this.GetDOMWindow().sessionStorage;
+
+                DOMResultString oldVal = stroage.getItem("btvalue");
                 if (oldVal != null)
                 {
                     if (oldVal == "null")
@@ -82,7 +84,8 @@ namespace WebView2WrapperWinFormsTest
                 int val = int.Parse(oldVal);
                 text.SetProperty("value", $"Button Clicked:{val}");
                 val++;
-                this.GetDOMWindow().sessionStorage.setItem("btvalue", val.ToString());
+                stroage.setItem("btvalue", val.ToString());
+                stroage.Dispose();
             };
 
             mainView.appendChild(brelem);

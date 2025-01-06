@@ -13,33 +13,42 @@ namespace Diga.WebView2.Scripting.DOM
         {
             DOMVar dvar = new DOMVar(control, true);
             await dvar.CreateVarAsync();
+            dvar.IsDisposable = true;
+            DOMGC.AddVar(dvar);
             return dvar;
 
         }
+        private readonly Guid _ObjectGuid;
         private readonly string _ObjectId;
         private bool disposedValue;
         private const string _VarBase = "window.diga._HEAP_";
-
+        private bool IsDisposable = false;
+        public Guid ObjectGuid => this._ObjectGuid;
         internal DOMVar(IWebViewControl control) : this(control, false)
         {
 
         }
         private DOMVar(IWebViewControl control, bool noCreate = false) : base(control)
         {
-            this._ObjectId = $"{_VarBase}{Guid.NewGuid().ToString().Replace("-", "_")}";
+            this._ObjectGuid = Guid.NewGuid();
+            this._ObjectId = $"{_VarBase}{this._ObjectGuid.ToString().Replace("-", "_")}";
             if (noCreate)
             {
 
             }
             else
             {
+                IsDisposable = true;
                 CreateVar();
+                DOMGC.AddVar(this);
             }
             //DOMGC.AddVar(this);
         }
 
         internal DOMVar(IWebViewControl control, string objectId) : base(control)
         {
+            this._ObjectGuid = Guid.NewGuid();
+
             this._ObjectId = objectId;
             //DOMGC.AddVar(this);
         }
@@ -77,6 +86,8 @@ namespace Diga.WebView2.Scripting.DOM
         }
         public bool VarExist()
         {
+            if(this.Name == "console" || this.Name == "window" || this.Name == "document")
+                return false;
             string scriptText = $"if(window.diga == undefined) return false;return {this.Name}!=undefined;";
             try
             {
@@ -131,7 +142,8 @@ namespace Diga.WebView2.Scripting.DOM
             DOMVar var = new DOMVar(this._View2Control);
             if (!this.VarExist())
                 throw new InvalidOperationException($"the var({this.Name}) does not exist");
-
+            var.IsDisposable = true;
+            DOMGC.AddVar(var);
             string scriptText = $"{var.Name}={this.Name};";
             ExecuteScript(scriptText);
             return var;
@@ -154,12 +166,22 @@ namespace Diga.WebView2.Scripting.DOM
             {
                 if (disposing)
                 {
-                    if (UIDispatcher.UIThread.CheckAccess())
+                    if (IsDisposable)
                     {
-                        if (VarExist())
-                            DeleteVar();
 
+                        if (UIDispatcher.UIThread.CheckAccess())
+                        {
+                            if (VarExist())
+                                DeleteVar();
+                            DOMGC.RemoveVar(this);
+
+                        }
+                        else
+                        {
+                            DOMGC.RemoveVar(this,true);
+                        }
                     }
+                    UnWireEvents();
                 }
                 this.disposedValue = true;
             }
@@ -175,7 +197,10 @@ namespace Diga.WebView2.Scripting.DOM
             this.Dispose(false);
         }
 
-
+        ~DOMVar()
+        {
+            Dispose(false);
+        }
         public void Dispose()
         {
             Dispose(disposing: true);

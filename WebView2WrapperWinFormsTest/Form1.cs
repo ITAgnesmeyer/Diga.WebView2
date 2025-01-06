@@ -140,7 +140,7 @@ namespace WebView2WrapperWinFormsTest
                     this.LastBound = this.Bounds;
                     this.panel1.Visible = false;
                     var rect = Screen.GetBounds(this);
-                   
+
                     this.FormBorderStyle = FormBorderStyle.None;
                     this.Bounds = rect;
                     e.Handled = true;
@@ -176,7 +176,7 @@ namespace WebView2WrapperWinFormsTest
         private void webView1_WebViewLostFocus(object sender, WebView2EventArgs e)
         {
             //MessageBox.Show(this, "webView1_WebViewLostFocus");
-            
+
         }
 
         private void webView1_MoveFocusRequested(object sender, MoveFocusRequestedEventArgs e)
@@ -197,9 +197,9 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_WebMessageReceived(object sender, WebMessageReceivedEventArgs e)
         {
-            
+
             string message = e.WebMessageAsString;
-            
+
             if (string.IsNullOrEmpty(message))
                 message = e.WebMessageAsJson;
 
@@ -331,7 +331,7 @@ namespace WebView2WrapperWinFormsTest
                 {
                     await ShowMessageBoxAsync(result.ResultAsJson);
 
-                    
+
                     await ShowMessageBoxAsync($"Result:{strRes} => {value}");
                 }
                 else
@@ -339,7 +339,7 @@ namespace WebView2WrapperWinFormsTest
 
                     throw result.Exception;
                 }
-            
+
             }
             catch (WebView2ScriptException ex)
             {
@@ -350,7 +350,7 @@ namespace WebView2WrapperWinFormsTest
 
                 await ShowMessageBoxAsync(ex.Message);
             }
-            
+
 
         }
 
@@ -566,6 +566,7 @@ namespace WebView2WrapperWinFormsTest
                 {
                     try
                     {
+
                         element.style.backgroundColor = "blue";
                         element.style.color = "white";
                     }
@@ -693,7 +694,7 @@ namespace WebView2WrapperWinFormsTest
 
         private void bnSrc_Click(object sender, EventArgs e)
         {
-            
+
 
             if (this.webView1.Content.Count <= 0)
                 return;
@@ -777,13 +778,13 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_DocumentLoading(object sender, EventArgs e)
         {
-            
+
 
             Debug.Print("DOM-Loading");
-          
+
         }
 
-        
+
 
         private void webView1_DocumentUnload(object sender, EventArgs e)
         {
@@ -955,6 +956,6 @@ namespace WebView2WrapperWinFormsTest
             Debug.Print("webView1_CompoisitionControllerCursorChanged");
         }
 
-        
+
     }
 }

@@ -288,227 +288,224 @@ namespace Diga.WebView2.Scripting.DOM
             try
             {
 
-            using (DOMVar copyEventObj = eventObj.Copy())
-            {
-                switch (e.EventName)
+                using (DOMVar copyEventObj = eventObj.Copy())
                 {
-                    case MouseEvents.AuxClick:
-                        {
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
+                    switch (e.EventName)
+                    {
+                        case MouseEvents.AuxClick:
                             {
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnAuxClickEvent(eventArgs);
+                                using (var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMMouseEventArgs(me);
+                                    OnAuxClickEvent(eventArgs);
+                                }
                             }
-                        }
-                        break;
-                    case MouseEvents.Click:
-                        {
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
+                            break;
+                        case MouseEvents.Click:
+                            {
+                                using (var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMMouseEventArgs(me);
+                                    OnClickEvent(eventArgs);
+                                }
+                            }
+                            break;
+                        case MouseEvents.ContextMenu:
+                            {
+                                using (var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMMouseEventArgs(me);
+                                    OnContextMenuEvent(eventArgs);
+                                }
+                            }
+                            break;
+                        case MouseEvents.DblClick:
+                            {
+                                using (var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMMouseEventArgs(me);
+                                    OnDblClickEvent(eventArgs);
+                                }
+                            }
+                            break;
+                        case MouseEvents.MouseDown:
+                            {
+                                using (var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMMouseEventArgs(me);
+                                    OnMouseDownEvent(eventArgs);
+                                }
+                            }
+                            break;
+                        case MouseEvents.MouseEnter:
+                            {
+                                using (var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMMouseEventArgs(me);
+                                    OnMouseEnterEvent(eventArgs);
+                                }
+                            }
+                            break;
+                        case MouseEvents.MouseLeave:
+                            {
+                                using (var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMMouseEventArgs(me);
+                                    OnMouseLeaveEvent(eventArgs);
+                                }
+                            }
+                            break;
+                        case MouseEvents.MouseMove:
+                            {
+                                using (var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMMouseEventArgs(me);
+                                    OnMouseMoveEvent(eventArgs);
+                                }
+                            }
+                            break;
+                        case MouseEvents.MouseOut:
+                            {
+                                using (var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj)) 
+                                {
+                                    var eventArgs = new DOMMouseEventArgs(me);
 
-                            {
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnClickEvent(eventArgs);
+                                    OnMouseOutEvent(eventArgs);
+                                }
                             }
-                        }
-                        break;
-                    case MouseEvents.ContextMenu:
-                        {
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
-
+                            break;
+                        case MouseEvents.MouseOver:
                             {
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnContextMenuEvent(eventArgs);
+                                using (var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMMouseEventArgs(me);
+                                    OnMouseOverEvent(eventArgs);
+                                }
                             }
-                        }
-                        break;
-                    case MouseEvents.DblClick:
-                        {
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
-
+                            break;
+                        case MouseEvents.MouseUp:
                             {
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnDblClickEvent(eventArgs);
+                                using (var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMMouseEventArgs(me);
+                                    OnMouseUpEvent(eventArgs);
+                                }
                             }
-                        }
-                        break;
-                    case MouseEvents.MouseDown:
-                        {
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
+                            break;
+                        case KeyboardEvents.KeyDown:
                             {
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnMouseDownEvent(eventArgs);
+                                using (var ke = this.GetDomObjectFromDomVar<DOMKeyboardEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMKeyboardEventArgs(ke);
+                                    OnKeyDownEvent(eventArgs);
+                                }
                             }
-                        }
-                        break;
-                    case MouseEvents.MouseEnter:
-                        {
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
+                            break;
+                        case KeyboardEvents.KeyPress:
                             {
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnMouseEnterEvent(eventArgs);
+                                using (var ke = this.GetDomObjectFromDomVar<DOMKeyboardEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMKeyboardEventArgs(ke);
+                                    OnKeyPressEvent(eventArgs);
+                                }
                             }
-                        }
-                        break;
-                    case MouseEvents.MouseLeave:
-                        {
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
+                            break;
+                        case KeyboardEvents.KeyUp:
                             {
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnMouseLeaveEvent(eventArgs);
+                                using (var ke = this.GetDomObjectFromDomVar<DOMKeyboardEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMKeyboardEventArgs(ke);
+                                    OnKeyUpEvent(eventArgs);
+                                }
                             }
-                        }
-                        break;
-                    case MouseEvents.MouseMove:
-                        {
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
+                            break;
+                        case FocusEvents.Blur:
                             {
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnMouseMoveEvent(eventArgs);
+                                using (var fe = this.GetDomObjectFromDomVar<DOMFocusEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMFocusEventArgs(fe);
+                                    OnBlur(eventArgs);
+                                }
                             }
-                        }
-                        break;
-                    case MouseEvents.MouseOut:
-                        {
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
+                            break;
+                        case FocusEvents.Focus:
                             {
-                                var eventArgs = new DOMMouseEventArgs(me);
-
-                                OnMouseOutEvent(eventArgs);
+                                using (var fe = this.GetDomObjectFromDomVar<DOMFocusEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMFocusEventArgs(fe);
+                                    OnFocus(eventArgs);
+                                }
                             }
-                        }
-                        break;
-                    case MouseEvents.MouseOver:
-                        {
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
+                            break;
+                        case FocusEvents.FocusIn:
                             {
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnMouseOverEvent(eventArgs);
+                                using (var fe = this.GetDomObjectFromDomVar<DOMFocusEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMFocusEventArgs(fe);
+                                    OnFocusIn(eventArgs);
+                                }
                             }
-                        }
-                        break;
-                    case MouseEvents.MouseUp:
-                        {
-                            var me = this.GetDomObjectFromDomVar<DOMMouseEvent>(copyEventObj);
+                            break;
+                        case FocusEvents.FocusOut:
                             {
-                                var eventArgs = new DOMMouseEventArgs(me);
-                                OnMouseUpEvent(eventArgs);
+                                using (var fe = this.GetDomObjectFromDomVar<DOMFocusEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMFocusEventArgs(fe);
+                                    OnFocusOut(eventArgs);
+                                }
                             }
-                        }
-                        break;
-                    case KeyboardEvents.KeyDown:
-                        {
-                            var ke = this.GetDomObjectFromDomVar<DOMKeyboardEvent>(copyEventObj);
+                            break;
+                        case InputEvents.Input:
                             {
-                                var eventArgs = new DOMKeyboardEventArgs(ke);
-                                OnKeyDownEvent(eventArgs);
+                                using (var ie = this.GetDomObjectFromDomVar<DOMInputEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMInputEventArgs(ie);
+                                    OnInput(eventArgs);
+                                }
                             }
-                        }
-                        break;
-                    case KeyboardEvents.KeyPress:
-                        {
-                            var ke = this.GetDomObjectFromDomVar<DOMKeyboardEvent>(copyEventObj);
+                            break;
+                        case TouchEvents.TouchMove:
                             {
-                                var eventArgs = new DOMKeyboardEventArgs(ke);
-                                OnKeyPressEvent(eventArgs);
+                                using (var te = this.GetDomObjectFromDomVar<DOMTouchEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMTouchEventArgs(te);
+                                    OnTouchMove(eventArgs);
+                                }
                             }
-                        }
-                        break;
-                    case KeyboardEvents.KeyUp:
-                        {
-                            var ke = this.GetDomObjectFromDomVar<DOMKeyboardEvent>(copyEventObj);
+                            break;
+                        case TouchEvents.TouchEnd:
                             {
-                                var eventArgs = new DOMKeyboardEventArgs(ke);
-                                OnKeyUpEvent(eventArgs);
+                                using (var te = this.GetDomObjectFromDomVar<DOMTouchEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMTouchEventArgs(te);
+                                    OnTouchEnd(this, eventArgs);
+                                }
                             }
-                        }
-                        break;
-                    case FocusEvents.Blur:
-                        {
-                            var fe = this.GetDomObjectFromDomVar<DOMFocusEvent>(copyEventObj);
+                            break;
+                        case TouchEvents.TouchStart:
                             {
-                                var eventArgs = new DOMFocusEventArgs(fe);
-                                OnBlur(eventArgs);
+                                using (var te = this.GetDomObjectFromDomVar<DOMTouchEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMTouchEventArgs(te);
+                                    OnTouchStart(this, eventArgs);
+                                }
                             }
-                        }
-                        break;
-                    case FocusEvents.Focus:
-                        {
-                            var fe = this.GetDomObjectFromDomVar<DOMFocusEvent>(copyEventObj);
+                            break;
+                        case TouchEvents.TouchCancel:
                             {
-                                var eventArgs = new DOMFocusEventArgs(fe);
-                                OnFocus(eventArgs);
+                                using (var te = this.GetDomObjectFromDomVar<DOMTouchEvent>(copyEventObj))
+                                {
+                                    var eventArgs = new DOMTouchEventArgs(te);
+                                    OnTouchCancel(eventArgs);
+                                }
                             }
-                        }
-                        break;
-                    case FocusEvents.FocusIn:
-                        {
-                            var fe = this.GetDomObjectFromDomVar<DOMFocusEvent>(copyEventObj);
-                            {
-                                var eventArgs = new DOMFocusEventArgs(fe);
-                                OnFocusIn(eventArgs);
-                            }
-                        }
-                        break;
-                    case FocusEvents.FocusOut:
-                        {
-                            var fe = this.GetDomObjectFromDomVar<DOMFocusEvent>(copyEventObj);
-                            {
-                                var eventArgs = new DOMFocusEventArgs(fe);
-                                OnFocusOut(eventArgs);
-                            }
-                        }
-                        break;
-                    case InputEvents.Input:
-                        {
-                            var ie = this.GetDomObjectFromDomVar<DOMInputEvent>(copyEventObj);
-                            {
-                                var eventArgs = new DOMInputEventArgs(ie);
-                                OnInput(eventArgs);
-                            }
-                        }
-                        break;
-                    case TouchEvents.TouchMove:
-                        {
-                            var te = this.GetDomObjectFromDomVar<DOMTouchEvent>(copyEventObj);
-                            {
-                                var eventArgs = new DOMTouchEventArgs(te);
-                                OnTouchMove(eventArgs);
-                            }
-                        }
-                        break;
-                    case TouchEvents.TouchEnd:
-                        {
-                            var te = this.GetDomObjectFromDomVar<DOMTouchEvent>(copyEventObj);
-                            {
-                                var eventArgs = new DOMTouchEventArgs(te);
-                                OnTouchEnd(this, eventArgs);
-                            }
-                        }
-                        break;
-                    case TouchEvents.TouchStart:
-                        {
-                            var te = this.GetDomObjectFromDomVar<DOMTouchEvent>(copyEventObj);
-                            {
-                                var eventArgs = new DOMTouchEventArgs(te);
-                                OnTouchStart(this, eventArgs);
-                            }
-                        }
-                        break;
-                    case TouchEvents.TouchCancel:
-                        {
-                            var te = this.GetDomObjectFromDomVar<DOMTouchEvent>(copyEventObj);
-                            {
-                                var eventArgs = new DOMTouchEventArgs(te);
-                                OnTouchCancel(eventArgs);
-                            }
-                        }
-                        break;
+                            break;
 
 
+                    }
                 }
-            }
 
-            base.OnDomEvent(e);
+                base.OnDomEvent(e);
 
             }
             catch (Exception ex)

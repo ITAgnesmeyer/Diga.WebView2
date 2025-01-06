@@ -617,7 +617,7 @@ namespace Diga.WebView2.Wrapper
             }
 
 
-            ScriptResultType result = await source.Task;
+            ScriptResultType result = await source.Task.ConfigureAwait(false);
             HRESULT resultCode = result.ErrorCode;
             if (resultCode != HRESULT.S_OK)
                 throw Marshal.GetExceptionForHR(resultCode);
