@@ -434,8 +434,8 @@ namespace WebView2WrapperWinFormsTest
             //    DOMGC.CleanUp();
             //});
 
-
-            this._DIV = null;
+            //DOMGC.CommitTransaction(_DIVGuid);
+            //this._DIV = null;
 
         }
 
@@ -529,6 +529,7 @@ namespace WebView2WrapperWinFormsTest
         }
 
         //Dom-Object example
+        private Guid _DIVGuid;
         private DOMElement _DIV;
         private void bnScriptTest_Click(object sender, EventArgs e)
         {
@@ -537,6 +538,7 @@ namespace WebView2WrapperWinFormsTest
 
             if (this._DIV == null)
             {
+                _DIVGuid = DOMGC.BeginTransaction();
                 DOMDocument doc = this.webView1.GetDOMDocument();
                 this._DIV = doc.createElement("div");
                 this._DIV.id = Guid.NewGuid().ToString();
@@ -788,8 +790,14 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_DocumentUnload(object sender, EventArgs e)
         {
-
-            this._DIV = null;
+            if(this._DIV != null)
+            {
+                this._DIV.Dispose();
+                DOMGC.CommitTransaction(_DIVGuid);
+                this._DIV = null;
+            }
+                
+            
 
 
             Debug.Print("Unload Document");

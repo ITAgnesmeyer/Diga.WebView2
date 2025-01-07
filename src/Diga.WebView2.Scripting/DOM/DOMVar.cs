@@ -50,6 +50,7 @@ namespace Diga.WebView2.Scripting.DOM
             this._ObjectGuid = Guid.NewGuid();
 
             this._ObjectId = objectId;
+            IsDisposable = false;
             //DOMGC.AddVar(this);
         }
         public string Name => this._ObjectId;
@@ -142,8 +143,8 @@ namespace Diga.WebView2.Scripting.DOM
             DOMVar var = new DOMVar(this._View2Control);
             if (!this.VarExist())
                 throw new InvalidOperationException($"the var({this.Name}) does not exist");
-            var.IsDisposable = true;
-            DOMGC.AddVar(var);
+            //var.IsDisposable = true;
+            //DOMGC.AddVar(var);
             string scriptText = $"{var.Name}={this.Name};";
             ExecuteScript(scriptText);
             return var;

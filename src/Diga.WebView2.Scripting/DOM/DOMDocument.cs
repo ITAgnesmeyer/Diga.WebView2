@@ -60,9 +60,7 @@ namespace Diga.WebView2.Scripting.DOM
         {
             get
             {
-                if (this._body == null)
-                    this._body = GetTypedVar<DOMElement>();
-                return this._body;
+                return GetTypedVar< DOMElement>();
             }
             set => Set(value);
         }
@@ -268,11 +266,8 @@ namespace Diga.WebView2.Scripting.DOM
         {
             get
             {
-                if (this._head == null)
-                {
-                    this._head = GetTypedVar<DOMElement>();
-                }
-                return this._head;
+               
+                return GetTypedVar<DOMElement>();
 
             }
         }
@@ -389,6 +384,10 @@ namespace Diga.WebView2.Scripting.DOM
                 if (disposing)
                 {
                     this._head?.Dispose();
+                    this._body?.Dispose();
+                    this._head = null;
+                    this._body = null;
+
                 }
                 this.disposedValues = true;
             }

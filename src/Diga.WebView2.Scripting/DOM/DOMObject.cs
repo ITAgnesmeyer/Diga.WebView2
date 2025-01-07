@@ -180,7 +180,26 @@ namespace Diga.WebView2.Scripting.DOM
             T v = (T)CreateNew(this._View2Control, domVar, typeof(T));
             return v;
         }
-
+        protected T GetTypedVarWithRef<T>(ref T domObject,bool checkVarExsit = false,[CallerMemberName] string member = "") where T : DOMObject
+        {
+            if(domObject == null)
+            {
+                domObject = GetTypedVar<T>(member);
+            }
+            else
+            {
+                if(checkVarExsit)
+                {
+                    if (!domObject.VarExist())
+                    {
+                        domObject.Dispose();
+                        domObject = GetTypedVar<T>(member);
+                    }
+                }
+            }
+                
+            return domObject;
+        }
         protected T GetTypedVar<T>([CallerMemberName] string member = "") where T : DOMObject
         {
             DOMVar domVar = GetGetVar(member);

@@ -141,7 +141,7 @@ namespace Diga.WebView2.Scripting.DOM
         }
         public void exitFullscreen() => Exec(new object[] { });
         public Task exitFullscreenAsync() => ExecAsync<object>(new object[] { }, nameof(exitFullscreen));
-
+        
         public DOMElement firstChild => GetTypedVar<DOMElement>();
         public Task<DOMElement> firstChildAsync => GetTypedVarAsync<DOMElement>(nameof(this.firstChild));
 
@@ -455,12 +455,12 @@ namespace Diga.WebView2.Scripting.DOM
         {
             get
             {
-                if (this._style == null)
-                {
-                    this._style = GetTypedVar<DOMStyle>();
-                }
+                //if (this._style == null)
+                //{
+                //    this._style = GetTypedVar<DOMStyle>();
+                //}
 
-                return this._style;
+                return GetTypedVar< DOMStyle>();
             }
         }
 

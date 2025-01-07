@@ -93,11 +93,11 @@ namespace WebView2WrapperWinFormsTest
             mainView.appendChild(elem);
             mainView.appendChild(brelem);
             mainView.appendChild(infoText);
-            this._Elements.Push(mainView);
-            this._Elements.Push(brelem);
-            this._Elements.Push(text);
-            this._Elements.Push(elem);
-            this._Elements.Push(infoText);
+            //this._Elements.Push(mainView);
+            //this._Elements.Push(brelem);
+            //this._Elements.Push(text);
+            //this._Elements.Push(elem);
+            //this._Elements.Push(infoText);
 
         }
     }

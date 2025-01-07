@@ -284,6 +284,7 @@ namespace Diga.WebView2.Scripting.DOM
 
         protected override void OnDomEvent(RpcEventHandlerArgs e)
         {
+            Guid transactionId = DOMGC.BeginTransaction();
             DOMVar eventObj = new DOMVar(this._View2Control, e.RpcObject.idFullName);
             try
             {
@@ -512,6 +513,11 @@ namespace Diga.WebView2.Scripting.DOM
             {
                 throw new DOMElementEventsException("Error in OnDomEvent", ex);
 
+            }
+            finally
+            {
+                DOMGC.CommitTransaction(transactionId);
+                eventObj.Dispose();
             }
 
 

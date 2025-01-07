@@ -21,6 +21,7 @@ namespace Diga.WebView2.Scripting
         //hier muss eventuell eine ConcurrentList verwendet werden
         protected ConcurrentStack<DOMElement> _Elements = new ConcurrentStack<DOMElement>();
         //private object _Lock = new object();
+        private Guid TransactionId = Guid.Empty;
         public VirtualSiteBase(IWebViewControl webViewControl, string baseUrl, string query)
         {
             this._WebViewControl = webViewControl;
@@ -66,14 +67,14 @@ namespace Diga.WebView2.Scripting
         private void OnDocumentUnload()
         {
             
-            while(this._Elements.TryPop(out DOMElement element))
-            {
-                element.Dispose();
-            }
-            _Console?.Dispose();
-            _Document?.Dispose();
-            _Window?.Dispose();
-
+            //while(this._Elements.TryPop(out DOMElement element))
+            //{
+            //    element.Dispose();
+            //}
+            //_Console?.Dispose();
+            //_Document?.Dispose();
+            //_Window?.Dispose();
+            DOMGC.CommitTransaction(TransactionId);
 
 
 
@@ -86,6 +87,7 @@ namespace Diga.WebView2.Scripting
 
         private void OnDocumentLoading()
         {
+            
             DOMResultString result = GetDOMDocument().URL;
             Uri uri = new Uri(result.Result);
             string urlNoQuery = uri.GetLeftPart(UriPartial.Path);
@@ -94,7 +96,7 @@ namespace Diga.WebView2.Scripting
             {
                 if (this._IsLoaded)
                     OnDocumentUnload();
-
+                TransactionId = DOMGC.BeginTransaction();
                 OnSiteLoaded();
                 this._WebViewControl.DocumentUnload += WebViewControlOnDocumentUnload;
             }
