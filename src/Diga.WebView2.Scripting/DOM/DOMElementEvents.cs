@@ -286,9 +286,11 @@ namespace Diga.WebView2.Scripting.DOM
         {
             Guid transactionId = DOMGC.BeginTransaction();
             DOMVar eventObj = new DOMVar(this._View2Control, e.RpcObject.idFullName);
+            
             try
             {
-
+                if (!eventObj.VarExist())
+                    return;
                 using (DOMVar copyEventObj = eventObj.Copy())
                 {
                     switch (e.EventName)

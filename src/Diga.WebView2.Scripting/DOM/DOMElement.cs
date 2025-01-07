@@ -355,21 +355,13 @@ namespace Diga.WebView2.Scripting.DOM
             set => _ = SetAsync(value, nameof(this.outerText));
         }
 
-        private DOMDocument _ownerDocument;
+        //private DOMDocument _ownerDocument;
         public DOMDocument ownerDocument
         {
             get
             {
-                if (this._ownerDocument == null)
-                {
-                    this._ownerDocument = GetTypedVar<DOMDocument>();
-                }
-                else
-                {
-                    if (!this._ownerDocument.VarExist())
-                        this._ownerDocument = GetTypedVar<DOMDocument>();
-                }
-                return this._ownerDocument;
+              
+                return GetTypedVar<DOMDocument>();
             }
         }
 
@@ -450,15 +442,12 @@ namespace Diga.WebView2.Scripting.DOM
 
         public Task setAttributeNodeAsync(DOMVar attr) => ExecAsync<object>(new object[] { attr.Name }, nameof(setAttributeNode));
 
-        private DOMStyle _style;
+        
         public DOMStyle style
         {
             get
             {
-                //if (this._style == null)
-                //{
-                //    this._style = GetTypedVar<DOMStyle>();
-                //}
+                
 
                 return GetTypedVar< DOMStyle>();
             }
@@ -544,8 +533,8 @@ namespace Diga.WebView2.Scripting.DOM
             {
                 if (disposing)
                 {
-                    this._ownerDocument?.Dispose();
-                    this._style?.Dispose();
+                    /*this._ownerDocument?.Dispose()*/;
+                    
                 }
 
                 this.disposedValue = true;
