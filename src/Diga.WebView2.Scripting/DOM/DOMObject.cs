@@ -408,7 +408,11 @@ namespace Diga.WebView2.Scripting.DOM
                 this.disposedValue = true;
             }
         }
-
+        public bool IsNull()
+        {
+            DOMResultString name = this.GetTypeName();
+            return name == "Null" || name == "Undefined";
+        }
         public string GetTypeName()
         {
             string script = $"return Object.prototype.toString.call({this.InstanceName})";
