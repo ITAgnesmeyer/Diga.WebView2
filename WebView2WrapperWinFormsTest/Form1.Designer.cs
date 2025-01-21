@@ -53,6 +53,8 @@
             contextMenuMore = new System.Windows.Forms.ContextMenuStrip(components);
             buildFormToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             multipleControlsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            showPrintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            showSaveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             panel2.SuspendLayout();
@@ -378,23 +380,37 @@
             // 
             // contextMenuMore
             // 
-            contextMenuMore.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { buildFormToolStripMenuItem, multipleControlsToolStripMenuItem });
+            contextMenuMore.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { buildFormToolStripMenuItem, multipleControlsToolStripMenuItem, showPrintToolStripMenuItem, showSaveAsToolStripMenuItem });
             contextMenuMore.Name = "contextMenuMore";
-            contextMenuMore.Size = new System.Drawing.Size(164, 48);
+            contextMenuMore.Size = new System.Drawing.Size(181, 114);
             // 
             // buildFormToolStripMenuItem
             // 
             buildFormToolStripMenuItem.Name = "buildFormToolStripMenuItem";
-            buildFormToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            buildFormToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             buildFormToolStripMenuItem.Text = "Build Form";
             buildFormToolStripMenuItem.Click += buildFormToolStripMenuItem_Click;
             // 
             // multipleControlsToolStripMenuItem
             // 
             multipleControlsToolStripMenuItem.Name = "multipleControlsToolStripMenuItem";
-            multipleControlsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            multipleControlsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             multipleControlsToolStripMenuItem.Text = "MultipleControls";
             multipleControlsToolStripMenuItem.Click += multipleControlsToolStripMenuItem_Click;
+            // 
+            // showPrintToolStripMenuItem
+            // 
+            showPrintToolStripMenuItem.Name = "showPrintToolStripMenuItem";
+            showPrintToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            showPrintToolStripMenuItem.Text = "ShowPrint";
+            showPrintToolStripMenuItem.Click += showPrintToolStripMenuItem_Click;
+            // 
+            // showSaveAsToolStripMenuItem
+            // 
+            showSaveAsToolStripMenuItem.Name = "showSaveAsToolStripMenuItem";
+            showSaveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            showSaveAsToolStripMenuItem.Text = "ShowSaveAs";
+            showSaveAsToolStripMenuItem.Click += showSaveAsToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -440,6 +456,8 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuMore;
         private System.Windows.Forms.ToolStripMenuItem buildFormToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem multipleControlsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showPrintToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showSaveAsToolStripMenuItem;
     }
 }
 

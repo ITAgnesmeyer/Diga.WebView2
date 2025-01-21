@@ -5,6 +5,7 @@ using Diga.WebView2.Wrapper.EventArguments;
 
 namespace Diga.WebView2.Wrapper.Handler
 {
+    
     public class ZoomFactorChangedEventHandler : ICoreWebView2ZoomFactorChangedEventHandler
     {
         public event EventHandler<WebView2EventArgs> ZoomFactorChanged;

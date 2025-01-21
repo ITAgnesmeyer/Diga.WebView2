@@ -5,12 +5,14 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Diga.Core.Api.Win32.Com;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Scripting;
 using Diga.WebView2.Scripting.DOM;
 using Diga.WebView2.WinForms;
 using Diga.WebView2.Wrapper;
 using Diga.WebView2.Wrapper.EventArguments;
+using Diga.WebView2.Wrapper.Handler;
 using Rectangle = System.Drawing.Rectangle;
 
 namespace WebView2WrapperWinFormsTest
@@ -542,8 +544,18 @@ namespace WebView2WrapperWinFormsTest
                 DOMDocument doc = this.webView1.GetDOMDocument();
                 this._DIV = doc.createElement("div");
                 this._DIV.id = Guid.NewGuid().ToString();
-                doc.body.appendChild(this._DIV);
 
+                DOMObjectCollection elems = doc.getElementsByTagName("nav");
+                DOMElement article = elems[0];
+                bool articleExists = !article.IsNull();
+                if (articleExists)
+                {
+                    article.appendChild(this._DIV);
+                }
+                else
+                {
+                    doc.body.appendChild(this._DIV);
+                }
                 //add a button element
                 DOMElement element = doc.createElement("button");
 
@@ -790,14 +802,14 @@ namespace WebView2WrapperWinFormsTest
 
         private void webView1_DocumentUnload(object sender, EventArgs e)
         {
-            if(this._DIV != null)
+            if (this._DIV != null)
             {
                 this._DIV.Dispose();
                 DOMGC.CommitTransaction(_DIVGuid);
                 this._DIV = null;
             }
-                
-            
+
+
 
 
             Debug.Print("Unload Document");
@@ -895,10 +907,10 @@ namespace WebView2WrapperWinFormsTest
 
         private void buildFormToolStripMenuItem_Click(object sender, EventArgs e)
         {
-     
-           
+
+
             DOMDocument doc = this.webView1.GetDOMDocument();
-           
+
 
             DOMElement form = doc.createElement("form");
 
@@ -940,15 +952,15 @@ namespace WebView2WrapperWinFormsTest
             {
                 doc.body.appendChild(form);
             }
-           
-            
+
+
             userfile.DomEvent += (o, ev) =>
             {
                 try
                 {
                     string objId = ev.RpcObject.objId;
                     DOMResultString value = userfile.GetProperty<string>("value");
-                    if(value == "")
+                    if (value == "")
                     {
                         return;
                     }
@@ -957,7 +969,7 @@ namespace WebView2WrapperWinFormsTest
 
                     DOMElement x = doc.createElement("h1");
                     x.innerText = value;
-                    if(articleExists)
+                    if (articleExists)
                     {
                         article.appendChild(x);
                     }
@@ -965,7 +977,7 @@ namespace WebView2WrapperWinFormsTest
                     {
                         doc.body.appendChild(x);
                     }
-                    
+
 
                 }
                 catch (Exception exception)
@@ -975,7 +987,7 @@ namespace WebView2WrapperWinFormsTest
                 }
             };
 
-           
+
 
         }
 
@@ -1003,6 +1015,22 @@ namespace WebView2WrapperWinFormsTest
             Debug.Print("webView1_CompoisitionControllerCursorChanged");
         }
 
+        private void showPrintToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+            this.webView1.WebView2.ShowPrintUI(COREWEBVIEW2_PRINT_DIALOG_KIND.COREWEBVIEW2_PRINT_DIALOG_KIND_BROWSER);
 
+
+        }
+
+        private void showSaveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            this.webView1.WebView2.ShowSaveAsUI(new WebView2ShowSaveAsUICompletedHandler((ec, result) =>
+            {
+                Debug.Print(ec.ToString());
+                Debug.Print(result.ToString());
+            }));
+        }
     }
 }

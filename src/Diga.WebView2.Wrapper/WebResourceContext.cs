@@ -1,6 +1,10 @@
 ﻿// ReSharper disable once CheckNamespace
+
+
 namespace Diga.WebView2.Wrapper
 {
+  
+
     public enum WebResourceContext
     {
         All,
