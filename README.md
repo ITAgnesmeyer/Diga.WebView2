@@ -24,7 +24,7 @@ It should also be possible to work completely without an HTTP server.
 ### packages are currently supported.
 microsoft.web.webview2
 
-- Version 108.0.1462.46  is the current Version on Client - PC's
+
 
 WebView2 [Release-Notes](https://docs.microsoft.com/de-de/microsoft-edge/webview2/releasenotes)
 
@@ -38,7 +38,7 @@ Therefore, a link to the Microsoft.Web.WebView2 package is no longer necessary i
 
 ### Package version:
 This means the version of the WebView2 packages.
-- V10146237 => [microsoft.web.webview2 1.0.1462.37](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1462.37)
+[microsoft.web.webview2](https://www.nuget.org/packages/Microsoft.Web.WebView2)
 
 ### How were the interop sources created?
 The Microsoft microsoft.web.webview2 package contains webview2.tlb.
@@ -190,7 +190,7 @@ Diga.WebView2.Wrapper currently does not support AOT Native compilation.
 
 But we are currently working on it. So that AOT compatible solutions, like [CoreWindowsWrapper](https://github.com/ITAgnesmeyer/CoreWindowsWrapper "CoreWindowsWrapper"), can use the Diga.WebView2.Wrapper component.
 
-###### This text was automatically translated with the [Microsoft translator](https://www.bing.com/translator "Microsoft translator").
+
 
 
 
