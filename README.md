@@ -185,12 +185,6 @@ bool varExist = await this._DIV.VarExistAsync();
 
 ```
 
-## AOT Native compilation
-Diga.WebView2.Wrapper currently does not support AOT Native compilation. 
-
-But we are currently working on it. So that AOT compatible solutions, like [CoreWindowsWrapper](https://github.com/ITAgnesmeyer/CoreWindowsWrapper "CoreWindowsWrapper"), can use the Diga.WebView2.Wrapper component.
-
-
 
 
 
