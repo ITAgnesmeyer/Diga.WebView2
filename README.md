@@ -35,11 +35,6 @@ The native DLL links the WebView2LoaderStatic.lib.
 Therefore, a link to the Microsoft.Web.WebView2 package is no longer necessary in the package.
 
 
-
-### Package version:
-This means the version of the WebView2 packages.
-[microsoft.web.webview2](https://www.nuget.org/packages/Microsoft.Web.WebView2)
-
 ### Why a separation between Interop, Wrapper and WinForms
 The separation is maintained because the packages can be useful in different projects.
 So it may be that only the interop and wrapper packages are used in some projects.
