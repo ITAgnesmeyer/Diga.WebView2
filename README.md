@@ -14,36 +14,6 @@ There are NUGET-PACKAGES
 
 [WebView2 Runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)
 
-### Why this project was created.
-Microsoft provides a WebControl for Windows forms.
-However, this is based on Internet Explorer. This cannot represent various features.
-This does not support WebAssemblies.
-The motivation for this project, however, was to load and display WebAssembly applications (BLAZOR-SITES).
-It should also be possible to work completely without an HTTP server.
-
-### packages are currently supported.
-microsoft.web.webview2
-
-
-
-WebView2 [Release-Notes](https://docs.microsoft.com/de-de/microsoft-edge/webview2/releasenotes)
-
-### Why is the microsoft.web.webview2 package not linked in Package?
-Native calls are made via a separate C++ DLL. 
-The package from Microsoft is then also linked here. 
-The native DLL links the WebView2LoaderStatic.lib. 
-Therefore, a link to the Microsoft.Web.WebView2 package is no longer necessary in the package.
-
-
-### Why a separation between Interop, Wrapper and WinForms
-The separation is maintained because the packages can be useful in different projects.
-So it may be that only the interop and wrapper packages are used in some projects.
-Or it may be that only the Interop package is needed.
-
-#### Why I get an error when I try to add the core control in a WinForms application in the designer.
-This seems to be related to Visual Studio.
-
-
 
 ## Windows Forms
 If you use net Framework. You have to modify the Diga.WebView2.Interop.dll Reference.
