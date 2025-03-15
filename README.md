@@ -40,12 +40,6 @@ Therefore, a link to the Microsoft.Web.WebView2 package is no longer necessary i
 This means the version of the WebView2 packages.
 [microsoft.web.webview2](https://www.nuget.org/packages/Microsoft.Web.WebView2)
 
-### How were the interop sources created?
-The Microsoft microsoft.web.webview2 package contains webview2.tlb.
-The basic file was created with tlbImp.exe.
-Because the resulting DLL does not correctly reflect interfaces, they need to be revised.
-Therefore, the DLL, with JetBrains-DotPeek, has been converted to sources and adjusted accordingly.
-
 ### Why a separation between Interop, Wrapper and WinForms
 The separation is maintained because the packages can be useful in different projects.
 So it may be that only the interop and wrapper packages are used in some projects.
