@@ -315,8 +315,10 @@
             // 
             // webView1
             // 
+            webView1.AdditionalBrowserArguments = null;
             webView1.AreBrowserAcceleratorKeysEnabled = true;
             webView1.BackColor = System.Drawing.Color.Black;
+            webView1.BrowserExecutableFolder = null;
             webView1.CgiExeFile = "C:\\xampp\\php\\php-cgi.exe";
             webView1.CgiFileExtensions = new string[]
     {
@@ -344,11 +346,14 @@
             webView1.MonitoringFolder = ".\\wwwroot";
             webView1.MonitoringUrl = "https://5b834d57-0891-4730-b6ba-c793b4e76468/";
             webView1.Name = "webView1";
+            webView1.ProfileName = "MyProfile";
+            webView1.ProfileNameInPrivateModeEnabled = false;
             webView1.RemoteObjectsAllowed = true;
             webView1.SchemeRegistrations = null;
             webView1.Size = new System.Drawing.Size(1546, 482);
             webView1.TabIndex = 0;
             webView1.Url = "https://www.itagnesmeyer.de";
+            webView1.UserDataFolder = "AppWebView";
             webView1.ZoomFactor = 1D;
             webView1.ContentLoading += webView1_ContentLoading;
             webView1.SourceChanged += webView1_SourceChanged;
@@ -382,33 +387,33 @@
             // 
             contextMenuMore.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { buildFormToolStripMenuItem, multipleControlsToolStripMenuItem, showPrintToolStripMenuItem, showSaveAsToolStripMenuItem });
             contextMenuMore.Name = "contextMenuMore";
-            contextMenuMore.Size = new System.Drawing.Size(181, 114);
+            contextMenuMore.Size = new System.Drawing.Size(164, 92);
             // 
             // buildFormToolStripMenuItem
             // 
             buildFormToolStripMenuItem.Name = "buildFormToolStripMenuItem";
-            buildFormToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            buildFormToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             buildFormToolStripMenuItem.Text = "Build Form";
             buildFormToolStripMenuItem.Click += buildFormToolStripMenuItem_Click;
             // 
             // multipleControlsToolStripMenuItem
             // 
             multipleControlsToolStripMenuItem.Name = "multipleControlsToolStripMenuItem";
-            multipleControlsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            multipleControlsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             multipleControlsToolStripMenuItem.Text = "MultipleControls";
             multipleControlsToolStripMenuItem.Click += multipleControlsToolStripMenuItem_Click;
             // 
             // showPrintToolStripMenuItem
             // 
             showPrintToolStripMenuItem.Name = "showPrintToolStripMenuItem";
-            showPrintToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            showPrintToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             showPrintToolStripMenuItem.Text = "ShowPrint";
             showPrintToolStripMenuItem.Click += showPrintToolStripMenuItem_Click;
             // 
             // showSaveAsToolStripMenuItem
             // 
             showSaveAsToolStripMenuItem.Name = "showSaveAsToolStripMenuItem";
-            showSaveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            showSaveAsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             showSaveAsToolStripMenuItem.Text = "ShowSaveAs";
             showSaveAsToolStripMenuItem.Click += showSaveAsToolStripMenuItem_Click;
             // 

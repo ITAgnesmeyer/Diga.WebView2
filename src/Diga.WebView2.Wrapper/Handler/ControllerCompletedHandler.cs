@@ -21,13 +21,13 @@ namespace Diga.WebView2.Wrapper.Handler
                 webView =controller.CoreWebView2;
                 if (webView == null)
                 {
-                    OnHostCompletedError(new ControllerCompletedErrorArgs(result, "Could not create WebView2!"));
+                    OnHostCompletedError(new ControllerCompletedErrorArgs(result, "Could not create WebView2!",null));
                     return;
                 }
             }
             else
             {
-                OnHostCompletedError(new ControllerCompletedErrorArgs(result, "Could not create Controller!"));
+                OnHostCompletedError(new ControllerCompletedErrorArgs(result, "Could not create Controller!",null));
                 return;
             }
 

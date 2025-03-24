@@ -26,6 +26,9 @@ namespace Diga.WebView2.WinForms
 
         private string _HtmlContent;
         private double _ZoomFactor;
+        private string _ProfileName;
+        private bool _ProfileInPrivateModeEnabled;
+
 
         private Color _DefaultBackgroundColor = Color.Empty;
 
@@ -381,6 +384,79 @@ namespace Diga.WebView2.WinForms
                 if (this.CheckIsCreatedOrEnded)
                 {
                     this._WebViewControl.Settings.AreDefaultContextMenusEnabled = value;
+                }
+            }
+        }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public string ProfileName
+        {
+            get => this._ProfileName;
+            set
+            {
+                this._ProfileName = value;
+                if (this.CheckIsCreatedOrEnded)
+                {
+                    this._WebViewControl.ProfileName = value;
+                }
+            }
+        }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public bool ProfileNameInPrivateModeEnabled
+        {
+            get => this._ProfileInPrivateModeEnabled;
+            set
+            {
+                this._ProfileInPrivateModeEnabled = value;
+                if (this.CheckIsCreatedOrEnded)
+                {
+                    this._WebViewControl.ProfileInPrivateMode = value;
+                }
+            }
+        }
+        private string _BrowserExecutableFolder;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public string BrowserExecutableFolder
+        {
+            get => this._BrowserExecutableFolder;
+            set
+            {
+                this._BrowserExecutableFolder = value;
+                if (this.CheckIsCreatedOrEnded)
+                {
+                    this._BrowserExecutableFolder = value;
+                }
+            }
+        }
+
+        private string _UserDataFolder;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public string UserDataFolder
+        {
+            get => this._UserDataFolder;
+            set
+            {
+                this._UserDataFolder = value;
+                if (this.CheckIsCreatedOrEnded)
+                {
+                    this._UserDataFolder = value;
+                }
+            }
+        }
+
+        private string _AdditionalBrowserArguments;
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public string AdditionalBrowserArguments
+        {
+            get => this._AdditionalBrowserArguments;
+            set
+            {
+                this._AdditionalBrowserArguments = value;
+                if (this.CheckIsCreatedOrEnded)
+                {
+                    this._AdditionalBrowserArguments = value;
                 }
             }
         }

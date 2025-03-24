@@ -45,7 +45,7 @@ namespace Diga.WebView2.WinForms
                 }
                     
 
-                this._WebViewControl = new WebView2Control(parent);
+                this._WebViewControl = new WebView2Control(parent,this.BrowserExecutableFolder, this.UserDataFolder, this.AdditionalBrowserArguments, this.ProfileName, this.ProfileNameInPrivateModeEnabled);
                 WireEvents(this._WebViewControl);
                 ControlCounter++;
             }
@@ -70,6 +70,7 @@ namespace Diga.WebView2.WinForms
             e.Settings.IsZoomControlEnabled = this._IsZoomControlEnabled;
             e.Settings.IsBuiltInErrorPageEnabled = true;
             e.Settings.IsPinchZoomEnabled = true;
+            
         }
 
 

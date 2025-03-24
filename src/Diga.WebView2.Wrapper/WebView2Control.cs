@@ -66,6 +66,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<BasicAuthenticationRequestedEventArgs> BasicAuthenticationRequested;
         public event EventHandler<ContextMenuRequestedEventArgs> ContextMenuRequested;
         public event EventHandler<PrintToPdfCompleteEventArgs> PrintToPdfCompleted;
+        public event EventHandler<ControllerCompletedErrorArgs> ControllerCompletedError;
         private WebView2Settings _Settings;
         private string _BrowserInfo;
         private object HostHelper;
@@ -73,6 +74,8 @@ namespace Diga.WebView2.Wrapper
         private const string PLEASE_SET_A_VALUE_ABOVE_0 = "Plase Set a value above 0";
         private const string DIGA_SCHEMA = "diga";
         private readonly Dictionary<string, object> _RemoteObjects = new Dictionary<string, object>();
+        public string ProfileName { get; set; }
+        public bool ProfileInPrivateMode { get; set; }
 
         public WebView2Environment Environment { get; private set; }
         public WebView2Control(IntPtr parentHandle) : this(parentHandle, string.Empty, string.Empty, string.Empty)
@@ -88,8 +91,33 @@ namespace Diga.WebView2.Wrapper
             CreateWebView();
             RefCounter += 1;
         }
-        
-        
+
+        public WebView2Control(IntPtr parentHandle, string browserExecutableFolder, string userDataFolder, string additionalBrowserArguments,string profileName, bool profileInPrivateMode)
+        {
+            if(browserExecutableFolder == null)
+                browserExecutableFolder = string.Empty;
+            if (userDataFolder == null)
+            {
+                userDataFolder = string.Empty;
+            }
+                
+            if (additionalBrowserArguments == null)
+                additionalBrowserArguments = string.Empty;
+
+            if (profileName == null)
+                profileName = string.Empty;
+
+            this._ParentHandle = new HandleRef(this, parentHandle);
+            this.BrowserExecutableFolder = browserExecutableFolder;
+            this.UserDataFolder = userDataFolder;
+            this.AdditionalBrowserArguments = additionalBrowserArguments;
+            this.ProfileName = profileName;
+            this.ProfileInPrivateMode = profileInPrivateMode;
+            CreateWebView();
+            RefCounter += 1;
+        }
+
+
 
         public List<string> Content
         {
@@ -103,18 +131,20 @@ namespace Diga.WebView2.Wrapper
         private HandleRef _ParentHandle { get; set; }
 
         public string BrowserExecutableFolder { get; }
-        public string UserDataFolder { get; }
+        public string UserDataFolder { get; private set; }
         public string AdditionalBrowserArguments { get; }
         public List<SchemeRegistration> SchemeRegistrations { get; } = new List<SchemeRegistration>();
         private void CreateWebView()
         {
             this.HostHelper = new HostObjectHelper();
-            var handler = new EnvironmentCompletedHandler(this._ParentHandle.Handle);
+            var handler = new EnvironmentCompletedHandler(this._ParentHandle.Handle,this.ProfileName, this.ProfileInPrivateMode);
             handler.ControllerCompleted += OnControllerCompleted;
             handler.BeforeEnvironmentCompleted += OnBeforeEnvironmentCompletedIntern;
             handler.AfterEnvironmentCompleted += OnAfterEnvironmentCompletedIntern;
             handler.PrepareControllerCreate += OnBeforeControllerCreateIntern;
             handler.CompositionControllerCompleted += OnCompositionControllerCompletedIntern;
+            handler.ControllerCompletedError += OnControllerCompletedErrorIntern;
+
             Native.GetAvailableCoreWebView2BrowserVersionString(this.BrowserExecutableFolder, out string browserInfo);
             this._BrowserInfo = browserInfo;
 
@@ -128,6 +158,7 @@ namespace Diga.WebView2.Wrapper
             {
 
                 AdditionalBrowserArguments = this.AdditionalBrowserArguments,
+                
                 
             };
             WebView2CustomSchemeRegistration reg = new WebView2CustomSchemeRegistration(DIGA_SCHEMA);
@@ -160,9 +191,46 @@ namespace Diga.WebView2.Wrapper
                                     options.TargetCompatibleBrowserVersion + ")");
             }
 
-            Native.CreateCoreWebView2EnvironmentWithOptions(this.BrowserExecutableFolder, this.UserDataFolder, options,
+            var retVal = Native.CreateCoreWebView2EnvironmentWithOptions(this.BrowserExecutableFolder, this.UserDataFolder, options,
                 handler);
+
+
 #endif
+        }
+        private int RecallCounter = 0;
+        private const int MaxRecallCounter = 1;
+        private static string LastPath = string.Empty;
+        protected virtual void OnControllerCompletedError(ControllerCompletedErrorArgs e)
+        {
+            ControllerCompletedError?.Invoke(this, new ControllerCompletedErrorArgs(e.Result,e.Message, this.Environment));
+
+            if (RecallCounter < MaxRecallCounter)
+            {
+                RecallCounter += 1;
+                
+                string newUserDataFlder = Guid.NewGuid().ToString().Replace("-", "");
+                if(string.IsNullOrEmpty(LastPath))
+                {
+                    if(string.IsNullOrEmpty(this.UserDataFolder) )
+                    {
+                        LastPath = Path.Combine(Path.GetTempPath(), newUserDataFlder);
+                    }
+                    else
+                    {
+                        LastPath = this.UserDataFolder + "_" + RecallCounter.ToString();
+                    }
+
+                }
+
+                this.UserDataFolder = LastPath;
+                CreateWebView();
+                    
+            }
+        }
+
+        private void OnControllerCompletedErrorIntern(object sender, ControllerCompletedErrorArgs e)
+        {
+            OnControllerCompletedError(e);
         }
 
         private void OnCompositionControllerCompletedIntern(object sender, CompositionControllerCompletedEventArgs e)
