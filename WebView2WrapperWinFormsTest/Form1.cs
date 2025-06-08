@@ -29,6 +29,7 @@ namespace WebView2WrapperWinFormsTest
 
             InitializeComponent();
             this._SecondForm = new Form();
+
             WebView wv = new WebView();
             wv.SchemeRegistrations = this.webView1.SchemeRegistrations;
 
