@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Diga.Core.Api.Win32.Com;
@@ -206,7 +207,7 @@ namespace WebView2WrapperWinFormsTest
             if (string.IsNullOrEmpty(message))
                 message = e.WebMessageAsJson;
 
-            var rpc = Diga.Core.Json.DigaJson.Deserialize<RpcObject>(message);
+            var rpc = JsonSerializer.Deserialize<RpcObject>(message);
             if (rpc == null)
                 return;
             if (rpc.action == null)
@@ -225,7 +226,7 @@ namespace WebView2WrapperWinFormsTest
                         objId = rpc.objId,
                         param = id
                     };
-                    string js = Diga.Core.Json.DigaJson.Serialize(result);
+                    string js = JsonSerializer.Serialize(result);
                     this.webView1.SendMessage(js);
                     break;
                 case "get_script_result":

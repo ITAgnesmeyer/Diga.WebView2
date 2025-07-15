@@ -40,7 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Diga.Core.Threading" Version="1.0.11" />
+    <PackageReference Include="Diga.Core.Threading" Version="1.0.12" />
   </ItemGroup>
 
   <ItemGroup>

@@ -13,7 +13,7 @@ namespace Diga.WebView2.Wrapper.Handler
             try
             {
                 string name = sender.name;
-                Frame frame = new Frame((ICoreWebView2Frame5)sender);
+                Frame frame = new Frame((ICoreWebView2Frame7)sender);
                 FrameNameChangedEventArgs eventArgs = new FrameNameChangedEventArgs(frame, args);
                 OnFrameNameChanged(eventArgs);
             }

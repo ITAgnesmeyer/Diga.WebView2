@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Text.Json;
 
 namespace Diga.WebView2.Scripting
 {
@@ -16,10 +17,10 @@ namespace Diga.WebView2.Scripting
                 if (clanSer.StartsWith("\"") && clanSer.EndsWith("\""))
                     clanSer = clanSer.Substring(1, clanSer.Length - 2);
 
-                ScriptErrorObject errObj = Diga.Core.Json.DigaJson.Deserialize<ScriptErrorObject>(clanSer);
+                ScriptErrorObject errObj = JsonSerializer.Deserialize<ScriptErrorObject>(clanSer);
                 return errObj;
             }
-            catch (Diga.Core.Json.DigaJsonException)
+            catch (JsonException)
             {
                 return null;
             }

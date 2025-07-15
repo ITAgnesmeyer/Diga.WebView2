@@ -4,7 +4,7 @@
     <TargetFrameworks>net4.7.2;net8.0-windows;net9.0-windows</TargetFrameworks>
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>Diga.WebView2.WinForms</RootNamespace>
-    <Version>20.1.5</Version>
+    <Version>20.1.7</Version>
     <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
     <Product>Diga.WebView2.WinForms</Product>
     <Copyright>Copyright © 2025 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
@@ -30,9 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Diga.Core.Api.Win32" Version="2.0.25" />
-    <PackageReference Include="Diga.Core.Json" Version="1.0.2" />
-    <PackageReference Include="Diga.Core.Threading" Version="1.0.11" />
+    <PackageReference Include="Diga.Core.Api.Win32" Version="2.0.26" />
+    <PackageReference Include="Diga.Core.Threading" Version="1.0.12" />
     <PackageReference Include="MimeTypeExtension" Version="1.0.30" />
   </ItemGroup>
   <ItemGroup>

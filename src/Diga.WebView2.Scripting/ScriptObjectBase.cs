@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Diga.WebView2.Interop;
 using Diga.WebView2.Scripting.DOM;
@@ -35,7 +36,7 @@ namespace Diga.WebView2.Scripting
 
             if (e.ResultObjectAsJson != null)
             {
-                ScriptErrorObject err = Core.Json.DigaJson.Deserialize<ScriptErrorObject>(e.ResultObjectAsJson);
+                ScriptErrorObject err = JsonSerializer.Deserialize<ScriptErrorObject>(e.ResultObjectAsJson);
                 if (err != null)
                 {
                     if (err.message != null)

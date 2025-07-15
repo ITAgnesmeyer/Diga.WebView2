@@ -9,7 +9,7 @@
     <AssemblyOriginatorKeyFile>ScriptingCore.snk</AssemblyOriginatorKeyFile>
     <RootNamespace>Diga.WebView2.Scripting</RootNamespace>
     <PackageId>Diga.WebView2.Scripting</PackageId>
-    <Version>1.20.5</Version>
+    <Version>1.20.6</Version>
     <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
     <Company>Dipl.-Ing.(FH) Guido Agnesmeyer</Company>
     <Copyright>Copyright © 2023 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
@@ -18,8 +18,8 @@
     <PackageIcon>logo.png</PackageIcon>
     <RepositoryUrl>https://github.com/ITAgnesmeyer/Diga.WebView2</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>1.20.5</AssemblyVersion>
-    <FileVersion>1.20.5</FileVersion>
+    <AssemblyVersion>1.20.6</AssemblyVersion>
+    <FileVersion>1.20.6</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <Description>DOM Extension</Description>
@@ -28,8 +28,8 @@
     <None Remove="DOM\DOMObject.cs~RF15163345.TMP" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Diga.Core.Json" Version="1.0.2" />
-    <PackageReference Include="Diga.Core.Threading" Version="1.0.11" />
+    <PackageReference Include="Diga.Core.Threading" Version="1.0.12" />
+    <PackageReference Include="System.Text.Json" Version="9.0.7" />
   </ItemGroup>
 	<ItemGroup>
 		<None Include="logo.png" Pack="true" PackagePath="\" />

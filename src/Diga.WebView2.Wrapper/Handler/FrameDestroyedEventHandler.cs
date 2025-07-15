@@ -25,7 +25,7 @@ namespace Diga.WebView2.Wrapper.Handler
                 else
                 {
                     string name = sender.name;
-                    Frame frame = new Frame((ICoreWebView2Frame5)sender);
+                    Frame frame = new Frame((ICoreWebView2Frame7)sender);
                     FrameDestroyedEventArgs eventArgs = new FrameDestroyedEventArgs(frame, args);
                     OnFrameDestroyed(eventArgs);
                     
