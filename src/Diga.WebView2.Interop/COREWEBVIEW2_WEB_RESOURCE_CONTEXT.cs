@@ -6,24 +6,78 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_WEB_RESOURCE_CONTEXT
-  {
-    COREWEBVIEW2_WEB_RESOURCE_CONTEXT_ALL,
-    COREWEBVIEW2_WEB_RESOURCE_CONTEXT_DOCUMENT,
-    COREWEBVIEW2_WEB_RESOURCE_CONTEXT_STYLESHEET,
-    COREWEBVIEW2_WEB_RESOURCE_CONTEXT_IMAGE,
-    COREWEBVIEW2_WEB_RESOURCE_CONTEXT_MEDIA,
-    COREWEBVIEW2_WEB_RESOURCE_CONTEXT_FONT,
-    COREWEBVIEW2_WEB_RESOURCE_CONTEXT_SCRIPT,
-    COREWEBVIEW2_WEB_RESOURCE_CONTEXT_XML_HTTP_REQUEST,
-    COREWEBVIEW2_WEB_RESOURCE_CONTEXT_FETCH,
-    COREWEBVIEW2_WEB_RESOURCE_CONTEXT_TEXT_TRACK,
-    COREWEBVIEW2_WEB_RESOURCE_CONTEXT_EVENT_SOURCE,
-    COREWEBVIEW2_WEB_RESOURCE_CONTEXT_WEBSOCKET,
-    COREWEBVIEW2_WEB_RESOURCE_CONTEXT_MANIFEST,
-    COREWEBVIEW2_WEB_RESOURCE_CONTEXT_SIGNED_EXCHANGE,
-    COREWEBVIEW2_WEB_RESOURCE_CONTEXT_PING,
-    COREWEBVIEW2_WEB_RESOURCE_CONTEXT_CSP_VIOLATION_REPORT,
-    COREWEBVIEW2_WEB_RESOURCE_CONTEXT_OTHER,
-  }
+    /// <summary>
+    /// Specifies the context of a web resource request in WebView2.
+    /// </summary>
+    public enum COREWEBVIEW2_WEB_RESOURCE_CONTEXT
+    {
+        /// <summary>
+        /// All resource types.
+        /// </summary>
+        COREWEBVIEW2_WEB_RESOURCE_CONTEXT_ALL,
+        /// <summary>
+        /// Document resources (HTML documents).
+        /// </summary>
+        COREWEBVIEW2_WEB_RESOURCE_CONTEXT_DOCUMENT,
+        /// <summary>
+        /// Stylesheet resources (CSS files).
+        /// </summary>
+        COREWEBVIEW2_WEB_RESOURCE_CONTEXT_STYLESHEET,
+        /// <summary>
+        /// Image resources (e.g., PNG, JPEG).
+        /// </summary>
+        COREWEBVIEW2_WEB_RESOURCE_CONTEXT_IMAGE,
+        /// <summary>
+        /// Media resources (audio, video).
+        /// </summary>
+        COREWEBVIEW2_WEB_RESOURCE_CONTEXT_MEDIA,
+        /// <summary>
+        /// Font resources.
+        /// </summary>
+        COREWEBVIEW2_WEB_RESOURCE_CONTEXT_FONT,
+        /// <summary>
+        /// Script resources (JavaScript files).
+        /// </summary>
+        COREWEBVIEW2_WEB_RESOURCE_CONTEXT_SCRIPT,
+        /// <summary>
+        /// XMLHttpRequest resources.
+        /// </summary>
+        COREWEBVIEW2_WEB_RESOURCE_CONTEXT_XML_HTTP_REQUEST,
+        /// <summary>
+        /// Fetch API resources.
+        /// </summary>
+        COREWEBVIEW2_WEB_RESOURCE_CONTEXT_FETCH,
+        /// <summary>
+        /// Text track resources (e.g., subtitles).
+        /// </summary>
+        COREWEBVIEW2_WEB_RESOURCE_CONTEXT_TEXT_TRACK,
+        /// <summary>
+        /// EventSource resources (Server-Sent Events).
+        /// </summary>
+        COREWEBVIEW2_WEB_RESOURCE_CONTEXT_EVENT_SOURCE,
+        /// <summary>
+        /// WebSocket resources.
+        /// </summary>
+        COREWEBVIEW2_WEB_RESOURCE_CONTEXT_WEBSOCKET,
+        /// <summary>
+        /// Manifest resources (e.g., web app manifests).
+        /// </summary>
+        COREWEBVIEW2_WEB_RESOURCE_CONTEXT_MANIFEST,
+        /// <summary>
+        /// Signed exchange resources.
+        /// </summary>
+        COREWEBVIEW2_WEB_RESOURCE_CONTEXT_SIGNED_EXCHANGE,
+        /// <summary>
+        /// Ping resources.
+        /// </summary>
+        COREWEBVIEW2_WEB_RESOURCE_CONTEXT_PING,
+        /// <summary>
+        /// Content Security Policy violation report resources.
+        /// </summary>
+        COREWEBVIEW2_WEB_RESOURCE_CONTEXT_CSP_VIOLATION_REPORT,
+        /// <summary>
+        /// Other resource types not covered by the above.
+        /// </summary>
+        COREWEBVIEW2_WEB_RESOURCE_CONTEXT_OTHER,
+    }
 }

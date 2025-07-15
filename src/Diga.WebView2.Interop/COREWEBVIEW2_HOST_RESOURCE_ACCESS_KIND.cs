@@ -6,10 +6,22 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND
-  {
-    COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND_DENY,
-    COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND_ALLOW,
-    COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND_DENY_CORS,
-  }
+    /// <summary>
+    /// Specifies the kind of host resource access for WebView2.
+    /// </summary>
+    public enum COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND
+    {
+        /// <summary>
+        /// Deny access to the host resource.
+        /// </summary>
+        COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND_DENY,
+        /// <summary>
+        /// Allow access to the host resource.
+        /// </summary>
+        COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND_ALLOW,
+        /// <summary>
+        /// Deny access to the host resource for CORS requests.
+        /// </summary>
+        COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND_DENY_CORS,
+    }
 }

@@ -6,10 +6,22 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_DOWNLOAD_STATE
-  {
-    COREWEBVIEW2_DOWNLOAD_STATE_IN_PROGRESS,
-    COREWEBVIEW2_DOWNLOAD_STATE_INTERRUPTED,
-    COREWEBVIEW2_DOWNLOAD_STATE_COMPLETED,
-  }
+    /// <summary>
+    /// Specifies the state of a download in WebView2.
+    /// </summary>
+    public enum COREWEBVIEW2_DOWNLOAD_STATE
+    {
+        /// <summary>
+        /// The download is currently in progress.
+        /// </summary>
+        COREWEBVIEW2_DOWNLOAD_STATE_IN_PROGRESS,
+        /// <summary>
+        /// The download was interrupted.
+        /// </summary>
+        COREWEBVIEW2_DOWNLOAD_STATE_INTERRUPTED,
+        /// <summary>
+        /// The download has completed successfully.
+        /// </summary>
+        COREWEBVIEW2_DOWNLOAD_STATE_COMPLETED,
+    }
 }

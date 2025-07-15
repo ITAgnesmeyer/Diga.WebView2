@@ -6,13 +6,34 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_POINTER_EVENT_KIND
-  {
-    COREWEBVIEW2_POINTER_EVENT_KIND_UPDATE = 581, // 0x00000245
-    COREWEBVIEW2_POINTER_EVENT_KIND_DOWN = 582, // 0x00000246
-    COREWEBVIEW2_POINTER_EVENT_KIND_UP = 583, // 0x00000247
-    COREWEBVIEW2_POINTER_EVENT_KIND_ENTER = 585, // 0x00000249
-    COREWEBVIEW2_POINTER_EVENT_KIND_LEAVE = 586, // 0x0000024A
-    COREWEBVIEW2_POINTER_EVENT_KIND_ACTIVATE = 587, // 0x0000024B
-  }
+    /// <summary>
+    /// Specifies the kind of pointer event in WebView2.
+    /// </summary>
+    public enum COREWEBVIEW2_POINTER_EVENT_KIND
+    {
+        /// <summary>
+        /// Pointer update event.
+        /// </summary>
+        COREWEBVIEW2_POINTER_EVENT_KIND_UPDATE = 581, // 0x00000245
+        /// <summary>
+        /// Pointer down event.
+        /// </summary>
+        COREWEBVIEW2_POINTER_EVENT_KIND_DOWN = 582, // 0x00000246
+        /// <summary>
+        /// Pointer up event.
+        /// </summary>
+        COREWEBVIEW2_POINTER_EVENT_KIND_UP = 583, // 0x00000247
+        /// <summary>
+        /// Pointer enter event.
+        /// </summary>
+        COREWEBVIEW2_POINTER_EVENT_KIND_ENTER = 585, // 0x00000249
+        /// <summary>
+        /// Pointer leave event.
+        /// </summary>
+        COREWEBVIEW2_POINTER_EVENT_KIND_LEAVE = 586, // 0x0000024A
+        /// <summary>
+        /// Pointer activate event.
+        /// </summary>
+        COREWEBVIEW2_POINTER_EVENT_KIND_ACTIVATE = 587, // 0x0000024B
+    }
 }

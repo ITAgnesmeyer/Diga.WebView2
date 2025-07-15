@@ -7,6 +7,9 @@ using System.Runtime.InteropServices;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
+    /// <summary>
+    /// Provides data for the BrowserProcessExited event in WebView2.
+    /// </summary>
     public class BrowserProcessExitedEventArgsInterface : IDisposable
     {
         private ComObjectHolder<ICoreWebView2BrowserProcessExitedEventArgs> _Iface;
@@ -58,8 +61,14 @@ namespace Diga.WebView2.Wrapper.Implementation
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Gets the kind of exit for the browser process.
+        /// </summary>
         public COREWEBVIEW2_BROWSER_PROCESS_EXIT_KIND BrowserProcessExitKind => Iface.BrowserProcessExitKind;
 
+        /// <summary>
+        /// Gets the process ID of the exited browser process.
+        /// </summary>
         public uint BrowserProcessId => Iface.BrowserProcessId;
     }
 }

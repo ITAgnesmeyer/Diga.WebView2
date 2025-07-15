@@ -6,9 +6,18 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_BROWSER_PROCESS_EXIT_KIND
-  {
-    COREWEBVIEW2_BROWSER_PROCESS_EXIT_KIND_NORMAL,
-    COREWEBVIEW2_BROWSER_PROCESS_EXIT_KIND_FAILED,
-  }
+    /// <summary>
+    /// Specifies the reason why the browser process for WebView2 exited.
+    /// </summary>
+    public enum COREWEBVIEW2_BROWSER_PROCESS_EXIT_KIND
+    {
+        /// <summary>
+        /// The browser process exited normally.
+        /// </summary>
+        COREWEBVIEW2_BROWSER_PROCESS_EXIT_KIND_NORMAL,
+        /// <summary>
+        /// The browser process exited due to a failure.
+        /// </summary>
+        COREWEBVIEW2_BROWSER_PROCESS_EXIT_KIND_FAILED,
+    }
 }

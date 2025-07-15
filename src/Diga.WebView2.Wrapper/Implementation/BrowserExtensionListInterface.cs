@@ -7,6 +7,9 @@ using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
+    /// <summary>
+    /// Provides methods and properties to interact with a list of browser extensions in WebView2.
+    /// </summary>
     public class BrowserExtensionListInterface : IDisposable
     {
         private ComObjectHolder<ICoreWebView2BrowserExtensionList> _Iface;
@@ -58,9 +61,16 @@ namespace Diga.WebView2.Wrapper.Implementation
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Gets the number of browser extensions in the list.
+        /// </summary>
         public uint Count => this.Iface.Count;
 
-        
+        /// <summary>
+        /// Gets the browser extension at the specified index.
+        /// </summary>
+        /// <param name="index">The zero-based index of the extension to retrieve.</param>
+        /// <returns>The <see cref="ICoreWebView2BrowserExtension"/> at the specified index.</returns>
         public ICoreWebView2BrowserExtension GetValueAtIndex([In] uint index)
         {
             return this.Iface.GetValueAtIndex(index);

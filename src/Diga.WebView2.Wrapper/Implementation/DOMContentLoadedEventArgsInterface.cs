@@ -7,6 +7,9 @@ using System.Runtime.InteropServices;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
+    /// <summary>
+    /// Provides data for the DOMContentLoaded event in WebView2.
+    /// </summary>
     public class DOMContentLoadedEventArgsInterface : IDisposable
     {
         private ComObjectHolder<ICoreWebView2DOMContentLoadedEventArgs> _Iface;
@@ -51,19 +54,27 @@ namespace Diga.WebView2.Wrapper.Implementation
             }
         }
 
+        /// <summary>
+        /// Releases the resources used by the DOMContentLoadedEventArgsInterface instance.
+        /// </summary>
         public void Dispose()
         {
             // Ändern Sie diesen Code nicht. Fügen Sie Bereinigungscode in der Methode "Dispose(bool disposing)" ein.
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+        /// <summary>
+        /// Returns the underlying COM interface for advanced scenarios.
+        /// </summary>
+        /// <returns>The <see cref="ICoreWebView2DOMContentLoadedEventArgs"/> interface.</returns>
         public ICoreWebView2DOMContentLoadedEventArgs ToInterface()
         {
             return Iface;
         }
 
-
-
+        /// <summary>
+        /// Gets the navigation ID associated with the DOMContentLoaded event.
+        /// </summary>
         public ulong NavigationId => Iface.NavigationId;
     }
 }

@@ -6,9 +6,18 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_MEMORY_USAGE_TARGET_LEVEL
-  {
-    COREWEBVIEW2_MEMORY_USAGE_TARGET_LEVEL_NORMAL,
-    COREWEBVIEW2_MEMORY_USAGE_TARGET_LEVEL_LOW,
-  }
+    /// <summary>
+    /// Specifies the target memory usage level for WebView2.
+    /// </summary>
+    public enum COREWEBVIEW2_MEMORY_USAGE_TARGET_LEVEL
+    {
+        /// <summary>
+        /// Normal memory usage target level.
+        /// </summary>
+        COREWEBVIEW2_MEMORY_USAGE_TARGET_LEVEL_NORMAL,
+        /// <summary>
+        /// Low memory usage target level.
+        /// </summary>
+        COREWEBVIEW2_MEMORY_USAGE_TARGET_LEVEL_LOW,
+    }
 }

@@ -6,9 +6,18 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_CAPTURE_PREVIEW_IMAGE_FORMAT
-  {
-    COREWEBVIEW2_CAPTURE_PREVIEW_IMAGE_FORMAT_PNG,
-    COREWEBVIEW2_CAPTURE_PREVIEW_IMAGE_FORMAT_JPEG,
-  }
+    /// <summary>
+    /// Specifies the image format to use when capturing a preview of the WebView2 control.
+    /// </summary>
+    public enum COREWEBVIEW2_CAPTURE_PREVIEW_IMAGE_FORMAT
+    {
+        /// <summary>
+        /// PNG image format.
+        /// </summary>
+        COREWEBVIEW2_CAPTURE_PREVIEW_IMAGE_FORMAT_PNG,
+        /// <summary>
+        /// JPEG image format.
+        /// </summary>
+        COREWEBVIEW2_CAPTURE_PREVIEW_IMAGE_FORMAT_JPEG,
+    }
 }

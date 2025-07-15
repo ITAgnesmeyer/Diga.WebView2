@@ -6,11 +6,26 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_KEY_EVENT_KIND
-  {
-    COREWEBVIEW2_KEY_EVENT_KIND_KEY_DOWN,
-    COREWEBVIEW2_KEY_EVENT_KIND_KEY_UP,
-    COREWEBVIEW2_KEY_EVENT_KIND_SYSTEM_KEY_DOWN,
-    COREWEBVIEW2_KEY_EVENT_KIND_SYSTEM_KEY_UP,
-  }
+    /// <summary>
+    /// Specifies the kind of key event in WebView2.
+    /// </summary>
+    public enum COREWEBVIEW2_KEY_EVENT_KIND
+    {
+        /// <summary>
+        /// A key down event.
+        /// </summary>
+        COREWEBVIEW2_KEY_EVENT_KIND_KEY_DOWN,
+        /// <summary>
+        /// A key up event.
+        /// </summary>
+        COREWEBVIEW2_KEY_EVENT_KIND_KEY_UP,
+        /// <summary>
+        /// A system key down event (e.g., ALT key).
+        /// </summary>
+        COREWEBVIEW2_KEY_EVENT_KIND_SYSTEM_KEY_DOWN,
+        /// <summary>
+        /// A system key up event (e.g., ALT key).
+        /// </summary>
+        COREWEBVIEW2_KEY_EVENT_KIND_SYSTEM_KEY_UP,
+    }
 }

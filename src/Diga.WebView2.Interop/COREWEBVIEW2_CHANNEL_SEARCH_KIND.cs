@@ -6,9 +6,18 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_CHANNEL_SEARCH_KIND
-  {
-    COREWEBVIEW2_CHANNEL_SEARCH_KIND_MOST_STABLE,
-    COREWEBVIEW2_CHANNEL_SEARCH_KIND_LEAST_STABLE,
-  }
+    /// <summary>
+    /// Specifies the kind of channel search to perform for WebView2 installations.
+    /// </summary>
+    public enum COREWEBVIEW2_CHANNEL_SEARCH_KIND
+    {
+        /// <summary>
+        /// Search for the most stable channel (e.g., release channel).
+        /// </summary>
+        COREWEBVIEW2_CHANNEL_SEARCH_KIND_MOST_STABLE,
+        /// <summary>
+        /// Search for the least stable channel (e.g., canary or dev channel).
+        /// </summary>
+        COREWEBVIEW2_CHANNEL_SEARCH_KIND_LEAST_STABLE,
+    }
 }

@@ -6,12 +6,30 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND
-  {
-    COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND_COMMAND,
-    COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND_CHECK_BOX,
-    COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND_RADIO,
-    COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND_SEPARATOR,
-    COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND_SUBMENU,
-  }
+    /// <summary>
+    /// Specifies the kind of context menu item in WebView2.
+    /// </summary>
+    public enum COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND
+    {
+        /// <summary>
+        /// A command menu item.
+        /// </summary>
+        COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND_COMMAND,
+        /// <summary>
+        /// A check box menu item.
+        /// </summary>
+        COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND_CHECK_BOX,
+        /// <summary>
+        /// A radio button menu item.
+        /// </summary>
+        COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND_RADIO,
+        /// <summary>
+        /// A separator menu item.
+        /// </summary>
+        COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND_SEPARATOR,
+        /// <summary>
+        /// A submenu item.
+        /// </summary>
+        COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND_SUBMENU,
+    }
 }

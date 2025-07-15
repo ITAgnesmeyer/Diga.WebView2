@@ -8,12 +8,27 @@ using System.Runtime.InteropServices;
 
 namespace Diga.WebView2.Interop
 {
-  [StructLayout(LayoutKind.Sequential, Pack = 1)]
-  public struct COREWEBVIEW2_COLOR
-  {
-    public byte A;
-    public byte R;
-    public byte G;
-    public byte B;
-  }
+    /// <summary>
+    /// Represents a color value with alpha, red, green, and blue components for WebView2 interop.
+    /// </summary>
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    public struct COREWEBVIEW2_COLOR
+    {
+        /// <summary>
+        /// The alpha (transparency) component of the color.
+        /// </summary>
+        public byte A;
+        /// <summary>
+        /// The red component of the color.
+        /// </summary>
+        public byte R;
+        /// <summary>
+        /// The green component of the color.
+        /// </summary>
+        public byte G;
+        /// <summary>
+        /// The blue component of the color.
+        /// </summary>
+        public byte B;
+    }
 }

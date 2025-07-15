@@ -6,10 +6,22 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_PRINT_COLLATION
-  {
-    COREWEBVIEW2_PRINT_COLLATION_DEFAULT,
-    COREWEBVIEW2_PRINT_COLLATION_COLLATED,
-    COREWEBVIEW2_PRINT_COLLATION_UNCOLLATED,
-  }
+    /// <summary>
+    /// Specifies the collation option for printing in WebView2.
+    /// </summary>
+    public enum COREWEBVIEW2_PRINT_COLLATION
+    {
+        /// <summary>
+        /// Use the default collation setting.
+        /// </summary>
+        COREWEBVIEW2_PRINT_COLLATION_DEFAULT,
+        /// <summary>
+        /// Collated printing (pages are grouped by copy).
+        /// </summary>
+        COREWEBVIEW2_PRINT_COLLATION_COLLATED,
+        /// <summary>
+        /// Uncollated printing (pages are grouped by page number).
+        /// </summary>
+        COREWEBVIEW2_PRINT_COLLATION_UNCOLLATED,
+    }
 }

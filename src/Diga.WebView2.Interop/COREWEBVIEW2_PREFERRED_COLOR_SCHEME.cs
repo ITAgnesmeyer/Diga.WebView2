@@ -6,10 +6,22 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_PREFERRED_COLOR_SCHEME
-  {
-    COREWEBVIEW2_PREFERRED_COLOR_SCHEME_AUTO,
-    COREWEBVIEW2_PREFERRED_COLOR_SCHEME_LIGHT,
-    COREWEBVIEW2_PREFERRED_COLOR_SCHEME_DARK,
-  }
+    /// <summary>
+    /// Specifies the preferred color scheme for WebView2 content.
+    /// </summary>
+    public enum COREWEBVIEW2_PREFERRED_COLOR_SCHEME
+    {
+        /// <summary>
+        /// Automatically select the color scheme based on system settings.
+        /// </summary>
+        COREWEBVIEW2_PREFERRED_COLOR_SCHEME_AUTO,
+        /// <summary>
+        /// Use the light color scheme.
+        /// </summary>
+        COREWEBVIEW2_PREFERRED_COLOR_SCHEME_LIGHT,
+        /// <summary>
+        /// Use the dark color scheme.
+        /// </summary>
+        COREWEBVIEW2_PREFERRED_COLOR_SCHEME_DARK,
+    }
 }

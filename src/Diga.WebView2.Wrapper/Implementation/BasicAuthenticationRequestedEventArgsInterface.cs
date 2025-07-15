@@ -9,6 +9,9 @@ namespace Diga.WebView2.Wrapper.Implementation
 
 
 
+    /// <summary>
+    /// Provides data for the BasicAuthenticationRequested event in WebView2.
+    /// </summary>
     public class BasicAuthenticationRequestedEventArgsInterface : IDisposable
     {
         private ComObjectHolder<ICoreWebView2BasicAuthenticationRequestedEventArgs> _Args;
@@ -29,18 +32,39 @@ namespace Diga.WebView2.Wrapper.Implementation
             set { this._Args = new ComObjectHolder<ICoreWebView2BasicAuthenticationRequestedEventArgs>(value); }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BasicAuthenticationRequestedEventArgsInterface"/> class.
+        /// </summary>
+        /// <param name="args">The native BasicAuthenticationRequested event arguments.</param>
+        /// <exception cref="ArgumentNullException">Thrown when args is null.</exception>
         public BasicAuthenticationRequestedEventArgsInterface(ICoreWebView2BasicAuthenticationRequestedEventArgs args)
         {
             this.Args = args ?? throw new ArgumentNullException(nameof(args));
         }
+        /// <summary>
+        /// Gets the URI for which authentication is requested.
+        /// </summary>
         public string uri => this.Args.uri;
 
+        /// <summary>
+        /// Gets the authentication challenge string.
+        /// </summary>
         public string Challenge => this.Args.Challenge;
 
+        /// <summary>
+        /// Gets the response object for providing credentials.
+        /// </summary>
         public ICoreWebView2BasicAuthenticationResponse Response => this.Args.Response;
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the authentication request is canceled.
+        /// </summary>
         public int Cancel { get => this.Args.Cancel; set => this.Args.Cancel = value; }
 
+        /// <summary>
+        /// Gets a deferral object to defer the authentication decision.
+        /// </summary>
+        /// <returns>An <see cref="ICoreWebView2Deferral"/> object.</returns>
         [return: MarshalAs(UnmanagedType.Interface)]
         public ICoreWebView2Deferral GetDeferral()
         {
@@ -62,6 +86,9 @@ namespace Diga.WebView2.Wrapper.Implementation
         }
 
        
+        /// <summary>
+        /// Disposes the object and releases resources.
+        /// </summary>
         public void Dispose()
         {
             Dispose(disposing: true);

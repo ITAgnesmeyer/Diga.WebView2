@@ -6,9 +6,18 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_FILE_SYSTEM_HANDLE_PERMISSION
-  {
-    COREWEBVIEW2_FILE_SYSTEM_HANDLE_PERMISSION_READ_ONLY,
-    COREWEBVIEW2_FILE_SYSTEM_HANDLE_PERMISSION_READ_WRITE,
-  }
+    /// <summary>
+    /// Specifies the permission level for a file system handle in WebView2.
+    /// </summary>
+    public enum COREWEBVIEW2_FILE_SYSTEM_HANDLE_PERMISSION
+    {
+        /// <summary>
+        /// The handle has read-only permission.
+        /// </summary>
+        COREWEBVIEW2_FILE_SYSTEM_HANDLE_PERMISSION_READ_ONLY,
+        /// <summary>
+        /// The handle has read and write permission.
+        /// </summary>
+        COREWEBVIEW2_FILE_SYSTEM_HANDLE_PERMISSION_READ_WRITE,
+    }
 }

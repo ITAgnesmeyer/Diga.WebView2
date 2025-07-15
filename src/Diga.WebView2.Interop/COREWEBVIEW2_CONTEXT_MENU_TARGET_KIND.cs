@@ -6,12 +6,30 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND
-  {
-    COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND_PAGE,
-    COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND_IMAGE,
-    COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND_SELECTED_TEXT,
-    COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND_AUDIO,
-    COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND_VIDEO,
-  }
+    /// <summary>
+    /// Specifies the kind of target for a context menu in WebView2.
+    /// </summary>
+    public enum COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND
+    {
+        /// <summary>
+        /// The context menu target is a page.
+        /// </summary>
+        COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND_PAGE,
+        /// <summary>
+        /// The context menu target is an image.
+        /// </summary>
+        COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND_IMAGE,
+        /// <summary>
+        /// The context menu target is selected text.
+        /// </summary>
+        COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND_SELECTED_TEXT,
+        /// <summary>
+        /// The context menu target is audio content.
+        /// </summary>
+        COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND_AUDIO,
+        /// <summary>
+        /// The context menu target is video content.
+        /// </summary>
+        COREWEBVIEW2_CONTEXT_MENU_TARGET_KIND_VIDEO,
+    }
 }

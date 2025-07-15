@@ -6,10 +6,22 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_NON_CLIENT_REGION_KIND
-  {
-    COREWEBVIEW2_NON_CLIENT_REGION_KIND_NOWHERE,
-    COREWEBVIEW2_NON_CLIENT_REGION_KIND_CLIENT,
-    COREWEBVIEW2_NON_CLIENT_REGION_KIND_CAPTION,
-  }
+    /// <summary>
+    /// Specifies the kind of non-client region in WebView2.
+    /// </summary>
+    public enum COREWEBVIEW2_NON_CLIENT_REGION_KIND
+    {
+        /// <summary>
+        /// The region is not a non-client area.
+        /// </summary>
+        COREWEBVIEW2_NON_CLIENT_REGION_KIND_NOWHERE,
+        /// <summary>
+        /// The region is the client area.
+        /// </summary>
+        COREWEBVIEW2_NON_CLIENT_REGION_KIND_CLIENT,
+        /// <summary>
+        /// The region is the caption (title bar) area.
+        /// </summary>
+        COREWEBVIEW2_NON_CLIENT_REGION_KIND_CAPTION,
+    }
 }

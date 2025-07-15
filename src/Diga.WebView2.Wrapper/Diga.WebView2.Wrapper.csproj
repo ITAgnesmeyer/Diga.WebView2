@@ -48,6 +48,9 @@
 	</PropertyGroup>
 	<ItemGroup>
 	  <Compile Remove="COMStreamWrapper.cs" />
+	  <Compile Remove="interop\NativeUiThread.cs" />
+	  <Compile Remove="Types\GCHandleProvider.cs" />
+	  <Compile Remove="Types\IDispatch.cs" />
 	</ItemGroup>
 
 

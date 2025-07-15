@@ -6,10 +6,22 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_CLIENT_CERTIFICATE_KIND
-  {
-    COREWEBVIEW2_CLIENT_CERTIFICATE_KIND_SMART_CARD,
-    COREWEBVIEW2_CLIENT_CERTIFICATE_KIND_PIN,
-    COREWEBVIEW2_CLIENT_CERTIFICATE_KIND_OTHER,
-  }
+    /// <summary>
+    /// Specifies the kind of client certificate used in WebView2.
+    /// </summary>
+    public enum COREWEBVIEW2_CLIENT_CERTIFICATE_KIND
+    {
+        /// <summary>
+        /// The client certificate is stored on a smart card.
+        /// </summary>
+        COREWEBVIEW2_CLIENT_CERTIFICATE_KIND_SMART_CARD,
+        /// <summary>
+        /// The client certificate is protected by a PIN.
+        /// </summary>
+        COREWEBVIEW2_CLIENT_CERTIFICATE_KIND_PIN,
+        /// <summary>
+        /// The client certificate is of another kind.
+        /// </summary>
+        COREWEBVIEW2_CLIENT_CERTIFICATE_KIND_OTHER,
+    }
 }

@@ -6,9 +6,18 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_BOUNDS_MODE
-  {
-    COREWEBVIEW2_BOUNDS_MODE_USE_RAW_PIXELS,
-    COREWEBVIEW2_BOUNDS_MODE_USE_RASTERIZATION_SCALE,
-  }
+    /// <summary>
+    /// Specifies how the bounds of the WebView2 control are interpreted.
+    /// </summary>
+    public enum COREWEBVIEW2_BOUNDS_MODE
+    {
+        /// <summary>
+        /// The bounds are interpreted as raw device pixels.
+        /// </summary>
+        COREWEBVIEW2_BOUNDS_MODE_USE_RAW_PIXELS,
+        /// <summary>
+        /// The bounds are interpreted using the rasterization scale.
+        /// </summary>
+        COREWEBVIEW2_BOUNDS_MODE_USE_RASTERIZATION_SCALE,
+    }
 }

@@ -7,6 +7,9 @@ using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
+    /// <summary>
+    /// Provides methods to interact with a collection of context menu items in WebView2.
+    /// </summary>
     public class ContextMenuItemCollectionInterface : IDisposable
     {
         private ComObjectHolder<ICoreWebView2ContextMenuItemCollection> _Args;
@@ -34,19 +37,36 @@ namespace Diga.WebView2.Wrapper.Implementation
             if (args == null) throw new ArgumentNullException(nameof(args));
             _Args = new ComObjectHolder<ICoreWebView2ContextMenuItemCollection>(args);
         }
+        /// <summary>
+        /// Gets the number of context menu items in the collection.
+        /// </summary>
         public uint Count => Args.Count;
 
+        /// <summary>
+        /// Gets the context menu item at the specified index.
+        /// </summary>
+        /// <param name="index">The zero-based index of the item to retrieve.</param>
+        /// <returns>The <see cref="ICoreWebView2ContextMenuItem"/> at the specified index.</returns>
         [return: MarshalAs(UnmanagedType.Interface)]
         public ICoreWebView2ContextMenuItem GetValueAtIndex([In] uint index)
         {
             return Args.GetValueAtIndex(index);
         }
 
+        /// <summary>
+        /// Removes the context menu item at the specified index.
+        /// </summary>
+        /// <param name="index">The zero-based index of the item to remove.</param>
         public void RemoveValueAtIndex(uint index)
         {
             Args.RemoveValueAtIndex(index);
         }
 
+        /// <summary>
+        /// Inserts a context menu item at the specified index.
+        /// </summary>
+        /// <param name="index">The zero-based index at which to insert the item.</param>
+        /// <param name="value">The <see cref="ICoreWebView2ContextMenuItem"/> to insert.</param>
         public void InsertValueAtIndex(uint index, ICoreWebView2ContextMenuItem value)
         {
             Args.InsertValueAtIndex(index, value);

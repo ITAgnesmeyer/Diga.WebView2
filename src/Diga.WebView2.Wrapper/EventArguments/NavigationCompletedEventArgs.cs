@@ -21,7 +21,7 @@ namespace Diga.WebView2.Wrapper.EventArguments
             {
                 case ErrorStatus.CannotConnect:
                     return "Cannot connect";
-                case ErrorStatus.CertificateCommonNameIsIincorrect:
+                case ErrorStatus.CertificateCommonNameIsIncorrect:
                     return "Certificate common name is incorrect";
                 case ErrorStatus.CertificateExpired:
                     return "Certificate expired";
@@ -29,15 +29,15 @@ namespace Diga.WebView2.Wrapper.EventArguments
                     return "Certificate is invalid";
                 case ErrorStatus.CertificateRevoked:
                     return "Certificate revoked";
-                case ErrorStatus.ClientCertificateContiansError:
+                case ErrorStatus.ClientCertificateContainsErrors:
                     return "Client certificate contians error";
-                case ErrorStatus.ConnectionAbborted:
+                case ErrorStatus.ConnectionAborted:
                     return "Connection abborted";
                 case ErrorStatus.ConnectionReset:
                     return "Connection reset";
                 case ErrorStatus.Disconnected:
                     return "Disconnected";
-                case ErrorStatus.ErroHttpInvalidServerResponse:
+                case ErrorStatus.ErrorHttpInvalidServerResponse:
                     return "Error http invalid server response";
                 case ErrorStatus.HostNameNotResolved:
                     return "Hostname not resolved";

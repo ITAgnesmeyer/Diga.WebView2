@@ -7,8 +7,9 @@ using Diga.WebView2.Wrapper.Types;
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper.interop
 {
-   
-
+    /// <summary>
+    /// Provides platform-specific native interop methods for WebView2, automatically dispatching to the correct architecture implementation.
+    /// </summary>
     public static class Native
     {
 
@@ -26,6 +27,10 @@ namespace Diga.WebView2.Wrapper.interop
 
 
 
+        /// <summary>
+        /// Shows information about the native WebView2 environment for the current architecture.
+        /// </summary>
+        /// <returns>Status code of the operation.</returns>
         public static int ShowInfo()
         {
             switch (OsArchitecture)
@@ -41,6 +46,14 @@ namespace Diga.WebView2.Wrapper.interop
             }
         }
 
+        /// <summary>
+        /// Creates a WebView2 environment with the specified options.
+        /// </summary>
+        /// <param name="browserExecutableFolder">The folder containing the browser executable.</param>
+        /// <param name="userDataFolder">The folder for user data.</param>
+        /// <param name="environmentOptions">The environment options.</param>
+        /// <param name="environmentCreatedHandler">The handler to call when the environment is created.</param>
+        /// <returns>Status code of the operation.</returns>
         public static int CreateCoreWebView2EnvironmentWithOptions(string browserExecutableFolder,
             string userDataFolder, ICoreWebView2EnvironmentOptions environmentOptions,
             ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler environmentCreatedHandler)
@@ -63,6 +76,11 @@ namespace Diga.WebView2.Wrapper.interop
 
         }
 
+        /// <summary>
+        /// Creates a WebView2 environment using a pointer to a completion handler.
+        /// </summary>
+        /// <param name="environmentCreatedHandler">The handler to call when the environment is created.</param>
+        /// <returns>Status code of the operation.</returns>
         public static int CreateCoreWebView2EvenironmentX(ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler environmentCreatedHandler)
         {
             object o = environmentCreatedHandler;
@@ -83,6 +101,11 @@ namespace Diga.WebView2.Wrapper.interop
         }
 
 
+        /// <summary>
+        /// Creates a WebView2 environment.
+        /// </summary>
+        /// <param name="environmentCreatedHandler">The handler to call when the environment is created.</param>
+        /// <returns>Status code of the operation.</returns>
         public static int CreateCoreWebView2Environment(
             ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler environmentCreatedHandler)
         {
@@ -101,6 +124,12 @@ namespace Diga.WebView2.Wrapper.interop
         }
 
 
+        /// <summary>
+        /// Gets the available browser version string for the specified browser executable folder.
+        /// </summary>
+        /// <param name="browserExecutableFolder">The folder containing the browser executable.</param>
+        /// <param name="versionInfo">The version string of the available browser.</param>
+        /// <returns>Status code of the operation.</returns>
         public static int GetAvailableCoreWebView2BrowserVersionString(
             string browserExecutableFolder,
             out string versionInfo)
@@ -122,6 +151,13 @@ namespace Diga.WebView2.Wrapper.interop
 
         }
 
+        /// <summary>
+        /// Compares two browser version strings.
+        /// </summary>
+        /// <param name="version1">The first version string.</param>
+        /// <param name="version2">The second version string.</param>
+        /// <param name="result">The result of the comparison: -1 if version1 &lt; version2, 0 if equal, 1 if version1 &gt; version2.</param>
+        /// <returns>Status code of the operation.</returns>
         public static int CompareBrowserVersions(string version1, string version2, out int result)
         {
             switch (OsArchitecture)
@@ -140,6 +176,11 @@ namespace Diga.WebView2.Wrapper.interop
             }
         }
 
+        /// <summary>
+        /// Gets the current browser version string.
+        /// </summary>
+        /// <param name="versionInfo">The version string of the current browser.</param>
+        /// <returns>Status code of the operation.</returns>
         public static int GetCurrentVersion(out string versionInfo)
         {
 
@@ -156,6 +197,12 @@ namespace Diga.WebView2.Wrapper.interop
             }
         }
 
+        /// <summary>
+        /// Gets the IUnknown pointer from a COM object reference.
+        /// </summary>
+        /// <param name="comObject">The COM object reference.</param>
+        /// <param name="pUnknown">The pointer to the IUnknown interface.</param>
+        /// <returns>Status code of the operation.</returns>
         public static int GetIUnknownPointerFromObject(ref object comObject, out IntPtr pUnknown)
         {
             switch(OsArchitecture)

@@ -6,10 +6,22 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_PERMISSION_STATE
-  {
-    COREWEBVIEW2_PERMISSION_STATE_DEFAULT,
-    COREWEBVIEW2_PERMISSION_STATE_ALLOW,
-    COREWEBVIEW2_PERMISSION_STATE_DENY,
-  }
+    /// <summary>
+    /// Specifies the state of a permission in WebView2.
+    /// </summary>
+    public enum COREWEBVIEW2_PERMISSION_STATE
+    {
+        /// <summary>
+        /// The default permission state (not explicitly allowed or denied).
+        /// </summary>
+        COREWEBVIEW2_PERMISSION_STATE_DEFAULT,
+        /// <summary>
+        /// The permission is allowed.
+        /// </summary>
+        COREWEBVIEW2_PERMISSION_STATE_ALLOW,
+        /// <summary>
+        /// The permission is denied.
+        /// </summary>
+        COREWEBVIEW2_PERMISSION_STATE_DENY,
+    }
 }

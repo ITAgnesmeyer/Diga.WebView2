@@ -6,12 +6,30 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_FRAME_KIND
-  {
-    COREWEBVIEW2_FRAME_KIND_UNKNOWN,
-    COREWEBVIEW2_FRAME_KIND_MAIN_FRAME,
-    COREWEBVIEW2_FRAME_KIND_IFRAME,
-    COREWEBVIEW2_FRAME_KIND_EMBED,
-    COREWEBVIEW2_FRAME_KIND_OBJECT,
-  }
+    /// <summary>
+    /// Specifies the kind of frame in WebView2.
+    /// </summary>
+    public enum COREWEBVIEW2_FRAME_KIND
+    {
+        /// <summary>
+        /// The frame kind is unknown.
+        /// </summary>
+        COREWEBVIEW2_FRAME_KIND_UNKNOWN,
+        /// <summary>
+        /// The main frame of the document.
+        /// </summary>
+        COREWEBVIEW2_FRAME_KIND_MAIN_FRAME,
+        /// <summary>
+        /// An iframe element.
+        /// </summary>
+        COREWEBVIEW2_FRAME_KIND_IFRAME,
+        /// <summary>
+        /// An embed element.
+        /// </summary>
+        COREWEBVIEW2_FRAME_KIND_EMBED,
+        /// <summary>
+        /// An object element.
+        /// </summary>
+        COREWEBVIEW2_FRAME_KIND_OBJECT,
+    }
 }

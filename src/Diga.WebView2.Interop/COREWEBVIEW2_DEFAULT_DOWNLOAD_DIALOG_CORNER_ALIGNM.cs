@@ -6,11 +6,26 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_DEFAULT_DOWNLOAD_DIALOG_CORNER_ALIGNMENT
-  {
-    COREWEBVIEW2_DEFAULT_DOWNLOAD_DIALOG_CORNER_ALIGNMENT_TOP_LEFT,
-    COREWEBVIEW2_DEFAULT_DOWNLOAD_DIALOG_CORNER_ALIGNMENT_TOP_RIGHT,
-    COREWEBVIEW2_DEFAULT_DOWNLOAD_DIALOG_CORNER_ALIGNMENT_BOTTOM_LEFT,
-    COREWEBVIEW2_DEFAULT_DOWNLOAD_DIALOG_CORNER_ALIGNMENT_BOTTOM_RIGHT,
-  }
+    /// <summary>
+    /// Specifies the corner alignment for the default download dialog in WebView2.
+    /// </summary>
+    public enum COREWEBVIEW2_DEFAULT_DOWNLOAD_DIALOG_CORNER_ALIGNMENT
+    {
+        /// <summary>
+        /// Align the dialog to the top-left corner.
+        /// </summary>
+        COREWEBVIEW2_DEFAULT_DOWNLOAD_DIALOG_CORNER_ALIGNMENT_TOP_LEFT,
+        /// <summary>
+        /// Align the dialog to the top-right corner.
+        /// </summary>
+        COREWEBVIEW2_DEFAULT_DOWNLOAD_DIALOG_CORNER_ALIGNMENT_TOP_RIGHT,
+        /// <summary>
+        /// Align the dialog to the bottom-left corner.
+        /// </summary>
+        COREWEBVIEW2_DEFAULT_DOWNLOAD_DIALOG_CORNER_ALIGNMENT_BOTTOM_LEFT,
+        /// <summary>
+        /// Align the dialog to the bottom-right corner.
+        /// </summary>
+        COREWEBVIEW2_DEFAULT_DOWNLOAD_DIALOG_CORNER_ALIGNMENT_BOTTOM_RIGHT,
+    }
 }

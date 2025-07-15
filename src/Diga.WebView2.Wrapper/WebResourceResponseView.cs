@@ -35,7 +35,7 @@ namespace Diga.WebView2.Wrapper
         }
 
         private object LocObject = new object();
-        private bool disposedValue;
+        //private bool disposedValue;
 
         public Stream GetContent()
         {

@@ -9,6 +9,9 @@ namespace Diga.WebView2.Wrapper.Implementation
 {
 
 
+    /// <summary>
+    /// Provides methods and properties to interact with a browser extension in WebView2.
+    /// </summary>
     public class BrowserExtensionInterface : IDisposable
     {
         private ComObjectHolder<ICoreWebView2BrowserExtension> _Iface;
@@ -60,22 +63,44 @@ namespace Diga.WebView2.Wrapper.Implementation
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Gets the unique identifier of the browser extension.
+        /// </summary>
         public string id => this.Iface.id;
 
+        /// <summary>
+        /// Gets the name of the browser extension.
+        /// </summary>
         public string name => this.Iface.name;
 
+        /// <summary>
+        /// Removes the browser extension asynchronously.
+        /// </summary>
+        /// <param name="handler">A handler to be called when the remove operation is complete.</param>
         public void Remove([In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2BrowserExtensionRemoveCompletedHandler handler)
         {
             this.Iface.Remove(handler);
         }
 
+        /// <summary>
+        /// Gets a value indicating whether the browser extension is enabled.
+        /// </summary>
         public int IsEnabled => this.Iface.IsEnabled;
 
+        /// <summary>
+        /// Enables or disables the browser extension asynchronously.
+        /// </summary>
+        /// <param name="IsEnabled">Set to 1 to enable, 0 to disable.</param>
+        /// <param name="handler">A handler to be called when the enable operation is complete.</param>
         public void Enable([In] int IsEnabled, [In, MarshalAs(UnmanagedType.Interface)] ICoreWebView2BrowserExtensionEnableCompletedHandler handler)
         {
             this.Iface.Enable(IsEnabled, handler);
         }
 
+        /// <summary>
+        /// Returns the underlying COM interface for advanced scenarios.
+        /// </summary>
+        /// <returns>The <see cref="ICoreWebView2BrowserExtension"/> interface.</returns>
         public ICoreWebView2BrowserExtension ToInterface() => this.Iface;
     }
 }

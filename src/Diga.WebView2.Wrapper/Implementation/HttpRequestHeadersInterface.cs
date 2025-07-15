@@ -3,21 +3,13 @@ using Diga.WebView2.Interop;
 using Diga.WebView2.Wrapper.Types;
 using System.Runtime.InteropServices;
 using Microsoft.Win32.SafeHandles;
-
-/* Nicht gemergte Änderung aus Projekt "Diga.WebView2.Wrapper (netstandard2.0)"
-Vor:
-using System.Diagnostics;
-Nach:
-using System.Diagnostics;
-using Diga;
-using Diga.WebView2;
-using Diga.WebView2.Wrapper;
-using Diga.WebView2.Wrapper.Implementation;
-*/
 using System.Diagnostics;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
+    /// <summary>
+    /// Provides methods to manipulate HTTP request headers for WebView2.
+    /// </summary>
     public class HttpRequestHeadersInterface : IDisposable, ICoreWebView2HttpRequestHeaders
     {
         private ComObjectHolder<ICoreWebView2HttpRequestHeaders> _Iface;
@@ -69,33 +61,61 @@ namespace Diga.WebView2.Wrapper.Implementation
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Gets the value of the specified header.
+        /// </summary>
+        /// <param name="name">The name of the header.</param>
+        /// <returns>The value of the header, or null if not found.</returns>
         [return: MarshalAs(UnmanagedType.LPWStr)]
         public string GetHeader([In, MarshalAs(UnmanagedType.LPWStr)] string name)
         {
             return Iface.GetHeader(name);
         }
 
+        /// <summary>
+        /// Gets an iterator for all values of the specified header.
+        /// </summary>
+        /// <param name="name">The name of the header.</param>
+        /// <returns>An iterator for the header values.</returns>
         [return: MarshalAs(UnmanagedType.Interface)]
         public ICoreWebView2HttpHeadersCollectionIterator GetHeaders([In, MarshalAs(UnmanagedType.LPWStr)] string name)
         {
             return Iface.GetHeaders(name);
         }
 
+        /// <summary>
+        /// Determines whether the specified header exists.
+        /// </summary>
+        /// <param name="name">The name of the header.</param>
+        /// <returns>1 if the header exists, otherwise 0.</returns>
         public int Contains([In, MarshalAs(UnmanagedType.LPWStr)] string name)
         {
             return Iface.Contains(name);
         }
 
+        /// <summary>
+        /// Sets the value of the specified header.
+        /// </summary>
+        /// <param name="name">The name of the header.</param>
+        /// <param name="value">The value to set.</param>
         public void SetHeader([In, MarshalAs(UnmanagedType.LPWStr)] string name, [In, MarshalAs(UnmanagedType.LPWStr)] string value)
         {
             Iface.SetHeader(name, value);
         }
 
+        /// <summary>
+        /// Removes the specified header.
+        /// </summary>
+        /// <param name="name">The name of the header to remove.</param>
         public void RemoveHeader([In, MarshalAs(UnmanagedType.LPWStr)] string name)
         {
             Iface.RemoveHeader(name);
         }
 
+        /// <summary>
+        /// Gets an iterator for all headers in the collection.
+        /// </summary>
+        /// <returns>An iterator for all headers.</returns>
         [return: MarshalAs(UnmanagedType.Interface)]
         public ICoreWebView2HttpHeadersCollectionIterator GetIterator()
         {

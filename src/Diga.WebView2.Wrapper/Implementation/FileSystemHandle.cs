@@ -7,6 +7,9 @@ using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
+    /// <summary>
+    /// Provides access to a file system handle in WebView2, including its kind, path, and permission.
+    /// </summary>
     public class FileSystemHandle:IDisposable//, ICoreWebView2FileSystemHandle
     {
         private ComObjectHolder<ICoreWebView2FileSystemHandle> _Iface;
@@ -30,6 +33,11 @@ namespace Diga.WebView2.Wrapper.Implementation
 
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileSystemHandle"/> class.
+        /// </summary>
+        /// <param name="iface">The underlying <see cref="ICoreWebView2FileSystemHandle"/> interface.</param>
+        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="iface"/> is null.</exception>
         public FileSystemHandle(ICoreWebView2FileSystemHandle iface)
         {
             Iface = iface ?? throw new ArgumentNullException(nameof(iface));
@@ -45,16 +53,28 @@ namespace Diga.WebView2.Wrapper.Implementation
                 _IsDisposed = true;
             }
         }
+        /// <summary>
+        /// Releases the resources used by the <see cref="FileSystemHandle"/>.
+        /// </summary>
         public void Dispose()
         {
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Gets the kind of the file system handle (file or directory).
+        /// </summary>
         public COREWEBVIEW2_FILE_SYSTEM_HANDLE_KIND Kind => Iface.Kind;
 
+        /// <summary>
+        /// Gets the path of the file system handle.
+        /// </summary>
         public string Path => Iface.Path;
 
+        /// <summary>
+        /// Gets the permission level of the file system handle.
+        /// </summary>
         public COREWEBVIEW2_FILE_SYSTEM_HANDLE_PERMISSION Permission => Iface.Permission;
     }
 }

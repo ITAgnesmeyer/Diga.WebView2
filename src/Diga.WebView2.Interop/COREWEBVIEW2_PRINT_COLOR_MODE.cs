@@ -6,10 +6,22 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_PRINT_COLOR_MODE
-  {
-    COREWEBVIEW2_PRINT_COLOR_MODE_DEFAULT,
-    COREWEBVIEW2_PRINT_COLOR_MODE_COLOR,
-    COREWEBVIEW2_PRINT_COLOR_MODE_GRAYSCALE,
-  }
+    /// <summary>
+    /// Specifies the color mode for printing in WebView2.
+    /// </summary>
+    public enum COREWEBVIEW2_PRINT_COLOR_MODE
+    {
+        /// <summary>
+        /// Use the default color mode.
+        /// </summary>
+        COREWEBVIEW2_PRINT_COLOR_MODE_DEFAULT,
+        /// <summary>
+        /// Print in color.
+        /// </summary>
+        COREWEBVIEW2_PRINT_COLOR_MODE_COLOR,
+        /// <summary>
+        /// Print in grayscale.
+        /// </summary>
+        COREWEBVIEW2_PRINT_COLOR_MODE_GRAYSCALE,
+    }
 }

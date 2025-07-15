@@ -6,9 +6,18 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_FAVICON_IMAGE_FORMAT
-  {
-    COREWEBVIEW2_FAVICON_IMAGE_FORMAT_PNG,
-    COREWEBVIEW2_FAVICON_IMAGE_FORMAT_JPEG,
-  }
+    /// <summary>
+    /// Specifies the image format for favicons in WebView2.
+    /// </summary>
+    public enum COREWEBVIEW2_FAVICON_IMAGE_FORMAT
+    {
+        /// <summary>
+        /// PNG image format.
+        /// </summary>
+        COREWEBVIEW2_FAVICON_IMAGE_FORMAT_PNG,
+        /// <summary>
+        /// JPEG image format.
+        /// </summary>
+        COREWEBVIEW2_FAVICON_IMAGE_FORMAT_JPEG,
+    }
 }

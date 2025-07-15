@@ -6,9 +6,18 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_FILE_SYSTEM_HANDLE_KIND
-  {
-    COREWEBVIEW2_FILE_SYSTEM_HANDLE_KIND_FILE,
-    COREWEBVIEW2_FILE_SYSTEM_HANDLE_KIND_DIRECTORY,
-  }
+    /// <summary>
+    /// Specifies the kind of file system handle in WebView2.
+    /// </summary>
+    public enum COREWEBVIEW2_FILE_SYSTEM_HANDLE_KIND
+    {
+        /// <summary>
+        /// The handle represents a file.
+        /// </summary>
+        COREWEBVIEW2_FILE_SYSTEM_HANDLE_KIND_FILE,
+        /// <summary>
+        /// The handle represents a directory.
+        /// </summary>
+        COREWEBVIEW2_FILE_SYSTEM_HANDLE_KIND_DIRECTORY,
+    }
 }

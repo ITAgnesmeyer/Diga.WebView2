@@ -6,10 +6,22 @@
 
 namespace Diga.WebView2.Interop
 {
-  public enum COREWEBVIEW2_MOVE_FOCUS_REASON
-  {
-    COREWEBVIEW2_MOVE_FOCUS_REASON_PROGRAMMATIC,
-    COREWEBVIEW2_MOVE_FOCUS_REASON_NEXT,
-    COREWEBVIEW2_MOVE_FOCUS_REASON_PREVIOUS,
-  }
+    /// <summary>
+    /// Specifies the reason for moving focus in WebView2.
+    /// </summary>
+    public enum COREWEBVIEW2_MOVE_FOCUS_REASON
+    {
+        /// <summary>
+        /// Focus was moved programmatically.
+        /// </summary>
+        COREWEBVIEW2_MOVE_FOCUS_REASON_PROGRAMMATIC,
+        /// <summary>
+        /// Focus was moved to the next element (e.g., via TAB key).
+        /// </summary>
+        COREWEBVIEW2_MOVE_FOCUS_REASON_NEXT,
+        /// <summary>
+        /// Focus was moved to the previous element (e.g., via SHIFT+TAB).
+        /// </summary>
+        COREWEBVIEW2_MOVE_FOCUS_REASON_PREVIOUS,
+    }
 }

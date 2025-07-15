@@ -5,6 +5,9 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
+    /// <summary>
+    /// Provides data for the AcceleratorKeyPressed event in WebView2 with additional browser accelerator key information.
+    /// </summary>
     public class AcceleratorKeyPressedEventArgs2Interface : AcceleratorKeyPressedEventArgsInterface
     {
         private ComObjectHolder<ICoreWebView2AcceleratorKeyPressedEventArgs2> _Iface;
@@ -39,6 +42,9 @@ namespace Diga.WebView2.Wrapper.Implementation
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the browser accelerator key is enabled for this event.
+        /// </summary>
         public int IsBrowserAcceleratorKeyEnabled { get => this.Iface.IsBrowserAcceleratorKeyEnabled; set => this.Iface.IsBrowserAcceleratorKeyEnabled = value; }
     }
 }

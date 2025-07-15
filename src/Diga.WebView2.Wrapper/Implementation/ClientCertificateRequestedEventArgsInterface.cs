@@ -7,7 +7,10 @@ using System.Runtime.InteropServices;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-    public class ClientCertificateRequestedEventArgsInterface : IDisposable, ICoreWebView2ClientCertificateRequestedEventArgs
+    /// <summary>
+    /// Provides data for the ClientCertificateRequested event in WebView2.
+    /// </summary>
+    public class ClientCertificateRequestedEventArgsInterface : IDisposable //, ICoreWebView2ClientCertificateRequestedEventArgs
     {
         private ComObjectHolder<ICoreWebView2ClientCertificateRequestedEventArgs> _Iface;
         private bool _IsDesposed;
@@ -58,20 +61,50 @@ namespace Diga.WebView2.Wrapper.Implementation
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Gets the host name for which the client certificate is requested.
+        /// </summary>
         public string Host => Iface.Host;
 
+        /// <summary>
+        /// Gets the port number for which the client certificate is requested.
+        /// </summary>
         public int Port => Iface.Port;
 
+        /// <summary>
+        /// Gets a value indicating whether the request is made through a proxy.
+        /// </summary>
         public int IsProxy => Iface.IsProxy;
 
+        /// <summary>
+        /// Gets the collection of allowed certificate authorities.
+        /// </summary>
         public ICoreWebView2StringCollection AllowedCertificateAuthorities => Iface.AllowedCertificateAuthorities;
 
+        /// <summary>
+        /// Gets the collection of mutually trusted client certificates.
+        /// </summary>
         public ICoreWebView2ClientCertificateCollection MutuallyTrustedCertificates => Iface.MutuallyTrustedCertificates;
 
+        /// <summary>
+        /// Gets or sets the selected client certificate.
+        /// </summary>
         public ICoreWebView2ClientCertificate SelectedCertificate { get => Iface.SelectedCertificate; set => Iface.SelectedCertificate = value; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the certificate request is canceled.
+        /// </summary>
         public int Cancel { get => Iface.Cancel; set => Iface.Cancel = value; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the certificate request is handled.
+        /// </summary>
         public int Handled { get => Iface.Handled; set => Iface.Handled = value; }
 
+        /// <summary>
+        /// Gets a deferral object to defer the certificate selection decision.
+        /// </summary>
+        /// <returns>An <see cref="ICoreWebView2Deferral"/> object.</returns>
         [return: MarshalAs(UnmanagedType.Interface)]
         public ICoreWebView2Deferral GetDeferral()
         {

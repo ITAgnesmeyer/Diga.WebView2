@@ -8,14 +8,35 @@ using System.Runtime.InteropServices;
 
 namespace Diga.WebView2.Interop
 {
-  [StructLayout(LayoutKind.Sequential, Pack = 4)]
-  public struct COREWEBVIEW2_PHYSICAL_KEY_STATUS
-  {
-    public uint RepeatCount;
-    public uint ScanCode;
-    public int IsExtendedKey;
-    public int IsMenuKeyDown;
-    public int WasKeyDown;
-    public int IsKeyReleased;
-  }
+    /// <summary>
+    /// Represents the physical key status for a keyboard event in WebView2.
+    /// </summary>
+    [StructLayout(LayoutKind.Sequential, Pack = 4)]
+    public struct COREWEBVIEW2_PHYSICAL_KEY_STATUS
+    {
+        /// <summary>
+        /// The repeat count for the key event.
+        /// </summary>
+        public uint RepeatCount;
+        /// <summary>
+        /// The scan code of the key.
+        /// </summary>
+        public uint ScanCode;
+        /// <summary>
+        /// Indicates whether the key is an extended key.
+        /// </summary>
+        public int IsExtendedKey;
+        /// <summary>
+        /// Indicates whether the menu key (ALT) is down.
+        /// </summary>
+        public int IsMenuKeyDown;
+        /// <summary>
+        /// Indicates whether the key was previously down.
+        /// </summary>
+        public int WasKeyDown;
+        /// <summary>
+        /// Indicates whether the key is released.
+        /// </summary>
+        public int IsKeyReleased;
+    }
 }
