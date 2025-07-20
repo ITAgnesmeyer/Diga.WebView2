@@ -42,7 +42,54 @@ public async Task InvokeSendMessage(string msg)
    await Task.Run(() => this.SendMessage(msg));
 }
 ```
-
+## Avalonia
+You can override NativeControlHost to use the component in Avalonia. Only on Windows, of course!
+```c#
+public class MyControl:NativeControlHost
+{
+...
+   protected override IPlatformHandle CreateNativeControlCore(IPlatformHandle parent)
+   {
+     
+       IPlatformHandle platformHandle = base.CreateNativeControlCore(parent);
+       // You can create a native control here and return its handle
+       this._webView2Control = new Diga.WebView2.Wrapper.WebView2Control(platformHandle.Handle);
+       this._webView2Control.Created += WebView2Control_Created;
+       return platformHandle;
+   }
+   private void WebView2Control_Created(object? sender, EventArgs e)
+   {
+     _IsCreated = true;
+     if (_webView2Control != null && _uri != null)
+     {
+         string urlString = _uri.ToString();
+         if (!string.IsNullOrEmpty(urlString))
+         {
+             _webView2Control.Navigate(urlString);
+         }
+     }
+   }
+   protected override void OnSizeChanged(SizeChangedEventArgs e)
+   {
+      base.OnSizeChanged(e);
+      if (_IsCreated)
+      {
+          Dispatcher.UIThread.Post(() =>
+          {
+              if (_webView2Control != null)
+              {
+                  // Ensure the WebView2 control is docked to the parent
+                  _webView2Control.DockToParent();
+              }
+          });
+          
+      }
+   
+   }
+   
+...
+}
+```
 ## DOM Objects
 The Windows Forms and WPF project now supports DOM objects.
 You can retrieve the DOM - Window object and the DOM - Document object directly by using the GetDOMWidow() and GetDOMDocument() functions.
