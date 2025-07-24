@@ -43,7 +43,7 @@ public async Task InvokeSendMessage(string msg)
 }
 ```
 ## Avalonia
-You can override NativeControlHost to use the component in Avalonia. Only on Windows, of course!
+To use the component in Avalonia (Windows only), you can create a custom class that inherits from NativeControlHost and override its methods as needed.
 ```c#
 public class MyControl:NativeControlHost
 {
