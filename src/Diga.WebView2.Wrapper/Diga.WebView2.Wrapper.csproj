@@ -6,7 +6,7 @@
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>WrapperSign.snk</AssemblyOriginatorKeyFile>
-    <Version>20.1.13</Version>
+    <Version>20.1.14</Version>
 	 <Copyright>Copyright © 2025 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
     <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -60,9 +60,6 @@
 		<None Include="native\x64\Diga.WebView2.Native.dll" Pack="true" PackagePath="\build\native\x64" />
 		<None Include="native\x86\Diga.WebView2.Native.dll" Pack="true" PackagePath="\build\native\x86" />
 		<None Include="native\Diga.WebView2.Wrapper.targets" Pack="true" PackagePath="\build" />
-	</ItemGroup>
-	<ItemGroup>
-	  <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Diga.WebView2.Interop\Diga.WebView2.Interop.csproj" />
