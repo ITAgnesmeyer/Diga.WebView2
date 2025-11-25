@@ -99,7 +99,7 @@ Other changes:
 #### src\Diga.WebView2.WinForms\Diga.WebView2.WinForms.csproj modifications
 
 Project properties changes:
-  - Target frameworks should be changed from `net4.7.2;net8.0-windows;net9.0-windows` to `net4.7.2;net8.0-windows;net9.0-windows;net10.0;net10.0--windows`
+  - Target frameworks should be changed from `net4.7.2;net8.0-windows;net9.0-windows;net10.0-windows` to `net4.7.2;net8.0-windows;net9.0-windows;net10.0-windows;net10.0;net10.0--windows`
 
 NuGet packages changes:
   - No NuGet package changes discovered for this project.
@@ -151,6 +151,3 @@ NuGet packages changes:
 
 Other changes:
   - Verify test project references and test runner compatibility on net10.0-windows.
-
-
-
