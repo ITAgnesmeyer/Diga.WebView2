@@ -14,6 +14,8 @@ There are NUGET-PACKAGES
 
 [WebView2 Runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)
 
+## AOT
+AOT has been moved to a separate project. Follow the link. [Diga.WebView.AOT](https://github.com/ITAgnesmeyer/Diga.WebView.AOT)
 
 ## Windows Forms
 If you use net Framework. You have to modify the Diga.WebView2.Interop.dll Reference.
