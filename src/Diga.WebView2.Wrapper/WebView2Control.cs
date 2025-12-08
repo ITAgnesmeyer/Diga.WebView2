@@ -476,6 +476,7 @@ namespace Diga.WebView2.Wrapper
                 this.WebView.BasicAuthenticationRequested -= OnBasicAuthenticationRequestedIntern;
                 this.WebView.ContextMenuRequested -= OnContextMenuRequestedIntern;
                 this.WebView.PrintToPdfCompleted -= OnPrintToPdfCompletedIntern;
+                this.WebView.ServerCertificateErrorDetected -= OnServerCertificateErrorDetectedIntern;
 
             }
         }
