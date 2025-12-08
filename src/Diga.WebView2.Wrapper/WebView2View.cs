@@ -16,6 +16,14 @@ using Diga.WebView2.Wrapper.Implementation;
 // ReSharper disable once CheckNamespace
 namespace Diga.WebView2.Wrapper
 {
+    public class WebView2Certificate: WebView2CertificateInterface
+    {
+        public WebView2Certificate(ICoreWebView2Certificate certificate) : base(certificate)
+        {
+        }
+
+    }
+
     public partial class WebView2View : WebView2View27Interface
     {
 
@@ -50,6 +58,9 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<BasicAuthenticationRequestedEventArgs> BasicAuthenticationRequested;
         public event EventHandler<ContextMenuRequestedEventArgs> ContextMenuRequested;
         public event EventHandler<PrintToPdfCompleteEventArgs> PrintToPdfCompleted;
+
+        public event EventHandler<ServerCertificateErrorDetectedEventArgs> ServerCertificateErrorDetected;
+
         public WebView2View(ICoreWebView2_27 webView) : base(webView)
         {
 
@@ -192,8 +203,22 @@ namespace Diga.WebView2.Wrapper
             ContextMenuRequestedEventHandler contextMenuHandler = new ContextMenuRequestedEventHandler(new ContextMenuRequestedEventHandler.ContextMenuRequestDelegate(OnContextMenuRequestedIntern2));
             //contextMenuHandler.ContextMenuRequested += OnContextMenuRequestedIntern;
             base.add_ContextMenuRequested(contextMenuHandler, out this._ContextMenuRequested);
+            ServerCertificateErrorDetectedEventHandler serverCertificateErrorDetectedHandler = new ServerCertificateErrorDetectedEventHandler();
+            serverCertificateErrorDetectedHandler.ServerCertificateErrorDetected += OnServerCertificateErrorDetectedIntern;
 
-            
+            base.add_ServerCertificateErrorDetected(serverCertificateErrorDetectedHandler, out this._ServerCertificateErrorDetected);
+
+
+        }
+
+        private void OnServerCertificateErrorDetectedIntern(object sender, ServerCertificateErrorDetectedEventArgs e)
+        {
+            OnServerCertificateErrorDetected(e);
+        }
+
+        private void OnServerCertificateErrorDetected(ServerCertificateErrorDetectedEventArgs e)
+        {
+            ServerCertificateErrorDetected?.Invoke(this, e);
         }
 
         private void OnContextMenuRequestedIntern2(ContextMenuRequestedEventArgs args)
@@ -405,6 +430,9 @@ namespace Diga.WebView2.Wrapper
                 EventRegistrationTool.UnWireToken(this._BasicAuthenticationRequestedEvent, remove_BasicAuthenticationRequested);
                 EventRegistrationTool.UnWireToken(this._ContextMenuRequested, base.remove_ContextMenuRequested);
 
+                EventRegistrationTool.UnWireToken(this._ServerCertificateErrorDetected, base.remove_ServerCertificateErrorDetected);
+
+
             }
             catch (Exception e)
             {
@@ -439,6 +467,7 @@ namespace Diga.WebView2.Wrapper
         private EventRegistrationToken _isDefaultDownloadDialogOpenEventToken;
         private EventRegistrationToken _BasicAuthenticationRequestedEvent;
         private EventRegistrationToken _ContextMenuRequested;
+        private EventRegistrationToken _ServerCertificateErrorDetected;
         private void OnNavigationStartingIntern(object sender, NavigationStartingEventArgs e)
         {
             this.CurrentContent.Clear();
@@ -808,6 +837,8 @@ namespace Diga.WebView2.Wrapper
         {
             ProcessFailed?.Invoke(this, e);
         }
+
+        
 
         protected virtual void OnScriptDialogOpening(ScriptDialogOpeningEventArgs e)
         {

@@ -6,6 +6,9 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Delegates
 {
+
+   
+
     public class PrintToPdfCompleteEventArgs : EventArgs
     {
         public bool IsSuccessfunl { get;  }

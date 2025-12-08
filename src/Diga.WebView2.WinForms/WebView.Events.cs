@@ -75,6 +75,9 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<ContextMenuRequestedEventArgs> ContextMenuRequested;
         public event EventHandler<CursorChangedEventArgs> CompoisitionControllerCursorChanged;
         public event EventHandler<BasicAuthenticationRequestedEventArgs> BasicAuthenticationRequested;
+
+        public event EventHandler<ServerCertificateErrorDetectedEventArgs> ServerCertificateErrorDetected;
+
         private void OnWebWindowBeforeCreate(object sender, BeforeCreateEventArgs e)
         {
             WebWindowInitSettings(e);
@@ -641,6 +644,17 @@ namespace Diga.WebView2.WinForms
             control.ContextMenuRequested += OnContextMenuRequestedIntern;
             control.CompoisitionControllerCursorChanged += OnCompoisitionControllerCursorChangedInternal;
             control.BasicAuthenticationRequested += OnBasicAuthenticationRequestedIntern;
+            control.ServerCertificateErrorDetected += OnServerCertificateErrorDetectedIntern;
+        }
+
+        private void OnServerCertificateErrorDetectedIntern(object sender, ServerCertificateErrorDetectedEventArgs e)
+        {
+            OnServerCertificateErrorDetected(sender,e);
+        }
+
+        protected virtual void OnServerCertificateErrorDetected(object sender, ServerCertificateErrorDetectedEventArgs e)
+        {
+            ServerCertificateErrorDetected?.Invoke(sender,e);
         }
 
         private void OnBasicAuthenticationRequestedIntern(object sender, BasicAuthenticationRequestedEventArgs e)

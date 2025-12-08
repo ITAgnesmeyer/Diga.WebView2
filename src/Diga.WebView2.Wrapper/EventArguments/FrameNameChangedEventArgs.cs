@@ -2,6 +2,8 @@
 
 namespace Diga.WebView2.Wrapper.EventArguments
 {
+
+
     public class FrameNameChangedEventArgs : EventArgs
     {
         public Frame Frame { get; }

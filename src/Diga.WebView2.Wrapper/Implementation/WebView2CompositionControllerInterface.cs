@@ -8,6 +8,9 @@ using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
+
+    
+
     public class WebView2CompositionControllerInterface :  IDisposable
     {
         private ComObjectHolder<ICoreWebView2CompositionController> _Controller;

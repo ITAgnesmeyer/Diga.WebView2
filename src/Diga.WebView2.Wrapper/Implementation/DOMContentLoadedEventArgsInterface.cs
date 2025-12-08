@@ -7,6 +7,8 @@ using System.Runtime.InteropServices;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
+    
+
     /// <summary>
     /// Provides data for the DOMContentLoaded event in WebView2.
     /// </summary>

@@ -67,6 +67,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<ContextMenuRequestedEventArgs> ContextMenuRequested;
         public event EventHandler<PrintToPdfCompleteEventArgs> PrintToPdfCompleted;
         public event EventHandler<ControllerCompletedErrorArgs> ControllerCompletedError;
+        public event EventHandler<ServerCertificateErrorDetectedEventArgs> ServerCertificateErrorDetected;
         private WebView2Settings _Settings;
         private string _BrowserInfo;
         private object HostHelper;
@@ -314,6 +315,7 @@ namespace Diga.WebView2.Wrapper
             this.WebView.BasicAuthenticationRequested += OnBasicAuthenticationRequestedIntern;
             this.WebView.ContextMenuRequested += OnContextMenuRequestedIntern;
             this.WebView.PrintToPdfCompleted += OnPrintToPdfCompletedIntern;
+            this.WebView.ServerCertificateErrorDetected += OnServerCertificateErrorDetectedIntern;
             //this._Settings = new WebView2Settings(this.WebView.Settings);
             this._Settings = this.WebView.Settings;
             object wwInterface = e.WebView;
@@ -346,6 +348,16 @@ namespace Diga.WebView2.Wrapper
 
 
             OnCreated();
+        }
+
+        private void OnServerCertificateErrorDetectedIntern(object sender, ServerCertificateErrorDetectedEventArgs e)
+        {
+            OnServerCertificateErrorDetected(e);
+        }
+
+        private void OnServerCertificateErrorDetected(ServerCertificateErrorDetectedEventArgs e)
+        {
+            ServerCertificateErrorDetected?.Invoke(this, e);
         }
 
         private void OnBasicAuthenticationRequestedIntern(object sender, BasicAuthenticationRequestedEventArgs e)

@@ -7,6 +7,8 @@ using Microsoft.Win32.SafeHandles;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
+
+
     public class ScriptDialogOpeningEventArgsInterface : IDisposable
     {
         private ComObjectHolder<ICoreWebView2ScriptDialogOpeningEventArgs> _Args;

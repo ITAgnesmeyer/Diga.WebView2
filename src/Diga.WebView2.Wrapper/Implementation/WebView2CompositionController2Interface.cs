@@ -6,7 +6,7 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.Implementation
 {
-
+    
 
     public class WebView2CompositionController2Interface : WebView2CompositionControllerInterface
     {

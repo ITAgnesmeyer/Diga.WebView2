@@ -1019,7 +1019,7 @@ namespace WebView2WrapperWinFormsTest
 
         private void showPrintToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
             this.webView1.WebView2.ShowPrintUI(COREWEBVIEW2_PRINT_DIALOG_KIND.COREWEBVIEW2_PRINT_DIALOG_KIND_BROWSER);
 
 
@@ -1033,6 +1033,14 @@ namespace WebView2WrapperWinFormsTest
                 Debug.Print(ec.ToString());
                 Debug.Print(result.ToString());
             }));
+        }
+
+        private void webView1_ServerCertificateErrorDetected(object sender, ServerCertificateErrorDetectedEventArgs e)
+        {
+            Debug.Print("Certificate Error Detected:");
+
+            
+            
         }
     }
 }
