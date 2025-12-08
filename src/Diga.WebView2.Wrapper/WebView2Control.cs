@@ -71,6 +71,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<NotificationReceivedEventArgs> NotificationReceived;
         public event EventHandler<SaveAsUIShowingEventArgs> SaveAsUIShowing;
         public event EventHandler<SaveFileSecurityCheckStartingEventArgs> SaveFileSecurityCheckStarting;
+        public event EventHandler<ScreenCaptureStartingEventArgs> ScreenCaptureStarting;
         private WebView2Settings _Settings;
         private string _BrowserInfo;
         private object HostHelper;
@@ -322,6 +323,7 @@ namespace Diga.WebView2.Wrapper
             this.WebView.NotificationReceived += OnNotificationReceivedIntern;
             this.WebView.SaveAsUIShowing += OnSaveAsUIShowingIntern;
             this.WebView.SaveFileSecurityCheckStarting += OnSaveFileSecurityCheckStartingIntern;
+            this.WebView.ScreenCaptureStarting += OnScreenCaptureStartingIntern;
             //this._Settings = new WebView2Settings(this.WebView.Settings);
             this._Settings = this.WebView.Settings;
             object wwInterface = e.WebView;
@@ -354,6 +356,16 @@ namespace Diga.WebView2.Wrapper
 
 
             OnCreated();
+        }
+
+        private void OnScreenCaptureStartingIntern(object sender, ScreenCaptureStartingEventArgs e)
+        {
+            OnScreenCaptureStarting(e);
+        }
+
+        private void OnScreenCaptureStarting(ScreenCaptureStartingEventArgs e)
+        {
+            ScreenCaptureStarting?.Invoke(this, e);
         }
 
         private void OnSaveFileSecurityCheckStartingIntern(object sender, SaveFileSecurityCheckStartingEventArgs e)
@@ -516,6 +528,7 @@ namespace Diga.WebView2.Wrapper
                 this.WebView.NotificationReceived -= OnNotificationReceivedIntern;
                 this.WebView.SaveAsUIShowing -= OnSaveAsUIShowingIntern;
                 this.WebView.SaveFileSecurityCheckStarting -= OnSaveFileSecurityCheckStartingIntern;
+                this.WebView.ScreenCaptureStarting -= OnScreenCaptureStartingIntern;
 
             }
         }

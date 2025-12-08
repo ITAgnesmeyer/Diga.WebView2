@@ -60,6 +60,7 @@ namespace Diga.WebView2.Wrapper
 
         public event EventHandler<SaveFileSecurityCheckStartingEventArgs> SaveFileSecurityCheckStarting;
 
+        public event EventHandler<ScreenCaptureStartingEventArgs> ScreenCaptureStarting;
 
         public WebView2View(ICoreWebView2_27 webView) : base(webView)
         {
@@ -225,7 +226,21 @@ namespace Diga.WebView2.Wrapper
             base.add_SaveFileSecurityCheckStarting(saveFileSecurityCheckStartingEventHandler,
                 out this._SaveFileSecurityCheckStartingToken);
 
+            ScreenCaptureStartingEventHandler screenCaptureStartingEventHandler = new ScreenCaptureStartingEventHandler();
+            screenCaptureStartingEventHandler.ScreenCaptureStarting += OnScreenCaptureStartingIntern;
+            base.add_ScreenCaptureStarting(screenCaptureStartingEventHandler, out this._ScreenCaptureStartingToken);
 
+
+        }
+
+        private void OnScreenCaptureStartingIntern(object sender, ScreenCaptureStartingEventArgs e)
+        {
+            OnScreenCaptureStarting(e);
+        }
+
+        private void OnScreenCaptureStarting(ScreenCaptureStartingEventArgs e)
+        {
+            ScreenCaptureStarting?.Invoke(this, e);
         }
 
         private void OnSaveFileSecurityCheckStartingIntern(object sender, SaveFileSecurityCheckStartingEventArgs e)
@@ -481,6 +496,7 @@ namespace Diga.WebView2.Wrapper
                 EventRegistrationTool.UnWireToken(this._NotificationReceived, base.remove_NotificationReceived);
                 EventRegistrationTool.UnWireToken(this._SaveAsUIShowing, base.remove_SaveAsUIShowing);
                 EventRegistrationTool.UnWireToken(this._SaveFileSecurityCheckStartingToken, base.remove_SaveFileSecurityCheckStarting);
+                EventRegistrationTool.UnWireToken(this._ScreenCaptureStartingToken, base.remove_ScreenCaptureStarting);
 
             }
             catch (Exception e)
@@ -520,6 +536,8 @@ namespace Diga.WebView2.Wrapper
         private EventRegistrationToken _NotificationReceived;
         private EventRegistrationToken _SaveAsUIShowing;
         private EventRegistrationToken _SaveFileSecurityCheckStartingToken;
+        private EventRegistrationToken _ScreenCaptureStartingToken;
+
 
         private void OnNavigationStartingIntern(object sender, NavigationStartingEventArgs e)
         {

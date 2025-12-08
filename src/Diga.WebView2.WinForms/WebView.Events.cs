@@ -80,7 +80,7 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<NotificationReceivedEventArgs> NotificationReceived;
         public event EventHandler<SaveAsUIShowingEventArgs> SaveAsUIShowing;
         public event EventHandler<SaveFileSecurityCheckStartingEventArgs> SaveFileSecurityCheckStarting;
-
+        public event EventHandler<ScreenCaptureStartingEventArgs> ScreenCaptureStarting;
         private void OnWebWindowBeforeCreate(object sender, BeforeCreateEventArgs e)
         {
             WebWindowInitSettings(e);
@@ -603,8 +603,19 @@ namespace Diga.WebView2.WinForms
             control.NotificationReceived -= OnNotificationReceivedIntern;
             control.SaveAsUIShowing -= OnSaveAsUIShowingIntern;
             control.SaveFileSecurityCheckStarting -= OnSaveFileSecurityCheckStartingIntern;
+            control.ScreenCaptureStarting -= OnScreenCaptureStartingIntern;
 
             _UnWireExecuted = true;
+        }
+
+        private void OnScreenCaptureStartingIntern(object sender, ScreenCaptureStartingEventArgs e)
+        {
+            OnScreenCaptureStarting(sender,e);
+        }
+
+        private void OnScreenCaptureStarting(object sender, ScreenCaptureStartingEventArgs e)
+        {
+            ScreenCaptureStarting?.Invoke(sender,e);
         }
 
         private void OnSaveFileSecurityCheckStartingIntern(object sender, SaveFileSecurityCheckStartingEventArgs e)

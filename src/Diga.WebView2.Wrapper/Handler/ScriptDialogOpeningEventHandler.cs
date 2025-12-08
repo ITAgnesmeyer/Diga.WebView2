@@ -9,7 +9,7 @@ namespace Diga.WebView2.Wrapper.Handler
     public class ScriptDialogOpeningEventHandler : ICoreWebView2ScriptDialogOpeningEventHandler
     {
         public event EventHandler<ScriptDialogOpeningEventArgs> ScriptDialogOpening;
-       
+
 
         private void OnScriptDialogOpening(ScriptDialogOpeningEventArgs e)
         {
@@ -27,7 +27,7 @@ namespace Diga.WebView2.Wrapper.Handler
 
                 Debug.Print(nameof(ScriptDialogOpeningEventHandler) + " Exception:" + ex.ToString());
             }
-            
+
         }
     }
 }

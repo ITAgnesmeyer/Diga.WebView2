@@ -1050,5 +1050,10 @@ namespace WebView2WrapperWinFormsTest
                 //e.Cancel = true;
             }
         }
+
+        private void webView1_ScreenCaptureStarting(object sender, ScreenCaptureStartingEventArgs e)
+        {
+            Debug.Print("ScreenCaptureStarting");
+        }
     }
 }
