@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Diga.WebView2.Interop;
+using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
-using Diga.WebView2.Interop;
 
 namespace Diga.WebView2.Wrapper.Delegates
 {
+
     public class WebResourceResponseViewGetContentCompletedHandler : ICoreWebView2WebResourceResponseViewGetContentCompletedHandler
     {
         private readonly TaskCompletionSource<(int, IStream)> _Source;

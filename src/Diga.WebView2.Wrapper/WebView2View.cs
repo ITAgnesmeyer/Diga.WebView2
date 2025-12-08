@@ -52,7 +52,12 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<ContextMenuRequestedEventArgs> ContextMenuRequested;
         public event EventHandler<PrintToPdfCompleteEventArgs> PrintToPdfCompleted;
 
+
         public event EventHandler<ServerCertificateErrorDetectedEventArgs> ServerCertificateErrorDetected;
+        public event EventHandler<NotificationReceivedEventArgs> NotificationReceived;
+
+        public event EventHandler<SaveAsUIShowingEventArgs> SaveAsUIShowing;
+
 
         public WebView2View(ICoreWebView2_27 webView) : base(webView)
         {
@@ -202,6 +207,37 @@ namespace Diga.WebView2.Wrapper
             base.add_ServerCertificateErrorDetected(serverCertificateErrorDetectedHandler, out this._ServerCertificateErrorDetected);
 
 
+            NotificationReceivedEventHandler notificationReceivedEventHandler = new NotificationReceivedEventHandler();
+            notificationReceivedEventHandler.NotificationReceived += OnNotificationReceivedIntern;
+
+            base.add_NotificationReceived(notificationReceivedEventHandler, out this._NotificationReceived);
+
+            SaveAsUIShowingEventHandler saveAsUIShowingEventHandler = new SaveAsUIShowingEventHandler();
+            saveAsUIShowingEventHandler.SaveAsUIShowing += OnSaveAsUIShowingIntern;
+            base.add_SaveAsUIShowing(saveAsUIShowingEventHandler, out this._SaveAsUIShowing);
+
+
+
+        }
+
+        private void OnSaveAsUIShowingIntern(object sender, SaveAsUIShowingEventArgs e)
+        {
+            OnSaveAsUIShowing(e);
+        }
+
+        private void OnSaveAsUIShowing(SaveAsUIShowingEventArgs e)
+        {
+            SaveAsUIShowing?.Invoke(this, e);
+        }
+
+        private void OnNotificationReceivedIntern(object sender, NotificationReceivedEventArgs e)
+        {
+            OnNotificationReceived(e);
+        }
+
+        private void OnNotificationReceived(NotificationReceivedEventArgs e)
+        {
+            NotificationReceived?.Invoke(this, e);
         }
 
         private void OnServerCertificateErrorDetectedIntern(object sender, ServerCertificateErrorDetectedEventArgs e)
@@ -424,7 +460,8 @@ namespace Diga.WebView2.Wrapper
                 EventRegistrationTool.UnWireToken(this._ContextMenuRequested, base.remove_ContextMenuRequested);
 
                 EventRegistrationTool.UnWireToken(this._ServerCertificateErrorDetected, base.remove_ServerCertificateErrorDetected);
-
+                EventRegistrationTool.UnWireToken(this._NotificationReceived, base.remove_NotificationReceived);
+                EventRegistrationTool.UnWireToken(this._SaveAsUIShowing, base.remove_SaveAsUIShowing);
 
             }
             catch (Exception e)
@@ -461,6 +498,9 @@ namespace Diga.WebView2.Wrapper
         private EventRegistrationToken _BasicAuthenticationRequestedEvent;
         private EventRegistrationToken _ContextMenuRequested;
         private EventRegistrationToken _ServerCertificateErrorDetected;
+        private EventRegistrationToken _NotificationReceived;
+        private EventRegistrationToken _SaveAsUIShowing;
+
         private void OnNavigationStartingIntern(object sender, NavigationStartingEventArgs e)
         {
             this.CurrentContent.Clear();
@@ -918,6 +958,15 @@ namespace Diga.WebView2.Wrapper
         {
             PrintToPdfCompleted?.Invoke(this, e);
         }
+        //int, COREWEBVIEW2_SAVE_AS_UI_RESULT
+        public Task<ShowSaveAsUICompletedEventArgs> ShowSaveAsUIAsync(TaskCompletionSource<ShowSaveAsUICompletedEventArgs> action)
+        {
+            var source = new TaskCompletionSource<ShowSaveAsUICompletedEventArgs>();
+            var showSaveAsUICompletedHandler = new ShowSaveAsUICompletedHandlerTask(action);
+            base.ShowSaveAsUI(showSaveAsUICompletedHandler);
+            return source.Task;
+        }
+
     }
 
 

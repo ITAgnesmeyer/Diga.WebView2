@@ -68,6 +68,8 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<PrintToPdfCompleteEventArgs> PrintToPdfCompleted;
         public event EventHandler<ControllerCompletedErrorArgs> ControllerCompletedError;
         public event EventHandler<ServerCertificateErrorDetectedEventArgs> ServerCertificateErrorDetected;
+        public event EventHandler<NotificationReceivedEventArgs> NotificationReceived;
+        public event EventHandler<SaveAsUIShowingEventArgs> SaveAsUIShowing;
         private WebView2Settings _Settings;
         private string _BrowserInfo;
         private object HostHelper;
@@ -316,6 +318,8 @@ namespace Diga.WebView2.Wrapper
             this.WebView.ContextMenuRequested += OnContextMenuRequestedIntern;
             this.WebView.PrintToPdfCompleted += OnPrintToPdfCompletedIntern;
             this.WebView.ServerCertificateErrorDetected += OnServerCertificateErrorDetectedIntern;
+            this.WebView.NotificationReceived += OnNotificationReceivedIntern;
+            this.WebView.SaveAsUIShowing += OnSaveAsUIShowingIntern;
             //this._Settings = new WebView2Settings(this.WebView.Settings);
             this._Settings = this.WebView.Settings;
             object wwInterface = e.WebView;
@@ -348,6 +352,26 @@ namespace Diga.WebView2.Wrapper
 
 
             OnCreated();
+        }
+
+        private void OnSaveAsUIShowingIntern(object sender, SaveAsUIShowingEventArgs e)
+        {
+            OnSaveAsUIShowing(e);
+        }
+
+        private void OnSaveAsUIShowing(SaveAsUIShowingEventArgs e)
+        {
+            SaveAsUIShowing?.Invoke(this, e);
+        }
+
+        private void OnNotificationReceivedIntern(object sender, NotificationReceivedEventArgs e)
+        {
+            OnNotificationReceived(e);
+        }
+
+        private void OnNotificationReceived(NotificationReceivedEventArgs e)
+        {
+            NotificationReceived?.Invoke(this, e);
         }
 
         private void OnServerCertificateErrorDetectedIntern(object sender, ServerCertificateErrorDetectedEventArgs e)
@@ -477,6 +501,8 @@ namespace Diga.WebView2.Wrapper
                 this.WebView.ContextMenuRequested -= OnContextMenuRequestedIntern;
                 this.WebView.PrintToPdfCompleted -= OnPrintToPdfCompletedIntern;
                 this.WebView.ServerCertificateErrorDetected -= OnServerCertificateErrorDetectedIntern;
+                this.WebView.NotificationReceived -= OnNotificationReceivedIntern;
+                this.WebView.SaveAsUIShowing -= OnSaveAsUIShowingIntern;
 
             }
         }

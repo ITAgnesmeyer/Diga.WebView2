@@ -1039,8 +1039,16 @@ namespace WebView2WrapperWinFormsTest
         {
             Debug.Print("Certificate Error Detected:");
 
-            
-            
+        }
+
+        private void webView1_SaveAsUIShowing(object sender, SaveAsUIShowingEventArgs e)
+        {
+            Debug.Print("SaveAsUIShowing");
+            var mime = e.ContentMimeType;
+            if (mime == "text/html")
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

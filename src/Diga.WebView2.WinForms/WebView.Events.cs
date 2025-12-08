@@ -77,6 +77,8 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<BasicAuthenticationRequestedEventArgs> BasicAuthenticationRequested;
 
         public event EventHandler<ServerCertificateErrorDetectedEventArgs> ServerCertificateErrorDetected;
+        public event EventHandler<NotificationReceivedEventArgs> NotificationReceived;
+        public event EventHandler<SaveAsUIShowingEventArgs> SaveAsUIShowing;
 
         private void OnWebWindowBeforeCreate(object sender, BeforeCreateEventArgs e)
         {
@@ -597,10 +599,30 @@ namespace Diga.WebView2.WinForms
             control.ContextMenuRequested -= OnContextMenuRequestedIntern;
             control.CompoisitionControllerCursorChanged -= OnCompoisitionControllerCursorChangedInternal;
             control.BasicAuthenticationRequested -= OnBasicAuthenticationRequestedIntern;
+            control.NotificationReceived -= OnNotificationReceivedIntern;
+            control.SaveAsUIShowing -= OnSaveAsUIShowingIntern;
             _UnWireExecuted = true;
         }
 
-        
+        private void OnSaveAsUIShowingIntern(object sender, SaveAsUIShowingEventArgs e)
+        {
+            OnSaveAsUIShowing(sender,e);
+        }
+
+        private void OnSaveAsUIShowing(object sender, SaveAsUIShowingEventArgs e)
+        {
+            SaveAsUIShowing?.Invoke(sender,e);
+        }
+
+        private void OnNotificationReceivedIntern(object sender, NotificationReceivedEventArgs e)
+        {
+            OnNotificationReceived(sender,e);
+        }
+
+        private void OnNotificationReceived(object sender, NotificationReceivedEventArgs e)
+        {
+            NotificationReceived?.Invoke(sender,e);
+        }
 
         private void WireEvents(WebView2Control control)
         {
@@ -645,6 +667,8 @@ namespace Diga.WebView2.WinForms
             control.CompoisitionControllerCursorChanged += OnCompoisitionControllerCursorChangedInternal;
             control.BasicAuthenticationRequested += OnBasicAuthenticationRequestedIntern;
             control.ServerCertificateErrorDetected += OnServerCertificateErrorDetectedIntern;
+            control.NotificationReceived += OnNotificationReceivedIntern;
+            control.SaveAsUIShowing += OnSaveAsUIShowingIntern;
         }
 
         private void OnServerCertificateErrorDetectedIntern(object sender, ServerCertificateErrorDetectedEventArgs e)

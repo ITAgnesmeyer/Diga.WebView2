@@ -383,6 +383,7 @@
             webView1.ContextMenuRequested += webView1_ContextMenuRequested;
             webView1.CompoisitionControllerCursorChanged += webView1_CompoisitionControllerCursorChanged;
             webView1.ServerCertificateErrorDetected += webView1_ServerCertificateErrorDetected;
+            webView1.SaveAsUIShowing += webView1_SaveAsUIShowing;
             // 
             // contextMenuMore
             // 
