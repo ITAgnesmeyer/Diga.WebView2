@@ -53,9 +53,9 @@ namespace WebView2WrapperWinFormsTest
             wv.Dock = DockStyle.Fill;
             this._SecondForm.Controls.Add(wv);
             this._SecondForm.Show(this);
-            this._SecondForm.Closing += (o, ec) =>
+            this._SecondForm.FormClosing += (o, ec) =>
             {
-                ec.Cancel = true;
+                //ec.Cancel = true;
                 this._SecondForm.Visible = false;
             };
 
