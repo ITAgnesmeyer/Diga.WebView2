@@ -4,6 +4,7 @@ using Diga.WebView2.Wrapper.Types;
 
 namespace Diga.WebView2.Wrapper.EventArguments
 {
+
     public class SaveAsUIShowingEventArgs : SaveAsUIShowingEventArgsInterface
     {
         public SaveAsUIShowingEventArgs(ICoreWebView2SaveAsUIShowingEventArgs args) : base(args)

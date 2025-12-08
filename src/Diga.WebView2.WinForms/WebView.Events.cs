@@ -79,6 +79,7 @@ namespace Diga.WebView2.WinForms
         public event EventHandler<ServerCertificateErrorDetectedEventArgs> ServerCertificateErrorDetected;
         public event EventHandler<NotificationReceivedEventArgs> NotificationReceived;
         public event EventHandler<SaveAsUIShowingEventArgs> SaveAsUIShowing;
+        public event EventHandler<SaveFileSecurityCheckStartingEventArgs> SaveFileSecurityCheckStarting;
 
         private void OnWebWindowBeforeCreate(object sender, BeforeCreateEventArgs e)
         {
@@ -601,7 +602,19 @@ namespace Diga.WebView2.WinForms
             control.BasicAuthenticationRequested -= OnBasicAuthenticationRequestedIntern;
             control.NotificationReceived -= OnNotificationReceivedIntern;
             control.SaveAsUIShowing -= OnSaveAsUIShowingIntern;
+            control.SaveFileSecurityCheckStarting -= OnSaveFileSecurityCheckStartingIntern;
+
             _UnWireExecuted = true;
+        }
+
+        private void OnSaveFileSecurityCheckStartingIntern(object sender, SaveFileSecurityCheckStartingEventArgs e)
+        {
+            OnSaveFileSecurityCheckStarting(sender,e);
+        }
+
+        private void OnSaveFileSecurityCheckStarting(object sender, SaveFileSecurityCheckStartingEventArgs e)
+        {
+            SaveFileSecurityCheckStarting?.Invoke(sender,e);
         }
 
         private void OnSaveAsUIShowingIntern(object sender, SaveAsUIShowingEventArgs e)
@@ -669,6 +682,7 @@ namespace Diga.WebView2.WinForms
             control.ServerCertificateErrorDetected += OnServerCertificateErrorDetectedIntern;
             control.NotificationReceived += OnNotificationReceivedIntern;
             control.SaveAsUIShowing += OnSaveAsUIShowingIntern;
+            control.SaveFileSecurityCheckStarting += OnSaveFileSecurityCheckStartingIntern;
         }
 
         private void OnServerCertificateErrorDetectedIntern(object sender, ServerCertificateErrorDetectedEventArgs e)

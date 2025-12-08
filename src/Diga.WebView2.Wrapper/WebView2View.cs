@@ -58,6 +58,8 @@ namespace Diga.WebView2.Wrapper
 
         public event EventHandler<SaveAsUIShowingEventArgs> SaveAsUIShowing;
 
+        public event EventHandler<SaveFileSecurityCheckStartingEventArgs> SaveFileSecurityCheckStarting;
+
 
         public WebView2View(ICoreWebView2_27 webView) : base(webView)
         {
@@ -217,7 +219,23 @@ namespace Diga.WebView2.Wrapper
             base.add_SaveAsUIShowing(saveAsUIShowingEventHandler, out this._SaveAsUIShowing);
 
 
+            SaveFileSecurityCheckStartingEventHandler saveFileSecurityCheckStartingEventHandler =
+                new SaveFileSecurityCheckStartingEventHandler();
+            saveFileSecurityCheckStartingEventHandler.SaveFileSecurityCheckStarting += OnSaveFileSecurityCheckStartingIntern;
+            base.add_SaveFileSecurityCheckStarting(saveFileSecurityCheckStartingEventHandler,
+                out this._SaveFileSecurityCheckStartingToken);
 
+
+        }
+
+        private void OnSaveFileSecurityCheckStartingIntern(object sender, SaveFileSecurityCheckStartingEventArgs e)
+        {
+            OnSaveFileSecurityCheckStarting(e);
+        }
+
+        private void OnSaveFileSecurityCheckStarting(SaveFileSecurityCheckStartingEventArgs e)
+        {
+            SaveFileSecurityCheckStarting?.Invoke(this, e);
         }
 
         private void OnSaveAsUIShowingIntern(object sender, SaveAsUIShowingEventArgs e)
@@ -462,6 +480,7 @@ namespace Diga.WebView2.Wrapper
                 EventRegistrationTool.UnWireToken(this._ServerCertificateErrorDetected, base.remove_ServerCertificateErrorDetected);
                 EventRegistrationTool.UnWireToken(this._NotificationReceived, base.remove_NotificationReceived);
                 EventRegistrationTool.UnWireToken(this._SaveAsUIShowing, base.remove_SaveAsUIShowing);
+                EventRegistrationTool.UnWireToken(this._SaveFileSecurityCheckStartingToken, base.remove_SaveFileSecurityCheckStarting);
 
             }
             catch (Exception e)
@@ -500,6 +519,7 @@ namespace Diga.WebView2.Wrapper
         private EventRegistrationToken _ServerCertificateErrorDetected;
         private EventRegistrationToken _NotificationReceived;
         private EventRegistrationToken _SaveAsUIShowing;
+        private EventRegistrationToken _SaveFileSecurityCheckStartingToken;
 
         private void OnNavigationStartingIntern(object sender, NavigationStartingEventArgs e)
         {
@@ -796,8 +816,7 @@ namespace Diga.WebView2.Wrapper
             NavigationStarting?.Invoke(this, e);
         }
         private bool _IsDisposed;
-
-
+        
 
         protected override void Dispose(bool dispose)
         {

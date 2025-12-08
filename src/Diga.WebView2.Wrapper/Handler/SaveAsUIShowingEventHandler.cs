@@ -6,7 +6,6 @@ using Diga.WebView2.Wrapper.EventArguments;
 
 namespace Diga.WebView2.Wrapper.Handler
 {
-   
 
     public class SaveAsUIShowingEventHandler : ICoreWebView2SaveAsUIShowingEventHandler
     {

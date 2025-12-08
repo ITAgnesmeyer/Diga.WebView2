@@ -1047,7 +1047,7 @@ namespace WebView2WrapperWinFormsTest
             var mime = e.ContentMimeType;
             if (mime == "text/html")
             {
-                e.Cancel = true;
+                //e.Cancel = true;
             }
         }
     }

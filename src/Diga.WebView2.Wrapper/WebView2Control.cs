@@ -70,6 +70,7 @@ namespace Diga.WebView2.Wrapper
         public event EventHandler<ServerCertificateErrorDetectedEventArgs> ServerCertificateErrorDetected;
         public event EventHandler<NotificationReceivedEventArgs> NotificationReceived;
         public event EventHandler<SaveAsUIShowingEventArgs> SaveAsUIShowing;
+        public event EventHandler<SaveFileSecurityCheckStartingEventArgs> SaveFileSecurityCheckStarting;
         private WebView2Settings _Settings;
         private string _BrowserInfo;
         private object HostHelper;
@@ -320,6 +321,7 @@ namespace Diga.WebView2.Wrapper
             this.WebView.ServerCertificateErrorDetected += OnServerCertificateErrorDetectedIntern;
             this.WebView.NotificationReceived += OnNotificationReceivedIntern;
             this.WebView.SaveAsUIShowing += OnSaveAsUIShowingIntern;
+            this.WebView.SaveFileSecurityCheckStarting += OnSaveFileSecurityCheckStartingIntern;
             //this._Settings = new WebView2Settings(this.WebView.Settings);
             this._Settings = this.WebView.Settings;
             object wwInterface = e.WebView;
@@ -352,6 +354,16 @@ namespace Diga.WebView2.Wrapper
 
 
             OnCreated();
+        }
+
+        private void OnSaveFileSecurityCheckStartingIntern(object sender, SaveFileSecurityCheckStartingEventArgs e)
+        {
+            OnSaveFileSecurityCheckStarting(e);
+        }
+
+        private void OnSaveFileSecurityCheckStarting(SaveFileSecurityCheckStartingEventArgs e)
+        {
+            SaveFileSecurityCheckStarting?.Invoke(this, e);
         }
 
         private void OnSaveAsUIShowingIntern(object sender, SaveAsUIShowingEventArgs e)
@@ -503,6 +515,7 @@ namespace Diga.WebView2.Wrapper
                 this.WebView.ServerCertificateErrorDetected -= OnServerCertificateErrorDetectedIntern;
                 this.WebView.NotificationReceived -= OnNotificationReceivedIntern;
                 this.WebView.SaveAsUIShowing -= OnSaveAsUIShowingIntern;
+                this.WebView.SaveFileSecurityCheckStarting -= OnSaveFileSecurityCheckStartingIntern;
 
             }
         }
