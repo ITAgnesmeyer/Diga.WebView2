@@ -30,6 +30,12 @@
     <ClInclude Include="IRpcObject.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="HostDispatchWrapper.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="CallableDispatch.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -43,6 +49,12 @@
     </ClCompile>
     <ClCompile Include="RpcObject.h">
       <Filter>Headerdateien</Filter>
+    </ClCompile>
+    <ClCompile Include="HostDispatchWrapper.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="CallableDispatch.cpp">
+      <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

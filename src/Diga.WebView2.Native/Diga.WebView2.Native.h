@@ -5,6 +5,7 @@
 #include <WebView2EnvironmentOptions.h>
 #include <Windows.h>
 #include "IRpcObject.h"
+#include "HostDispatchWrapper.h"
 #ifdef DIGAWEBVIEW2NATIVE_EXPORTS
 #define  DIGAWEBVIEW2NATIVE_API __declspec(dllexport)
 #else
@@ -21,3 +22,4 @@ extern "C" DIGAWEBVIEW2NATIVE_API HRESULT GetIDispatchVariant(IUnknown* unk, VAR
 extern "C" DIGAWEBVIEW2NATIVE_API HRESULT GetIUnknownVariant(IUnknown* unk, VARIANT** dispatch);
 extern "C" DIGAWEBVIEW2NATIVE_API HRESULT GetIUnknownPointerFromObject(VARIANT* variant, IUnknown** dispatch);
 extern "C" DIGAWEBVIEW2NATIVE_API HRESULT GetRpcObject(IRpcObject** rpcObject);
+extern "C" DIGAWEBVIEW2NATIVE_API HRESULT CreateHostDispatchWrapper(IHostWrapper** wrapper);

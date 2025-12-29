@@ -4,3 +4,8 @@
 // Windows-Headerdateien
 #include <windows.h>
 #include <comdef.h>
+#include <oleauto.h>
+#include <unordered_map>
+#include <string>
+#include <vector>
+#include <atomic>

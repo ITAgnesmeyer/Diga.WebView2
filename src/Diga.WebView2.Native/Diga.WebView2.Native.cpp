@@ -4,6 +4,7 @@
 //#include <iterator>
 #include <string>
 #include <vector>
+#include "HostDispatchWrapper.h"
 
 
 
@@ -167,5 +168,12 @@ DIGAWEBVIEW2NATIVE_API HRESULT GetRpcObject(IRpcObject** ppRpcObject)
 	// Gebe die Instanz zurück
 	*ppRpcObject = pObject;
 	return S_OK;
+}
+
+DIGAWEBVIEW2NATIVE_API HRESULT CreateHostDispatchWrapper(IHostWrapper** wrapper)
+{
+	if (!wrapper) return E_POINTER;
+	*wrapper = new HostDispatchWrapper();
+	return (*wrapper) ? S_OK : E_OUTOFMEMORY;
 }
 
